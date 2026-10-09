@@ -477,4 +477,46 @@ def nbl(cur_label, cur, cur_ok):
     return [s] if s else []
 
 
-RUN = {"nfl": nfl, "nba": nba, "nhl": nhl, "nbl": nbl}
+def afl(cur_label, cur, cur_ok):
+    import afl_site as A
+    rows = []
+    for y in range(A.FIRST, cur + 1):
+        d = A.load_season(y)
+        if d is None:
+            continue
+        P = A.player_table(d, "REG")
+        g = A.team_games(d, y)
+        if P.empty or g is None or g.empty:
+            continue
+        T = A.team_season(g[g.season_type == "REG"])
+        P = P.merge(T[["team", "ladder"]], on="team", how="left")
+        P["season"] = y
+        P["L"] = P.games.max()
+        for c in ("disposals_pg", "clearances_pg", "goals_pg", "contested_possessions_pg"):
+            P[c + "_rank"] = P[P.games >= .5 * P.L][c].rank(ascending=False, method="min")
+        rows.append(P)
+    A_ = pd.concat(rows, ignore_index=True)
+    A_["sc"] = A_.supercoach_points_pg.fillna(A_.afl_fantasy_points_pg) if "supercoach_points_pg" in A_ else np.nan
+    pool = A_[A_.games >= .5 * A_.L].sort_values("sc", ascending=False).groupby("season").head(30).copy()
+    mx = A_.groupby("season").brownlow_votes.transform("max")
+    win = A_[(A_.brownlow_votes == mx) & (mx > 0)].groupby("season").name.first().to_dict()
+    pool["win"] = [np.nan if s == cur else float(win.get(s) == n) for s, n in zip(pool.season, pool.name)]
+    pool["base"] = pool.sc / pool.groupby("season").sc.transform("max")
+    prev = {y: n for y, n in win.items()}
+    lab = lambda s: str(int(s))
+    s_ = section("brownlow", "Brownlow Medal", pool, [
+        ("led_disp", "Led the league in disposals per game", "end", pool.disposals_pg_rank == 1),
+        ("top3_disp", "Top-3 in disposals per game", "end", pool.disposals_pg_rank <= 3),
+        ("top5_clr", "Top-5 in clearances per game", "end", pool.clearances_pg_rank <= 5),
+        ("top5_cp", "Top-5 in contested possessions per game", "end", pool.contested_possessions_pg_rank <= 5),
+        ("goals1", "Kicked a goal a game or more", "end", pool.goals_pg >= 1),
+        ("team_top4", "His team finished top 4", "end", pool.ladder <= 4),
+        ("team_out8", "His team finished outside the top 8", "end", pool.ladder > 8),
+        ("durable", "Played every game but one or fewer", "end", pool.games >= pool.L - 1),
+        ("won_prev", "Polled the most votes the season before", "prior", _won_prev(pool, prev)),
+    ], "base", "SuperCoach scores", "top-30 by SuperCoach points per game", lab, cur, cur_ok,
+        note="Winner = most votes as polled (2012's Jobe Watson count included).")
+    return [s_] if s_ else []
+
+
+RUN = {"nfl": nfl, "nba": nba, "nhl": nhl, "nbl": nbl, "afl": afl}

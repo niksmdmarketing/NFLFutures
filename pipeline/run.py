@@ -86,7 +86,7 @@ def main():
         afl.build_site()
     except Exception as e:  # noqa: BLE001
         log("afl site failed", e)
-    for mod in ("nba_site", "afl_site"):  # NBA and AFL pages on the shared engine (replace the older page designs)
+    for mod in ("nba_site", "nbl_site", "afl_site"):  # NBA and AFL pages on the shared engine (replace the older page designs)
         try:
             m = __import__(mod)
             m.build_data()

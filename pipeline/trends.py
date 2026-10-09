@@ -433,6 +433,41 @@ def nbl():
     return G, P, M, cfg
 
 
+# ------------------------------------------------------------------ AFL
+
+def afl():
+    import afl_site as A
+    Gs, Ps, Ms, known = [], [], [], {}
+    for y in range(A.FIRST, 2100):
+        d = A.load_season(y)
+        if d is None:
+            if y > A.FIRST + 1:
+                break
+            continue
+        g = A.team_games(d, y)
+        if g is None or g.empty:
+            continue
+        g["pts"] = g.win
+        g["maxpts"] = 1.0
+        g["home"] = g.ha.eq("H")
+        g = g.rename(columns={"points_for": "pf", "points_against": "pa", "match_id": "gid"})
+        cols = ["season", "date", "team", "opp", "home", "pf", "pa", "pts", "maxpts", "gid", "win"]
+        Gs.append(g[g.season_type == "REG"][cols])
+        Ps.append(g[g.season_type == "FIN"][cols].assign(win=lambda x: x.win == 1))
+        for t in sorted(set(g.team)):
+            Ms.append(dict(season=y, team=t, name=A.NAMES.get(t, t), conf="AFL", div=None, spots=10 if y >= 2026 else 8))
+        gf = [m for m in d.get("matches") or [] if m.get("round") == "GF"]
+        if gf:
+            m = gf[-1]
+            h, a = A.code(m["home_team"]), A.code(m["away_team"])
+            known[y] = (h, a) if m["home_score"] > m["away_score"] else (a, h)
+    G, P, M = pd.concat(Gs, ignore_index=True), pd.concat(Ps, ignore_index=True), pd.DataFrame(Ms)
+    cfg = dict(sport="afl", name="AFL", close=12, close_word="12 points (two goals) or fewer", pyth=3.9, pd_word="points margin",
+               pf_word="points", conf=False, div=False, conf_word="league", deep_rounds=2, label=lambda s: str(int(s)), min_games=1,
+               known=known)
+    return G, P, M, cfg
+
+
 # ------------------------------------------------------------------ build
 
 SECTIONS = {
@@ -445,6 +480,8 @@ SECTIONS = {
     "nhl": [("champ", "Stanley Cup winner", "playoff teams"), ("finalist", "Conference champion (reach the Cup Final)", "playoff teams"),
             ("top_seed", "Top of the conference", "teams"), ("div_win", "Division winner", "teams"),
             ("playoffs", "Make the playoffs", "teams")],
+    "afl": [("champ", "Premiers", "finals teams"), ("finalist", "Reach the Grand Final", "finals teams"),
+            ("top_seed", "Minor premiership (top of the ladder)", "all teams"), ("playoffs", "Make the finals", "all teams")],
     "nbl": [("champ", "NBL champion", "semi-finalists"), ("finalist", "Reach the Grand Final", "semi-finalists"),
             ("top_seed", "Minor premiership (top of the ladder)", "teams"),
             ("playoffs", "Make the semi-finals", "teams")],
@@ -459,7 +496,9 @@ REVIEW = {
     "nba:playoffs:spot_q": 0.60,
     "nhl:finalist:corsi_top": 0.70, "nhl:finalist:shots_top": 0.74, "nhl:finalist:shots_ag_top": 0.71,
     "nhl:playoffs:unlucky_prev": 0.70,
+    "afl:finalist:pd_top3": 0.88, "afl:finalist:unlucky": 0.88,
     # awards
+    "afl:brownlow:top5_cp": 0.89, "afl:brownlow:top5_clr": 0.89,
     "nba:mvp:team_top3": 0.92, "nba:mvp:conf_top": 0.93, "nba:mvp:pm_top3": 0.93, "nba:mvp:durable": 0.93,
     "nba:mvp:team_out8": 0.93, "nba:dpoy:team_def5": 0.93, "nba:dpoy:team_top3": 0.93, "nba:6moy:team_top8": 0.92,
     "nhl:vezina:top3_wins": 0.93, "nhl:vezina:team_top3": 0.93, "nhl:vezina:workload": 0.93, "nbl:mvp:led_ppg": 0.93,
@@ -477,6 +516,9 @@ MECHANISM = [
     ("corsi", "Controlling shot attempts predicts playoff success better than the record, which leans on goaltending and luck."),
     ("shots", "Controlling shot volume predicts playoff success better than the record, which leans on goaltending and luck."),
     ("lost_final_prev", "Beaten finalists have tended to slip back the following season."),
+    ("top5_cp", "Umpires' votes favour inside midfielders who win the contested ball."),
+    ("top5_clr", "Umpires' votes favour inside midfielders who win the clearances."),
+    ("pd_top", "Scoring margin is a better guide to true strength than the record."),
     ("team_def", "Voters credit defenders on the best defensive teams."),
     ("team_", "Voters reward players on winning teams; individual numbers alone underrate them."),
     ("conf_top", "Voters reward players on winning teams; individual numbers alone underrate them."),
@@ -507,9 +549,9 @@ def review(sport, sec, r):
     r["review"] = " ".join(bits) or None
 
 
-OUTPUT = {"nfl": os.path.join(SITE, "data"), "nba": os.path.join(SITE, "nba", "data"),
+OUTPUT = {"afl": os.path.join(SITE, "afl", "data"), "nfl": os.path.join(SITE, "data"), "nba": os.path.join(SITE, "nba", "data"),
           "nhl": os.path.join(SITE, "nhl", "data"), "nbl": os.path.join(SITE, "nbl", "data")}
-LOADERS = {"nfl": nfl, "nba": nba, "nhl": nhl, "nbl": nbl}
+LOADERS = {"nfl": nfl, "nba": nba, "nhl": nhl, "nbl": nbl, "afl": afl}
 
 
 def analyse(sport):
@@ -595,7 +637,7 @@ def analyse(sport):
                 fdr=E.FDR, min_pool=E.MIN_POOL_WITH, sections=out)
 
 
-def build_data(sports=("nfl", "nba", "nhl", "nbl")):
+def build_data(sports=("nfl", "nba", "nhl", "nbl", "afl")):
     for s in sports:
         try:
             res = analyse(s)
@@ -611,7 +653,8 @@ def build_data(sports=("nfl", "nba", "nhl", "nbl")):
 
 # ------------------------------------------------------------------ pages
 
-PAGE_DIR = {"nfl": SITE, "nba": os.path.join(SITE, "nba"), "nhl": os.path.join(SITE, "nhl"), "nbl": os.path.join(SITE, "nbl")}
+PAGE_DIR = {"nfl": SITE, "nba": os.path.join(SITE, "nba"), "nhl": os.path.join(SITE, "nhl"), "nbl": os.path.join(SITE, "nbl"),
+            "afl": os.path.join(SITE, "afl")}
 INTRO = ("What past winners of each futures market had in common, tested against every other team in the same pool. "
          "Only patterns that pass a strict noise filter are shown as signals; the rest are listed as noise so you can ignore them.")
 
@@ -649,7 +692,7 @@ def build_site():
         top = re.sub(r'\saria-current=("page"|page|\'page\')', "", top)
         top = re.sub(r'(<div class="sportbar">.*?<a href="(?:\./|\.\./)?"?)', lambda m: m.group(1), top, flags=re.S)
         # keep the sport itself marked as current in the sport bar
-        sport_label = {"nfl": "NFL", "nba": "NBA", "nhl": "NHL", "nbl": "NBL"}[sport]
+        sport_label = {"nfl": "NFL", "nba": "NBA", "nhl": "NHL", "nbl": "NBL", "afl": "AFL"}[sport]
         top = re.sub(rf'(<div class="sportbar">.*?)(<a href="[^"]*">{sport_label}</a>)',
                      lambda m: m.group(1) + m.group(2).replace("<a ", '<a aria-current="page" '), top, count=1, flags=re.S)
         top = top.replace('href="trends.html">Trends', 'href="trends.html" aria-current="page">Trends')
@@ -676,4 +719,4 @@ def build_site():
 
 if __name__ == "__main__":
     import sys
-    build_data(tuple(sys.argv[1:]) or ("nfl", "nba", "nhl", "nbl"))
+    build_data(tuple(sys.argv[1:]) or ("nfl", "nba", "nhl", "nbl", "afl"))

@@ -8,7 +8,8 @@ let PO = false;                                   // false = regular season, tru
 const load = (kind, y) => { const f = kind + "_" + y + (PO ? "p" : ""); return memo[f] || (memo[f] = getJSON(f + ".json").then(d => hydrate(d, kind))); };
 const seasons = () => (PO ? META.po_seasons : META.seasons) || [];
 const hasPO = () => (META.po_seasons || []).length > 0;
-const typeToggle = () => !hasPO() ? "" : '<div class="field"><span class="flabel">Season type</span><div class="seg" id="gt" role="group"><button type="button" data-p="0" aria-pressed="' + !PO +
+let KIND = null;                                  // data kind of the current page (for the playoffs toggle)
+const typeToggle = () => (!hasPO() || (KIND && CFG.po_kinds && !CFG.po_kinds.includes(KIND))) ? "" : '<div class="field"><span class="flabel">Season type</span><div class="seg" id="gt" role="group"><button type="button" data-p="0" aria-pressed="' + !PO +
   '">' + esc(CFG.reg_label || "Regular season") + '</button><button type="button" data-p="1" aria-pressed="' + PO + '">' + esc(CFG.po_label || "Playoffs") + "</button></div></div>";
 const wireType = () => { const g = $("gt"); if (g) g.querySelectorAll("button").forEach(b => b.onclick = () => { PO = b.dataset.p === "1"; ROUTES[PAGE](); }); };
 
@@ -144,6 +145,7 @@ async function standings() {
 
 /* ---------------- team stats ---------------- */
 async function teams() {
+  KIND = "team";
   const st = {y: seasons()[0], mode: "season", group: "Key stats", sortKey: CFG.team_sort || "wins", sortDir: -1, q: "", stat: CFG.team_sort || "wins", from: null, to: null};
   const seasonDraw = async () => {
     const d = await load("team", st.y);
@@ -211,8 +213,9 @@ async function teams() {
 
 /* ---------------- players ---------------- */
 async function players() {
+  KIND = "players"; if (CFG.po_kinds && !CFG.po_kinds.includes("players")) PO = false;
   const P = CFG.players;
-  const st = {y: seasons()[0], group: "Key stats", sortKey: P.sort, sortDir: -1, q: "", team: "", pos: "", min: P.min_default || 0, limit: 100};
+  const st = {y: seasons()[0], group: "Key stats", sortKey: P.sort, sortDir: -1, q: "", team: "", pos: "", min: PO ? 1 : (P.min_default || 0), limit: 100};
   const idsText = CFG.ids.players.map(k => ({k, f: "text"})).concat([{k: "season", f: "int"}]);
   const draw = async () => {
     let cols, rows;
@@ -257,6 +260,7 @@ async function players() {
 
 /* ---------------- game log ---------------- */
 async function games() {
+  KIND = "games";
   const G = CFG.games;
   const st = {y: seasons()[0], team: "", ha: "", res: "", sortKey: "date", sortDir: -1, group: null, limit: 100};
   const ids = CFG.ids.games.map(k => ({k, f: "text"}));
