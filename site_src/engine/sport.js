@@ -303,12 +303,16 @@ async function futuresPage() {
   const pcx = v => v == null ? "–" : v < 0.0005 ? "<0.1%" : v > 0.9995 ? ">99.9%" : v < 0.1 ? (v * 100).toFixed(1) + "%" : Math.round(v * 100) + "%";
   const P = F.proj;
   const sk = {key: F.main || (F.cols[F.cols.length - 1] || {}).k, dir: -1};
-  const head = [["Team", "team"], [F.group_label || "Group", null], ["GP", null], ["Record", null]];
+  const hasGroup = T.some(r => r.group);
+  const head = [["Team", "team"]].concat(hasGroup ? [[F.group_label || "Group", null]] : [], [["GP", null], ["Record", null]]);
+  const EX = F.extra || [];
+  EX.forEach(c => head.push([c.l, c.k, c.t]));
   if (T.some(r => r.rating != null)) head.push(["Rating", "rating", F.rating_note]);
   head.push([P.l, P.k, "Average of the simulated seasons"], ["10–90%", null, "Range containing 80% of simulated seasons"]);
   F.cols.forEach(c => head.push([c.l, c.k, c.t]));
   const cellsFor = r => {
-    let h = "<td><b>" + esc(r.team) + "</b> <small>" + esc(r.name || tname(r.team)) + "</small></td><td>" + esc(r.group || "") + "</td><td>" + (r.gp ?? "–") + "</td><td>" + esc(r.record || "") + "</td>";
+    let h = "<td><b>" + esc(r.team) + "</b> <small>" + esc(r.name || tname(r.team)) + "</small></td>" + (hasGroup ? "<td>" + esc(r.group || "") + "</td>" : "") + "<td>" + (r.gp ?? "–") + "</td><td>" + esc(r.record || "") + "</td>";
+    EX.forEach(c => { h += "<td>" + fmt(r[c.k], c.f) + "</td>"; });
     if (head.some(x => x[1] === "rating")) h += "<td>" + (r.rating == null ? "–" : fmt(r.rating, "pm1")) + "</td>";
     h += "<td>" + fmt(r[P.k], P.f || "num1") + "</td><td>" + (r[P.lo] == null ? "–" : fmt(r[P.lo], "int") + "–" + fmt(r[P.hi], "int")) + "</td>";
     return h + F.cols.map(c => "<td" + (c.k === F.main ? ' style="font-weight:700"' : "") + ">" + pcx(r[c.k]) + "</td>").join("");

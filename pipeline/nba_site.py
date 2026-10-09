@@ -501,12 +501,18 @@ def futures(cur):
                      "record": f"{int(r0.get('w', 0))}-{int(r0.get('l', 0))}", "rating": v.get("rating"),
                      "w_mean": v.get("mean_wins"), "w_p10": q(.1), "w_p90": q(.9), "over": over,
                      **{k: v.get(k) for k in ("p_playoff", "p_top6", "p_playin", "p_div", "p_seed1", "p_conf", "p_title")}})
+    sched = schedule_context(cur, {r["team"]: r["rating"] for r in rows})
+    for r in rows:
+        r.update(sched.get(r["team"], {}))
     gp = np.mean([r["gp"] for r in rows]) if rows else 0
     return {"season": cur, "group_label": "Division", "sims": 100000, "main": "p_title",
             "status": f"{cur - 1}-{str(cur)[2:]} season" + (" — before opening night" if gp == 0 else f" — through about {gp:.0f} games per team"),
             "intro": "Projected wins and chances from the season simulation (four seasons of opponent-adjusted offence and defence, weighted to the latest, plus a cautious roster adjustment, then every remaining game, the play-in and the playoffs).",
             "proj": {"k": "w_mean", "l": "Proj. wins", "lo": "w_p10", "hi": "w_p90", "f": "num1"},
             "rating_note": "Points per 100 possessions better (+) or worse (−) than an average team",
+            "extra": [{"k": "left", "l": "Games left", "f": "int"}, {"k": "road_left", "l": "Road left", "f": "int"},
+                      {"k": "b2b_left", "l": "B2Bs left", "f": "int", "t": "Back-to-backs left (second game on consecutive days)"},
+                      {"k": "sos_left", "l": "Remaining SOS", "f": "pm1", "t": "Average rating of the opponents still to play (+ = harder)"}],
             "cols": [{"k": "p_playoff", "l": "Playoffs", "t": "Reach the first round (top six or through the play-in)"},
                      {"k": "p_top6", "l": "Top 6", "t": "Avoid the play-in"}, {"k": "p_playin", "l": "Play-in"},
                      {"k": "p_div", "l": "Division"}, {"k": "p_seed1", "l": "No. 1 seed"}, {"k": "p_conf", "l": "Conference"},
@@ -516,6 +522,30 @@ def futures(cur):
                       "Rookies, coaching changes and injuries are only partly reflected; they matter most before the season.",
                       "It has not been back-tested against past preseasons yet, so treat early-season numbers with extra caution."],
             "teams": rows}
+
+
+def schedule_context(cur, rating):
+    """Games left, road games left, back-to-backs left and average opponent rating still to play."""
+    import nba as N
+    p = os.path.join(N.NBA_DATA, f"nba_schedule_{cur}.csv")
+    if not os.path.exists(p):
+        return {}
+    s = pd.read_csv(p, low_memory=False)
+    s = s[s.season_type == 2].copy()
+    for c in ("home_abbreviation", "away_abbreviation"):
+        s[c] = s[c].replace(CANON)
+    done = s.status_type_completed.astype(str).str.lower().eq("true") if "status_type_completed" in s else False
+    day = pd.to_datetime(s.game_date if "game_date" in s else s.date.astype(str).str[:10])
+    H = pd.DataFrame({"team": s.home_abbreviation, "opp": s.away_abbreviation, "road": 0, "day": day, "done": done})
+    A = pd.DataFrame({"team": s.away_abbreviation, "opp": s.home_abbreviation, "road": 1, "day": day, "done": done})
+    g = pd.concat([H, A]).sort_values(["team", "day"])
+    g["b2b"] = (g.day - g.groupby("team").day.shift(1)).dt.days.eq(1).astype(int)
+    left = g[~g.done.astype(bool)]
+    out = {}
+    for t, x in left.groupby("team"):
+        out[t] = {"left": len(x), "road_left": int(x.road.sum()), "b2b_left": int(x.b2b.sum()),
+                  "sos_left": float(x.opp.map(rating).mean()) if len(x) else None}
+    return out
 
 
 # ------------------------------------------------------------------ awards

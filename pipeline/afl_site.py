@@ -476,6 +476,13 @@ def futures(cur, hist_games, tables):
     n_played = int(np.mean([v["w"] + v["d"] for v in table.values()])) if table else 0
     tau = 14.0 * (1 - min(n_played, 23) / 30)
     res = simulate(teams, table, remaining, rating, tau)
+    ctx = {t: {"left": 0, "road_left": 0, "opp": []} for t in teams}
+    if fx:
+        for h, a in remaining:
+            for t, o, road in ((h, a, 0), (a, h, 1)):
+                ctx[t]["left"] += 1
+                ctx[t]["road_left"] += road
+                ctx[t]["opp"].append(rating.get(o, 0.0))
     rows = []
     for t in teams:
         r = res[t]
@@ -483,12 +490,16 @@ def futures(cur, hist_games, tables):
         rows.append({"team": t, "name": NAMES[t], "group": "", "gp": int(tb.get("w", 0) + tb.get("d", 0) + (tables[cur].set_index("team").l.get(t, 0) if cur in tables else 0)),
                      "record": f"{int(tb.get('w', 0))}-{int((tables[cur].set_index('team').l.get(t, 0)) if cur in tables else 0)}", "rating": rating[t],
                      "w_mean": r["w_mean"], "w_p10": r["w_p10"], "w_p90": r["w_p90"], "over": r["over"],
+                     "left": ctx[t]["left"] if fx else None, "road_left": ctx[t]["road_left"] if fx else None,
+                     "sos_left": float(np.mean(ctx[t]["opp"])) if fx and ctx[t]["opp"] else None,
                      "p10": r["p10"], "p8": r["p8"], "p4": r["p4"], "p1": r["p1"], "pf": r["pf"], "gf": r["gf"], "flag": r["flag"]})
     bt = backtest(hist_games)
     return {"season": cur, "status": status, "sims": 20000, "main": "flag", "group_label": "",
             "intro": "Ladder and finals chances from simulating the home-and-away season and the top-10 finals series (wildcard round, then the final eight).",
             "proj": {"k": "w_mean", "l": "Proj. wins", "lo": "w_p10", "hi": "w_p90", "f": "num1"},
             "rating_note": "Points per game better (+) or worse (−) than an average team on a neutral ground",
+            "extra": [{"k": "left", "l": "Games left", "f": "int"}, {"k": "road_left", "l": "Away left", "f": "int"},
+                      {"k": "sos_left", "l": "Remaining SOS", "f": "pm1", "t": "Average rating of the opponents still to play (+ = harder)"}] if fx else [],
             "cols": [{"k": "p10", "l": "Finals (top 10)"}, {"k": "p8", "l": "Top 8", "t": "Skip the wildcard round"},
                      {"k": "p4", "l": "Top 4", "t": "Double chance"}, {"k": "p1", "l": "Minor premiers"},
                      {"k": "pf", "l": "Prelim final"}, {"k": "gf", "l": "Grand Final"}, {"k": "flag", "l": "Premiers"}],

@@ -436,7 +436,15 @@ def futures(y, hist, tables, todo, T, names):
     total = gp + 2 * len(todo) / max(len(teams), 1)
     tau = 4.0 * max(0.15, 1 - gp / max(total, 1))
     res = simulate(teams, W0, L0, PD0, todo, rating, tau)
-    rows = [{"team": t, "name": names.get(t, t), "group": "", "gp": int(W0[t] + L0[t]), "record": f"{int(W0[t])}-{int(L0[t])}",
+    left = {t: {"left": 0, "road_left": 0, "opp": []} for t in teams}
+    for gm in todo:
+        for t, o, road in ((gm["home"], gm["away"], 0), (gm["away"], gm["home"], 1)):
+            if t in left:
+                left[t]["left"] += 1
+                left[t]["road_left"] += road
+                left[t]["opp"].append(rating.get(o, 0.0))
+    rows = [{"team": t, "name": names.get(t, t), "group": "", "left": left[t]["left"], "road_left": left[t]["road_left"],
+             "sos_left": float(np.mean(left[t]["opp"])) if left[t]["opp"] else None, "gp": int(W0[t] + L0[t]), "record": f"{int(W0[t])}-{int(L0[t])}",
              "rating": rating.get(t, 0.0), **{k: res[t][k] for k in ("w_mean", "w_p10", "w_p90", "over", "p1", "p2", "p6", "semi", "gf", "champ")}}
             for t in teams]
     bt = backtest(hist)
@@ -445,6 +453,8 @@ def futures(y, hist, tables, todo, T, names):
             "intro": "Ladder and title chances from simulating every remaining game on the real fixture, the play-in (3v4, 5v6, then for 4th), best-of-three semi-finals and the best-of-five Grand Final series.",
             "proj": {"k": "w_mean", "l": "Proj. wins", "lo": "w_p10", "hi": "w_p90", "f": "num1"},
             "rating_note": "Points per game better (+) or worse (−) than an average team on a neutral court",
+            "extra": [{"k": "left", "l": "Games left", "f": "int"}, {"k": "road_left", "l": "Road left", "f": "int"},
+                      {"k": "sos_left", "l": "Remaining SOS", "f": "pm1", "t": "Average rating of the opponents still to play (+ = harder)"}],
             "cols": [{"k": "p6", "l": "Finals (top 6)"}, {"k": "p2", "l": "Top 2", "t": "Straight to the semi-finals"},
                      {"k": "p1", "l": "Minor premiers"}, {"k": "semi", "l": "Semi-finals"}, {"k": "gf", "l": "Grand Final"},
                      {"k": "champ", "l": "Champions"}],
