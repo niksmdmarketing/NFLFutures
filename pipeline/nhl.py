@@ -398,13 +398,13 @@ def build_data():
         import traceback
         traceback.print_exc()
         return
-    try:
-        import nhl_awards
-        nhl_awards.build()
-    except Exception as e:
-        log("nhl awards FAILED:", repr(e))
-        import traceback
-        traceback.print_exc()
+    for mod in ("nhl_awards", "nhl_model"):
+        try:
+            __import__(mod).build()
+        except Exception as e:
+            log(mod, "FAILED:", repr(e))
+            import traceback
+            traceback.print_exc()
 
 
 def _age(d, y, groups):
@@ -588,6 +588,7 @@ def _build_data():
 # ---------------------------------------------------------------- site
 
 PAGES = [("index", "Standings", "NHL standings", "Points, pace, goal difference, and how lucky each team has been, by division, conference or league."),
+         ("futures", "Futures", "NHL team futures", "Chance of winning the Stanley Cup, conference and division, making the playoffs, and finishing above any points total."),
          ("teams", "Team stats", "NHL team stats", "Every team stat the league publishes, shaded best to worst, plus a year-by-year view of how any stat changes for each team."),
          ("skaters", "Skaters", "NHL skaters", "Scoring, possession, shooting, ice time, power play and discipline for every skater. Any season or all seasons."),
          ("goalies", "Goalies", "NHL goalies", "Save percentage, saves above average, rest, strength splits and more for every goalie."),

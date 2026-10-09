@@ -299,6 +299,42 @@ async function games() {
   draw();
 }
 
+/* ---------------- team futures ---------------- */
+async function futuresPage() {
+  const F = await getJSON("futures.json");
+  const T = F.teams, P = F.params, bt = F.backtest || {};
+  const pc = v => v == null ? "–" : v < 0.0005 ? "<0.1%" : v < 0.1 ? (v * 100).toFixed(1) + "%" : Math.round(v * 100) + "%";
+  const head = [["Team", null], ["Div", null], ["GP", null], ["PTS", null], ["Rating", "Goal difference per game vs average, after blending last season with this one"], ["Proj. PTS", "Average of the simulated seasons"],
+    ["10–90%", "Range containing 80% of simulated seasons"], ["Playoffs", null], ["Division", null], ["Round 2", null], ["Conf. final", null], ["Final", null], ["Cup", null], ["Best record", null]];
+  const sk = {key: "p_cup", dir: -1};
+  const rowsHtml = () => T.slice().sort((a, b) => (b[sk.key] - a[sk.key]) * (sk.dir === -1 ? 1 : -1)).map(r => "<tr><td><b>" + esc(r.team) + '</b> <small>' + esc(r.name) + "</small></td><td>" + esc(r.div) + "</td><td>" + r.gp + "</td><td>" + r.points + '</td><td data-v="' + r.rating + '">' +
+    (r.rating >= 0 ? "+" : "−") + Math.abs(r.rating).toFixed(2) + '</td><td data-v="' + r.pts_mean + '">' + r.pts_mean.toFixed(1) + "</td><td>" + r.pts_p10 + "–" + r.pts_p90 + "</td>" +
+    ["p_playoffs", "p_div", "p_r2", "p_r3", "p_final", "p_cup", "p_pres"].map(k => '<td data-v="' + r[k] + '"' + (k === "p_cup" ? " style=\"font-weight:700\"" : "") + ">" + pc(r[k]) + "</td>").join("") + "</tr>").join("");
+  const draw = () => { $("ft").querySelector("tbody").innerHTML = rowsHtml(); };
+  const calib = (bt.calibration_20 || []).map(c => "<tr><td>" + esc(c.bin.replace("(-0.001", "[0").replace("]", "]")) + "</td><td>" + pct(c.pred) + "</td><td>" + pct(c.actual) + "</td><td>" + c.n + "</td></tr>").join("");
+  const b0 = bt["0"], b20 = bt["20"];
+  $("app").innerHTML = '<p class="note">Through ' + Math.round(F.games_played) + " games per team. " + F.sims.toLocaleString() + " simulations of the rest of the season and the playoffs. Chances only. Click a heading to sort.</p>" +
+    '<div class="scroll"><table class="stbl nhl" id="ft"><thead><tr>' + head.map(([h, t]) => "<th" + (t ? ' title="' + esc(t) + '"' : "") + ">" + esc(h) + "</th>").join("") + "</tr></thead><tbody>" + rowsHtml() + "</tbody></table></div>" +
+    '<h2 style="margin-top:22px">Points total</h2><p class="note">Pick a team and a line to see the chance the team finishes over or under it.</p>' +
+    '<div class="filters"><div class="field"><label for="pt">Team</label><select id="pt">' + T.slice().sort((a, b) => a.team.localeCompare(b.team)).map(r => opt(r.team, r.team + " · " + r.name)).join("") + "</select></div>" +
+    '<div class="field"><label for="pl">Line</label><input id="pl" type="number" step="0.5" style="width:100px"></div></div><div id="pout" class="panel" style="margin-top:10px"></div>' +
+    (b0 && b20 ? '<h2 style="margin-top:22px">How good is it?</h2><p class="note">The same model was run from the start of each of the last ' + b0.seasons + " seasons (2021-22 on) and again after 20 games, using only what was known at the time (the rating fit leaves the tested season out). " +
+      "Preseason, its points forecast was off by " + b0.mae_model.toFixed(1) + " on average versus " + b0.mae_naive.toFixed(1) + " for a simple 'last season, pulled halfway to average' guess, so it adds little before the season starts. After 20 games it is off by " + b20.mae_model.toFixed(1) + " versus " + b20.mae_naive.toFixed(1) +
+      ". Playoff log-loss after 20 games: " + b20.logloss_playoffs.toFixed(3) + " (a 50/50 guess scores " + b20.logloss_playoffs_base.toFixed(3) + "); division log-loss " + b20.logloss_division.toFixed(3) + " versus " + b20.logloss_division_base.toFixed(3) + ". Lower is better. This is not a comparison with betting markets.</p>" +
+      '<div class="scroll" style="max-width:520px"><table class="stbl nhl"><thead><tr><th>Predicted playoff chance (after 20 games)</th><th>Average predicted</th><th>Actually made it</th><th>Team-seasons</th></tr></thead><tbody>' + calib + "</tbody></table></div>" : "") +
+    '<h2 style="margin-top:22px">What it does and does not know</h2><ul class="note" style="max-width:80ch"><li>Rating = goal difference per game. Before the season it is a regression on last season\'s goal and expected-goal difference and the season before. In season it blends in the current rate (weight on last season worth ' + P.k + " games). Current rate is 60% goals, 40% expected goals; that split is a judgement call, not fitted.</li>" +
+    "<li>Each simulation first shifts every team's rating by a random amount (typical size " + P.tau_now.toFixed(2) + " goals per game) so futures are not over-confident, then plays the actual remaining schedule and the real playoff format (3 per division plus 2 wild cards, best-of-7).</li>" +
+    "<li>It does not know about injuries, trades, goalie changes, or off-season roster moves. Those are the main reasons to disagree with it.</li></ul>";
+  $("ft").querySelectorAll("th").forEach((h, i) => { const keys = [null, null, null, null, "rating", "pts_mean", null, "p_playoffs", "p_div", "p_r2", "p_r3", "p_final", "p_cup", "p_pres"]; if (!keys[i]) return;
+    h.style.cursor = "pointer"; h.onclick = () => { sk.dir = sk.key === keys[i] ? -sk.dir : -1; sk.key = keys[i]; draw(); }; });
+  const upd = () => { const r = T.find(x => x.team === $("pt").value); const L = parseFloat($("pl").value); if (!r || !isFinite(L)) { $("pout").textContent = ""; return; }
+    const ge = x => r.over[Math.min(Math.max(x, 30), 140) - 30]; const over = ge(Math.floor(L) + 1), under = 1 - ge(Math.ceil(L)), push = Number.isInteger(L) ? ge(L) - ge(L + 1) : 0;
+    $("pout").innerHTML = "<div><b>" + esc(r.name) + "</b> projected " + r.pts_mean.toFixed(1) + " points (10–90%: " + r.pts_p10 + "–" + r.pts_p90 + "). Line " + L + ": <b>over " + pct(over) + "</b> · <b>under " + pct(under) + "</b>" + (push > 0.0005 ? " · exactly " + L + " " + pct(push) : "") + "</div>"; };
+  $("pt").onchange = () => { const r = T.find(x => x.team === $("pt").value); $("pl").value = Math.round(r.pts_mean * 2) / 2 - (Number.isInteger(Math.round(r.pts_mean * 2) / 2) ? 0.5 : 0); upd(); };
+  $("pl").oninput = upd;
+  $("pt").onchange();
+}
+
 /* ---------------- award futures ---------------- */
 async function awardsPage() {
   const A = await getJSON("awards.json");
@@ -350,7 +386,7 @@ async function awardsPage() {
   draw();
 }
 
-const ROUTES = {index: standings, awards: awardsPage, teams, skaters: () => players("skaters"), goalies: () => players("goalies"), games};
+const ROUTES = {index: standings, futures: futuresPage, awards: awardsPage, teams, skaters: () => players("skaters"), goalies: () => players("goalies"), games};
 boot(async meta => {
   META = meta;
   $("stamp").textContent = seasonLabel(meta.season) + " season · updated " + new Date(meta.updated_utc).toLocaleString(undefined, {weekday: "short", day: "numeric", month: "short", hour: "numeric", minute: "2-digit"});
