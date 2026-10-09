@@ -6,16 +6,16 @@ const esc = value => String(value == null ? "" : value).replace(/[&<>"']/g, char
 const viewLabels = {
   leaders: "Player leaders",
   teams: "Team season stats",
-  games: "Game results",
+  games: "Games & schedule",
   standings: "Standings",
-  players: "Player directory"
+  players: "Roster lookup"
 };
 const preferredViews = ["leaders", "teams", "games", "standings", "players"];
 const viewStats = {
   leaders: ["Player", "Team", "Position", "GP", "MPG", "PPG", "RPG", "APG", "SPG", "BPG", "TOV/G", "FG%", "3P%", "FT%"],
   teams: ["Team", "Team code", "GP", "Wins", "Losses", "PPG", "RPG", "APG", "FG%", "3P%", "FT%"],
   standings: ["Team", "Team code", "Position", "Wins", "Losses", "GP", "Win %", "Points for", "Points against", "Last 5"],
-  games: ["Date", "Round", "Matchup", "Home score", "Away score", "Status", "Venue"],
+  games: ["Date", "Round", "Matchup", "Score", "Status", "Venue"],
   players: ["Player", "Team", "Position", "Jersey", "Height", "Weight", "Nationality"]
 };
 const fieldLabels = {
@@ -109,16 +109,18 @@ function friendlyRows(records, view = "") {
     if (row.name && row.Team) delete row.name;
     if (view === "games") {
       const pick = (...keys) => keys.map(key => row[key]).find(value => value != null && value !== "");
-      const home = pick("Home team", "home_team_name", "home_team · name", "home_team · team_name", "home_team · display_name", "home_team · team_nickname", "home_team · team_code");
-      const away = pick("Away team", "away_team_name", "away_team · name", "away_team · team_name", "away_team · display_name", "away_team · team_nickname", "away_team · team_code");
-      const homeScore = pick("Home score", "home_team_score", "home_score", "home_team · score");
-      const awayScore = pick("Away score", "away_team_score", "away_score", "away_team · score");
-      const date = pick("Date", "scheduled_start", "match_date", "date", "start_time");
-      const round = pick("Round", "match_round", "round_number", "round");
-      const status = pick("Status", "match_status", "status", "state");
-      const venue = pick("Venue", "venue_name", "venue · name", "venue");
-      return { Date: date, Round: round, Matchup: [home, away].filter(Boolean).join(" vs "), "Home score": homeScore,
-        "Away score": awayScore, Status: status, Venue: venue };
+      const home = pick("home_team_name", "home_team · name", "home_team · team_name", "home_team · display_name", "home_team · team_nickname", "home_team · team_code", "home · name", "home · team_name");
+      const away = pick("away_team_name", "away_team · name", "away_team · team_name", "away_team · display_name", "away_team · team_nickname", "away_team · team_code", "away · name", "away · team_name");
+      const homeScore = pick("home_team_score", "home_score", "home_team · score", "home · score");
+      const awayScore = pick("away_team_score", "away_score", "away_team · score", "away · score");
+      const date = pick("scheduled_start", "start_time_datetime", "start_time", "match_date", "date");
+      const round = pick("match_round", "round_number", "round · name", "round");
+      let status = pick("match_status", "status", "state") || "Scheduled";
+      status = ({ scheduled: "Upcoming", complete: "Final", completed: "Final", finished: "Final", live: "In progress", in_progress: "In progress" })[String(status).toLowerCase()] || status;
+      const venue = pick("venue_name", "venue · name", "venue");
+      const score = homeScore != null && homeScore !== "" && awayScore != null && awayScore !== ""
+        ? homeScore + "–" + awayScore : "—";
+      return { Date: date, Round: round, Matchup: [home, away].filter(Boolean).join(" vs "), Score: score, Status: status, Venue: venue };
     }
     if (view === "players") {
       const pick = (...keys) => keys.map(key => row[key]).find(value => value != null && value !== "");
@@ -130,7 +132,7 @@ function friendlyRows(records, view = "") {
       const weight = pick("Weight", "weight", "player · weight");
       const nationality = pick("Nationality", "nationality", "country", "player · nationality", "player · country");
       const code = pick("Team code", "team_code", "team · team_code", "abbreviation");
-      return { Player: player, Team: team, Position: position, Jersey: jersey, Height: height, Weight: weight, Nationality: nationality,
+      return { Player: player || "Name unavailable", Team: team || "—", Position: position, Jersey: jersey, Height: height, Weight: weight, Nationality: nationality,
         ...(code ? { "Team code": code } : {}) };
     }
     return row;
@@ -186,10 +188,10 @@ fetch("data/stats_index.json", { cache: "no-cache" })
       });
       const availableColumns = [...new Set(selected.flatMap(Object.keys))].filter(key => !hiddenField(key));
       const preferred = viewStats[view] || [];
-      const columns = [
-        ...preferred.map(label => availableColumns.find(key => labelFor(key) === label)).filter(Boolean),
-        ...availableColumns.filter(key => !preferred.includes(labelFor(key)))
-      ];
+      const columns = view === "games" || view === "players"
+        ? preferred.filter(key => availableColumns.includes(key))
+        : [...preferred.map(label => availableColumns.find(key => labelFor(key) === label)).filter(Boolean),
+          ...availableColumns.filter(key => !preferred.includes(labelFor(key)))];
       $("status").textContent = selected.length.toLocaleString() + " rows · " + columns.length
         + " readable fields · click a heading to sort · source checked " + (index.meta.updated_utc || "date unavailable")
         + (index.meta.errors?.length ? " · refresh warning; last cached data kept" : "");
@@ -215,7 +217,7 @@ fetch("data/stats_index.json", { cache: "no-cache" })
       view = available.some(([key]) => key === "leaders") ? "leaders" : available[0]?.[0];
       dataset.value = view;
       rows = friendlyRows(data[view] || [], view);
-      sort = { key: "", dir: -1 };
+      sort = view === "games" ? { key: "Date", dir: 1 } : { key: "", dir: -1 };
       render();
     }
 
@@ -228,7 +230,7 @@ fetch("data/stats_index.json", { cache: "no-cache" })
     dataset.onchange = () => {
       view = dataset.value;
       rows = friendlyRows((seasons[season.value] || {})[view] || [], view);
-      sort = { key: "", dir: -1 };
+      sort = view === "games" ? { key: "Date", dir: 1 } : { key: "", dir: -1 };
       render();
     };
     search.oninput = render;
