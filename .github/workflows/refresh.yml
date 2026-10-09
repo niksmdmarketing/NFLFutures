@@ -49,6 +49,24 @@ jobs:
             git push -q
           fi
 
+      - name: Archive forecasts (append-only forecast-archive branch)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git ls-remote --exit-code --heads origin forecast-archive > /dev/null; then
+            git fetch -q origin forecast-archive
+            git worktree add -q -B forecast-archive ../archive FETCH_HEAD
+          else
+            git worktree add -q --orphan -b forecast-archive ../archive
+          fi
+          python pipeline/archive.py ../archive
+          cd ../archive
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -q -m "Forecast snapshot $(date -u +%Y-%m-%dT%H:%MZ)"
+            git push -q origin forecast-archive
+          fi
+
       - name: Publish to the published branch
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

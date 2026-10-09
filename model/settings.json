@@ -419,5 +419,10 @@
   "points_per_rate": -19.15,
   "k_games": 2,
   "note": "pressure rate allowed (PFR), current season blended with last season at 2 games; passed out-of-sample test 2023-2025"
+ },
+ "frozen": {
+  "date": "2026-10-09",
+  "tag": "model-v4",
+  "note": "Frozen for the 2026 prospective test. Every refresh's forecasts are archived on the forecast-archive branch. Change parameters only as a new version (v5), never in place."
  }
 }
