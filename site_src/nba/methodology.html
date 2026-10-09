@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
+<title>Methodology · NBAFutures</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Public+Sans:wght@400;500;600&display=swap"><link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<header class="site-head"><div class="sportbar"><span>SPORT</span><a href="../">NFL</a><a href="./" aria-current="page">NBA</a></div><div class="brand"><a class="brand-name" href="./">NBA<span>Futures</span></a><span class="stamp" id="stamp">Loading latest update…</span></div><nav class="nav nav-simple"><a href="./">Futures</a><a href="ratings.html">Team ratings</a><a href="players.html">Players</a><a href="games.html">Games</a><a href="methodology.html" aria-current="page">Methodology</a></nav></header>
+<main class="page" id="main"><div class="page-head"><h1>Methodology</h1><p>What is in the first NBA model, what is not, and how to interpret its probabilities.</p></div>
+<section class="method">
+<div><h2>Team strength</h2><ul><li>Every team game is converted to points per estimated possession.</li><li>A regularized model separates team offense from opponent defense across the latest four seasons.</li><li>Older seasons receive less weight. Once the current season begins, its games receive extra weight so live performance gradually replaces the preseason prior.</li><li>Current rosters are compared with last season using a deliberately conservative, minutes-weighted box-score impact estimate.</li></ul></div>
+<div><h2>Season simulation</h2><ul><li>Played games are locked in and all remaining regular-season games are simulated from team strength, home court and game-level variance.</li><li>Before NBA Cup flex matchups are published, balanced placeholder games complete every team to 82 games; official fixtures replace them automatically.</li><li>Each simulation also draws a season-long uncertainty term for every team.</li><li>The NBA play-in format is simulated for seeds 7–10, followed by the fixed conference bracket and best-of-seven series.</li><li>Home court in a playoff series goes to the better simulated regular-season record, with model strength breaking exact ties.</li></ul></div>
+<div><h2>Inputs</h2><ul><li>Historical team and player box scores, schedules and rosters come from public ESPN-derived SportsDataverse releases.</li><li>The model uses no sportsbook odds or market prices.</li><li>Ten seasons are retained for validation; four seasons feed the live rating.</li></ul></div>
+<div><h2>Known limitations</h2><ul><li>The current player adjustment is box-score based, not possession-level RAPM.</li><li>Rookies, coaching changes, role changes and recovery from injuries need explicit analyst overrides.</li><li>Standings ties use simulated point differential and rating after wins, rather than every official multi-team tiebreak procedure.</li><li>Version 0.1 has not yet demonstrated an edge against futures markets. Probabilities are decision support, not recommendations.</li></ul></div>
+</section></main><footer class="stamp">Independent projections only, not betting advice.</footer></div><script src="js/common.js"></script><script>boot(async()=>{});</script></body></html>

@@ -62,7 +62,7 @@ def nav(active):
 
 def page_html(slug, label, title, intro, script, data):
     frag_path = os.path.join(SRC, "fragments", f"{'futures' if slug == 'index' else slug}.html")
-    body = open(frag_path).read() if os.path.exists(frag_path) else '<div id="app" class="page"><p class="loading">Loading…</p></div>'
+    body = open(frag_path, encoding="utf-8").read() if os.path.exists(frag_path) else '<div id="app" class="page"><p class="loading">Loading…</p></div>'
     head_title = title or label
     page_head = (f'<div class="page-head"><h1 id="pageTitle">{html.escape(head_title)}</h1>'
                  f'<p id="pageIntro">{html.escape(intro or "")}</p></div>')
@@ -80,6 +80,7 @@ def page_html(slug, label, title, intro, script, data):
 <body{data_attr}>
 <div class="wrap">
   <header class="site-head">
+    <div class="sportbar"><span>SPORT</span><a href="./" aria-current="page">NFL</a><a href="nba/">NBA</a></div>
     <div class="brand"><a class="brand-name" href="./">NFL<span>Futures</span></a><span class="stamp" id="stamp">Loading latest update…</span></div>
     <nav class="nav" aria-label="Sections">{nav(slug)}</nav>
   </header>
@@ -103,16 +104,18 @@ def build():
     shutil.copytree(os.path.join(SRC, "js"), os.path.join(SITE, "js"))
     shutil.copy(os.path.join(SRC, "style.css"), SITE)
     for f in glob.glob(os.path.join(OUT, "*.json")):
+        if os.path.basename(f).startswith("nba_"):
+            continue
         shutil.copy(f, os.path.join(SITE, "data"))
     for p in PAGES:
         if isinstance(p, str):
             continue
-        with open(os.path.join(SITE, f"{p[0]}.html"), "w") as f:
+        with open(os.path.join(SITE, f"{p[0]}.html"), "w", encoding="utf-8") as f:
             f.write(page_html(*p))
     # Cloudflare Pages: always revalidate data, keep the site out of search engines.
-    with open(os.path.join(SITE, "_headers"), "w") as f:
+    with open(os.path.join(SITE, "_headers"), "w", encoding="utf-8") as f:
         f.write("/*\n  X-Robots-Tag: noindex, nofollow\n/data/*\n  Cache-Control: no-cache\n/js/*\n  Cache-Control: no-cache\n/style.css\n  Cache-Control: no-cache\n")
-    with open(os.path.join(SITE, "robots.txt"), "w") as f:
+    with open(os.path.join(SITE, "robots.txt"), "w", encoding="utf-8") as f:
         f.write("User-agent: *\nDisallow: /\n")
 
 

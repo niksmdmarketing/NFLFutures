@@ -1,10 +1,13 @@
-# NFLFutures
+# Sports Futures — NFL and NBA
 
-A private NFL stats and futures site. Every 3 hours a GitHub Actions job downloads fresh public data from
-[nflverse](https://github.com/nflverse/nflverse-data), rebuilds the model outputs and pushes a static site to the
-`published` branch, which Cloudflare Pages serves behind Cloudflare Access.
+A private NFL and NBA stats and futures site. Every 3 hours a GitHub Actions job downloads fresh public data from
+[nflverse](https://github.com/nflverse/nflverse-data) and SportsDataverse's ESPN-derived basketball releases,
+rebuilds both models and pushes a static site to the `published` branch, which Cloudflare Pages serves behind
+Cloudflare Access. The existing NFL pages remain at the root; NBA lives under `/nba/` and a sport switcher joins them.
 
 ## Pages
+
+### NFL
 
 | Page | What it shows |
 |---|---|
@@ -27,6 +30,16 @@ A private NFL stats and futures site. Every 3 hours a GitHub Actions job downloa
 | Box scores | Efficiency box score for every game |
 | Injuries | Latest practice report and the model's expected starting quarterbacks |
 
+### NBA
+
+| Page | What it shows |
+|---|---|
+| Futures | Projected wins, division, top-six, playoff, No. 1 seed, conference and championship probabilities; any win-total line |
+| Team ratings | Opponent-adjusted offense and defense, pace, roster adjustment and simulation rating |
+| Players | Prior-season production and the conservative player impact used for roster movement |
+| Games | Upcoming game win probabilities and recent results |
+| Methodology | Inputs, simulation rules and limitations |
+
 ## Layout
 
 ```
@@ -41,6 +54,7 @@ pipeline/       Python: run.py orchestrates everything
   history.py    builds completed seasons into history/ (committed)
   stats.py      stat pages (history + current season)
   build_site.py assembles site/ from site_src/ and build/*.json
+  nba.py        NBA downloads, ratings, roster adjustment, simulation and `/nba/` site output
 model/settings.json   frozen model parameters (fitted offline, see below)
 site_src/       HTML fragments, CSS and JavaScript for the pages
 .github/workflows/refresh.yml   the scheduled job
