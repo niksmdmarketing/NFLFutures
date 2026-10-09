@@ -56,7 +56,7 @@ async function renderSeason() {
     return '<td class="' + (rk ? qClass(rk, R[c.key].n) : "") + '">' + fmtVal(r[c.key], c.fmt) + (rk ? '<small>' + rk + '</small>' : '') + '</td>';
   }).join("") + '</tr>').join("") || '<tr><td colspan="7" class="empty">No teams match.</td></tr>';
   const total = rowsAll.reduce((s, r) => s + r.snaps, 0);
-  $("tnote").textContent = "Rank 1 = fastest (least clock used, most plays). " + total.toLocaleString() + " timed snaps in this selection" +
+  $("tnote").textContent = "Rank 1 = fastest (least clock used, most plays). Select a column heading to sort; select it again to reverse. " + total.toLocaleString() + " timed snaps in this selection" +
     (total < 2000 ? " — a small sample, so expect noise." : ".");
 }
 async function renderTrend() {

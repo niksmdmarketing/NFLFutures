@@ -38,7 +38,7 @@ function renderSeason() {
     return '<td class="' + (rk ? qClass(rk, R[c.key].n) : "") + '">' + fmtVal(v, c.fmt) + (rk ? '<small>' + rk + '</small>' : '') + '</td>';
   }).join("") + '</tr>').join("") || '<tr><td colspan="' + (cols.length + 1) + '" class="empty">No teams match.</td></tr>';
   const missing = T.page.columns.filter(c => empty.has(c.key)).map(c => c.label);
-  $("tnote").textContent = "Small numbers are league ranks (1 = best). Select a column heading to sort." +
+  $("tnote").textContent = "Small numbers are league ranks (1 = best). Select a column heading to sort; select it again to reverse the order." +
     (missing.length ? " Not yet available for " + T.season + ", so hidden: " + missing.join(", ") + " (switch season or use Year by year for earlier seasons)." : "");
 }
 
@@ -68,7 +68,7 @@ function renderTrend() {
     }
     return h + '</tr>';
   }).join("") || '<tr><td colspan="' + (ys.length + 2) + '" class="empty">No teams match.</td></tr>';
-  $("tnote").textContent = (c.dir ? "Small numbers are that season's league ranks (1 = best); green change = improved" + (c.fmt === "pct" ? ", in percentage points" : "") + ". " : (c.fmt === "pct" ? "Change is in percentage points. " : "")) +
+  $("tnote").textContent = "Select a column heading to sort; select it again to reverse. " + (c.dir ? "Small numbers are that season's league ranks (1 = best); green change = improved" + (c.fmt === "pct" ? ", in percentage points" : "") + ". " : (c.fmt === "pct" ? "Change is in percentage points. " : "")) +
     (c.note ? c.note + ". " : "") + (ys.length < T.page.seasons.length ? "Seasons without this stat are left out. " : "") +
     (T.meta && to === T.meta.season && T.meta.through_week < 18 ? seasonLabel(to) + " covers games through Week " + T.meta.through_week + "." : "");
 }

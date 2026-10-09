@@ -1,7 +1,7 @@
 /* Season futures: division/conference/Super Bowl table, win-total over/under, QB changes. */
 let FT = null;
 function pcell(p) {
-  return '<td class="pc"><span class="bar" style="width:calc(' + (Math.min(1, p) * 100).toFixed(1) + '% - 8px)"></span><b>' + pct(p) + '</b></td>';
+  return '<td class="pc" data-v="' + p + '"><span class="bar" style="width:calc(' + (Math.min(1, p) * 100).toFixed(1) + '% - 8px)"></span><b>' + pct(p) + '</b></td>';
 }
 function renderFutures() {
   let h = "";
@@ -14,6 +14,7 @@ function renderFutures() {
     });
   });
   $("fbody").innerHTML = h;
+  sortableTable($("fbody").closest("table"));
 }
 function renderWT() {
   const t = $("wtTeam").value, L = +$("wtLine").value, d = FT[t].win_dist;
@@ -58,7 +59,7 @@ function renderQB() {
 function renderChallenger(C) {
   if (!C || !C.teams) return;
   $("challengerSec").hidden = false;
-  const pair = (a, b) => '<td class="num">' + pct(a) + ' <span class="muted">· ' + pct(b) + '</span></td>';
+  const pair = (a, b) => '<td class="num" data-v="' + a + '">' + pct(a) + ' <span class="muted">· ' + pct(b) + '</span></td>';
   let h = "";
   Object.entries(DIVS).forEach(([dn, ts]) => {
     h += '<tr class="divhead"><td colspan="5">' + dn + '</td></tr>';
@@ -68,6 +69,7 @@ function renderChallenger(C) {
     });
   });
   $("cbody").innerHTML = h;
+  sortableTable($("cbody").closest("table"));
 }
 boot(async meta => {
   const F = await getJSON("futures.json");

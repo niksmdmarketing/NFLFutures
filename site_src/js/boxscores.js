@@ -117,22 +117,24 @@ function fillWeeks() {
 
 function drawLog() {
   const t = $("lteam").value, s = S_($("lstat").value), side = $("lside").value;
-  const list = (side === "off" ? BY_TEAM[t] : BY_TEAM["@" + t]).filter(r => val(r, s) != null);
+  let y0 = +$("lfrom").value, y1 = +$("lto").value; if (y0 > y1) [y0, y1] = [y1, y0];
+  const list = (side === "off" ? BY_TEAM[t] : BY_TEAM["@" + t]).filter(r => val(r, s) != null && r.season >= y0 && r.season <= y1);
   const sign = (s.dir || 1) * (side === "off" ? 1 : -1);
   const ranked = [...list].sort((a, b) => sign * (val(b, s) - val(a, s)) || (b.date.localeCompare(a.date)));
   const latest = list[list.length - 1];
   const rk = ranked.indexOf(latest) + 1;
   const best = side === "off" ? (s.dir < 0 ? "fewest" : "best") : (s.dir < 0 ? "most forced" : "fewest allowed");
+  if (!list.length) { $("lsum").textContent = "No games in this range."; $("lbody").innerHTML = ""; return; }
   $("lsum").innerHTML = latest ? '<b>' + esc(nm(t)) + '</b>, ' + wk(latest) + ' vs ' + esc(side === "off" ? latest.opp : latest.team) + ': ' +
-    esc(s.label.toLowerCase()) + (side === "off" ? " " : " allowed ") + show(latest, s) + ' ranks <b>' + rk + ' of ' + list.length + '</b> games since ' + list[0].season +
+    esc(s.label.toLowerCase()) + (side === "off" ? " " : " allowed ") + show(latest, s) +  ' ranks <b>' + rk + ' of ' + list.length + '</b> games ' + (y0 === y1 ? "in " + y0 : "from " + y0 + " to " + y1) +
     ' (1 = ' + best + ').' : "";
   $("lbody").innerHTML = ranked.map((r, i) => {
     const opp = side === "off" ? r.opp : r.team;
     const me = side === "off" ? r.pts : r.opp_pts, them = side === "off" ? r.opp_pts : r.pts;
     const res = me > them ? "W" : me < them ? "L" : "T";
     const home = side === "off" ? r.home : 1 - r.home;
-    return '<tr' + (r === latest ? ' class="hl"' : '') + '><td>' + (i + 1) + '</td><td style="text-align:left">' + wk(r) + '</td><td style="text-align:left">' + (home ? "vs " : "@ ") + esc(opp) +
-      '</td><td style="text-align:left">' + res + ' ' + me + '–' + them + '</td><td>' + show(r, s) + '</td></tr>';
+    return '<tr' + (r === latest ? ' class="hl"' : '') + '><td data-v="' + (i + 1) + '">' + (i + 1) + '</td><td style="text-align:left" data-v="' + r.date.replace(/-/g, "") + '">' + wk(r) + '</td><td style="text-align:left">' + (home ? "vs " : "@ ") + esc(opp) +
+      '</td><td style="text-align:left" data-v="' + (me - them) + '">' + res + ' ' + me + '–' + them + '</td><td data-v="' + val(r, s) + '">' + show(r, s) + '</td></tr>';
   }).join("");
 }
 
@@ -169,8 +171,10 @@ boot(async meta => {
     '<div id="logView" hidden><div class="filters" style="margin:12px 0">' +
     '<div class="field"><label for="lteam">Team</label><select id="lteam">' + topt + '</select></div>' +
     '<div class="field"><label for="lstat">Stat</label><select id="lstat">' + STATS.map(s => '<option value="' + s.k + '">' + s.label + '</option>').join("") + '</select></div>' +
-    '<div class="field"><label for="lside">Side</label><select id="lside"><option value="off">Offense</option><option value="def">Defense (allowed)</option></select></div></div>' +
-    '<p class="note" id="lsum"></p>' +
+    '<div class="field"><label for="lside">Side</label><select id="lside"><option value="off">Offense</option><option value="def">Defense (allowed)</option></select></div>' +
+    '<div class="field"><label for="lfrom">From season</label><select id="lfrom">' + SEASONS.map(y => '<option value="' + y + '">' + y + '</option>').join("") + '</select></div>' +
+    '<div class="field"><label for="lto">To season</label><select id="lto">' + [...SEASONS].reverse().map(y => '<option value="' + y + '">' + y + '</option>').join("") + '</select></div></div>' +
+    '<p class="note" id="lsum"></p><p class="note">Select a column heading to sort it; select it again to reverse the order.</p>' +
     '<div class="scroll"><table class="stbl"><thead><tr><th scope="col">Rank</th><th scope="col" style="text-align:left">Game</th><th scope="col" style="text-align:left">Opponent</th><th scope="col" style="text-align:left">Result</th><th scope="col">Value</th></tr></thead><tbody id="lbody"></tbody></table></div></div>';
   $("season").value = String(CUR);
   fillWeeks();
@@ -179,7 +183,8 @@ boot(async meta => {
   $("season").addEventListener("change", () => { fillWeeks(); drawGames(); });
   $("wk").addEventListener("change", drawGames);
   $("tm").addEventListener("change", drawGames);
-  ["lteam", "lstat", "lside"].forEach(id => $(id).addEventListener("change", drawLog));
+  ["lteam", "lstat", "lside", "lfrom", "lto"].forEach(id => $(id).addEventListener("change", drawLog));
+  sortableTable($("lbody").closest("table"));
   document.querySelectorAll("[data-view]").forEach(b => b.addEventListener("click", () => setView(b.dataset.view)));
   setView("games");
 });

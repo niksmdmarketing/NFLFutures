@@ -84,3 +84,50 @@ function fmtDelta(d, fmt) {
   return sign + a.toFixed(1);
 }
 
+
+/* Click-to-sort for plain HTML tables. Cells may carry data-v (numeric sort value); otherwise text is used.
+   Click cycles: highest first -> lowest first -> original order (group header rows return with it). */
+function sortableTable(table) {
+  if (!table || table.dataset.sortable) return;
+  table.dataset.sortable = "1";
+  const thead = table.tHead, tbody = table.tBodies[0];
+  const ths = [...thead.rows[thead.rows.length - 1].cells];
+  let state = {i: -1, dir: 0};
+  const original = () => [...tbody.rows];
+  let orig = original();
+  const obs = new MutationObserver(() => { orig = original(); state = {i: -1, dir: 0}; mark(); });
+  obs.observe(tbody, {childList: true});
+  const key = (tr, i) => {
+    const td = tr.cells[i]; if (!td) return null;
+    if (td.dataset.v !== undefined) { const n = parseFloat(td.dataset.v); return isNaN(n) ? null : n; }
+    const t = td.textContent.trim(); const n = parseFloat(t.replace(/[%,+<>]/g, "").replace("−", "-"));
+    return isNaN(n) || /[a-z]{2,}/i.test(t.replace(/^[<>]/, "")) ? t : n;
+  };
+  const mark = () => ths.forEach((th, j) => {
+    if (j === state.i && state.dir) th.setAttribute("aria-sort", state.dir > 0 ? "ascending" : "descending");
+    else th.removeAttribute("aria-sort");
+  });
+  ths.forEach((th, i) => {
+    th.tabIndex = 0; th.style.cursor = "pointer"; th.title = th.title || "Sort";
+    const go = () => {
+      const numeric = orig.some(tr => !tr.classList.contains("divhead") && typeof key(tr, i) === "number");
+      if (state.i !== i) state = {i, dir: numeric ? -1 : 1};
+      else if (state.dir === (numeric ? -1 : 1)) state.dir = -state.dir;
+      else state = {i: -1, dir: 0};
+      if (!state.dir) { tbody.replaceChildren(...orig); }
+      else {
+        const data = orig.filter(tr => !tr.classList.contains("divhead"));
+        data.sort((a, b) => {
+          const x = key(a, i), y = key(b, i);
+          if (x == null && y == null) return 0; if (x == null) return 1; if (y == null) return -1;
+          return (typeof x === "number" && typeof y === "number" ? x - y : String(x).localeCompare(String(y))) * state.dir;
+        });
+        tbody.replaceChildren(...data);
+      }
+      obs.takeRecords();  // our own reordering is not a redraw
+      mark();
+    };
+    th.addEventListener("click", go);
+    th.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
+  });
+}

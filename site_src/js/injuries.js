@@ -27,4 +27,5 @@ boot(async () => {
   };
   ["iq", "it", "is"].forEach(id => $(id).addEventListener(id === "iq" ? "input" : "change", draw));
   draw();
+  document.querySelectorAll("#app table").forEach(sortableTable);
 });
