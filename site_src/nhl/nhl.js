@@ -134,7 +134,7 @@ async function teams() {
     rows = sortBy(rows, st, all);
     // shading ranks use the whole league, not the filtered rows
     const full = d.rows;
-    const rk = {}; cols.forEach(c => { if (c.f !== "text") rk[c.k] = rankMap(full, c.k, c.lo ? "low" : "high"); });
+    const rk = {}; cols.forEach(c => { if (c.f !== "text" && new Set(full.map(r => r[c.k])).size > 1) rk[c.k] = rankMap(full, c.k, c.lo ? "low" : "high"); });
     const th = (k, l, t) => '<th scope="col" tabindex="0" data-k="' + esc(k) + '" title="' + esc(t || l) + '"' + (st.sortKey === k ? ' aria-sort="' + (st.sortDir > 0 ? "ascending" : "descending") + '"' : "") + ">" + esc(l) + "</th>";
     $("out").innerHTML = '<div class="scroll"><table class="stbl nhl"><thead><tr>' + th("team", "Team") + cols.map(c => th(c.k, c.l, c.t)).join("") + "</tr></thead><tbody>" +
       rows.map(r => "<tr>" + teamCell(r) + cols.map(c => {

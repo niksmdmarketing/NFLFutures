@@ -34,7 +34,7 @@ NHL_SITE = os.path.join(ROOT, "site", "nhl")
 
 # (report, group label). Order is the order the column groups appear in on the site.
 TEAM_REPORTS = [("summary", "Results"), ("percentages", "Possession & luck"), ("realtime", "Hits, blocks, giveaways"),
-                ("summaryshooting", "Shot quality & types"), ("shottype", "Shot types"),
+                ("summaryshooting", "Shot attempts by score"), ("shottype", "Shot types"),
                 ("powerplay", "Power play"), ("powerplaytime", "Power play time"), ("penaltykill", "Penalty kill"),
                 ("penaltykilltime", "Penalty kill time"), ("penalties", "Discipline"),
                 ("faceoffpercentages", "Faceoffs"), ("faceoffwins", "Faceoffs"), ("shootout", "Shootout"),
@@ -85,8 +85,8 @@ GLOSS = {
 FMT_FIX = {"expPoints": "num1", "luck": "num1", "ptsPace": "num1", "savesAboveAvg": "num1", "savesAboveAvgPer60": "num2",
            "shotsAgainstPer60": "num1", "goalDiffPerGame": "num2", "toiTotal": "mins", "age": "num1", "shotsPerGame": "num2",
            "stIndex": "pdo"}
-LO_PAT = re.compile(r"(against|giveaway|losses|missed|penaltyminutes|pim|minors?|majors?|misconducts?|attemptsblocked|^penalties$|^ga$)", re.I)
-NOT_LO = re.compile(r"(pct|net)", re.I)
+LO_PAT = re.compile(r"(against|giveaway|losses|missed|penaltyminutes|pim|minors?|majors?|misconducts?|attemptsblocked|^penalties$|^ga$|penaltiestaken|timesshorthanded)", re.I)
+NOT_LO = re.compile(r"pct", re.I)
 
 
 # ---------------------------------------------------------------- fetching
@@ -136,13 +136,25 @@ def fetch_many(jobs):
 
 # ---------------------------------------------------------------- helpers
 
+LABELS = {"gamesPlayed": "GP", "gamesStarted": "GS", "timeOnIcePerGame": "TOI/GP", "pointsPerGame": "P/GP", "plusMinus": "+/-",
+          "shootingPct": "S%", "savePct": "SV%", "goalsAgainstAverage": "GAA", "penaltyMinutes": "PIM", "points": "PTS", "goals": "G",
+          "assists": "A", "shots": "SOG", "wins": "W", "losses": "L", "otLosses": "OTL", "pointPct": "P%", "satPct": "SAT% (Corsi)",
+          "usatPct": "USAT% (Fenwick)", "powerPlayPct": "PP%", "penaltyKillPct": "PK%", "faceoffWinPct": "FO%", "goalsFor": "GF",
+          "goalsAgainst": "GA", "goalDiff": "GD", "regulationAndOtWins": "ROW", "shotsForPerGame": "SF/GP", "shotsAgainstPerGame": "SA/GP",
+          "goalsForPerGame": "GF/GP", "goalsAgainstPerGame": "GA/GP", "savePct5v5": "SV% 5v5", "shootingPct5v5": "S% 5v5",
+          "shootingPlusSavePct5v5": "PDO", "goalsForPct": "GF% 5v5", "zoneStartPct5v5": "OZ start% 5v5", "toiTotal": "TOI total (min)"}
+
+
 def words(key: str) -> str:
+    if key in LABELS:
+        return LABELS[key]
+    key = re.sub(r"(\d)(?:v|On)(\d)", "\\1\x00\\2", key)
     s = re.sub(r"(?<=[a-z])(?=[A-Z0-9])|(?<=[0-9])(?=[A-Za-z])", " ", key)
     out = []
     for t in s.split():
         out.append(TOKENS.get(t.lower(), t.capitalize() if t.islower() or t[:1].isupper() and t[1:].islower() else t))
     lab = " ".join(out).replace(" / ", "/").replace(" %", "%")
-    return lab.replace("/ ", "/").strip()
+    return lab.replace("/ ", "/").replace("\x00", "v").strip()
 
 
 def fmt_for(key: str, s: pd.Series) -> str:
@@ -156,7 +168,7 @@ def fmt_for(key: str, s: pd.Series) -> str:
     if "shootingplussave" in k:
         return "pdo"
     if "savepct" in k:
-        return "sv" if "plus" not in k else "pdo"
+        return "sv"
     if re.search(r"(pct|pctg|share|rate)$|pct\d|pct[a-z]", k) and mx <= 1.5:
         return "pct"
     if (v == v.round()).all():
@@ -209,11 +221,11 @@ def cols_meta(df: pd.DataFrame, groups: dict, skip=()):
         if c in skip or c in HIDE and c not in KEEP_TEXT:
             continue
         s = df[c]
-        if c in KEEP_TEXT or not pd.api.types.is_numeric_dtype(s):
+        if c in KEEP_TEXT:
             meta.append({"k": c, "l": words(c), "g": groups.get(c, "Other"), "f": "text"})
             keep.append(c)
             continue
-        if not s.notna().any():
+        if not pd.api.types.is_numeric_dtype(s) or not s.notna().any():
             continue
         m = {"k": c, "l": words(c), "g": groups.get(c, "Other"), "f": FMT_FIX.get(c) or fmt_for(c, s)}
         if LO_PAT.search(c) and not NOT_LO.search(c):
