@@ -453,6 +453,8 @@ REVIEW = {
     "nfl:playoffs:unlucky_prev": 0.61, "nfl:playoffs:lucky_h": 0.60, "nfl:playoffs:lucky_q": 0.60,
     "nfl:playoffs:lucky_prev": 0.64, "nfl:playoffs:out_spot_good_pd_q": 0.69, "nba:playoffs:spot_h": 0.60,
     "nba:playoffs:spot_q": 0.60,
+    "nhl:finalist:corsi_top": 0.70, "nhl:finalist:shots_top": 0.74, "nhl:finalist:shots_ag_top": 0.71,
+    "nhl:playoffs:unlucky_prev": 0.70,
     # awards
     "nba:mvp:team_top3": 0.92, "nba:mvp:conf_top": 0.93, "nba:mvp:pm_top3": 0.93, "nba:mvp:durable": 0.93,
     "nba:mvp:team_out8": 0.93, "nba:dpoy:team_def5": 0.93, "nba:dpoy:team_top3": 0.93, "nba:6moy:team_top8": 0.92,
@@ -468,6 +470,8 @@ MECHANISM = [
     ("underrated_prev", "Scoring margin is a better guide to true strength than the record."),
     ("playoffs_prev", "Playoff teams usually keep their core (quarterback, coach, stars), which last season's record alone understates."),
     ("spot_", "Conference position captures conference strength and schedule that the league-wide record misses."),
+    ("corsi", "Controlling shot attempts predicts playoff success better than the record, which leans on goaltending and luck."),
+    ("shots", "Controlling shot volume predicts playoff success better than the record, which leans on goaltending and luck."),
     ("lost_final_prev", "Beaten finalists have tended to slip back the following season."),
     ("team_def", "Voters credit defenders on the best defensive teams."),
     ("team_", "Voters reward players on winning teams; individual numbers alone underrate them."),
