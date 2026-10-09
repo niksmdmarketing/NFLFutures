@@ -12,13 +12,32 @@ const viewLabels = {
 };
 const preferredViews = ["leaders", "teams", "games", "standings", "players"];
 const viewStats = {
-  leaders: ["Player", "Team", "Position", "GP", "MPG", "PPG", "RPG", "APG", "SPG", "BPG", "TOV/G", "FG%", "3P%", "FT%"],
-  teams: ["Team", "Team code", "GP", "Wins", "Losses", "PPG", "RPG", "APG", "FG%", "3P%", "FT%"],
+  leaders: ["Player", "Team", "Position", "GP", "GS", "MPG", "PPG", "RPG", "APG", "SPG", "BPG", "TOV/G", "FG%", "3P%", "FT%", "eFG%", "TS%", "AST/TOV"],
+  teams: ["Team", "Team code", "GP", "Wins", "Losses", "PPG", "Opponent PPG", "Point diff", "Pace", "OffRtg", "DefRtg", "NetRtg", "eFG%", "TS%", "3P rate", "FT rate", "RPG", "APG", "TOV/G"],
   standings: ["Team", "Team code", "Position", "Wins", "Losses", "GP", "Win %", "Points for", "Points against", "Last 5"],
   games: ["Date", "Round", "Matchup", "Score", "Status", "Venue"],
   players: ["Player", "Team", "Position", "Jersey", "Height", "Weight", "Nationality"]
 };
 const fieldLabels = {
+  "Player": "Player", "Team": "Team", "Team code": "Team code", "Position": "Position",
+  "GP": "GP", "GS": "GS", "MPG": "MPG", "PPG": "PPG", "RPG": "RPG", "APG": "APG",
+  "SPG": "SPG", "BPG": "BPG", "TOV/G": "TOV/G", "FG%": "FG%", "3P%": "3P%", "FT%": "FT%",
+  "eFG%": "eFG%", "TS%": "TS%", "AST/TOV": "AST/TOV", "Opponent PPG": "Opponent PPG",
+  "Point diff": "Point diff", "Pace": "Pace", "OffRtg": "OffRtg", "DefRtg": "DefRtg",
+  "NetRtg": "NetRtg", "3P rate": "3P rate", "FT rate": "FT rate",
+  "Wins": "Wins", "Losses": "Losses", "Win %": "Win %", "Points for": "Points for",
+  "Points against": "Points against", "Last 5": "Last 5", "Date": "Date", "Round": "Round",
+  "Matchup": "Matchup", "Score": "Score", "Status": "Status", "Venue": "Venue", "Jersey": "Jersey",
+  "Height": "Height", "Weight": "Weight", "Nationality": "Nationality",
+  "team_code": "Team code", "played": "GP", "won": "Wins", "lost": "Losses",
+  "points_average": "PPG", "points_against_average": "Opponent PPG", "points_allowed_average": "Opponent PPG",
+  "point_diff_average": "Point diff", "pace": "Pace", "offensive_rating": "OffRtg",
+  "defensive_rating": "DefRtg", "net_rating": "NetRtg", "effective_field_goal_percentage": "eFG%",
+  "true_shooting_percentage": "TS%", "three_point_rate": "3P rate", "free_throw_rate": "FT rate",
+  "opponent_points_average": "Opponent PPG", "points_diff_average": "Point diff",
+  "offensive_efficiency": "OffRtg", "defensive_efficiency": "DefRtg", "net_efficiency": "NetRtg",
+  "efg_percentage": "eFG%", "ts_percentage": "TS%", "tov_average": "TOV/G",
+  "three_pointers_attempted_rate": "3P rate", "free_throws_attempted_rate": "FT rate",
   "player · first_name": "First name", "player · last_name": "Last name",
   "player · display_name": "Player", "player · full_name": "Player",
   "player · name": "Player", "team · name": "Team", "team · team_name": "Team",
@@ -27,10 +46,15 @@ const fieldLabels = {
   "rebounds_per_game": "RPG", "assists_average": "APG", "assists_per_game": "APG",
   "steals_average": "SPG", "blocks_average": "BPG", "turnovers_average": "TOV/G",
   "minutes_average": "MPG", "fouls_average": "PF/G", "personal_fouls_average": "PF/G",
+  "games_played": "GP", "games_started": "GS", "games_started_avg": "GS", "minutes_played_per_game_avg": "MPG",
+  "field_goal_avg": "FGM/G", "field_goal_attempt_avg": "FGA/G", "fg_per_avg": "FG%",
+  "3pfg_avg": "3PM/G", "3pfga_avg": "3PA/G", "3pfg_per_avg": "3P%",
+  "ft_avg": "FTM/G", "fta_avg": "FTA/G", "ft_per_avg": "FT%",
+  "trb_avg": "RPG", "ast_avg": "APG", "stl_avg": "SPG", "blk_avg": "BPG", "tov_avg": "TOV/G",
   "field_goals_made_average": "FGM/G", "field_goals_attempted_average": "FGA/G",
-  "field_goals_percentage": "FG%", "field_goal_percentage": "FG%",
+  "field_goals_percentage": "FG%", "field_goal_percentage": "FG%", "fg_percentage": "FG%",
   "three_pointers_made_average": "3PM/G", "three_pointers_attempted_average": "3PA/G",
-  "three_pointers_percentage": "3P%", "free_throws_made_average": "FTM/G",
+  "three_pointers_percentage": "3P%", "three_point_percentage": "3P%", "free_throws_made_average": "FTM/G",
   "free_throws_attempted_average": "FTA/G", "free_throws_percentage": "FT%",
   "position": "Position", "playing_position": "Position", "jersey_number": "Jersey",
   "points_for": "Points for", "points_against": "Points against",
@@ -107,6 +131,77 @@ function friendlyRows(records, view = "") {
     if (!row.Team && row.name && row["Team code"]) row.Team = row.name;
     for (const key of ["team · name", "team · team_name", "team · team_code", "team · team_nickname", "team_code", "abbreviation", "season · year", "season · season_type"]) delete row[key];
     if (row.name && row.Team) delete row.name;
+    if (view === "leaders") {
+      const pick = (...keys) => keys.map(key => row[key]).find(value => value != null && value !== "");
+      const number = value => value == null || value === "" || !Number.isFinite(Number(value)) ? null : Number(value);
+      const stat = (...keys) => number(pick(...keys));
+      const gp = stat("games", "games_played", "played", "GP");
+      const gs = stat("games_started", "games_started_avg", "games_started_total", "GS");
+      const mpg = stat("minutes_average", "minutes_per_game", "MPG", "minutes_played_per_game_avg");
+      const ppg = stat("points_average", "points_per_game", "PPG", "points_average_per_game", "pts_avg");
+      const rpg = stat("rebounds_average", "rebounds_per_game", "RPG", "total_rebounds_average", "trb_avg");
+      const apg = stat("assists_average", "assists_per_game", "APG", "ast_avg");
+      const spg = stat("steals_average", "steals_per_game", "SPG", "stl_avg");
+      const bpg = stat("blocks_average", "blocks_per_game", "BPG", "blk_avg");
+      const tov = stat("turnovers_average", "turnovers_per_game", "TOV/G", "tov_avg");
+      const fgm = stat("field_goals_made_average", "field_goals_made_per_game", "field_goal_avg", "FGM/G", "field_goals_made");
+      const fga = stat("field_goals_attempted_average", "field_goals_attempted_per_game", "field_goal_attempt_avg", "FGA/G", "field_goals_attempted");
+      const tpm = stat("three_pointers_made_average", "three_pointers_made_per_game", "3PM/G", "3pfg_avg", "three_pointers_made");
+      const fta = stat("free_throws_attempted_average", "free_throws_attempted_per_game", "FTA/G", "fta_avg", "free_throws_attempted");
+      const fgPct = stat("field_goals_percentage", "field_goal_percentage", "fg_percentage", "FG%", "fg_per_avg")
+        ?? (fgm != null && fga > 0 ? fgm / fga * 100 : null);
+      const threePct = stat("three_pointers_percentage", "three_point_percentage", "three_point_field_goal_percentage", "3P%", "3pfg_per_avg")
+        ?? (tpm != null && stat("three_pointers_attempted_average", "three_pointers_attempted_per_game", "3PA/G", "3pfga_avg") > 0
+          ? tpm / stat("three_pointers_attempted_average", "three_pointers_attempted_per_game", "3PA/G", "3pfga_avg") * 100 : null);
+      const ftm = stat("free_throws_made_average", "free_throws_made_per_game", "FTM/G", "ft_avg", "free_throws_made");
+      const ftPct = stat("free_throws_percentage", "free_throw_percentage", "FT%", "ft_per_avg")
+        ?? (ftm != null && fta > 0 ? ftm / fta * 100 : null);
+      const assists = stat("assists_average", "assists_per_game", "APG", "ast_avg");
+      const turnovers = tov;
+      const ratio = fga > 0 && fgm != null && tpm != null ? 100 * (fgm + 0.5 * tpm) / fga : null;
+      const efgRaw = stat("effective_field_goal_percentage", "effective_fg_percentage", "efg_percentage", "eFG%");
+      const efg = efgRaw ?? ratio;
+      const directTs = stat("true_shooting_percentage", "true_shooting_pct", "ts_percentage", "TS%");
+      const pointsForEfficiency = ppg ?? (fgm != null && tpm != null && ftm != null ? 2 * fgm + tpm + ftm : null);
+      const ts = directTs ?? (pointsForEfficiency != null && fga != null && fta != null && fga + 0.44 * fta > 0
+        ? 100 * pointsForEfficiency / (2 * (fga + 0.44 * fta)) : null);
+      const astTov = assists != null && turnovers > 0 ? assists / turnovers : null;
+      const name = pick("Player", "player_name", "name", "display_name", "full_name") || "Name unavailable";
+      const team = pick("Team", "team_name", "team · name", "team · team_name") || "—";
+      const pos = pick("Position", "position", "playing_position", "player · position", "player · playing_position");
+      return { Player: name, Team: team, Position: pos, GP: gp, GS: gs, MPG: mpg, PPG: ppg, RPG: rpg, APG: apg,
+        SPG: spg, BPG: bpg, "TOV/G": tov, "FG%": fgPct, "3P%": threePct, "FT%": ftPct, "eFG%": efg, "TS%": ts, "AST/TOV": astTov };
+    }
+    if (view === "teams") {
+      const pick = (...keys) => keys.map(key => row[key]).find(value => value != null && value !== "");
+      const name = pick("Team", "team_name", "team · name", "team · team_name", "name") || "Team unavailable";
+      const code = pick("Team code", "team · team_code", "team_code", "abbreviation");
+      const number = (...keys) => {
+        const value = pick(...keys);
+        return value == null || !Number.isFinite(Number(value)) ? null : Number(value);
+      };
+      const gp = number("played", "games_played", "games", "GP");
+      const wins = number("won", "wins", "w", "Won");
+      const losses = number("lost", "losses", "l", "Lost");
+      const ppg = number("points_average", "points_per_game", "PPG", "scoring_average");
+      const opp = number("opponent_points_average", "points_against_average", "points_allowed_average", "opp_points_average", "opponent_ppg");
+      const pointDiff = number("point_diff_average", "average_point_differential", "point_differential", "point_diff");
+      const pace = number("pace", "pace_average", "possessions_per_game", "possessions_average");
+      const off = number("offensive_rating", "offensive_rating_average", "ortg", "off_rating");
+      const def = number("defensive_rating", "defensive_rating_average", "drtg", "def_rating");
+      const net = number("net_rating", "net_rating_average", "netrtg", "net_efficiency");
+      const efg = number("effective_field_goal_percentage", "efg_percentage", "efg_pct", "eFG%");
+      const ts = number("true_shooting_percentage", "ts_percentage", "ts_pct", "TS%");
+      const threeRate = number("three_point_rate", "three_point_attempt_rate", "three_rate", "3P rate");
+      const ftRate = number("free_throw_rate", "free_throw_attempt_rate", "ft_rate", "FT rate");
+      const rpg = number("rebounds_average", "rebounds_per_game", "RPG", "total_rebounds_average", "trb_avg");
+      const apg = number("assists_average", "assists_per_game", "APG", "ast_avg");
+      const tov = number("turnovers_average", "turnovers_per_game", "TOV/G", "tov_avg");
+      return { Team: name, "Team code": code, GP: gp, Wins: wins, Losses: losses, PPG: ppg,
+        "Opponent PPG": opp, "Point diff": pointDiff, Pace: pace, OffRtg: off, DefRtg: def,
+        NetRtg: net, "eFG%": efg, "TS%": ts, "3P rate": threeRate, "FT rate": ftRate,
+        RPG: rpg, APG: apg, "TOV/G": tov };
+    }
     if (view === "games") {
       const pick = (...keys) => keys.map(key => row[key]).find(value => value != null && value !== "");
       const home = pick("home_team_name", "home_team · name", "home_team · team_name", "home_team · display_name", "home_team · team_nickname", "home_team · team_code", "home · name", "home · team_name");
@@ -149,8 +244,11 @@ function labelFor(key) {
 function displayValue(key, value) {
   if (value == null || value === "") return "—";
   const lower = key.toLowerCase();
-  if (typeof value === "number" && /(?:percentage|_pct|_percent)$/.test(lower) && value >= 0 && value <= 1) {
-    return (value * 100).toFixed(1) + "%";
+  if (typeof value === "number" && ["fg%", "3p%", "ft%", "efg%", "ts%", "win %"].includes(lower)) {
+    return (value <= 1 ? value * 100 : value).toFixed(1) + "%";
+  }
+  if (typeof value === "number" && ["3p rate", "ft rate"].includes(lower)) {
+    return (value <= 1 ? value * 100 : value).toFixed(1) + "%";
   }
   if (typeof value === "number") return Number.isInteger(value) ? String(value) : value.toFixed(1);
   if (typeof value === "string" && /(?:date|scheduled_start)$/.test(lower) && /^\d{4}-\d\d-\d\d/.test(value)) {
@@ -172,6 +270,7 @@ fetch("data/stats_index.json", { cache: "no-cache" })
     const head = $("head"), body = $("body");
     season.innerHTML = years.map(year => '<option value="' + esc(year) + '">' + esc(year)
       + "–" + String(Number(year) + 1).slice(-2) + "</option>").join("");
+    season.value = years[0] || "";
     let rows = [], view = "leaders", sort = { key: "", dir: -1 };
 
     function render() {
@@ -188,10 +287,12 @@ fetch("data/stats_index.json", { cache: "no-cache" })
       });
       const availableColumns = [...new Set(selected.flatMap(Object.keys))].filter(key => !hiddenField(key));
       const preferred = viewStats[view] || [];
-      const columns = view === "games" || view === "players"
+      const columns = view === "games" || view === "players" || view === "leaders"
         ? preferred.filter(key => availableColumns.includes(key))
-        : [...preferred.map(label => availableColumns.find(key => labelFor(key) === label)).filter(Boolean),
-          ...availableColumns.filter(key => !preferred.includes(labelFor(key)))];
+        : view === "teams" || view === "standings"
+          ? preferred.map(label => availableColumns.find(key => labelFor(key) === label)).filter(Boolean)
+          : [...preferred.map(label => availableColumns.find(key => labelFor(key) === label)).filter(Boolean),
+            ...availableColumns.filter(key => !preferred.includes(labelFor(key)))];
       $("status").textContent = selected.length.toLocaleString() + " rows · " + columns.length
         + " readable fields · click a heading to sort · source checked " + (index.meta.updated_utc || "date unavailable")
         + (index.meta.errors?.length ? " · refresh warning; last cached data kept" : "");
