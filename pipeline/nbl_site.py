@@ -556,8 +556,8 @@ PAGES = [("index", "Ladder", "NBL ladder", "Records, ratings, luck and splits fo
 
 def build_site():
     S.build_pages(SITE, "NBL", "Futures", PAGES, data_src=OUT)
-    for fn in ("stats.js",):
-        p = os.path.join(SITE, fn)
+    for fn in ("stats.js", os.path.join("data", "stats_index.json")):
+        p = os.path.join(SITE, fn)          # the raw feed (28 MB+) is not used by these pages and is too big for Pages
         if os.path.exists(p):
             os.remove(p)
     S.log("NBL site pages written")

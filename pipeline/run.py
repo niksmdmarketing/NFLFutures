@@ -101,6 +101,13 @@ def main():
         trends.build_site()
     except Exception as e:  # noqa: BLE001
         log("trends failed", e)
+    # Cloudflare Pages rejects the whole deployment if any file is over 25 MiB: drop such files loudly instead
+    for dirpath, _, files in os.walk(os.path.join(os.path.dirname(OUT), "site")):
+        for fn in files:
+            fp = os.path.join(dirpath, fn)
+            if os.path.getsize(fp) > 24 * 1024 * 1024:
+                log("WARNING: removing oversized file from the site", fp, os.path.getsize(fp))
+                os.remove(fp)
     log("site built")
 
 

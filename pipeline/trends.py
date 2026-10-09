@@ -376,8 +376,17 @@ NBL_FINALS = {2012: ("NZL", "PER"), 2013: ("PER", "ADL"), 2014: ("NZL", "CNS"), 
               2022: ("SYD", "NZL"), 2023: ("TAS", "MEL"), 2024: ("ILL", "MEL"), 2025: ("SYD", "ADL")}
 
 
+def _nbl_src():
+    """The raw NBL feed export (build copy; the published site no longer carries it)."""
+    for p in (os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "build", "nbl_stats_index.json"),
+              os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "site", "nbl", "data", "stats_index.json")):
+        if os.path.exists(p):
+            return p
+    return p
+
+
 def nbl():
-    path = os.path.join(SITE, "nbl", "data", "stats_index.json")
+    path = _nbl_src()
     canon = {"WOL": "ILL"}
     D = json.load(open(path))
     Gs, Ps, Ms = [], [], []

@@ -436,10 +436,19 @@ NBL_MVP = {2012: "Cedric Jackson", 2013: "Rotnei Clarke", 2014: "Brian Conklin",
            2022: "Xavier Cooks", 2023: "Bryce Cotton", 2024: "Bryce Cotton", 2025: "Bryce Cotton"}
 
 
+def _nbl_src():
+    """The raw NBL feed export (build copy; the published site no longer carries it)."""
+    for p in (os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "build", "nbl_stats_index.json"),
+              os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "site", "nbl", "data", "stats_index.json")):
+        if os.path.exists(p):
+            return p
+    return p
+
+
 def nbl(cur_label, cur, cur_ok):
     import json
     from trends import SITE
-    D = json.load(open(os.path.join(SITE, "nbl", "data", "stats_index.json")))
+    D = json.load(open(_nbl_src()))
     canon = {"WOL": "ILL"}
     rows = []
     for k, S in D["seasons"].items():

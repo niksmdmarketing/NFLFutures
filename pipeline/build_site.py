@@ -112,7 +112,7 @@ def build():
     shutil.copytree(os.path.join(SRC, "js"), os.path.join(SITE, "js"))
     shutil.copy(os.path.join(SRC, "style.css"), SITE)
     for f in glob.glob(os.path.join(OUT, "*.json")):
-        if os.path.basename(f).startswith(("nba_", "afl_")):
+        if os.path.basename(f).startswith(("nba_", "afl_", "nbl_")):
             continue
         shutil.copy(f, os.path.join(SITE, "data"))
     wk = os.path.join(OUT, "players_weekly")
