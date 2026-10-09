@@ -74,7 +74,7 @@ Parameters in `model/settings.json` were fitted offline and are not re-fitted by
   (−19.15 points per unit of pressure rate, blended with last season at 2 games; the only one of twelve candidate stats
   that improved 2023–2025 predictions), team uncertainty tau 5.0 and game noise 11.37 tuned jointly on 2022–2025 win
   totals, home field 1.8, exact NFL tiebreakers, 100,000 simulations with a fixed seed.
-- v4 is frozen (git tag `model-v4`) for a prospective test on the 2026 season. Every refresh's forecasts are saved,
+- v4 is frozen (frozen copy on the `model-v4` branch) for a prospective test on the 2026 season. Every refresh's forecasts are saved,
   compressed, on the append-only `forecast-archive` branch (`<season>/<timestamp>.json.gz` plus `index.csv`), skipping
   runs whose probabilities did not change.
 - Backtests against 2018–2025 bookmaker futures (v3) found the model matched the market only around Weeks 5–8 and did
