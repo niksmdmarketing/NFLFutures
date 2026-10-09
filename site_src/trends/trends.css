@@ -1,0 +1,47 @@
+/* Winner trends page */
+.tr-legend { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin: 6px 0 18px; }
+.tr-leg { min-width: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.tr-leg p { margin: 0; flex-basis: 100%; font-size: .8rem; color: var(--muted); }
+.tr-n { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; margin-left: auto; }
+.tr-badge { display: inline-block; font-size: .68rem; text-transform: uppercase; letter-spacing: .05em; font-weight: 600; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
+.tr-badge.v-edge { background: var(--off-bg); color: var(--off-ink); }
+.tr-badge.v-fade { background: var(--def-bg); color: var(--def-ink); }
+.tr-badge.v-priced { background: var(--bg); color: var(--ink); border: 1px solid var(--line); }
+.tr-badge.v-weak { background: transparent; color: var(--muted); border: 1px dashed var(--even); }
+.tr-badge.v-noise { background: transparent; color: var(--muted); border: 1px solid var(--line); }
+.tr-tabs { margin: 4px 0 6px; overflow-x: auto; }
+.tr-tabs .seg { flex-wrap: nowrap; }
+.tr-tabs .seg button { white-space: nowrap; }
+.tr-sec { margin-top: 10px; }
+.tr-h { font-family: var(--font-display); text-transform: uppercase; letter-spacing: .04em; font-size: 1rem; color: var(--muted); margin: 20px 0 8px; }
+.tr-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+.tr-card { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--line); border-radius: 6px; padding: 14px; display: flex; flex-direction: column; gap: 8px; }
+.tr-card.v-edge { border-left-color: var(--off); }
+.tr-card.v-fade { border-left-color: var(--def); }
+.tr-card h3 { margin: 0; font-family: var(--font-body); text-transform: none; letter-spacing: 0; font-size: 1rem; font-weight: 600; line-height: 1.35; }
+.tr-card .tr-badge { align-self: flex-start; }
+.tr-big { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }
+.tr-big b { font-family: var(--font-display); font-size: 1.7rem; line-height: 1; }
+.tr-big span { font-size: .8rem; color: var(--muted); margin-right: 8px; }
+.tr-card .note { margin: 0; }
+.tr-review { margin: 0; font-size: .78rem; color: var(--muted); font-style: italic; }
+.tr-now { margin: 0; font-size: .85rem; }
+.tr-now span, .tr-when { font-size: .72rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+.tr-when { margin: 0; }
+.muted { color: var(--muted); }
+.tr-tbl td.tr-label { color: var(--ink); min-width: 220px; max-width: 360px; }
+.tr-tbl td small.tr-why { display: block; margin: 2px 0 0; font-size: .74rem; color: var(--muted); }
+.tr-tbl th { cursor: pointer; }
+.tr-noise, .tr-winners { margin-top: 18px; }
+.tr-noise summary, .tr-winners summary { cursor: pointer; font-family: var(--font-display); text-transform: uppercase; letter-spacing: .04em; color: var(--muted); padding: 8px 0; min-height: 40px; }
+.tr-noise .scroll { margin-top: 8px; }
+.tr-winners ul { list-style: none; padding: 0; margin: 6px 0 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 4px 12px; font-size: .88rem; }
+.tr-winners li b { font-weight: 600; margin-right: 4px; }
+.tr-empty { background: var(--surface); border: 1px dashed var(--line); border-radius: 6px; padding: 12px; max-width: none; }
+#trends .method { margin-top: 32px; }
+@media (max-width: 600px) {
+  .tr-legend { grid-template-columns: 1fr 1fr; }
+  .tr-leg p { display: none; }
+  .tr-leg .tr-badge { white-space: normal; }
+  .tr-tbl td.tr-label { min-width: 180px; }
+}

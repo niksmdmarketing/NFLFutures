@@ -77,6 +77,12 @@ def main():
     nba.build_site()
     nbl.build_site()
     nhl.build_site()
+    try:  # winner trends read the data written above; never let them block the refresh
+        import trends
+        trends.build_data()
+        trends.build_site()
+    except Exception as e:  # noqa: BLE001
+        log("trends failed", e)
     log("site built")
 
 
