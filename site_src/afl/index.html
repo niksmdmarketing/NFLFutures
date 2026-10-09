@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>AFL data · NFLFutures</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Public+Sans:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .afl-tools{display:flex;gap:12px;flex-wrap:wrap;align-items:end;margin:18px 0}
+    .afl-tools .field{display:grid;gap:6px}
+    .afl-tools label{font-size:12px;color:var(--muted,#89929c)}
+    .afl-tools select,.afl-tools input{padding:10px 12px;min-width:180px;border:1px solid var(--line,#29313a);border-radius:6px;background:var(--surface);color:var(--ink)}
+    .afl-status{margin:8px 0 16px;color:var(--muted,#89929c);font-size:13px}
+    .afl-wrap{overflow:auto;max-height:72vh;border:1px solid var(--line,#29313a);border-radius:8px}
+    .afl-wrap table{border-collapse:collapse;min-width:100%;font-size:12px;white-space:nowrap}
+    .afl-wrap th,.afl-wrap td{padding:8px 10px;border-bottom:1px solid var(--line,#29313a);text-align:right}
+    .afl-wrap th{position:sticky;top:0;background:var(--surface);cursor:pointer;z-index:1}
+    .afl-wrap th:focus-visible{outline:2px solid var(--accent,#e6b85c);outline-offset:-2px}
+    .afl-wrap th:first-child,.afl-wrap td:first-child{text-align:left}
+    .afl-wrap td{max-width:280px;overflow:hidden;text-overflow:ellipsis}
+    .afl-note{font-size:13px;color:var(--muted,#89929c);line-height:1.55}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="site-head">
+      <div class="sportbar"><span>SPORT</span><a href="../">NFL</a><a href="../nba/">NBA</a><a href="../nbl/">NBL</a><a href="../nhl/">NHL</a><a href="./" aria-current="page">AFL</a></div>
+      <div class="brand"><a class="brand-name" href="./">AFL<span>Stats</span></a><span class="stamp" id="stamp">Loading AFL data…</span></div>
+      <nav class="nav nav-simple" aria-label="AFL sections"><a href="./" aria-current="page">Stats & history</a></nav>
+    </header>
+    <main class="page" id="main">
+      <div class="page-head">
+        <h1>AFL data explorer</h1>
+        <p>Historical team results, player production, advanced match statistics and award indicators for AFL futures analysis. Stats only—no odds or bookmaker data.</p>
+      </div>
+      <div class="afl-tools">
+        <div class="field"><label for="season">Season</label><select id="season"></select></div>
+        <div class="field"><label for="phase">Season phase</label><select id="phase"><option value="ALL">All games</option><option value="REG">Home & away</option><option value="FIN">Finals</option><option value="PRE">Pre-season</option></select></div>
+        <div class="field"><label for="view">Stats view</label><select id="view"></select></div>
+        <div class="field"><label for="group">Stat group</label><select id="group"></select></div>
+        <div class="field"><label for="search">Find a player or team</label><input id="search" type="search" placeholder="Type a name, opponent or venue"></div>
+      </div>
+      <p class="afl-status" id="status" aria-live="polite">Loading…</p>
+      <div class="afl-wrap"><table><thead id="head"></thead><tbody id="body"></tbody></table></div>
+      <p class="afl-note" id="note">Advanced coverage varies by year and metric. A blank means the source did not provide that stat for that row; it does not mean zero. Historical Brownlow votes span different voting formats. Team disposal efficiency is weighted from effective disposals / disposals where available.</p>
+    </main>
+    <footer class="stamp">Sources: fitzRoy data archive (AFL Tables and Footywire, with permission). Covers the 18-team era, 2012 onward, with Footywire advanced match statistics throughout. Independent analysis, not betting advice.</footer>
+  </div>
+  <script src="stats.js"></script>
+</body>
+</html>

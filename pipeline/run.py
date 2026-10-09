@@ -7,6 +7,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import awards  # noqa: E402
+import afl  # noqa: E402
 import build_site  # noqa: E402
 import matchups  # noqa: E402
 import nba  # noqa: E402
@@ -73,10 +74,18 @@ def main():
     nba.build_data()
     nbl.build_data()
     nhl.build_data()
+    try:
+        afl.build_data()
+    except Exception as e:  # noqa: BLE001
+        log("afl data failed", e)
     build_site.build()
     nba.build_site()
     nbl.build_site()
     nhl.build_site()
+    try:  # AFL is new and downloads a large archive; never let it block the other sports
+        afl.build_site()
+    except Exception as e:  # noqa: BLE001
+        log("afl site failed", e)
     try:  # winner trends read the data written above; never let them block the refresh
         import trends
         trends.build_data()

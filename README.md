@@ -1,9 +1,10 @@
-# Sports Futures — NFL, NBA and NBL
+# Sports Futures — NFL, NBA, NBL, NHL and AFL
 
-A private NFL, NBA and NBL stats and futures site. Every 3 hours a GitHub Actions job downloads fresh public data from
-[nflverse](https://github.com/nflverse/nflverse-data), SportsDataverse's ESPN-derived NBA releases, and the NBL's public statistics feed,
-rebuilds the models and pushes a static site to the `published` branch, which Cloudflare Pages serves behind
-Cloudflare Access. NFL remains at the root, with NBA under `/nba/` and NBL under `/nbl/`; a sport switcher joins all three.
+A private NFL, NBA, NBL, NHL and AFL stats and futures site. Every 3 hours a GitHub Actions job downloads public data from
+[nflverse](https://github.com/nflverse/nflverse-data), SportsDataverse's ESPN-derived NBA releases, the NBL's public statistics feed,
+the NHL's public statistics API and the fitzRoy AFL data archive, rebuilds the site, and pushes a static site to the `published`
+branch, which Cloudflare Pages serves behind Cloudflare Access. NFL remains at the root, with separate `/nba/`, `/nbl/`, `/nhl/`
+and `/afl/` sections.
 
 ## Pages
 
@@ -50,6 +51,16 @@ Cloudflare Access. NFL remains at the root, with NBA under `/nba/` and NBL under
 |---|---|
 | Stats | Up to 15 available seasons of NBL team stats, player leaders, rosters, standings and game results; the active season refreshes every three hours |
 
+### NHL
+
+NHL pages cover standings, futures, team and player statistics, awards and game logs.
+
+### AFL
+
+| Page | What it shows |
+|---|---|
+| Stats & history | AFL Tables match results, quarter scoring, team season profiles and player season totals; Brownlow vote and goal leader indicators; Footywire player/team match statistics including contested/uncontested possessions, disposal efficiency, clearances, score involvements, metres gained, intercepts, turnovers and pressure/stoppage measures. Covers the 18-team era (2012 onward), with detailed Footywire match data throughout. The public archive is checked every three hours. |
+
 ## Layout
 
 ```
@@ -68,6 +79,8 @@ pipeline/       Python: run.py orchestrates everything
   award_race.py award contenders vs past winners at the same week
   nba.py        NBA downloads, ten-season box-score stats, ratings, roster adjustment, simulation and `/nba/` site output
   nbl.py        NBL public feed, cached historical seasons and `/nbl/` stats explorer
+  nhl.py        NHL public stats API, team/player reports and `/nhl/` pages
+  afl.py        AFL history, player/team advanced stats and `/afl/` explorer
 model/settings.json   frozen model parameters (fitted offline, see below)
 site_src/       HTML fragments, CSS and JavaScript for the pages
 .github/workflows/refresh.yml   the scheduled job

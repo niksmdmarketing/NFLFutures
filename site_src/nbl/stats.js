@@ -13,32 +13,41 @@ const viewLabels = {
 };
 const preferredViews = ["leaders", "teams", "boxscores", "games", "standings", "players"];
 const viewStats = {
-  leaders: ["Player", "Team", "Position", "GP", "GS", "MPG", "PPG", "RPG", "APG", "SPG", "BPG", "TOV/G", "FG%", "3P%", "FT%", "eFG%", "TS%", "AST/TOV"],
-  teams: ["Team", "Team code", "GP", "Wins", "Losses", "PPG", "Opponent PPG", "Point diff", "Pace", "OffRtg", "DefRtg", "NetRtg", "eFG%", "TS%", "3P rate", "FT rate", "RPG", "APG", "TOV/G"],
-  standings: ["Team", "Team code", "Position", "Wins", "Losses", "GP", "Win %", "Points for", "Points against", "Last 5"],
-  games: ["Date", "Round", "Matchup", "Score", "Status", "Venue"],
-  players: ["Player", "Team", "Position", "Jersey", "Height", "Weight", "Nationality"],
-  boxscores: ["Date", "Round", "Matchup", "Player", "Team", "MIN", "PTS", "REB", "OREB", "DREB", "AST", "STL", "BLK", "TOV", "FGM", "FGA", "FG%", "3PM", "3PA", "3P%", "FTM", "FTA", "FT%", "+/-"]
+  leaders: ["Phase", "Player", "Team", "Position", "GP", "GS", "MPG", "PPG", "RPG", "APG", "SPG", "BPG", "TOV/G", "FG%", "3P%", "FT%", "eFG%", "TS%", "AST/TOV"],
+  teams: ["Phase", "Team", "Team code", "GP", "Wins", "Losses", "PPG", "Opponent PPG", "Point diff", "Pace", "OffRtg", "DefRtg", "NetRtg", "eFG%", "TS%", "3P rate", "FT rate", "RPG", "APG", "TOV/G"],
+  standings: ["Phase", "Team", "Team code", "Position", "Wins", "Losses", "GP", "Win %", "Points for", "Points against", "Last 5"],
+  games: ["Phase", "Date", "Round", "Matchup", "Score", "Status", "Venue"],
+  players: ["Phase", "Player", "Team", "Position", "Jersey", "Height", "Weight", "Nationality"],
+  boxscores: ["Phase", "Date", "Round", "Matchup", "Player", "Team", "MIN", "PTS", "REB", "OREB", "DREB", "AST", "STL", "BLK", "TOV", "FGM", "FGA", "FG%", "3PM", "3PA", "3P%", "FTM", "FTA", "FT%", "+/-"]
 };
 const statGroups = {
   leaders: {
-    production: ["Player", "Team", "Position", "GP", "GS", "MPG", "PPG", "RPG", "APG", "SPG", "BPG", "TOV/G", "AST/TOV"],
-    shooting: ["Player", "Team", "GP", "FG%", "3P%", "FT%", "eFG%", "TS%"]
+    production: ["Phase", "Player", "Team", "Position", "GP", "GS", "MPG", "PPG", "RPG", "APG", "SPG", "BPG", "TOV/G", "AST/TOV"],
+    shooting: ["Phase", "Player", "Team", "GP", "FG%", "3P%", "FT%", "eFG%", "TS%"]
   },
   teams: {
-    summary: ["Team", "GP", "Wins", "Losses", "Win %", "PPG", "Opponent PPG", "Point diff"],
-    efficiency: ["Team", "Pace", "OffRtg", "DefRtg", "NetRtg", "eFG%", "TS%", "3P rate", "FT rate"],
-    boxscore: ["Team", "GP", "RPG", "APG", "TOV/G"]
+    summary: ["Phase", "Team", "GP", "Wins", "Losses", "Win %", "PPG", "Opponent PPG", "Point diff"],
+    efficiency: ["Phase", "Team", "Pace", "OffRtg", "DefRtg", "NetRtg", "eFG%", "TS%", "3P rate", "FT rate"],
+    boxscore: ["Phase", "Team", "GP", "RPG", "APG", "TOV/G"]
   },
   boxscores: {
-    production: ["Date", "Round", "Matchup", "Player", "Team", "MIN", "PTS", "REB", "AST", "STL", "BLK", "TOV", "+/-"],
-    shooting: ["Date", "Matchup", "Player", "Team", "FGM", "FGA", "FG%", "3PM", "3PA", "3P%", "FTM", "FTA", "FT%"],
-    rebounding: ["Date", "Matchup", "Player", "Team", "REB", "OREB", "DREB", "STL", "BLK", "+/-"]
+    production: ["Phase", "Date", "Round", "Matchup", "Player", "Team", "MIN", "PTS", "REB", "AST", "STL", "BLK", "TOV", "+/-"],
+    shooting: ["Phase", "Date", "Matchup", "Player", "Team", "FGM", "FGA", "FG%", "3PM", "3PA", "3P%", "FTM", "FTA", "FT%"],
+    rebounding: ["Phase", "Date", "Matchup", "Player", "Team", "REB", "OREB", "DREB", "STL", "BLK", "+/-"]
   }
 };
+const fieldGroupRules = [
+  ["summary", /(?:team|played|games|wins|losses|draws|percent|points|margin|streak|position|phase)/i],
+  ["efficiency", /(?:rating|efficien|percentage|rate|pace|possession|turnover|foul|free.throw)/i],
+  ["shooting", /(?:field.goal|three.point|free.throw|shoot|scoring|points|pts|fgm|fga|3pm|3pa|ftm|fta)/i],
+  ["rebounding", /(?:rebound|block|steal|defen|offen|plus.minus|\+\/-)/i],
+  ["boxscore", /(?:team|rebound|assist|turnover|minute|game|start|appear|player|position|jersey|height|weight|national|age|phase|steal|block|foul|plus.minus)/i],
+  ["production", /(?:assist|turnover|minute|game|start|appear|player|team|position|jersey|height|weight|national|age|phase)/i]
+];
 const groupLabels = {production:"Production", shooting:"Shooting", summary:"Summary", efficiency:"Efficiency", boxscore:"Rebounding & playmaking", rebounding:"Rebounding & defense"};
 const fieldLabels = {
   "Player": "Player", "Team": "Team", "Team code": "Team code", "Position": "Position",
+  "Phase": "Season phase", "phase": "Season phase",
   "GP": "GP", "GS": "GS", "MPG": "MPG", "PPG": "PPG", "RPG": "RPG", "APG": "APG",
   "SPG": "SPG", "BPG": "BPG", "TOV/G": "TOV/G", "FG%": "FG%", "3P%": "3P%", "FT%": "FT%",
   "eFG%": "eFG%", "TS%": "TS%", "AST/TOV": "AST/TOV", "Opponent PPG": "Opponent PPG",
@@ -109,6 +118,11 @@ const hiddenField = key => {
     || part.includes("blurhash") || part.includes("ticket")
     || (part === "name" && parts.length > 1 && !["team", "home_team", "away_team", "player"].includes(parts.at(-2))));
 };
+
+function columnGroup(key) {
+  for (const [group, pattern] of fieldGroupRules) if (pattern.test(key)) return group;
+  return "production";
+}
 
 function flatten(value, prefix = "", out = {}) {
   if (value == null) return out;
@@ -189,7 +203,9 @@ function friendlyRows(records, view = "") {
       const name = pick("Player", "player_name", "name", "display_name", "full_name") || "Name unavailable";
       const team = pick("Team", "team_name", "team · name", "team · team_name") || "—";
       const pos = pick("Position", "position", "playing_position", "player · position", "player · playing_position");
-      return { Player: name, Team: team, Position: pos, GP: gp, GS: gs, MPG: mpg, PPG: ppg, RPG: rpg, APG: apg,
+      const extras = Object.fromEntries(Object.entries(row).filter(([key, value]) =>
+        typeof value === "number" && !hiddenField(key)));
+      return { ...extras, Player: name, Team: team, Position: pos, GP: gp, GS: gs, MPG: mpg, PPG: ppg, RPG: rpg, APG: apg,
         SPG: spg, BPG: bpg, "TOV/G": tov, "FG%": fgPct, "3P%": threePct, "FT%": ftPct, "eFG%": efg, "TS%": ts, "AST/TOV": astTov };
     }
     if (view === "teams") {
@@ -218,7 +234,9 @@ function friendlyRows(records, view = "") {
       const rpg = number("rebounds_average", "rebounds_per_game", "RPG", "total_rebounds_average", "trb_avg");
       const apg = number("assists_average", "assists_per_game", "APG", "ast_avg");
       const tov = number("turnovers_average", "turnovers_per_game", "TOV/G", "tov_avg");
-      return { Team: name, "Team code": code, GP: gp, Wins: wins, Losses: losses, "Win %": winPct, PPG: ppg,
+      const extras = Object.fromEntries(Object.entries(row).filter(([key, value]) =>
+        typeof value === "number" && !hiddenField(key)));
+      return { ...extras, Team: name, "Team code": code, GP: gp, Wins: wins, Losses: losses, "Win %": winPct, PPG: ppg,
         "Opponent PPG": opp, "Point diff": pointDiff, Pace: pace, OffRtg: off, DefRtg: def,
         NetRtg: net, "eFG%": efg, "TS%": ts, "3P rate": threeRate, "FT rate": ftRate,
         RPG: rpg, APG: apg, "TOV/G": tov };
@@ -288,8 +306,8 @@ function labelFor(key) {
 
 function displayValue(key, value) {
   if (value == null || value === "") return "—";
-  const lower = key.toLowerCase();
-  if (typeof value === "number" && ["fg%", "3p%", "ft%", "efg%", "ts%", "win %"].includes(lower)) {
+  const lower = labelFor(key).toLowerCase();
+  if (typeof value === "number" && (["fg%", "3p%", "ft%", "efg%", "ts%", "win %"].includes(lower) || /%$/.test(lower))) {
     return (value <= 1 ? value * 100 : value).toFixed(1) + "%";
   }
   if (typeof value === "number" && ["3p rate", "ft rate"].includes(lower)) {
@@ -345,8 +363,10 @@ fetch("data/stats_index.json", { cache: "no-cache" })
       });
       const availableColumns = [...new Set(rows.flatMap(Object.keys))].filter(key => !hiddenField(key));
       const preferred = statGroups[view]?.[group] || viewStats[view] || [];
-      const columns = [...new Set(preferred.map(label => availableColumns.includes(label)
-        ? label : availableColumns.find(key => labelFor(key) === label)).filter(Boolean))];
+      const primary = preferred.map(label => availableColumns.includes(label)
+        ? label : availableColumns.find(key => labelFor(key) === label)).filter(Boolean);
+      const columns = [...new Set([...primary, ...availableColumns.filter(key =>
+        statGroups[view] ? columnGroup(key) === group : true)])];
       $("status").textContent = selected.length.toLocaleString() + " rows · " + columns.length
         + " readable fields · click a heading to sort · source checked " + (index.meta.updated_utc || "date unavailable")
         + (index.meta.errors?.length ? " · refresh warning; last cached data kept" : "");

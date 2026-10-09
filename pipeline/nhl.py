@@ -605,7 +605,7 @@ def _page(slug, label, title, intro):
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Public+Sans:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="../style.css"><link rel="stylesheet" href="nhl.css"></head>
 <body data-page="{slug}"><div class="wrap">
-<header class="site-head"><div class="sportbar"><span>SPORT</span><a href="../">NFL</a><a href="../nba/">NBA</a><a href="../nbl/">NBL</a><a href="./" aria-current="page">NHL</a></div>
+<header class="site-head"><div class="sportbar"><span>SPORT</span><a href="../">NFL</a><a href="../nba/">NBA</a><a href="../nbl/">NBL</a><a href="./" aria-current="page">NHL</a><a href="../afl/">AFL</a></div>
 <div class="brand"><a class="brand-name" href="./">NHL<span>Stats</span></a><span class="stamp" id="stamp">Loading latest update…</span></div>
 <nav class="nav nav-simple" aria-label="NHL sections">{nav}</nav></header>
 <main class="page" id="main"><div class="page-head"><h1>{html.escape(title)}</h1><p>{html.escape(intro)}</p></div>

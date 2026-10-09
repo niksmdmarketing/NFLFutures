@@ -383,15 +383,19 @@ def nbl():
     Gs, Ps, Ms = [], [], []
     for key, S in D["seasons"].items():
         y = int(key)
-        st = S.get("standings") or []
+        # the feed may hold regular-season and finals rows together (tagged by "phase"); the ladder is regular only
+        st = [r for r in (S.get("standings") or []) if str(r.get("phase", "Regular")).lower() == "regular"]
         if not st:
             continue
         code = lambda c: canon.get(c, c)
         reg_n = {code(r["team"]["team_code"]): int(r["won"]) + int(r["lost"]) for r in st}
         pos = {code(r["team"]["team_code"]): int(r["position"]) for r in st}
         names = {code(r["team"]["team_code"]): r["team"]["name"] for r in st}
-        rows = []
+        rows, seen_ids = [], set()
         for g in S.get("games") or []:
+            if g.get("id") in seen_ids:
+                continue
+            seen_ids.add(g.get("id"))
             if g.get("match_status") != "complete" or "CUP" in str(g.get("round", "")).upper():
                 continue
             h, a = code((g.get("home_team") or {}).get("team_code")), code((g.get("away_team") or {}).get("team_code"))

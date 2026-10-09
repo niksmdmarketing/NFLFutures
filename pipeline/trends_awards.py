@@ -444,10 +444,12 @@ def nbl(cur_label, cur, cur_ok):
     rows = []
     for k, S in D["seasons"].items():
         y = int(k)
-        st = S.get("standings") or []
+        st = [r for r in (S.get("standings") or []) if str(r.get("phase", "Regular")).lower() == "regular"]
         pos = {canon.get(r["team"]["team_code"], r["team"]["team_code"]): int(r["position"]) for r in st}
         L = max((int(r["won"]) + int(r["lost"]) for r in st), default=0)
         for p in S.get("leaders") or []:
+            if str(p.get("phase", "Regular")).lower() != "regular":
+                continue
             pl, tm = p.get("player") or {}, p.get("team") or {}
             code = canon.get(tm.get("team_code"), tm.get("team_code"))
             rows.append(dict(season=y, name=f"{pl.get('first_name', '')} {pl.get('last_name', '')}".strip(), team=code,
