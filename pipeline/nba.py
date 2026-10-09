@@ -55,6 +55,7 @@ RELEASE = "https://github.com/sportsdataverse/sportsdataverse-data/releases/down
 HFA = 2.2
 GAME_SIGMA = 12.2
 TEAM_TAU = 2.2
+_OPTIONAL_DOWNLOADS_BLOCKED = False
 
 
 def season_end_year(today: dt.date | None = None) -> int:
@@ -63,30 +64,45 @@ def season_end_year(today: dt.date | None = None) -> int:
 
 
 def _download(tag: str, name: str, max_age_h: float, required: bool = True) -> str | None:
+    global _OPTIONAL_DOWNLOADS_BLOCKED
     os.makedirs(NBA_DATA, exist_ok=True)
     path = os.path.join(NBA_DATA, name)
     if os.path.exists(path) and time.time() - os.path.getmtime(path) < max_age_h * 3600:
         return path
+    if not required and _OPTIONAL_DOWNLOADS_BLOCKED:
+        return path if os.path.exists(path) else None
     url = f"{RELEASE}/{tag}/{name}"
-    for attempt in range(4):
+    # A missing optional research feed must not hold the entire multi-sport
+    # refresh through repeated long timeouts. Existing cached data still wins.
+    attempts = 4 if required else 1
+    for attempt in range(attempts):
         try:
             req = urllib.request.Request(url, headers={"User-Agent": "SportsFutures/1.0"})
             tmp = path + ".part"
-            with urllib.request.urlopen(req, timeout=120) as response, open(tmp, "wb") as handle:
+            with urllib.request.urlopen(req, timeout=120 if required else 30) as response, open(tmp, "wb") as handle:
                 shutil.copyfileobj(response, handle, length=1024 * 1024)
             os.replace(tmp, path)
             return path
         except urllib.error.HTTPError as exc:
             if exc.code == 404 and not required:
                 return path if os.path.exists(path) else None
-            if attempt == 3 and required:
+            if not required and exc.code in (408, 425, 429, 500, 502, 503, 504):
+                _OPTIONAL_DOWNLOADS_BLOCKED = True
+                log("NBA optional source temporarily unavailable; skipping remaining optional downloads", exc)
+                return path if os.path.exists(path) else None
+            if attempt == attempts - 1 and required:
                 raise
-        except Exception:
-            if attempt == 3:
+        except Exception as exc:
+            if not required:
+                _OPTIONAL_DOWNLOADS_BLOCKED = True
+                log("NBA optional source unreachable; using cached files and skipping remaining optional downloads", exc)
+                return path if os.path.exists(path) else None
+            if attempt == attempts - 1:
                 if required:
                     raise
                 return path if os.path.exists(path) else None
-        time.sleep(4 * (attempt + 1))
+        if attempt < attempts - 1:
+            time.sleep(4 * (attempt + 1))
     return path if os.path.exists(path) else None
 
 
@@ -286,6 +302,216 @@ def _stats_data(team_boxes: pd.DataFrame, players: pd.DataFrame) -> tuple[list[d
                           "pf": float(r.fouls), "paint": float(r.points_in_paint), "fastbreak": float(r.fast_break_points),
                           "tov_pts": float(r.turnover_points)})
     return team_rows, player_rows, game_rows
+
+
+def _read_release_csv(tag: str, name: str, max_age_h: float) -> pd.DataFrame:
+    """Read a published CSV through the pipeline cache so refreshes are bounded."""
+    path = _download(tag, name, max_age_h, required=False)
+    if not path:
+        log("NBA advanced source unavailable", f"{tag}/{name}")
+        return pd.DataFrame()
+    try:
+        return _csv(path)
+    except Exception as exc:
+        log("NBA advanced CSV could not be parsed", f"{tag}/{name}", exc)
+        return pd.DataFrame()
+
+
+TEAM_ALIASES = {
+    "atlanta": "ATL", "hawks": "ATL", "brooklyn": "BKN", "nets": "BKN",
+    "boston": "BOS", "celtics": "BOS", "charlotte": "CHA", "hornets": "CHA",
+    "chicago": "CHI", "bulls": "CHI", "cleveland": "CLE", "cavaliers": "CLE",
+    "dallas": "DAL", "mavericks": "DAL", "denver": "DEN", "nuggets": "DEN",
+    "detroit": "DET", "pistons": "DET", "goldenstate": "GS", "warriors": "GS",
+    "houston": "HOU", "rockets": "HOU", "indiana": "IND", "pacers": "IND",
+    "laclippers": "LAC", "losangelesclippers": "LAC", "clippers": "LAC",
+    "losangeleslakers": "LAL", "lakers": "LAL", "memphis": "MEM", "grizzlies": "MEM",
+    "miami": "MIA", "heat": "MIA", "milwaukee": "MIL", "bucks": "MIL",
+    "minnesota": "MIN", "timberwolves": "MIN", "neworleans": "NO", "pelicans": "NO",
+    "newyork": "NY", "knicks": "NY", "oklahomacity": "OKC", "thunder": "OKC",
+    "orlando": "ORL", "magic": "ORL", "philadelphia": "PHI", "76ers": "PHI",
+    "phoenix": "PHX", "suns": "PHX", "portland": "POR", "trailblazers": "POR",
+    "sanantonio": "SA", "spurs": "SA", "sacramento": "SAC", "kings": "SAC",
+    "toronto": "TOR", "raptors": "TOR", "utah": "UTAH", "jazz": "UTAH",
+    "washington": "WSH", "wizards": "WSH",
+}
+TEAM_ALIASES.update({
+    "".join(ch for ch in name.lower() if ch.isalnum()): abbrev
+    for abbrev, name in NAMES.items()
+})
+
+
+def _team_abbreviation(row: pd.Series) -> str:
+    code = str(row.get("team_abbreviation", row.get("team_tricode", row.get("team", "")))).strip().upper()
+    if code in NAMES:
+        return code
+    name = "".join(ch for ch in str(row.get("team_name", row.get("team", ""))).lower() if ch.isalnum())
+    return TEAM_ALIASES.get(name, "")
+
+
+def _advanced_season_rows(frame: pd.DataFrame) -> pd.DataFrame:
+    """Keep one regular-season, per-game advanced-profile row per entity."""
+    if "season_type" in frame:
+        season_type = frame.season_type.astype(str).str.lower().str.replace(r"[-_]", " ", regex=True).str.strip()
+        frame = frame[season_type.isin({"regular season", "2"})]
+    if "measure_type" in frame:
+        frame = frame[frame.measure_type.astype(str).str.lower().eq("advanced")]
+    if "per_mode" in frame:
+        frame = frame[frame.per_mode.astype(str).str.lower().eq("pergame")]
+    return frame
+
+
+def _number(row: pd.Series, *keys: str) -> float | None:
+    for key in keys:
+        if key in row.index:
+            value = pd.to_numeric(pd.Series([row[key]]), errors="coerce").iloc[0]
+            if pd.notna(value):
+                return float(value)
+    return None
+
+
+def _shot_zone(row: pd.Series) -> str | None:
+    """Classify NBA Stats shot coordinates into stable, interpretable zones."""
+    action = str(row.get("action_type", "")).lower()
+    if "shot" not in action:
+        return None
+    distance = pd.to_numeric(pd.Series([row.get("shot_distance")]), errors="coerce").iloc[0]
+    x = pd.to_numeric(pd.Series([row.get("x_legacy")]), errors="coerce").iloc[0]
+    y = pd.to_numeric(pd.Series([row.get("y_legacy")]), errors="coerce").iloc[0]
+    value = pd.to_numeric(pd.Series([row.get("shot_value")]), errors="coerce").iloc[0]
+    if pd.notna(value) and value == 3:
+        if pd.notna(x) and pd.notna(y) and abs(float(x)) >= 220 and abs(float(y)) <= 100:
+            return "Corner 3"
+        return "Above-break 3"
+    if pd.notna(distance) and distance <= 4:
+        return "At rim (0–4 ft)"
+    if pd.notna(distance) and distance <= 10:
+        return "Short paint (5–10 ft)"
+    if pd.notna(distance) and distance <= 16:
+        return "Mid-range (11–16 ft)"
+    if pd.notna(distance) and distance <= 22:
+        return "Long mid-range (17–22 ft)"
+    return "Other 2"
+
+
+def _advanced_data(end_year: int) -> tuple[list[dict], list[dict], list[dict], dict]:
+    """Fetch compact NBA Stats-derived team/player advanced profiles and shots.
+
+    Only derived aggregates are written to the site. Raw shot-by-shot and
+    dashboard releases stay in the upstream repository and local cache.
+    """
+    team_rows: list[dict] = []
+    player_rows: list[dict] = []
+    shot_rows: list[dict] = []
+    team_years: set[int] = set()
+    player_years: set[int] = set()
+    shot_years: set[int] = set()
+    source = "SportsDataverse NBA Stats releases (NBA Stats-derived)"
+    for year in range(max(1997, end_year - 10), end_year + 1):
+        historical = year < end_year - 1
+        cache_age = 24 * 365 if historical else (24 if year == end_year - 1 else 2)
+        team = _read_release_csv("nba_stats_team_season_stats", f"team_season_stats_{year}.csv", cache_age)
+        if len(team):
+            team = _advanced_season_rows(team)
+            if len(team):
+                team_years.add(year)
+            for _, r in team.iterrows():
+                abbrev = _team_abbreviation(r)
+                if abbrev not in NAMES:
+                    continue
+                team_rows.append({
+                    "season": year, "season_type": 2, "team": abbrev, "name": NAMES[abbrev],
+                    "gp": _number(r, "gp"), "wins": _number(r, "w"), "win_pct": _number(r, "w_pct"),
+                    "off_rating": _number(r, "off_rating", "e_off_rating"),
+                    "def_rating": _number(r, "def_rating", "e_def_rating"),
+                    "net_rating": _number(r, "net_rating", "e_net_rating"), "pace": _number(r, "pace", "e_pace"),
+                    "efg_pct": _number(r, "efg_pct"),
+                    "ts_pct": _number(r, "ts_pct", "true_shooting_percentage"),
+                    "tov_pct": _number(r, "tm_tov_pct"), "orb_pct": _number(r, "oreb_pct"),
+                    "dreb_pct": _number(r, "dreb_pct"), "assist_pct": _number(r, "ast_pct"),
+                    "assist_to_turnover": _number(r, "ast_to"), "assist_ratio": _number(r, "ast_ratio"),
+                    "pie": _number(r, "pie"), "points_off_turnovers": _number(r, "pts_off_tov"),
+                    "second_chance_points": _number(r, "pts_2nd_chance"), "fastbreak_points": _number(r, "pts_fb"),
+                    "paint_points": _number(r, "pts_paint"), "opponent_points_off_turnovers": _number(r, "opp_pts_off_tov"),
+                    "opponent_second_chance_points": _number(r, "opp_pts_2nd_chance"),
+                    "opponent_fastbreak_points": _number(r, "opp_pts_fb"), "opponent_paint_points": _number(r, "opp_pts_paint"),
+                    "source": source,
+                })
+
+        player = _read_release_csv("nba_stats_player_season_stats", f"player_season_stats_{year}.csv", cache_age)
+        if len(player):
+            player = _advanced_season_rows(player)
+            if len(player):
+                player_years.add(year)
+            for _, r in player.iterrows():
+                abbrev = _team_abbreviation(r)
+                if abbrev not in NAMES:
+                    continue
+                player_name = str(r.get("player_name", r.get("player", ""))).strip()
+                if not player_name:
+                    continue
+                player_rows.append({
+                    "season": year, "season_type": 2, "team": abbrev, "player": player_name,
+                    "player_id": str(r.get("player_id", "")), "gp": _number(r, "gp"), "minutes": _number(r, "min"),
+                    "usage_pct": _number(r, "usg_pct", "e_usg_pct"),
+                    "off_rating": _number(r, "off_rating", "e_off_rating"),
+                    "def_rating": _number(r, "def_rating", "e_def_rating"),
+                    "net_rating": _number(r, "net_rating", "e_net_rating"), "ts_pct": _number(r, "ts_pct"),
+                    "efg_pct": _number(r, "efg_pct"), "assist_pct": _number(r, "ast_pct"),
+                    "assist_to_turnover": _number(r, "ast_to"), "assist_ratio": _number(r, "ast_ratio"),
+                    "off_rebound_pct": _number(r, "oreb_pct"), "def_rebound_pct": _number(r, "dreb_pct"),
+                    "rebound_pct": _number(r, "reb_pct"), "turnover_pct": _number(r, "tm_tov_pct", "e_tov_pct"),
+                    "pace": _number(r, "pace", "e_pace"), "pie": _number(r, "pie"), "possessions": _number(r, "poss"),
+                    "source": source,
+                })
+
+        # Shot-zone breakdowns are compact and useful for team style and
+        # shooting-efficiency context. Keep only aggregate zones, never raw shots.
+        shots = _read_release_csv("nba_stats_shots", f"shots_{year}.csv", cache_age)
+        if len(shots):
+            team_col = next((c for c in ("team_tricode", "team_abbreviation") if c in shots), None)
+            made_col = "shot_result" if "shot_result" in shots else None
+            if team_col and made_col and "shot_value" in shots:
+                s = shots.copy()
+                if "season_type_id" in s:
+                    s = s[pd.to_numeric(s.season_type_id, errors="coerce").eq(2)]
+                if "season_type" in s:
+                    s = s[s.season_type.astype(str).str.lower().isin({"regular season", "2"})]
+                s[team_col] = s[team_col].astype(str).str.upper()
+                s["made"] = s[made_col].astype(str).str.lower().eq("made").astype(int)
+                s["shot_value"] = pd.to_numeric(s["shot_value"], errors="coerce")
+                action_shot = s.action_type.astype(str).str.contains("shot", case=False, na=False)
+                distance = pd.to_numeric(s.get("shot_distance"), errors="coerce")
+                x = pd.to_numeric(s.get("x_legacy"), errors="coerce")
+                y = pd.to_numeric(s.get("y_legacy"), errors="coerce")
+                two = s.shot_value.eq(2) & action_shot
+                three = s.shot_value.eq(3) & action_shot
+                corner = three & x.abs().ge(220) & y.abs().le(100)
+                s["zone"] = np.select(
+                    [corner, three, two & distance.le(4), two & distance.gt(4) & distance.le(10),
+                     two & distance.gt(10) & distance.le(16), two & distance.gt(16) & distance.le(22)],
+                    ["Corner 3", "Above-break 3", "At rim (0–4 ft)", "Short paint (5–10 ft)",
+                     "Mid-range (11–16 ft)", "Long mid-range (17–22 ft)"],
+                    default="Other 2")
+                s = s[s[team_col].isin(NAMES) & action_shot & s.zone.notna() & s.shot_value.isin([2, 3])]
+                if len(s):
+                    shot_years.add(year)
+                for (abbr, zone), g in s.groupby([team_col, "zone"]):
+                    attempts = len(g)
+                    if attempts < 1:
+                        continue
+                    shot_rows.append({"season": year, "season_type": 2, "team": abbr,
+                                      "name": NAMES[abbr], "zone": str(zone), "attempts": attempts,
+                                      "makes": int(g.made.sum()), "fg_pct": float(g.made.mean()),
+                                      "source": source})
+    counts = {"team_advanced_rows": len(team_rows),
+              "player_advanced_rows": len(player_rows),
+              "shot_zone_rows": len(shot_rows), "source": source,
+              "coverage_start": max(1997, end_year - 10), "coverage_end": end_year,
+              "team_seasons": sorted(team_years), "player_seasons": sorted(player_years),
+              "shot_seasons": sorted(shot_years),
+              "status": "available" if team_rows or player_rows or shot_rows else "unavailable"}
+    return team_rows, player_rows, shot_rows, counts
 
 
 def _bool(series: pd.Series) -> pd.Series:
@@ -602,6 +828,7 @@ def build_data() -> None:
     values = _player_values(prior_players)
     ratings, player_rows = _roster_adjustment(ratings, values, prior_roster, current_roster)
     team_stats, player_stats, team_games = _stats_data(boxes, players)
+    advanced_teams, advanced_players, shot_zones, advanced_meta = _advanced_data(end_year)
     schedule = _schedule(raw_schedule)
     if len(schedule) < 1200:
         raise RuntimeError(f"NBA schedule is incomplete ({len(schedule)} regular-season games)")
@@ -629,10 +856,16 @@ def build_data() -> None:
     write_json("nba_players.json", {"rows": player_rows})
     write_json("nba_games.json", {"rows": _game_rows(schedule, ratings)})
     write_json("nba_team_stats.json", {"rows": team_stats})
+    write_json("nba_advanced_team_stats.json", {"rows": advanced_teams})
+    write_json("nba_advanced_player_stats.json", {"rows": advanced_players})
+    write_json("nba_shot_zones.json", {"rows": shot_zones})
+    write_json("nba_advanced_meta.json", {**advanced_meta, "updated_utc": now})
     write_json("nba_stats_index.json", {"seasons": {
         "teams": sorted({r["season"] for r in team_stats}, reverse=True),
         "players": sorted({r["season"] for r in player_stats}, reverse=True),
-        "games": sorted({r["season"] for r in team_games}, reverse=True)}})
+        "games": sorted({r["season"] for r in team_games}, reverse=True),
+        "advanced": sorted({r["season"] for r in advanced_teams}, reverse=True),
+        "shots": sorted({r["season"] for r in shot_zones}, reverse=True)}})
     for year in sorted({r["season"] for r in player_stats}):
         write_json(f"nba_player_stats_{year}.json", {"rows": [r for r in player_stats if r["season"] == year]})
     for year in sorted({r["season"] for r in team_games}):
@@ -650,5 +883,7 @@ def build_site() -> None:
         for path in glob.glob(os.path.join(OUT, prefix + "*.json")):
             name = os.path.basename(path)
             shutil.copy(path, os.path.join(NBA_SITE, "data", name.removeprefix("nba_")))
-    for name in ("index.html", "stats.html", "ratings.html", "players.html", "games.html", "methodology.html"):
+    for name in ("nba_advanced_team_stats.json", "nba_advanced_player_stats.json", "nba_shot_zones.json", "nba_advanced_meta.json"):
+        shutil.copy(os.path.join(OUT, name), os.path.join(NBA_SITE, "data", name.removeprefix("nba_")))
+    for name in ("index.html", "stats.html", "advanced.html", "ratings.html", "players.html", "games.html", "methodology.html"):
         shutil.copy(os.path.join(NBA_SRC, name), os.path.join(NBA_SITE, name))
