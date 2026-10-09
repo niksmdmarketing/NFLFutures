@@ -15,8 +15,8 @@ const viewStats = {
   leaders: ["Player", "Team", "Position", "GP", "MPG", "PPG", "RPG", "APG", "SPG", "BPG", "TOV/G", "FG%", "3P%", "FT%"],
   teams: ["Team", "Team code", "GP", "Wins", "Losses", "PPG", "RPG", "APG", "FG%", "3P%", "FT%"],
   standings: ["Team", "Team code", "Position", "Wins", "Losses", "GP", "Win %", "Points for", "Points against", "Last 5"],
-  games: ["Date", "Round", "Home team", "Home score", "Away team", "Away score", "Status", "Venue"],
-  players: ["Player", "Team", "Team code", "Position", "Jersey"]
+  games: ["Date", "Round", "Matchup", "Home score", "Away score", "Status", "Venue"],
+  players: ["Player", "Team", "Position", "Jersey", "Height", "Weight", "Nationality"]
 };
 const fieldLabels = {
   "player · first_name": "First name", "player · last_name": "Last name",
@@ -44,7 +44,16 @@ const fieldLabels = {
   "home_team_name": "Home team", "away_team_name": "Away team",
   "home_team · name": "Home team", "away_team · name": "Away team",
   "home_team · team_code": "Home code", "away_team · team_code": "Away code",
-  "match_round": "Round", "venue_name": "Venue", "venue": "Venue"
+  "match_round": "Round", "round_number": "Round", "venue_name": "Venue", "venue": "Venue",
+  "home_team · team_name": "Home team", "away_team · team_name": "Away team",
+  "home_team · display_name": "Home team", "away_team · display_name": "Away team",
+  "home_team · team_nickname": "Home team", "away_team · team_nickname": "Away team",
+  "home_team_score": "Home score", "away_team_score": "Away score",
+  "home_score": "Home score", "away_score": "Away score",
+  "player · jersey_number": "Jersey", "player · position": "Position",
+  "player · playing_position": "Position", "player · height": "Height", "player · weight": "Weight",
+  "player · nationality": "Nationality", "player · country": "Nationality",
+  "nationality": "Nationality", "country": "Nationality", "height": "Height", "weight": "Weight"
 };
 const hiddenField = key => {
   const parts = key.toLowerCase().split(" · ");
@@ -78,7 +87,7 @@ function flatten(value, prefix = "", out = {}) {
   return out;
 }
 
-function friendlyRows(records) {
+function friendlyRows(records, view = "") {
   return records.map(record => {
     const row = flatten(record);
     const first = row["player · first_name"] || row.first_name || "";
@@ -98,6 +107,32 @@ function friendlyRows(records) {
     if (!row.Team && row.name && row["Team code"]) row.Team = row.name;
     for (const key of ["team · name", "team · team_name", "team · team_code", "team · team_nickname", "team_code", "abbreviation", "season · year", "season · season_type"]) delete row[key];
     if (row.name && row.Team) delete row.name;
+    if (view === "games") {
+      const pick = (...keys) => keys.map(key => row[key]).find(value => value != null && value !== "");
+      const home = pick("Home team", "home_team_name", "home_team · name", "home_team · team_name", "home_team · display_name", "home_team · team_nickname", "home_team · team_code");
+      const away = pick("Away team", "away_team_name", "away_team · name", "away_team · team_name", "away_team · display_name", "away_team · team_nickname", "away_team · team_code");
+      const homeScore = pick("Home score", "home_team_score", "home_score", "home_team · score");
+      const awayScore = pick("Away score", "away_team_score", "away_score", "away_team · score");
+      const date = pick("Date", "scheduled_start", "match_date", "date", "start_time");
+      const round = pick("Round", "match_round", "round_number", "round");
+      const status = pick("Status", "match_status", "status", "state");
+      const venue = pick("Venue", "venue_name", "venue · name", "venue");
+      return { Date: date, Round: round, Matchup: [home, away].filter(Boolean).join(" vs "), "Home score": homeScore,
+        "Away score": awayScore, Status: status, Venue: venue };
+    }
+    if (view === "players") {
+      const pick = (...keys) => keys.map(key => row[key]).find(value => value != null && value !== "");
+      const player = pick("Player", "player_name", "name", "display_name", "full_name");
+      const team = pick("Team", "team_name", "team · name", "team · team_name");
+      const position = pick("Position", "position", "playing_position", "player · position", "player · playing_position");
+      const jersey = pick("Jersey", "jersey_number", "player · jersey_number", "shirt_number");
+      const height = pick("Height", "height", "player · height");
+      const weight = pick("Weight", "weight", "player · weight");
+      const nationality = pick("Nationality", "nationality", "country", "player · nationality", "player · country");
+      const code = pick("Team code", "team_code", "team · team_code", "abbreviation");
+      return { Player: player, Team: team, Position: position, Jersey: jersey, Height: height, Weight: weight, Nationality: nationality,
+        ...(code ? { "Team code": code } : {}) };
+    }
     return row;
   });
 }
@@ -179,7 +214,7 @@ fetch("data/stats_index.json", { cache: "no-cache" })
         + esc(viewLabels[key] || key.replaceAll("_", " ")) + " (" + value.length + ")</option>").join("");
       view = available.some(([key]) => key === "leaders") ? "leaders" : available[0]?.[0];
       dataset.value = view;
-      rows = friendlyRows(data[view] || []);
+      rows = friendlyRows(data[view] || [], view);
       sort = { key: "", dir: -1 };
       render();
     }
@@ -192,7 +227,7 @@ fetch("data/stats_index.json", { cache: "no-cache" })
     season.onchange = update;
     dataset.onchange = () => {
       view = dataset.value;
-      rows = friendlyRows((seasons[season.value] || {})[view] || []);
+      rows = friendlyRows((seasons[season.value] || {})[view] || [], view);
       sort = { key: "", dir: -1 };
       render();
     };
