@@ -11,6 +11,13 @@ const viewLabels = {
   players: "Player directory"
 };
 const preferredViews = ["leaders", "teams", "games", "standings", "players"];
+const viewStats = {
+  leaders: ["Player", "Team", "Position", "GP", "MPG", "PPG", "RPG", "APG", "SPG", "BPG", "TOV/G", "FG%", "3P%", "FT%"],
+  teams: ["Team", "Team code", "GP", "Wins", "Losses", "PPG", "RPG", "APG", "FG%", "3P%", "FT%"],
+  standings: ["Team", "Team code", "Position", "Wins", "Losses", "GP", "Win %", "Points for", "Points against", "Last 5"],
+  games: ["Date", "Round", "Home team", "Home score", "Away team", "Away score", "Status", "Venue"],
+  players: ["Player", "Team", "Team code", "Position", "Jersey"]
+};
 const fieldLabels = {
   "player · first_name": "First name", "player · last_name": "Last name",
   "player · display_name": "Player", "player · full_name": "Player",
@@ -45,7 +52,9 @@ const hiddenField = key => {
   return parts.some(part => /(^|_)(id|uuid|external_id)$/.test(part)
     || /(^|_)(logo|logo_transparent|ticket_url|blurhash|color_primary|color_secondary|color_tertiary)$/.test(part)
     || /(^|_)(image|photo|avatar|url|uri)$/.test(part)
-    || part.includes("odds"));
+    || part.includes("odds") || part.includes("external") || part.includes("color")
+    || part.includes("blurhash") || part.includes("ticket")
+    || (part === "name" && parts.length > 1 && !["team", "home_team", "away_team", "player"].includes(parts.at(-2))));
 };
 
 function flatten(value, prefix = "", out = {}) {
@@ -140,12 +149,12 @@ fetch("data/stats_index.json", { cache: "no-cache" })
         return (Number.isFinite(aNum) && Number.isFinite(bNum)
           ? aNum - bNum : String(left).localeCompare(String(right))) * sort.dir;
       });
-      const columns = [...new Set(selected.flatMap(Object.keys))].filter(key => !hiddenField(key));
-      const preferred = ["Player", "Team", "Team code", "Position", "Jersey", "Position", "Wins", "Losses", "GP"];
-      columns.sort((a, b) => {
-        const ai = preferred.indexOf(labelFor(a)), bi = preferred.indexOf(labelFor(b));
-        return (ai < 0 ? 100 : ai) - (bi < 0 ? 100 : bi);
-      });
+      const availableColumns = [...new Set(selected.flatMap(Object.keys))].filter(key => !hiddenField(key));
+      const preferred = viewStats[view] || [];
+      const columns = [
+        ...preferred.map(label => availableColumns.find(key => labelFor(key) === label)).filter(Boolean),
+        ...availableColumns.filter(key => !preferred.includes(labelFor(key)))
+      ];
       $("status").textContent = selected.length.toLocaleString() + " rows · " + columns.length
         + " readable fields · click a heading to sort · source checked " + (index.meta.updated_utc || "date unavailable")
         + (index.meta.errors?.length ? " · refresh warning; last cached data kept" : "");
