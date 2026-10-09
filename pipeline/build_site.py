@@ -80,7 +80,7 @@ def page_html(slug, label, title, intro, script, data):
 <body{data_attr}>
 <div class="wrap">
   <header class="site-head">
-    <div class="sportbar"><span>SPORT</span><a href="./" aria-current="page">NFL</a><a href="nba/">NBA</a></div>
+    <div class="sportbar"><span>SPORT</span><a href="./" aria-current="page">NFL</a><a href="nba/">NBA</a><a href="nbl/">NBL</a></div>
     <div class="brand"><a class="brand-name" href="./">NFL<span>Futures</span></a><span class="stamp" id="stamp">Loading latest update…</span></div>
     <nav class="nav" aria-label="Sections">{nav(slug)}</nav>
   </header>

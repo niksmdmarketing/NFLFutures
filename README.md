@@ -1,9 +1,9 @@
-# Sports Futures — NFL and NBA
+# Sports Futures — NFL, NBA and NBL
 
-A private NFL and NBA stats and futures site. Every 3 hours a GitHub Actions job downloads fresh public data from
-[nflverse](https://github.com/nflverse/nflverse-data) and SportsDataverse's ESPN-derived basketball releases,
-rebuilds both models and pushes a static site to the `published` branch, which Cloudflare Pages serves behind
-Cloudflare Access. The existing NFL pages remain at the root; NBA lives under `/nba/` and a sport switcher joins them.
+A private NFL, NBA and NBL stats and futures site. Every 3 hours a GitHub Actions job downloads fresh public data from
+[nflverse](https://github.com/nflverse/nflverse-data), SportsDataverse's ESPN-derived NBA releases, and the NBL's public statistics feed,
+rebuilds the models and pushes a static site to the `published` branch, which Cloudflare Pages serves behind
+Cloudflare Access. NFL remains at the root, with NBA under `/nba/` and NBL under `/nbl/`; a sport switcher joins all three.
 
 ## Pages
 
@@ -41,6 +41,12 @@ Cloudflare Access. The existing NFL pages remain at the root; NBA lives under `/
 | Games | Upcoming game win probabilities and recent results |
 | Methodology | Inputs, simulation rules and limitations |
 
+### NBL
+
+| Page | What it shows |
+|---|---|
+| Stats | Up to 15 available seasons of NBL team stats, player leaders, rosters, standings and game results; the active season refreshes every three hours |
+
 ## Layout
 
 ```
@@ -56,6 +62,7 @@ pipeline/       Python: run.py orchestrates everything
   stats.py      stat pages (history + current season)
   build_site.py assembles site/ from site_src/ and build/*.json
   nba.py        NBA downloads, ten-season box-score stats, ratings, roster adjustment, simulation and `/nba/` site output
+  nbl.py        NBL public feed, cached historical seasons and `/nbl/` stats explorer
 model/settings.json   frozen model parameters (fitted offline, see below)
 site_src/       HTML fragments, CSS and JavaScript for the pages
 .github/workflows/refresh.yml   the scheduled job
