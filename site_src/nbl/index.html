@@ -1,3 +1,51 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>NBL stats · NFLFutures</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Public+Sans:wght@400;500;600&display=swap"><link rel="stylesheet" href="../style.css"><style>
-.data-tools{display:flex;gap:12px;flex-wrap:wrap;align-items:end;margin:18px 0}.data-tools .field{display:grid;gap:6px}.data-tools label{font-size:12px;color:var(--muted,#89929c)}.data-tools select,.data-tools input{padding:10px 12px;min-width:180px;border:1px solid var(--line,#29313a);border-radius:6px;background:var(--panel,#11161b);color:inherit}.data-status{margin:8px 0 16px;color:var(--muted,#89929c);font-size:13px}.data-wrap{overflow:auto;max-height:72vh;border:1px solid var(--line,#29313a);border-radius:8px}.data-wrap table{border-collapse:collapse;min-width:100%;font-size:12px;white-space:nowrap}.data-wrap th,.data-wrap td{padding:8px 10px;border-bottom:1px solid var(--line,#29313a);text-align:right}.data-wrap th{position:sticky;top:0;background:#151b20;cursor:pointer;z-index:1}.data-wrap th:first-child,.data-wrap td:first-child{text-align:left}.data-wrap td{max-width:280px;overflow:hidden;text-overflow:ellipsis}.data-warning{color:#e8b26b}
-</style></head><body><div class="wrap"><header class="site-head"><div class="sportbar"><span>SPORT</span><a href="../">NFL</a><a href="../nba/">NBA</a><a href="./" aria-current="page">NBL</a></div><div class="brand"><a class="brand-name" href="../">NFL<span>Futures</span></a><span class="stamp" id="stamp">Loading NBL data…</span></div><nav class="nav nav-simple" aria-label="NBL sections"><a href="./" aria-current="page">Stats</a><a href="../nba/stats.html">NBA Stats</a></nav></header><main class="page" id="main"><div class="page-head"><h1>NBL stats explorer</h1><p>Season-by-season teams, player leaders, rosters, standings and game results, refreshed automatically. No odds are included.</p></div><div class="data-tools"><div class="field"><label for="season">Season</label><select id="season"></select></div><div class="field"><label for="dataset">Data view</label><select id="dataset"></select></div><div class="field"><label for="search">Search rows</label><input id="search" type="search" placeholder="Player or team"></div></div><p class="data-status" id="status">Loading…</p><div class="data-wrap"><table><thead id="head"></thead><tbody id="body"></tbody></table></div><p class="footnote">Data source: public NBL stats feed. Coverage and available categories vary by season. The source API is not a paid odds feed; no betting prices are collected.</p></main><footer class="stamp">Independent stats research, not betting advice.</footer></div><script src="stats.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>NBL stats · NFLFutures</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Public+Sans:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .data-tools{display:flex;gap:12px;flex-wrap:wrap;align-items:end;margin:18px 0}
+    .data-tools .field{display:grid;gap:6px}
+    .data-tools label{font-size:12px;color:var(--muted,#89929c)}
+    .data-tools select,.data-tools input{padding:10px 12px;min-width:180px;border:1px solid var(--line,#29313a);border-radius:6px;background:var(--panel,#11161b);color:inherit}
+    .data-status{margin:8px 0 16px;color:var(--muted,#89929c);font-size:13px}
+    .data-wrap{overflow:auto;max-height:72vh;border:1px solid var(--line,#29313a);border-radius:8px}
+    .data-wrap table{border-collapse:collapse;min-width:100%;font-size:12px;white-space:nowrap}
+    .data-wrap th,.data-wrap td{padding:8px 10px;border-bottom:1px solid var(--line,#29313a);text-align:right}
+    .data-wrap th{position:sticky;top:0;background:#151b20;cursor:pointer;z-index:1}
+    .data-wrap th:first-child,.data-wrap td:first-child{text-align:left}
+    .data-wrap td{max-width:280px;overflow:hidden;text-overflow:ellipsis}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="site-head">
+      <div class="sportbar"><span>SPORT</span><a href="../">NFL</a><a href="../nba/">NBA</a><a href="./" aria-current="page">NBL</a></div>
+      <div class="brand"><a class="brand-name" href="../">NFL<span>Futures</span></a><span class="stamp" id="stamp">Loading NBL data…</span></div>
+      <nav class="nav nav-simple" aria-label="NBL sections"><a href="./" aria-current="page">Stats</a><a href="../nba/stats.html">NBA Stats</a></nav>
+    </header>
+    <main class="page" id="main">
+      <div class="page-head">
+        <h1>NBL stats</h1>
+        <p>Player leaders, team season stats, game results, standings and player lists. Player leaders are shown first; use the view selector for the rest. No odds are included.</p>
+      </div>
+      <div class="data-tools">
+        <div class="field"><label for="season">Season</label><select id="season"></select></div>
+        <div class="field"><label for="dataset">Stats view</label><select id="dataset"></select></div>
+        <div class="field"><label for="search">Find a player or team</label><input id="search" type="search" placeholder="Type a name or team"></div>
+      </div>
+      <p class="data-status" id="status">Loading…</p>
+      <div class="data-wrap"><table><thead id="head"></thead><tbody id="body"></tbody></table></div>
+      <p class="footnote">Click a column heading to sort. Only readable basketball stats and team/player details are shown; feed IDs, artwork metadata and odds are omitted. Historical coverage varies by category.</p>
+    </main>
+    <footer class="stamp">Independent stats research, not betting advice.</footer>
+  </div>
+  <script src="stats.js"></script>
+</body>
+</html>
