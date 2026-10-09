@@ -36,14 +36,21 @@ const statGroups = {
     rebounding: ["Phase", "Date", "Matchup", "Player", "Team", "REB", "OREB", "DREB", "STL", "BLK", "+/-"]
   }
 };
-const fieldGroupRules = [
-  ["summary", /(?:team|played|games|wins|losses|draws|percent|points|margin|streak|position|phase)/i],
-  ["efficiency", /(?:rating|efficien|percentage|rate|pace|possession|turnover|foul|free.throw)/i],
-  ["shooting", /(?:field.goal|three.point|free.throw|shoot|scoring|points|pts|fgm|fga|3pm|3pa|ftm|fta)/i],
-  ["rebounding", /(?:rebound|block|steal|defen|offen|plus.minus|\+\/-)/i],
-  ["boxscore", /(?:team|rebound|assist|turnover|minute|game|start|appear|player|position|jersey|height|weight|national|age|phase|steal|block|foul|plus.minus)/i],
-  ["production", /(?:assist|turnover|minute|game|start|appear|player|team|position|jersey|height|weight|national|age|phase)/i]
-];
+function columnGroup(key, view) {
+  const field = (key + " " + labelFor(key)).toLowerCase();
+  if (view === "leaders") return /(?:field.goal|three.point|free.throw|shoot|fgm|fga|3pm|3pa|ftm|fta|efg|ts%|percentage)/i.test(field) ? "shooting" : "production";
+  if (view === "teams") {
+    if (/(?:rating|efficien|percentage|rate|pace|possession)/i.test(field)) return "efficiency";
+    if (/(?:rebound|assist|turnover|block|steal|foul|\+\/|-)/i.test(field)) return "boxscore";
+    return "summary";
+  }
+  if (view === "boxscores") {
+    if (/(?:field.goal|three.point|free.throw|shoot|fgm|fga|3pm|3pa|ftm|fta|percentage)/i.test(field)) return "shooting";
+    if (/(?:rebound|block|steal|defen|offen|plus.minus|\+\/|-)/i.test(field)) return "rebounding";
+    return "production";
+  }
+  return "production";
+}
 const groupLabels = {production:"Production", shooting:"Shooting", summary:"Summary", efficiency:"Efficiency", boxscore:"Rebounding & playmaking", rebounding:"Rebounding & defense"};
 const fieldLabels = {
   "Player": "Player", "Team": "Team", "Team code": "Team code", "Position": "Position",
@@ -118,11 +125,6 @@ const hiddenField = key => {
     || part.includes("blurhash") || part.includes("ticket")
     || (part === "name" && parts.length > 1 && !["team", "home_team", "away_team", "player"].includes(parts.at(-2))));
 };
-
-function columnGroup(key) {
-  for (const [group, pattern] of fieldGroupRules) if (pattern.test(key)) return group;
-  return "production";
-}
 
 function flatten(value, prefix = "", out = {}) {
   if (value == null) return out;
@@ -200,12 +202,13 @@ function friendlyRows(records, view = "") {
       const ts = directTs ?? (pointsForEfficiency != null && fga != null && fta != null && fga + 0.44 * fta > 0
         ? 100 * pointsForEfficiency / (2 * (fga + 0.44 * fta)) : null);
       const astTov = assists != null && turnovers > 0 ? assists / turnovers : null;
+      const phase = pick("Phase", "phase", "season · season_type");
       const name = pick("Player", "player_name", "name", "display_name", "full_name") || "Name unavailable";
       const team = pick("Team", "team_name", "team · name", "team · team_name") || "—";
       const pos = pick("Position", "position", "playing_position", "player · position", "player · playing_position");
       const extras = Object.fromEntries(Object.entries(row).filter(([key, value]) =>
         typeof value === "number" && !hiddenField(key)));
-      return { ...extras, Player: name, Team: team, Position: pos, GP: gp, GS: gs, MPG: mpg, PPG: ppg, RPG: rpg, APG: apg,
+      return { ...extras, Phase: phase, Player: name, Team: team, Position: pos, GP: gp, GS: gs, MPG: mpg, PPG: ppg, RPG: rpg, APG: apg,
         SPG: spg, BPG: bpg, "TOV/G": tov, "FG%": fgPct, "3P%": threePct, "FT%": ftPct, "eFG%": efg, "TS%": ts, "AST/TOV": astTov };
     }
     if (view === "teams") {
@@ -234,9 +237,10 @@ function friendlyRows(records, view = "") {
       const rpg = number("rebounds_average", "rebounds_per_game", "RPG", "total_rebounds_average", "trb_avg");
       const apg = number("assists_average", "assists_per_game", "APG", "ast_avg");
       const tov = number("turnovers_average", "turnovers_per_game", "TOV/G", "tov_avg");
+      const phase = pick("Phase", "phase", "season · season_type");
       const extras = Object.fromEntries(Object.entries(row).filter(([key, value]) =>
         typeof value === "number" && !hiddenField(key)));
-      return { ...extras, Team: name, "Team code": code, GP: gp, Wins: wins, Losses: losses, "Win %": winPct, PPG: ppg,
+      return { ...extras, Phase: phase, Team: name, "Team code": code, GP: gp, Wins: wins, Losses: losses, "Win %": winPct, PPG: ppg,
         "Opponent PPG": opp, "Point diff": pointDiff, Pace: pace, OffRtg: off, DefRtg: def,
         NetRtg: net, "eFG%": efg, "TS%": ts, "3P rate": threeRate, "FT rate": ftRate,
         RPG: rpg, APG: apg, "TOV/G": tov };
@@ -365,8 +369,10 @@ fetch("data/stats_index.json", { cache: "no-cache" })
       const preferred = statGroups[view]?.[group] || viewStats[view] || [];
       const primary = preferred.map(label => availableColumns.includes(label)
         ? label : availableColumns.find(key => labelFor(key) === label)).filter(Boolean);
-      const columns = [...new Set([...primary, ...availableColumns.filter(key =>
-        statGroups[view] ? columnGroup(key) === group : true)])];
+      const candidates = [...new Set([...primary, ...availableColumns.filter(key =>
+        statGroups[view] ? columnGroup(key, view) === group : true)])];
+      const columns = candidates.filter((key, i) =>
+        candidates.findIndex(candidate => labelFor(candidate) === labelFor(key)) === i);
       $("status").textContent = selected.length.toLocaleString() + " rows · " + columns.length
         + " readable fields · click a heading to sort · source checked " + (index.meta.updated_utc || "date unavailable")
         + (index.meta.errors?.length ? " · refresh warning; last cached data kept" : "");

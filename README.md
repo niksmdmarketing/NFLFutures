@@ -59,7 +59,7 @@ NHL pages cover standings, futures, team and player statistics, awards and game 
 
 | Page | What it shows |
 |---|---|
-| Stats & history | AFL Tables match results, quarter scoring, team season profiles and player season totals; Brownlow vote and goal leader indicators; Footywire player/team match statistics including contested/uncontested possessions, disposal efficiency, clearances, score involvements, metres gained, intercepts, turnovers and pressure/stoppage measures. Covers the 18-team era (2012 onward), with detailed Footywire match data throughout. The public archive is checked every three hours. |
+| Stats & history | AFL Tables match results, quarter scoring, team season profiles and player season totals from 2012 onward; Brownlow vote and goal leader indicators; Footywire player/team match statistics including contested/uncontested possessions, disposal efficiency, clearances, score involvements, metres gained, intercepts, turnovers and pressure/stoppage measures. The current archive runs through 2026, and the public archive is checked every three hours. |
 
 ## Layout
 

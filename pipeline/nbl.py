@@ -157,6 +157,7 @@ def build_data() -> None:
         # matchup form without downloading gigabytes of full-game payloads.
         # Season and leader stats remain available for the full 15-year window.
         boxscores = []
+        boxscore_ttl = 24 if active else 24 * 30
         complete_games = [game for game in year_data.get("games", [])
                           if year >= latest_year - BOXSCORE_SEASONS + 1
                           if isinstance(game, dict)
@@ -165,7 +166,8 @@ def build_data() -> None:
                           and game.get("id")]
         for game in complete_games:
             match_id = urllib.parse.quote(str(game["id"]), safe="")
-            match_payload, match_updated, match_error = _get(f"match/{match_id}", f"{year}_{season_type}_match_{match_id}.json", ttl)
+            match_payload, match_updated, match_error = _get(
+                f"match/{match_id}", f"{year}_{season_type}_match_{match_id}.json", boxscore_ttl)
             if match_updated:
                 all_updated.append(match_updated)
             if match_error:

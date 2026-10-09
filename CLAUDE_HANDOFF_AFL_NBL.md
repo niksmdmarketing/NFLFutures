@@ -6,7 +6,7 @@ This checkout contains local, uncommitted AFL work plus NBL collection/display f
 
 - Adds `pipeline/afl.py`, `site_src/afl/`, and the `pyarrow` dependency.
 - Imports the fitzRoy public archive, which combines AFL Tables historical player/game data and Footywire advanced player stats. The collector checks archive release metadata on each refresh and retains the last downloaded archive if the source is temporarily unavailable.
-- Provides season outcomes and player season totals back to 1897; modern player/game and advanced metrics begin in 2010 where supplied by the source. It includes team and player summaries, results, quarter scores, finals/premiership indicators, award indicators, and advanced team/player game and season tables.
+- Publishes seasons from 2012 onward (the current archive runs through 2026; older source history is excluded). It includes team and player summaries, results, quarter scores, finals/premiership indicators, award indicators, and advanced team/player game and season tables.
 - Season data is gzip-compressed for static hosting. The browser page decompresses it on demand. No odds or bookmaker data are collected.
 - Adds AFL to the sports navigation and includes the build in `pipeline/run.py`.
 

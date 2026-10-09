@@ -505,12 +505,16 @@ def build_data() -> None:
     except Exception as exc:  # noqa: BLE001
         raise RuntimeError(f"Unable to read AFL Tables archive; install pyarrow: {exc}") from exc
     log("AFL source loaded", len(base), "AFL Tables player-game rows")
+    # Keep the published research window focused on modern AFL seasons.
+    base = base[base["Season"].ge(FIRST_SEASON)].copy()
     advanced = pd.DataFrame()
     if "footywire_player_stats.parquet" in paths:
         try:
             advanced = _load_frame(paths["footywire_player_stats.parquet"], ["Date", "Season", "Round", "Venue", "Player", "Team", "Opposition", "Status", "Match_id", *FW_STATS.keys()])
         except Exception as exc:  # noqa: BLE001
             warnings.append(f"Footywire advanced archive could not be read: {type(exc).__name__}: {exc}")
+    if not advanced.empty:
+        advanced = advanced[pd.to_numeric(advanced["Season"], errors="coerce").ge(FIRST_SEASON)].copy()
 
     matches, base_team_games = _matches_and_team_games(base)
     log("AFL outcomes prepared", len(matches), "matches")
@@ -599,14 +603,21 @@ def build_data() -> None:
             "advanced_field_coverage": adv_fields,
             "sources": ["AFL Tables via fitzRoy data archive", "Footywire via fitzRoy data archive"],
             "archive_updated": updated, "errors": warnings[:10],
-            "note": "Season outcomes and player totals are available across the AFL Tables archive. Detailed Footywire match stats begin in 2010; field coverage varies by metric and season. Missing values are not zero. No odds or third-party ratings are included."}
+            "note": f"Published seasons run from {FIRST_SEASON} onward (current archive through 2026). Detailed Footywire match stats begin in 2012; field coverage varies by metric and season. Missing values are not zero. No odds or third-party ratings are included."}
     write_json("afl_stats_index.json", {"meta": meta})
     log("AFL data", len(seasons), "seasons", len(matches), "matches", len(players), "player-season rows",
         len(advanced_team_games), "advanced team game rows", "source warnings", len(warnings))
 
 
 def build_site() -> None:
-    os.makedirs(os.path.join(AFL_SITE, "data"), exist_ok=True)
+    data_dir = os.path.join(AFL_SITE, "data")
+    os.makedirs(data_dir, exist_ok=True)
+    # Drop stale generated files from older local builds outside the selected
+    # 2012+ window so they cannot be copied into a later published artifact.
+    for name in os.listdir(data_dir):
+        match = re.fullmatch(r"season_(\d+)\.json\.gz", name)
+        if match and int(match.group(1)) < FIRST_SEASON:
+            os.remove(os.path.join(data_dir, name))
     shutil.copy(os.path.join(AFL_SRC, "index.html"), AFL_SITE)
     shutil.copy(os.path.join(AFL_SRC, "stats.js"), AFL_SITE)
     index = os.path.join(OUT, "afl_stats_index.json")
@@ -614,10 +625,13 @@ def build_site() -> None:
         shutil.copy(index, os.path.join(AFL_SITE, "data", "stats_index.json"))
     for name in os.listdir(AFL_OUT) if os.path.isdir(AFL_OUT) else []:
         if name.startswith("season_") and name.endswith(".json.gz"):
-            year = re.sub(r"\D", "", name)
-            if not year or int(year) < FIRST_SEASON:
-                continue  # older archive seasons are no longer published
-            shutil.copy(os.path.join(AFL_OUT, name), os.path.join(AFL_SITE, "data", name))
+            try:
+                year = int(name.removeprefix("season_").removesuffix(".json.gz"))
+            except ValueError:
+                continue
+            if year < FIRST_SEASON:
+                continue
+            shutil.copy(os.path.join(AFL_OUT, name), os.path.join(data_dir, name))
 
 
 if __name__ == "__main__":
