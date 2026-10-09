@@ -1,0 +1,56 @@
+
+    <div class="controls tab-controls">
+      <div class="field"><label for="week">Week</label><select id="week"></select></div>
+      <div class="field"><label for="cat">Edges list category</label><select id="cat"></select></div>
+      <div class="field"><label for="sort">Sort table</label>
+        <select id="sort">
+          <option value="kick">Kickoff order</option>
+          <option value="off">Biggest offense edge</option>
+          <option value="def">Biggest defense edge</option>
+        </select>
+      </div>
+    </div>
+
+  <section class="edges" aria-label="Biggest edges">
+    <div class="panel off"><h3 id="offTitle">Biggest offense edges</h3><ol id="offList"></ol></div>
+    <div class="panel def"><h3 id="defTitle">Biggest defense edges</h3><ol id="defList"></ol></div>
+  </section>
+
+  <section>
+    <div class="table-head">
+      <h2>Every matchup</h2>
+      <div class="legend" aria-label="Legend">
+        <span><i class="swatch e-big-off"></i>Big offense edge</span>
+        <span><i class="swatch e-off"></i>Offense edge</span>
+        <span><i class="swatch" style="background:var(--surface)"></i>Even</span>
+        <span><i class="swatch e-def"></i>Defense edge</span>
+        <span><i class="swatch e-big-def"></i>Big defense edge</span>
+      </div>
+    </div>
+    <p class="muted" style="margin:6px 0 12px;font-size:.85rem">Each cell shows the offense rank, then the defense rank it faces (1 is best, 32 is worst), as they stood going into that week. Select a matchup to open its rank trend.</p>
+    <div class="scroll"><table id="tbl"><thead id="thead"></thead><tbody id="tbody"></tbody></table></div>
+  </section>
+
+  <section class="method" aria-label="How it works">
+    <div>
+      <h2>How the ranks are built</h2>
+      <ul>
+        <li>Every regular-season run and pass play from this season, plus last season at a lower weight so early-season noise settles. Its influence fades as new games come in.</li>
+        <li>Each play is scored by success rate and EPA. The two are blended 65/35, leaning on success rate because it is steadier from week to week.</li>
+        <li>Offense and defense strength are estimated together in one regression, so a team is credited for the opponents it faced and small samples are pulled toward average.</li>
+        <li>Teams are ranked 1 to 32 in each category. The edge is the gap between the offense rank and the defense rank it faces.</li>
+      </ul>
+    </div>
+    <div>
+      <h2>The five categories</h2>
+      <ul>
+        <li><b>Overall:</b> every run and pass play.</li>
+        <li><b>Passing:</b> dropbacks, with sacks and scrambles counted.</li>
+        <li><b>Rushing:</b> designed runs only.</li>
+        <li><b>Pressure:</b> pressures allowed or generated per dropback, from Pro Football Reference charting via nflverse, with last season blended in early on. Not opponent-adjusted.</li>
+        <li><b>Explosives:</b> share of plays gaining 15+ yards passing or 10+ rushing.</li>
+      </ul>
+      <p class="footnote">Edge labels: Even when the rank gap is 7 or less, Edge for 8 to 14, Big edge for 15 or more.</p>
+    </div>
+  </section>
+  
