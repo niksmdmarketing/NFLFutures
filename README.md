@@ -13,9 +13,10 @@ A private NFL stats and futures site. Every 3 hours a GitHub Actions job downloa
 | Matchups | Offense rank vs the defense rank it faces in five categories, with weekly rank trends |
 | Offense, Defense | Per-play efficiency, scoring, third down, red zone, turnovers, pressure |
 | Schedule | Strength of schedule played, remaining and full season, from the model's team ratings |
-| Pace, Pass rate | Seconds per play, plays per game, pass rate over expected |
+| Pace | Play clock used before the snap (2022+), neutral pass rate, no-huddle, plays per game; filters for week, quarter, down, venue, huddle |
+| Pass rate | Pass rate over expected |
 | Off./Def. tendencies | Shotgun, play-action, motion, screens, RPOs, aDOT, blitz rate, rushers, box counts |
-| O-line, D-line | Pressure, sack and hit rates, yards before contact, stuffs |
+| O-line, D-line | Pressure rate, no-blitz pressure rate, time to throw, sack and hit rates, yards before contact per RB rush, stuffs |
 | Coverage | Targets, completion rate, yards per target and passer rating allowed by CBs, safeties and LBs |
 | Box scores | Efficiency box score for every game |
 | Injuries | Latest practice report and the model's expected starting quarterbacks |
@@ -29,7 +30,9 @@ pipeline/       Python: run.py orchestrates everything
   simulate.py   Monte Carlo season and playoffs
   awards.py     award choice models
   matchups.py   matchup ranks
-  stats.py      stat pages
+  team_season.py  per-season team tables and the clock-used cube
+  history.py    builds completed seasons into history/ (committed)
+  stats.py      stat pages (history + current season)
   build_site.py assembles site/ from site_src/ and build/*.json
 model/settings.json   frozen model parameters (fitted offline, see below)
 site_src/       HTML fragments, CSS and JavaScript for the pages
@@ -45,6 +48,13 @@ cd site && python -m http.server 8000
 ```
 
 `N_SIMS=2000 python pipeline/run.py` gives a faster, noisier test run.
+
+## Year by year
+
+Every ranked stat page has a season picker (2018 onward) and a Year by year view: one stat, every season side by
+side, and the change between any two seasons. Completed seasons live in `history/`; the job builds a season there
+automatically once it finishes. FTN charting starts in 2022, Next Gen Stats pressure and time to throw cover
+2018–2025, and play-clock timing starts in 2022.
 
 ## Model
 

@@ -214,3 +214,11 @@ input[type="search"] { font: inherit; color: var(--ink); background: var(--surfa
 .game td.better { font-weight: 700; color: var(--off-ink); }
 a { color: var(--accent); }
 @media (max-width: 600px) { .stbl td:first-child small { display: none; } .stbl th, .stbl td { padding: 6px 7px; } }
+[hidden] { display: none !important; }
+.flabel { font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; font-weight: 600; color: var(--muted); }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; background: var(--surface); }
+.seg button { font: inherit; font-size: .9rem; border: 0; background: transparent; color: var(--muted); padding: 0 12px; min-height: 40px; cursor: pointer; }
+.seg button + button { border-left: 1px solid var(--line); }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--surface); }
+.stbl td.delta { font-weight: 600; border-left: 2px solid var(--line); }
+.stbl th.delta { border-left: 2px solid var(--line); }

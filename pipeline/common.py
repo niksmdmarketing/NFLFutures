@@ -91,7 +91,7 @@ PBP_COLS = ["game_id", "play_id", "season_type", "week", "home_team", "away_team
             "down", "ydstogo", "yardline_100", "shotgun", "no_huddle", "air_yards", "xpass", "pass_oe",
             "score_differential", "game_seconds_remaining", "qtr", "wp", "third_down_converted", "third_down_failed",
             "fixed_drive", "fixed_drive_result", "touchdown", "complete_pass", "pass_attempt", "first_down",
-            "total_home_score", "total_away_score", "penalty"]
+            "total_home_score", "total_away_score", "penalty", "time_of_day", "end_clock_time", "timeout"]
 
 
 def load_pbp(season, max_age_h=2.0):
@@ -101,7 +101,8 @@ def load_pbp(season, max_age_h=2.0):
     if path is None:  # season not started yet: empty frame with the expected columns
         d = pd.DataFrame({c: pd.Series(dtype="float64") for c in PBP_COLS})
         for c in ("game_id", "season_type", "home_team", "away_team", "posteam", "defteam", "play_type",
-                  "passer_player_id", "passer_player_name", "rusher_player_id", "rusher_player_name", "fixed_drive_result"):
+                  "passer_player_id", "passer_player_name", "rusher_player_id", "rusher_player_name", "fixed_drive_result",
+                  "time_of_day", "end_clock_time"):
             d[c] = d[c].astype("object")
         d["season"] = season
         return d

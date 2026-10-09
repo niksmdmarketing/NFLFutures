@@ -21,7 +21,7 @@ PAGES = [
     ("offense", "Offense", None, None, "table.js", "offense"),
     ("defense", "Defense", None, None, "table.js", "defense"),
     ("sos", "Schedule", None, None, "table.js", "sos"),
-    ("pace", "Pace", None, None, "table.js", "pace"),
+    ("pace", "Pace", "Team pace", "How much of the 40-second play clock each offense uses before the snap. Clock used is timed from the end of the previous play to the snap, on snaps that follow a run or pass with no penalty, timeout or other stoppage. Filter by week, quarter, down, venue and huddle; switch to Year by year to see how a team's tempo has changed since 2022.", "pace.js", None),
     ("proe", "Pass rate", None, None, "table.js", "proe"),
     ("off-tendencies", "Off. tendencies", None, None, "table.js", "off_tendencies"),
     ("def-tendencies", "Def. tendencies", None, None, "table.js", "def_tendencies"),

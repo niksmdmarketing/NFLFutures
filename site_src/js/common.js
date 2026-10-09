@@ -52,3 +52,35 @@ async function boot(fn) {
     m.insertBefore(div, m.children[1] || null);
   }
 }
+
+/* Ranked-table helpers shared by the stat pages. */
+function rankMap(rows, key, dir) {
+  const vals = rows.map(r => r[key]).filter(v => typeof v === "number" && isFinite(v));
+  const sorted = [...vals].sort((a, b) => dir === "low" ? a - b : b - a);
+  const m = new Map();
+  rows.forEach(r => { const v = r[key]; if (typeof v === "number" && isFinite(v)) m.set(r.team, sorted.indexOf(v) + 1); });
+  return {m, n: vals.length};
+}
+function qClass(rank, n) {
+  if (!rank || n < 5) return "";
+  const q = Math.min(5, Math.floor((rank - 1) / n * 5) + 1);
+  return q === 3 ? "" : "q" + q;
+}
+function sortRows(rows, key, dir, getter) {
+  return [...rows].sort((a, b) => {
+    const x = getter(a, key), y = getter(b, key);
+    if (x == null && y == null) return 0; if (x == null) return 1; if (y == null) return -1;
+    return (typeof x === "string" ? x.localeCompare(y) : x - y) * dir;
+  });
+}
+function fmtDelta(d, fmt) {
+  if (d == null || !isFinite(d)) return "–";
+  const sign = d > 0 ? "+" : d < 0 ? "−" : "";
+  const a = Math.abs(d);
+  if (fmt === "pct") return sign + (a * 100).toFixed(1);
+  if (fmt === "num3") return sign + a.toFixed(3);
+  if (fmt === "num2") return sign + a.toFixed(2);
+  if (fmt === "int") return sign + Math.round(a);
+  return sign + a.toFixed(1);
+}
+
