@@ -11,6 +11,7 @@ import build_site  # noqa: E402
 import matchups  # noqa: E402
 import nba  # noqa: E402
 import nbl  # noqa: E402
+import nhl  # noqa: E402
 import ratings  # noqa: E402
 import simulate  # noqa: E402
 import simulate_v3  # noqa: E402
@@ -71,9 +72,11 @@ def main():
     log("stats pages done")
     nba.build_data()
     nbl.build_data()
+    nhl.build_data()
     build_site.build()
     nba.build_site()
     nbl.build_site()
+    nhl.build_site()
     log("site built")
 
 

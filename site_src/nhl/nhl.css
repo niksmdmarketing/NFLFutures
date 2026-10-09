@@ -1,0 +1,14 @@
+.chips { flex-wrap: wrap; }
+.pair { display: flex; gap: 6px; }
+#grp { margin: 14px 0 10px; }
+#out, #tbl { margin-top: 12px; }
+.stbl.nhl td small { color: var(--muted); font-size: .66rem; margin-left: 4px; }
+.stbl.nhl td.dt { white-space: nowrap; }
+.stbl.nhl th { cursor: pointer; }
+.res-W { color: var(--off-ink, #1b7f78); font-weight: 700; }
+.res-L, .res-OTL { color: var(--def-ink, #b85c14); font-weight: 700; }
+#tbl h2 { margin: 22px 0 8px; }
+.filters select, .filters input { min-width: 0; }
+@media (max-width: 600px) { .stbl.nhl td small { display: none; } }
+.stbl.nhl.ranked td:nth-child(2), .stbl.nhl.ranked th:nth-child(2) { text-align: left; }
+.stbl.nhl.ranked td:first-child, .stbl.nhl.ranked th:first-child { text-align: right; }
