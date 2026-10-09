@@ -227,6 +227,7 @@ def season_values(season, games, pbp, current=False):
     ol["ryoe"], ol["box8"] = ngs_ol.ryoe, ngs_ol.box8
     dl["ryoe"], dl["box8"] = ngs_dl.ryoe, ngs_dl.box8
     V.update(X)
+    V["standings"] = standings(season, games, pbp, s)
 
     # ---- coverage by position group ----
     cov = pd.DataFrame(index=TEAMS)
@@ -290,6 +291,8 @@ def pace_cube(season, games, pbp):
     k = pd.DataFrame({"t": s.posteam.map(TIX), "w": s.week.astype(int), "h": home.astype(int), "q": s.qtr.clip(upper=5).astype(int),
                       "d": s.down.fillna(0).astype(int), "nh": s.no_huddle.fillna(0).astype(int), "neu": neu,
                       "n": 1, "p": s.db.astype(int), "g": s.gap.notna().astype(int), "s": (s.gap.fillna(0) * 10).round().astype(int)})
+    if k.g.sum() < 0.2 * k.n.sum():  # too few timed snaps (play end times missing): no clock-used data this season
+        return None
     a = k.groupby(CUBE_KEYS, as_index=False)[["n", "p", "g", "s"]].sum()
     return {"season": int(season), "teams": TEAMS, "cols": {c: a[c].astype(int).tolist() for c in a.columns}}
 
@@ -329,4 +332,65 @@ def box_rows(season, games, pbp):
                         int((rz.res == "Touchdown").sum()), int(len(rz)), int(o.interception.sum() + o.fumble_lost.sum()),
                         int(o.sack.sum()), int(ru.yards_gained.sum()), int(db.yards_gained.sum()),
                         int(fd.get((r.game_id, t), 0))])
+    return out
+
+
+# ---------------- standings and luck ----------------
+EPA_WIN_COEF = 15.93  # logistic: P(win) = 1 / (1 + exp(-15.93 * EPA/play margin)), fitted on 2018-2025 games
+PYTH_EXP = 2.37
+
+
+def standings(season, games, pbp, s):
+    from common import DIVS
+    div_of = {t: d for d, ts in DIVS.items() for t in ts}
+    g = games[(games.season == season) & (games.game_type == "REG") & games.result.notna()]
+    cols = ["w", "l", "t", "hw", "hl", "ht", "aw", "al", "at", "dw", "dl", "dt", "cw", "cl", "ct", "ow", "ol", "ot", "pf", "pa", "gp"]
+    R = pd.DataFrame(0.0, index=TEAMS, columns=cols)
+    for h, a, hs, as_, r in zip(g.home_team, g.away_team, g.home_score, g.away_score, g.result):
+        if h not in TIX or a not in TIX:
+            continue
+        same_div, same_conf = div_of[h] == div_of[a], div_of[h][:3] == div_of[a][:3]
+        for t, side, pf, pa, res in ((h, "h", hs, as_, r), (a, "a", as_, hs, -r)):
+            k = "w" if res > 0 else "l" if res < 0 else "t"
+            R.loc[t, k] += 1; R.loc[t, side + k] += 1
+            if same_div: R.loc[t, "d" + k] += 1
+            if same_conf: R.loc[t, "c" + k] += 1
+            if abs(res) <= 8: R.loc[t, "o" + k] += 1
+            R.loc[t, "pf"] += pf; R.loc[t, "pa"] += pa; R.loc[t, "gp"] += 1
+    rec = lambda w, l, t: f"{int(w)}-{int(l)}" + (f"-{int(t)}" if t else "")  # noqa: E731
+    pct = lambda w, l, t: (w + 0.5 * t) / (w + l + t) if (w + l + t) else np.nan  # noqa: E731
+    out = pd.DataFrame(index=TEAMS)
+    out["record"] = [rec(*R.loc[t, ["w", "l", "t"]]) for t in TEAMS]
+    out["win_pct"] = [pct(*R.loc[t, ["w", "l", "t"]]) for t in TEAMS]
+    out["wins"] = R.w + 0.5 * R.t
+    for k, lab in (("h", "home"), ("a", "away"), ("d", "div"), ("c", "conf"), ("o", "one_score")):
+        out[lab] = [rec(*R.loc[t, [k + "w", k + "l", k + "t"]]) for t in TEAMS]
+    out["one_score_pct"] = [pct(*R.loc[t, ["ow", "ol", "ot"]]) for t in TEAMS]
+    out["pf"], out["pa"] = R.pf, R.pa
+    out["pd"] = R.pf - R.pa
+    out["pd_pg"] = (R.pf - R.pa) / R.gp.where(R.gp > 0)
+    pf, pa = R.pf ** PYTH_EXP, R.pa ** PYTH_EXP
+    out["pyth_w"] = R.gp * pf / (pf + pa).where(pf + pa > 0)
+    # EPA-expected wins: per game, win chance from offensive EPA/play margin
+    e = s.groupby(["game_id", "posteam"]).epa.mean().reset_index()
+    e = e.merge(e.rename(columns={"posteam": "opp", "epa": "opp_epa"}), on="game_id")
+    e = e[e.posteam != e.opp]
+    e["p"] = 1 / (1 + np.exp(-EPA_WIN_COEF * (e.epa - e.opp_epa)))
+    played = set(g.game_id)
+    out["epa_w"] = e[e.game_id.isin(played)].groupby("posteam").p.sum().reindex(TEAMS)
+    out["luck_pyth"] = out.wins - out.pyth_w
+    out["luck_epa"] = out.wins - out.epa_w
+    give = (s.groupby("posteam").interception.sum() + s.groupby("posteam").fumble_lost.sum()).reindex(TEAMS).fillna(0)
+    take = (s.groupby("defteam").interception.sum() + s.groupby("defteam").fumble_lost.sum()).reindex(TEAMS).fillna(0)
+    out["takeaways"], out["giveaways"] = take, give
+    out["to_margin"] = take - give
+    f = pbp[(pbp.fumble == 1) & pbp.fumble_recovery_1_team.notna() & pbp.posteam.isin(TIX) & pbp.defteam.isin(TIX)].copy()
+    f["rec"] = f.fumble_recovery_1_team.replace(FIX)
+    tot = pd.concat([f.posteam, f.defteam]).value_counts().reindex(TEAMS)
+    won = f.rec.value_counts().reindex(TEAMS).fillna(0)
+    out["fumbles"] = tot
+    out["fum_rec_pct"] = won / tot.where(tot > 0)
+    fg = pbp[(pbp.field_goal_attempt == 1) & pbp.defteam.isin(TIX)]
+    out["opp_fg_pct"] = (fg.field_goal_result == "made").groupby(fg.defteam).mean().reindex(TEAMS)
+    out["opp_fga"] = fg.groupby("defteam").size().reindex(TEAMS)
     return out

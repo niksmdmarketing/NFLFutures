@@ -15,7 +15,7 @@ import ratings  # noqa: E402
 import simulate  # noqa: E402
 import simulate_v3  # noqa: E402
 import stats  # noqa: E402
-from common import TEAMS, current_season, games, load_pbp, log, write_json  # noqa: E402
+from common import OUT, TEAMS, current_season, games, load_pbp, log, write_json  # noqa: E402
 
 
 def main():
@@ -59,6 +59,11 @@ def main():
                                 "track_record": ratings.S.get("track_record"), "challenger": challenger})
     write_json("awards.json", awards.build(season, g, res, injuries))
     log("awards done")
+    import award_race, players  # noqa: E401
+    players.build_all(season)
+    log("players done")
+    write_json("award_race.json", award_race.build(season, g, json.load(open(os.path.join(OUT, "awards.json")))))
+    log("award race done")
     write_json("matchups.json", {**matchups.build(season, g, cur, pri), "complete_week": through, "next_week": next_week})
     log("matchups done")
     for name, page in stats.build_all(season, g, cur, R, injuries).items():

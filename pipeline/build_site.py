@@ -19,6 +19,7 @@ PAGES = [
     ("awards", "Awards", "Award chances", "Probability each player or coach wins the season's major awards.", "awards.js", None),
     ("matchups", "Matchups", "Matchup edges", "Every offense against the defense it faces this week, ranked 1 to 32 in five categories.", "matchups.js", None),
     "Team stats",
+    ("standings", "Standings", None, None, "table.js", "standings"),
     ("offense", "Offense", None, None, "table.js", "offense"),
     ("defense", "Defense", None, None, "table.js", "defense"),
     ("passing", "Passing", None, None, "table.js", "passing"),
@@ -35,6 +36,13 @@ PAGES = [
     ("def-tendencies", "Def. tendencies", None, None, "table.js", "def_tendencies"),
     ("pace", "Pace", "Team pace", "How much of the 40-second play clock each offense uses before the snap. Clock used is timed from the end of the previous play to the snap, on snaps that follow a run or pass with no penalty, timeout or other stoppage. Filter by week, quarter, down, venue and huddle; switch to Year by year to see how a team's tempo has changed since 2022.", "pace.js", None),
     ("sos", "Schedule", None, None, "table.js", "sos"),
+    "Players",
+    ("award-race", "Award race", "Award race", "Every award's current contenders, with stats to date, 17-game pace, team record and the model's chance, next to each winner since 2018 at the same week and at season's end.", "award_race.js", None),
+    ("players-qb", "QBs", "Quarterbacks", "", "players.js", "qb"),
+    ("players-rushing", "Rushing", "Rushing", "", "players.js", "rb"),
+    ("players-receiving", "Receiving", "Receiving", "", "players.js", "wr"),
+    ("players-defense", "Defense", "Defensive players", "", "players.js", "def"),
+    ("players-kicking", "Kicking", "Kicking, punting and returns", "", "players.js", "k"),
     "Games",
     ("boxscores", "Box scores", "Advanced box scores", "Efficiency box score for every regular-season game since 2018, with notes on standout performances and a team game log that ranks any game against a team's history. The better side of each line is highlighted.", "boxscores.js", None),
     ("injuries", "Injuries", "Injury report", "The latest official practice report, and which quarterback the model expects to start for each team.", "injuries.js", None),
@@ -107,6 +115,9 @@ def build():
         if os.path.basename(f).startswith("nba_"):
             continue
         shutil.copy(f, os.path.join(SITE, "data"))
+    wk = os.path.join(OUT, "players_weekly")
+    if os.path.isdir(wk):
+        shutil.copytree(wk, os.path.join(SITE, "data", "players_weekly"))
     for p in PAGES:
         if isinstance(p, str):
             continue

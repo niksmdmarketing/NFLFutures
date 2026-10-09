@@ -14,6 +14,7 @@ Cloudflare Access. NFL remains at the root, with NBA under `/nba/` and NBL under
 | Futures | Division, playoff, No. 1 seed, conference and Super Bowl chances; win-total over/under for any line; QB changes |
 | Awards | MVP, OPOY, DPOY, OROY, DROY, Comeback and Coach of the Year probabilities, each with its 2018–2025 track record |
 | Matchups | Offense rank vs the defense rank it faces in five categories, with weekly rank trends |
+| Standings | Records (home/away/division/conference/one-score), points, Pythagorean and EPA-expected wins, luck, turnover margin, fumble recovery share, opponents' FG % |
 | Offense, Defense | Per-play efficiency, scoring, third down, red zone, turnovers, pressure |
 | Passing | EPA, ANY/A, CPOE, TD/INT rates, 20+ yd passes, air yards, aggressiveness, separation, cushion, YAC over expected (NGS), time to throw, bad throws, drops — offense and defense |
 | Rushing | EPA, success, YPC, rush yards over expected, yards before/after contact, broken tackles, 10+ yd runs, stuffs, 8+ box, NGS efficiency — offense and defense |
@@ -27,7 +28,9 @@ Cloudflare Access. NFL remains at the root, with NBA under `/nba/` and NBL under
 | Off./Def. tendencies | Shotgun, play-action, motion, screens, RPOs, aDOT, blitz rate, rushers, box counts |
 | O-line, D-line | Pressure rate, no-blitz pressure rate, time to throw, sack and hit rates, yards before contact per RB rush, stuffs |
 | Coverage | Targets, completion rate, yards per target and passer rating allowed by CBs, safeties and LBs |
-| Box scores | Efficiency box score for every game |
+| Award race | Each award's contenders (stats to date, 17-game pace, team record, model chance) vs every winner since 2018 at the same week and at season end |
+| QBs, Rushing, Receiving, Defense, Kicking | Player stats since 2018 (official, NGS, PFR, snaps) with filters, career by season and weekly game logs |
+| Box scores | Every game since 2018, best/worst-since notes, team game log |
 | Injuries | Latest practice report and the model's expected starting quarterbacks |
 
 ### NBA
@@ -61,6 +64,8 @@ pipeline/       Python: run.py orchestrates everything
   history.py    builds completed seasons into history/ (committed)
   stats.py      stat pages (history + current season)
   build_site.py assembles site/ from site_src/ and build/*.json
+  players.py    player season tables, career and weekly logs (past seasons cached in data/)
+  award_race.py award contenders vs past winners at the same week
   nba.py        NBA downloads, ten-season box-score stats, ratings, roster adjustment, simulation and `/nba/` site output
   nbl.py        NBL public feed, cached historical seasons and `/nbl/` stats explorer
 model/settings.json   frozen model parameters (fitted offline, see below)
