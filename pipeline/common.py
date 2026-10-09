@@ -91,7 +91,12 @@ PBP_COLS = ["game_id", "play_id", "season_type", "week", "home_team", "away_team
             "down", "ydstogo", "yardline_100", "shotgun", "no_huddle", "air_yards", "xpass", "pass_oe",
             "score_differential", "game_seconds_remaining", "qtr", "wp", "third_down_converted", "third_down_failed",
             "fixed_drive", "fixed_drive_result", "touchdown", "complete_pass", "pass_attempt", "first_down",
-            "total_home_score", "total_away_score", "penalty", "time_of_day", "end_clock_time", "timeout"]
+            "total_home_score", "total_away_score", "penalty", "time_of_day", "end_clock_time", "timeout",
+            "posteam_score", "posteam_score_post", "field_goal_result", "kick_distance", "extra_point_result",
+            "punt_inside_twenty", "punt_blocked", "touchback", "return_yards", "kickoff_attempt", "punt_attempt",
+            "field_goal_attempt", "extra_point_attempt", "penalty_team", "penalty_yards", "penalty_type",
+            "fourth_down_converted", "fourth_down_failed", "pass_touchdown", "rush_touchdown", "return_team",
+            "goal_to_go", "drive_time_of_possession"]
 
 
 def load_pbp(season, max_age_h=2.0):
@@ -102,7 +107,8 @@ def load_pbp(season, max_age_h=2.0):
         d = pd.DataFrame({c: pd.Series(dtype="float64") for c in PBP_COLS})
         for c in ("game_id", "season_type", "home_team", "away_team", "posteam", "defteam", "play_type",
                   "passer_player_id", "passer_player_name", "rusher_player_id", "rusher_player_name", "fixed_drive_result",
-                  "time_of_day", "end_clock_time"):
+                  "time_of_day", "end_clock_time", "field_goal_result", "extra_point_result", "penalty_team",
+                  "penalty_type", "return_team", "drive_time_of_possession"):
             d[c] = d[c].astype("object")
         d["season"] = season
         return d

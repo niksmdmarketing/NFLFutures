@@ -10,6 +10,7 @@ NFL participation (true pressure, pass rushers, time to throw) 2018 to the lates
 import numpy as np
 import pandas as pd
 
+import team_extra
 from common import FIX, TEAMS, TIX, download, scrimmage
 
 PART_COLS = ["nflverse_game_id", "play_id", "was_pressure", "number_of_pass_rushers", "time_to_throw"]
@@ -218,6 +219,14 @@ def season_values(season, games, pbp, current=False):
     dl["pressures_pg"] = pdf.groupby("team").def_pressures.sum().reindex(TEAMS) / gp if len(pdf) else nan
     dl["rush_succ"] = runs.groupby("defteam").success.mean().reindex(TEAMS)
     V["dline"] = dl
+
+    # ---- passing, rushing, drives, situational, special teams, discipline + Next Gen Stats ----
+    X = team_extra.extra_values(season, games, pbp, s, pp, pr, pdf, gp, current, is_rb)
+    ngs_ol, ngs_dl = X.pop("_ngs_oline"), X.pop("_ngs_dline")
+    ol["ttt"] = ngs_ol.ttt_ngs  # NGS weekly time to throw: same source every season, current season included
+    ol["ryoe"], ol["box8"] = ngs_ol.ryoe, ngs_ol.box8
+    dl["ryoe"], dl["box8"] = ngs_dl.ryoe, ngs_dl.box8
+    V.update(X)
 
     # ---- coverage by position group ----
     cov = pd.DataFrame(index=TEAMS)

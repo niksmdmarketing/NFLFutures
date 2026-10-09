@@ -14,21 +14,28 @@ SITE = os.path.join(ROOT, "site")
 
 # slug, nav label, page title, intro (None = taken from the data), script, data file for table pages
 PAGES = [
+    "Model",
     ("index", "Futures", "Season futures", "Chances to win each division, make the playoffs, take the No. 1 seed, win the conference and the Super Bowl, plus every team's win-total distribution.", "futures.js", None),
     ("awards", "Awards", "Award chances", "Probability each player or coach wins the season's major awards.", "awards.js", None),
     ("matchups", "Matchups", "Matchup edges", "Every offense against the defense it faces this week, ranked 1 to 32 in five categories.", "matchups.js", None),
-    None,
+    "Team stats",
     ("offense", "Offense", None, None, "table.js", "offense"),
     ("defense", "Defense", None, None, "table.js", "defense"),
-    ("sos", "Schedule", None, None, "table.js", "sos"),
-    ("pace", "Pace", "Team pace", "How much of the 40-second play clock each offense uses before the snap. Clock used is timed from the end of the previous play to the snap, on snaps that follow a run or pass with no penalty, timeout or other stoppage. Filter by week, quarter, down, venue and huddle; switch to Year by year to see how a team's tempo has changed since 2022.", "pace.js", None),
+    ("passing", "Passing", None, None, "table.js", "passing"),
+    ("rushing", "Rushing", None, None, "table.js", "rushing"),
+    ("oline", "O-line", None, None, "table.js", "oline"),
+    ("dline", "D-line", None, None, "table.js", "dline"),
+    ("drives", "Drives", None, None, "table.js", "drives"),
+    ("situational", "Situational", None, None, "table.js", "situational"),
+    ("special-teams", "Special teams", None, None, "table.js", "special_teams"),
+    ("coverage", "Coverage", None, None, "table.js", "coverage"),
+    ("discipline", "Discipline", None, None, "table.js", "discipline"),
     ("proe", "Pass rate", None, None, "table.js", "proe"),
     ("off-tendencies", "Off. tendencies", None, None, "table.js", "off_tendencies"),
     ("def-tendencies", "Def. tendencies", None, None, "table.js", "def_tendencies"),
-    ("oline", "O-line", None, None, "table.js", "oline"),
-    ("dline", "D-line", None, None, "table.js", "dline"),
-    ("coverage", "Coverage", None, None, "table.js", "coverage"),
-    None,
+    ("pace", "Pace", "Team pace", "How much of the 40-second play clock each offense uses before the snap. Clock used is timed from the end of the previous play to the snap, on snaps that follow a run or pass with no penalty, timeout or other stoppage. Filter by week, quarter, down, venue and huddle; switch to Year by year to see how a team's tempo has changed since 2022.", "pace.js", None),
+    ("sos", "Schedule", None, None, "table.js", "sos"),
+    "Games",
     ("boxscores", "Box scores", "Advanced box scores", "Efficiency box score for every game played this season. The better side of each line is highlighted.", "boxscores.js", None),
     ("injuries", "Injuries", "Injury report", "The latest official practice report, and which quarterback the model expects to start for each team.", "injuries.js", None),
 ]
@@ -42,13 +49,15 @@ FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">'
 def nav(active):
     out = []
     for p in PAGES:
-        if p is None:
-            out.append('<span class="sep" aria-hidden="true"></span>')
+        if isinstance(p, str):
+            if out:
+                out.append("</div>")
+            out.append(f'<div class="navgrp"><span class="navlab">{html.escape(p)}</span>')
             continue
         slug, label = p[0], p[1]
         cur = ' aria-current="page"' if slug == active else ""
         out.append(f'<a href="{slug if slug != "index" else "./"}{".html" if slug != "index" else ""}"{cur}>{html.escape(label)}</a>')
-    return "".join(out)
+    return "".join(out) + "</div>"
 
 
 def page_html(slug, label, title, intro, script, data):
@@ -96,7 +105,7 @@ def build():
     for f in glob.glob(os.path.join(OUT, "*.json")):
         shutil.copy(f, os.path.join(SITE, "data"))
     for p in PAGES:
-        if p is None:
+        if isinstance(p, str):
             continue
         with open(os.path.join(SITE, f"{p[0]}.html"), "w") as f:
             f.write(page_html(*p))

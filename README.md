@@ -12,6 +12,12 @@ A private NFL stats and futures site. Every 3 hours a GitHub Actions job downloa
 | Awards | MVP, OPOY, DPOY, OROY, DROY, Comeback and Coach of the Year probabilities, each with its 2018–2025 track record |
 | Matchups | Offense rank vs the defense rank it faces in five categories, with weekly rank trends |
 | Offense, Defense | Per-play efficiency, scoring, third down, red zone, turnovers, pressure |
+| Passing | EPA, ANY/A, CPOE, TD/INT rates, 20+ yd passes, air yards, aggressiveness, separation, cushion, YAC over expected (NGS), time to throw, bad throws, drops — offense and defense |
+| Rushing | EPA, success, YPC, rush yards over expected, yards before/after contact, broken tackles, 10+ yd runs, stuffs, 8+ box, NGS efficiency — offense and defense |
+| Drives | Points, TDs, three-and-outs, punts, turnovers, starting field position, yards/plays/time per drive — offense and defense |
+| Situational | 3rd down by distance, 4th-down conversion, 4th-and-short go rate, red-zone and goal-to-go TD %, turnover margin |
+| Special teams | ST EPA, FG % by distance, XP %, net punt, punts inside 20, touchbacks, return averages |
+| Discipline | Penalties and yards per game, offense/defense split, pre-snap, DPI, drawn, missed tackles |
 | Schedule | Strength of schedule played, remaining and full season, from the model's team ratings |
 | Pace | Play clock used before the snap (2022+), neutral pass rate, no-huddle, plays per game; filters for week, quarter, down, venue, huddle |
 | Pass rate | Pass rate over expected |
@@ -31,6 +37,7 @@ pipeline/       Python: run.py orchestrates everything
   awards.py     award choice models
   matchups.py   matchup ranks
   team_season.py  per-season team tables and the clock-used cube
+  team_extra.py passing, rushing, drives, situational, special teams, discipline, Next Gen Stats
   history.py    builds completed seasons into history/ (committed)
   stats.py      stat pages (history + current season)
   build_site.py assembles site/ from site_src/ and build/*.json
@@ -53,8 +60,9 @@ cd site && python -m http.server 8000
 
 Every ranked stat page has a season picker (2018 onward) and a Year by year view: one stat, every season side by
 side, and the change between any two seasons. Completed seasons live in `history/`; the job builds a season there
-automatically once it finishes. FTN charting starts in 2022, Next Gen Stats pressure and time to throw cover
-2018–2025, and play-clock timing starts in 2022.
+automatically once it finishes. FTN charting starts in 2022, Next Gen Stats per-play pressure covers 2018–2025
+(weekly Next Gen Stats such as time to throw, CPOE and rush yards over expected include the current season), and
+play-clock timing starts in 2022.
 
 ## Model
 

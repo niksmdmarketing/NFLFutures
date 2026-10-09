@@ -222,3 +222,12 @@ a { color: var(--accent); }
 .seg button[aria-pressed="true"] { background: var(--accent); color: var(--surface); }
 .stbl td.delta { font-weight: 600; border-left: 2px solid var(--line); }
 .stbl th.delta { border-left: 2px solid var(--line); }
+
+/* grouped navigation: wraps on wide screens, one scrolling row per group on phones */
+.nav { flex-direction: column; gap: 6px; overflow: visible; padding-bottom: 0; }
+.navgrp { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 6px; }
+.navlab { flex: 0 0 auto; width: 6.5rem; font-size: .7rem; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+@media (max-width: 600px) {
+  .navgrp { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: thin; padding-bottom: 2px; }
+  .navlab { width: auto; margin-right: 4px; }
+}
