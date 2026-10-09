@@ -68,6 +68,15 @@ def _data(payload: dict) -> list:
     return value if isinstance(value, list) else ([value] if isinstance(value, dict) else [])
 
 
+def _without_odds(value):
+    """Keep the NBL view stats-only even when the source mixes odds metadata in."""
+    if isinstance(value, dict):
+        return {k: _without_odds(v) for k, v in value.items() if "odds" not in str(k).lower()}
+    if isinstance(value, list):
+        return [_without_odds(v) for v in value]
+    return value
+
+
 def _rows(route: str, cache_name: str, ttl: float, failures: list[str]) -> tuple[list, str]:
     payload, updated, error = _get(route, cache_name, ttl)
     if error:
@@ -115,7 +124,7 @@ def build_data() -> None:
         }
         for kind, route in routes.items():
             rows, updated = _rows(route, f"{year}_{kind}.json", ttl, failures)
-            year_data[kind] = rows
+            year_data[kind] = _without_odds(rows)
             if updated:
                 all_updated.append(updated)
         leaders = []
@@ -124,8 +133,8 @@ def build_data() -> None:
             leaders, updated = _rows(route, f"{year}_leaders.json", ttl, failures)
             if updated:
                 all_updated.append(updated)
-        year_data["leaders"] = leaders
-        datasets[str(year)] = {"season": {k: v for k, v in season.items() if k != "_year"}, **year_data}
+        year_data["leaders"] = _without_odds(leaders)
+        datasets[str(year)] = {"season": _without_odds({k: v for k, v in season.items() if k != "_year"}), **year_data}
 
     updated = max(all_updated) if all_updated else ""
     meta = {"league": "NBL", "updated_utc": updated, "seasons": sorted([int(y) for y in datasets], reverse=True),
