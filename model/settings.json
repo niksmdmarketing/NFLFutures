@@ -424,5 +424,14 @@
   "date": "2026-10-09",
   "branch": "model-v4",
   "note": "Frozen for the 2026 prospective test. Every refresh's forecasts are archived on the forecast-archive branch. Change parameters only as a new version (v5), never in place."
+ },
+ "challenger": {
+  "name": "v3",
+  "tau": 3.5,
+  "sigma": 12.94,
+  "hfa": 1.1,
+  "n_sims": 20000,
+  "rating": "base + qb_adj (no scale, no pressure)",
+  "note": "Run alongside v4 every refresh and archived; on 2022-2025 it was more accurate than v4 for conference and Super Bowl, less for division."
  }
 }

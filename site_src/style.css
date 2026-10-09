@@ -231,3 +231,8 @@ a { color: var(--accent); }
   .navgrp { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: thin; padding-bottom: 2px; }
   .navlab { width: auto; margin-right: 4px; }
 }
+
+details > summary { cursor: pointer; list-style: none; display: flex; align-items: baseline; gap: 8px; }
+details > summary::before { content: "▸"; color: var(--muted); }
+details[open] > summary::before { content: "▾"; }
+.ftable th small { display: block; font-weight: 400; text-transform: none; letter-spacing: 0; }

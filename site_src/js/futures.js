@@ -55,6 +55,20 @@ function renderQB() {
   $("qbchg").innerHTML = rows.length ? rows.map(([t, v]) => '<li><b>' + t + '</b><span>' + esc(v.qb_note) + '</span><span class="num ' + (v.qb_adj < 0 ? "adj-neg" : "adj-pos") + '">' + (v.qb_adj > 0 ? "+" : "") + v.qb_adj.toFixed(1) + '</span></li>').join("")
     : '<li class="muted">No quarterback changes are expected this week.</li>';
 }
+function renderChallenger(C) {
+  if (!C || !C.teams) return;
+  $("challengerSec").hidden = false;
+  const pair = (a, b) => '<td class="num">' + pct(a) + ' <span class="muted">· ' + pct(b) + '</span></td>';
+  let h = "";
+  Object.entries(DIVS).forEach(([dn, ts]) => {
+    h += '<tr class="divhead"><td colspan="5">' + dn + '</td></tr>';
+    [...ts].sort((a, b) => FT[b].p_div - FT[a].p_div).forEach(t => {
+      const v = FT[t], c = C.teams[t];
+      h += '<tr><td><b>' + t + '</b> <span class="muted">' + nm(t) + '</span></td>' + pair(v.p_div, c.p_div) + pair(v.p_playoff, c.p_playoff) + pair(v.p_conf, c.p_conf) + pair(v.p_sb, c.p_sb) + '</tr>';
+    });
+  });
+  $("cbody").innerHTML = h;
+}
 boot(async meta => {
   const F = await getJSON("futures.json");
   FT = F.teams;
@@ -62,4 +76,5 @@ boot(async meta => {
   renderFutures();
   initWT();
   renderQB();
+  renderChallenger(F.challenger);
 });
