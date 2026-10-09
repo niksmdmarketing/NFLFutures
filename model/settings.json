@@ -1,5 +1,5 @@
 {
- "version": "v3",
+ "version": "v4",
  "description": "Frozen model settings. Team ratings: learned weights on opponent-adjusted components, trained 2010-2021; QB layer; season simulation; award choice models trained on AP winners 2010-2025.",
  "ratings": {
   "cols": [
@@ -139,10 +139,12 @@
   "plays_per_game": 65.0
  },
  "sim": {
-  "tau": 3.5,
-  "sigma": 12.94,
-  "hfa": 1.1,
-  "n_sims": 10000
+  "tau": 5.0,
+  "sigma": 11.37,
+  "hfa": 1.8,
+  "n_sims": 100000,
+  "rating_scale": 0.89,
+  "note": "tau/sigma tuned jointly on 2022-2025 final win totals (total per-game sd 13.4); scale and hfa from joint fit 2018-2025"
  },
  "awards": {
   "MVP": {
@@ -412,5 +414,10 @@
    "baseline_log_loss": 3.466,
    "winner_in_pool": 1.0
   }
+ },
+ "pressure": {
+  "points_per_rate": -19.15,
+  "k_games": 2,
+  "note": "pressure rate allowed (PFR), current season blended with last season at 2 games; passed out-of-sample test 2023-2025"
  }
 }

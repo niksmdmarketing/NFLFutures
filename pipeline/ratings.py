@@ -14,7 +14,7 @@ import pandas as pd
 from scipy import sparse
 from sklearn.linear_model import Ridge
 
-from common import MODEL, NT, TEAMS, TIX, download, log, scrimmage, special
+from common import FIX, MODEL, NT, TEAMS, TIX, download, log, scrimmage, special
 
 S = json.load(open(os.path.join(MODEL, "settings.json")))
 P = S["ratings"]
@@ -205,6 +205,37 @@ def team_ratings(season, games, cur_pbp, pri_pbp, pri2_pbp):
                      "qb_expected_status": e.get("status", ""), "qb_note": e.get("note", ""),
                      "qb_value_expected": round(float(vals.get(e_id, low_val)), 2) if e_id else None})
     R = pd.DataFrame(rows).set_index("team")
-    R["rating"] = R.base + R.qb_adj
+    R["press_rate"], R["press_adj"] = pressure_adj(season, games, cur_pbp, pri_pbp)
+    scale = S["sim"].get("rating_scale", 1.0)
+    R["rating"] = scale * (R.base + R.qb_adj) + R.press_adj
     R["rating"] = R.rating - R.rating.mean()
     return R, comp, injuries
+
+
+def pressure_adj(season, games, cur_pbp, pri_pbp):
+    """Points adjustment from pressure rate allowed (PFR pressures per dropback), blended with last season."""
+    P = S.get("pressure")
+    if not P:
+        return pd.Series(np.nan, index=TEAMS), pd.Series(0.0, index=TEAMS)
+
+    def rate(pbp, yr):
+        p = download(f"pfr_advstats/advstats_week_pass_{yr}.csv", required=False,
+                     max_age_h=2.0 if yr == season else 24 * 365)
+        if not p or not len(pbp):
+            return pd.Series(np.nan, index=TEAMS), pd.Series(0.0, index=TEAMS)
+        d = pd.read_csv(p, low_memory=False)
+        d = d[d.game_type == "REG"] if "game_type" in d else d
+        d["team"] = d.team.replace(FIX)
+        s = scrimmage(pbp)
+        db = s[s.db == 1].groupby("posteam").size().reindex(TEAMS)
+        pr = d.groupby("team").times_pressured.sum().reindex(TEAMS)
+        gp = s.groupby("posteam").game_id.nunique().reindex(TEAMS).fillna(0)
+        return pr / db.where(db > 0), gp
+
+    cur, n = rate(cur_pbp, season)
+    pri, _ = rate(pri_pbp, season - 1)
+    pri = pri.fillna(pri.mean()) if pri.notna().any() else pd.Series(0.22, index=TEAMS)
+    k = P["k_games"]
+    blend = ((n * cur.fillna(0) + k * pri) / (n + k)).where(n > 0, pri)
+    adj = P["points_per_rate"] * (blend - blend.mean())
+    return blend, adj.fillna(0.0)

@@ -66,13 +66,13 @@ play-clock timing starts in 2022.
 
 ## Model
 
-Parameters in `model/settings.json` were fitted offline on 2010–2025 seasons and are not re-fitted by the job:
-learned weights for team strength (trained 2010–2021, checked on later seasons), a quarterback adjustment worth half the
-gap between the expected starter and the season's main quarterback, simulation settings and award model coefficients.
-Backtests against 2018–2025 bookmaker futures found the model matched the market only around Weeks 5–8 and did not
-produce profitable bets, so the site shows probabilities only.
+Parameters in `model/settings.json` were fitted offline and are not re-fitted by the job.
 
-## Data
-
-All data comes from nflverse releases: play-by-play, schedules, weekly player stats, rosters, injury reports, depth
-charts, FTN charting and Pro Football Reference advanced stats.
+- Team ratings (v3): opponent-adjusted passing, rushing, special-teams and margin components with weights learned on
+  2010–2021, plus a quarterback adjustment worth half the gap between the expected starter and the season's main QB.
+- v4 (October 2026): ratings scaled to 0.89 (they were overconfident out of sample), a pressure-allowed adjustment
+  (−19.15 points per unit of pressure rate, blended with last season at 2 games; the only one of twelve candidate stats
+  that improved 2023–2025 predictions), team uncertainty tau 5.0 and game noise 11.37 tuned jointly on 2022–2025 win
+  totals, home field 1.8, exact NFL tiebreakers, 100,000 simulations with a fixed seed.
+- Backtests against 2018–2025 bookmaker futures (v3) found the model matched the market only around Weeks 5–8 and did
+  not produce profitable bets, so the site shows probabilities only.

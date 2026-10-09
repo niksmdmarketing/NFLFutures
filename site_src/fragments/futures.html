@@ -35,18 +35,18 @@
         <ul>
           <li>Team strength combines opponent-adjusted passing, rushing, special teams and point-margin ratings. The weights were learned from what predicted later games in 2010–2021.</li>
           <li>This season's numbers take over from last season's as plays accumulate, at a pace learned separately for passing, rushing, special teams and scoring margin.</li>
-          <li>When a different starting quarterback is expected, the team's strength shifts by half the gap between the two quarterbacks' track records.</li>
-          <li>Each simulated season draws every team's strength once, with 3.5 points of uncertainty, then plays out every remaining game. Played games are locked in.</li>
-          <li>Ties in the standings use head-to-head, division record, conference record, then point differential. The official procedure has more steps, so very close races are approximate.</li>
+          <li>When a different starting quarterback is expected, the team's strength shifts by half the gap between the two quarterbacks' track records. Teams that let their quarterback get pressured more often are marked down (Pro Football Reference pressures per dropback, blended with last season); this was the only one of twelve extra stats that improved predictions on seasons the model had not seen.</li>
+          <li>Ratings are scaled to 89% of their raw spread, because unscaled they were overconfident on 2022–2025. Each simulated season draws every team's strength once, with 5 points of uncertainty, then plays out every remaining game with 11.4 points of game-to-game randomness. Played games are locked in and played ties count as half a win.</li>
+          <li>Standings use the NFL tiebreaking procedure: head-to-head, division record, common games, conference record, strength of victory and strength of schedule, with the official restart rules for three or more teams. Net points then a coin toss stand in for the last few rarely needed steps.</li>
           <li>Playoffs use 7 seeds per conference, a bye for the No. 1 seed, reseeding, home field and a neutral Super Bowl.</li>
         </ul>
       </div>
       <div>
         <h2>Read these numbers with care</h2>
         <ul>
-          <li>Against historical bookmaker prices the model is roughly as accurate as the market only in mid-season. A big gap between this page and a bookmaker is more often model error than value.</li>
+          <li>Against historical bookmaker prices the model was roughly as accurate as the market only in mid-season (tested on the previous version; the October 2026 update improved division, playoff and win-total accuracy only modestly). A big gap between this page and a bookmaker is more often model error than value.</li>
           <li>Injuries other than quarterback changes are not modelled yet, and news after the latest games is not known until the next refresh.</li>
-          <li>Simulation noise is about ±0.4 percentage points at 50%, so small differences mean nothing.</li>
+          <li>Each update runs 100,000 simulated seasons with the same random draws, so numbers only move when the data moves. Simulation noise is about ±0.2 percentage points at 50%.</li>
         </ul>
       </div>
     </section>
