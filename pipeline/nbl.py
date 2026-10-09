@@ -127,6 +127,49 @@ def build_data() -> None:
             year_data[kind] = _without_odds(rows)
             if updated:
                 all_updated.append(updated)
+        # The official game feed includes an entire player box score per match.
+        # Pull match records only for recent seasons to avoid a large, slow
+        # historical fan-out; season-level leaders remain available for all 15.
+        if year >= latest_year - 2:
+            boxscores = []
+            complete_games = [game for game in year_data.get("games", [])
+                              if isinstance(game, dict)
+                              and (str(game.get("match_status", "")).lower() in {"complete", "completed", "final"}
+                                   or str(game.get("status", "")).lower() in {"confirmed", "complete", "completed", "final"})
+                              and game.get("id")]
+            for game in complete_games:
+                match_id = urllib.parse.quote(str(game["id"]), safe="")
+                # Preserve only the player/team statistical box score, not the
+                # very large event stream, odds, or media metadata.
+                match_payload, match_updated, match_error = _get(f"match/{match_id}", f"{year}_match_{match_id}.json", ttl)
+                if match_updated:
+                    all_updated.append(match_updated)
+                if match_error:
+                    failures.append(f"{year}_match_{match_id}: {match_error}")
+                for item in _data(match_payload):
+                    if not isinstance(item, dict):
+                        continue
+                    clean = {k: _without_odds(v) for k, v in item.items()
+                             if k not in {"play_by_play", "events", "commentary", "shots", "shot_chart"}}
+                    if isinstance(clean.get("data"), list):
+                        for player_row in clean["data"]:
+                            if isinstance(player_row, dict):
+                                player_row["_game"] = {k: v for k, v in game.items()
+                                                       if k in {"id", "start_time", "match_round", "round_number",
+                                                                "home_score", "away_score", "home_team", "away_team",
+                                                                "venue", "attendance", "match_status", "status"}}
+                                boxscores.append(player_row)
+                    elif isinstance(clean.get("players"), list):
+                        for player_row in clean["players"]:
+                            if isinstance(player_row, dict):
+                                player_row["_game"] = {k: v for k, v in game.items()
+                                                       if k in {"id", "start_time", "match_round", "round_number",
+                                                                "home_score", "away_score", "home_team", "away_team",
+                                                                "venue", "attendance", "match_status", "status"}}
+                                boxscores.append(player_row)
+            year_data["boxscores"] = boxscores
+        else:
+            year_data["boxscores"] = []
         leaders = []
         if season_id:
             route = "nbl/stats/leaders/for/season/id/" + urllib.parse.quote(str(season_id)) + "?limit=500&sort=-points_average"

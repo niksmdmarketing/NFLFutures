@@ -7,16 +7,18 @@ const viewLabels = {
   leaders: "Player leaders",
   teams: "Team season stats",
   games: "Games & schedule",
+  boxscores: "Player game logs",
   standings: "Standings",
   players: "Roster lookup"
 };
-const preferredViews = ["leaders", "teams", "games", "standings", "players"];
+const preferredViews = ["leaders", "teams", "boxscores", "games", "standings", "players"];
 const viewStats = {
   leaders: ["Player", "Team", "Position", "GP", "GS", "MPG", "PPG", "RPG", "APG", "SPG", "BPG", "TOV/G", "FG%", "3P%", "FT%", "eFG%", "TS%", "AST/TOV"],
   teams: ["Team", "Team code", "GP", "Wins", "Losses", "PPG", "Opponent PPG", "Point diff", "Pace", "OffRtg", "DefRtg", "NetRtg", "eFG%", "TS%", "3P rate", "FT rate", "RPG", "APG", "TOV/G"],
   standings: ["Team", "Team code", "Position", "Wins", "Losses", "GP", "Win %", "Points for", "Points against", "Last 5"],
   games: ["Date", "Round", "Matchup", "Score", "Status", "Venue"],
-  players: ["Player", "Team", "Position", "Jersey", "Height", "Weight", "Nationality"]
+  players: ["Player", "Team", "Position", "Jersey", "Height", "Weight", "Nationality"],
+  boxscores: ["Date", "Round", "Matchup", "Player", "Team", "MIN", "PTS", "REB", "OREB", "DREB", "AST", "STL", "BLK", "TOV", "FGM", "FGA", "FG%", "3PM", "3PA", "3P%", "FTM", "FTA", "FT%", "+/-"]
 };
 const fieldLabels = {
   "Player": "Player", "Team": "Team", "Team code": "Team code", "Position": "Position",
@@ -29,6 +31,7 @@ const fieldLabels = {
   "Points against": "Points against", "Last 5": "Last 5", "Date": "Date", "Round": "Round",
   "Matchup": "Matchup", "Score": "Score", "Status": "Status", "Venue": "Venue", "Jersey": "Jersey",
   "Height": "Height", "Weight": "Weight", "Nationality": "Nationality",
+  "MIN": "MIN", "PTS": "PTS", "REB": "REB", "OREB": "OREB", "DREB": "DREB", "AST": "AST", "STL": "STL", "BLK": "BLK", "TOV": "TOV", "FGM": "FGM", "FGA": "FGA", "3PM": "3PM", "3PA": "3PA", "FTM": "FTM", "FTA": "FTA", "+/-": "+/-",
   "team_code": "Team code", "played": "GP", "won": "Wins", "lost": "Losses",
   "points_average": "PPG", "points_against_average": "Opponent PPG", "points_allowed_average": "Opponent PPG",
   "point_diff_average": "Point diff", "pace": "Pace", "offensive_rating": "OffRtg",
@@ -217,6 +220,30 @@ function friendlyRows(records, view = "") {
         ? homeScore + "–" + awayScore : "—";
       return { Date: date, Round: round, Matchup: [home, away].filter(Boolean).join(" vs "), Score: score, Status: status, Venue: venue };
     }
+    if (view === "boxscores") {
+      const game = row["_game"] || {};
+      const get = (...keys) => keys.map(key => row[key]).find(value => value != null && value !== "");
+      const name = get("Player", "player_name", "player · display_name", "player · full_name", "player · name", "name") || "—";
+      const team = get("Team", "team · name", "team · team_name") || "—";
+      const home = game.home_team?.name || game.home_team?.team_code || "";
+      const away = game.away_team?.name || game.away_team?.team_code || "";
+      const rawDate = game.start_time || "";
+      const number = (...keys) => { const value = get(...keys); return value == null || !Number.isFinite(Number(value)) ? null : Number(value); };
+      const fgm = number("field_goals_made", "field_goal_made", "field_goal_avg");
+      const fga = number("field_goals_attempted", "field_goal_attempted", "field_goal_attempt_avg");
+      const tpm = number("three_pointers_made", "three_point_made", "3pfg_avg");
+      const tpa = number("three_pointers_attempted", "three_point_attempted", "3pfga_avg");
+      const ftm = number("free_throws_made", "free_throw_made", "ft_avg");
+      const fta = number("free_throws_attempted", "free_throw_attempted", "fta_avg");
+      return { Date: rawDate, Round: game.match_round || game.round_number, Matchup: [home, away].filter(Boolean).join(" vs "), Player: name, Team: team,
+        MIN: number("minutes", "minutes_played", "minutes_played_total"), PTS: number("points", "points_total"), REB: number("rebounds", "total_rebounds", "rebounds_total"),
+        OREB: number("offensive_rebounds", "offensive_rebounds_total"), DREB: number("defensive_rebounds", "defensive_rebounds_total"),
+        AST: number("assists", "assists_total"), STL: number("steals", "steals_total"), BLK: number("blocks", "blocks_total"), TOV: number("turnovers", "turnovers_total"),
+        FGM: fgm, FGA: fga, "FG%": fgm != null && fga > 0 ? 100 * fgm / fga : null,
+        "3PM": tpm, "3PA": tpa, "3P%": tpm != null && tpa > 0 ? 100 * tpm / tpa : null,
+        FTM: ftm, FTA: fta, "FT%": ftm != null && fta > 0 ? 100 * ftm / fta : null,
+        "+/-": number("plus_minus", "plus_minus_total", "plusminus") };
+    }
     if (view === "players") {
       const pick = (...keys) => keys.map(key => row[key]).find(value => value != null && value !== "");
       const player = pick("Player", "player_name", "name", "display_name", "full_name");
@@ -287,7 +314,7 @@ fetch("data/stats_index.json", { cache: "no-cache" })
       });
       const availableColumns = [...new Set(selected.flatMap(Object.keys))].filter(key => !hiddenField(key));
       const preferred = viewStats[view] || [];
-      const columns = view === "games" || view === "players" || view === "leaders"
+      const columns = view === "games" || view === "players" || view === "leaders" || view === "boxscores"
         ? preferred.filter(key => availableColumns.includes(key))
         : view === "teams" || view === "standings"
           ? preferred.map(label => availableColumns.find(key => labelFor(key) === label)).filter(Boolean)
