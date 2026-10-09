@@ -3,8 +3,12 @@
 const PAGE = document.body.dataset.page;
 const IDS = {teams: ["team", "name"], skaters: ["name", "team", "pos"], goalies: ["name", "team", "pos"], games: ["date", "team", "opp", "ha", "res"]};
 const memo = {};
-const load = (kind, y) => memo[kind + y] || (memo[kind + y] = getJSON(kind + "_" + y + ".json").then(d => hydrate(d, kind)));
+let PO = false;                                   // false = regular season, true = playoffs
+const load = (kind, y) => { const f = kind + "_" + y + (PO ? "p" : ""); return memo[f] || (memo[f] = getJSON(f + ".json").then(d => hydrate(d, kind))); };
 let META = null;
+const seasons = () => (PO ? META.po_seasons : META.seasons);
+const typeToggle = () => '<div class="field"><span class="flabel">Season type</span><div class="seg" id="gt" role="group"><button type="button" data-p="0" aria-pressed="' + !PO + '">Regular season</button><button type="button" data-p="1" aria-pressed="' + PO + '">Playoffs</button></div></div>';
+const wireType = () => { const g = $("gt"); if (g) g.querySelectorAll("button").forEach(b => b.onclick = () => { PO = b.dataset.p === "1"; ROUTES[PAGE](); }); };
 
 function hydrate(d, kind) {
   const ids = IDS[kind === "team" ? "teams" : kind];
@@ -35,7 +39,7 @@ function fmt(v, f) {
   }
 }
 const opt = (v, l, sel) => '<option value="' + esc(v) + '"' + (sel ? " selected" : "") + ">" + esc(l) + "</option>";
-const seasonOpts = (cur, all) => (all ? opt("all", "All seasons", cur === "all") : "") + META.seasons.map(y => opt(y, seasonLabel(y) + (y === META.season ? " (so far)" : ""), String(cur) === String(y))).join("");
+const seasonOpts = (cur, all) => (all ? opt("all", "All seasons", cur === "all") : "") + seasons().map(y => opt(y, seasonLabel(y) + (!PO && y === META.season ? " (so far)" : ""), String(cur) === String(y))).join("");
 
 /* ---------------- generic sortable data table ---------------- */
 function tableHTML(rows, cols, idCols, st, o) {
@@ -75,9 +79,17 @@ function chips(groups, cur) {
   return '<div class="field"><span class="flabel">Stat group</span><div class="seg chips" role="group">' +
     groups.map(g => '<button type="button" data-g="' + esc(g) + '" aria-pressed="' + (g === cur) + '">' + esc(g) + "</button>").join("") + "</div></div>";
 }
-const groupsOf = cols => ["All", ...new Set(cols.map(c => c.g))];
+const KEY = {
+  teams: ["gamesPlayed", "points", "mp_xGoalsFor", "mp_xGoalsAgainst", "mp_xGoalsPercentage", "mp5v5_xGoalsPercentage", "mp_highDangerShotsFor", "mp_highDangerShotsAgainst",
+    "mp_highDangerxGoalsFor", "mp_highDangerxGoalsAgainst", "satFor", "satAgainst", "satPct", "mp_shotAttemptsFor", "mp_shotAttemptsAgainst", "savePct5v5", "powerPlayPct", "penaltyKillPct", "shootingPlusSavePct5v5"],
+  skaters: ["gamesPlayed", "goals", "points", "mp_I_F_xGoals", "mp_I_F_highDangerShots", "mp_I_F_highDangerxGoals", "satPct", "mp_onIce_xGoalsPercentage", "ppGoals", "ppPoints", "ppPointsPer60", "timeOnIcePerGame"],
+  goalies: ["gamesPlayed", "wins", "savePct", "goalsAgainstAverage", "savesAboveAvg", "mp_gsax", "mp_hdSavePct", "evSavePct", "ppSavePct", "shSavePct"],
+};
+let KEYSET = "teams";
+const groupsOf = cols => { const has = KEY[KEYSET].some(k => cols.some(c => c.k === k)); return [...(has ? ["Key stats"] : []), "All", ...new Set(cols.map(c => c.g))]; };
 const PINNED = ["gamesPlayed"];
 function visibleCols(cols, group) {
+  if (group === "Key stats") return KEY[KEYSET].map(k => cols.find(c => c.k === k)).filter(Boolean);
   return cols.filter(c => group === "All" || c.g === group || PINNED.includes(c.k));
 }
 const teamCell = r => "<td><b>" + esc(r.team) + "</b> <small>" + esc(r.name || tname(r.team)) + "</small></td>";
@@ -89,10 +101,10 @@ async function standings() {
     const d = await load("team", st.y);
     const useDiv = st.y >= META.div_from;
     if (!useDiv && st.view !== "league") st.view = "league";
-    const want = ["gamesPlayed", "wins", "losses", "otLosses", "points", "pointPct", "regulationAndOtWins", "goalsFor", "goalsAgainst", "goalDiff", "ptsPace", "expPoints", "luck", "shootingPlusSavePct5v5", "satPct", "powerPlayPct", "penaltyKillPct"];
+    const want = ["gamesPlayed", "wins", "losses", "otLosses", "points", "pointPct", "regulationAndOtWins", "goalsFor", "goalsAgainst", "goalDiff", "ptsPace", "expPoints", "luck", "shootingPlusSavePct5v5", "satPct", "mp_xGoalsPercentage", "mp_highDangerShotsFor", "mp_highDangerShotsAgainst", "powerPlayPct", "penaltyKillPct"];
     const cols = want.map(k => d.cols.find(c => c.k === k)).filter(Boolean).map(c => ({...c}));
     const alias = {gamesPlayed: "GP", wins: "W", losses: "L", otLosses: "OTL", points: "PTS", pointPct: "P%", regulationAndOtWins: "ROW", goalsFor: "GF", goalsAgainst: "GA",
-      goalDiff: "GD", ptsPace: "PTS pace", expPoints: "Exp PTS", luck: "Luck", shootingPlusSavePct5v5: "PDO", satPct: "SAT%", powerPlayPct: "PP%", penaltyKillPct: "PK%"};
+      goalDiff: "GD", ptsPace: "PTS pace", expPoints: "Exp PTS", luck: "Luck", shootingPlusSavePct5v5: "PDO", satPct: "Corsi%", mp_xGoalsPercentage: "xG%", mp_highDangerShotsFor: "HDC For", mp_highDangerShotsAgainst: "HDC Ag", powerPlayPct: "PP%", penaltyKillPct: "PK%"};
     cols.forEach(c => c.l = alias[c.k] || c.l);
     const rows = d.rows.slice();
     const dv = {}; Object.entries(META.divisions).forEach(([n, ts]) => ts.forEach(t => dv[t] = n));
@@ -123,11 +135,12 @@ async function standings() {
 
 /* ---------------- team stats (season table + year by year) ---------------- */
 async function teams() {
-  const st = {y: META.season, mode: "season", group: "Results", sortKey: "points", sortDir: -1, q: "", stat: "points", from: null, to: null};
+  KEYSET = "teams";
+  const st = {y: seasons()[0], mode: "season", group: "Key stats", sortKey: "points", sortDir: -1, q: "", stat: "points", from: null, to: null};
   const seasonDraw = async () => {
     const d = await load("team", st.y);
     const groups = groupsOf(d.cols);
-    if (!groups.includes(st.group)) st.group = groups[1] || "All";
+    if (!groups.includes(st.group)) st.group = "All";
     const cols = visibleCols(d.cols, st.group);
     let rows = d.rows.filter(r => !st.q || (r.team + " " + r.name).toLowerCase().includes(st.q));
     const all = d.cols.concat([{k: "team", f: "text"}]);
@@ -146,10 +159,10 @@ async function teams() {
     $("grp").querySelectorAll("button").forEach(b => b.onclick = () => { st.group = b.dataset.g; seasonDraw(); });
   };
   const yearDraw = async () => {
-    const ds = await Promise.all(META.seasons.map(y => load("team", y)));
+    const ds = await Promise.all(seasons().map(y => load("team", y)));
     const first = ds[0];                       // newest season fixes the stat list
     const col = first.cols.find(c => c.k === st.stat) || first.cols[0];
-    const ys = META.seasons.slice().reverse();                      // oldest to newest
+    const ys = seasons().slice().reverse();                      // oldest to newest
     const byY = {}; ds.forEach(d => byY[d.season] = d);
     st.from = st.from && ys.includes(+st.from) ? +st.from : ys[0];
     st.to = st.to && ys.includes(+st.to) ? +st.to : ys[ys.length - 1];
@@ -178,18 +191,19 @@ async function teams() {
     $("seasonF").hidden = st.mode !== "season"; $("statF").hidden = st.mode !== "year"; $("rangeF").hidden = st.mode !== "year"; $("grp").hidden = st.mode !== "season";
     if (st.mode === "season") await seasonDraw(); else await yearDraw();
   };
-  const d0 = await load("team", META.season);
+  const d0 = await load("team", seasons()[0]);
   const statOpts = () => {
     const gs = {}; d0.cols.forEach(c => (gs[c.g] = gs[c.g] || []).push(c));
     return Object.entries(gs).map(([g, cs]) => '<optgroup label="' + esc(g) + '">' + cs.map(c => opt(c.k, c.l, c.k === st.stat)).join("") + "</optgroup>").join("");
   };
-  const ysOld = META.seasons.slice().reverse();
-  $("app").innerHTML = '<div class="filters"><div class="field"><span class="flabel">View</span><div class="seg" id="modes" role="group"><button type="button" data-m="season">Season table</button><button type="button" data-m="year">Year by year</button></div></div>' +
+  const ysOld = seasons().slice().reverse();
+  $("app").innerHTML = '<div class="filters">' + typeToggle() + '<div class="field"><span class="flabel">View</span><div class="seg" id="modes" role="group"><button type="button" data-m="season">Season table</button><button type="button" data-m="year">Year by year</button></div></div>' +
     '<div class="field" id="seasonF"><label for="ss">Season</label><select id="ss">' + seasonOpts(st.y) + "</select></div>" +
     '<div class="field" id="statF"><label for="stat">Stat</label><select id="stat">' + statOpts() + "</select></div>" +
     '<div class="field" id="rangeF"><label for="fy">From → to</label><span class="pair"><select id="fy">' + ysOld.map(y => opt(y, seasonLabel(y), y === ysOld[0])).join("") + '</select><select id="ty">' + ysOld.map(y => opt(y, seasonLabel(y), y === ysOld[ysOld.length - 1])).join("") + "</select></span></div>" +
     '<div class="field"><label for="q">Team</label><input id="q" type="search" placeholder="Search"></div></div><div id="grp"></div><div id="out"></div>' +
     '<p class="note">Click any heading to sort high to low, again for low to high. Small numbers are league ranks; shading runs from best (teal) to worst (orange). PDO, SAT% (Corsi) and zone starts are 5v5.</p>';
+  wireType();
   $("modes").querySelectorAll("button").forEach(b => b.onclick = () => { st.mode = b.dataset.m; draw(); });
   $("ss").onchange = e => { st.y = +e.target.value; draw(); };
   $("stat").onchange = e => { st.stat = e.target.value; st.ysort = null; draw(); };
@@ -202,16 +216,17 @@ async function teams() {
 /* ---------------- skaters / goalies ---------------- */
 async function players(kind) {
   const isG = kind === "goalies";
-  const st = {y: META.season, group: isG ? "Basics" : "Scoring", sortKey: isG ? "wins" : "points", sortDir: -1, q: "", team: "", pos: "", min: 0, limit: 100};
+  KEYSET = kind;
+  const st = {y: seasons()[0], group: "Key stats", sortKey: isG ? "wins" : "points", sortDir: -1, q: "", team: "", pos: "", min: 0, limit: 100};
   const draw = async () => {
     let cols, rows;
     if (st.y === "all") {
-      const ds = await Promise.all(META.seasons.map(y => load(kind, y)));
+      const ds = await Promise.all(seasons().map(y => load(kind, y)));
       const seen = new Map(); ds.forEach(d => d.cols.forEach(c => { if (!seen.has(c.k)) seen.set(c.k, c); }));
       cols = [...seen.values()]; rows = ds.flatMap(d => d.rows);
     } else { const d = await load(kind, st.y); cols = d.cols; rows = d.rows; }
     const groups = groupsOf(cols);
-    if (!groups.includes(st.group)) st.group = groups[1] || "All";
+    if (!groups.includes(st.group)) st.group = "All";
     const teams = [...new Set(rows.flatMap(r => String(r.team || "").split(",")).filter(Boolean))].sort();
     $("team").innerHTML = opt("", "All teams", !st.team) + teams.map(t => opt(t, t, t === st.team)).join("");
     const gp = r => r.gamesPlayed || 0;
@@ -232,12 +247,13 @@ async function players(kind) {
     $("grp").querySelectorAll("button").forEach(b => b.onclick = () => { st.group = b.dataset.g; draw(); });
   };
   const posBtns = isG ? "" : '<div class="field"><label for="pos">Position</label><select id="pos">' + [["", "All"], ["F", "Forwards"], ["C", "Centres"], ["W", "Wingers"], ["D", "Defence"]].map(([v, l]) => opt(v, l)).join("") + "</select></div>";
-  $("app").innerHTML = '<div class="filters"><div class="field"><label for="ss">Season</label><select id="ss">' + seasonOpts(st.y, true) + "</select></div>" +
+  $("app").innerHTML = '<div class="filters">' + typeToggle() + '<div class="field"><label for="ss">Season</label><select id="ss">' + seasonOpts(st.y, true) + "</select></div>" +
     '<div class="field"><label for="team">Team</label><select id="team"></select></div>' + posBtns +
     '<div class="field"><label for="min">Min games</label><input id="min" type="number" min="0" value="0" style="width:84px"></div>' +
     '<div class="field"><label for="q">Player</label><input id="q" type="search" placeholder="Search"></div></div><div id="grp"></div><div id="out"></div>' +
     '<p class="note">' + (isG ? "Saves above average is saves minus what a league-average goalie would have saved on the same shots (it does not account for shot quality). " : "") +
-    "'All seasons' lists every player-season since " + seasonLabel(META.seasons[META.seasons.length - 1]) + ", so you can rank the best single seasons.</p>";
+    "'All seasons' lists every player-season since " + seasonLabel(seasons()[seasons().length - 1]) + ", so you can rank the best single seasons.</p>";
+  wireType();
   $("ss").onchange = e => { st.y = e.target.value === "all" ? "all" : +e.target.value; st.limit = 100; draw(); };
   $("team").onchange = e => { st.team = e.target.value; st.limit = 100; draw(); };
   if ($("pos")) $("pos").onchange = e => { st.pos = e.target.value; st.limit = 100; draw(); };
@@ -248,11 +264,11 @@ async function players(kind) {
 
 /* ---------------- game log ---------------- */
 async function games() {
-  const st = {y: META.season, team: "", ha: "", res: "", sortKey: "date", sortDir: -1, group: "Result", limit: 100};
+  const st = {y: seasons()[0], team: "", ha: "", res: "", sortKey: "date", sortDir: -1, group: "Result", limit: 100};
   const draw = async () => {
     let cols, rows;
     if (st.y === "all") {
-      const ds = await Promise.all(META.seasons.map(y => load("games", y)));
+      const ds = await Promise.all(seasons().map(y => load("games", y)));
       const seen = new Map(); ds.forEach(d => d.cols.forEach(c => { if (!seen.has(c.k)) seen.set(c.k, c); }));
       cols = [...seen.values()]; rows = ds.flatMap(d => d.rows);
     } else { const d = await load("games", st.y); cols = d.cols; rows = d.rows; }
@@ -273,17 +289,70 @@ async function games() {
     $("grp").innerHTML = chips(groups, st.group);
     $("grp").querySelectorAll("button").forEach(b => b.onclick = () => { st.group = b.dataset.g; draw(); });
   };
-  $("app").innerHTML = '<div class="filters"><div class="field"><label for="ss">Season</label><select id="ss">' + seasonOpts(st.y, true) + "</select></div>" +
+  $("app").innerHTML = '<div class="filters">' + typeToggle() + '<div class="field"><label for="ss">Season</label><select id="ss">' + seasonOpts(st.y, true) + "</select></div>" +
     '<div class="field"><label for="team">Team</label><select id="team"></select></div>' +
     '<div class="field"><label for="ha">Venue</label><select id="ha">' + [["", "Home & away"], ["H", "Home"], ["R", "Away"]].map(([v, l]) => opt(v, l)).join("") + "</select></div>" +
     '<div class="field"><label for="res">Result</label><select id="res">' + [["", "All"], ["W", "Wins"], ["L", "Losses"], ["OTL", "OT/SO losses"]].map(([v, l]) => opt(v, l)).join("") + "</select></div></div><div id=\"grp\"></div><div id=\"out\"></div>";
+  wireType();
   $("ss").onchange = e => { st.y = e.target.value === "all" ? "all" : +e.target.value; st.limit = 100; draw(); };
   ["team", "ha", "res"].forEach(k => $(k).onchange = e => { st[k] = e.target.value; st.limit = 100; draw(); });
   draw();
 }
 
+/* ---------------- award futures ---------------- */
+async function awardsPage() {
+  const A = await getJSON("awards.json");
+  const order = ["Hart", "Vezina", "Norris", "Calder", "ArtRoss", "Richard"].filter(k => A.awards[k]);
+  const st = {a: (location.hash.slice(1) && A.awards[location.hash.slice(1)]) ? location.hash.slice(1) : order[0]};
+  const f1 = v => v == null || !isFinite(v) ? "–" : v.toFixed(1), n0 = v => v == null || !isFinite(v) ? "–" : Math.round(v);
+  const draw = () => {
+    document.querySelectorAll("[data-aw]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.aw === st.a)));
+    const a = A.awards[st.a], g = st.a === "Vezina", race = st.a === "ArtRoss" || st.a === "Richard";
+    let h = "<h2>" + esc(a.title) + "</h2>";
+    if (a.backtest) {
+      const b = a.backtest;
+      h += '<p class="note"><b>Track record.</b> Fitted on every winner since 2010-11 and tested one season at a time with that season held out: the model\'s top pick won ' + b.top1 + " of " + b.n + " seasons (top three: " + b.top3 +
+        "). Simply picking the stat leader would have won " + b.leader_hits + ". On average it gave the eventual winner " + pct(b.avg_p) + ". Voters are not fully predictable, so treat these as chances, not locks.</p>";
+    } else {
+      h += '<p class="note">Simulated finish: the rest of the season is played out ' + "thousands of times from each player\'s current total and his rate (blended with last season), with ties split. Not back-tested.</p>";
+    }
+    h += '<p class="note">' + (A.games_played ? "Through " + A.games_played + " games per team." : "") + (a.backtest ? " Chances come from simulating each candidate\'s season forward, so they are wide early and narrow as the season goes." : "") + "</p>";
+    const rows = a.current || [];
+    const head = g ? ["Goalie", "Team", "GP", "W", "SV%", "GAA", "Saves above avg", "Proj. saves above avg", "Chance"]
+      : race ? ["Player", "Team", "GP", "G", "PTS", st.a === "ArtRoss" ? "Proj. PTS (10–90%)" : "Proj. goals (10–90%)", "Chance"]
+      : ["Player", "Team", "Pos", "GP", "G", "PTS", "Saves above avg", "Proj. PTS", "Team P% (to date)", "Chance"];
+    const cell = r => {
+      const nm = '<td><b>' + esc(r.name) + "</b></td>", tm = "<td>" + esc(r.team) + "</td>";
+      const ch = '<td data-v="' + r.prob + '"><b>' + pct(r.prob) + "</b></td>";
+      if (g) return nm + tm + "<td>" + r.gp + "</td><td>" + r.wins + "</td><td>" + (r.save_pct ? r.save_pct.toFixed(3).replace(/^0/, "") : "–") + "</td><td>" + f1(r.gaa).replace(/^(\d)\.(\d)$/, "$1.$2") + "</td><td>" + f1(r.saa) + "</td><td>" + f1(r.proj_saa) + "</td>" + ch;
+      if (race) return nm + tm + "<td>" + r.gp + "</td><td>" + r.goals + "</td><td>" + r.pts + "</td><td>" + n0(st.a === "ArtRoss" ? r.proj_pts : r.proj_goals) + " <small>(" + n0(r.lo) + "–" + n0(r.hi) + ")</small></td>" + ch;
+      const isG = r.pos === "G";
+      return nm + tm + "<td>" + esc(r.pos) + "</td><td>" + r.gp + "</td><td>" + (isG ? "–" : r.goals) + "</td><td>" + (isG ? "–" : r.pts) + "</td><td>" + (isG ? f1(r.saa) : "–") + "</td><td>" + (isG ? "–" : n0(r.proj_pts)) + "</td><td>" + pct(r.tm_pp) + "</td>" + ch;
+    };
+    h += '<div class="scroll"><table class="stbl nhl"><thead><tr>' + head.map(x => "<th>" + esc(x) + "</th>").join("") + "</tr></thead><tbody>" + rows.map(r => "<tr>" + cell(r) + "</tr>").join("") + "</tbody></table></div>";
+    h += '<h2 style="margin-top:22px">Past winners</h2><p class="note">' + (race ? "The league leader each season and the margin over second place." :
+      "Each winner's final numbers and where they ranked (points rank among " + (st.a === "Norris" ? "defencemen" : st.a === "Calder" ? "rookies" : "skaters") + ", saves above average rank among goalies).") + "</p>";
+    const ph = race ? ["Season", "Player", "Team", "GP", "G", "PTS", "Margin"] : ["Season", "Winner", "Team", "Pos", "GP", "G", "PTS", "Rank", "Saves above avg", "Team P%"];
+    h += '<div class="scroll"><table class="stbl nhl"><thead><tr>' + ph.map(x => "<th>" + esc(x) + "</th>").join("") + "</tr></thead><tbody>" + (a.past || []).map(r => {
+      const isG = r.pos === "G";
+      if (race) return "<tr><td>" + seasonLabel(r.season) + '</td><td><b>' + esc(r.name) + "</b></td><td>" + esc(r.team) + "</td><td>" + r.gp + "</td><td>" + r.goals + "</td><td>" + r.pts + "</td><td>" + (r.margin == null ? "–" : "+" + r.margin) + "</td></tr>";
+      return "<tr><td>" + seasonLabel(r.season) + '</td><td><b>' + esc(r.name) + "</b></td><td>" + esc(r.team) + "</td><td>" + esc(r.pos) + "</td><td>" + r.gp + "</td><td>" + (isG ? "–" : r.goals) + "</td><td>" + (isG ? "–" : r.pts) +
+        "</td><td>" + (isG ? "#" + r.saa_rank : r.pts_rank ? "#" + r.pts_rank : "–") + "</td><td>" + (isG ? f1(r.saa) : "–") + "</td><td>" + pct(r.tm_pp) + "</td></tr>";
+    }).join("") + "</tbody></table></div>";
+    $("race").innerHTML = h;
+    $("race").querySelectorAll("table").forEach(sortableTable);
+    try { history.replaceState(null, "", "#" + st.a); } catch (e) {}
+  };
+  $("app").innerHTML = '<div class="filters"><div class="field"><span class="flabel">Award</span><div class="seg" role="group" style="flex-wrap:wrap">' +
+    order.map(k => '<button type="button" data-aw="' + k + '">' + esc({Hart: "Hart", Vezina: "Vezina", Norris: "Norris", Calder: "Calder", ArtRoss: "Art Ross", Richard: "Richard"}[k]) + "</button>").join("") + '</div></div></div><div id="race"></div>' +
+    '<p class="note">Selke, Lady Byng, Jack Adams and the Conn Smythe are not modelled yet. Goalies are judged on saves above average (no shot quality) in the model; xG-based goalie value is shown elsewhere on the Goalies page.</p>';
+  document.querySelectorAll("[data-aw]").forEach(b => b.onclick = () => { st.a = b.dataset.aw; draw(); });
+  draw();
+}
+
+const ROUTES = {index: standings, awards: awardsPage, teams, skaters: () => players("skaters"), goalies: () => players("goalies"), games};
 boot(async meta => {
   META = meta;
   $("stamp").textContent = seasonLabel(meta.season) + " season · updated " + new Date(meta.updated_utc).toLocaleString(undefined, {weekday: "short", day: "numeric", month: "short", hour: "numeric", minute: "2-digit"});
-  ({index: standings, standings, teams, skaters: () => players("skaters"), goalies: () => players("goalies"), games})[PAGE]();
+  ROUTES[PAGE]();
 });

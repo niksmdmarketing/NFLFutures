@@ -68,7 +68,7 @@ CONF = {"Atlantic": "East", "Metropolitan": "East", "Central": "West", "Pacific"
 
 TOKENS = {"pp": "PP", "pk": "PK", "sh": "SH", "ev": "EV", "sat": "SAT", "usat": "USAT", "toi": "TOI", "gp": "GP", "ot": "OT",
           "so": "SO", "ga": "GA", "gf": "GF", "pct": "%", "pctg": "%", "per": "/", "pim": "PIM", "xg": "xG", "pdo": "PDO",
-          "gs": "GS", "qs": "QS", "gsaa": "GSAA", "5v5": "5v5", "4v5": "4v5", "5v4": "5v4", "3v3": "3v3", "4v4": "4v4",
+          "gs": "GS", "qs": "QS", "percentage": "%", "gsaa": "GSAA", "5v5": "5v5", "4v5": "4v5", "5v4": "5v4", "3v3": "3v3", "4v4": "4v4",
           "5v3": "5v3", "3v5": "3v5", "4v3": "4v3", "3v4": "3v4"}
 GLOSS = {
     "satPct": "Corsi share: all shot attempts for / (for + against), 5v5.",
@@ -100,15 +100,15 @@ def sid(y: int) -> int:
     return y * 10000 + y + 1
 
 
-def _fetch(kind: str, report: str, y: int, game: bool, cur: bool):
+def _fetch(kind: str, report: str, y: int, game: bool, cur: bool, gt: int = 2):
     """Rows of one report/season ([] if the report doesn't exist), or None if it failed and nothing is cached."""
     os.makedirs(NHL_DATA, exist_ok=True)
-    path = os.path.join(NHL_DATA, f"{kind}_{report}_{y}{'_g' if game else ''}.json")
+    path = os.path.join(NHL_DATA, f"{kind}_{report}_{y}{'_g' if game else ''}{'_po' if gt == 3 else ''}.json")
     max_age = 2 * 3600 if cur else 365 * 24 * 3600
     if os.path.exists(path) and time.time() - os.path.getmtime(path) < max_age:
         return json.load(open(path))
     q = {"isAggregate": "false", "isGame": "true" if game else "false", "limit": "-1", "start": "0",
-         "cayenneExp": f"seasonId={sid(y)} and gameTypeId=2"}
+         "cayenneExp": f"seasonId={sid(y)} and gameTypeId={gt}"}
     url = f"{API}/{kind}/{report}?" + urllib.parse.urlencode(q, quote_via=urllib.parse.quote)
     for attempt in range(4):
         try:
@@ -142,19 +142,36 @@ LABELS = {"gamesPlayed": "GP", "gamesStarted": "GS", "timeOnIcePerGame": "TOI/GP
           "usatPct": "USAT% (Fenwick)", "powerPlayPct": "PP%", "penaltyKillPct": "PK%", "faceoffWinPct": "FO%", "goalsFor": "GF",
           "goalsAgainst": "GA", "goalDiff": "GD", "regulationAndOtWins": "ROW", "shotsForPerGame": "SF/GP", "shotsAgainstPerGame": "SA/GP",
           "goalsForPerGame": "GF/GP", "goalsAgainstPerGame": "GA/GP", "savePct5v5": "SV% 5v5", "shootingPct5v5": "S% 5v5",
-          "shootingPlusSavePct5v5": "PDO", "goalsForPct": "GF% 5v5", "zoneStartPct5v5": "OZ start% 5v5", "toiTotal": "TOI total (min)"}
+          "shootingPlusSavePct5v5": "PDO", "goalsForPct": "GF% 5v5", "zoneStartPct5v5": "OZ start% 5v5", "toiTotal": "TOI total (min)",
+          "satFor": "Corsi For 5v5", "satAgainst": "Corsi Against 5v5", "usatFor": "Fenwick For 5v5", "usatAgainst": "Fenwick Against 5v5",
+          "mp_shotAttemptsFor": "Corsi For (all sit.)", "mp_shotAttemptsAgainst": "Corsi Against (all sit.)",
+          "mp_corsiPercentage": "Corsi % (all sit.)", "mp5v5_corsiPercentage": "Corsi % 5v5",
+          "mp_highDangerShotsFor": "High-danger chances For", "mp_highDangerShotsAgainst": "High-danger chances Against",
+          "mp5v5_highDangerShotsFor": "High-danger chances For 5v5", "mp5v5_highDangerShotsAgainst": "High-danger chances Against 5v5",
+          "mp_highDangerxGoalsFor": "High-danger xG For", "mp_highDangerxGoalsAgainst": "High-danger xG Against",
+          "mp_xGoalsFor": "xG For", "mp_xGoalsAgainst": "xG Against", "mp_xGoalsPercentage": "xG %", "mp5v5_xGoalsPercentage": "xG % 5v5",
+          "mp5v5_xGoalsFor": "xG For 5v5", "mp5v5_xGoalsAgainst": "xG Against 5v5",
+          "mp_xGDiff": "xG Diff", "mp_goalsAboveExp": "Goals For minus xG", "mp_goalsAgainstAboveExp": "Goals Against minus xG",
+          "mp_gsax": "GSAx (xG faced minus goals allowed)", "mp_gsaxPerShot": "GSAx per shot", "mp_hdSavePct": "High-danger SV%",
+          "mp_I_F_xGoals": "Individual xG", "mp_I_F_highDangerShots": "Individual high-danger shots", "mp_I_F_highDangerxGoals": "Individual high-danger xG",
+          "mp_onIce_xGoalsPercentage": "On-ice xG %", "mp5v5_onIce_xGoalsPercentage": "On-ice xG % 5v5"}
 
 
 def words(key: str) -> str:
     if key in LABELS:
         return LABELS[key]
+    if key.startswith("mp"):
+        lab = mp_label(key)
+        if lab:
+            return lab
+    key = key.replace("xGoals", " \x01 ").replace("xG", " \x01 ")
     key = re.sub(r"(\d)(?:v|On)(\d)", "\\1\x00\\2", key)
     s = re.sub(r"(?<=[a-z])(?=[A-Z0-9])|(?<=[0-9])(?=[A-Za-z])", " ", key)
     out = []
     for t in s.split():
         out.append(TOKENS.get(t.lower(), t.capitalize() if t.islower() or t[:1].isupper() and t[1:].islower() else t))
     lab = " ".join(out).replace(" / ", "/").replace(" %", "%")
-    return lab.replace("/ ", "/").replace("\x00", "v").strip()
+    return lab.replace("/ ", "/").replace("\x00", "v").replace("\x01", "xG").strip()
 
 
 def fmt_for(key: str, s: pd.Series) -> str:
@@ -282,6 +299,97 @@ def write(name: str, obj):
 
 # ---------------------------------------------------------------- build
 
+MP = "https://moneypuck.com/moneypuck/playerData/seasonSummary"
+MP_ALIAS = {"TB": "TBL", "NJ": "NJD", "SJ": "SJS", "LA": "LAK"}
+MP_TEAM_KEEP = ["xGoalsPercentage", "corsiPercentage", "fenwickPercentage", "xGoalsFor", "xGoalsAgainst", "goalsFor", "goalsAgainst",
+                "highDangerShotsFor", "highDangerShotsAgainst", "highDangerxGoalsFor", "highDangerxGoalsAgainst",
+                "highDangerGoalsFor", "highDangerGoalsAgainst", "shotAttemptsFor", "shotAttemptsAgainst", "iceTime"]
+MP_SIT = {"all": ("", "xG & danger (MoneyPuck)"), "5on5": ("5v5", "xG & danger 5v5 (MoneyPuck)"),
+          "5on4": ("pp", "xG power play (MoneyPuck)"), "4on5": ("pk", "xG penalty kill (MoneyPuck)")}
+MP_PARTS = {"I": "Ind", "F": "For", "A": "Against", "onIce": "On-ice", "OnIce": "On-ice", "offIce": "Off-ice", "OffIce": "Off-ice"}
+
+
+def mp_label(key: str) -> str | None:
+    m = re.match(r"mp(5v5|pp|pk)?_(.+)", key)
+    if not m:
+        return None
+    suffix = {"5v5": " 5v5", "pp": " PP", "pk": " PK", None: ""}[m.group(1)]
+    parts = [MP_PARTS.get(p) or words(p) for p in m.group(2).split("_")]
+    return " ".join(parts).replace("  ", " ").strip() + suffix
+
+
+def _mp_csv(kind: str, y: int, gt: int, cur: bool):
+    os.makedirs(NHL_DATA, exist_ok=True)
+    path = os.path.join(NHL_DATA, f"mp_{kind}_{y}{'_po' if gt == 3 else ''}.csv")
+    max_age = 2 * 3600 if cur else 365 * 24 * 3600
+    if not (os.path.exists(path) and time.time() - os.path.getmtime(path) < max_age):
+        url = f"{MP}/{y}/{'playoffs' if gt == 3 else 'regular'}/{kind}.csv"
+        for attempt in range(3):
+            try:
+                req = urllib.request.Request(url, headers={"User-Agent": "SportsFutures/1.0"})
+                with urllib.request.urlopen(req, timeout=120) as r, open(path + ".part", "wb") as f:
+                    shutil.copyfileobj(r, f)
+                os.replace(path + ".part", path)
+                break
+            except urllib.error.HTTPError as e:
+                if e.code in (403, 404):
+                    open(path, "w").close()
+                    break
+            except Exception:
+                pass
+            time.sleep(2 * (attempt + 1))
+    if not os.path.exists(path) or os.path.getsize(path) < 50:
+        return pd.DataFrame()
+    try:
+        return pd.read_csv(path, low_memory=False)
+    except Exception:
+        return pd.DataFrame()
+
+
+def mp_extras(kind: str, d: pd.DataFrame, key: str, y: int, gt: int, cur: bool, abbrs=None):
+    """MoneyPuck xG tables as (group, frame) pairs ready for merge_reports. key = 'abbr' (teams) or 'playerId'."""
+    m = _mp_csv(kind, y, gt, cur)
+    if m.empty or "situation" not in m:
+        return []
+    ident = "team" if kind == "teams" else "playerId"
+    if kind == "teams":
+        m["k"] = m["team"].astype(str).str.replace(".", "", regex=False).map(lambda t: MP_ALIAS.get(t, t))
+        if abbrs is not None and not m.k.isin(abbrs).any():
+            return []
+    else:
+        m["k"] = m["playerId"]
+    out = []
+    for sit, (tag, grp) in MP_SIT.items():
+        if kind != "teams" and sit != "all" and kind == "goalies":
+            continue
+        s = m[m.situation == sit]
+        if s.empty:
+            continue
+        if "games_played" in s:
+            s = s.sort_values("games_played", ascending=False)
+        s = s.drop_duplicates("k").set_index("k")
+        if kind == "teams":
+            cols = [c for c in MP_TEAM_KEEP if c in s] if sit != "all" else [c for c in s.columns if pd.api.types.is_numeric_dtype(s[c]) and c not in ("season", "games_played")]
+        elif sit == "all":
+            cols = [c for c in s.columns if pd.api.types.is_numeric_dtype(s[c]) and c not in ("season", "playerId", "games_played")]
+        else:
+            cols = [c for c in s.columns if pd.api.types.is_numeric_dtype(s[c]) and re.search(r"xGoals|Percentage|gameScore|highDanger|icetime", c)
+                    and c not in ("season", "playerId", "games_played")]
+        t = s[cols].copy()
+        t.columns = [f"mp{tag}_{c}" for c in cols]
+        if kind == "goalies" and sit == "all":
+            if "xGoals" in s and "goals" in s:
+                t["mp_gsax"] = s["xGoals"] - s["goals"]
+                t["mp_gsaxPerShot"] = t["mp_gsax"] / s["ongoal"].replace(0, np.nan)
+                t["mp_hdSavePct"] = 1 - s["highDangerGoals"] / s["highDangerShots"].replace(0, np.nan)
+        if kind == "teams" and sit == "all":
+            t["mp_xGDiff"] = s["xGoalsFor"] - s["xGoalsAgainst"]
+            t["mp_goalsAboveExp"] = s["goalsFor"] - s["xGoalsFor"]
+            t["mp_goalsAgainstAboveExp"] = s["goalsAgainst"] - s["xGoalsAgainst"]
+        out.append((grp, t))
+    return out
+
+
 def build_data():
     try:
         _build_data()
@@ -289,6 +397,26 @@ def build_data():
         log("nhl FAILED:", repr(e))
         import traceback
         traceback.print_exc()
+        return
+    try:
+        import nhl_awards
+        nhl_awards.build()
+    except Exception as e:
+        log("nhl awards FAILED:", repr(e))
+        import traceback
+        traceback.print_exc()
+
+
+def _age(d, y, groups):
+    if "birthDate" in d:
+        by = pd.to_datetime(d.birthDate, errors="coerce")
+        d["age"] = ((pd.Timestamp(year=y, month=10, day=1) - by).dt.days / 365.25).round(1)
+        groups["age"] = "Bio"
+
+
+def _order(meta, order):
+    meta.sort(key=lambda m: (order.index(m["k"]) if m["k"] in order else 99))
+    return meta
 
 
 def _build_data():
@@ -299,22 +427,21 @@ def _build_data():
     jobs = []
     for y in seasons:
         c = y == cur_y
-        jobs += [("team", r, y, False, c) for r, _ in TEAM_REPORTS]
-        jobs += [("team", r, y, True, c) for r, _ in GAME_REPORTS]
-        jobs += [("skater", r, y, False, c) for r, _ in SKATER_REPORTS]
-        jobs += [("goalie", r, y, False, c) for r, _ in GOALIE_REPORTS]
-    got = dict(zip([(j[0], j[1], j[2], j[3]) for j in jobs], fetch_many(jobs)))
+        for gt in (2, 3):
+            jobs += [("team", r, y, False, c, gt) for r, _ in TEAM_REPORTS]
+            jobs += [("team", r, y, True, c, gt) for r, _ in GAME_REPORTS]
+            jobs += [("skater", r, y, False, c, gt) for r, _ in SKATER_REPORTS]
+            jobs += [("goalie", r, y, False, c, gt) for r, _ in GOALIE_REPORTS]
+    got = dict(zip([(j[0], j[1], j[2], j[3], j[5]) for j in jobs], fetch_many(jobs)))
     log("nhl fetched", len(jobs), "requests")
 
-    def rep(kind, r, y, game=False):
-        return got.get((kind, r, y, game)) or []
+    def rep(kind, r, y, game=False, gt=2):
+        return got.get((kind, r, y, game, gt)) or []
 
-    # team id -> tri-code, learned from the game logs (each row names the opponent's code)
     tid2abbr = {}
     for y in seasons:
-        g = rep("team", "summary", y, True)
         by_game = {}
-        for r in g:
+        for r in rep("team", "summary", y, True):
             by_game.setdefault(r["gameId"], []).append(r)
         for rows in by_game.values():
             if len(rows) == 2:
@@ -323,133 +450,139 @@ def _build_data():
                 tid2abbr[a["teamId"]] = b.get("opponentTeamAbbrev")
     log("nhl teams known", len(tid2abbr))
 
-    team_frames, played = {}, []
-    for y in seasons:
-        base = frame(rep("team", "summary", y), "teamId")
-        if base.empty or base.gamesPlayed.max() < 1:
+    slope = None
+    played, po_played, xg_seasons = [], [], []
+    for gt, suf in ((2, ""), (3, "p")):
+        team_frames = {}
+        for y in seasons:
+            c = y == cur_y
+            base = frame(rep("team", "summary", y, False, gt), "teamId")
+            if base.empty or base.gamesPlayed.max() < 1:
+                continue
+            groups = {}
+            extra = [(grp, frame(rep("team", r, y, False, gt), "teamId")) for r, grp in TEAM_REPORTS[1:]]
+            d = merge_reports(base, extra, groups, "Results")
+            d["abbr"] = [tid2abbr.get(i) or norm_name(base.loc[i, "teamFullName"])[:3].upper() for i in d.index]
+            mp = mp_extras("teams", d, "abbr", y, gt, c, set(d.abbr))
+            if mp:
+                a = d.reset_index().set_index("abbr")
+                for grp, t in mp:
+                    new = t[[x for x in t.columns if x not in a.columns]]
+                    for x in new.columns:
+                        groups[x] = grp
+                    a = a.join(new, how="left")
+                d = a.reset_index().set_index("teamId")
+                if gt == 2 and y not in xg_seasons:
+                    xg_seasons.append(y)
+            team_frames[y] = (d, groups)
+        if gt == 2:
+            xs, ys = [], []
+            for y, (d, _) in team_frames.items():
+                gp = num(d, "gamesPlayed")
+                gdpg = (num(d, "goalsFor") - num(d, "goalsAgainst")) / gp
+                xs += list(gdpg.dropna()); ys += list(((num(d, "points") / (2 * gp)) - 0.5)[gdpg.notna()])
+            xs, ys = np.array(xs), np.array(ys)
+            slope = float((xs * ys).sum() / (xs * xs).sum()) if len(xs) else 0.1
+            log("nhl point% per goal of differential", round(slope, 4))
+        if not team_frames:
             continue
-        groups = {}
-        extra = [(grp, frame(rep("team", r, y), "teamId")) for r, grp in TEAM_REPORTS[1:]]
-        d = merge_reports(base, extra, groups, "Results")
-        d["abbr"] = [tid2abbr.get(i) or norm_name(base.loc[i, "teamFullName"])[:3].upper() for i in d.index]
-        team_frames[y] = (d, groups)
-        played.append(y)
+        for y, (d, groups) in team_frames.items():
+            gp = num(d, "gamesPlayed")
+            d["goalDiff"] = num(d, "goalsFor") - num(d, "goalsAgainst")
+            d["goalDiffPerGame"] = d.goalDiff / gp
+            if gt == 2:
+                d["ptsPace"] = num(d, "points") / gp * 82
+                d["expPoints"] = (0.5 + slope * d.goalDiffPerGame) * gp * 2
+                d["luck"] = num(d, "points") - d.expPoints
+                for c in ("ptsPace", "expPoints", "luck"):
+                    groups[c] = "Results"
+            if "powerPlayPct" in d and "penaltyKillPct" in d:
+                d["stIndex"] = num(d, "powerPlayPct") + num(d, "penaltyKillPct")
+                groups["stIndex"] = "Special teams"
+            for c in ("goalDiff", "goalDiffPerGame"):
+                groups[c] = "Results"
+            meta, _ = cols_meta(d, groups)
+            meta = _order(meta, ["gamesPlayed", "wins", "losses", "otLosses", "points", "pointPct", "ptsPace", "expPoints", "luck", "goalsFor",
+                                 "goalsAgainst", "goalDiff", "goalDiffPerGame"])
+            meta = [m for m in meta if m["k"] != "abbr"]
+            write(f"team_{y}{suf}.json", {"season": y, "cols": meta, "rows": rows_out(d, meta, {"team": d.abbr.to_dict(), "name": d.teamFullName.to_dict()})})
+            (played if gt == 2 else po_played).append(y)
+
+        for y in seasons:
+            c = y == cur_y
+            base = frame(rep("skater", "summary", y, False, gt), "playerId")
+            if not base.empty and base.gamesPlayed.max() >= 1:
+                groups = {}
+                extra = [(grp, frame(rep("skater", r, y, False, gt), "playerId")) for r, grp in SKATER_REPORTS[1:]]
+                extra += mp_extras("skaters", base, "playerId", y, gt, c)
+                d = merge_reports(base, extra, groups, "Scoring")
+                gp = num(d, "gamesPlayed")
+                d["toiTotal"] = num(d, "timeOnIcePerGame") * gp
+                d["shotsPerGame"] = num(d, "shots") / gp
+                groups["toiTotal"] = "Ice time"; groups["shotsPerGame"] = "Shooting"
+                _age(d, y, groups)
+                meta, _ = cols_meta(d, groups)
+                meta = _order(meta, ["gamesPlayed", "goals", "assists", "points", "pointsPerGame", "plusMinus", "shots", "shootingPct", "timeOnIcePerGame"])
+                write(f"skaters_{y}{suf}.json", {"season": y, "cols": meta, "rows": rows_out(d, meta, {
+                    "name": d.skaterFullName.to_dict(), "team": d.teamAbbrevs.to_dict(), "pos": d.positionCode.to_dict()})})
+            gb = frame(rep("goalie", "summary", y, False, gt), "playerId")
+            if not gb.empty and gb.gamesPlayed.max() >= 1:
+                groups = {}
+                extra = [(grp, frame(rep("goalie", r, y, False, gt), "playerId")) for r, grp in GOALIE_REPORTS[1:]]
+                extra += mp_extras("goalies", gb, "playerId", y, gt, c)
+                d = merge_reports(gb, extra, groups, "Basics")
+                sa, sv = num(d, "shotsAgainst"), num(d, "saves")
+                lg = float(sv.sum() / sa.sum()) if sa.sum() else float("nan")
+                d["savesAboveAvg"] = sv - sa * lg
+                hrs = (num(d, "timeOnIce") / 3600).replace(0, np.nan)
+                d["savesAboveAvgPer60"] = d.savesAboveAvg / hrs
+                d["shotsAgainstPer60"] = sa / hrs
+                for c2 in ("savesAboveAvg", "savesAboveAvgPer60", "shotsAgainstPer60"):
+                    groups[c2] = "Advanced"
+                _age(d, y, groups)
+                meta, _ = cols_meta(d, groups)
+                meta = _order(meta, ["gamesPlayed", "gamesStarted", "wins", "losses", "otLosses", "savePct", "goalsAgainstAverage", "savesAboveAvg", "shutouts"])
+                write(f"goalies_{y}{suf}.json", {"season": y, "cols": meta, "rows": rows_out(d, meta, {
+                    "name": d.goalieFullName.to_dict(), "team": d.teamAbbrevs.to_dict(), "pos": {i: "G" for i in d.index}})})
+
+            gl = pd.DataFrame(rep("team", "summary", y, True, gt))
+            if gl.empty:
+                continue
+            gl["key"] = gl.gameId.astype(str) + "_" + gl.teamId.astype(str)
+            gl = gl.drop_duplicates("key").set_index("key")
+            groups = {}
+            extra = []
+            for r, grp in GAME_REPORTS[1:]:
+                e = pd.DataFrame(rep("team", r, y, True, gt))
+                if e.empty or "gameId" not in e:
+                    continue
+                e["key"] = e.gameId.astype(str) + "_" + e.teamId.astype(str)
+                extra.append((grp, e.drop_duplicates("key").set_index("key")))
+            d = merge_reports(gl, extra, groups, "Result")
+            d["abbr"] = d.teamId.map(tid2abbr)
+            d["goalDiff"] = num(d, "goalsFor") - num(d, "goalsAgainst")
+            groups["goalDiff"] = "Result"
+            d["res"] = np.where(num(d, "wins") > 0, "W", np.where(num(d, "otLosses") > 0, "OTL", "L"))
+            meta, _ = cols_meta(d, groups)
+            drop = {"gamesPlayed", "wins", "losses", "otLosses", "ties", "abbr", "res", "winsInRegulation", "winsInShootout", "regulationAndOtWins",
+                    "teamShutouts", "pointPct", "goalsForPerGame", "goalsAgainstPerGame", "shotsForPerGame", "shotsAgainstPerGame",
+                    "penaltyKillNetPct", "powerPlayNetPct", "points"}
+            meta = [m for m in meta if m["k"] not in drop] + [m for m in meta if m["k"] == "points"]
+            d = d.sort_values(["gameDate", "gameId"])
+            write(f"games_{y}{suf}.json", {"season": y, "cols": meta, "rows": rows_out(d, meta, {
+                "date": d.gameDate.to_dict(), "team": d.abbr.to_dict(), "opp": d.opponentTeamAbbrev.to_dict(),
+                "ha": d.homeRoad.to_dict(), "res": d.res.to_dict()})})
+
     if not played:
         raise RuntimeError("no NHL team data")
-
-    # goal difference -> points: fitted on every season so 'luck' has a fixed meaning
-    xs, ys = [], []
-    for y, (d, _) in team_frames.items():
-        gp = num(d, "gamesPlayed")
-        gdpg = (num(d, "goalsFor") - num(d, "goalsAgainst")) / gp
-        xs += list(gdpg.dropna()); ys += list(((num(d, "points") / (2 * gp)) - 0.5)[gdpg.notna()])
-    xs, ys = np.array(xs), np.array(ys)
-    slope = float((xs * ys).sum() / (xs * xs).sum()) if len(xs) else 0.1
-    log("nhl point% per goal of differential", round(slope, 4))
-
-    for y in played:
-        d, groups = team_frames[y]
-        gp = num(d, "gamesPlayed")
-        d["goalDiff"] = num(d, "goalsFor") - num(d, "goalsAgainst")
-        d["goalDiffPerGame"] = d.goalDiff / gp
-        d["ptsPace"] = num(d, "points") / gp * 82
-        d["expPoints"] = (0.5 + slope * d.goalDiffPerGame) * gp * 2
-        d["luck"] = num(d, "points") - d.expPoints
-        if "powerPlayPct" in d and "penaltyKillPct" in d:
-            d["stIndex"] = num(d, "powerPlayPct") + num(d, "penaltyKillPct")
-            groups["stIndex"] = "Special teams"
-        for c, g in (("goalDiff", "Results"), ("goalDiffPerGame", "Results"), ("ptsPace", "Results"),
-                     ("expPoints", "Results"), ("luck", "Results")):
-            groups[c] = g
-        meta, keep = cols_meta(d, groups)
-        order = ["gamesPlayed", "wins", "losses", "otLosses", "points", "pointPct", "ptsPace", "expPoints", "luck", "goalsFor",
-                 "goalsAgainst", "goalDiff", "goalDiffPerGame"]
-        meta.sort(key=lambda m: (order.index(m["k"]) if m["k"] in order else 99))
-        meta = [m for m in meta if m["k"] != "abbr"]
-        write(f"team_{y}.json", {"season": y, "cols": meta, "rows": rows_out(d, meta, {"team": d.abbr.to_dict(), "name": d.teamFullName.to_dict()})})
-
-    # ---- skaters / goalies
-    for y in seasons:
-        base = frame(rep("skater", "summary", y), "playerId")
-        if not base.empty and base.gamesPlayed.max() >= 1:
-            groups = {}
-            extra = [(grp, frame(rep("skater", r, y), "playerId")) for r, grp in SKATER_REPORTS[1:]]
-            d = merge_reports(base, extra, groups, "Scoring")
-            gp = num(d, "gamesPlayed")
-            toi = num(d, "timeOnIcePerGame")
-            d["toiTotal"] = toi * gp
-            groups["toiTotal"] = "Ice time"
-            d["shotsPerGame"] = num(d, "shots") / gp
-            groups["shotsPerGame"] = "Shooting"
-            if "birthDate" in d:
-                by = pd.to_datetime(d.birthDate, errors="coerce")
-                d["age"] = ((pd.Timestamp(year=y, month=10, day=1) - by).dt.days / 365.25).round(1)
-                groups["age"] = "Bio"
-            meta, keep = cols_meta(d, groups)
-            order = ["gamesPlayed", "goals", "assists", "points", "pointsPerGame", "plusMinus", "shots", "shootingPct", "timeOnIcePerGame"]
-            meta.sort(key=lambda m: (order.index(m["k"]) if m["k"] in order else 99))
-            write(f"skaters_{y}.json", {"season": y, "cols": meta, "rows": rows_out(d, meta, {
-                "name": d.skaterFullName.to_dict(), "team": d.teamAbbrevs.to_dict(), "pos": d.positionCode.to_dict()})})
-        gb = frame(rep("goalie", "summary", y), "playerId")
-        if not gb.empty and gb.gamesPlayed.max() >= 1:
-            groups = {}
-            extra = [(grp, frame(rep("goalie", r, y), "playerId")) for r, grp in GOALIE_REPORTS[1:]]
-            d = merge_reports(gb, extra, groups, "Basics")
-            sa, sv = num(d, "shotsAgainst"), num(d, "saves")
-            lg = float(sv.sum() / sa.sum()) if sa.sum() else float("nan")
-            d["savesAboveAvg"] = sv - sa * lg
-            d["savesAboveAvgPer60"] = d.savesAboveAvg / (num(d, "timeOnIce") / 3600)
-            d["shotsAgainstPer60"] = sa / (num(d, "timeOnIce") / 3600)
-            for c in ("savesAboveAvg", "savesAboveAvgPer60", "shotsAgainstPer60"):
-                groups[c] = "Advanced"
-            if "birthDate" in d:
-                by = pd.to_datetime(d.birthDate, errors="coerce")
-                d["age"] = ((pd.Timestamp(year=y, month=10, day=1) - by).dt.days / 365.25).round(1)
-                groups["age"] = "Bio"
-            meta, keep = cols_meta(d, groups)
-            order = ["gamesPlayed", "gamesStarted", "wins", "losses", "otLosses", "savePct", "goalsAgainstAverage", "savesAboveAvg", "shutouts"]
-            meta.sort(key=lambda m: (order.index(m["k"]) if m["k"] in order else 99))
-            write(f"goalies_{y}.json", {"season": y, "cols": meta, "rows": rows_out(d, meta, {
-                "name": d.goalieFullName.to_dict(), "team": d.teamAbbrevs.to_dict(), "pos": {i: "G" for i in d.index}})})
-
-        # ---- team game log (one row per team per game)
-        gb = pd.DataFrame(rep("team", "summary", y, True))
-        if gb.empty:
-            continue
-        gb["key"] = gb.gameId.astype(str) + "_" + gb.teamId.astype(str)
-        gb = gb.drop_duplicates("key").set_index("key")
-        groups = {}
-        extra = []
-        for r, grp in GAME_REPORTS[1:]:
-            e = pd.DataFrame(rep("team", r, y, True))
-            if e.empty or "gameId" not in e:
-                continue
-            e["key"] = e.gameId.astype(str) + "_" + e.teamId.astype(str)
-            extra.append((grp, e.drop_duplicates("key").set_index("key")))
-        d = merge_reports(gb, extra, groups, "Result")
-        d["abbr"] = d.teamId.map(tid2abbr)
-        d["goalDiff"] = num(d, "goalsFor") - num(d, "goalsAgainst")
-        groups["goalDiff"] = "Result"
-        d["res"] = np.where(num(d, "wins") > 0, "W", np.where(num(d, "otLosses") > 0, "OTL", "L"))
-        meta, keep = cols_meta(d, groups)
-        meta = [m for m in meta if m["k"] not in ("gamesPlayed", "wins", "losses", "otLosses", "ties", "abbr", "res", "winsInRegulation",
-                                                   "winsInShootout", "regulationAndOtWins", "teamShutouts", "pointPct", "goalsForPerGame",
-                                                   "goalsAgainstPerGame", "shotsForPerGame", "shotsAgainstPerGame", "penaltyKillNetPct",
-                                                   "powerPlayNetPct", "points")] + \
-               [m for m in meta if m["k"] == "points"]
-        d = d.sort_values(["gameDate", "gameId"])
-        write(f"games_{y}.json", {"season": y, "cols": meta, "rows": rows_out(d, meta, {
-            "date": d.gameDate.to_dict(), "team": d.abbr.to_dict(), "opp": d.opponentTeamAbbrev.to_dict(),
-            "ha": d.homeRoad.to_dict(), "res": d.res.to_dict()})})
-
-    meta = {"season": cur_y, "seasons": [y for y in played if y <= cur_y][::-1],
+    names = {}
+    for r in json.load(open(os.path.join(NHL_OUT, f"team_{played[-1]}.json")))["rows"]:
+        names[r[0]] = r[1]
+    meta = {"season": cur_y, "seasons": sorted(played, reverse=True), "po_seasons": sorted(po_played, reverse=True), "xg_seasons": sorted(xg_seasons, reverse=True),
             "updated_utc": dt.datetime.now(dt.timezone.utc).isoformat(timespec="minutes"),
-            "slope": round(slope, 4), "divisions": DIVS, "conf": CONF, "div_from": 2021,
-            "teams": {t["abbr"]: t["name"] for _, t in pd.DataFrame(
-                [{"abbr": team_frames[played[-1]][0].loc[i, "abbr"], "name": team_frames[played[-1]][0].loc[i, "teamFullName"]}
-                 for i in team_frames[played[-1]][0].index]).iterrows()}}
+            "slope": round(slope, 4), "divisions": DIVS, "conf": CONF, "div_from": 2021, "teams": names}
     write("meta.json", meta)
-    log("nhl data done:", len(played), "seasons")
+    log("nhl data done:", len(played), "regular seasons,", len(po_played), "playoff seasons, xG in", len(xg_seasons))
 
 
 # ---------------------------------------------------------------- site
@@ -458,6 +591,7 @@ PAGES = [("index", "Standings", "NHL standings", "Points, pace, goal difference,
          ("teams", "Team stats", "NHL team stats", "Every team stat the league publishes, shaded best to worst, plus a year-by-year view of how any stat changes for each team."),
          ("skaters", "Skaters", "NHL skaters", "Scoring, possession, shooting, ice time, power play and discipline for every skater. Any season or all seasons."),
          ("goalies", "Goalies", "NHL goalies", "Save percentage, saves above average, rest, strength splits and more for every goalie."),
+         ("awards", "Awards", "NHL award futures", "Chance of winning the Hart, Vezina, Norris, Calder, Art Ross and Maurice Richard, with how the model has done on past seasons and what past winners looked like."),
          ("games", "Games", "NHL team game log", "Every team game since 2010-11: shots, possession, hits, faceoffs and special teams, searchable by team and season.")]
 
 
