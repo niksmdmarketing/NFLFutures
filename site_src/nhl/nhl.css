@@ -12,3 +12,4 @@
 @media (max-width: 600px) { .stbl.nhl td small { display: none; } }
 .stbl.nhl.ranked td:nth-child(2), .stbl.nhl.ranked th:nth-child(2) { text-align: left; }
 .stbl.nhl.ranked td:first-child, .stbl.nhl.ranked th:first-child { text-align: right; }
+#app, #tbl, #out, #race { min-width: 0; max-width: 100%; }

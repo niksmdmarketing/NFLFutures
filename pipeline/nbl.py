@@ -103,7 +103,15 @@ def _paged_rows(route: str, cache_stem: str, ttl: float, failures: list[str], pa
     return rows, updated
 
 
+# Match box scores are one request per game; the first full download is slow. Spend at most this long per refresh
+# on new ones so the whole site job stays well inside its time limit; later refreshes fill in the rest.
+MATCH_BUDGET_S = float(os.environ.get("NBL_MATCH_BUDGET_S", 480))
+
+
 def build_data() -> None:
+    global T0
+    T0 = time.time()
+    skipped = 0
     failures: list[str] = []
     seasons, seasons_updated = _rows("nbl/seasons", "seasons.json", 24, failures)
     season_rows = []
@@ -166,8 +174,11 @@ def build_data() -> None:
                           and game.get("id")]
         for game in complete_games:
             match_id = urllib.parse.quote(str(game["id"]), safe="")
-            match_payload, match_updated, match_error = _get(
-                f"match/{match_id}", f"{year}_{season_type}_match_{match_id}.json", boxscore_ttl)
+            cache_name = f"{year}_{season_type}_match_{match_id}.json"
+            if time.time() - T0 > MATCH_BUDGET_S and not os.path.exists(os.path.join(NBL_DATA, cache_name)):
+                skipped += 1      # time budget spent: fetch the rest on later runs (the cache keeps what we have)
+                continue
+            match_payload, match_updated, match_error = _get(f"match/{match_id}", cache_name, boxscore_ttl)
             if match_updated:
                 all_updated.append(match_updated)
             if match_error:
@@ -209,7 +220,7 @@ def build_data() -> None:
     meta = {"league": "NBL", "updated_utc": updated, "seasons": sorted(datasets, reverse=True),
             "source": "NBL public stats feed (Rosetta/Genius Sports)", "errors": failures[:10]}
     write_json("nbl_stats_index.json", {"meta": meta, "seasons": datasets})
-    log("NBL data", len(datasets), "seasons", "feed warnings", len(failures))
+    log("NBL data", len(datasets), "seasons", "feed warnings", len(failures), "match box scores deferred", skipped)
 
 
 def build_site() -> None:
