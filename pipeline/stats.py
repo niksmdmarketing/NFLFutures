@@ -153,6 +153,9 @@ def rows_from(values, page):
     return [{"team": t, "name": NAMES[t], **{k: v for k, v in vals.get(t, {}).items()}} for t in TEAMS]
 
 
+BOXES = {}
+
+
 def load_history():
     out, cubes = {}, {}
     for p in sorted(glob.glob(os.path.join(ROOT, "history", "*.json"))):
@@ -162,6 +165,7 @@ def load_history():
             cubes[int(name[5:])] = d
         else:
             out[int(name)] = d["values"]
+            BOXES[int(name)] = d.get("box", [])
     return out, cubes
 
 
@@ -213,29 +217,12 @@ def build_all(season, games, pbp, ratings, injuries):
                                 col("remaining", "Games left", "int", None), col("next", "Next four", "text", None)],
                     "seasons": [season], "season": season, "data": {str(season): sos}}
 
-    # ---------- Box scores ----------
-    box = []
-    for _, r in g[g.result.notna()].sort_values(["week", "gameday"]).iterrows():
-        gs = s[s.game_id == r.game_id]
-        if gs.empty:
-            continue
-        teams = []
-        for t, opp, pts in ((r.away_team, r.home_team, r.away_score), (r.home_team, r.away_team, r.home_score)):
-            o = gs[gs.posteam == t]
-            t3 = o[o.down == 3]
-            conv = int(t3.third_down_converted.fillna(0).sum()); att3 = conv + int(t3.third_down_failed.fillna(0).sum())
-            dr_ = o.groupby("fixed_drive").agg(minyd=("yardline_100", "min"), res=("fixed_drive_result", "first"))
-            rz = dr_[dr_.minyd <= 20]
-            teams.append({"team": t, "pts": int(pts), "plays": int(len(o)), "yards": int(o.yards_gained.sum()),
-                          "epa": round(float(o.epa.mean()), 3) if len(o) else None,
-                          "succ": round(float(o.success.mean()), 3) if len(o) else None,
-                          "pass_epa": round(float(o[o.db == 1].epa.mean()), 3) if (o.db == 1).any() else None,
-                          "rush_epa": round(float(o[o.dr == 1].epa.mean()), 3) if (o.dr == 1).any() else None,
-                          "expl": int(o.expl.sum()), "early_succ": round(float(o[o.down.isin([1, 2])].success.mean()), 3) if len(o) else None,
-                          "third": f"{conv}/{att3}", "rz": f"{int((rz.res == 'Touchdown').sum())}/{len(rz)}",
-                          "to": int(o.interception.sum() + o.fumble_lost.sum()), "sacks": int(o.sack.sum())})
-        box.append({"week": int(r.week), "date": r.gameday, "teams": teams})
-    pages["boxscores"] = {"title": "Advanced box scores", "games": box}
+    # ---------- Box scores: every game since 2018 (columnar) ----------
+    rows = [r for y in sorted(BOXES) if y < season for r in BOXES[y]] + team_season.box_rows(season, games, pbp)
+    cols = team_season.BOX_COLS
+    pages["boxscores"] = {"title": "Advanced box scores", "season": season,
+                          "seasons": sorted({r[0] for r in rows}), "cols": cols,
+                          "data": {c: [r[i] for r in rows] for i, c in enumerate(cols)}}
 
     # ---------- Injuries ----------
     inj_rows = []

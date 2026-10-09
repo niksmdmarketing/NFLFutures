@@ -292,3 +292,41 @@ def pace_cube(season, games, pbp):
                       "n": 1, "p": s.db.astype(int), "g": s.gap.notna().astype(int), "s": (s.gap.fillna(0) * 10).round().astype(int)})
     a = k.groupby(CUBE_KEYS, as_index=False)[["n", "p", "g", "s"]].sum()
     return {"season": int(season), "teams": TEAMS, "cols": {c: a[c].astype(int).tolist() for c in a.columns}}
+
+
+# ---------------- per-game team box scores (for historical box scores and "best since" notes) ----------------
+BOX_COLS = ["season", "week", "date", "team", "opp", "home", "pts", "opp_pts", "plays", "yards", "epa", "succ", "pass_epa",
+            "rush_epa", "early_succ", "expl", "third_c", "third_a", "rz_td", "rz_n", "to", "sacks", "rush_yds", "pass_yds",
+            "first_downs"]
+
+
+def box_rows(season, games, pbp):
+    g = games[(games.season == season) & (games.game_type == "REG") & games.result.notna()]
+    s = scrimmage(pbp)
+    out = []
+    by_game = {k: v for k, v in s.groupby("game_id")}
+    fd_cols = [c for c in ("first_down_rush", "first_down_pass", "first_down_penalty") if c in pbp]
+    fd = pbp.assign(fd=pbp[fd_cols].fillna(0).sum(axis=1)).groupby(["game_id", "posteam"]).fd.sum()
+    for r in g.itertuples():
+        gs = by_game.get(r.game_id)
+        if gs is None or gs.empty:
+            continue
+        for t, opp, pts, opp_pts, home in ((r.away_team, r.home_team, r.away_score, r.home_score, 0),
+                                           (r.home_team, r.away_team, r.home_score, r.away_score, 1)):
+            o = gs[gs.posteam == t]
+            if o.empty:
+                continue
+            t3 = o[o.down == 3]
+            conv = int(t3.third_down_converted.fillna(0).sum())
+            att3 = conv + int(t3.third_down_failed.fillna(0).sum())
+            dr = o.groupby("fixed_drive").agg(minyd=("yardline_100", "min"), res=("fixed_drive_result", "first"))
+            rz = dr[dr.minyd <= 20]
+            db, ru = o[o.db == 1], o[o.dr == 1]
+            out.append([int(season), int(r.week), r.gameday, t, opp, home, int(pts), int(opp_pts), int(len(o)),
+                        int(o.yards_gained.sum()), round(float(o.epa.mean()), 3), round(float(o.success.mean()), 3),
+                        round(float(db.epa.mean()), 3) if len(db) else None, round(float(ru.epa.mean()), 3) if len(ru) else None,
+                        round(float(o[o.down.isin([1, 2])].success.mean()), 3), int(o.expl.sum()), conv, att3,
+                        int((rz.res == "Touchdown").sum()), int(len(rz)), int(o.interception.sum() + o.fumble_lost.sum()),
+                        int(o.sack.sum()), int(ru.yards_gained.sum()), int(db.yards_gained.sum()),
+                        int(fd.get((r.game_id, t), 0))])
+    return out

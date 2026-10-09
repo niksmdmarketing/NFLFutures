@@ -36,7 +36,7 @@ PAGES = [
     ("pace", "Pace", "Team pace", "How much of the 40-second play clock each offense uses before the snap. Clock used is timed from the end of the previous play to the snap, on snaps that follow a run or pass with no penalty, timeout or other stoppage. Filter by week, quarter, down, venue and huddle; switch to Year by year to see how a team's tempo has changed since 2022.", "pace.js", None),
     ("sos", "Schedule", None, None, "table.js", "sos"),
     "Games",
-    ("boxscores", "Box scores", "Advanced box scores", "Efficiency box score for every game played this season. The better side of each line is highlighted.", "boxscores.js", None),
+    ("boxscores", "Box scores", "Advanced box scores", "Efficiency box score for every regular-season game since 2018, with notes on standout performances and a team game log that ranks any game against a team's history. The better side of each line is highlighted.", "boxscores.js", None),
     ("injuries", "Injuries", "Injury report", "The latest official practice report, and which quarterback the model expects to start for each team.", "injuries.js", None),
 ]
 

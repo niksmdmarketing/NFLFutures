@@ -236,3 +236,9 @@ details > summary { cursor: pointer; list-style: none; display: flex; align-item
 details > summary::before { content: "▸"; color: var(--muted); }
 details[open] > summary::before { content: "▾"; }
 .ftable th small { display: block; font-weight: 400; text-transform: none; letter-spacing: 0; }
+
+.game .notes { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-direction: column; gap: 4px; font-size: .82rem; }
+.game .notes li { display: block; padding: 4px 8px; border-radius: 4px; border-left: 3px solid var(--line); background: var(--bg); }
+.game .notes li.up { border-left-color: var(--off); }
+.game .notes li.down { border-left-color: var(--def); }
+.stbl tr.hl td { background: var(--off-bg); font-weight: 600; }

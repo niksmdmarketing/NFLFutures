@@ -96,7 +96,7 @@ PBP_COLS = ["game_id", "play_id", "season_type", "week", "home_team", "away_team
             "punt_inside_twenty", "punt_blocked", "touchback", "return_yards", "kickoff_attempt", "punt_attempt",
             "field_goal_attempt", "extra_point_attempt", "penalty_team", "penalty_yards", "penalty_type",
             "fourth_down_converted", "fourth_down_failed", "pass_touchdown", "rush_touchdown", "return_team",
-            "goal_to_go", "drive_time_of_possession"]
+            "goal_to_go", "drive_time_of_possession", "first_down_rush", "first_down_pass", "first_down_penalty"]
 
 
 def load_pbp(season, max_age_h=2.0):

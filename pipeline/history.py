@@ -37,7 +37,7 @@ def build(season, g):
     cube = team_season.pace_cube(season, g, pbp)
     os.makedirs(HIST, exist_ok=True)
     with open(os.path.join(HIST, f"{season}.json"), "w") as f:
-        json.dump({"season": season, "values": values_json(V)}, f, separators=(",", ":"))
+        json.dump({"season": season, "values": values_json(V), "box": team_season.box_rows(season, g, pbp)}, f, separators=(",", ":"))
     if cube:
         with open(os.path.join(HIST, f"pace_{season}.json"), "w") as f:
             json.dump(cube, f, separators=(",", ":"))
