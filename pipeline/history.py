@@ -20,6 +20,8 @@ FIRST = 2018
 def clean(v):
     if v is None:
         return None
+    if isinstance(v, str):
+        return v
     try:
         f = float(v)
     except (TypeError, ValueError):
