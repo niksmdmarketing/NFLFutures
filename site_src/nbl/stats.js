@@ -20,6 +20,23 @@ const viewStats = {
   players: ["Player", "Team", "Position", "Jersey", "Height", "Weight", "Nationality"],
   boxscores: ["Date", "Round", "Matchup", "Player", "Team", "MIN", "PTS", "REB", "OREB", "DREB", "AST", "STL", "BLK", "TOV", "FGM", "FGA", "FG%", "3PM", "3PA", "3P%", "FTM", "FTA", "FT%", "+/-"]
 };
+const statGroups = {
+  leaders: {
+    production: ["Player", "Team", "Position", "GP", "GS", "MPG", "PPG", "RPG", "APG", "SPG", "BPG", "TOV/G", "AST/TOV"],
+    shooting: ["Player", "Team", "GP", "FG%", "3P%", "FT%", "eFG%", "TS%"]
+  },
+  teams: {
+    summary: ["Team", "GP", "Wins", "Losses", "Win %", "PPG", "Opponent PPG", "Point diff"],
+    efficiency: ["Team", "Pace", "OffRtg", "DefRtg", "NetRtg", "eFG%", "TS%", "3P rate", "FT rate"],
+    boxscore: ["Team", "GP", "RPG", "APG", "TOV/G"]
+  },
+  boxscores: {
+    production: ["Date", "Round", "Matchup", "Player", "Team", "MIN", "PTS", "REB", "AST", "STL", "BLK", "TOV", "+/-"],
+    shooting: ["Date", "Matchup", "Player", "Team", "FGM", "FGA", "FG%", "3PM", "3PA", "3P%", "FTM", "FTA", "FT%"],
+    rebounding: ["Date", "Matchup", "Player", "Team", "REB", "OREB", "DREB", "STL", "BLK", "+/-"]
+  }
+};
+const groupLabels = {production:"Production", shooting:"Shooting", summary:"Summary", efficiency:"Efficiency", boxscore:"Rebounding & playmaking", rebounding:"Rebounding & defense"};
 const fieldLabels = {
   "Player": "Player", "Team": "Team", "Team code": "Team code", "Position": "Position",
   "GP": "GP", "GS": "GS", "MPG": "MPG", "PPG": "PPG", "RPG": "RPG", "APG": "APG",
@@ -186,6 +203,7 @@ function friendlyRows(records, view = "") {
       const gp = number("played", "games_played", "games", "GP");
       const wins = number("won", "wins", "w", "Won");
       const losses = number("lost", "losses", "l", "Lost");
+      const winPct = number("win_percentage", "win_pct", "Win %") ?? (gp > 0 && wins != null ? wins / gp : null);
       const ppg = number("points_average", "points_per_game", "PPG", "scoring_average");
       const opp = number("opponent_points_average", "points_against_average", "points_allowed_average", "opp_points_average", "opponent_ppg");
       const pointDiff = number("point_diff_average", "average_point_differential", "point_differential", "point_diff");
@@ -200,7 +218,7 @@ function friendlyRows(records, view = "") {
       const rpg = number("rebounds_average", "rebounds_per_game", "RPG", "total_rebounds_average", "trb_avg");
       const apg = number("assists_average", "assists_per_game", "APG", "ast_avg");
       const tov = number("turnovers_average", "turnovers_per_game", "TOV/G", "tov_avg");
-      return { Team: name, "Team code": code, GP: gp, Wins: wins, Losses: losses, PPG: ppg,
+      return { Team: name, "Team code": code, GP: gp, Wins: wins, Losses: losses, "Win %": winPct, PPG: ppg,
         "Opponent PPG": opp, "Point diff": pointDiff, Pace: pace, OffRtg: off, DefRtg: def,
         NetRtg: net, "eFG%": efg, "TS%": ts, "3P rate": threeRate, "FT rate": ftRate,
         RPG: rpg, APG: apg, "TOV/G": tov };
@@ -293,12 +311,25 @@ fetch("data/stats_index.json", { cache: "no-cache" })
   .then(index => {
     const seasons = index.seasons || {};
     const years = Object.keys(seasons).sort((a, b) => Number(b) - Number(a));
-    const season = $("season"), dataset = $("dataset"), search = $("search");
+    const season = $("season"), dataset = $("dataset"), groupSelect = $("statGroup"),
+      groupField = $("groupField"), search = $("search");
     const head = $("head"), body = $("body");
     season.innerHTML = years.map(year => '<option value="' + esc(year) + '">' + esc(year)
       + "–" + String(Number(year) + 1).slice(-2) + "</option>").join("");
     season.value = years[0] || "";
-    let rows = [], view = "leaders", sort = { key: "", dir: -1 };
+    let rows = [], view = "leaders", group = "production", sort = { key: "", dir: -1 };
+
+    function setDefaultSort() {
+      const defaults = {
+        leaders: {production:["PPG",-1], shooting:["TS%",-1]},
+        teams: {summary:["Win %",-1], efficiency:["NetRtg",-1], boxscore:["RPG",-1]},
+        boxscores: {production:["Date",-1], shooting:["Date",-1], rebounding:["Date",-1]},
+        games: {default:["Date",1]}, standings: {default:["Position",1]}, players: {default:["Player",1]}
+      };
+      const [label, dir] = defaults[view]?.[group] || defaults[view]?.default || ["",-1];
+      const key = Object.hasOwn(rows[0] || {}, label) ? label : Object.keys(rows[0] || {}).find(field => labelFor(field) === label) || label;
+      sort = {key, dir};
+    }
 
     function render() {
       const query = search.value.trim().toLowerCase();
@@ -306,28 +337,32 @@ fetch("data/stats_index.json", { cache: "no-cache" })
       if (query) selected = selected.filter(row => Object.values(row).some(value => String(value ?? "").toLowerCase().includes(query)));
       if (sort.key) selected = selected.slice().sort((a, b) => {
         const left = a[sort.key], right = b[sort.key];
-        if (left == null) return 1;
-        if (right == null) return -1;
+        if (left == null || left === "") return right == null || right === "" ? 0 : 1;
+        if (right == null || right === "") return -1;
         const aNum = Number(left), bNum = Number(right);
         return (Number.isFinite(aNum) && Number.isFinite(bNum)
           ? aNum - bNum : String(left).localeCompare(String(right))) * sort.dir;
       });
-      const availableColumns = [...new Set(selected.flatMap(Object.keys))].filter(key => !hiddenField(key));
-      const preferred = viewStats[view] || [];
-      const columns = view === "games" || view === "players" || view === "leaders" || view === "boxscores"
-        ? preferred.filter(key => availableColumns.includes(key))
-        : view === "teams" || view === "standings"
-          ? preferred.map(label => availableColumns.find(key => labelFor(key) === label)).filter(Boolean)
-          : [...preferred.map(label => availableColumns.find(key => labelFor(key) === label)).filter(Boolean),
-            ...availableColumns.filter(key => !preferred.includes(labelFor(key)))];
+      const availableColumns = [...new Set(rows.flatMap(Object.keys))].filter(key => !hiddenField(key));
+      const preferred = statGroups[view]?.[group] || viewStats[view] || [];
+      const columns = [...new Set(preferred.map(label => availableColumns.includes(label)
+        ? label : availableColumns.find(key => labelFor(key) === label)).filter(Boolean))];
       $("status").textContent = selected.length.toLocaleString() + " rows · " + columns.length
         + " readable fields · click a heading to sort · source checked " + (index.meta.updated_utc || "date unavailable")
         + (index.meta.errors?.length ? " · refresh warning; last cached data kept" : "");
-      head.innerHTML = "<tr>" + columns.map(key => '<th data-key="' + esc(key) + '">' + esc(labelFor(key)) + "</th>").join("") + "</tr>";
-      head.querySelectorAll("th").forEach(th => th.onclick = () => {
-        if (sort.key === th.dataset.key) sort.dir *= -1;
-        else sort = { key: th.dataset.key, dir: typeof rows[0]?.[th.dataset.key] === "string" ? 1 : -1 };
-        render();
+      head.innerHTML = "<tr>" + columns.map(key => '<th scope="col" tabindex="0" aria-sort="' + (sort.key === key ? (sort.dir > 0 ? "ascending" : "descending") : "none") + '" data-key="' + esc(key) + '">' + esc(labelFor(key)) + "</th>").join("") + "</tr>";
+      head.querySelectorAll("th").forEach(th => {
+        const onSort = () => {
+          if (sort.key === th.dataset.key) sort.dir *= -1;
+          else sort = { key: th.dataset.key, dir: typeof rows[0]?.[th.dataset.key] === "string" ? 1 : -1 };
+          render();
+          head.querySelector('[data-key="' + CSS.escape(th.dataset.key) + '"]')?.focus();
+        };
+        th.onclick = onSort;
+        th.onkeydown = event => {
+          if (event.key !== "Enter" && event.key !== " ") return;
+          event.preventDefault(); onSort();
+        };
       });
       body.innerHTML = selected.slice(0, 5000).map(row => "<tr>" + columns.map(key => {
         const value = displayValue(key, row[key]);
@@ -344,8 +379,14 @@ fetch("data/stats_index.json", { cache: "no-cache" })
         + esc(viewLabels[key] || key.replaceAll("_", " ")) + " (" + value.length + ")</option>").join("");
       view = available.some(([key]) => key === "leaders") ? "leaders" : available[0]?.[0];
       dataset.value = view;
+      group = Object.keys(statGroups[view] || {})[0] || "default";
+      groupField.hidden = !statGroups[view];
+      if (statGroups[view]) {
+        groupSelect.innerHTML = Object.keys(statGroups[view]).map(key => '<option value="' + esc(key) + '">' + esc(groupLabels[key] || key) + '</option>').join("");
+        groupSelect.value = group;
+      }
       rows = friendlyRows(data[view] || [], view);
-      sort = view === "games" ? { key: "Date", dir: 1 } : { key: "", dir: -1 };
+      setDefaultSort();
       render();
     }
 
@@ -357,10 +398,17 @@ fetch("data/stats_index.json", { cache: "no-cache" })
     season.onchange = update;
     dataset.onchange = () => {
       view = dataset.value;
+      group = Object.keys(statGroups[view] || {})[0] || "default";
+      groupField.hidden = !statGroups[view];
+      if (statGroups[view]) {
+        groupSelect.innerHTML = Object.keys(statGroups[view]).map(key => '<option value="' + esc(key) + '">' + esc(groupLabels[key] || key) + '</option>').join("");
+        groupSelect.value = group;
+      }
       rows = friendlyRows((seasons[season.value] || {})[view] || [], view);
-      sort = view === "games" ? { key: "Date", dir: 1 } : { key: "", dir: -1 };
+      setDefaultSort();
       render();
     };
+    groupSelect.onchange = () => { group = groupSelect.value; setDefaultSort(); render(); };
     search.oninput = render;
     update();
   })

@@ -19,6 +19,7 @@
     .data-wrap table{border-collapse:collapse;min-width:100%;font-size:12px;white-space:nowrap}
     .data-wrap th,.data-wrap td{padding:8px 10px;border-bottom:1px solid var(--line,#29313a);text-align:right}
     .data-wrap th{position:sticky;top:0;background:#151b20;cursor:pointer;z-index:1}
+    .data-wrap th:focus-visible{outline:2px solid var(--accent,#e6b85c);outline-offset:-2px}
     .data-wrap th:first-child,.data-wrap td:first-child{text-align:left}
     .data-wrap td{max-width:280px;overflow:hidden;text-overflow:ellipsis}
   </style>
@@ -38,11 +39,12 @@
       <div class="data-tools">
         <div class="field"><label for="season">Season</label><select id="season"></select></div>
         <div class="field"><label for="dataset">Stats view</label><select id="dataset"></select></div>
+        <div class="field" id="groupField" hidden><label for="statGroup">Stat group</label><select id="statGroup"></select></div>
         <div class="field"><label for="search">Search this view</label><input id="search" type="search" placeholder="Type a name or team"></div>
       </div>
       <p class="data-status" id="status">Loading…</p>
       <div class="data-wrap"><table><thead id="head"></thead><tbody id="body"></tbody></table></div>
-      <p class="footnote">Click a column heading to sort. Player eFG% and TS% are derived from season shooting averages when the feed provides all required inputs; AST/TOV compares per-game assists with turnovers. Player game logs show official box-score figures where available. Team efficiency fields are shown only when supplied by the feed. Game rows distinguish upcoming fixtures from completed scores. Roster lookup is reference-only. Historical coverage varies by category.</p>
+      <p class="footnote">Choose a stats view and stat group to focus the table. Select a column heading to sort (select again to reverse). Player eFG% and TS% are derived from season shooting averages when the feed provides all required inputs; AST/TOV compares per-game assists with turnovers. Player game logs show official box-score figures where available. Team efficiency fields are shown only when supplied by the feed. Game rows distinguish upcoming fixtures from completed scores. Roster lookup is reference-only. Historical coverage varies by category.</p>
     </main>
     <footer class="stamp">Independent stats research, not betting advice.</footer>
   </div>

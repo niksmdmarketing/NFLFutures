@@ -239,6 +239,12 @@ a { color: var(--accent); }
 .stats-tools { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 14px; }
 .stats-summary { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin-bottom: 9px; }
 .stats-table { min-width: 920px; }
+.stats-table-wrap { display: block; min-height: 8rem; }
+.stats-table thead { display: table-header-group; }
+.stats-table tbody { display: table-row-group; }
+.stats-table tr { display: table-row; }
+.stats-table th, .stats-table td { display: table-cell; }
+.stats-table td { color: var(--ink); }
 .stats-table th { cursor: pointer; }
 .stats-table th[data-type="text"] { text-align: left; }
 .stats-table td.txt { text-align: left; }

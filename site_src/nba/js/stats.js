@@ -28,12 +28,18 @@ boot(async()=>{
     if(sortKey)rows.sort((a,b)=>{const x=a[sortKey],y=b[sortKey];let n;if(x==null)n=y==null?0:1;else if(y==null)n=-1;else n=typeof x==="string"?String(x).localeCompare(String(y)):Number(x)-Number(y);return n*sortDirection;});
     else if(view==="players")rows.sort((a,b)=>(b.pts||0)-(a.pts||0)); else rows.sort((a,b)=>String(a.date||"").localeCompare(String(b.date||""))*-1);
     $("rowCount").textContent=rows.length.toLocaleString()+" rows";
-    head.innerHTML="<tr>"+keys.map(k=>'<th data-key="'+k+'" data-type="'+(["date","team","player","opponent","result","venue"].includes(k)?"text":"num")+'">'+esc(label(k))+"</th>").join("")+"</tr>";
-    head.querySelectorAll("th").forEach(th=>th.addEventListener("click",()=>{const key=th.dataset.key;if(sortKey===key)sortDirection*=-1;else{sortKey=key;sortDirection=th.dataset.type==="text"?1:-1;}build();}));
+    head.innerHTML="<tr>"+keys.map(k=>'<th scope="col" tabindex="0" aria-sort="'+(sortKey===k?(sortDirection>0?"ascending":"descending"):"none")+'" data-key="'+k+'" data-type="'+(["date","team","player","opponent","result","venue"].includes(k)?"text":"num")+'">'+esc(label(k))+"</th>").join("")+"</tr>";
+    head.querySelectorAll("th").forEach(th=>{
+      const sort = () => {const key=th.dataset.key;if(sortKey===key)sortDirection*=-1;else{sortKey=key;sortDirection=th.dataset.type==="text"?1:-1;}build();};
+      th.addEventListener("click",sort);
+      th.addEventListener("keydown",event=>{if(event.key==="Enter"||event.key===" "){event.preventDefault();sort();}});
+    });
     body.innerHTML=rows.map(r=>"<tr>"+keys.map(k=>{let v=r[k];if(k==="team"&&view==="players"&&r.team==="TOT")v=r.teams+" (TOT)";if(k==="record")v=(r.w||0)+"–"+(r.l||0);if(k==="home")v=(r.home_w||0)+"–"+((r.home_gp||0)-(r.home_w||0));if(k==="road")v=(r.road_w||0)+"–"+((r.road_gp||0)-(r.road_w||0));if(k==="date")v=String(v||"");return '<td class="'+(["team","player","date","opponent","result"].includes(k)?"txt":"")+'">'+display(v,k)+"</td>";}).join("")+"</tr>").join("")||'<tr><td colspan="'+keys.length+'" class="txt">No rows match these filters.</td></tr>';
+    const table=$("statsTable");table.hidden=false;table.style.display="table";table.style.visibility="visible";
+    head.hidden=false;body.hidden=false;
   }
   async function loadCurrent(){const current=view,year=Number(season.value);if(current==="teams"){build();return;}const key=current+":"+year;if(!cache[key]){const file=current==="players"?"player_stats_":"team_games_";cache[key]=getJSON(file+year+".json").then(x=>x.rows).catch(()=>[]);}$("rowCount").textContent="Loading season data…";const rows=await cache[key];if(view===current&&Number(season.value)===year){datasets[current]=rows;build();}}
   async function setView(next){view=next;sortKey="";buttons.forEach(b=>{const active=b.dataset.view===view;b.classList.toggle("active",active);b.setAttribute("aria-selected",String(active));});const viewYears=index.seasons[view];const oldSeason=season.value;season.innerHTML=viewYears.map(y=>'<option value="'+y+'">'+(y-1)+'–'+String(y).slice(-2)+'</option>').join("");season.value=viewYears.includes(Number(oldSeason))?oldSeason:String(viewYears[0]);const groups=Object.keys(views[view].metrics);metric.innerHTML=groups.map(g=>'<option value="'+g+'">'+({summary:"Summary",efficiency:"Efficiency",scoring:"Scoring & shooting",other:"Rebounding & creation",production:"Production",shooting:"Shooting",rates:"Per 36 & usage",score:"Score & efficiency",box:"Box score"}[g]||g)+"</option>").join("");await loadCurrent();}
-  buttons.forEach(b=>b.addEventListener("click",()=>setView(b.dataset.view)));season.addEventListener("change",()=>view==="teams"?build():loadCurrent());[type,team,metric].forEach(el=>el.addEventListener("change",build));search.addEventListener("input",build);
+  buttons.forEach(b=>b.addEventListener("click",()=>setView(b.dataset.view)));season.addEventListener("change",()=>view==="teams"?build():loadCurrent());[type,team].forEach(el=>el.addEventListener("change",build));metric.addEventListener("change",()=>{sortKey="";build();});search.addEventListener("input",build);
   season.value=String(years[0]);setView("teams");
 });
