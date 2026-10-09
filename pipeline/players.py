@@ -19,7 +19,7 @@ import warnings
 import numpy as np
 import pandas as pd
 
-from common import DATA, FIX, OUT, TEAMS, TIX, download, log
+from common import DATA, FIX, OUT, TIX, download, log
 
 warnings.filterwarnings("ignore", category=pd.errors.PerformanceWarning)
 FIRST = 2018

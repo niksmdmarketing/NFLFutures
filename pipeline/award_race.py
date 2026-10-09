@@ -6,8 +6,6 @@ and at season end. Recomputed on every refresh.
 """
 import re
 
-import numpy as np
-import pandas as pd
 
 from common import TEAMS
 import players
@@ -133,7 +131,7 @@ def build(season, games, awards_json):
             if y not in hist:
                 continue
             at, full, rec_at, rec_full = hist[y]
-            m = at[at.norm == norm(name)]
+
             f = full[full.norm == norm(name)]
             if f.empty:
                 continue
