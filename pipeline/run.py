@@ -101,6 +101,11 @@ def main():
         trends.build_site()
     except Exception as e:  # noqa: BLE001
         log("trends failed", e)
+    try:  # private research dataset + leakage/coverage report: written to data/research, never published
+        import snapshots
+        snapshots.build_all()
+    except Exception as e:  # noqa: BLE001
+        log("snapshots failed", e)
     # Cloudflare Pages rejects the whole deployment if any file is over 25 MiB: drop such files loudly instead
     for dirpath, _, files in os.walk(os.path.join(os.path.dirname(OUT), "site")):
         for fn in files:

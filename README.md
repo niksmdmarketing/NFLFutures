@@ -119,3 +119,10 @@ Parameters in `model/settings.json` were fitted offline and are not re-fitted by
   runs whose probabilities did not change.
 - Backtests against 2018–2025 bookmaker futures (v3) found the model matched the market only around Weeks 5–8 and did
   not produce profitable bets, so the site shows probabilities only.
+
+## Research snapshots (private)
+`python pipeline/snapshots.py` builds point-in-time team snapshots (20/40/60/80% of the league schedule and season end,
+each using only games on or before its as-of date) joined to final labels (playoffs, rounds won, finalist, champion,
+division winner, top seed). Output stays in git-ignored `data/research/` with a `COVERAGE.json` validation report
+(leakage re-check, monotone dates, end snapshot equals the full-season table, one champion per finished season).
+It runs at the end of each refresh and is never published.
