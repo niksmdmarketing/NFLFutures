@@ -9,6 +9,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import awards  # noqa: E402
 import build_site  # noqa: E402
 import matchups  # noqa: E402
+import nba  # noqa: E402
 import ratings  # noqa: E402
 import simulate  # noqa: E402
 import simulate_v3  # noqa: E402
@@ -62,7 +63,9 @@ def main():
     for name, page in stats.build_all(season, g, cur, R, injuries).items():
         write_json(f"page_{name}.json", page)
     log("stats pages done")
+    nba.build_data()
     build_site.build()
+    nba.build_site()
     log("site built")
 
 

@@ -1,0 +1,5 @@
+boot(async()=>{const data=await getJSON("games.json"),rows=data.rows,up=$("upcoming"),recent=$("recent"),today=new Date().toISOString().slice(0,10);
+  const game=g=>'<article class="panel game-card"><div class="game-date">'+g.date+'</div><div class="game-line"><b>'+g.away+'</b><span>'+esc(NAMES[g.away])+'</span><strong>'+(g.completed?g.away_score:pct(1-g.home_win))+'</strong></div><div class="game-line"><b>'+g.home+'</b><span>'+esc(NAMES[g.home])+'</span><strong>'+(g.completed?g.home_score:pct(g.home_win))+'</strong></div>'+(g.completed?'':'<p class="note">Home projected margin '+(g.projected_margin>0?'+':'')+g.projected_margin.toFixed(1)+'</p>')+'</article>';
+  const future=rows.filter(g=>!g.completed&&g.date>=today).slice(0,40),past=rows.filter(g=>g.completed).slice(-20).reverse();
+  up.innerHTML=future.length?future.map(game).join(""):'<p class="empty">No upcoming games are currently listed.</p>';recent.innerHTML=past.length?past.map(game).join(""):'<p class="empty">The regular season has not started.</p>';
+});

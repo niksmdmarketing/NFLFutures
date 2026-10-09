@@ -157,6 +157,10 @@ tr.detail td { padding: 0; text-align: left; background: var(--bg); }
 
 /* ---- site shell ---- */
 .site-head { display: flex; flex-direction: column; gap: 10px; border-bottom: 3px solid var(--accent); padding-bottom: 12px; }
+.sportbar { display: flex; align-items: center; gap: 5px; font-family: var(--font-display); text-transform: uppercase; letter-spacing: .06em; }
+.sportbar span { color: var(--muted); font-family: var(--font-body); font-size: .65rem; font-weight: 600; letter-spacing: .1em; margin-right: 3px; }
+.sportbar a { color: var(--muted); text-decoration: none; border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 3px 11px; font-size: .86rem; font-weight: 700; }
+.sportbar a[aria-current="page"] { color: var(--surface); background: var(--accent); border-color: var(--accent); }
 .brand { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; }
 .brand a { color: inherit; text-decoration: none; }
 .brand h1 { font-size: clamp(1.7rem, 5vw, 2.6rem); }
@@ -167,6 +171,7 @@ tr.detail td { padding: 0; text-align: left; background: var(--bg); }
 .nav a:hover { color: var(--ink); }
 .nav a[aria-current="page"] { background: var(--accent); border-color: var(--accent); color: var(--surface); }
 .nav .sep { flex: 0 0 1px; background: var(--line); margin: 2px 4px; }
+.nav.nav-simple { flex-direction: row; flex-wrap: wrap; }
 .page-head { display: flex; flex-direction: column; gap: 8px; }
 .page-head p { max-width: 75ch; color: var(--muted); }
 .page { display: flex; flex-direction: column; gap: 24px; }
@@ -215,6 +220,12 @@ input[type="search"] { font: inherit; color: var(--ink); background: var(--surfa
 a { color: var(--accent); }
 @media (max-width: 600px) { .stbl td:first-child small { display: none; } .stbl th, .stbl td { padding: 6px 7px; } }
 [hidden] { display: none !important; }
+.nba-futures { min-width: 900px; }
+.game-card { gap: 7px; }
+.game-date { color: var(--muted); font-size: .76rem; text-transform: uppercase; letter-spacing: .06em; }
+.game-line { display: grid; grid-template-columns: 3rem minmax(0,1fr) auto; gap: 8px; align-items: baseline; padding-bottom: 5px; border-bottom: 1px solid var(--line); }
+.game-line span { color: var(--muted); overflow-wrap: anywhere; }
+.game-line strong { font-family: var(--font-display); font-size: 1.18rem; }
 .flabel { font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; font-weight: 600; color: var(--muted); }
 .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; background: var(--surface); }
 .seg button { font: inherit; font-size: .9rem; border: 0; background: transparent; color: var(--muted); padding: 0 12px; min-height: 40px; cursor: pointer; }
