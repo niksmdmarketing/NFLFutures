@@ -126,3 +126,10 @@ each using only games on or before its as-of date) joined to final labels (playo
 division winner, top seed). Output stays in git-ignored `data/research/` with a `COVERAGE.json` validation report
 (leakage re-check, monotone dates, end snapshot equals the full-season table, one champion per finished season).
 It runs at the end of each refresh and is never published.
+
+## Schedule outlook
+`pipeline/sos.py` builds `<sport>/outlook.html` (data in `data/schedule.json`): how hard each team's next 5 / next 10 /
+rest-of-season games are, a fixture ticker, rolling 5-game difficulty and a schedule-based win projection. Ratings are the
+ones the Futures simulations use; home advantage and short/long rest are tuned in `pipeline/sos_tune.py` (stored in
+`sos_params.json`; term choice made with TypeSafe on held-out seasons; travel distance was tested and dropped). When the
+next fixture is not out (AFL off-season) the page shows the completed season's draw as a recap.

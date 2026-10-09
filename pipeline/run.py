@@ -101,6 +101,12 @@ def main():
         trends.build_site()
     except Exception as e:  # noqa: BLE001
         log("trends failed", e)
+    try:  # schedule difficulty pages need every sport's ratings and fixtures, so they run after the sport builds
+        import sos
+        sos.build_data()
+        sos.build_site()
+    except Exception as e:  # noqa: BLE001
+        log("schedule outlook failed", e)
     try:  # private research dataset + leakage/coverage report: written to data/research, never published
         import snapshots
         snapshots.build_all()

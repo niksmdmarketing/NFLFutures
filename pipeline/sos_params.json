@@ -1,0 +1,82 @@
+{
+ "nfl": {
+  "hfa": 2.106,
+  "b_short": -0.648,
+  "b_long": 1.066,
+  "sd": 12.812,
+  "terms": [
+   "short",
+   "long"
+  ],
+  "thr": [
+   5,
+   10
+  ],
+  "games": 6288,
+  "seasons": "2002-2026",
+  "gain_pct": 0.26
+ },
+ "nhl": {
+  "hfa": 0.218,
+  "b_short": -0.303,
+  "b_long": 0.0,
+  "sd": 2.526,
+  "terms": [
+   "short"
+  ],
+  "thr": [
+   1,
+   4
+  ],
+  "games": 19217,
+  "seasons": "2010-2026",
+  "gain_pct": 0.35
+ },
+ "nba": {
+  "hfa": 2.333,
+  "b_short": -2.083,
+  "b_long": 0.119,
+  "sd": 13.937,
+  "terms": [
+   "short",
+   "long"
+  ],
+  "thr": [
+   1,
+   4
+  ],
+  "games": 28871,
+  "seasons": "2003-2026",
+  "gain_pct": 0.99
+ },
+ "nbl": {
+  "hfa": 2.392,
+  "b_short": -0.283,
+  "b_long": 0.0,
+  "sd": 14.818,
+  "terms": [
+   "short"
+  ],
+  "thr": [
+   2,
+   7
+  ],
+  "games": 1827,
+  "seasons": "2012-2026",
+  "gain_pct": 0.42
+ },
+ "afl": {
+  "hfa": 6.17,
+  "b_short": 0.0,
+  "b_long": 0.0,
+  "sd": 33.336,
+  "terms": [],
+  "thr": [
+   5,
+   9
+  ],
+  "games": 2960,
+  "seasons": "2012-2026",
+  "gain_pct": 0
+ }
+}
