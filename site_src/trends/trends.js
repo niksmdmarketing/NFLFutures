@@ -48,12 +48,15 @@
       return '<div class="tr-leg"><span class="tr-badge ' + VERDICT[k].cls + '">' + VERDICT[k].name + '</span><span class="tr-n">' + counts[k] +
         '</span><p>' + VERDICT[k].blurb + "</p></div>";
     }).join("");
-    var tabs = d.sections.map(function (s, i) {
-      return '<button type="button" data-sec="' + i + '" aria-pressed="' + (i === state.sec) + '">' + esc(s.title) + "</button>";
-    }).join("");
+    function group(kind, label) {
+      var b = d.sections.map(function (s, i) {
+        if ((s.kind || "team") !== kind) return "";
+        return '<button type="button" data-sec="' + i + '" aria-pressed="' + (i === state.sec) + '">' + esc(s.title) + "</button>";
+      }).join("");
+      return b ? '<div class="tr-tabs"><span class="tr-tablab">' + label + '</span><div class="seg" role="group" aria-label="' + label + '">' + b + "</div></div>" : "";
+    }
     return '<section class="tr-legend" aria-label="How to read the verdicts">' + legend + "</section>" +
-      '<div class="tr-tabs"><div class="seg" role="group" aria-label="Market">' + tabs + "</div></div>" +
-      '<div id="trSec"></div>';
+      group("team", "Team markets") + group("award", "Awards") + '<div id="trSec"></div>';
   }
 
   function card(r, s) {
@@ -62,14 +65,14 @@
     var exp = r.expected_with, big;
     if (exp != null && r.pool_with) {
       big = '<div class="tr-big"><b>' + pc(r.winners_with / r.pool_with) + '</b> <span>actual</span> <b class="muted">' +
-        pc(exp / r.pool_with) + "</b> <span>their records predicted</span></div>";
+        pc(exp / r.pool_with) + "</b> <span>their " + esc(r.base_word || "records") + " predicted</span></div>";
     } else {
       big = '<div class="tr-big"><b>' + pc(r.rate_with) + "</b> <span>with it</span></div>";
     }
     return '<article class="tr-card ' + v.cls + '"><span class="tr-badge ' + v.cls + '">' + v.name + "</span>" +
       "<h3>" + esc(r.label) + "</h3>" + big +
       '<p class="note">' + r.pool_with + " of " + r.pool + " " + esc(s.pool_desc) + " had this and " + r.winners_with +
-      " succeeded" + (exp != null ? " (about " + Math.round(exp) + " expected from their records)" : "") +
+      (s.kind === "award" ? " won" : " succeeded") + (exp != null ? " (about " + Math.round(exp) + " expected from their " + esc(r.base_word || "records") + ")" : "") +
       ". The gap held in both halves of the history.</p>" + review +
       '<p class="tr-now"><span>Fits now</span> ' + nowCell(r, s) + '</p><p class="tr-when">Known: ' + WHEN[r.timing] + "</p></article>";
   }
@@ -138,11 +141,11 @@
     var noise = s.trends.filter(function (r) { return r.verdict === "noise"; });
     var html = '<section class="tr-sec"><div class="table-head"><h2>' + esc(s.title) + "</h2></div>" +
       '<p class="note">' + s.n_seasons + " completed seasons (" + esc(s.seasons[0]) + " to " + esc(s.seasons[1]) + "). Compared against all " +
-      esc(s.pool_desc) + " in those seasons (" + s.pool + "). A typical team in that pool succeeded " + pc(s.base_rate) + " of the time." +
+      esc(s.pool_desc) + " in those seasons (" + s.pool + "). " + (s.kind === "award" ? "A typical candidate in that pool won " : "A typical team in that pool succeeded ") + pc(s.base_rate) + " of the time. " + esc(s.note || "") +
       (d.current ? " “Fits now” refers to " + esc(d.current) + "." : "") + "</p>";
     html += "<h3 class=\"tr-h\">Worth acting on</h3>";
     html += act.length ? '<div class="tr-cards">' + act.map(function (r) { return card(r, s); }).join("") + "</div>"
-      : '<p class="note tr-empty">Nothing in this market beats the record once the noise is removed. Back the best teams and let the price decide.</p>';
+      : '<p class="note tr-empty">' + (s.kind === "award" ? "Nothing here matters beyond the main production numbers once the noise is removed. Follow the leading candidates and let the price decide." : "Nothing in this market beats the record once the noise is removed. Back the best teams and let the price decide.") + "</p>";
     html += '<h3 class="tr-h">' + (mid.some(function (r) { return r.verdict === "priced"; }) ? "Real but priced, and unproven" : "Unproven patterns") + "</h3>";
     html += mid.length ? table(mid, s, "mid" + state.sec) : '<p class="note tr-empty">No pattern here passed the tests. Results in this market have been close to random once you know who made the pool.</p>';
     html += '<details class="tr-noise"><summary>Noise: ignore these (' + noise.length + ")</summary>" +
@@ -161,7 +164,7 @@
       "<li>A pattern must point the same way in the earlier and later halves of the history. One-era wonders are thrown out.</li>" +
       "<li>Patterns that need fewer than " + d.min_pool + " teams to have them, or fewer than " + d.min_pool + " not to, are too rare to judge.</li>" +
       "</ul></div><div><h2>Beats the record?</h2><ul>" +
-      "<li>Record is the first thing every price reflects. Each pattern is re-tested at the same record (the record at that point of the season, or last season's record for pre-season items) using a conditional logit, with its own false-discovery cap and the same two-halves rule.</li>" +
+      "<li>Record is the first thing every price reflects. Each pattern is re-tested at the same record (the record at that point of the season, or last season's record for pre-season items) using a conditional logit, with its own false-discovery cap and the same two-halves rule. For awards the yardstick is the candidate's main production number instead of a record.</li>" +
       "<li>Only patterns that survive that are flagged as beating (or falling short of) the record. A further plausibility review with TypeSafe downgrades findings that look like small-sample streaks.</li>" +
       "<li>Markets know more than the record, so even these are prompts to check the price, not proof of value.</li>" +
       "</ul></div></section>";

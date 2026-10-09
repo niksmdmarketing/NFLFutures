@@ -452,7 +452,12 @@ REVIEW = {
     "nfl:div_win:playoffs_prev": 0.60, "nfl:div_win:div_pd_not_lead_h": 0.62, "nfl:playoffs:out_spot_good_pd_h": 0.63,
     "nfl:playoffs:unlucky_prev": 0.61, "nfl:playoffs:lucky_h": 0.60, "nfl:playoffs:lucky_q": 0.60,
     "nfl:playoffs:lucky_prev": 0.64, "nfl:playoffs:out_spot_good_pd_q": 0.69, "nba:playoffs:spot_h": 0.60,
-    "nba:playoffs:spot_q": 0.60, "nba:playoffs:lucky_q": 0.70, "nba:playoffs:lucky_h": 0.69,
+    "nba:playoffs:spot_q": 0.60,
+    # awards
+    "nba:mvp:team_top3": 0.92, "nba:mvp:conf_top": 0.93, "nba:mvp:pm_top3": 0.93, "nba:mvp:durable": 0.93,
+    "nba:mvp:team_out8": 0.93, "nba:dpoy:team_def5": 0.93, "nba:dpoy:team_top3": 0.93, "nba:6moy:team_top8": 0.92,
+    "nhl:vezina:top3_wins": 0.93, "nhl:vezina:team_top3": 0.93, "nhl:vezina:workload": 0.93, "nbl:mvp:led_ppg": 0.93,
+    "nbl:mvp:team_top4": 0.93, "nfl:mvp:seed1": 0.93, "nba:playoffs:lucky_q": 0.70, "nba:playoffs:lucky_h": 0.69,
 }
 MECHANISM = [
     ("lucky", "Winning close games is mostly luck and does not carry over, so records that run ahead of scoring tend to fall back."),
@@ -464,6 +469,16 @@ MECHANISM = [
     ("playoffs_prev", "Playoff teams usually keep their core (quarterback, coach, stars), which last season's record alone understates."),
     ("spot_", "Conference position captures conference strength and schedule that the league-wide record misses."),
     ("lost_final_prev", "Beaten finalists have tended to slip back the following season."),
+    ("team_def", "Voters credit defenders on the best defensive teams."),
+    ("team_", "Voters reward players on winning teams; individual numbers alone underrate them."),
+    ("conf_top", "Voters reward players on winning teams; individual numbers alone underrate them."),
+    ("seed", "Voters reward the quarterback of the best team."),
+    ("pm_top", "Plus-minus tracks team success, which voters weigh heavily."),
+    ("durable", "Voters mark down players who miss games."),
+    ("workload", "Voters (the general managers) favour goalies who carry the workload."),
+    ("top3_wins", "Vezina voters weigh goalie wins heavily, beyond save quality."),
+    ("led_wins", "Vezina voters weigh goalie wins heavily, beyond save quality."),
+    ("led_ppg", "A scoring title carries weight with voters beyond overall efficiency."),
 ]
 
 
@@ -546,11 +561,26 @@ def analyse(sport):
         order = {"edge": 0, "fade": 1, "priced": 2, "weak": 3, "noise": 4}
         rows.sort(key=lambda r: (order[r["verdict"]], r["p"]))
         C = T[T.complete & pool(T) & T[key].notna()]
-        out.append(dict(key=key, title=title, pool_desc=pool_desc, seasons=[cfg["label"](min(C.season)), cfg["label"](max(C.season))],
+        out.append(dict(key=key, kind="team", title=title, pool_desc=pool_desc, seasons=[cfg["label"](min(C.season)), cfg["label"](max(C.season))],
                         n_seasons=int(C.season.nunique()), pool=int(len(C)), winners_n=int(C[key].sum()),
                         base_rate=float(C[key].mean()), winners=winners, trends=rows))
         log(sport, key, "seasons", C.season.nunique(), "trends", len(rows),
             {v: sum(r["verdict"] == v for r in rows) for v in order})
+    try:
+        import trends_awards
+        acur = cur if cur is not None else int(T.season.max()) + 1
+        aw = trends_awards.RUN[sport](cfg["label"](acur), acur, cur_ok)
+        for sec in aw:
+            for r in sec["trends"]:
+                review(sport, sec["key"], r)
+            sec["trends"].sort(key=lambda r: ({"edge": 0, "fade": 1, "priced": 2, "weak": 3, "noise": 4}[r["verdict"]], r["p"]))
+            log(sport, sec["key"], "seasons", sec["n_seasons"], {v: sum(r["verdict"] == v for r in sec["trends"]) for v in
+                                                                  ("edge", "fade", "priced", "weak", "noise")})
+        out += aw
+    except Exception as e:  # noqa: BLE001
+        import traceback
+        traceback.print_exc()
+        log(sport, "award trends failed", e)
     cur_label = cfg["label"](cur) if cur is not None else None
     return dict(sport=sport, league=cfg["name"], updated_utc=dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M+00:00"),
                 current=cur_label, current_gp=float(gp_now), season_games=float(L),

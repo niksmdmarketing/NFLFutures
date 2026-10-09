@@ -9,7 +9,8 @@
 .tr-badge.v-priced { background: var(--bg); color: var(--ink); border: 1px solid var(--line); }
 .tr-badge.v-weak { background: transparent; color: var(--muted); border: 1px dashed var(--even); }
 .tr-badge.v-noise { background: transparent; color: var(--muted); border: 1px solid var(--line); }
-.tr-tabs { margin: 4px 0 6px; overflow-x: auto; }
+.tr-tabs { margin: 4px 0 8px; overflow-x: auto; display: flex; align-items: center; gap: 10px; }
+.tr-tablab { font-family: var(--font-display); text-transform: uppercase; letter-spacing: .05em; font-size: .78rem; color: var(--muted); min-width: 92px; flex: none; }
 .tr-tabs .seg { flex-wrap: nowrap; }
 .tr-tabs .seg button { white-space: nowrap; }
 .tr-sec { margin-top: 10px; }

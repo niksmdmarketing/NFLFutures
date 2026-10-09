@@ -403,6 +403,7 @@ def evaluate(T, F, section, label_fn, cur_season, cur_ok):
         r["_D"] = D
         r["_base"] = f["base"]
         r["market"] = f.get("market", False)
+        r["base_word"] = f.get("base_word")
         # who fits it now
         if cur_season is not None and cur_ok(f["timing"]):
             cv = f["v"][(T.season == cur_season)]
@@ -458,15 +459,16 @@ def verdict(r):
     rare = r["pool_with"] < MIN_POOL_WITH or (r["pool"] - r["pool_with"]) < MIN_POOL_WITH
     if rare:
         return "noise", "Too rare (or too common) to judge"
-    same = BASE_WORDS[r["timing"]]
+    same = r.get("base_word") or BASE_WORDS[r["timing"]]
+    who = "Candidates" if r.get("base_word") else "Teams"
     bq = r.get("beyond_q")
     if bq is not None and bq <= FDR and r["beyond_stable"]:
         if r.get("market"):
             return "priced", ("The betting market's own early-season rating. It predicts better than " + same +
                               ", but it is the price, so it cannot be an edge against the price")
         if r["beyond_coef"] > 0:
-            return "edge", f"Teams with this do better than their {same} suggests, in both halves of the history"
-        return "fade", f"Teams with this do worse than their {same} suggests, in both halves of the history"
+            return "edge", f"{who} with this do better than their {same} suggest, in both halves of the history"
+        return "fade", f"{who} with this do worse than their {same} suggest, in both halves of the history"
     if r["q"] <= FDR and r["stable"]:
         return "priced", f"Real, but explained by the {same}, which markets already price"
     if r["p"] < 0.05 and r["stable"]:
