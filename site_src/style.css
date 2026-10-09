@@ -233,6 +233,18 @@ a { color: var(--accent); }
 .seg button[aria-pressed="true"] { background: var(--accent); color: var(--surface); }
 .stbl td.delta { font-weight: 600; border-left: 2px solid var(--line); }
 .stbl th.delta { border-left: 2px solid var(--line); }
+.stats-tabs { display: flex; flex-wrap: wrap; gap: 6px; border-bottom: 1px solid var(--line); padding-bottom: 8px; }
+.stats-tabs button { font: inherit; font-weight: 600; border: 1px solid var(--line); border-radius: 4px; background: var(--surface); color: var(--muted); padding: 8px 13px; cursor: pointer; }
+.stats-tabs button.active { background: var(--accent); border-color: var(--accent); color: var(--surface); }
+.stats-tools { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 14px; }
+.stats-summary { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin-bottom: 9px; }
+.stats-table { min-width: 920px; }
+.stats-table th { cursor: pointer; }
+.stats-table th[data-type="text"] { text-align: left; }
+.stats-table td.txt { text-align: left; }
+.stats-table td:first-child { font-weight: 600; }
+.stats-table th[aria-sort="ascending"]::after { content: " ▲"; font-size: .7em; }
+.stats-table th[aria-sort="descending"]::after { content: " ▼"; font-size: .7em; }
 
 /* grouped navigation: wraps on wide screens, one scrolling row per group on phones */
 .nav { flex-direction: column; gap: 6px; overflow: visible; padding-bottom: 0; }

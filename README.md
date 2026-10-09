@@ -35,6 +35,7 @@ Cloudflare Access. The existing NFL pages remain at the root; NBA lives under `/
 | Page | What it shows |
 |---|---|
 | Futures | Projected wins, division, top-six, playoff, No. 1 seed, conference and championship probabilities; any win-total line |
+| Stats | Ten seasons of team profiles, player production, shooting/usage rates and team game logs; regular season and playoffs are separate |
 | Team ratings | Opponent-adjusted offense and defense, pace, roster adjustment and simulation rating |
 | Players | Prior-season production and the conservative player impact used for roster movement |
 | Games | Upcoming game win probabilities and recent results |
@@ -54,7 +55,7 @@ pipeline/       Python: run.py orchestrates everything
   history.py    builds completed seasons into history/ (committed)
   stats.py      stat pages (history + current season)
   build_site.py assembles site/ from site_src/ and build/*.json
-  nba.py        NBA downloads, ratings, roster adjustment, simulation and `/nba/` site output
+  nba.py        NBA downloads, ten-season box-score stats, ratings, roster adjustment, simulation and `/nba/` site output
 model/settings.json   frozen model parameters (fitted offline, see below)
 site_src/       HTML fragments, CSS and JavaScript for the pages
 .github/workflows/refresh.yml   the scheduled job

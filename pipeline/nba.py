@@ -8,6 +8,7 @@ conservative roster-continuity adjustment.
 from __future__ import annotations
 
 import datetime as dt
+import glob
 import math
 import os
 import shutil
@@ -109,10 +110,182 @@ def _load_inputs(end_year: int):
     team_boxes = pd.concat(boxes, ignore_index=True)
 
     schedule = _csv(_download("espn_nba_schedules", f"nba_schedule_{end_year}.csv", 2))
-    prior_players = _csv(_download("espn_nba_player_boxscores", f"player_box_{end_year - 1}.csv", 24 * 30))
+    player_frames = []
+    for year in range(end_year - 10, end_year):
+        path = _download("espn_nba_player_boxscores", f"player_box_{year}.csv", 24 * 365)
+        frame = _csv(path)
+        if len(frame):
+            player_frames.append(frame)
+    # The current season's player release may not exist yet (or may be partial).
+    current_players = _download("espn_nba_player_boxscores", f"player_box_{end_year}.csv", 2, required=False)
+    if current_players:
+        frame = _csv(current_players)
+        if len(frame):
+            player_frames.append(frame)
+    players = pd.concat(player_frames, ignore_index=True) if player_frames else pd.DataFrame()
     prior_roster = _csv(_download("espn_nba_rosters", f"rosters_{end_year - 1}.csv", 24 * 30))
     current_roster = _csv(_download("espn_nba_rosters", f"rosters_{end_year}.csv", 12))
-    return team_boxes, schedule, prior_players, prior_roster, current_roster
+    return team_boxes, schedule, players, prior_roster, current_roster
+
+
+def _numeric(frame: pd.DataFrame, columns: list[str]) -> pd.DataFrame:
+    for column in columns:
+        if column not in frame:
+            frame[column] = 0
+        frame[column] = pd.to_numeric(frame[column], errors="coerce").fillna(0)
+    return frame
+
+
+def _ratio(numerator: float, denominator: float) -> float | None:
+    return float(numerator / denominator) if denominator else None
+
+
+def _stats_data(team_boxes: pd.DataFrame, players: pd.DataFrame) -> tuple[list[dict], list[dict], list[dict]]:
+    """Build historical team/player season tables and game logs from box scores."""
+    team_cols = ["season", "season_type", "team_score", "field_goals_made", "field_goals_attempted",
+                 "three_point_field_goals_made", "three_point_field_goals_attempted", "free_throws_made",
+                 "free_throws_attempted", "offensive_rebounds", "defensive_rebounds", "total_rebounds",
+                 "assists", "steals", "blocks", "total_turnovers", "turnovers", "fouls",
+                 "points_in_paint", "fast_break_points", "turnover_points"]
+    d = team_boxes.copy()
+    if "total_turnovers" not in d and "turnovers" in d:
+        d["total_turnovers"] = d["turnovers"]
+    d = _numeric(d, team_cols)
+    d = d[d.team_abbreviation.isin(TEAMS) & d.opponent_team_abbreviation.isin(TEAMS)
+          & d.season_type.isin([2, 3])].copy()
+    d["team_turnovers"] = d.total_turnovers.where(d.total_turnovers.ne(0), d.turnovers)
+    d["poss0"] = d.field_goals_attempted - d.offensive_rebounds + d.team_turnovers + .44 * d.free_throws_attempted
+    game_poss = d.groupby("game_id").poss0.transform("mean").clip(60, 130)
+    d["poss"] = game_poss
+    d["margin"] = d.team_score - pd.to_numeric(d.opponent_team_score, errors="coerce").fillna(0)
+    d["win"] = d.margin.gt(0)
+    d["home"] = d.team_home_away.astype(str).str.lower().eq("home")
+    d["ortg"] = d.team_score / d.poss * 100
+    d["drtg"] = pd.to_numeric(d.opponent_team_score, errors="coerce") / d.poss * 100
+    d["efg"] = (d.field_goals_made + .5 * d.three_point_field_goals_made) / d.field_goals_attempted.replace(0, np.nan)
+    d["ts"] = d.team_score / (2 * (d.field_goals_attempted + .44 * d.free_throws_attempted)).replace(0, np.nan)
+    d["three_rate"] = d.three_point_field_goals_attempted / d.field_goals_attempted.replace(0, np.nan)
+    d["ft_rate"] = d.free_throws_attempted / d.field_goals_attempted.replace(0, np.nan)
+
+    # Boxscore season profile: per-game counting stats, shooting rates and
+    # possession-adjusted efficiency, with regular season and postseason separate.
+    team_rows = []
+    basic = ["team_score", "opponent_team_score", "field_goals_made", "field_goals_attempted",
+             "three_point_field_goals_made", "three_point_field_goals_attempted", "free_throws_made",
+             "free_throws_attempted", "offensive_rebounds", "defensive_rebounds", "total_rebounds",
+             "assists", "steals", "blocks", "team_turnovers", "fouls", "points_in_paint",
+             "fast_break_points", "turnover_points", "poss", "margin"]
+    for (season, season_type, team), g in d.groupby(["season", "season_type", "team_abbreviation"]):
+        gp = int(g.game_id.nunique())
+        totals = g[basic].sum(numeric_only=True)
+        home, road = g[g.home], g[~g.home]
+        home_gp, road_gp = int(home.game_id.nunique()), int(road.game_id.nunique())
+        wins = int(g.win.sum())
+        row = {"season": int(season), "season_type": int(season_type), "team": team,
+               "name": NAMES[team], "gp": gp, "w": wins, "l": gp - wins,
+               "pct": _ratio(wins, gp), "home_w": int(home.win.sum()), "home_gp": home_gp,
+               "road_w": int(road.win.sum()), "road_gp": road_gp,
+               "ppg": _ratio(totals.team_score, gp), "opp_ppg": _ratio(totals.opponent_team_score, gp),
+               "point_diff": _ratio(totals.margin, gp), "pace": _ratio(totals.poss, gp),
+               "ortg": _ratio(totals.team_score * 100, totals.poss),
+               "drtg": _ratio(totals.opponent_team_score * 100, totals.poss),
+               "netrtg": _ratio((totals.team_score - totals.opponent_team_score) * 100, totals.poss)}
+        per_game = {"fgm": "field_goals_made", "fga": "field_goals_attempted", "tpm": "three_point_field_goals_made",
+                    "tpa": "three_point_field_goals_attempted", "ftm": "free_throws_made", "fta": "free_throws_attempted",
+                    "orb": "offensive_rebounds", "drb": "defensive_rebounds", "reb": "total_rebounds",
+                    "ast": "assists", "stl": "steals", "blk": "blocks", "tov": "team_turnovers", "pf": "fouls",
+                    "paint": "points_in_paint", "fastbreak": "fast_break_points", "tov_pts": "turnover_points"}
+        for out, source in per_game.items():
+            row[out] = _ratio(totals[source], gp)
+        row.update({"fg_pct": _ratio(totals.field_goals_made, totals.field_goals_attempted),
+                    "tp_pct": _ratio(totals.three_point_field_goals_made, totals.three_point_field_goals_attempted),
+                    "ft_pct": _ratio(totals.free_throws_made, totals.free_throws_attempted),
+                    "efg_pct": _ratio((totals.field_goals_made + .5 * totals.three_point_field_goals_made), totals.field_goals_attempted),
+                    "ts_pct": _ratio(totals.team_score, 2 * (totals.field_goals_attempted + .44 * totals.free_throws_attempted)),
+                    "three_rate": _ratio(totals.three_point_field_goals_attempted, totals.field_goals_attempted),
+                    "ft_rate": _ratio(totals.free_throws_attempted, totals.field_goals_attempted),
+                    "home_ppg": _ratio(home.team_score.sum(), home_gp), "road_ppg": _ratio(road.team_score.sum(), road_gp)})
+        team_rows.append(row)
+
+    # Player seasonal totals and rates. A traded player's combined row is
+    # labelled TOT, while team-split rows remain available for context.
+    player_rows: list[dict] = []
+    if len(players):
+        pcols = ["season", "season_type", "minutes", "field_goals_made", "field_goals_attempted",
+                 "three_point_field_goals_made", "three_point_field_goals_attempted", "free_throws_made",
+                 "free_throws_attempted", "offensive_rebounds", "defensive_rebounds", "rebounds", "assists",
+                 "steals", "blocks", "turnovers", "fouls", "points"]
+        p = players.copy()
+        p = _numeric(p, pcols)
+        p = p[p.team_abbreviation.isin(TEAMS) & p.athlete_id.notna() & p.season_type.isin([2, 3])].copy()
+        p["starter"] = p.starter.astype(str).str.lower().isin({"true", "1", "yes"}).astype(int) if "starter" in p else 0
+        p["pm"] = pd.to_numeric(p.plus_minus.astype(str).str.replace("+", "", regex=False), errors="coerce").fillna(0) if "plus_minus" in p else 0
+        p = p[p.minutes > 0]
+        fields = pcols[2:] + ["starter", "pm"]
+        for (season, season_type, athlete), all_rows in p.groupby(["season", "season_type", "athlete_id"]):
+            team_groups = list(all_rows.groupby("team_abbreviation"))
+            splits = [(team_groups[0][0], team_groups[0][1])] if len(team_groups) == 1 else team_groups + [("TOT", all_rows)]
+            for team_key, g in splits:
+                gp = int(g.game_id.nunique())
+                totals = g[fields].sum(numeric_only=True)
+                minutes = float(totals.minutes)
+                row = {"season": int(season), "season_type": int(season_type), "team": team_key,
+                       "teams": ",".join(sorted(g.team_abbreviation.unique())) if team_key == "TOT" else team_key,
+                       "player": str(g.athlete_display_name.iloc[0]), "position": str(g.athlete_position_abbreviation.iloc[0]) if "athlete_position_abbreviation" in g else "",
+                       "gp": gp, "gs": int(totals.starter), "min": minutes, "plus_minus": float(totals.pm)}
+                count_fields = {"pts": "points", "reb": "rebounds", "orb": "offensive_rebounds", "drb": "defensive_rebounds",
+                                "ast": "assists", "stl": "steals", "blk": "blocks", "tov": "turnovers", "pf": "fouls",
+                                "fgm": "field_goals_made", "fga": "field_goals_attempted", "tpm": "three_point_field_goals_made",
+                                "tpa": "three_point_field_goals_attempted", "ftm": "free_throws_made", "fta": "free_throws_attempted"}
+                for out, source in count_fields.items():
+                    row[out] = _ratio(totals[source], gp)
+                    row[out + "_total"] = float(totals[source])
+                row.update({"fg_pct": _ratio(totals.field_goals_made, totals.field_goals_attempted),
+                            "tp_pct": _ratio(totals.three_point_field_goals_made, totals.three_point_field_goals_attempted),
+                            "ft_pct": _ratio(totals.free_throws_made, totals.free_throws_attempted),
+                            "efg_pct": _ratio(totals.field_goals_made + .5 * totals.three_point_field_goals_made, totals.field_goals_attempted),
+                            "ts_pct": _ratio(totals.points, 2 * (totals.field_goals_attempted + .44 * totals.free_throws_attempted))})
+                for out in ("pts", "reb", "ast", "stl", "blk", "tov"):
+                    row[out + "36"] = _ratio(row[out + "_total"] * 36, minutes)
+                row["plus_minus_pg"] = _ratio(totals.pm, gp)
+                team_context = team_rows
+                # Use the player's team-season context for a standard box-score usage estimate.
+                ctx = [x for x in team_context if x["season"] == int(season) and x["season_type"] == int(season_type)
+                       and x["team"] == team_key]
+                if team_key == "TOT":
+                    ctx = [x for x in team_context if x["season"] == int(season) and x["season_type"] == int(season_type)
+                           and x["team"] in g.team_abbreviation.unique()]
+                if ctx and minutes:
+                    context_rows = [x for x in ctx if x["gp"]]
+                    denominator = 0.0
+                    team_minutes = 0.0
+                    for x in context_rows:
+                        # Convert per-game team totals back to totals for this player's team stint.
+                        split_gp = int(g[g.team_abbreviation == x["team"]].game_id.nunique()) if team_key == "TOT" else gp
+                        denominator += (x.get("fga", 0) * split_gp + .44 * x.get("fta", 0) * split_gp + x.get("tov", 0) * split_gp)
+                        team_minutes += split_gp * 240
+                    numerator = totals.field_goals_attempted + .44 * totals.free_throws_attempted + totals.turnovers
+                    row["usg_pct"] = _ratio(numerator * team_minutes / 5, minutes * denominator)
+                else:
+                    row["usg_pct"] = None
+                player_rows.append(row)
+
+    game_rows = []
+    for _, r in d.iterrows():
+        game_rows.append({"season": int(r.season), "season_type": int(r.season_type), "date": str(r.game_date),
+                          "game_id": str(r.game_id), "team": r.team_abbreviation,
+                          "opponent": r.opponent_team_abbreviation, "venue": "H" if r.home else "A",
+                          "result": "W" if r.win else "L", "score": int(r.team_score),
+                          "opp_score": int(r.opponent_team_score), "margin": float(r.margin),
+                          "poss": float(r.poss), "ortg": float(r.ortg), "drtg": float(r.drtg),
+                          "fgm": float(r.field_goals_made), "fga": float(r.field_goals_attempted), "fg_pct": _ratio(r.field_goals_made, r.field_goals_attempted),
+                          "tpm": float(r.three_point_field_goals_made), "tpa": float(r.three_point_field_goals_attempted), "tp_pct": _ratio(r.three_point_field_goals_made, r.three_point_field_goals_attempted),
+                          "ftm": float(r.free_throws_made), "fta": float(r.free_throws_attempted), "ft_pct": _ratio(r.free_throws_made, r.free_throws_attempted),
+                          "orb": float(r.offensive_rebounds), "drb": float(r.defensive_rebounds), "reb": float(r.total_rebounds),
+                          "ast": float(r.assists), "stl": float(r.steals), "blk": float(r.blocks), "tov": float(r.team_turnovers),
+                          "pf": float(r.fouls), "paint": float(r.points_in_paint), "fastbreak": float(r.fast_break_points),
+                          "tov_pts": float(r.turnover_points)})
+    return team_rows, player_rows, game_rows
 
 
 def _bool(series: pd.Series) -> pd.Series:
@@ -425,8 +598,10 @@ def build_data() -> None:
     log("NBA season", f"{end_year - 1}-{str(end_year)[-2:]}")
     boxes, raw_schedule, players, prior_roster, current_roster = _load_inputs(end_year)
     ratings, fit = _fit_ratings(boxes, end_year)
-    values = _player_values(players)
+    prior_players = players[pd.to_numeric(players.season, errors="coerce") == end_year - 1] if len(players) else players
+    values = _player_values(prior_players)
     ratings, player_rows = _roster_adjustment(ratings, values, prior_roster, current_roster)
+    team_stats, player_stats, team_games = _stats_data(boxes, players)
     schedule = _schedule(raw_schedule)
     if len(schedule) < 1200:
         raise RuntimeError(f"NBA schedule is incomplete ({len(schedule)} regular-season games)")
@@ -453,13 +628,27 @@ def build_data() -> None:
     write_json("nba_ratings.json", {"rows": rating_rows})
     write_json("nba_players.json", {"rows": player_rows})
     write_json("nba_games.json", {"rows": _game_rows(schedule, ratings)})
+    write_json("nba_team_stats.json", {"rows": team_stats})
+    write_json("nba_stats_index.json", {"seasons": {
+        "teams": sorted({r["season"] for r in team_stats}, reverse=True),
+        "players": sorted({r["season"] for r in player_stats}, reverse=True),
+        "games": sorted({r["season"] for r in team_games}, reverse=True)}})
+    for year in sorted({r["season"] for r in player_stats}):
+        write_json(f"nba_player_stats_{year}.json", {"rows": [r for r in player_stats if r["season"] == year]})
+    for year in sorted({r["season"] for r in team_games}):
+        write_json(f"nba_team_games_{year}.json", {"rows": [r for r in team_games if r["season"] == year]})
     log("NBA simulation done", n_sims, "seasons")
 
 
 def build_site() -> None:
     os.makedirs(os.path.join(NBA_SITE, "data"), exist_ok=True)
     shutil.copytree(os.path.join(NBA_SRC, "js"), os.path.join(NBA_SITE, "js"), dirs_exist_ok=True)
-    for name in ("nba_meta.json", "nba_futures.json", "nba_ratings.json", "nba_players.json", "nba_games.json"):
+    for name in ("nba_meta.json", "nba_futures.json", "nba_ratings.json", "nba_players.json", "nba_games.json",
+                 "nba_team_stats.json", "nba_stats_index.json"):
         shutil.copy(os.path.join(OUT, name), os.path.join(NBA_SITE, "data", name.removeprefix("nba_")))
-    for name in ("index.html", "ratings.html", "players.html", "games.html", "methodology.html"):
+    for prefix in ("nba_player_stats_", "nba_team_games_"):
+        for path in glob.glob(os.path.join(OUT, prefix + "*.json")):
+            name = os.path.basename(path)
+            shutil.copy(path, os.path.join(NBA_SITE, "data", name.removeprefix("nba_")))
+    for name in ("index.html", "stats.html", "ratings.html", "players.html", "games.html", "methodology.html"):
         shutil.copy(os.path.join(NBA_SRC, name), os.path.join(NBA_SITE, name))
