@@ -1,0 +1,55 @@
+{
+ "chronological": {
+  "seasons": 16,
+  "games": 18965,
+  "base": 0.6195,
+  "with_availability": 0.6118,
+  "seasons_better": 16,
+  "beta_latest": 0.5
+ },
+ "by_stage": {
+  "first quarter": {
+   "base": 0.6236,
+   "with_availability": 0.6185,
+   "games": 5727
+  },
+  "last quarter": {
+   "base": 0.6054,
+   "with_availability": 0.5923,
+   "games": 4381
+  },
+  "second quarter": {
+   "base": 0.6309,
+   "with_availability": 0.6242,
+   "games": 4740
+  },
+  "third quarter": {
+   "base": 0.6154,
+   "with_availability": 0.6085,
+   "games": 4117
+  }
+ },
+ "games_with_big_absences": {
+  "base": 0.647,
+  "with_availability": 0.6052,
+  "games": 2054
+ },
+ "vs_market_with_availability": {
+  "games": 13396,
+  "ours_before": 0.6186,
+  "ours_after": 0.6117,
+  "market": 0.592,
+  "pooled": {
+   "model": 0.6154,
+   "market": 0.5953,
+   "pooled": 0.5951
+  },
+  "weight_on_ours_by_stage": {
+   "first quarter": 0.14,
+   "second quarter": 0.12,
+   "third quarter": 0.01,
+   "last quarter": 0.05
+  }
+ },
+ "points_per_unit": 0.5
+}
