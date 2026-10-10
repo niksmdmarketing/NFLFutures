@@ -1,5 +1,5 @@
 {
- "checked_utc": "2026-10-10T12:45:10+00:00",
+ "checked_utc": "2026-10-10T12:50:55+00:00",
  "leagues": {
   "nfl": {
    "records": 1676,
@@ -48,8 +48,8 @@
    "stale_projection_dates": 0,
    "teams_missing_official": [],
    "season_state": {
-    "state": "unknown",
-    "why": "HTTPError: HTTP Error 400: Bad Request"
+    "state": "in_season",
+    "why": "14 regular-season/playoff and 0 other games 2026-10-03..2026-10-20"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
@@ -100,10 +100,11 @@
    "stale_projection_dates": 0,
    "teams_missing_official": [],
    "season_state": {
-    "state": "unknown",
-    "why": "HTTPError: HTTP Error 400: Bad Request"
+    "state": "off_season",
+    "why": "0 regular-season/playoff and 23 other games 2026-10-03..2026-10-20"
    },
-   "coverage_expected": true,
+   "coverage_expected": false,
+   "teams_missing_official_note": "off-season: no official coverage expected",
    "syndicated_headlines": 0,
    "reported_matched_to_official_list": "79/79"
   },
@@ -155,8 +156,8 @@
    "stale_projection_dates": 0,
    "teams_missing_official": [],
    "season_state": {
-    "state": "unknown",
-    "why": "HTTPError: HTTP Error 400: Bad Request"
+    "state": "in_season",
+    "why": "40 regular-season/playoff and 0 other games 2026-10-03..2026-10-20"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
@@ -230,8 +231,8 @@
    "reported_matched_to_official_list": "0/0"
   }
  },
- "sources_failed": [
-  "nba: NBA official injury report (PDF, file-name time) - RuntimeError: no official report found in the last 30 hours"
- ],
- "sources_not_expected": []
+ "sources_failed": [],
+ "sources_not_expected": [
+  "nba: NBA official injury report (PDF, file-name time) - not expected: no regular-season or playoff games in the window (0 regular-season/playoff and 23 other games 2026-10-03..2026-10-20)"
+ ]
 }
