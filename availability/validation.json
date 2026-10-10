@@ -1,5 +1,5 @@
 {
- "checked_utc": "2026-10-10T12:50:55+00:00",
+ "checked_utc": "2026-10-10T13:24:24+00:00",
  "leagues": {
   "nfl": {
    "records": 1676,
@@ -164,15 +164,14 @@
    "reported_matched_to_official_list": "54/55"
   },
   "nbl": {
-   "records": 0,
-   "by_layer": {},
+   "records": 23,
+   "by_layer": {
+    "official": 23
+   },
    "unknown_team": 0,
    "no_player": 0,
    "future_published": 0,
-   "teams_covered_official": [],
-   "conflicts": [],
-   "stale_projection_dates": 0,
-   "teams_missing_official": [
+   "teams_covered_official": [
     "ADL",
     "BRI",
     "CNS",
@@ -184,6 +183,9 @@
     "SYD",
     "TAS"
    ],
+   "conflicts": [],
+   "stale_projection_dates": 0,
+   "teams_missing_official": [],
    "season_state": {
     "state": "in_season",
     "why": "18 NBL games 2026-10-03..2026-10-20 (NBL fixture, season 2026)"
@@ -193,8 +195,10 @@
    "reported_matched_to_official_list": "0/0"
   },
   "afl": {
-   "records": 0,
-   "by_layer": {},
+   "records": 10,
+   "by_layer": {
+    "reported": 10
+   },
    "unknown_team": 0,
    "no_player": 0,
    "future_published": 0,
@@ -228,7 +232,7 @@
    "coverage_expected": false,
    "teams_missing_official_note": "off-season: no official coverage expected",
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "0/0"
+   "reported_matched_to_official_list": "0/10"
   }
  },
  "sources_failed": [],
