@@ -154,6 +154,10 @@ class Blocked(Exception):
     pass
 
 
+class NotExpected(Exception):
+    """The source has nothing to publish right now (e.g. the NBA's official report outside the regular season)."""
+
+
 def allowed(url):
     p = urllib.parse.urlparse(url)
     root = f"{p.scheme}://{p.netloc}"
@@ -426,6 +430,7 @@ class Run:
         self.status = []          # per source attempt
         self.names = Names()
         self.seen = _read(os.path.join(store, "availability", "seen_articles.json"), {})
+        self.season = {}          # league -> {"state": in_season/off_season/unknown, "why": ...}
 
     def source(self, league, name, kind, url, fn, primary=True, team_scope="all"):
         t0 = time.time()
@@ -433,6 +438,10 @@ class Run:
             n = fn()
             self.status.append(dict(league=league, source=name, kind=kind, url=url, primary=primary, team_scope=team_scope,
                                     ok=True, records=n, seconds=round(time.time() - t0, 1), checked_utc=iso(NOW)))
+        except NotExpected as e:
+            self.status.append(dict(league=league, source=name, kind=kind, url=url, primary=primary, team_scope=team_scope,
+                                    ok=True, records=0, note="not expected: " + str(e)[:160], seconds=round(time.time() - t0, 1),
+                                    checked_utc=iso(NOW)))
         except Blocked as e:
             self.status.append(dict(league=league, source=name, kind=kind, url=url, primary=primary, team_scope=team_scope,
                                     ok=False, error="blocked by robots.txt: not collected", checked_utc=iso(NOW)))
@@ -731,12 +740,56 @@ class Run:
         self.add(r)
         return 1
 
+    # ---------- season state (is coverage expected right now?)
+    def season_states(self):
+        """in_season when a competitive game (regular season or finals) is within the last 7 / next 10 days."""
+        today = NOW.date()
+        lo, hi = today - dt.timedelta(days=7), today + dt.timedelta(days=10)
+        for lg, path in (("nfl", "football/nfl"), ("nba", "basketball/nba"), ("nhl", "hockey/nhl")):
+            try:
+                j, _ = fetch_json(f"https://site.api.espn.com/apis/site/v2/sports/{path}/scoreboard?dates="
+                                  f"{lo:%Y%m%d}-{hi:%Y%m%d}&limit=1000")
+                types = [((e.get("season") or {}).get("type")) for e in j.get("events") or []]
+                comp = [t for t in types if t in (2, 3)]
+                self.season[lg] = {"state": "in_season" if comp else "off_season",
+                                   "why": f"{len(comp)} regular-season/playoff and {len(types) - len(comp)} other games {lo}..{hi}"}
+            except Exception as e:  # noqa: BLE001
+                self.season[lg] = {"state": "unknown", "why": f"{type(e).__name__}: {str(e)[:80]}"}
+        try:
+            req = urllib.request.Request(f"https://api.squiggle.com.au/?q=games;year={today.year}", headers={"User-Agent": UA})
+            with urllib.request.urlopen(req, timeout=30) as r:
+                games = json.load(r).get("games") or []
+            near = [g for g in games if lo.isoformat() <= str(g.get("date") or "")[:10] <= hi.isoformat()]
+            self.season["afl"] = {"state": "in_season" if near else "off_season",
+                                  "why": f"{len(near)} AFL games {lo}..{hi} (Squiggle fixture)"}
+        except Exception as e:  # noqa: BLE001
+            self.season["afl"] = {"state": "unknown", "why": f"{type(e).__name__}: {str(e)[:80]}"}
+        try:
+            import nbl as NB
+            seasons = NB._data(NB._get("nbl/seasons", "seasons.json", 24)[0])
+            yr = max(int(x["year"]) for x in seasons if isinstance(x, dict) and str(x.get("year", "")).isdigit())
+            n = 0
+            for stype in ("regular", "finals"):
+                try:
+                    payload = NB._get(f"nbl/matches/in/season/{yr}/{stype}?limit=500&offset=0", f"avail_{yr}_{stype}_games.json", 6)[0]
+                except Exception:  # noqa: BLE001
+                    continue
+                for g in NB._data(payload):
+                    d = str(g.get("match_time_utc") or g.get("date") or g.get("start_time") or g.get("utc_start_time") or "")[:10] if isinstance(g, dict) else ""
+                    n += lo.isoformat() <= d <= hi.isoformat()
+            self.season["nbl"] = {"state": "in_season" if n else "off_season", "why": f"{n} NBL games {lo}..{hi} (NBL fixture, season {yr})"}
+        except Exception as e:  # noqa: BLE001
+            self.season["nbl"] = {"state": "unknown", "why": f"{type(e).__name__}: {str(e)[:80]}"}
+
     # ---------- NBA official PDF
     def nba_official(self):
         def go():
             import nba_official as O
             u, b, t_et = O.latest(hours_back=30)
             if not b:
+                st = self.season.get("nba", {})
+                if st.get("state") == "off_season":
+                    raise NotExpected("no regular-season or playoff games in the window (" + st.get("why", "") + ")")
                 raise RuntimeError("no official report found in the last 30 hours")
             rows = O.parse(b)
             for r in rows:
@@ -958,6 +1011,7 @@ def register(run):
             e["consecutive_failures"] = 0
             e["last_ok_utc"] = s["checked_utc"]
             e["last_records"] = s.get("records")
+            e["last_note"] = s.get("note")
         else:
             e["failures"] += 1
             e["consecutive_failures"] += 1
@@ -992,6 +1046,10 @@ def validate(run):
             if r.get("stale_date"):
                 v["stale_projection_dates"] += 1
         v["teams_missing_official"] = sorted(T - set(v["teams_covered_official"]))
+        v["season_state"] = run.season.get(lg, {"state": "unknown"})
+        v["coverage_expected"] = v["season_state"].get("state") != "off_season"
+        if not v["coverage_expected"]:
+            v["teams_missing_official_note"] = "off-season: no official coverage expected"
         # conflicts: official Out vs reported "expected to play" (or the reverse) for the same player
         off = {}
         for r in recs:
@@ -1013,6 +1071,7 @@ def validate(run):
         v["reported_matched_to_official_list"] = f"{sum(1 for r in rep if r['player_key'] in known)}/{len(rep)}"
         out["leagues"][lg] = v
     out["sources_failed"] = [f"{s['league']}: {s['source']} - {s.get('error')}" for s in run.status if not s["ok"]]
+    out["sources_not_expected"] = [f"{s['league']}: {s['source']} - {s.get('note')}" for s in run.status if s.get("note")]
     with open(os.path.join(run.store, "availability", "validation.json"), "w") as f:
         json.dump(out, f, indent=1)
     return out
@@ -1021,6 +1080,7 @@ def validate(run):
 def main(store):
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
     run = Run(store)
+    run.season_states()
     # structured first (they also seed the name lists used to attribute reporter facts)
     run.nfl_official()
     run.nflverse_injuries()
