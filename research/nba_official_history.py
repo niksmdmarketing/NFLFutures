@@ -16,7 +16,8 @@ import nba_official as O  # noqa: E402
 
 args, out = sys.argv[1:-1], os.path.join(sys.argv[-1], "research")
 os.makedirs(out, exist_ok=True)
-TIMES = ("05_30PM", "05_00PM", "05_15PM", "05_45PM", "04_30PM", "06_00PM", "01_30PM", "12_30PM")
+TIMES = ("05_30PM", "05_00PM", "05_15PM", "05_45PM", "04_30PM", "06_00PM", "01_30PM", "12_30PM",
+         "05PM", "04PM", "06PM", "01PM", "12PM")   # earlier seasons were published on the hour (HHPM)
 sample = args[:1] == ["sample"]
 first, last = (2026, 2026) if sample else (int(args[0]), int(args[1])) if len(args) == 2 else (2020, 2026)
 start = time.time()
