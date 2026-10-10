@@ -5,49 +5,49 @@
  "by_stage": {
   "first quarter": {
    "games": 378,
-   "model": 0.6998,
+   "model": 0.6695,
    "market": 0.6689,
-   "pooled": 0.669,
-   "weight_on_model": 0.01,
-   "seasons_pooled_better": 2,
+   "pooled": 0.6649,
+   "weight_on_model": 0.1,
+   "seasons_pooled_better": 7,
    "seasons": 12,
-   "weight_all_seasons": 0.05
+   "weight_all_seasons": 0.4
   },
   "second quarter": {
    "games": 383,
-   "model": 0.6579,
+   "model": 0.6486,
    "market": 0.6418,
-   "pooled": 0.6429,
-   "weight_on_model": 0.1,
-   "seasons_pooled_better": 1,
+   "pooled": 0.642,
+   "weight_on_model": 0.17,
+   "seasons_pooled_better": 5,
    "seasons": 12,
-   "weight_all_seasons": 0.05
+   "weight_all_seasons": 0.15
   },
   "third quarter": {
    "games": 341,
-   "model": 0.683,
+   "model": 0.6668,
    "market": 0.6706,
-   "pooled": 0.6706,
-   "weight_on_model": 0.0,
-   "seasons_pooled_better": 1,
+   "pooled": 0.6686,
+   "weight_on_model": 0.18,
+   "seasons_pooled_better": 5,
    "seasons": 12,
-   "weight_all_seasons": 0.0
+   "weight_all_seasons": 0.45
   },
   "last quarter": {
    "games": 386,
-   "model": 0.6259,
+   "model": 0.6255,
    "market": 0.6005,
-   "pooled": 0.6034,
-   "weight_on_model": 0.05,
-   "seasons_pooled_better": 1,
+   "pooled": 0.6037,
+   "weight_on_model": 0.07,
+   "seasons_pooled_better": 2,
    "seasons": 12,
-   "weight_all_seasons": 0.0
+   "weight_all_seasons": 0.05
   }
  },
  "overall": {
-  "model": 0.666,
+  "model": 0.6521,
   "market": 0.6446,
-  "pooled": 0.6457
+  "pooled": 0.644
  },
  "matched_games": 1822
 }

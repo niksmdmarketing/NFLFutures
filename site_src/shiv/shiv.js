@@ -17,7 +17,7 @@
         '<td class="q" title="Range traders are quoting: the highest price someone will pay (bid) to the lowest someone will sell at (ask), as a chance">' + pp(r.bid) + " – " + pp(r.ask) + "</td></tr>";
     }).join("");
     var fee = "";
-    return '<div class="sv-card">' + (solo ? "" : "<h3>" + esc(m.label) + "</h3>") + '<div class="scroll"><table class="stbl sv-tbl"><thead><tr><th scope="col">Team</th><th scope="col">Our model</th><th scope="col">Market</th><th scope="col">Shiv</th><th scope="col">Model − market<small>pts</small></th><th scope="col">Market range<small>bid – ask</small></th></tr></thead><tbody>' +
+    return '<div class="sv-card">' + (solo ? "" : "<h3>" + esc(m.label) + "</h3>") + '<div class="scroll"><table class="stbl sv-tbl"><thead><tr><th scope="col">Team</th><th scope="col">Our model</th><th scope="col">Market</th><th scope="col">Shiv<small>80% mkt</small></th><th scope="col">Model − market<small>pts</small></th><th scope="col">Market range<small>bid – ask</small></th></tr></thead><tbody>' +
       rows + "</tbody></table></div>" + (!m.one_winner ? '<p class="sv-note">Yes/no market per team: the market figure is the middle of the range; Shiv averages the two.</p>' : "") + "</div>";
   }
 
@@ -40,7 +40,7 @@
       var label = (BT[sport].filter(function (x) { return x[0] === mk; })[0] || [mk, mk])[1];
       var stage = sport === "nhl" ? st.replace(/(\d{4}) N0/, "$1-" + "start").replace(/(\d{4}) N20/, "$1 after 20 games").replace("-start", " season start") : ((STAGE[sport] || {})[st] || st);
       if (sport === "nhl") stage = st.replace(/(\d{4}) N0/, function (_, y) { return y + "-" + (+y + 1 + "").slice(2) + ", season start"; }).replace(/(\d{4}) N20/, function (_, y) { return y + "-" + (+y + 1 + "").slice(2) + ", after 20 games"; });
-      var vals = [["model", v.model], ["market", v.market], ["shiv", v.blend], ["shiv80", v.blend20]].filter(function (x) { return x[1] != null; });
+      var vals = [["model", v.model], ["market", v.market], ["shiv", v.blend20], ["shiv50", v.blend]].filter(function (x) { return x[1] != null; });
       var best = vals.reduce(function (a, b) { return b[1] < a[1] ? b : a; })[0];
       rows += "<tr><td>" + esc(label) + "</td><td>" + esc(stage) + "</td>" + vals.map(function (x) {
         return '<td class="' + (x[0] === best ? "sv-best" : "") + '">' + x[1].toFixed(3) + "</td>";
@@ -48,7 +48,7 @@
     });
     return '<h2 class="sv-h">Back-test on past seasons</h2><p class="sv-note">Each column scored at the same dates on past seasons (' + (sport === "nfl" ? "2024 and 2025" : sport === "nba" ? "2024-25 and 2025-26" : "2024-25 and 2025-26") +
       "), using only what was known at the time, against what actually happened. Score = average penalty for the probability given to the eventual winner (yes/no rows: Brier score per team). <b>Lower is better</b>; the best of the three is bold. Market history is one price per day, and these are only one or two seasons, so read it as a first look, not proof.</p>" +
-      '<div class="scroll"><table class="stbl sv-score"><thead><tr><th scope="col">Market</th><th scope="col">When</th><th scope="col">Our model</th><th scope="col">Market</th><th scope="col">Shiv<small>50/50</small></th><th scope="col">Shiv<small>80% market</small></th><th scope="col">Races</th></tr></thead><tbody>' + rows + "</tbody></table></div>";
+      '<div class="scroll"><table class="stbl sv-score"><thead><tr><th scope="col">Market</th><th scope="col">When</th><th scope="col">Our model</th><th scope="col">Market</th><th scope="col">Shiv<small>80% market</small></th><th scope="col">Shiv<small>50/50</small></th><th scope="col">Races</th></tr></thead><tbody>' + rows + "</tbody></table></div>";
   }
 
   function forward(sport) {
@@ -56,11 +56,11 @@
     var h = '<h2 class="sv-h">This season, forecasts made in real time</h2>';
     if (!F || !Object.keys(F).length) return h + '<p class="sv-note">Every refresh saves all three columns together with the live quote (bid, ask, spread, liquidity, fees, time). Nothing has settled yet, so there is no score: the first results arrive when division races and playoff places are decided. This is the test that counts.</p>';
     var rows = Object.keys(F).map(function (k) {
-      var v = F[k], vals = [["model", v.model], ["market", v.market], ["shiv", v.shiv], ["shiv80", v.shiv80]].filter(function (x) { return x[1] != null; });
+      var v = F[k], vals = [["model", v.model], ["market", v.market], ["shiv", v.shiv], ["shiv50", v.shiv50]].filter(function (x) { return x[1] != null; });
       var best = vals.length ? vals.reduce(function (a, b) { return b[1] < a[1] ? b : a; })[0] : null;
       return "<tr><td>" + esc(k) + "</td>" + vals.map(function (x) { return '<td class="' + (x[0] === best ? "sv-best" : "") + '">' + x[1].toFixed(3) + "</td>"; }).join("") + "<td>" + v.forecasts + "</td></tr>";
     }).join("");
-    return h + '<p class="sv-note">Scored only on forecasts saved before the result was known (last record of each day). Same scores as below: lower is better; yes/no markets use the Brier score.</p><div class="scroll"><table class="stbl sv-score"><thead><tr><th scope="col">Market</th><th scope="col">Our model</th><th scope="col">Market</th><th scope="col">Shiv<small>50/50</small></th><th scope="col">Shiv<small>80% market</small></th><th scope="col">Daily forecasts scored</th></tr></thead><tbody>' + rows + "</tbody></table></div>";
+    return h + '<p class="sv-note">Scored only on forecasts saved before the result was known (last record of each day). Same scores as below: lower is better; yes/no markets use the Brier score.</p><div class="scroll"><table class="stbl sv-score"><thead><tr><th scope="col">Market</th><th scope="col">Our model</th><th scope="col">Market</th><th scope="col">Shiv<small>80% market</small></th><th scope="col">Shiv<small>50/50</small></th><th scope="col">Daily forecasts scored</th></tr></thead><tbody>' + rows + "</tbody></table></div>";
   }
 
   var STNAME = { "first quarter": "First quarter of the season", "second quarter": "Second quarter", "third quarter": "Third quarter", "last quarter": "Last quarter" };
@@ -77,7 +77,7 @@
     return '<h2 class="sv-h">Long test: match by match against closing odds</h2><p class="sv-note">Our pre-match win chances (rebuilt from games already played, ' + esc(M.seasons) +
       ") against the bookmakers' closing odds for the same matches, scored on who won. The best mix of the two is refitted each season on earlier seasons only. " +
       "<b>So far the closing market has been more accurate than our ratings at every stage</b>, and adding our ratings rarely helped (best weight on our model shown below). " +
-      "This is why Shiv is also scored with an 80% market weighting." + (M.note ? " " + esc(M.note) + "." : "") + "</p>" +
+      "This is why Shiv leans 80% on the market (the 50/50 version is still scored alongside)." + (M.note ? " " + esc(M.note) + "." : "") + "</p>" +
       '<div class="scroll"><table class="stbl sv-score"><thead><tr><th scope="col">Stage</th><th scope="col">Our model</th><th scope="col">Market</th><th scope="col">Best mix</th><th scope="col">Weight on our model</th><th scope="col">Seasons the mix beat the market</th><th scope="col">Matches</th></tr></thead><tbody>' +
       rows + "</tbody></table></div>";
   }

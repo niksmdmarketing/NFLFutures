@@ -158,3 +158,10 @@ average for yes/no markets). `pipeline/shiv.py` runs every refresh; markets are 
 (update the slugs each season). Each refresh's model numbers and raw quotes (bid, ask, last, spread, liquidity, fee
 schedule, time) are appended to the `shiv-archive` branch; settled markets are scored from that archive (forward test).
 The back-test table comes from `model/market_benchmark.json`. No value/edge labels; gaps of 5+ points are flagged "check".
+
+## Long match-level test vs closing odds (Oct 2026)
+`research/match_vs_market.py` + per-sport drivers (`nfl_match_market.py`, `us_match_market.py` with `us_match_ratings.py`,
+`au_match_market.py`) compare our point-in-time pre-game probabilities with closing odds: NFL nflverse lines 2006-2025,
+NBA/NHL Sportsbook Reviews Online archive (via the Internet Archive; on the market-data branch), AFL/NBL AusSportsBetting.
+Results in `model/match_vs_market_*.json`: the market is sharper everywhere; best weight on our ratings ~0-25%, so Shiv is
+displayed at 20% model / 80% market (50/50 scored alongside). The same test re-tuned AFL and NBL rating settings on outcomes.

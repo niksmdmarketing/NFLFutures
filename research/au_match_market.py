@@ -19,13 +19,13 @@ import trends  # noqa: E402
 
 if sport == "afl":
     import afl_site as S
-    HOME, SD, K, REG = S.HGA, S.GAME_SD, 8.0, 0.55
+    HOME, SD, K, REG = S.HGA, S.GAME_SD, S.K_PRIOR, S.PRIOR_REG
     NAMEMAP = {"Adelaide": "ADE", "Brisbane": "BRI", "Carlton": "CAR", "Collingwood": "COL", "Essendon": "ESS", "Fremantle": "FRE",
                "GWS Giants": "GWS", "Geelong": "GEE", "Gold Coast": "GCS", "Hawthorn": "HAW", "Melbourne": "MEL", "North Melbourne": "NTH",
                "Port Adelaide": "PTA", "Richmond": "RIC", "St Kilda": "STK", "Sydney": "SYD", "West Coast": "WCE", "Western Bulldogs": "WBD"}
 else:
     import nbl_site as S
-    HOME, SD, K, REG = S.HCA, S.GAME_SD, 6.0, 0.5
+    HOME, SD, K, REG = S.HCA, S.GAME_SD, S.K_PRIOR, S.PRIOR_REG
     NAMEMAP = {"Adelaide 36ers": "ADL", "Brisbane Bullets": "BRI", "Cairns Taipans": "CNS", "Gold Coast": "GCB", "Illawarra Hawks": "ILL",
                "Wollongong Hawks": "ILL", "Melbourne Tigers": "MEL", "Melbourne United": "MEL", "New Zealand Breakers": "NZL",
                "Perth Wildcats": "PER", "South East Melbourne Phoenix": "SEM", "Sydney Kings": "SYD", "Tasmania JackJumpers": "TAS",

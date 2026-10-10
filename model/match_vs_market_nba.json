@@ -1,0 +1,54 @@
+{
+ "seasons": "2008-2023",
+ "games": 16753,
+ "test_seasons": "2011-2023",
+ "by_stage": {
+  "first quarter": {
+   "games": 4310,
+   "model": 0.6257,
+   "market": 0.6005,
+   "pooled": 0.6004,
+   "weight_on_model": 0.05,
+   "seasons_pooled_better": 8,
+   "seasons": 12,
+   "weight_all_seasons": 0.05
+  },
+  "second quarter": {
+   "games": 3566,
+   "model": 0.6306,
+   "market": 0.6131,
+   "pooled": 0.6128,
+   "weight_on_model": 0.05,
+   "seasons_pooled_better": 5,
+   "seasons": 12,
+   "weight_all_seasons": 0.1
+  },
+  "third quarter": {
+   "games": 2770,
+   "model": 0.6083,
+   "market": 0.5847,
+   "pooled": 0.5848,
+   "weight_on_model": 0.02,
+   "seasons_pooled_better": 0,
+   "seasons": 10,
+   "weight_all_seasons": 0.0
+  },
+  "last quarter": {
+   "games": 2748,
+   "model": 0.6019,
+   "market": 0.5583,
+   "pooled": 0.5585,
+   "weight_on_model": 0.04,
+   "seasons_pooled_better": 3,
+   "seasons": 11,
+   "weight_all_seasons": 0.0
+  }
+ },
+ "overall": {
+  "model": 0.6185,
+  "market": 0.5919,
+  "pooled": 0.5919
+ },
+ "matched_games": 16758,
+ "source": "Sportsbook Reviews Online closing moneylines (via the Internet Archive)"
+}

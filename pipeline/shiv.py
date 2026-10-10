@@ -2,8 +2,9 @@
 
   1. Our model  - the independent stats model shown on each sport's Futures page (never sees prices; NFL v4 frozen).
   2. Market     - Polymarket's prices (best bid / best ask midpoint), margin removed within one-winner markets.
-  3. Shiv       - an experimental 50/50 combination of the two (geometric mean, renormalised; for yes/no markets the
-                  average in log-odds). It is a separately scored challenger, not a replacement for our model.
+  3. Shiv       - an experimental combination: 20% our model, 80% market (weighted geometric mean, renormalised; for
+                  yes/no markets the weighted average in log-odds). A 50/50 version is scored alongside. It is a separately
+                  scored challenger, not a replacement for our model.
 
 Every refresh also writes one archive record (all three numbers plus the raw quote: bid, ask, last trade, spread,
 liquidity, fee schedule, timestamp) which the workflow appends to the append-only `shiv-archive` branch. Resolved markets
@@ -30,7 +31,9 @@ SRC = os.path.join(ROOT, "site_src", "shiv")
 G = "https://gamma-api.polymarket.com"
 CONFIG = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "shiv_markets.json")))
 ARCHIVE = os.environ.get("SHIV_ARCHIVE")
-W_MODEL_ALT = 0.2   # market-heavy variant scored alongside Shiv: match-level tests found the best weight on our model is 0-25%          # checked-out shiv-archive branch (CI); None locally
+W_MODEL = 0.2       # Shiv as displayed: 20% our model / 80% market. Match-level tests (2006-2026, five sports) put the best weight
+                    # on our model at about 0-25%; chosen with TypeSafe (69%). The 50/50 version is still scored alongside.
+W_MODEL_ALT = 0.5          # checked-out shiv-archive branch (CI); None locally
 
 
 def log(*a):
@@ -123,8 +126,9 @@ def logit(p):
     return math.log(p / (1 - p))
 
 
-def combine(model, market, one_winner):
-    """model, market: team -> probability (same teams). Returns (market_fair, model_view, shiv)."""
+def combine(model, market, one_winner, w=None):
+    """model, market: team -> probability (same teams). Returns (market_fair, model_view, shiv) with weight w on our model."""
+    w = W_MODEL if w is None else w
     teams = [t for t in market if market[t] is not None and model.get(t) is not None]
     if one_winner:
         mk = {t: max(market[t], 1e-4) for t in teams}
@@ -133,12 +137,12 @@ def combine(model, market, one_winner):
         mo = {t: max(model[t], 1e-4) for t in teams}
         s = sum(mo.values())
         mo = {t: v / s for t, v in mo.items()}
-        sh = {t: math.sqrt(mk[t] * mo[t]) for t in teams}
+        sh = {t: mo[t] ** w * mk[t] ** (1 - w) for t in teams}
         s = sum(sh.values())
         return mk, mo, {t: v / s for t, v in sh.items()}
     mk = {t: market[t] for t in teams}
     mo = {t: model[t] for t in teams}
-    return mk, mo, {t: 1 / (1 + math.exp(-(logit(mk[t]) + logit(mo[t])) / 2)) for t in teams}
+    return mk, mo, {t: 1 / (1 + math.exp(-(w * logit(mo[t]) + (1 - w) * logit(mk[t])))) for t in teams}
 
 
 # ------------------------------------------------------------------ forward scoring from the archive
@@ -157,27 +161,24 @@ def forward_scores(resolved):
     res = {}
     for (slug, day), (sport, m) in per_day.items():
         won = resolved[slug]
-        S = res.setdefault(sport, {}).setdefault(m["label"], {"model": [], "market": [], "shiv": [], "shiv80": [], "forecasts": 0})
+        S = res.setdefault(sport, {}).setdefault(m["label"], {"model": [], "market": [], "shiv": [], "shiv50": [], "forecasts": 0})
         rows = {r["team"]: dict(r) for r in m["rows"]}
-        # market-heavy variant (20% model / 80% market), scored from the same archived numbers
-        if m["one_winner"]:
-            raw = {t: max(r["model"], 1e-4) ** W_MODEL_ALT * max(r["market"], 1e-4) ** (1 - W_MODEL_ALT) for t, r in rows.items()}
-            z = sum(raw.values()) or 1
+        mo = {t: r["model"] for t, r in rows.items()}
+        mk = {t: r["market"] for t, r in rows.items()}
+        for key, wv in (("shiv", W_MODEL), ("shiv50", W_MODEL_ALT)):     # recomputed, so a later change of weight is scored consistently
+            v = combine(mo, mk, m["one_winner"], wv)[2]
             for t in rows:
-                rows[t]["shiv80"] = raw[t] / z
-        else:
-            for t, r in rows.items():
-                r["shiv80"] = 1 / (1 + math.exp(-(W_MODEL_ALT * logit(r["model"]) + (1 - W_MODEL_ALT) * logit(r["market"]))))
+                rows[t][key] = v[t]
         if m["one_winner"]:
             w = [t for t, v in won.items() if v == 1]
             if len(w) != 1 or w[0] not in rows:
                 continue
-            for k in ("model", "market", "shiv", "shiv80"):
+            for k in ("model", "market", "shiv", "shiv50"):
                 S[k].append(-math.log(max(rows[w[0]][k], 1e-4)))
         else:
             for t, r in rows.items():
                 if t in won:
-                    for k in ("model", "market", "shiv", "shiv80"):
+                    for k in ("model", "market", "shiv", "shiv50"):
                         S[k].append((r[k] - won[t]) ** 2)
         S["forecasts"] += 1
     out = {}
