@@ -304,7 +304,7 @@ RULES = [
     ("week_to_week", re.compile(r"\bweek[- ]to[- ]week\b", re.I)),
     ("game_time", re.compile(r"\bgame[- ]time decision\b", re.I)),
     ("will_play", re.compile(r"\b(will|is expected to|expects to|set to|cleared to|plans to) (play|return|suit up|start|make (his|her) return)\b", re.I)),
-    ("will_not_play", re.compile(r"\b(will not|won't|is not expected to|isn't expected to) (play|return|suit up|start)\b|(?<!was )(?<!were )(?<!been )\bruled out\b", re.I)),
+    ("will_not_play", re.compile(r"\b(will not|won't|is not expected to|isn't expected to) (play|return|suit up|start)\b|(?<!was )(?<!were )\bruled out\b", re.I)),
     ("restriction", re.compile(r"\b(minutes restriction|minutes limit|minute restriction|limited minutes|snap count|pitch count|managed minutes|load management|managed\b|limited workload|restricted minutes)\b", re.I)),
     ("ir", re.compile(r"\b(placed on|moved to|landed on|going on) (injured reserve|IR|the injured list|long-term injured reserve|LTIR)\b", re.I)),
     ("activated", re.compile(r"\b(activated|designated to return|returned to practice|cleared)\b", re.I)),
