@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-10-10T17:22:34+00:00",
+ "checked_utc": "2026-10-10T20:36:32+00:00",
  "leagues": {
   "nfl": {
-   "records": 1672,
+   "records": 1674,
    "by_layer": {
     "official": 1539,
-    "reported": 133
+    "reported": 135
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -53,13 +53,13 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "133/133"
+   "reported_matched_to_official_list": "135/135"
   },
   "nba": {
-   "records": 225,
+   "records": 239,
    "by_layer": {
-    "official": 145,
-    "reported": 80
+    "official": 152,
+    "reported": 87
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -106,13 +106,13 @@
    "coverage_expected": false,
    "teams_missing_official_note": "off-season: no official coverage expected",
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "80/80"
+   "reported_matched_to_official_list": "87/87"
   },
   "nhl": {
-   "records": 1535,
+   "records": 1522,
    "by_layer": {
-    "official": 147,
-    "reported": 58,
+    "official": 142,
+    "reported": 50,
     "projected": 1330
    },
    "unknown_team": 0,
@@ -120,7 +120,6 @@
    "future_published": 0,
    "teams_covered_official": [
     "ANA",
-    "BOS",
     "BUF",
     "CAR",
     "CBJ",
@@ -154,14 +153,16 @@
    ],
    "conflicts": [],
    "stale_projection_dates": 0,
-   "teams_missing_official": [],
+   "teams_missing_official": [
+    "BOS"
+   ],
    "season_state": {
     "state": "in_season",
     "why": "40 regular-season/playoff and 0 other games 2026-10-03..2026-10-20"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "58/58"
+   "reported_matched_to_official_list": "50/50"
   },
   "nbl": {
    "records": 23,
