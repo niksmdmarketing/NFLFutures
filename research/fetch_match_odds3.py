@@ -1,4 +1,5 @@
-"""Historical NBA/NHL closing odds from the Sportsbook Reviews Online archive, via the Internet Archive (research)."""
+"""Historical NBA/NHL closing odds from the Sportsbook Reviews Online archive, via the Internet Archive (research).
+Rights to redistribute are unclear: run it with a private output folder and do NOT commit the files to this public repo."""
 import os, re, sys, time, urllib.request
 OUT = os.path.join(sys.argv[1] if len(sys.argv) > 1 else ".", "match_odds", "sbr"); os.makedirs(OUT, exist_ok=True)
 LOG = open(os.path.join(OUT, "fetch_log.txt"), "a")

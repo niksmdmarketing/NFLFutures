@@ -53,6 +53,7 @@ P = pd.DataFrame(rows)
 P = P[~P.tie]
 O = pd.read_excel(xlsx, header=1)
 O = O[O["Play Off Game?"].fillna("") != "Y"]
+O = O[~O["Notes"].fillna("").str.contains("unreliable", case=False)]   # provider flags these closing figures as unreliable
 O["date"] = pd.to_datetime(O.Date).dt.normalize()
 O["home"], O["away"] = O["Home Team"].map(NAMEMAP), O["Away Team"].map(NAMEMAP)
 hc = O["Home Odds Close"].fillna(O["Home Odds"])
