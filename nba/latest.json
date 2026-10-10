@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-10-10T2302Z",
-"feed_timestamp": "2026-10-10T23:01:55Z",
+"collected_utc": "2026-10-10T2322Z",
+"feed_timestamp": "2026-10-10T23:22:51Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -14,12 +14,6 @@
 "status": "Out",
 "return_date": "2027-07-01",
 "injury": "Right Knee"
-},
-{
-"athlete_id": "4701230",
-"status": "Day-To-Day",
-"return_date": "2026-10-10",
-"injury": "Rest"
 },
 {
 "athlete_id": "4585618",
@@ -238,19 +232,7 @@
 "injury": "Rest"
 },
 {
-"athlete_id": "4709138",
-"status": "Day-To-Day",
-"return_date": "2026-10-10",
-"injury": "Rest"
-},
-{
 "athlete_id": "4066436",
-"status": "Day-To-Day",
-"return_date": "2026-10-10",
-"injury": "Rest"
-},
-{
-"athlete_id": "6589",
 "status": "Day-To-Day",
 "return_date": "2026-10-10",
 "injury": "Rest"
@@ -263,12 +245,6 @@
 },
 {
 "athlete_id": "2990969",
-"status": "Day-To-Day",
-"return_date": "2026-10-10",
-"injury": "Rest"
-},
-{
-"athlete_id": "4997536",
 "status": "Day-To-Day",
 "return_date": "2026-10-10",
 "injury": "Rest"
@@ -290,18 +266,6 @@
 "status": "Out",
 "return_date": "2026-12-01",
 "injury": "Left Knee Surgery"
-},
-{
-"athlete_id": "3975",
-"status": "Day-To-Day",
-"return_date": "2026-10-10",
-"injury": "Rest"
-},
-{
-"athlete_id": "5175737",
-"status": "Day-To-Day",
-"return_date": "2026-10-10",
-"injury": "Rest"
 },
 {
 "athlete_id": "3202",
@@ -634,6 +598,30 @@
 "injury": "Back"
 },
 {
+"athlete_id": "3917376",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
+"injury": "Rest"
+},
+{
+"athlete_id": "3059318",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
+"injury": "Rest"
+},
+{
+"athlete_id": "2581018",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
+"injury": "Rest"
+},
+{
+"athlete_id": "1966",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
+"injury": "Rest"
+},
+{
 "athlete_id": "3904625",
 "status": "Day-To-Day",
 "return_date": "2026-10-16",
@@ -660,7 +648,7 @@
 {
 "athlete_id": "3155942",
 "status": "Day-To-Day",
-"return_date": "2026-10-10",
+"return_date": "2026-10-13",
 "injury": "Undisclosed"
 },
 {
@@ -668,12 +656,6 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-13",
 "injury": "Rest"
-},
-{
-"athlete_id": "4594327",
-"status": "Day-To-Day",
-"return_date": "2026-10-10",
-"injury": "Undisclosed"
 },
 {
 "athlete_id": "4395650",
@@ -684,7 +666,7 @@
 {
 "athlete_id": "4066262",
 "status": "Day-To-Day",
-"return_date": "2026-10-10",
+"return_date": "2026-10-13",
 "injury": "Rest"
 },
 {
@@ -814,15 +796,6 @@
 "return_date": "2027-07-01",
 "injury": "Right Knee",
 "updated": "2026-09-21T19:50Z"
-},
-{
-"athlete_id": "4701230",
-"name": "Jalen Johnson",
-"team_name": "Atlanta Hawks",
-"status": "Day-To-Day",
-"return_date": "2026-10-10",
-"injury": "Rest",
-"updated": "2026-10-08T22:31Z"
 },
 {
 "athlete_id": "4585618",
@@ -1149,15 +1122,6 @@
 "updated": "2026-10-10T21:44Z"
 },
 {
-"athlete_id": "4709138",
-"name": "Brandin Podziemski",
-"team_name": "Golden State Warriors",
-"status": "Day-To-Day",
-"return_date": "2026-10-10",
-"injury": "Rest",
-"updated": "2026-10-10T15:07Z"
-},
-{
 "athlete_id": "4066436",
 "name": "De'Anthony Melton",
 "team_name": "Golden State Warriors",
@@ -1165,15 +1129,6 @@
 "return_date": "2026-10-10",
 "injury": "Rest",
 "updated": "2026-10-07T14:38Z"
-},
-{
-"athlete_id": "6589",
-"name": "Draymond Green",
-"team_name": "Golden State Warriors",
-"status": "Day-To-Day",
-"return_date": "2026-10-10",
-"injury": "Rest",
-"updated": "2026-10-07T04:48Z"
 },
 {
 "athlete_id": "3134903",
@@ -1192,15 +1147,6 @@
 "return_date": "2026-10-10",
 "injury": "Rest",
 "updated": "2026-10-07T14:40Z"
-},
-{
-"athlete_id": "4997536",
-"name": "Gui Santos",
-"team_name": "Golden State Warriors",
-"status": "Day-To-Day",
-"return_date": "2026-10-10",
-"injury": "Rest",
-"updated": "2026-10-07T14:45Z"
 },
 {
 "athlete_id": "6430",
@@ -1228,24 +1174,6 @@
 "return_date": "2026-12-01",
 "injury": "Left Knee Surgery",
 "updated": "2026-09-28T15:06Z"
-},
-{
-"athlete_id": "3975",
-"name": "Stephen Curry",
-"team_name": "Golden State Warriors",
-"status": "Day-To-Day",
-"return_date": "2026-10-10",
-"injury": "Rest",
-"updated": "2026-10-07T13:20Z"
-},
-{
-"athlete_id": "5175737",
-"name": "Yaxel Lendeborg",
-"team_name": "Golden State Warriors",
-"status": "Day-To-Day",
-"return_date": "2026-10-10",
-"injury": "Rest",
-"updated": "2026-10-07T14:21Z"
 },
 {
 "athlete_id": "3202",
@@ -1743,6 +1671,42 @@
 "updated": "2026-10-07T17:04Z"
 },
 {
+"athlete_id": "3917376",
+"name": "Jaylen Brown",
+"team_name": "Philadelphia 76ers",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
+"injury": "Rest",
+"updated": "2026-10-10T22:49Z"
+},
+{
+"athlete_id": "3059318",
+"name": "Joel Embiid",
+"team_name": "Philadelphia 76ers",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
+"injury": "Rest",
+"updated": "2026-10-10T22:47Z"
+},
+{
+"athlete_id": "2581018",
+"name": "Kentavious Caldwell-Pope",
+"team_name": "Philadelphia 76ers",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
+"injury": "Rest",
+"updated": "2026-10-10T22:52Z"
+},
+{
+"athlete_id": "1966",
+"name": "LeBron James",
+"team_name": "Philadelphia 76ers",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
+"injury": "Rest",
+"updated": "2026-10-10T23:03Z"
+},
+{
 "athlete_id": "3904625",
 "name": "Tacko Fall",
 "team_name": "Philadelphia 76ers",
@@ -1783,9 +1747,9 @@
 "name": "Domantas Sabonis",
 "team_name": "Sacramento Kings",
 "status": "Day-To-Day",
-"return_date": "2026-10-10",
+"return_date": "2026-10-13",
 "injury": "Undisclosed",
-"updated": "2026-10-09T01:39Z"
+"updated": "2026-10-10T23:08Z"
 },
 {
 "athlete_id": "4433174",
@@ -1794,16 +1758,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-13",
 "injury": "Rest",
-"updated": "2026-10-10T23:00Z"
-},
-{
-"athlete_id": "4594327",
-"name": "Keegan Murray",
-"team_name": "Sacramento Kings",
-"status": "Day-To-Day",
-"return_date": "2026-10-10",
-"injury": "Undisclosed",
-"updated": "2026-10-09T01:38Z"
+"updated": "2026-10-10T23:09Z"
 },
 {
 "athlete_id": "4395650",
@@ -1819,9 +1774,9 @@
 "name": "Malik Monk",
 "team_name": "Sacramento Kings",
 "status": "Day-To-Day",
-"return_date": "2026-10-10",
+"return_date": "2026-10-13",
 "injury": "Rest",
-"updated": "2026-10-09T01:37Z"
+"updated": "2026-10-10T23:07Z"
 },
 {
 "athlete_id": "4066259",
