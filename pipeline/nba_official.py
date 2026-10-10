@@ -84,7 +84,8 @@ def parse(pdf_bytes):
                     cur["game_date"] = dt.datetime.strptime(m.group(1), "%m/%d/%Y").date().isoformat()
                 if re.match(r"[A-Z]{2,3}@[A-Z]{2,3}", txt.get("matchup", "")):
                     cur["matchup"] = txt["matchup"].split()[0]
-                if re.search(r"[A-Za-z]{3}", txt.get("team", "")) and "Page" not in txt["team"]:
+                tm = txt.get("team", "")
+                if re.fullmatch(r"[A-Z][A-Za-z0-9. ]+ [A-Z][A-Za-z0-9]+", tm) and "Page" not in tm and tm != "Team":
                     cur["team"] = txt["team"]
                 st = txt.get("status", "").split()
                 if st and st[0] in STATUSES and txt.get("player"):
@@ -104,10 +105,10 @@ def team_abbr(team_text, names):
 
 def player_key(printed):
     """'Last, First' or 'OubreJr., Kelly' -> normalised 'firstlast' without suffixes."""
-    last, _, first = (printed or "").partition(",")
+    last, _, first = (printed if isinstance(printed, str) else "").partition(",")
     last = re.sub(r"(Jr\.?|Sr\.?|II|III|IV)$", "", last.strip())
     return _norm(first + last)
 
 
 def name_key(display):
-    return _norm(re.sub(r"\b(Jr\.?|Sr\.?|II|III|IV)\b", "", display or ""))
+    return _norm(re.sub(r"\b(Jr\.?|Sr\.?|II|III|IV)\b", "", display if isinstance(display, str) else ""))
