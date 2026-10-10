@@ -15,6 +15,9 @@ unlisted player counts as:
               players cost value x (p_miss - baseline), baseline unshrunk, new-to-team players get their typical rate
               (three seasons, shrunk with 20 games toward the league rate) - exactly pipeline/nba_avail.py
   L-shrunk    live rule with the shrunk baseline for everyone
+  L-depth     live rule, but a player's value is measured against his team's actual replacements (mean ability of the
+              two best healthy members outside the eight healthy players with most minutes) instead of the league
+              replacement level - the replacement-quality test
 Status miss chances: calibrated walk-forward from the same pre-game reports (earlier seasons only; the first test
 season uses the first collected season as calibration only). The points scale is also fitted walk-forward on earlier
 pre-game seasons. Scored by season, overall, and on two subsets of games: a long-term absence on either team (a member
@@ -44,7 +47,7 @@ import nba_official as O  # noqa: E402
 RATING_W = V2.RATING_W
 ABILITY_W = V2.ABILITY_W["v2"]
 PRIOR_GAMES = 20.0
-VARIANTS = ["R-unshrunk", "R-shrunk", "L-live", "L-shrunk"]
+VARIANTS = ["R-unshrunk", "R-shrunk", "L-live", "L-shrunk", "L-depth"]
 STATUSES = ("Out", "Doubtful", "Questionable", "Probable", "Available")
 
 
@@ -97,8 +100,7 @@ def run(d, rep, covered):
                     if last_team.get(p) != team or not last_mins.get(p):
                         continue
                     mins = sum(last_mins[p]) / len(last_mins[p])
-                    if mins < V2.ROT_MIN:
-                        continue
+                    rot = mins >= V2.ROT_MIN          # non-rotation members are kept only for the depth (replacement) test
                     g = m = 0.0
                     for k, w in ABILITY_W.items():
                         s = sums.get((p, y - k))
@@ -114,7 +116,8 @@ def run(d, rep, covered):
                     tx = sum(ABILITY_W.get(y - s, 0) * v[1] for s, v in a.items())
                     typical = (tx + PRIOR_GAMES * lr) / (tm + PRIOR_GAMES)
                     obs.append(dict(game_id=str(gid), season=y, date=x.date.iloc[0], team=team, pid=p,
-                                    value=ability * mins / 48, num=num, den=den, lr=lr, typical=typical,
+                                    value=ability * mins / 48, ability=ability, mins=mins, rot=rot,
+                                    num=num, den=den, lr=lr, typical=typical,
                                     status=listed.get(p), missed=int(p not in present), streak=streak[(p, team)]))
         for team, x in G.groupby("team_abbreviation"):
             present = set(x[x.played].athlete_id)
@@ -147,8 +150,21 @@ def p_miss_table(O_, seasons):
     return {s: float(t.loc[s, "mean"]) if s in t.index and t.loc[s, "size"] >= 30 else None for s in STATUSES}
 
 
+def next_man_up(o):
+    """Per team-game: ability of the team's actual replacements = mean ability of the two best healthy members outside
+    the eight healthy players with the most minutes (league replacement level = 0 if there is nobody)."""
+    out = {}
+    for (g, t), x in o.groupby(["game_id", "team"]):
+        healthy = x[~x.status.isin(["Out", "Doubtful"])].sort_values("mins", ascending=False)
+        bench = healthy.iloc[8:]
+        out[(g, t)] = float(bench.ability.nlargest(2).mean()) if len(bench) else 0.0
+    return out
+
+
 def team_adjust(O_, pm):
-    o = O_.copy()
+    nmu = next_man_up(O_) if "ability" in O_ else {}
+    o = O_[O_.rot] if "rot" in O_ else O_.copy()
+    o = o.copy()
     o["pm"] = o.status.map(lambda s: pm.get(s) if isinstance(s, str) else None)
     o["pm"] = o.pm.astype(float)
     unshr = np.where(o.den > 0, o.num / o.den.where(o.den > 0, 1), 0.0)
@@ -160,6 +176,12 @@ def team_adjust(O_, pm):
     o["R-shrunk"] = o.value * (exp_r - shr)
     o["L-live"] = np.where(listed, o.value * (o.pm.fillna(0) - live), 0.0)
     o["L-shrunk"] = np.where(listed, o.value * (o.pm.fillna(0) - shr), 0.0)
+    if nmu:
+        a_next = np.array([nmu[(g, t)] for g, t in zip(o.game_id, o.team)])
+        v_depth = (o.ability - a_next) * o.mins / 48          # cost relative to the team's own replacements
+        o["L-depth"] = np.where(listed, v_depth * (o.pm.fillna(0) - live), 0.0)
+    else:
+        o["L-depth"] = o["L-live"]
     big = o.value >= 1.0                                   # players worth a point or more
     o["long_term"] = big & (o.status == "Out") & (o.streak >= 10)
     o["returning"] = big & (o.streak >= 3) & ~o.status.isin(["Out", "Doubtful"])

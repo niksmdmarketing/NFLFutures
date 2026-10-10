@@ -1,0 +1,491 @@
+{
+ "data": {
+  "rows_matched": 63969,
+  "rows_unmatched": 3621,
+  "games_with_report": 8350,
+  "seasons": [
+   2020,
+   2021,
+   2022,
+   2023,
+   2024,
+   2025,
+   2026
+  ]
+ },
+ "status_miss_by_test_season": {
+  "2021": {
+   "Out": 0.995260663507109,
+   "Doubtful": 1.0,
+   "Questionable": 0.49141630901287553,
+   "Probable": 0.09536082474226804,
+   "Available": 0.18849840255591055
+  },
+  "2022": {
+   "Out": 0.9970395761919602,
+   "Doubtful": 0.9703389830508474,
+   "Questionable": 0.4962894248608534,
+   "Probable": 0.09715994020926756,
+   "Available": 0.16227180527383367
+  },
+  "2023": {
+   "Out": 0.9975293390982087,
+   "Doubtful": 0.9766081871345029,
+   "Questionable": 0.48352713178294576,
+   "Probable": 0.0855614973262032,
+   "Available": 0.18847539015606243
+  },
+  "2024": {
+   "Out": 0.9975087194818136,
+   "Doubtful": 0.9771309771309772,
+   "Questionable": 0.4932155254023351,
+   "Probable": 0.09001512859304085,
+   "Available": 0.21927888153053715
+  },
+  "2025": {
+   "Out": 0.9978730946472882,
+   "Doubtful": 0.9802130898021308,
+   "Questionable": 0.4927158077843009,
+   "Probable": 0.08425720620842572,
+   "Available": 0.22119815668202766
+  },
+  "2026": {
+   "Out": 0.9981369031189622,
+   "Doubtful": 0.9823113207547169,
+   "Questionable": 0.5005925173522939,
+   "Probable": 0.08535031847133757,
+   "Available": 0.2043671102012965
+  }
+ },
+ "variants": {
+  "R-unshrunk": {
+   "by_season": [
+    {
+     "season": 2021,
+     "beta": 0.45,
+     "games": 1064,
+     "no_adjustment": 0.656,
+     "with_adjustment": 0.6524
+    },
+    {
+     "season": 2022,
+     "beta": 0.30000000000000004,
+     "games": 1214,
+     "no_adjustment": 0.6394,
+     "with_adjustment": 0.6319
+    },
+    {
+     "season": 2023,
+     "beta": 0.30000000000000004,
+     "games": 1214,
+     "no_adjustment": 0.6481,
+     "with_adjustment": 0.6324
+    },
+    {
+     "season": 2024,
+     "beta": 0.4,
+     "games": 1216,
+     "no_adjustment": 0.6189,
+     "with_adjustment": 0.6156
+    },
+    {
+     "season": 2025,
+     "beta": 0.35000000000000003,
+     "games": 1215,
+     "no_adjustment": 0.6174,
+     "with_adjustment": 0.6159
+    },
+    {
+     "season": 2026,
+     "beta": 0.30000000000000004,
+     "games": 1215,
+     "no_adjustment": 0.6106,
+     "with_adjustment": 0.5994
+    }
+   ]
+  },
+  "R-shrunk": {
+   "by_season": [
+    {
+     "season": 2021,
+     "beta": 0.45,
+     "games": 1064,
+     "no_adjustment": 0.656,
+     "with_adjustment": 0.6512
+    },
+    {
+     "season": 2022,
+     "beta": 0.30000000000000004,
+     "games": 1214,
+     "no_adjustment": 0.6394,
+     "with_adjustment": 0.6311
+    },
+    {
+     "season": 2023,
+     "beta": 0.35000000000000003,
+     "games": 1214,
+     "no_adjustment": 0.6481,
+     "with_adjustment": 0.6308
+    },
+    {
+     "season": 2024,
+     "beta": 0.4,
+     "games": 1216,
+     "no_adjustment": 0.6189,
+     "with_adjustment": 0.6138
+    },
+    {
+     "season": 2025,
+     "beta": 0.4,
+     "games": 1215,
+     "no_adjustment": 0.6174,
+     "with_adjustment": 0.6145
+    },
+    {
+     "season": 2026,
+     "beta": 0.35000000000000003,
+     "games": 1215,
+     "no_adjustment": 0.6106,
+     "with_adjustment": 0.5979
+    }
+   ]
+  },
+  "L-live": {
+   "by_season": [
+    {
+     "season": 2021,
+     "beta": 0.45,
+     "games": 1064,
+     "no_adjustment": 0.656,
+     "with_adjustment": 0.6528
+    },
+    {
+     "season": 2022,
+     "beta": 0.30000000000000004,
+     "games": 1214,
+     "no_adjustment": 0.6394,
+     "with_adjustment": 0.6307
+    },
+    {
+     "season": 2023,
+     "beta": 0.45,
+     "games": 1214,
+     "no_adjustment": 0.6481,
+     "with_adjustment": 0.6322
+    },
+    {
+     "season": 2024,
+     "beta": 0.5,
+     "games": 1216,
+     "no_adjustment": 0.6189,
+     "with_adjustment": 0.6132
+    },
+    {
+     "season": 2025,
+     "beta": 0.45,
+     "games": 1215,
+     "no_adjustment": 0.6174,
+     "with_adjustment": 0.606
+    },
+    {
+     "season": 2026,
+     "beta": 0.5,
+     "games": 1215,
+     "no_adjustment": 0.6106,
+     "with_adjustment": 0.5975
+    }
+   ]
+  },
+  "L-shrunk": {
+   "by_season": [
+    {
+     "season": 2021,
+     "beta": 0.45,
+     "games": 1064,
+     "no_adjustment": 0.656,
+     "with_adjustment": 0.6525
+    },
+    {
+     "season": 2022,
+     "beta": 0.35000000000000003,
+     "games": 1214,
+     "no_adjustment": 0.6394,
+     "with_adjustment": 0.6299
+    },
+    {
+     "season": 2023,
+     "beta": 0.45,
+     "games": 1214,
+     "no_adjustment": 0.6481,
+     "with_adjustment": 0.6321
+    },
+    {
+     "season": 2024,
+     "beta": 0.55,
+     "games": 1216,
+     "no_adjustment": 0.6189,
+     "with_adjustment": 0.6135
+    },
+    {
+     "season": 2025,
+     "beta": 0.5,
+     "games": 1215,
+     "no_adjustment": 0.6174,
+     "with_adjustment": 0.6048
+    },
+    {
+     "season": 2026,
+     "beta": 0.5,
+     "games": 1215,
+     "no_adjustment": 0.6106,
+     "with_adjustment": 0.5975
+    }
+   ]
+  },
+  "L-depth": {
+   "by_season": [
+    {
+     "season": 2021,
+     "beta": 0.45,
+     "games": 1064,
+     "no_adjustment": 0.656,
+     "with_adjustment": 0.6515
+    },
+    {
+     "season": 2022,
+     "beta": 0.4,
+     "games": 1214,
+     "no_adjustment": 0.6394,
+     "with_adjustment": 0.6333
+    },
+    {
+     "season": 2023,
+     "beta": 0.45,
+     "games": 1214,
+     "no_adjustment": 0.6481,
+     "with_adjustment": 0.636
+    },
+    {
+     "season": 2024,
+     "beta": 0.55,
+     "games": 1216,
+     "no_adjustment": 0.6189,
+     "with_adjustment": 0.6169
+    },
+    {
+     "season": 2025,
+     "beta": 0.5,
+     "games": 1215,
+     "no_adjustment": 0.6174,
+     "with_adjustment": 0.6067
+    },
+    {
+     "season": 2026,
+     "beta": 0.5,
+     "games": 1215,
+     "no_adjustment": 0.6106,
+     "with_adjustment": 0.6061
+    }
+   ]
+  }
+ },
+ "note": "NBA availability: unshrunk vs shrunk absence baselines on identical, timestamp-safe pre-game observations.\n\nObservations: for every regular-season game, the latest official NBA injury report published (by file-name time and\nupload time) at least 60 minutes before tip-off (research/nba_official_pregame.py output, market-data branch).\nEverything else (player ability, minutes, membership, baselines) is built from games strictly before the predicted game.\n\nFor each team-game the adjustment is the sum over rotation members (12+ minutes in their last 10 games played) of\n    value x (expected miss - baseline)\nwith value = ability per 36 above replacement x minutes / 48. Variants differ ONLY in the baseline and in what an\nunlisted player counts as:\n  R-unshrunk  research rule: unlisted = expected miss 0; baseline = weighted share of the team's earlier games he\n              missed (rating weights 4/1/0.2/0.04), 0 when he has no history with the team\n  R-shrunk    research rule; baseline shrunk toward the league absence rate with 20 current-season games of weight\n  L-live      live rule: unlisted players cost 0 (their availability is what the rating already reflects); listed\n              players cost value x (p_miss - baseline), baseline unshrunk, new-to-team players get their typical rate\n              (three seasons, shrunk with 20 games toward the league rate) - exactly pipeline/nba_avail.py\n  L-shrunk    live rule with the shrunk baseline for everyone\n  L-depth     live rule, but a player's value is measured against his team's actual replacements (mean ability of the\n              two best healthy members outside the eight healthy players with most minutes) instead of the league\n              replacement level - the replacement-quality test\nStatus miss chances: calibrated walk-forward from the same pre-game reports (earlier seasons only; the first test\nseason uses the first collected season as calibration only). The points scale is also fitted walk-forward on earlier\npre-game seasons. Scored by season, overall, and on two subsets of games: a long-term absence on either team (a member\nworth 1+ point listed Out who had already missed 10+ straight team games) and a returning player on either team (a\nmember worth 1+ point who missed 3+ straight games before and is not listed Out/Doubtful).",
+ "scores": {
+  "all": {
+   "games": 7138,
+   "no_adjustment": 0.6312,
+   "R-unshrunk": 0.624,
+   "R-shrunk": 0.6226,
+   "L-live": 0.6214,
+   "L-shrunk": 0.6211,
+   "L-depth": 0.6245,
+   "by_season": {
+    "2021": {
+     "games": 1064,
+     "no_adjustment": 0.656,
+     "R-unshrunk": 0.6524,
+     "R-shrunk": 0.6512,
+     "L-live": 0.6528,
+     "L-shrunk": 0.6525,
+     "L-depth": 0.6515
+    },
+    "2022": {
+     "games": 1214,
+     "no_adjustment": 0.6394,
+     "R-unshrunk": 0.6319,
+     "R-shrunk": 0.6311,
+     "L-live": 0.6307,
+     "L-shrunk": 0.6299,
+     "L-depth": 0.6333
+    },
+    "2023": {
+     "games": 1214,
+     "no_adjustment": 0.6481,
+     "R-unshrunk": 0.6324,
+     "R-shrunk": 0.6308,
+     "L-live": 0.6322,
+     "L-shrunk": 0.6321,
+     "L-depth": 0.636
+    },
+    "2024": {
+     "games": 1216,
+     "no_adjustment": 0.6189,
+     "R-unshrunk": 0.6156,
+     "R-shrunk": 0.6138,
+     "L-live": 0.6132,
+     "L-shrunk": 0.6135,
+     "L-depth": 0.6169
+    },
+    "2025": {
+     "games": 1215,
+     "no_adjustment": 0.6174,
+     "R-unshrunk": 0.6159,
+     "R-shrunk": 0.6145,
+     "L-live": 0.606,
+     "L-shrunk": 0.6048,
+     "L-depth": 0.6067
+    },
+    "2026": {
+     "games": 1215,
+     "no_adjustment": 0.6106,
+     "R-unshrunk": 0.5994,
+     "R-shrunk": 0.5979,
+     "L-live": 0.5975,
+     "L-shrunk": 0.5975,
+     "L-depth": 0.6061
+    }
+   }
+  },
+  "long_term_absence": {
+   "games": 2685,
+   "no_adjustment": 0.6203,
+   "R-unshrunk": 0.6066,
+   "R-shrunk": 0.6047,
+   "L-live": 0.6032,
+   "L-shrunk": 0.6025,
+   "L-depth": 0.6096,
+   "by_season": {
+    "2021": {
+     "games": 320,
+     "no_adjustment": 0.6334,
+     "R-unshrunk": 0.6169,
+     "R-shrunk": 0.6167,
+     "L-live": 0.625,
+     "L-shrunk": 0.6251,
+     "L-depth": 0.6244
+    },
+    "2022": {
+     "games": 451,
+     "no_adjustment": 0.6303,
+     "R-unshrunk": 0.6175,
+     "R-shrunk": 0.6166,
+     "L-live": 0.6173,
+     "L-shrunk": 0.6159,
+     "L-depth": 0.6226
+    },
+    "2023": {
+     "games": 336,
+     "no_adjustment": 0.6403,
+     "R-unshrunk": 0.6122,
+     "R-shrunk": 0.6099,
+     "L-live": 0.6094,
+     "L-shrunk": 0.6097,
+     "L-depth": 0.6157
+    },
+    "2024": {
+     "games": 475,
+     "no_adjustment": 0.615,
+     "R-unshrunk": 0.6091,
+     "R-shrunk": 0.6067,
+     "L-live": 0.6047,
+     "L-shrunk": 0.6046,
+     "L-depth": 0.6121
+    },
+    "2025": {
+     "games": 483,
+     "no_adjustment": 0.618,
+     "R-unshrunk": 0.6093,
+     "R-shrunk": 0.6055,
+     "L-live": 0.5931,
+     "L-shrunk": 0.5903,
+     "L-depth": 0.5959
+    },
+    "2026": {
+     "games": 620,
+     "no_adjustment": 0.6014,
+     "R-unshrunk": 0.5864,
+     "R-shrunk": 0.5848,
+     "L-live": 0.585,
+     "L-shrunk": 0.5849,
+     "L-depth": 0.598
+    }
+   }
+  },
+  "returning_player": {
+   "games": 3663,
+   "no_adjustment": 0.6274,
+   "R-unshrunk": 0.6256,
+   "R-shrunk": 0.6244,
+   "L-live": 0.6206,
+   "L-shrunk": 0.6202,
+   "L-depth": 0.6238,
+   "by_season": {
+    "2021": {
+     "games": 688,
+     "no_adjustment": 0.6428,
+     "R-unshrunk": 0.6377,
+     "R-shrunk": 0.6361,
+     "L-live": 0.6371,
+     "L-shrunk": 0.6371,
+     "L-depth": 0.6357
+    },
+    "2022": {
+     "games": 737,
+     "no_adjustment": 0.6447,
+     "R-unshrunk": 0.6409,
+     "R-shrunk": 0.6405,
+     "L-live": 0.6375,
+     "L-shrunk": 0.6369,
+     "L-depth": 0.6408
+    },
+    "2023": {
+     "games": 639,
+     "no_adjustment": 0.6411,
+     "R-unshrunk": 0.6256,
+     "R-shrunk": 0.6246,
+     "L-live": 0.6277,
+     "L-shrunk": 0.6282,
+     "L-depth": 0.6316
+    },
+    "2024": {
+     "games": 454,
+     "no_adjustment": 0.6185,
+     "R-unshrunk": 0.6308,
+     "R-shrunk": 0.6281,
+     "L-live": 0.6205,
+     "L-shrunk": 0.6206,
+     "L-depth": 0.6238
+    },
+    "2025": {
+     "games": 549,
+     "no_adjustment": 0.6125,
+     "R-unshrunk": 0.6291,
+     "R-shrunk": 0.6286,
+     "L-live": 0.61,
+     "L-shrunk": 0.6081,
+     "L-depth": 0.6077
+    },
+    "2026": {
+     "games": 596,
+     "no_adjustment": 0.5937,
+     "R-unshrunk": 0.5857,
+     "R-shrunk": 0.584,
+     "L-live": 0.583,
+     "L-shrunk": 0.5824,
+     "L-depth": 0.5957
+    }
+   }
+  }
+ },
+ "beta_note": "points scale fitted on earlier pre-game seasons only; the first scored season uses 0.45 (fitted on box-score history)"
+}

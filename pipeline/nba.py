@@ -864,6 +864,12 @@ def _availability(players: pd.DataFrame, end_year: int, schedule: pd.DataFrame, 
             log("NBA official injury report skipped:", e)
             official, off_meta = {}, {"official": None}
         plan = A.plan(schedule, injuries, values, NAMES, official=official)
+        try:   # frozen return-duration challenger: archived for prospective scoring only, never used in projections
+            import nba_returns_challenger as RC
+            if store and report_ok and not feed["stale"]:
+                RC.record(store, injuries, values, players, schedule, end_year)
+        except Exception as e:  # noqa: BLE001
+            log("NBA return challenger skipped:", e)
         log("NBA availability", len(plan["listed"]), "listed rotation players;", len(plan["episodes"]), "recovery paths simulated")
         return plan, {"available": report_ok, **feed, "beta": A.BETA, "rows": plan["listed"], "version": 2, **off_meta}
     except Exception as e:  # noqa: BLE001
