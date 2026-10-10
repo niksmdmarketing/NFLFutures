@@ -323,11 +323,22 @@ def fetch_schedule(teams, y):
 
 # ---------------------------------------------------------------- back-test
 
-def backtest(TT, GG, betas_by_year, k, tau, total, hfa, years):
+def params_before(TT, GG, fit_years, done, y):
+    """Every model setting re-estimated from seasons before y only, so a back-test of season y uses no later information."""
+    past = [z for z in fit_years if z < y]
+    betas = {z: fit_prior(TT, [w for w in past if w != z])[0] for z in past}
+    beta = fit_prior(TT, past)[0]
+    k, tau = tune_shrinkage(TT, GG, betas, [z for z in past if z >= nhl.FIRST + 2])
+    total, hfa = league_scoring(GG, [z for z in done if z < y][-5:])
+    return beta, k, tau, total, hfa
+
+
+def backtest(TT, GG, fit_years, done, years):
     rows = []
     for y in years:
         if y not in GG or y not in TT or y - 1 not in TT:
             continue
+        beta_y, k, tau, total, hfa = params_before(TT, GG, fit_years, done, y)
         T = TT[y]
         teams = sorted(T.index)
         if len(teams) != 32 or any(t not in ALIGN for t in teams):
@@ -351,7 +362,7 @@ def backtest(TT, GG, betas_by_year, k, tau, total, hfa, years):
             po |= set(sorted(rest, key=lambda t: -comp[t])[:2])
         divwin = {d: max([t for t in teams if ALIGN[t] == d], key=lambda t: comp[t]) for d in set(ALIGN[t] for t in teams)}
         prior_f = prior_features(y, TT).reindex(teams).fillna(0)
-        prior = pd.Series(prior_f.values @ betas_by_year[y], index=teams)
+        prior = pd.Series(prior_f.values @ beta_y, index=teams)
         prev_pts = (numcol(TT[y - 1], "points") / numcol(TT[y - 1], "gamesPlayed") * SEASON_GAMES).reindex(teams).fillna(91)
         for N in (0, 20):
             gp = g[g.n <= N].groupby("team").size().reindex(teams).fillna(0)
@@ -384,6 +395,7 @@ def backtest(TT, GG, betas_by_year, k, tau, total, hfa, years):
     # reliability: predicted playoff chance vs how often it happened
     x = d[d.N == 20]
     bins = pd.cut(x.p_po, [0, .1, .3, .5, .7, .9, 1.0], include_lowest=True)
+    out["method"] = "point-in-time: every setting re-estimated from earlier seasons only"
     out["calibration_20"] = [{"bin": str(b), "pred": float(v.p_po.mean()), "actual": float(v.po.mean()), "n": int(len(v))} for b, v in x.groupby(bins, observed=True)]
     return out
 
@@ -452,14 +464,14 @@ def build():
                      "p_r2": float(sim["r2"][i]), "p_r3": float(sim["r3"][i]), "p_final": float(sim["final"][i]), "p_cup": float(sim["cup"][i]),
                      "over": [round(float(v), 4) for v in cdf[i][30:141]]})
     cache = os.path.join(nhl.NHL_DATA, "model_backtest.json")
-    key = f"{done[-1]}-{k}-{round(tau[0], 3)}-{SIMS > 0}"
+    key = f"v2-point-in-time-{done[-1]}-{SIMS > 0}"
     bt = None
     if os.path.exists(cache):
         c0 = json.load(open(cache))
         if c0.get("key") == key:
             bt = c0["bt"]
     if bt is None:
-        bt = backtest(TT, GG, betas_by_year, k, tau, total, hfa, [y for y in done if y >= 2021])
+        bt = backtest(TT, GG, fit_years, done, [y for y in done if y >= 2021])
         json.dump({"key": key, "bt": bt}, open(cache, "w"))
     out = {"season": cur, "updated_utc": dt.datetime.now(dt.timezone.utc).isoformat(timespec="minutes"), "games_played": n_avg, "sims": SIMS,
            "params": {"k": k, "tau_now": tau_now, "tau": tau, "total_goals": total, "hfa": hfa, "beta": [float(b) for b in beta], "prior_r2": r2, "prior_rmse": rmse},

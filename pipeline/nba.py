@@ -52,9 +52,13 @@ NAMES = {
 }
 
 RELEASE = "https://github.com/sportsdataverse/sportsdataverse-data/releases/download"
-HFA = 2.2
+# Ratings are points per 100 possessions. A game margin is (rating gap + home edge) x game pace / 100, with the home
+# edge fitted in the same per-100 units by _fit_ratings (set in build_data). Settings below were chosen on a
+# point-in-time backtest of 2011-2026 (pipeline/nba_backtest.py) with TypeSafe.
+HFA = 2.2            # per 100 possessions; replaced by the fitted value at build time
 GAME_SIGMA = 12.2
 TEAM_TAU = 2.2
+PACE = np.full(30, 100.0)   # team pace (possessions per 48), replaced at build time
 _OPTIONAL_DOWNLOADS_BLOCKED = False
 
 
@@ -535,7 +539,8 @@ def _regular_boxes(boxes: pd.DataFrame) -> pd.DataFrame:
     return d[d.ortg.between(70, 150) & d.poss.notna()].copy()
 
 
-def _fit_ratings(boxes: pd.DataFrame, end_year: int) -> tuple[pd.DataFrame, dict]:
+def _fit_ratings(boxes: pd.DataFrame, end_year: int, decay: float = 0.2, ridge: float = 24.0,
+                 current_weight: float = 4.0) -> tuple[pd.DataFrame, dict]:
     d = _regular_boxes(boxes)
     train = d[d.season >= end_year - 4].copy()
     n = len(train)
@@ -546,15 +551,15 @@ def _fit_ratings(boxes: pd.DataFrame, end_year: int) -> tuple[pd.DataFrame, dict
         x[row, TIX[team]] = 1
         x[row, 30 + TIX[opp]] = 1
         x[row, 60] = 1 if venue == "home" else 0
-    # Completed years decay by 45%; current-season games, when present, get
-    # extra weight so the model transitions naturally out of preseason mode.
-    weights = np.power(0.55, np.maximum(0, (end_year - 1) - train.season.to_numpy()))
-    weights = np.where(train.season.to_numpy() == end_year, 1.6, weights)
+    # Older completed seasons decay by 80% a year; current-season games get 4x weight so the model moves quickly out of
+    # preseason mode (both chosen on the point-in-time backtest).
+    weights = np.power(decay, np.maximum(0, (end_year - 1) - train.season.to_numpy()))
+    weights = np.where(train.season.to_numpy() == end_year, current_weight, weights)
     design = np.column_stack([np.ones(n, dtype=np.float32), x]).astype(float)
     root_w = np.sqrt(weights)[:, None]
     weighted_x = design * root_w
     weighted_y = train.ortg.to_numpy(float) * root_w[:, 0]
-    penalty = np.eye(design.shape[1]) * 24.0
+    penalty = np.eye(design.shape[1]) * ridge
     penalty[0, 0] = 0.0
     beta = np.linalg.solve(weighted_x.T @ weighted_x + penalty, weighted_x.T @ weighted_y)
     intercept, coef = float(beta[0]), beta[1:]
@@ -670,7 +675,8 @@ def _schedule(schedule: pd.DataFrame) -> pd.DataFrame:
 
 def _one_game(rng: np.random.Generator, home: str, away: str, strength: np.ndarray,
               neutral: bool = False) -> str:
-    margin = strength[TIX[home]] - strength[TIX[away]] + (0 if neutral else HFA) + rng.normal(0, GAME_SIGMA)
+    pace = (PACE[TIX[home]] + PACE[TIX[away]]) / 200
+    margin = (strength[TIX[home]] - strength[TIX[away]] + (0 if neutral else HFA)) * pace + rng.normal(0, GAME_SIGMA)
     return home if margin > 0 else away
 
 
@@ -741,7 +747,8 @@ def _simulate(schedule: pd.DataFrame, ratings: pd.DataFrame, n_sims: int) -> dic
         wins_batch = np.tile(actual_wins, (size, 1))
         pd_batch = np.tile(actual_pd, (size, 1))
         if len(home_ix):
-            margins = (strengths[:, home_ix] - strengths[:, away_ix] + HFA
+            game_pace = (PACE[home_ix] + PACE[away_ix]) / 200
+            margins = ((strengths[:, home_ix] - strengths[:, away_ix] + HFA) * game_pace[None, :]
                        + rng.normal(0, GAME_SIGMA, (size, len(home_ix))))
             winner_ix = np.where(margins > 0, home_ix[None, :], away_ix[None, :])
             sim_ix = np.repeat(np.arange(size), len(home_ix))
@@ -809,7 +816,8 @@ def _game_rows(schedule: pd.DataFrame, ratings: pd.DataFrame) -> list[dict]:
     strength = ratings.set_index("team").rating
     rows = []
     for _, g in schedule.iterrows():
-        margin = float(strength[g.home_abbreviation] - strength[g.away_abbreviation] + HFA)
+        pace = (PACE[TIX[g.home_abbreviation]] + PACE[TIX[g.away_abbreviation]]) / 200
+        margin = float((strength[g.home_abbreviation] - strength[g.away_abbreviation] + HFA) * pace)
         rows.append({"date": g.game_date, "home": g.home_abbreviation, "away": g.away_abbreviation,
                      "completed": bool(g.completed),
                      "home_score": int(g.home_score) if pd.notna(g.home_score) and g.completed else None,
@@ -824,6 +832,10 @@ def build_data() -> None:
     log("NBA season", f"{end_year - 1}-{str(end_year)[-2:]}")
     boxes, raw_schedule, players, prior_roster, current_roster = _load_inputs(end_year)
     ratings, fit = _fit_ratings(boxes, end_year)
+    global HFA, PACE
+    if 0 < fit["home_offense_points_per_100"] < 6:
+        HFA = float(fit["home_offense_points_per_100"])
+    PACE = ratings.set_index("team").pace.reindex(TEAMS).fillna(100.0).to_numpy(float)
     prior_players = players[pd.to_numeric(players.season, errors="coerce") == end_year - 1] if len(players) else players
     values = _player_values(prior_players)
     ratings, player_rows = _roster_adjustment(ratings, values, prior_roster, current_roster)

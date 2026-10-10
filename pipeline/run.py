@@ -20,6 +20,13 @@ import stats  # noqa: E402
 from common import OUT, TEAMS, current_season, games, load_pbp, log, write_json  # noqa: E402
 
 
+def _track_record():
+    """Per-market point-in-time test of the futures model (built offline by pipeline/nfl_backtest.py)."""
+    from common import MODEL
+    p = os.path.join(MODEL, "futures_backtest.json")
+    return json.load(open(p)) if os.path.exists(p) else None
+
+
 def main():
     g = games()
     season = current_season(g)
@@ -58,7 +65,7 @@ def main():
     write_json("meta.json", meta)
     write_json("futures.json", {"season": season, "through_week": through,
                                 "teams": simulate.futures_table(res, Rv, R),
-                                "track_record": ratings.S.get("track_record"), "challenger": challenger})
+                                "track_record": _track_record(), "challenger": challenger})
     write_json("awards.json", awards.build(season, g, res, injuries))
     log("awards done")
     import award_race, players  # noqa: E401

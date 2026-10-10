@@ -507,7 +507,8 @@ def futures(cur):
     gp = np.mean([r["gp"] for r in rows]) if rows else 0
     return {"season": cur, "group_label": "Division", "sims": 100000, "main": "p_title",
             "status": f"{cur - 1}-{str(cur)[2:]} season" + (" — before opening night" if gp == 0 else f" — through about {gp:.0f} games per team"),
-            "intro": "Projected wins and chances from the season simulation (four seasons of opponent-adjusted offence and defence, weighted to the latest, plus a cautious roster adjustment, then every remaining game, the play-in and the playoffs).",
+            "intro": "Projected wins and chances from the season simulation (opponent-adjusted offence and defence, weighted heavily to last season and this season's games, plus a cautious roster adjustment, then every remaining game, the play-in and the playoffs).",
+            "backtest_html": _backtest_html(),
             "proj": {"k": "w_mean", "l": "Proj. wins", "lo": "w_p10", "hi": "w_p90", "f": "num1"},
             "rating_note": "Points per 100 possessions better (+) or worse (−) than an average team",
             "extra": [{"k": "left", "l": "Games left", "f": "int"}, {"k": "road_left", "l": "Road left", "f": "int"},
@@ -520,8 +521,24 @@ def futures(cur):
             "line": {"label": "Win total", "unit": "wins", "min": 0},
             "about": ["The model does not use bookmaker prices, so it is independent of the market, not proof of value.",
                       "Rookies, coaching changes and injuries are only partly reflected; they matter most before the season.",
-                      "It has not been back-tested against past preseasons yet, so treat early-season numbers with extra caution."],
+                      "The roster adjustment cannot be back-tested (no historical rosters), so it is kept small."],
             "teams": rows}
+
+
+def _backtest_html():
+    p = os.path.join(os.path.dirname(os.path.abspath(__file__)), "nba_backtest_summary.json")
+    if not os.path.exists(p):
+        return ""
+    b = json.load(open(p))
+    lab = {0.0: "Before the season", 0.2: "20% of games played", 0.4: "40%", 0.6: "60%", 0.8: "80%"}
+    rows = "".join(f"<tr><td>{lab.get(c, c)}</td><td><b>{b['mae']['current'][i]:.1f}</b></td><td>{b['mae']['last year'][i]:.1f}</td>"
+                   f"<td>{b['mae']['record so far'][i]:.1f}</td><td>{b['mae']['previous'][i]:.1f}</td></tr>"
+                   for i, c in enumerate(b["checkpoints"]))
+    return ('<p class="note">Point-in-time test on ' + str(b["n_seasons"]) + " past seasons (" + b["seasons"] + "): at each checkpoint the model "
+            "only sees games already played, projects the rest of that season, and is scored on final wins. Average miss per team, in wins (lower is better). "
+            "The roster adjustment is not included because historical rosters are not available.</p>"
+            '<div class="scroll"><table class="stbl"><thead><tr><th>When</th><th>This model</th><th>Last season, regressed</th>'
+            '<th>Record so far</th><th>Previous version</th></tr></thead><tbody>' + rows + "</tbody></table></div>")
 
 
 def schedule_context(cur, rating):

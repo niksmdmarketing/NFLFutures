@@ -71,6 +71,24 @@ function renderChallenger(C) {
   $("cbody").innerHTML = h;
   sortableTable($("cbody").closest("table"));
 }
+function renderTrack(T) {
+  if (!T || !T.markets) return;
+  $("trackSec").hidden = false;
+  $("trackNote").innerHTML = "Tested on " + T.seasons + ": at each point the model only sees games already played, simulates the rest of that season, and is scored against what happened. " +
+    "<b>Skill</b> is how much better than a blind guess (each team getting the base rate) the probabilities were: 0% means no better, higher is better. " +
+    "<b>Winner got</b> is the average probability the model had given the team that actually won. The quarterback and pressure layers are left out because past depth charts are not available as they stood each week, and the simulation spread was tuned on these seasons, so read these as a fair guide rather than a strict out-of-sample test.";
+  const live = "v4 (live)";
+  let h = "";
+  T.markets.forEach(m => {
+    const v = m.by_model[live], c = m.by_model["v3 (challenger)"];
+    h += "<tr><td><b>" + esc(m.label) + "</b></td>" + v.skill.map((s, i) => '<td class="num" data-v="' + s + '">' + Math.round(s * 100) + '% skill<br><span class="muted">winner got ' + pct(v.winner_p[i]) +
+      (c ? " · v3 skill " + Math.round(c.skill[i] * 100) + "%" : "") + "</span></td>").join("") + "</tr>";
+  });
+  const w = T.wins;
+  if (w && w[live]) h += '<tr><td><b>Win totals</b><br><span class="muted">average miss, wins</span></td>' + w[live].map((x, i) => '<td class="num">' + x.toFixed(2) +
+    '<br><span class="muted">simple guess ' + w["base rate"][i].toFixed(2) + "</span></td>").join("") + "</tr>";
+  $("trackBody").innerHTML = h;
+}
 boot(async meta => {
   const F = await getJSON("futures.json");
   FT = F.teams;
@@ -79,4 +97,5 @@ boot(async meta => {
   initWT();
   renderQB();
   renderChallenger(F.challenger);
+  renderTrack(F.track_record);
 });
