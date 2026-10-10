@@ -107,7 +107,7 @@ def game_adjustments(schedule, injuries, values, names, today=None):
         else:
             continue
         out_by_team.setdefault(team, []).append((until, weight * v["value"]))
-        listed.append(dict(team=team, player=v["name"], status=r["status"], est_return=str(r["return_date"] or "")[:10] or None,
+        listed.append(dict(team=team, until=until, player=v["name"], status=r["status"], est_return=str(r["return_date"] or "")[:10] or None,
                            injury=r["injury"], points=round(weight * v["value"], 1), mpg=v["mpg"]))
     adj = {}
     for g in schedule.itertuples():
@@ -118,7 +118,11 @@ def game_adjustments(schedule, injuries, values, names, today=None):
         a = cost(g.home_abbreviation) - cost(g.away_abbreviation)
         if a:
             adj[(str(g.game_date)[:10], g.home_abbreviation, g.away_abbreviation)] = a
-    listed.sort(key=lambda r: -r["points"])
+    left = schedule[~schedule.completed.astype(bool)]
+    for r in listed:
+        mine = left[(left.home_abbreviation == r["team"]) | (left.away_abbreviation == r["team"])]
+        r["games"] = int((pd.to_datetime(mine.game_date).dt.date < r.pop("until")).sum())
+    listed.sort(key=lambda r: (-(r["games"] > 0), -r["points"]))
     return adj, listed
 
 

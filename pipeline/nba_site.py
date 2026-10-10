@@ -532,17 +532,17 @@ def _avail_html(a):
     from html import escape as e
     if not a.get("available"):
         return '<p class="note">The injury report could not be read on this refresh, so no absences are applied.</p>'
-    rows = [r for r in a.get("rows", []) if r["points"] >= 0.5]
+    rows = [r for r in a.get("rows", []) if r["points"] >= 0.5 and r.get("games", 1) > 0]
     intro = ('<p class="note">Each player has a points value: how much worse his team is per game without him, from his box-score '
              "production per minute against a replacement-level rotation player, times his usual minutes. Tested on 2011-2026: adjusting "
              "games for missing players improved our game forecasts in 16 of 16 seasons. Only players worth at least half a point are listed. "
              "Status and estimated return are from ESPN's injury report" + (f" (feed time {e(str(a.get('feed_time'))[:16].replace('T', ' '))} UTC)" if a.get("feed_time") else "") + ".</p>")
     if not rows:
-        return intro + '<p class="note">No rotation players are currently listed out.</p>'
+        return intro + '<p class="note">No listed absences reach a regular-season game yet.</p>'
     body = "".join(f"<tr><td>{e(r['team'])}</td><td>{e(r['player'])}</td><td>{e(r['status'])}</td><td>{e(r['injury'] or '')}</td>"
-                   f"<td>{e(r['est_return'] or 'not given')}</td><td>{r['mpg']:.0f}</td><td><b>−{r['points']:.1f}</b></td></tr>" for r in rows)
+                   f"<td>{e(r['est_return'] or 'not given')}</td><td>{r['mpg']:.0f}</td><td>{r.get('games', '')}</td><td><b>−{r['points']:.1f}</b></td></tr>" for r in rows)
     return (intro + '<div class="scroll"><table class="stbl"><thead><tr><th>Team</th><th>Player</th><th>Status</th><th>Injury</th>'
-            '<th>Est. return</th><th>Min/game</th><th title="Points per game the team is worse while he is out">Cost (pts/game)</th></tr></thead><tbody>'
+            '<th>Est. return</th><th>Min/game</th><th title="Remaining regular-season games before the estimated return">Games</th><th title="Points per game the team is worse while he is out">Cost (pts/game)</th></tr></thead><tbody>'
             + body + "</tbody></table></div>")
 
 
