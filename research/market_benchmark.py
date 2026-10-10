@@ -76,7 +76,7 @@ def price_at(series, when):
 
 def score(rows):
     """rows: list of dict(group, model, market, won). Multi-class log-loss of the winner within each group."""
-    out = {"model": [], "market": [], "blend": []}
+    out = {"model": [], "market": [], "blend": [], "blend20": []}
     for _, G in pd.DataFrame(rows).groupby("group"):
         if G.won.sum() != 1 or G.market.isna().mean() > 0.3:
             continue
@@ -85,8 +85,10 @@ def score(rows):
         mk, mo = mk / mk.sum(), mo / mo.sum()
         bl = np.sqrt(mk * mo)
         bl /= bl.sum()
+        b2 = mo ** 0.2 * mk ** 0.8
+        b2 /= b2.sum()
         w = G.won.values == 1
-        for k, v in (("model", mo), ("market", mk), ("blend", bl)):
+        for k, v in (("model", mo), ("market", mk), ("blend", bl), ("blend20", b2)):
             out[k].append(float(-np.log(v[w][0])))
     return {k: (round(float(np.mean(v)), 3) if v else None) for k, v in out.items()} | {"events": len(out["model"])}
 
@@ -133,8 +135,11 @@ def nfl():
             if k == "playoff":
                 if brier:
                     a = np.array(brier)
+                    lg = lambda p: np.log(np.clip(p, 1e-4, 1 - 1e-4) / (1 - np.clip(p, 1e-4, 1 - 1e-4)))
+                    pool = lambda w: 1 / (1 + np.exp(-(w * lg(a[:, 0]) + (1 - w) * lg(a[:, 1]))))
                     res[f"playoff wk{wk}"] = {"model": round(float(((a[:, 0] - a[:, 2]) ** 2).mean()), 4), "market": round(float(((a[:, 1] - a[:, 2]) ** 2).mean()), 4),
-                                              "blend": round(float((((a[:, 0] + a[:, 1]) / 2 - a[:, 2]) ** 2).mean()), 4), "teams": len(a), "metric": "brier"}
+                                              "blend": round(float(((pool(0.5) - a[:, 2]) ** 2).mean()), 4),
+                                              "blend20": round(float(((pool(0.2) - a[:, 2]) ** 2).mean()), 4), "teams": len(a), "metric": "brier"}
             else:
                 res[f"{k} wk{wk}"] = score(rows)
     return res

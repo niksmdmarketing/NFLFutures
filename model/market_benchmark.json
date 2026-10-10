@@ -4,99 +4,115 @@
    "model": 3.651,
    "market": 3.501,
    "blend": 3.524,
+   "blend20": 3.498,
    "events": 2
   },
   "sb wk4": {
    "model": 3.334,
    "market": 3.535,
    "blend": 3.384,
+   "blend20": 3.463,
    "events": 2
   },
   "sb wk9": {
    "model": 2.904,
    "market": 2.765,
    "blend": 2.804,
+   "blend20": 2.773,
    "events": 2
   },
   "sb wk13": {
    "model": 2.425,
    "market": 2.171,
    "blend": 2.277,
+   "blend20": 2.208,
    "events": 2
   },
   "conf wk0": {
    "model": 3.049,
    "market": 2.789,
    "blend": 2.871,
+   "blend20": 2.81,
    "events": 4
   },
   "conf wk4": {
    "model": 2.561,
    "market": 2.824,
    "blend": 2.656,
+   "blend20": 2.749,
    "events": 4
   },
   "conf wk9": {
    "model": 2.055,
    "market": 1.993,
    "blend": 1.988,
+   "blend20": 1.979,
    "events": 4
   },
   "conf wk13": {
    "model": 1.754,
    "market": 1.512,
    "blend": 1.616,
+   "blend20": 1.549,
    "events": 4
   },
   "div wk0": {
    "model": 1.407,
    "market": 1.3,
    "blend": 1.318,
+   "blend20": 1.299,
    "events": 16
   },
   "div wk4": {
    "model": 1.297,
    "market": 1.423,
    "blend": 1.337,
+   "blend20": 1.384,
    "events": 16
   },
   "div wk9": {
    "model": 0.907,
    "market": 0.965,
    "blend": 0.927,
+   "blend20": 0.948,
    "events": 16
   },
   "div wk13": {
    "model": 0.62,
    "market": 0.643,
    "blend": 0.627,
+   "blend20": 0.635,
    "events": 16
   },
   "playoff wk0": {
    "model": 0.2693,
    "market": 0.2377,
-   "blend": 0.2491,
+   "blend": 0.2487,
+   "blend20": 0.2412,
    "teams": 29,
    "metric": "brier"
   },
   "playoff wk4": {
    "model": 0.23,
    "market": 0.2132,
-   "blend": 0.2137,
+   "blend": 0.2118,
+   "blend20": 0.2093,
    "teams": 29,
    "metric": "brier"
   },
   "playoff wk9": {
    "model": 0.184,
    "market": 0.1844,
-   "blend": 0.1781,
+   "blend": 0.1821,
+   "blend20": 0.182,
    "teams": 29,
    "metric": "brier"
   },
   "playoff wk13": {
    "model": 0.0867,
    "market": 0.0932,
-   "blend": 0.0893,
+   "blend": 0.089,
+   "blend20": 0.0912,
    "teams": 52,
    "metric": "brier"
   }
@@ -106,60 +122,70 @@
    "model": 2.825,
    "market": 2.43,
    "blend": 2.527,
+   "blend20": 2.445,
    "events": 2
   },
   "title 20%": {
    "model": 2.531,
    "market": 2.497,
    "blend": 2.452,
+   "blend20": 2.462,
    "events": 2
   },
   "title 40%": {
    "model": 2.021,
    "market": 2.236,
    "blend": 2.075,
+   "blend20": 2.155,
    "events": 2
   },
   "title 60%": {
    "model": 1.972,
    "market": 2.155,
    "blend": 2.011,
+   "blend20": 2.08,
    "events": 2
   },
   "title 80%": {
    "model": 1.762,
    "market": 2.199,
    "blend": 1.943,
+   "blend20": 2.085,
    "events": 2
   },
   "conf 0%": {
    "model": 3.347,
    "market": 2.431,
    "blend": 2.782,
+   "blend20": 2.541,
    "events": 4
   },
   "conf 20%": {
    "model": 3.206,
    "market": 2.454,
    "blend": 2.759,
+   "blend20": 2.557,
    "events": 4
   },
   "conf 40%": {
    "model": 2.923,
    "market": 2.079,
    "blend": 2.452,
+   "blend20": 2.214,
    "events": 4
   },
   "conf 60%": {
    "model": 2.402,
    "market": 2.148,
    "blend": 2.238,
+   "blend20": 2.173,
    "events": 4
   },
   "conf 80%": {
    "model": 2.129,
    "market": 2.034,
    "blend": 2.051,
+   "blend20": 2.033,
    "events": 4
   }
  },
@@ -168,36 +194,42 @@
    "model": null,
    "market": null,
    "blend": null,
+   "blend20": null,
    "events": 0
   },
   "cup 2024 N20": {
    "model": 2.586,
    "market": 2.36,
    "blend": 2.44,
+   "blend20": 2.383,
    "events": 1
   },
   "cup 2025 N0": {
    "model": 2.381,
    "market": 2.294,
    "blend": 2.298,
+   "blend20": 2.287,
    "events": 1
   },
   "conf 2025 N0": {
    "model": null,
    "market": null,
    "blend": null,
+   "blend20": null,
    "events": 0
   },
   "cup 2025 N20": {
    "model": 2.048,
    "market": 2.576,
    "blend": 2.268,
+   "blend20": 2.44,
    "events": 1
   },
   "conf 2025 N20": {
    "model": 1.614,
    "market": 1.884,
    "blend": 1.699,
+   "blend20": 1.797,
    "events": 2
   }
  },

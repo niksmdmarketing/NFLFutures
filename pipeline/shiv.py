@@ -29,7 +29,8 @@ OUT = os.path.join(SITE, "shiv")
 SRC = os.path.join(ROOT, "site_src", "shiv")
 G = "https://gamma-api.polymarket.com"
 CONFIG = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "shiv_markets.json")))
-ARCHIVE = os.environ.get("SHIV_ARCHIVE")          # checked-out shiv-archive branch (CI); None locally
+ARCHIVE = os.environ.get("SHIV_ARCHIVE")
+W_MODEL_ALT = 0.2   # market-heavy variant scored alongside Shiv: match-level tests found the best weight on our model is 0-25%          # checked-out shiv-archive branch (CI); None locally
 
 
 def log(*a):
@@ -156,18 +157,27 @@ def forward_scores(resolved):
     res = {}
     for (slug, day), (sport, m) in per_day.items():
         won = resolved[slug]
-        S = res.setdefault(sport, {}).setdefault(m["label"], {"model": [], "market": [], "shiv": [], "forecasts": 0})
-        rows = {r["team"]: r for r in m["rows"]}
+        S = res.setdefault(sport, {}).setdefault(m["label"], {"model": [], "market": [], "shiv": [], "shiv80": [], "forecasts": 0})
+        rows = {r["team"]: dict(r) for r in m["rows"]}
+        # market-heavy variant (20% model / 80% market), scored from the same archived numbers
+        if m["one_winner"]:
+            raw = {t: max(r["model"], 1e-4) ** W_MODEL_ALT * max(r["market"], 1e-4) ** (1 - W_MODEL_ALT) for t, r in rows.items()}
+            z = sum(raw.values()) or 1
+            for t in rows:
+                rows[t]["shiv80"] = raw[t] / z
+        else:
+            for t, r in rows.items():
+                r["shiv80"] = 1 / (1 + math.exp(-(W_MODEL_ALT * logit(r["model"]) + (1 - W_MODEL_ALT) * logit(r["market"]))))
         if m["one_winner"]:
             w = [t for t, v in won.items() if v == 1]
             if len(w) != 1 or w[0] not in rows:
                 continue
-            for k in ("model", "market", "shiv"):
+            for k in ("model", "market", "shiv", "shiv80"):
                 S[k].append(-math.log(max(rows[w[0]][k], 1e-4)))
         else:
             for t, r in rows.items():
                 if t in won:
-                    for k in ("model", "market", "shiv"):
+                    for k in ("model", "market", "shiv", "shiv80"):
                         S[k].append((r[k] - won[t]) ** 2)
         S["forecasts"] += 1
     out = {}
@@ -228,6 +238,11 @@ def build_data():
     bt = os.path.join(ROOT, "model", "market_benchmark.json")
     live["backtest"] = json.load(open(bt)) if os.path.exists(bt) else None
     live["forward"] = forward_scores(resolved)
+    live["match"] = {}
+    for sp in ("nfl", "nba", "nhl", "afl", "nbl"):
+        mp = os.path.join(ROOT, "model", f"match_vs_market_{sp}.json")
+        if os.path.exists(mp):
+            live["match"][sp] = json.load(open(mp))
     live["config_season"] = CONFIG.get("season_note")
     json.dump(live, open(os.path.join(OUT, "data", "live.json"), "w"), separators=(",", ":"))
     os.makedirs(os.path.join(ROOT, "build"), exist_ok=True)

@@ -22,6 +22,7 @@ D["p_market"] = np.where(ml, M.devig(M.american_to_decimal(D.home_moneyline.fill
                          M.phi(D.spread_line / 13.4))
 nweeks = D.groupby("season").week.transform("max")
 D["frac"] = (D.week - 1) / nweeks
+D.to_csv(os.path.join(os.environ.get("TMPDIR", "/tmp"), "match_nfl.csv"), index=False)
 out, R = M.analyse(D[["season", "frac", "y", "p_model", "p_market"]])
 out["note"] = "weeks 2+; rating weights were trained on 2010-2021, so those seasons are in-sample for our model"
 oos = D[(D.season >= 2022) | (D.season < 2010)]

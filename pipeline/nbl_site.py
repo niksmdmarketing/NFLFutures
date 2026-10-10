@@ -20,7 +20,9 @@ OUT = os.path.join(ROOT, "build", "nbl_site")
 SITE = os.path.join(S.SITE, "nbl")
 CANON = {"WOL": "ILL"}
 HCA = 3.0
-GAME_SD = 12.0
+GAME_SD = 14.0   # was 12; tuned on match outcomes 2012-2026 (Oct 2026, with K_PRIOR and PRIOR_REG; TypeSafe 68%)
+K_PRIOR = 20.0   # games of weight on the preseason prior (was 6)
+PRIOR_REG = 0.4  # share of last season's rating carried into the new season (was 0.5)
 
 
 def code(c):
@@ -266,7 +268,8 @@ GAME_COLS = [C("pf", "PTS", "Result", "int"), C("pa", "Opp", "Result", "int", lo
 
 # ------------------------------------------------------------------ ratings and simulation
 
-def srs(g, prior=None, k=6.0):
+def srs(g, prior=None, k=None):
+    k = K_PRIOR if k is None else k
     teams = sorted(set(g.team) | set(prior or {}))
     ix = {t: i for i, t in enumerate(teams)}
     x = g[g.ha == "H"]
@@ -425,7 +428,7 @@ def build_data():
 
 def futures(y, hist, tables, todo, T, names):
     prev = hist.get(y - 1)
-    prior = {t: .5 * v for t, v in srs(prev).items()} if prev is not None and len(prev) else {}
+    prior = {t: PRIOR_REG * v for t, v in srs(prev).items()} if prev is not None and len(prev) else {}
     g = hist.get(y, pd.DataFrame())
     rating = srs(g, prior=prior) if len(g) else prior
     teams = list(T.team)
@@ -475,7 +478,7 @@ def backtest(hist):
         prev, now = hist.get(y - 1), hist[y]
         if prev is None or not len(prev) or not len(now):
             continue
-        rating = {t: .5 * v for t, v in srs(prev).items()}
+        rating = {t: PRIOR_REG * v for t, v in srs(prev).items()}
         pw = prev.groupby("team").win.mean()
         x = now[now.ha == "H"]
         exp = {t: 0.0 for t in now.team.unique()}
@@ -491,7 +494,7 @@ def backtest(hist):
         return ""
     return (f'<p class="note">Pre-season test on {len(ys) - 1} past seasons (each forecast uses only the previous season and the real fixture): '
             f"off by {np.mean(em):.2f} wins per team on average, versus {np.mean(en):.2f} for 'last season's win rate, pulled halfway to .500'. "
-            "In-season numbers lean more on current results as games are played. Not compared with betting markets.</p>")
+            "In-season numbers lean more on current results as games are played. Against closing bookmaker odds (2012-2026, about 1,800 matches) the market has been more accurate than these ratings at every stage of the season; see the Shiv page.</p>")
 
 
 def awards(cur, players, tables):

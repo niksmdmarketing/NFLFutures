@@ -29,7 +29,9 @@ NAMES = {v: k for k, v in CODES.items()}
 SQUIGGLE_NAMES = {"Brisbane": "BRI", "GWS": "GWS", "Greater Western Sydney": "GWS", "Gold Coast": "GCS", "West Coast": "WCE",
                   "Western Bulldogs": "WBD", "Footscray": "WBD", "North Melbourne": "NTH", "Port Adelaide": "PTA", "St Kilda": "STK"}
 HGA = 7.0          # points
-GAME_SD = 36.0     # spread of a single game's margin around the expected margin
+GAME_SD = 32.0     # spread of a single game's margin around the expected margin (was 36; tuned on match outcomes 2012-2026, Oct 2026)
+K_PRIOR = 12.0     # games of weight on the preseason prior (was 8)
+PRIOR_REG = 0.65   # share of last season's rating carried into the new season (was 0.55)
 STATS = ["disposals", "kicks", "handballs", "marks", "tackles", "clearances", "centre_clearances", "stoppage_clearances",
          "inside_50s", "rebound_50s", "contested_possessions", "uncontested_possessions", "contested_marks", "marks_inside_50",
          "intercepts", "turnovers", "metres_gained", "score_involvements", "hitouts", "clangers", "free_kicks_for",
@@ -455,9 +457,9 @@ def futures(cur, hist_games, tables):
     # rating: previous season's opponent-adjusted margin regressed halfway, then this season's games (if any)
     prev = cur - 1 if cur - 1 in hist_games else last
     base = srs(hist_games[prev]) if prev in hist_games else {}
-    prior = {t: 0.55 * v for t, v in base.items()}
+    prior = {t: PRIOR_REG * v for t, v in base.items()}
     played = hist_games.get(cur)
-    rating = srs(played, prior=prior, k=8.0) if played is not None and len(played) else prior
+    rating = srs(played, prior=prior, k=K_PRIOR) if played is not None and len(played) else prior
     teams = sorted(NAMES)
     for t in teams:
         rating.setdefault(t, 0.0)
@@ -535,7 +537,7 @@ def backtest(hist_games):
         return ""
     return (f'<p class="note">Pre-season test on every season from {ys[1]} to {ys[-1]} (each forecast uses only the previous season): '
             f"the rating's win forecast was off by {np.mean(errs_m):.2f} wins per team on average, versus {np.mean(errs_n):.2f} for "
-            "'last season's win rate, pulled halfway to average'. It has not been compared with betting markets.</p>")
+            "'last season's win rate, pulled halfway to average'. Against closing bookmaker odds (2012-2026, about 2,900 matches) the market has been more accurate than these ratings at every stage of the season; see the Shiv page.</p>")
 
 
 def awards(cur, player_hist, tables):
