@@ -29,7 +29,7 @@ import nba_official as O  # noqa: E402
 ET = ZoneInfo("America/New_York")
 CUTOFF_MIN = 60
 MAX_BACK_H = 30
-BUDGET_S = 38 * 60
+BUDGET_S = int(os.environ.get("PREGAME_BUDGET_S", 38 * 60))
 first, last = int(sys.argv[1]), int(sys.argv[2])
 out = os.path.join(sys.argv[3], "research", "nba_pregame")
 os.makedirs(out, exist_ok=True)

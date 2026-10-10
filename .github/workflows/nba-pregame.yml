@@ -1,0 +1,49 @@
+name: Research - NBA pre-game official reports (one job per season)
+# Collects, for every regular-season game of the chosen seasons, the latest official NBA injury report published before
+# that game's cutoff (research/nba_official_pregame.py). Seasons run in parallel; each job commits its own file to the
+# market-data branch. Research only: nothing here feeds the site.
+on:
+  workflow_dispatch:
+    inputs:
+      seasons:
+        description: "JSON list of season end years, e.g. [2022, 2023]"
+        default: "[2022, 2023, 2024, 2025]"
+permissions:
+  contents: write
+jobs:
+  season:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    strategy:
+      fail-fast: false
+      matrix:
+        year: ${{ fromJSON(inputs.seasons) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Collect
+        env:
+          PREGAME_BUDGET_S: "16800"
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch -q origin market-data
+          git worktree add -q -B market-data ../market-data FETCH_HEAD
+          python research/nba_official_pregame.py ${{ matrix.year }} ${{ matrix.year }} ../market-data
+      - name: Save
+        if: always()
+        run: |
+          cd ../market-data
+          git add -A research/nba_pregame
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -q -m "NBA pre-game official reports ${{ matrix.year }}"
+          for i in 1 2 3 4 5 6; do
+            if git push -q origin HEAD:market-data; then exit 0; fi
+            git pull -q --rebase origin market-data || exit 1
+            sleep $((RANDOM % 20 + 5))
+          done
+          exit 1
