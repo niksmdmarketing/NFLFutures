@@ -1,0 +1,64 @@
+{
+ "0.2": {
+  "with": {
+   "title": 0.0981,
+   "conf": 0.1894,
+   "playoff": 0.4008
+  },
+  "without": {
+   "title": 0.0978,
+   "conf": 0.1886,
+   "playoff": 0.4026
+  }
+ },
+ "0.4": {
+  "with": {
+   "title": 0.0918,
+   "conf": 0.1844,
+   "playoff": 0.3363
+  },
+  "without": {
+   "title": 0.092,
+   "conf": 0.1861,
+   "playoff": 0.3361
+  }
+ },
+ "0.6": {
+  "with": {
+   "title": 0.0859,
+   "conf": 0.1721,
+   "playoff": 0.2553
+  },
+  "without": {
+   "title": 0.0858,
+   "conf": 0.1724,
+   "playoff": 0.2575
+  }
+ },
+ "0.8": {
+  "with": {
+   "title": 0.084,
+   "conf": 0.1644,
+   "playoff": 0.1881
+  },
+  "without": {
+   "title": 0.0845,
+   "conf": 0.1656,
+   "playoff": 0.1881
+  }
+ },
+ "all_checkpoints": {
+  "with": {
+   "title": 0.0899,
+   "conf": 0.1776,
+   "playoff": 0.2951
+  },
+  "without": {
+   "title": 0.09,
+   "conf": 0.1782,
+   "playoff": 0.2961
+  }
+ },
+ "seasons_title_better": "4 of 14",
+ "note": "Point-in-time futures replay at 20/40/60/80% of each season, 2013-2026; absences read from box scores before each checkpoint (missed last 5+ games), no return dates. Log-loss, lower is better."
+}

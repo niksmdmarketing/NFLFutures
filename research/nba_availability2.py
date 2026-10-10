@@ -68,7 +68,7 @@ def load():
 
 OFFICIAL = {}          # (date, athlete_id) -> pre-game official status, filled from OFFICIAL_CSV
 OFFICIAL_DATES = set()
-P_MISS = {"Out": 1.0, "Doubtful": 0.9, "Questionable": 0.45, "Probable": 0.05, "Available": 0.0}
+P_MISS = json.load(open(os.path.join(ROOT, "pipeline", "nba_avail_params.json")))["p_miss"]
 
 
 def load_official(d, path):

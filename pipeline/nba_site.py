@@ -521,7 +521,7 @@ def futures(cur):
                      {"k": "p_title", "l": "Title"}],
             "line": {"label": "Win total", "unit": "wins", "min": 0},
             "about": ["The model does not use bookmaker prices, so it is independent of the market, not proof of value.",
-                      "Known absences are included (see Who is out): each player's cost is measured against what the team rating already assumes about his availability. Return dates are ESPN's estimates, drawn with uncertainty in each simulation.",
+                      "Known absences are used for game-by-game probabilities (see Who is out), measured against what the team rating already assumes about each player's availability. They are not in these futures yet (no measurable gain in a 2013-26 replay); otherwise injuries show up only through results.",
                       "Rookies and coaching changes are only partly reflected; they matter most before the season.",
                       "The roster adjustment cannot be back-tested (no historical rosters), so it is kept small.",
                       "Against prediction-market prices (Polymarket, 2024-25 and 2025-26) at the same dates: before the season the market was much more accurate; from about 40% of the season the model was more accurate on the title, but not on conference winners. Two seasons only; prices are never used by the model."],
@@ -541,9 +541,11 @@ def _avail_html(a):
              "per minute over three seasons against a replacement-level rotation player, times his minutes when he plays. "
              "<b>Already in rating</b> is how often he was missing in the games the team rating is built on; only the difference costs "
              "points, so an absence the rating already reflects costs little and a return is an uplift. Players not listed are assumed to keep "
-             "the availability their rating already reflects. Return dates are ESPN's estimates; each simulation draws its own return date around them "
-             "(two weeks with a wide spread if none is given, longer for surgeries), and anyone still out at the end of the regular season "
-             "weakens his team in the playoffs. Listed: players whose absence costs at least half a point and who will miss a regular-season game."
+             "the availability their rating already reflects. <b>Where it is used:</b> game-by-game win probabilities (Games page). "
+             "Tested pre-game on 4,923 games (2022-23 to 2025-26) with the league's official injury reports: log-loss 0.624 without it, "
+             "0.609 with it (lower is better). It is <b>not</b> used in the futures above yet: in a 2013-2026 replay it made no measurable "
+             "difference to title, conference or playoff forecasts, so a shadow version (return dates drawn around ESPN's estimates, long "
+             "absences carried into the playoffs) is recorded each refresh and will be scored first. Listed: players whose absence costs at least half a point and who will miss a regular-season game."
              + (f" ESPN report time {e(str(a.get('feed_time'))[:16].replace('T', ' '))} UTC." if a.get("feed_time") else "")
              + (f" Game-day statuses (Probable / Questionable / Doubtful / Out) from the NBA's official injury report of {e(a['official'].replace('_', ' ', 1).replace('_', ':', 1))} ET." if a.get("official") else "")
              + "</p>")

@@ -45,12 +45,19 @@ and `/afl/` sections.
 | Games | Upcoming game win probabilities and recent results |
 | Methodology | Inputs, simulation rules and limitations |
 
-**Availability layer** (`pipeline/nba_avail.py`): every player has a points value (box-score production per minute above a
-replacement-level rotation player, times usual minutes, × 0.5). Each refresh reads ESPN's public NBA injury report; a player
-listed Out costs his team his value in every game until ESPN's estimated return date (two weeks if none), Day-To-Day counts
-half for three days. The simulation and game probabilities subtract this from the margin; the Futures page lists who is out
-and what it costs. A report older than 24 hours is never applied. Each changed report is appended to the `injury-monitor`
-branch under `nba/`. History test (`research/nba_availability.py`, 2011–2026): better game log-loss in 16 of 16 seasons.
+**Availability layer, version 2** (`pipeline/nba_avail.py`, `pipeline/nba_official.py`):
+- Player value = 0.45 × (game score per 36 over three seasons, shrunk, minus replacement level) × minutes when he plays / 48.
+- Cost of an absence = value × (chance he misses the game − share of the rating's games he was already missing), so an absence
+  the team rating already reflects costs little (no double counting) and a return is an uplift.
+- Inputs: ESPN's public injury feed (Out / Day-To-Day, estimated return dates) and the league's official injury report PDF
+  (Probable / Questionable / Doubtful / Out on game day; miss chances calibrated on 2022-26 in `nba_avail_params.json`).
+- A failed feed keeps the last report (24 h as is; up to 21 days only confirmed long-term Outs). All reports, the next games'
+  probabilities with and without the layer, and a shadow futures run are appended to the `injury-monitor` branch under `nba/`.
+- Used for game probabilities. Not used in the published futures (no measurable gain in a 2013-26 replay); the shadow futures
+  run with per-simulation return dates is kept for prospective scoring.
+- Tests: `research/nba_availability2.py` → `model/availability_nba_v2.json` (2011-26 walk-forward, 0.6195 → 0.6078, 16/16
+  seasons; genuine pre-game test with official reports, 4,923 games 2022-26: 0.624 → 0.609); `research/nba_avail_futures_test.py`
+  → `model/availability_nba_futures.json` (futures: neutral).
 
 ### NBL
 

@@ -926,7 +926,20 @@ def build_data() -> None:
         raise RuntimeError(f"NBA schedule is incomplete ({len(schedule)} regular-season games)")
     n_sims = int(os.environ.get("NBA_N_SIMS", os.environ.get("N_SIMS", "100000")))
     avail, availability = _availability(players, end_year, schedule, current_roster)
-    futures = _simulate(schedule, ratings, n_sims, avail)
+    # Availability is applied to game probabilities (validated pre-game: 2022-26 official reports kept ~85% of the
+    # gain). It is NOT applied to the published futures: a 2013-26 replay showed no measurable futures gain. A smaller
+    # shadow simulation with it is archived each refresh so the futures effect can be scored prospectively.
+    futures = _simulate(schedule, ratings, n_sims)
+    if avail:
+        shadow = _simulate(schedule, ratings, min(n_sims, 20000), avail)
+        availability["shadow"] = {t: {k: round(v[k], 4) for k in ("mean_wins", "p_playoff", "p_conf", "p_title")} for t, v in shadow.items()}
+        store = os.environ.get("NBA_INJ_STORE")
+        if store:
+            os.makedirs(os.path.join(store, "nba"), exist_ok=True)
+            with open(os.path.join(store, "nba", "futures_shadow.jsonl"), "a") as f:
+                f.write(json.dumps({"t": dt.datetime.now(dt.timezone.utc).isoformat(timespec="minutes"),
+                                    "without": {t: {k: round(v[k], 4) for k in ("mean_wins", "p_playoff", "p_conf", "p_title")} for t, v in futures.items()},
+                                    "with": availability["shadow"]}) + "\n")
     for team, row in futures.items():
         ratings.loc[ratings.team == team, "projected_wins"] = row["mean_wins"]
 
