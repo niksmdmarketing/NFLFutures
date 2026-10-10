@@ -1,3 +1,44 @@
 run 2026-10-10T07:28Z
 nba page fail HTTP Error 404: NOT FOUND
 nhl page fail HTTP Error 404: NOT FOUND
+run 2026-10-10T07:34Z
+nba page ok 16 ['nba%20odds%202007-08.xlsx', 'nba%20odds%202008-09.xlsx', 'nba%20odds%202009-10.xlsx', 'nba%20odds%202010-11.xlsx', 'nba%20odds%202011-12.xlsx']
+ok https://www.sportsbookreviewsonline.com/scoresoddsarchives/nba/nba%20odds%202007-08.xlsx 193325
+ok https://www.sportsbookreviewsonline.com/scoresoddsarchives/nba/nba%20odds%202008-09.xlsx 195750
+ok https://www.sportsbookreviewsonline.com/scoresoddsarchives/nba/nba%20odds%202009-10.xlsx 189121
+ok https://www.sportsbookreviewsonline.com/scoresoddsarchives/nba/nba%20odds%202010-11.xlsx 186099
+fail https://web.archive.org/web/2023id_/https://www.sportsbookreviewsonline.com/scoresoddsarchives/nba/nba%20odds%202011-12.xlsx <urlopen error timed out>
+ok https://www.sportsbookreviewsonline.com/scoresoddsarchives/nba/nba%20odds%202011-12.xlsx 152085
+ok https://www.sportsbookreviewsonline.com/scoresoddsarchives/nba/nba%20odds%202012-13.xlsx 184632
+ok https://www.sportsbookreviewsonline.com/scoresoddsarchives/nba/nba%20odds%202013-14.xlsx 185983
+ok https://www.sportsbookreviewsonline.com/scoresoddsarchives/nba/nba%20odds%202014-15.xlsx 185154
+ok https://www.sportsbookreviewsonline.com/scoresoddsarchives/nba/nba%20odds%202015-16.xlsx 185196
+fail https://web.archive.org/web/2023id_/https://www.sportsbookreviewsonline.com/scoresoddsarchives/nba/nba%20odds%202016-17.xlsx <urlopen error timed out>
+fail https://web.archive.org/web/2022id_/https://www.sportsbookreviewsonline.com/scoresoddsarchives/nba/nba%20odds%202016-17.xlsx <urlopen error _ssl.c:1015: The handshake operation timed out>
+ok https://www.sportsbookreviewsonline.com/scoresoddsarchives/nba/nba%20odds%202017-18.xlsx 185383
+ok https://www.sportsbookreviewsonline.com/scoresoddsarchives/nba/nba%20odds%202018-19.xlsx 184148
+ok https://www.sportsbookreviewsonline.com/scoresoddsarchives/nba/nba%20odds%202019-20.xlsx 161401
+ok https://www.sportsbookreviewsonline.com/scoresoddsarchives/nba/nba%20odds%202020-21.xlsx 167504
+fail https://web.archive.org/web/2023id_/https://www.sportsbookreviewsonline.com/scoresoddsarchives/nba/nba%20odds%202021-22.xlsx <urlopen error timed out>
+ok https://www.sportsbookreviewsonline.com/scoresoddsarchives/nba/nba%20odds%202021-22.xlsx 183871
+ok https://www.sportsbookreviewsonline.com/scoresoddsarchives/nba/nba%20odds%202022-23.xlsx 95253
+nhl page ok 16 ['nhl%20odds%202007-08.xlsx', 'nhl%20odds%202008-09.xlsx', 'nhl%20odds%202009-10.xlsx', 'nhl%20odds%202010-11.xlsx', 'nhl%20odds%202011-12.xlsx']
+ok https://www.sportsbookreviewsonline.com/scoresoddsarchives/nhl/nhl%20odds%202007-08.xlsx 188774
+ok https://www.sportsbookreviewsonline.com/scoresoddsarchives/nhl/nhl%20odds%202008-09.xlsx 188227
+fail https://web.archive.org/web/2023id_/https://www.sportsbookreviewsonline.com/scoresoddsarchives/nhl/nhl%20odds%202009-10.xlsx <urlopen error timed out>
+fail https://web.archive.org/web/2022id_/https://www.sportsbookreviewsonline.com/scoresoddsarchives/nhl/nhl%20odds%202009-10.xlsx <urlopen error _ssl.c:1015: The handshake operation timed out>
+ok https://www.sportsbookreviewsonline.com/scoresoddsarchives/nhl/nhl%20odds%202010-11.xlsx 183858
+ok https://www.sportsbookreviewsonline.com/scoresoddsarchives/nhl/nhl%20odds%202011-12.xlsx 183550
+ok https://www.sportsbookreviewsonline.com/scoresoddsarchives/nhl/nhl%20odds%202012-13.xlsx 115825
+ok https://www.sportsbookreviewsonline.com/scoresoddsarchives/nhl/nhl%20odds%202013-14.xlsx 184741
+fail https://web.archive.org/web/2023id_/https://www.sportsbookreviewsonline.com/scoresoddsarchives/nhl/nhl%20odds%202014-15.xlsx <urlopen error timed out>
+ok https://www.sportsbookreviewsonline.com/scoresoddsarchives/nhl/nhl%20odds%202014-15.xlsx 208504
+ok https://www.sportsbookreviewsonline.com/scoresoddsarchives/nhl/nhl%20odds%202015-16.xlsx 208463
+ok https://www.sportsbookreviewsonline.com/scoresoddsarchives/nhl/nhl%20odds%202016-17.xlsx 209144
+ok https://www.sportsbookreviewsonline.com/scoresoddsarchives/nhl/nhl%20odds%202017-18.xlsx 215372
+fail https://web.archive.org/web/2023id_/https://www.sportsbookreviewsonline.com/scoresoddsarchives/nhl/nhl%20odds%202018-19.xlsx <urlopen error timed out>
+ok https://www.sportsbookreviewsonline.com/scoresoddsarchives/nhl/nhl%20odds%202018-19.xlsx 213939
+ok https://www.sportsbookreviewsonline.com/scoresoddsarchives/nhl/nhl%20odds%202019-20.xlsx 189088
+ok https://www.sportsbookreviewsonline.com/scoresoddsarchives/nhl/nhl%20odds%202021-22.xlsx 217716
+ok https://www.sportsbookreviewsonline.com/scoresoddsarchives/nhl/nhl%20odds%202021.xlsx 150945
+ok https://www.sportsbookreviewsonline.com/scoresoddsarchives/nhl/nhl%20odds%202022-23.xlsx 73148
