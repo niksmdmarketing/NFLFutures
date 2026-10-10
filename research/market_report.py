@@ -16,6 +16,7 @@ sys.path.insert(0, os.path.join(ROOT, "research"))
 sys.path.insert(0, os.path.join(ROOT, "pipeline"))
 MDIR = sys.argv[1] if len(sys.argv) > 1 else "."
 SITE = sys.argv[2] if len(sys.argv) > 2 else os.path.join(ROOT, "site")
+os.environ.setdefault("SITE_DIR", SITE)
 import market_benchmark as B  # noqa: E402  (team-name matching and event readers)
 
 B.MD = os.path.join(MDIR, "polymarket", "events")

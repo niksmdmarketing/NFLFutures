@@ -22,7 +22,12 @@ MD = os.path.join(sys.argv[1] if len(sys.argv) > 1 else ".", "polymarket", "even
 def names():
     from common import NAMES as NFL
     import nba
-    nhl = json.load(open(os.path.join(ROOT, "site", "nhl", "data", "meta.json")))["teams"]
+    site = os.environ.get("SITE_DIR", os.path.join(ROOT, "site"))
+    meta = os.path.join(site, "nhl", "data", "meta.json")
+    if os.path.exists(meta):
+        nhl = json.load(open(meta))["teams"]
+    else:                                  # the daily workflow only has the published futures files
+        nhl = {t["team"]: t["name"] for t in json.load(open(os.path.join(site, "nhl", "data", "futures.json")))["teams"]}
     nhl = dict(nhl, UTA="Utah Mammoth")
     return {"nfl": NFL, "nba": nba.NAMES, "nhl": nhl}
 
