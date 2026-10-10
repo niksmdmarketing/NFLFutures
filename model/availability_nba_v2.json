@@ -93,36 +93,39 @@
   "test_seasons": "2011-2026",
   "games": 18967,
   "no_adjustment": 0.6195,
-  "with_adjustment": 0.6166,
-  "seasons_better": "3 of 16",
+  "with_adjustment": 0.614,
+  "seasons_better": "6 of 16",
   "beta_latest": 0.45,
   "second_half_of_season": {
    "no_adjustment": 0.6102,
-   "with_adjustment": 0.606
+   "with_adjustment": 0.6021
   },
   "vs_closing_odds": {
    "games": 13398,
-   "ours": 0.6186,
+   "ours": 0.6159,
    "ours_no_adjustment": 0.6192,
    "market": 0.592
   }
  },
  "pre_game_official_reports": {
-  "games": 4923,
+  "games": 8294,
   "seasons": [
+   2020,
+   2021,
+   2022,
    2023,
    2024,
    2025,
    2026
   ],
   "scale_used": 0.45,
-  "no_adjustment": 0.624,
-  "v2_base": 0.6064,
-  "v2_official": 0.609,
+  "no_adjustment": 0.6316,
+  "v2_base": 0.6147,
+  "v2_official": 0.618,
   "market_same_games": {
-   "games": 664,
-   "market": 0.639,
-   "v2_official": 0.6426
+   "games": 3955,
+   "market": 0.6142,
+   "v2_official": 0.6316
   }
  }
 }

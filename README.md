@@ -56,7 +56,7 @@ and `/afl/` sections.
 - Used for game probabilities. Not used in the published futures (no measurable gain in a 2013-26 replay); the shadow futures
   run with per-simulation return dates is kept for prospective scoring.
 - Tests: `research/nba_availability2.py` → `model/availability_nba_v2.json` (2011-26 walk-forward, 0.6195 → 0.6078, 16/16
-  seasons; genuine pre-game test with official reports, 4,923 games 2022-26: 0.624 → 0.609); `research/nba_avail_futures_test.py`
+  seasons; genuine pre-game test with official reports, 8,294 games 2019-26: 0.632 → 0.618); `research/nba_avail_futures_test.py`
   → `model/availability_nba_futures.json` (futures: neutral).
 
 ### NBL

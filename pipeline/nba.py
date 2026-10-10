@@ -926,7 +926,7 @@ def build_data() -> None:
         raise RuntimeError(f"NBA schedule is incomplete ({len(schedule)} regular-season games)")
     n_sims = int(os.environ.get("NBA_N_SIMS", os.environ.get("N_SIMS", "100000")))
     avail, availability = _availability(players, end_year, schedule, current_roster)
-    # Availability is applied to game probabilities (validated pre-game: 2022-26 official reports kept ~85% of the
+    # Availability is applied to game probabilities (validated pre-game: 2019-26 official reports kept ~80% of the
     # gain). It is NOT applied to the published futures: a 2013-26 replay showed no measurable futures gain. A smaller
     # shadow simulation with it is archived each refresh so the futures effect can be scored prospectively.
     futures = _simulate(schedule, ratings, n_sims)

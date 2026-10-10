@@ -542,8 +542,8 @@ def _avail_html(a):
              "<b>Already in rating</b> is how often he was missing in the games the team rating is built on; only the difference costs "
              "points, so an absence the rating already reflects costs little and a return is an uplift. Players not listed are assumed to keep "
              "the availability their rating already reflects. <b>Where it is used:</b> game-by-game win probabilities (Games page). "
-             "Tested pre-game on 4,923 games (2022-23 to 2025-26) with the league's official injury reports: log-loss 0.624 without it, "
-             "0.609 with it (lower is better). It is <b>not</b> used in the futures above yet: in a 2013-2026 replay it made no measurable "
+             "Tested pre-game on 8,294 games (2019-20 to 2025-26) with the league's official injury reports: log-loss 0.632 without it, "
+             "0.618 with it (lower is better). It is <b>not</b> used in the futures above yet: in a 2013-2026 replay it made no measurable "
              "difference to title, conference or playoff forecasts, so a shadow version (return dates drawn around ESPN's estimates, long "
              "absences carried into the playoffs) is recorded each refresh and will be scored first. Listed: players whose absence costs at least half a point and who will miss a regular-season game."
              + (f" ESPN report time {e(str(a.get('feed_time'))[:16].replace('T', ' '))} UTC." if a.get("feed_time") else "")
