@@ -79,7 +79,17 @@ jobs:
       - name: Build data and site
         env:
           SHIV_ARCHIVE: ../shiv-archive
+          NBA_INJ_STORE: ../injury-monitor
         run: python pipeline/run.py
+
+      - name: Archive the NBA injury report (injury-monitor branch, only when it changed)
+        continue-on-error: true
+        run: |
+          if [ -d ../injury-monitor/nba ]; then
+            cd ../injury-monitor
+            git add -A nba
+            if ! git diff --cached --quiet; then git commit -q -m "NBA injury report $(date -u +%Y-%m-%dT%H:%MZ)"; git push -q origin injury-monitor; fi
+          fi
 
       - name: Archive this refresh's Shiv record
         continue-on-error: true

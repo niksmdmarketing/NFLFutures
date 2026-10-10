@@ -509,6 +509,7 @@ def futures(cur):
             "status": f"{cur - 1}-{str(cur)[2:]} season" + (" — before opening night" if gp == 0 else f" — through about {gp:.0f} games per team"),
             "intro": "Projected wins and chances from the season simulation (opponent-adjusted offence and defence, weighted heavily to last season and this season's games, plus a cautious roster adjustment, then every remaining game, the play-in and the playoffs).",
             "backtest_html": _backtest_html(),
+            "avail_html": _avail_html(F.get("availability") or {}),
             "proj": {"k": "w_mean", "l": "Proj. wins", "lo": "w_p10", "hi": "w_p90", "f": "num1"},
             "rating_note": "Points per 100 possessions better (+) or worse (−) than an average team",
             "extra": [{"k": "left", "l": "Games left", "f": "int"}, {"k": "road_left", "l": "Road left", "f": "int"},
@@ -520,10 +521,29 @@ def futures(cur):
                      {"k": "p_title", "l": "Title"}],
             "line": {"label": "Win total", "unit": "wins", "min": 0},
             "about": ["The model does not use bookmaker prices, so it is independent of the market, not proof of value.",
-                      "Rookies, coaching changes and injuries are only partly reflected; they matter most before the season.",
+                      "Known absences are included: each rotation player listed Out on ESPN's injury report costs his team his points value in every game until ESPN's estimated return date (two weeks if none is given); Day-To-Day players count half for the next three days. Return dates are estimates, not official timelines.",
+                      "Rookies and coaching changes are only partly reflected; they matter most before the season.",
                       "The roster adjustment cannot be back-tested (no historical rosters), so it is kept small.",
                       "Against prediction-market prices (Polymarket, 2024-25 and 2025-26) at the same dates: before the season the market was much more accurate; from about 40% of the season the model was more accurate on the title, but not on conference winners. Two seasons only; prices are never used by the model."],
             "teams": rows}
+
+
+def _avail_html(a):
+    from html import escape as e
+    if not a.get("available"):
+        return '<p class="note">The injury report could not be read on this refresh, so no absences are applied.</p>'
+    rows = [r for r in a.get("rows", []) if r["points"] >= 0.5]
+    intro = ('<p class="note">Each player has a points value: how much worse his team is per game without him, from his box-score '
+             "production per minute against a replacement-level rotation player, times his usual minutes. Tested on 2011-2026: adjusting "
+             "games for missing players improved our game forecasts in 16 of 16 seasons. Only players worth at least half a point are listed. "
+             "Status and estimated return are from ESPN's injury report" + (f" (feed time {e(str(a.get('feed_time'))[:16].replace('T', ' '))} UTC)" if a.get("feed_time") else "") + ".</p>")
+    if not rows:
+        return intro + '<p class="note">No rotation players are currently listed out.</p>'
+    body = "".join(f"<tr><td>{e(r['team'])}</td><td>{e(r['player'])}</td><td>{e(r['status'])}</td><td>{e(r['injury'] or '')}</td>"
+                   f"<td>{e(r['est_return'] or 'not given')}</td><td>{r['mpg']:.0f}</td><td><b>−{r['points']:.1f}</b></td></tr>" for r in rows)
+    return (intro + '<div class="scroll"><table class="stbl"><thead><tr><th>Team</th><th>Player</th><th>Status</th><th>Injury</th>'
+            '<th>Est. return</th><th>Min/game</th><th title="Points per game the team is worse while he is out">Cost (pts/game)</th></tr></thead><tbody>'
+            + body + "</tbody></table></div>")
 
 
 def _backtest_html():

@@ -329,6 +329,7 @@ async function futuresPage() {
     (L ? '<h2 style="margin-top:22px">' + esc(L.label) + '</h2><p class="note">Pick a team and a line to see the chance it finishes over or under.</p>' +
       '<div class="filters"><div class="field"><label for="pt">Team</label><select id="pt">' + T.slice().sort((a, b) => a.team.localeCompare(b.team)).map(r => opt(r.team, r.team + " · " + (r.name || tname(r.team)))).join("") + "</select></div>" +
       '<div class="field"><label for="pl">Line</label><input id="pl" type="number" step="0.5" style="width:100px"></div></div><div id="pout" class="panel" style="margin-top:10px"></div>' : "") +
+    (F.avail_html ? '<h2 style="margin-top:22px">Who is out and what it costs</h2>' + F.avail_html : "") +
     (F.backtest_html ? '<h2 style="margin-top:22px">How good is it?</h2>' + F.backtest_html : "") +
     (F.about && F.about.length ? '<h2 style="margin-top:22px">What it does and does not know</h2><ul class="note" style="max-width:80ch">' + F.about.map(x => "<li>" + esc(x) + "</li>").join("") + "</ul>" : "");
   draw();

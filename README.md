@@ -45,6 +45,13 @@ and `/afl/` sections.
 | Games | Upcoming game win probabilities and recent results |
 | Methodology | Inputs, simulation rules and limitations |
 
+**Availability layer** (`pipeline/nba_avail.py`): every player has a points value (box-score production per minute above a
+replacement-level rotation player, times usual minutes, × 0.5). Each refresh reads ESPN's public NBA injury report; a player
+listed Out costs his team his value in every game until ESPN's estimated return date (two weeks if none), Day-To-Day counts
+half for three days. The simulation and game probabilities subtract this from the margin; the Futures page lists who is out
+and what it costs. A report older than 24 hours is never applied. Each changed report is appended to the `injury-monitor`
+branch under `nba/`. History test (`research/nba_availability.py`, 2011–2026): better game log-loss in 16 of 16 seasons.
+
 ### NBL
 
 | Page | What it shows |
