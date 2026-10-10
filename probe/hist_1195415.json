@@ -1,0 +1,28 @@
+{
+ "market": "Will the announcers say \"Heisman\" 5+ times during the National College Football Championship Game?",
+ "token": "95285964788045092224927107999960071456623250328201763725732361653444377843391",
+ "interval_max": {
+  "history": [
+   {
+    "t": 1768608019,
+    "p": 0.465
+   },
+   {
+    "t": 1768694427,
+    "p": 0.76
+   },
+   {
+    "t": 1768780816,
+    "p": 0.7
+   },
+   {
+    "t": 1768867218,
+    "p": 0.79
+   }
+  ]
+ },
+ "start_end": {
+  "_error": "<HTTPError 400: 'Bad Request'>",
+  "_url": "https://clob.polymarket.com/prices-history?market=95285964788045092224927107999960071456623250328201763725732361653444377843391&startTs=1768521600&endTs=1803081600&fidelity=1440"
+ }
+}

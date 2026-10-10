@@ -1,0 +1,24 @@
+{
+ "market": "Will the New England Patriots be eliminated in the Wild Card Round?",
+ "token": "59555105509024791634753697264878298017826274241567257620797390198641626789504",
+ "interval_max": {
+  "history": [
+   {
+    "t": 1768003211,
+    "p": 0.37
+   },
+   {
+    "t": 1768089611,
+    "p": 0.37
+   },
+   {
+    "t": 1768176012,
+    "p": 0.355
+   }
+  ]
+ },
+ "start_end": {
+  "_error": "<HTTPError 400: 'Bad Request'>",
+  "_url": "https://clob.polymarket.com/prices-history?market=59555105509024791634753697264878298017826274241567257620797390198641626789504&startTs=1767916800&endTs=1802476800&fidelity=1440"
+ }
+}

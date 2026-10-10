@@ -1,0 +1,28 @@
+{
+ "market": "Will the announcers say \"Draft\" during the National College Football Championship Game?",
+ "token": "22730832396193611891345536984494450235268663991723844287974616434956155979697",
+ "interval_max": {
+  "history": [
+   {
+    "t": 1768608017,
+    "p": 0.935
+   },
+   {
+    "t": 1768694423,
+    "p": 0.94
+   },
+   {
+    "t": 1768780815,
+    "p": 0.9845
+   },
+   {
+    "t": 1768867216,
+    "p": 0.6955
+   }
+  ]
+ },
+ "start_end": {
+  "_error": "<HTTPError 400: 'Bad Request'>",
+  "_url": "https://clob.polymarket.com/prices-history?market=22730832396193611891345536984494450235268663991723844287974616434956155979697&startTs=1768521600&endTs=1803081600&fidelity=1440"
+ }
+}
