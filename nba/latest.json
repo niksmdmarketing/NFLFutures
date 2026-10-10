@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-10-10T2149Z",
-"feed_timestamp": "2026-10-10T21:49:24Z",
+"collected_utc": "2026-10-10T2302Z",
+"feed_timestamp": "2026-10-10T23:01:55Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -418,10 +418,34 @@
 "injury": "Not Specified Ankle"
 },
 {
+"athlete_id": "3059319",
+"status": "Day-To-Day",
+"return_date": "2026-10-14",
+"injury": "Rest"
+},
+{
+"athlete_id": "4066261",
+"status": "Day-To-Day",
+"return_date": "2026-10-14",
+"injury": "Rest"
+},
+{
+"athlete_id": "4278053",
+"status": "Day-To-Day",
+"return_date": "2026-10-14",
+"injury": "Rest"
+},
+{
 "athlete_id": "4066993",
 "status": "Day-To-Day",
 "return_date": "2026-10-16",
 "injury": "Right Calf Strain"
+},
+{
+"athlete_id": "3032977",
+"status": "Day-To-Day",
+"return_date": "2026-10-14",
+"injury": "Rest"
 },
 {
 "athlete_id": "4431786",
@@ -430,16 +454,16 @@
 "injury": "Hamstring"
 },
 {
+"athlete_id": "6475",
+"status": "Day-To-Day",
+"return_date": "2026-10-14",
+"injury": "Rest"
+},
+{
 "athlete_id": "3950760",
 "status": "Day-To-Day",
 "return_date": "2026-10-10",
 "injury": "Right Calf Strain"
-},
-{
-"athlete_id": "4601025",
-"status": "Day-To-Day",
-"return_date": "2026-10-10",
-"injury": "Illness"
 },
 {
 "athlete_id": "5164559",
@@ -634,16 +658,16 @@
 "injury": "Right Knee Surgery"
 },
 {
-"athlete_id": "3907387",
+"athlete_id": "3155942",
 "status": "Day-To-Day",
 "return_date": "2026-10-10",
 "injury": "Undisclosed"
 },
 {
-"athlete_id": "3155942",
+"athlete_id": "4433174",
 "status": "Day-To-Day",
-"return_date": "2026-10-10",
-"injury": "Undisclosed"
+"return_date": "2026-10-13",
+"injury": "Rest"
 },
 {
 "athlete_id": "4594327",
@@ -1395,6 +1419,33 @@
 "updated": "2026-10-10T02:41Z"
 },
 {
+"athlete_id": "3059319",
+"name": "Andrew Wiggins",
+"team_name": "Miami Heat",
+"status": "Day-To-Day",
+"return_date": "2026-10-14",
+"injury": "Rest",
+"updated": "2026-10-10T22:32Z"
+},
+{
+"athlete_id": "4066261",
+"name": "Bam Adebayo",
+"team_name": "Miami Heat",
+"status": "Day-To-Day",
+"return_date": "2026-10-14",
+"injury": "Rest",
+"updated": "2026-10-10T22:35Z"
+},
+{
+"athlete_id": "4278053",
+"name": "Davion Mitchell",
+"team_name": "Miami Heat",
+"status": "Day-To-Day",
+"return_date": "2026-10-14",
+"injury": "Rest",
+"updated": "2026-10-10T22:27Z"
+},
+{
 "athlete_id": "4066993",
 "name": "Dru Smith",
 "team_name": "Miami Heat",
@@ -1402,6 +1453,15 @@
 "return_date": "2026-10-16",
 "injury": "Right Calf Strain",
 "updated": "2026-10-01T16:15Z"
+},
+{
+"athlete_id": "3032977",
+"name": "Giannis Antetokounmpo",
+"team_name": "Miami Heat",
+"status": "Day-To-Day",
+"return_date": "2026-10-14",
+"injury": "Rest",
+"updated": "2026-10-10T22:31Z"
 },
 {
 "athlete_id": "4431786",
@@ -1413,6 +1473,15 @@
 "updated": "2026-10-07T18:04Z"
 },
 {
+"athlete_id": "6475",
+"name": "Klay Thompson",
+"team_name": "Miami Heat",
+"status": "Day-To-Day",
+"return_date": "2026-10-14",
+"injury": "Rest",
+"updated": "2026-10-10T22:31Z"
+},
+{
 "athlete_id": "3950760",
 "name": "Kylor Kelley",
 "team_name": "Miami Heat",
@@ -1420,15 +1489,6 @@
 "return_date": "2026-10-10",
 "injury": "Right Calf Strain",
 "updated": "2026-10-09T03:40Z"
-},
-{
-"athlete_id": "4601025",
-"name": "Pelle Larsson",
-"team_name": "Miami Heat",
-"status": "Day-To-Day",
-"return_date": "2026-10-10",
-"injury": "Illness",
-"updated": "2026-10-08T23:08Z"
 },
 {
 "athlete_id": "5164559",
@@ -1719,15 +1779,6 @@
 "updated": "2026-08-24T20:23Z"
 },
 {
-"athlete_id": "3907387",
-"name": "Ben Simmons",
-"team_name": "Sacramento Kings",
-"status": "Day-To-Day",
-"return_date": "2026-10-10",
-"injury": "Undisclosed",
-"updated": "2026-10-09T01:36Z"
-},
-{
 "athlete_id": "3155942",
 "name": "Domantas Sabonis",
 "team_name": "Sacramento Kings",
@@ -1735,6 +1786,15 @@
 "return_date": "2026-10-10",
 "injury": "Undisclosed",
 "updated": "2026-10-09T01:39Z"
+},
+{
+"athlete_id": "4433174",
+"name": "Dylan Cardwell",
+"team_name": "Sacramento Kings",
+"status": "Day-To-Day",
+"return_date": "2026-10-13",
+"injury": "Rest",
+"updated": "2026-10-10T23:00Z"
 },
 {
 "athlete_id": "4594327",
