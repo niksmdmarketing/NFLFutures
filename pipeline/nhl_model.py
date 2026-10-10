@@ -392,7 +392,7 @@ def backtest(TT, GG, fit_years, done, years, return_rows=False):
             sim = simulate(teams, state, games, rating.to_dict(), tau_at(tau, N), total, hfa, 3000, seed=3)
             for i, t in enumerate(teams):
                 rows.append({"season": y, "N": N, "team": t, "pts_pred": sim["pts_mean"][i], "pts": fin.pts[t], "p_po": sim["playoffs"][i], "po": int(t in po),
-                             "p_div": sim["div"][i], "is_div": int(divwin[ALIGN[t]] == t), "naive": 91 + 0.5 * (prev_pts[t] - 91)})
+                             "p_div": sim["div"][i], "is_div": int(divwin[ALIGN[t]] == t), "p_cup": sim["cup"][i], "p_final": sim["final"][i], "date": str(g[g.n <= N].date.max()) if N else None, "naive": 91 + 0.5 * (prev_pts[t] - 91)})
     if not rows:
         return None
     d = pd.DataFrame(rows)

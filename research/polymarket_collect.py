@@ -5,6 +5,7 @@ import json, os, re, sys, time, urllib.parse, urllib.request
 ROOT = os.path.join(sys.argv[1] if len(sys.argv) > 1 else ".", "polymarket")
 G, C = "https://gamma-api.polymarket.com", "https://clob.polymarket.com"
 os.makedirs(ROOT, exist_ok=True)
+T0, BUDGET = time.time(), float(os.environ.get("PM_BUDGET_S", "1500"))   # stop fetching history after this; later runs continue
 
 
 def get(url, tries=3):
@@ -43,7 +44,9 @@ for q in QUERIES:
 print(len(events), "events")
 index = json.load(open(os.path.join(ROOT, "index.json"))) if os.path.exists(os.path.join(ROOT, "index.json")) else {}
 snap = {}
-for slug, title in sorted(events.items()):
+# titles and team markets first; awards (many long-shot players) last
+order = sorted(events.items(), key=lambda kv: (bool(re.search(r"mvp|trophy|rookie|player of the year", kv[1], re.I)), kv[0]))
+for slug, title in order:
     d = get(f"{G}/events/slug/{slug}")
     if not isinstance(d, dict):
         continue
@@ -59,11 +62,13 @@ for slug, title in sorted(events.items()):
         if not d.get("closed") and prices:
             snap.setdefault(slug, {})[m.get("groupItemTitle") or m.get("question")] = prices[0]
         hp = os.path.join(edir, f"{m.get('id')}.json")
+        if float(m.get("volume") or 0) < 2000 or time.time() - T0 > BUDGET:
+            continue
         if toks and (not os.path.exists(hp) or not m.get("closed")):
             h = get(f"{C}/prices-history?market={toks[0]}&interval=max&fidelity=1440")
             if isinstance(h, dict) and h.get("history"):
                 json.dump({"question": m.get("question"), "team": m.get("groupItemTitle"), "history": h["history"]}, open(hp, "w"))
-            time.sleep(0.12)
+            time.sleep(0.05)
     meta = {k: d.get(k) for k in ("id", "slug", "title", "startDate", "endDate", "closed", "volume")} | {"markets": mk}
     json.dump(meta, open(os.path.join(edir, "event.json"), "w"), indent=1)
     index[slug] = {k: meta[k] for k in ("title", "startDate", "endDate", "closed")} | {"n_markets": len(mk)}
