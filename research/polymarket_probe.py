@@ -1,6 +1,7 @@
 """Probe the public Polymarket API from GitHub Actions (the dev sandbox cannot reach it). Output: probe/*.json artifact."""
 import json, os, time, urllib.parse, urllib.request
-OUT = "probe"; os.makedirs(OUT, exist_ok=True)
+import sys
+OUT = os.path.join(sys.argv[1] if len(sys.argv) > 1 else ".", "probe"); os.makedirs(OUT, exist_ok=True)
 G, C = "https://gamma-api.polymarket.com", "https://clob.polymarket.com"
 def get(url):
     req = urllib.request.Request(url, headers={"User-Agent": "SportsFuturesResearch/1.0"})
