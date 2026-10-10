@@ -41,6 +41,8 @@ NOW = dt.datetime.now(dt.timezone.utc)
 SPACING_S = 1.5
 MAX_ARTICLES_PER_SOURCE = 8
 ARTICLE_MAX_AGE_DAYS = 10
+LIST_MAX_AGE_DAYS = 120       # a full injury list stays the latest picture until a newer list replaces it (off-season)
+LIST_URL = re.compile(r"medical-room|injury-list|injury-updates|injuries-list", re.I)
 
 # ------------------------------------------------------------------ teams
 
@@ -302,7 +304,7 @@ RULES = [
     ("week_to_week", re.compile(r"\bweek[- ]to[- ]week\b", re.I)),
     ("game_time", re.compile(r"\bgame[- ]time decision\b", re.I)),
     ("will_play", re.compile(r"\b(will|is expected to|expects to|set to|cleared to|plans to) (play|return|suit up|start|make (his|her) return)\b", re.I)),
-    ("will_not_play", re.compile(r"\b(will not|won't|is not expected to|isn't expected to) (play|return|suit up|start)\b|\bruled out\b", re.I)),
+    ("will_not_play", re.compile(r"\b(will not|won't|is not expected to|isn't expected to) (play|return|suit up|start)\b|(?<!was )(?<!were )(?<!been )\bruled out\b", re.I)),
     ("restriction", re.compile(r"\b(minutes restriction|minutes limit|minute restriction|limited minutes|snap count|pitch count|managed minutes|load management|managed\b|limited workload|restricted minutes)\b", re.I)),
     ("ir", re.compile(r"\b(placed on|moved to|landed on|going on) (injured reserve|IR|the injured list|long-term injured reserve|LTIR)\b", re.I)),
     ("activated", re.compile(r"\b(activated|designated to return|returned to practice|cleared)\b", re.I)),
@@ -469,8 +471,9 @@ class Run:
                         r["return_text_class"] = "ESPN estimated return date"
                     self.add(r)
                     n += 1
-                    # ESPN's own comment: reporter-style context -> facts only, never the text
-                    for c in (i.get("shortComment"), i.get("longComment")):
+                    # ESPN's own comment: reporter-style context -> facts only, never the text. Notes on players listed
+                    # Active describe the past (how they came back), so they are skipped.
+                    for c in ((i.get("shortComment"), i.get("longComment")) if (i.get("status") or "").lower() != "active" else ()):
                         if not c:
                             continue
                         f = [x for s in sentences(c) for x in facts_from_text(s, parse_time(i.get("date")))]
@@ -607,6 +610,8 @@ class Run:
             if re.search(pattern, urllib.parse.urlparse(l).path) and l not in seen_here and l != index_url:
                 seen_here.add(l)
                 urls.append(l)
+        lists = [u for u in urls if LIST_URL.search(u)]
+        urls = [u for u in urls if u not in lists[1:]]      # only the newest full injury list; older lists are superseded
         n = 0
         for u in urls[:max_n]:
             n += self.article(league, source_name, u)
@@ -617,7 +622,7 @@ class Run:
         e = self.seen.get(url)
         if e and e.get("parsed") and "records" in e:
             pub = parse_time(e.get("modified_utc") or e.get("published_utc"))
-            if pub and (NOW - pub).days > ARTICLE_MAX_AGE_DAYS:
+            if pub and (NOW - pub).days > (LIST_MAX_AGE_DAYS if LIST_URL.search(url) else ARTICLE_MAX_AGE_DAYS):
                 return 0
             for r in e["records"]:
                 self.add(dict(r, collected_utc=iso(NOW)))
@@ -636,7 +641,8 @@ class Run:
         if not pub and not mod:
             self.seen[url]["skipped"] = "no publication time: facts not usable"
             return 0
-        if pub and (NOW - pub).days > ARTICLE_MAX_AGE_DAYS and not (mod and (NOW - mod).days <= ARTICLE_MAX_AGE_DAYS):
+        max_age = LIST_MAX_AGE_DAYS if LIST_URL.search(url) else ARTICLE_MAX_AGE_DAYS
+        if pub and (NOW - pub).days > max_age and not (mod and (NOW - mod).days <= max_age):
             return 0
         when = mod or pub
         game = None
