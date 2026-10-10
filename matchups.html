@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Matchup edges · NFLFutures</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Public+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="site-head">
+    <div class="sportbar"><span>SPORT</span><a href="./" aria-current="page">NFL</a><a href="nba/">NBA</a><a href="nbl/">NBL</a><a href="nhl/">NHL</a><a href="afl/">AFL</a><a class="sb-shiv" href="shiv/">Shiv</a></div>
+    <div class="brand"><a class="brand-name" href="./">NFL<span>Futures</span></a><span class="stamp" id="stamp">Loading latest update…</span></div>
+    <nav class="nav" aria-label="Sections"><div class="navgrp"><span class="navlab">Model</span><a href="./">Futures</a><a href="awards.html">Awards</a><a href="matchups.html" aria-current="page">Matchups</a><a href="trends.html">Trends</a><a href="outlook.html">Schedule outlook</a></div><div class="navgrp"><span class="navlab">Team stats</span><a href="standings.html">Standings</a><a href="offense.html">Offense</a><a href="defense.html">Defense</a><a href="passing.html">Passing</a><a href="rushing.html">Rushing</a><a href="oline.html">O-line</a><a href="dline.html">D-line</a><a href="drives.html">Drives</a><a href="situational.html">Situational</a><a href="special-teams.html">Special teams</a><a href="coverage.html">Coverage</a><a href="discipline.html">Discipline</a><a href="proe.html">Pass rate</a><a href="off-tendencies.html">Off. tendencies</a><a href="def-tendencies.html">Def. tendencies</a><a href="pace.html">Pace</a><a href="sos.html">Schedule</a></div><div class="navgrp"><span class="navlab">Players</span><a href="award-race.html">Award race</a><a href="players-qb.html">QBs</a><a href="players-rushing.html">Rushing</a><a href="players-receiving.html">Receiving</a><a href="players-defense.html">Defense</a><a href="players-kicking.html">Kicking</a></div><div class="navgrp"><span class="navlab">Games</span><a href="boxscores.html">Box scores</a><a href="injuries.html">Injuries</a></div></nav>
+  </header>
+  <main class="page" id="main">
+    <div class="page-head"><h1 id="pageTitle">Matchup edges</h1><p id="pageIntro">Every offense against the defense it faces this week, ranked 1 to 32 in five categories.</p></div>
+    
+    <div class="controls tab-controls">
+      <div class="field"><label for="week">Week</label><select id="week"></select></div>
+      <div class="field"><label for="cat">Edges list category</label><select id="cat"></select></div>
+      <div class="field"><label for="sort">Sort table</label>
+        <select id="sort">
+          <option value="kick">Kickoff order</option>
+          <option value="off">Biggest offense edge</option>
+          <option value="def">Biggest defense edge</option>
+        </select>
+      </div>
+    </div>
+
+  <section class="edges" aria-label="Biggest edges">
+    <div class="panel off"><h3 id="offTitle">Biggest offense edges</h3><ol id="offList"></ol></div>
+    <div class="panel def"><h3 id="defTitle">Biggest defense edges</h3><ol id="defList"></ol></div>
+  </section>
+
+  <section>
+    <div class="table-head">
+      <h2>Every matchup</h2>
+      <div class="legend" aria-label="Legend">
+        <span><i class="swatch e-big-off"></i>Big offense edge</span>
+        <span><i class="swatch e-off"></i>Offense edge</span>
+        <span><i class="swatch" style="background:var(--surface)"></i>Even</span>
+        <span><i class="swatch e-def"></i>Defense edge</span>
+        <span><i class="swatch e-big-def"></i>Big defense edge</span>
+      </div>
+    </div>
+    <p class="muted" style="margin:6px 0 12px;font-size:.85rem">Each cell shows the offense rank, then the defense rank it faces (1 is best, 32 is worst), as they stood going into that week. Select a matchup to open its rank trend.</p>
+    <div class="scroll"><table id="tbl"><thead id="thead"></thead><tbody id="tbody"></tbody></table></div>
+  </section>
+
+  <section class="method" aria-label="How it works">
+    <div>
+      <h2>How the ranks are built</h2>
+      <ul>
+        <li>Every regular-season run and pass play from this season, plus last season at a lower weight so early-season noise settles. Its influence fades as new games come in.</li>
+        <li>Each play is scored by success rate and EPA. The two are blended 65/35, leaning on success rate because it is steadier from week to week.</li>
+        <li>Offense and defense strength are estimated together in one regression, so a team is credited for the opponents it faced and small samples are pulled toward average.</li>
+        <li>Teams are ranked 1 to 32 in each category. The edge is the gap between the offense rank and the defense rank it faces.</li>
+      </ul>
+    </div>
+    <div>
+      <h2>The five categories</h2>
+      <ul>
+        <li><b>Overall:</b> every run and pass play.</li>
+        <li><b>Passing:</b> dropbacks, with sacks and scrambles counted.</li>
+        <li><b>Rushing:</b> designed runs only.</li>
+        <li><b>Pressure:</b> pressures allowed or generated per dropback, from Pro Football Reference charting via nflverse, with last season blended in early on. Not opponent-adjusted.</li>
+        <li><b>Explosives:</b> share of plays gaining 15+ yards passing or 10+ rushing.</li>
+      </ul>
+      <p class="footnote">Edge labels: Even when the rank gap is 7 or less, Edge for 8 to 14, Big edge for 15 or more.</p>
+    </div>
+  </section>
+  
+  </main>
+  <footer class="stamp">Built from nflverse public data (play-by-play, schedules, player stats, rosters, injury reports, FTN and Pro Football Reference charting). An independent model. Probabilities only, not betting advice.</footer>
+</div>
+<script src="js/common.js"></script>
+<script src="js/matchups.js"></script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Season futures · NFLFutures</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Public+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="site-head">
+    <div class="sportbar"><span>SPORT</span><a href="./" aria-current="page">NFL</a><a href="nba/">NBA</a><a href="nbl/">NBL</a><a href="nhl/">NHL</a><a href="afl/">AFL</a><a class="sb-shiv" href="shiv/">Shiv</a></div>
+    <div class="brand"><a class="brand-name" href="./">NFL<span>Futures</span></a><span class="stamp" id="stamp">Loading latest update…</span></div>
+    <nav class="nav" aria-label="Sections"><div class="navgrp"><span class="navlab">Model</span><a href="./" aria-current="page">Futures</a><a href="awards.html">Awards</a><a href="matchups.html">Matchups</a><a href="trends.html">Trends</a><a href="outlook.html">Schedule outlook</a></div><div class="navgrp"><span class="navlab">Team stats</span><a href="standings.html">Standings</a><a href="offense.html">Offense</a><a href="defense.html">Defense</a><a href="passing.html">Passing</a><a href="rushing.html">Rushing</a><a href="oline.html">O-line</a><a href="dline.html">D-line</a><a href="drives.html">Drives</a><a href="situational.html">Situational</a><a href="special-teams.html">Special teams</a><a href="coverage.html">Coverage</a><a href="discipline.html">Discipline</a><a href="proe.html">Pass rate</a><a href="off-tendencies.html">Off. tendencies</a><a href="def-tendencies.html">Def. tendencies</a><a href="pace.html">Pace</a><a href="sos.html">Schedule</a></div><div class="navgrp"><span class="navlab">Players</span><a href="award-race.html">Award race</a><a href="players-qb.html">QBs</a><a href="players-rushing.html">Rushing</a><a href="players-receiving.html">Receiving</a><a href="players-defense.html">Defense</a><a href="players-kicking.html">Kicking</a></div><div class="navgrp"><span class="navlab">Games</span><a href="boxscores.html">Box scores</a><a href="injuries.html">Injuries</a></div></nav>
+  </header>
+  <main class="page" id="main">
+    <div class="page-head"><h1 id="pageTitle">Season futures</h1><p id="pageIntro">Chances to win each division, make the playoffs, take the No. 1 seed, win the conference and the Super Bowl, plus every team&#x27;s win-total distribution.</p></div>
+    
+    <section class="proof" aria-label="Track record">
+      <div class="panel"><h3>vs bookmaker prices</h3><div class="big">Level by Week 5</div><p class="note">Replayed against 2018–2025 BetMGM futures, the model matches the market's accuracy around Weeks 5–8 and trails it early and late in the season.</p></div>
+      <div class="panel"><h3>Extra information</h3><div class="big">Weeks 5–8 only</div><p class="note">In those weeks, blending this model into the market price improved forecasts on seasons it had never seen. In other weeks it added nothing.</p></div>
+      <div class="panel warn"><h3>Betting edge</h3><div class="big">Not proven</div><p class="note">Backtested bets on its disagreements still lost money after bookmaker margins. Treat gaps with the market as questions, not bets.</p></div>
+    </section>
+    <section>
+      <div class="table-head"><h2>Win total over/under</h2></div>
+      <p class="note" style="margin:6px 0 12px">Pick a team and a line. A whole-number line can push, so all three outcomes are shown.</p>
+      <div class="wt">
+        <div class="panel">
+          <div class="tab-controls">
+            <div class="field"><label for="wtTeam">Team</label><select id="wtTeam"></select></div>
+            <div class="field"><label for="wtLine">Line</label><select id="wtLine"></select></div>
+          </div>
+          <div class="ou" id="ou"></div>
+          <p class="note" id="wtNote"></p>
+        </div>
+        <div class="panel dist"><h3 id="distTitle">Win distribution</h3><div id="dist"></div></div>
+      </div>
+    </section>
+    <section>
+      <div class="table-head"><h2>Division, conference and Super Bowl</h2></div>
+      <p class="note" style="margin:6px 0 12px">Chances from <span data-nsims>10,000</span> simulations of the rest of the regular season and playoffs. Conference means winning the conference championship game.</p>
+      <div class="scroll"><table class="ftable"><thead><tr><th scope="col">Team</th><th scope="col">Proj. wins</th><th scope="col">Win division</th><th scope="col">Playoffs</th><th scope="col">No. 1 seed</th><th scope="col">Win conference</th><th scope="col">Win Super Bowl</th></tr></thead><tbody id="fbody"></tbody></table></div>
+    </section>
+    <section>
+      <div class="table-head"><h2>Quarterback changes in the ratings</h2></div>
+      <p class="note" style="margin:6px 0 12px">Teams whose expected starter for the next game differs from the quarterback behind this season's numbers. The rating shift is in points per game.</p>
+      <div class="panel"><ol class="qbchg" id="qbchg"></ol></div>
+    </section>
+    <section id="trackSec" hidden>
+      <div class="table-head"><h2>How good is it, market by market?</h2></div>
+      <p class="note" style="margin:6px 0 12px" id="trackNote"></p>
+      <div class="scroll"><table class="ftable"><thead><tr><th scope="col">Market</th><th scope="col">Before week 1</th><th scope="col">After week 4</th><th scope="col">After week 9</th><th scope="col">After week 13</th></tr></thead><tbody id="trackBody"></tbody></table></div>
+    </section>
+    <section id="challengerSec" hidden>
+      <details>
+        <summary><h2 style="display:inline">Challenger model (v3)</h2></summary>
+        <p class="note" style="margin:6px 0 12px">The previous model version runs alongside the current one on every update and both are saved, so the 2026 season can decide between them. On 2022–2025, the current version was more accurate for divisions, playoffs and win totals; the previous version was more accurate for conference and Super Bowl winners.</p>
+        <div class="scroll"><table class="ftable"><thead><tr><th scope="col">Team</th><th scope="col">Win division<small>v4 · v3</small></th><th scope="col">Playoffs<small>v4 · v3</small></th><th scope="col">Win conference<small>v4 · v3</small></th><th scope="col">Win Super Bowl<small>v4 · v3</small></th></tr></thead><tbody id="cbody"></tbody></table></div>
+      </details>
+    </section>
+    <section class="method">
+      <div>
+        <h2>How the season is simulated</h2>
+        <ul>
+          <li>Team strength combines opponent-adjusted passing, rushing, special teams and point-margin ratings. The weights were learned from what predicted later games in 2010–2021.</li>
+          <li>This season's numbers take over from last season's as plays accumulate, at a pace learned separately for passing, rushing, special teams and scoring margin.</li>
+          <li>When a different starting quarterback is expected, the team's strength shifts by half the gap between the two quarterbacks' track records. Teams that let their quarterback get pressured more often are marked down (Pro Football Reference pressures per dropback, blended with last season); this was the only one of twelve extra stats that improved predictions on seasons the model had not seen.</li>
+          <li>Compared with prediction-market prices (Polymarket) on the 2024 and 2025 seasons at the same points in time: before the season the market was more accurate in every market; from about week 4 the model matched or beat it on divisions and playoffs, while the market stayed better on the Super Bowl. Treat preseason gaps to the market with caution. (Two seasons only; prices are never used by the model.)</li>
+          <li>The quarterback adjustment was tested on every 2019–2025 game where a team started a different quarterback (582 games), using only information from before each game: it cut the average prediction error in those games and picked more winners (68% vs 64% without it). The test suggests a slightly larger adjustment would be better still; that goes into the next model version after this season rather than changing the frozen one mid-season.</li>
+          <li>Ratings are scaled to 89% of their raw spread, because unscaled they were overconfident on 2022–2025. Each simulated season draws every team's strength once, with 5 points of uncertainty, then plays out every remaining game with 11.4 points of game-to-game randomness. Played games are locked in and played ties count as half a win.</li>
+          <li>Standings use the NFL tiebreaking procedure: head-to-head, division record, common games, conference record, strength of victory and strength of schedule, with the official restart rules for three or more teams. Net points then a coin toss stand in for the last few rarely needed steps.</li>
+          <li>Playoffs use 7 seeds per conference, a bye for the No. 1 seed, reseeding, home field and a neutral Super Bowl.</li>
+        </ul>
+      </div>
+      <div>
+        <h2>Read these numbers with care</h2>
+        <ul>
+          <li>Against historical bookmaker prices the model was roughly as accurate as the market only in mid-season (tested on the previous version; the October 2026 update improved division, playoff and win-total accuracy only modestly). A big gap between this page and a bookmaker is more often model error than value.</li>
+          <li>Injuries other than quarterback changes are not modelled yet, and news after the latest games is not known until the next refresh.</li>
+          <li>Each update runs 100,000 simulated seasons with the same random draws, so numbers only move when the data moves. Simulation noise is about ±0.2 percentage points at 50%.</li>
+        </ul>
+      </div>
+    </section>
+  
+  </main>
+  <footer class="stamp">Built from nflverse public data (play-by-play, schedules, player stats, rosters, injury reports, FTN and Pro Football Reference charting). An independent model. Probabilities only, not betting advice.</footer>
+</div>
+<script src="js/common.js"></script>
+<script src="js/futures.js"></script>
+</body>
+</html>
