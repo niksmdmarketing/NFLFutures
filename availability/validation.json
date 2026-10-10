@@ -1,0 +1,270 @@
+{
+ "checked_utc": "2026-10-10T12:05:56+00:00",
+ "leagues": {
+  "nfl": {
+   "records": 1743,
+   "by_layer": {
+    "official": 1539,
+    "reported": 204
+   },
+   "unknown_team": 0,
+   "no_player": 0,
+   "future_published": 0,
+   "teams_covered_official": [
+    "ARI",
+    "ATL",
+    "BAL",
+    "BUF",
+    "CAR",
+    "CHI",
+    "CIN",
+    "CLE",
+    "DAL",
+    "DEN",
+    "DET",
+    "GB",
+    "HOU",
+    "IND",
+    "JAX",
+    "KC",
+    "LA",
+    "LAC",
+    "LV",
+    "MIA",
+    "MIN",
+    "NE",
+    "NO",
+    "NYG",
+    "NYJ",
+    "PHI",
+    "PIT",
+    "SEA",
+    "SF",
+    "TB",
+    "TEN",
+    "WAS"
+   ],
+   "conflicts": [
+    {
+     "player": "D'Andre Swift",
+     "official": [
+      "active",
+      "no designation"
+     ],
+     "other": "expected out",
+     "source": "ESPN injury note"
+    },
+    {
+     "player": "Tucker Kraft",
+     "official": [
+      "active"
+     ],
+     "other": "expected out",
+     "source": "ESPN injury note"
+    },
+    {
+     "player": "Cody White",
+     "official": [
+      "active",
+      "no designation"
+     ],
+     "other": "expected out",
+     "source": "ESPN injury note"
+    },
+    {
+     "player": "Tre' Harris",
+     "official": [
+      "active"
+     ],
+     "other": "expected out",
+     "source": "ESPN injury note"
+    },
+    {
+     "player": "TreVeyon Henderson",
+     "official": [
+      "active"
+     ],
+     "other": "expected out",
+     "source": "ESPN injury note"
+    },
+    {
+     "player": "Isaiah Williams",
+     "official": [
+      "active"
+     ],
+     "other": "expected out",
+     "source": "ESPN injury note"
+    },
+    {
+     "player": "Chig Okonkwo",
+     "official": [
+      "active",
+      "no designation"
+     ],
+     "other": "expected out",
+     "source": "ESPN injury note"
+    }
+   ],
+   "stale_projection_dates": 0,
+   "teams_missing_official": [],
+   "syndicated_headlines": 0,
+   "reported_matched_to_official_list": "204/204"
+  },
+  "nba": {
+   "records": 224,
+   "by_layer": {
+    "official": 145,
+    "reported": 79
+   },
+   "unknown_team": 0,
+   "no_player": 0,
+   "future_published": 0,
+   "teams_covered_official": [
+    "ATL",
+    "BKN",
+    "BOS",
+    "CHA",
+    "CHI",
+    "CLE",
+    "DAL",
+    "DEN",
+    "DET",
+    "GS",
+    "HOU",
+    "IND",
+    "LAC",
+    "LAL",
+    "MEM",
+    "MIA",
+    "MIL",
+    "MIN",
+    "NO",
+    "NY",
+    "OKC",
+    "ORL",
+    "PHI",
+    "PHX",
+    "POR",
+    "SA",
+    "SAC",
+    "TOR",
+    "UTAH",
+    "WSH"
+   ],
+   "conflicts": [],
+   "stale_projection_dates": 0,
+   "teams_missing_official": [],
+   "syndicated_headlines": 0,
+   "reported_matched_to_official_list": "79/79"
+  },
+  "nhl": {
+   "records": 1534,
+   "by_layer": {
+    "official": 149,
+    "reported": 55,
+    "projected": 1330
+   },
+   "unknown_team": 0,
+   "no_player": 0,
+   "future_published": 0,
+   "teams_covered_official": [
+    "ANA",
+    "BOS",
+    "BUF",
+    "CAR",
+    "CBJ",
+    "CGY",
+    "CHI",
+    "COL",
+    "DAL",
+    "DET",
+    "EDM",
+    "FLA",
+    "LAK",
+    "MIN",
+    "MTL",
+    "NJD",
+    "NSH",
+    "NYI",
+    "NYR",
+    "OTT",
+    "PHI",
+    "PIT",
+    "SEA",
+    "SJS",
+    "STL",
+    "TBL",
+    "TOR",
+    "UTA",
+    "VAN",
+    "VGK",
+    "WPG",
+    "WSH"
+   ],
+   "conflicts": [],
+   "stale_projection_dates": 0,
+   "teams_missing_official": [],
+   "syndicated_headlines": 0,
+   "reported_matched_to_official_list": "54/55"
+  },
+  "nbl": {
+   "records": 0,
+   "by_layer": {},
+   "unknown_team": 0,
+   "no_player": 0,
+   "future_published": 0,
+   "teams_covered_official": [],
+   "conflicts": [],
+   "stale_projection_dates": 0,
+   "teams_missing_official": [
+    "ADL",
+    "BRI",
+    "CNS",
+    "ILL",
+    "MEL",
+    "NZL",
+    "PER",
+    "SEM",
+    "SYD",
+    "TAS"
+   ],
+   "syndicated_headlines": 0,
+   "reported_matched_to_official_list": "0/0"
+  },
+  "afl": {
+   "records": 0,
+   "by_layer": {},
+   "unknown_team": 0,
+   "no_player": 0,
+   "future_published": 0,
+   "teams_covered_official": [],
+   "conflicts": [],
+   "stale_projection_dates": 0,
+   "teams_missing_official": [
+    "ADE",
+    "BRI",
+    "CAR",
+    "COL",
+    "ESS",
+    "FRE",
+    "GCS",
+    "GEE",
+    "GWS",
+    "HAW",
+    "MEL",
+    "NTH",
+    "PTA",
+    "RIC",
+    "STK",
+    "SYD",
+    "WBD",
+    "WCE"
+   ],
+   "syndicated_headlines": 0,
+   "reported_matched_to_official_list": "0/0"
+  }
+ },
+ "sources_failed": [
+  "nba: NBA official injury report (PDF, file-name time) - RuntimeError: no official report found in the last 30 hours"
+ ]
+}
