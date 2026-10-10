@@ -13,6 +13,8 @@ Variants:
   v1        version-1 values (this + 60% last season; usual minutes = team's last 10 games incl. zeros), no fixes
   v1_trade  v1 + membership fix
   v1_base   v1 + membership fix + baseline
+  v2_typ    no game-day information at all: every member at his typical absence rate (three seasons, shrunk to the
+            league rate) minus his baseline - tests the assumption the season simulation makes beyond the report
   v2_base   ability and availability separated: ability from three seasons (1 / 0.6 / 0.36), minutes = average of his
             last 10 games played (any team) + membership fix + baseline
 Usage: python research/nba_availability2.py <ratings_nba.csv> [<match_nba.csv>]
@@ -73,6 +75,8 @@ def run(d):
     team_hist = collections.defaultdict(list)                    # team -> list of {pid: minutes} for v1 usual minutes
     season_members = collections.defaultdict(set)              # (team, season) -> players with a row this season
     base = collections.defaultdict(lambda: collections.defaultdict(lambda: [0.0, 0.0]))  # (pid,team) -> season -> [member, missed]
+    alln = collections.defaultdict(lambda: collections.defaultdict(lambda: [0.0, 0.0]))  # pid -> season -> [member, missed]
+    league = [0.0, 0.0]
     out = []
     for gid, G in d.groupby("game_id", sort=False):
         y = int(G.season.iloc[0])
@@ -107,7 +111,14 @@ def run(d):
                 n_h = max(1, len(hist))
                 v1_rot = {p: mins / n_h for p, mins in usual.items() if mins / n_h >= ROT_MIN}
                 members = {p for p in season_members[(team, y)] if last_team.get(p) == team}
-                res = {"v1": 0.0, "v1_trade": 0.0, "v1_base": 0.0, "v2_base": 0.0}
+                res = {"v1": 0.0, "v1_trade": 0.0, "v1_base": 0.0, "v2_base": 0.0, "v2_typ": 0.0}
+                lr = league[1] / league[0] if league[0] else 0.12
+
+                def typical(pid):
+                    h = alln.get(pid, {})
+                    m = sum(ABILITY_W["v2"].get(y - s_, 0) * v_[0] for s_, v_ in h.items())
+                    x = sum(ABILITY_W["v2"].get(y - s_, 0) * v_[1] for s_, v_ in h.items())
+                    return (x + 20 * lr) / (m + 20)
                 for p, mins in v1_rot.items():
                     val = ability(p, "v1") * mins / 48
                     miss = p not in present
@@ -123,7 +134,9 @@ def run(d):
                     if mins < ROT_MIN:
                         continue
                     miss = p not in present
-                    res["v2_base"] += ability(p, "v2") * mins / 48 * (miss - baseline(p))
+                    val2 = ability(p, "v2") * mins / 48
+                    res["v2_base"] += val2 * (miss - baseline(p))
+                    res["v2_typ"] += val2 * (typical(p) - baseline(p))
                 row.update(res)
                 out.append(row)
                 # update baselines for members of this game
@@ -131,6 +144,11 @@ def run(d):
                     b = base[(p, team)][y]
                     b[0] += 1
                     b[1] += p not in present
+                    c = alln[p][y]
+                    c[0] += 1
+                    c[1] += p not in present
+                    league[0] += 1
+                    league[1] += p not in present
         # update state after the game
         for team, x in G.groupby("team_abbreviation"):
             team_hist[team].append(dict(zip(x[x.played].athlete_id, x[x.played].minutes)))
@@ -153,7 +171,7 @@ def test(A, ratings_csv, market_csv=None):
     from scipy.stats import norm
     R["m"] = norm.ppf(R.p_model.clip(1e-4, 1 - 1e-4)) * s_eff
     A["date"] = pd.to_datetime(A.date).dt.normalize()
-    variants = ["v1", "v1_trade", "v1_base", "v2_base"]
+    variants = ["v1", "v1_trade", "v1_base", "v2_base", "v2_typ"]
     h = A.rename(columns={"team": "home", **{v: v + "_h" for v in variants}})[["date", "home"] + [v + "_h" for v in variants]]
     a = A.rename(columns={"team": "away", **{v: v + "_a" for v in variants}})[["date", "away"] + [v + "_a" for v in variants]]
     R = R.merge(h, on=["date", "home"], how="left").merge(a, on=["date", "away"], how="left").fillna(0)

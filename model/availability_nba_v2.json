@@ -1,0 +1,92 @@
+{
+ "v1": {
+  "test_seasons": "2011-2026",
+  "games": 18967,
+  "no_adjustment": 0.6195,
+  "with_adjustment": 0.6116,
+  "seasons_better": "16 of 16",
+  "beta_latest": 0.5,
+  "second_half_of_season": {
+   "no_adjustment": 0.6102,
+   "with_adjustment": 0.6002
+  },
+  "vs_closing_odds": {
+   "games": 13398,
+   "ours": 0.6115,
+   "ours_no_adjustment": 0.6192,
+   "market": 0.592
+  }
+ },
+ "v1_trade": {
+  "test_seasons": "2011-2026",
+  "games": 18967,
+  "no_adjustment": 0.6195,
+  "with_adjustment": 0.6123,
+  "seasons_better": "16 of 16",
+  "beta_latest": 0.5,
+  "second_half_of_season": {
+   "no_adjustment": 0.6102,
+   "with_adjustment": 0.6007
+  },
+  "vs_closing_odds": {
+   "games": 13398,
+   "ours": 0.6122,
+   "ours_no_adjustment": 0.6192,
+   "market": 0.592
+  }
+ },
+ "v1_base": {
+  "test_seasons": "2011-2026",
+  "games": 18967,
+  "no_adjustment": 0.6195,
+  "with_adjustment": 0.6108,
+  "seasons_better": "16 of 16",
+  "beta_latest": 0.55,
+  "second_half_of_season": {
+   "no_adjustment": 0.6102,
+   "with_adjustment": 0.5985
+  },
+  "vs_closing_odds": {
+   "games": 13398,
+   "ours": 0.611,
+   "ours_no_adjustment": 0.6192,
+   "market": 0.592
+  }
+ },
+ "v2_base": {
+  "test_seasons": "2011-2026",
+  "games": 18967,
+  "no_adjustment": 0.6195,
+  "with_adjustment": 0.6078,
+  "seasons_better": "16 of 16",
+  "beta_latest": 0.45,
+  "second_half_of_season": {
+   "no_adjustment": 0.6102,
+   "with_adjustment": 0.5934
+  },
+  "vs_closing_odds": {
+   "games": 13398,
+   "ours": 0.6088,
+   "ours_no_adjustment": 0.6192,
+   "market": 0.592
+  }
+ },
+ "v2_typ": {
+  "test_seasons": "2011-2026",
+  "games": 18967,
+  "no_adjustment": 0.6195,
+  "with_adjustment": 0.6195,
+  "seasons_better": "0 of 16",
+  "beta_latest": 0.0,
+  "second_half_of_season": {
+   "no_adjustment": 0.6102,
+   "with_adjustment": 0.6102
+  },
+  "vs_closing_odds": {
+   "games": 13398,
+   "ours": 0.6186,
+   "ours_no_adjustment": 0.6192,
+   "market": 0.592
+  }
+ }
+}

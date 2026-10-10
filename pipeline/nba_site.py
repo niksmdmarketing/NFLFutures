@@ -521,7 +521,7 @@ def futures(cur):
                      {"k": "p_title", "l": "Title"}],
             "line": {"label": "Win total", "unit": "wins", "min": 0},
             "about": ["The model does not use bookmaker prices, so it is independent of the market, not proof of value.",
-                      "Known absences are included: each rotation player listed Out on ESPN's injury report costs his team his points value in every game until ESPN's estimated return date (two weeks if none is given); Day-To-Day players count half for the next three days. Return dates are estimates, not official timelines.",
+                      "Known absences are included (see Who is out): each player's cost is measured against what the team rating already assumes about his availability. Return dates are ESPN's estimates, drawn with uncertainty in each simulation.",
                       "Rookies and coaching changes are only partly reflected; they matter most before the season.",
                       "The roster adjustment cannot be back-tested (no historical rosters), so it is kept small.",
                       "Against prediction-market prices (Polymarket, 2024-25 and 2025-26) at the same dates: before the season the market was much more accurate; from about 40% of the season the model was more accurate on the title, but not on conference winners. Two seasons only; prices are never used by the model."],
@@ -530,20 +530,41 @@ def futures(cur):
 
 def _avail_html(a):
     from html import escape as e
+    stale = ""
+    if a.get("stale") and a.get("age_hours") is not None:
+        stale = (f'<p class="note"><b>The injury report could not be refreshed; using the last one ({a["age_hours"]:.0f} hours old).</b> '
+                 "Only confirmed long-term absences are kept from it; short-term statuses have been dropped.</p>")
     if not a.get("available"):
-        return '<p class="note">The injury report could not be read on this refresh, so no absences are applied.</p>'
+        return stale + '<p class="note">No injury report could be read, so nobody is listed out; every player is assumed to miss games at his usual rate.</p>'
     rows = [r for r in a.get("rows", []) if r["points"] >= 0.5 and r.get("games", 1) > 0]
-    intro = ('<p class="note">Each player has a points value: how much worse his team is per game without him, from his box-score '
-             "production per minute against a replacement-level rotation player, times his usual minutes. Tested on 2011-2026: adjusting "
-             "games for missing players improved our game forecasts in 16 of 16 seasons. Only players worth at least half a point are listed. "
-             "Status and estimated return are from ESPN's injury report" + (f" (feed time {e(str(a.get('feed_time'))[:16].replace('T', ' '))} UTC)" if a.get("feed_time") else "") + ".</p>")
+    intro = ('<p class="note">Each player has a points value: how much worse his team is per game without him, from his box-score production '
+             "per minute over three seasons against a replacement-level rotation player, times his minutes when he plays. "
+             "<b>Already in rating</b> is how often he was missing in the games the team rating is built on; only the difference costs "
+             "points, so an absence the rating already reflects costs little and a return is an uplift. Players not listed are assumed to miss "
+             "games at their usual rate. Return dates are ESPN's estimates; each simulation draws its own return date around them "
+             "(two weeks with a wide spread if none is given, longer for surgeries), and anyone still out at the end of the regular season "
+             "weakens his team in the playoffs. Listed: players whose absence costs at least half a point and who will miss a regular-season game."
+             + (f" Report time {e(str(a.get('feed_time'))[:16].replace('T', ' '))} UTC." if a.get("feed_time") else "") + "</p>")
     if not rows:
-        return intro + '<p class="note">No listed absences reach a regular-season game yet.</p>'
+        return stale + intro + '<p class="note">No listed absences reach a regular-season game yet.</p>'
     body = "".join(f"<tr><td>{e(r['team'])}</td><td>{e(r['player'])}</td><td>{e(r['status'])}</td><td>{e(r['injury'] or '')}</td>"
-                   f"<td>{e(r['est_return'] or 'not given')}</td><td>{r['mpg']:.0f}</td><td>{r.get('games', '')}</td><td><b>−{r['points']:.1f}</b></td></tr>" for r in rows)
-    return (intro + '<div class="scroll"><table class="stbl"><thead><tr><th>Team</th><th>Player</th><th>Status</th><th>Injury</th>'
-            '<th>Est. return</th><th>Min/game</th><th title="Remaining regular-season games before the estimated return">Games</th><th title="Points per game the team is worse while he is out">Cost (pts/game)</th></tr></thead><tbody>'
-            + body + "</tbody></table></div>")
+                   f"<td>{e(r['est_return'] or 'not given')}</td><td>{r.get('value', 0):.1f}</td><td>{100 * r.get('baseline', 0):.0f}%</td>"
+                   f"<td>{r.get('games', '')}</td><td><b>−{r['points']:.1f}</b></td></tr>" for r in rows)
+    return (stale + intro + '<div class="scroll"><table class="stbl"><thead><tr><th>Team</th><th>Player</th><th>Status</th><th>Injury</th>'
+            '<th>Est. return</th><th title="Points per game his team is worse without him">Value</th>'
+            '<th title="Share of the rating\'s games he was already missing">Already in rating</th>'
+            '<th title="Remaining regular-season games before the estimated return">Games</th>'
+            '<th title="Points per game the team is worse than its rating while he is out">Cost (pts/game)</th></tr></thead><tbody>'
+            + body + "</tbody></table></div>" + _avail_record_html(a.get("record")))
+
+
+def _avail_record_html(rec):
+    if not rec or not rec.get("games"):
+        return ('<p class="note">Live record: every refresh stores the next games\' probabilities with and without these adjustments; '
+                "they are scored here once games are played.</p>")
+    return (f'<p class="note"><b>Live record</b> ({rec["games"]} games since {rec["since"]}): log-loss {rec["with"]:.4f} with the '
+            f"adjustments vs {rec['without']:.4f} without (lower is better). "
+            f"Games where the adjustment moved the probability by 5+ points: {rec['big_games']} ({rec['big_with']:.4f} vs {rec['big_without']:.4f}).</p>")
 
 
 def _backtest_html():

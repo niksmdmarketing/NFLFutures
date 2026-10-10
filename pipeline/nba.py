@@ -10,6 +10,7 @@ from __future__ import annotations
 import datetime as dt
 import glob
 import math
+import json
 import os
 import shutil
 import time
@@ -697,8 +698,7 @@ def _series(rng: np.random.Generator, a: str, b: str, strength: np.ndarray,
 
 
 def _simulate(schedule: pd.DataFrame, ratings: pd.DataFrame, n_sims: int, avail: dict | None = None) -> dict[str, dict]:
-    """avail: (game_date, home, away) -> points to subtract from the home margin for known absences (nba_avail)."""
-    avail = avail or {}
+    """avail: nba_avail.plan(...) output; each simulation draws its own recovery paths (nba_avail.draw_adjustments)."""
     base = ratings.set_index("team").rating.reindex(TEAMS).to_numpy(float)
     actual_wins = np.zeros(len(TEAMS), dtype=np.int16)
     actual_pd = np.zeros(len(TEAMS), dtype=float)
@@ -713,7 +713,7 @@ def _simulate(schedule: pd.DataFrame, ratings: pd.DataFrame, n_sims: int, avail:
             actual_pd[TIX[a]] += float(g.away_score - g.home_score)
         else:
             remaining.append((TIX[h], TIX[a]))
-            adjust.append(avail.get((str(g.game_date)[:10], h, a), 0.0))
+            adjust.append((str(g.game_date)[:10], h, a))
 
     # Before the NBA Cup bracket is known, the published schedule contains 80
     # named games per team. Add balanced anonymous pairings so the futures
@@ -733,7 +733,7 @@ def _simulate(schedule: pd.DataFrame, ratings: pd.DataFrame, n_sims: int, avail:
         if flex_no % 2:
             home, away = away, home
         remaining.append((TIX[home], TIX[away]))
-        adjust.append(0.0)
+        adjust.append(None)
         deficits[home] -= 1
         deficits[away] -= 1
         flex_no += 1
@@ -744,7 +744,9 @@ def _simulate(schedule: pd.DataFrame, ratings: pd.DataFrame, n_sims: int, avail:
 
     home_ix = np.array([g[0] for g in remaining], dtype=np.int16)
     away_ix = np.array([g[1] for g in remaining], dtype=np.int16)
-    game_adj = np.array(adjust, dtype=float)
+    col = {k: i for i, k in enumerate(avail["keys"])} if avail else {}
+    adj_idx = np.array([col.get(k, -1) if k else -1 for k in adjust], dtype=int)
+    import nba_avail
     batch_size = 2000
     done = 0
     while done < n_sims:
@@ -752,9 +754,17 @@ def _simulate(schedule: pd.DataFrame, ratings: pd.DataFrame, n_sims: int, avail:
         strengths = base[None, :] + rng.normal(0, TEAM_TAU, (size, len(TEAMS)))
         wins_batch = np.tile(actual_wins, (size, 1))
         pd_batch = np.tile(actual_pd, (size, 1))
+        playoff_pen = np.zeros((size, len(TEAMS)))
+        game_adj = np.zeros((size, len(home_ix)))
+        if avail and len(avail["keys"]):
+            drawn, owed = nba_avail.draw_adjustments(avail, rng, size)
+            ok = adj_idx >= 0
+            game_adj[:, ok] = drawn[:, adj_idx[ok]]
+            for t, cost in owed.items():
+                playoff_pen[:, TIX[t]] = cost / (PACE[TIX[t]] / 100)
         if len(home_ix):
             game_pace = (PACE[home_ix] + PACE[away_ix]) / 200
-            margins = ((strengths[:, home_ix] - strengths[:, away_ix] + HFA) * game_pace[None, :] - game_adj[None, :]
+            margins = ((strengths[:, home_ix] - strengths[:, away_ix] + HFA) * game_pace[None, :] - game_adj
                        + rng.normal(0, GAME_SIGMA, (size, len(home_ix))))
             winner_ix = np.where(margins > 0, home_ix[None, :], away_ix[None, :])
             sim_ix = np.repeat(np.arange(size), len(home_ix))
@@ -765,7 +775,7 @@ def _simulate(schedule: pd.DataFrame, ratings: pd.DataFrame, n_sims: int, avail:
             np.add.at(pd_batch, (sim_ix, tiled_away), -margins.ravel())
 
         for local in range(size):
-            strength = strengths[local]
+            strength = strengths[local] - playoff_pen[local]   # long-term absences still out after the regular season
             win_arr = wins_batch[local]
             pd_arr = pd_batch[local]
             wins = {t: int(win_arr[TIX[t]]) for t in TEAMS}
@@ -836,24 +846,61 @@ def _game_rows(schedule: pd.DataFrame, ratings: pd.DataFrame, avail: dict | None
     return rows
 
 
-def _availability(players: pd.DataFrame, end_year: int, schedule: pd.DataFrame) -> tuple[dict, dict]:
+def _availability(players: pd.DataFrame, end_year: int, schedule: pd.DataFrame, roster: pd.DataFrame | None = None) -> tuple[dict, dict]:
     """Known absences -> per-game points adjustments. Any failure leaves the model exactly as before (no adjustment)."""
     try:
         import nba_avail as A
         injuries, feed = A.fetch_injuries(NBA_DATA, os.environ.get("NBA_INJ_STORE"))
-        if injuries is None:
-            return {}, {"available": False, **feed}
+        report_ok = injuries is not None
+        injuries = injuries or []   # no report at all: typical availability still applies, nobody is listed out
         stamp = feed.get("feed_time")
-        values, _ = A.player_values(players, end_year, TEAMS)
-        adj, listed = A.game_adjustments(schedule, injuries, values, NAMES)
+        values = A.player_values(players, end_year, roster)
         store = os.environ.get("NBA_INJ_STORE")
         if store and not feed["stale"] and feed["age_hours"] == 0:
             A.archive(store, injuries, stamp)
-        log("NBA availability", len(listed), "rotation players out or doubtful;", len(adj), "games adjusted")
-        return adj, {"available": True, **feed, "beta": A.BETA, "rows": listed}
+        official = {}
+        plan = A.plan(schedule, injuries, values, NAMES, official=official)
+        log("NBA availability", len(plan["listed"]), "listed rotation players;", len(plan["episodes"]), "recovery paths simulated")
+        return plan, {"available": report_ok, **feed, "beta": A.BETA, "rows": plan["listed"], "version": 2}
     except Exception as e:  # noqa: BLE001
         log("NBA availability skipped:", e)
         return {}, {"available": False}
+
+
+def _avail_record(schedule: pd.DataFrame, without: list[dict], with_: list[dict]) -> dict:
+    """Prospective check of the availability layer. Each refresh appends the probabilities for games in the next
+    36 hours (with and without the adjustments) to the injury-monitor branch; the last stored pair before each game
+    is scored once it has been played."""
+    store = os.environ.get("NBA_INJ_STORE")
+    if not store:
+        return {}
+    path = os.path.join(store, "nba", "predictions.jsonl")
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    now = dt.datetime.now(dt.timezone.utc)
+    soon = (now + dt.timedelta(hours=36)).date().isoformat()
+    today = now.date().isoformat()
+    with open(path, "a") as f:
+        for a, b in zip(without, with_):
+            if not a["completed"] and today <= str(a["date"])[:10] <= soon:
+                f.write(json.dumps({"t": now.isoformat(timespec="minutes"), "date": a["date"], "home": a["home"], "away": a["away"],
+                                    "p_without": round(a["home_win"], 4), "p_with": round(b["home_win"], 4)}) + "\n")
+    last = {}
+    for line in open(path):
+        r = json.loads(line)
+        last[(r["date"], r["home"], r["away"])] = r
+    done = schedule[schedule.completed & schedule.home_score.notna()]
+    rows = []
+    for g in done.itertuples():
+        r = last.get((g.game_date, g.home_abbreviation, g.away_abbreviation))
+        if r:
+            rows.append((float(g.home_score > g.away_score), r["p_without"], r["p_with"]))
+    if not rows:
+        return {"games": 0}
+    y, p0, p1 = (np.array(x) for x in zip(*rows))
+    ll = lambda p, m=slice(None): float(-np.mean(y[m] * np.log(np.clip(p[m], 1e-6, 1)) + (1 - y[m]) * np.log(np.clip(1 - p[m], 1e-6, 1))))
+    big = np.abs(p1 - p0) >= 0.05
+    return {"games": len(rows), "since": min(last)[0], "with": ll(p1), "without": ll(p0), "big_games": int(big.sum()),
+            "big_with": ll(p1, big) if big.any() else 0.0, "big_without": ll(p0, big) if big.any() else 0.0}
 
 
 def build_data() -> None:
@@ -874,7 +921,7 @@ def build_data() -> None:
     if len(schedule) < 1200:
         raise RuntimeError(f"NBA schedule is incomplete ({len(schedule)} regular-season games)")
     n_sims = int(os.environ.get("NBA_N_SIMS", os.environ.get("N_SIMS", "100000")))
-    avail, availability = _availability(players, end_year, schedule)
+    avail, availability = _availability(players, end_year, schedule, current_roster)
     futures = _simulate(schedule, ratings, n_sims, avail)
     for team, row in futures.items():
         ratings.loc[ratings.team == team, "projected_wins"] = row["mean_wins"]
@@ -893,10 +940,12 @@ def build_data() -> None:
                             "model_rating": round(float(r.rating), 1), "pace": round(float(r.pace), 1),
                             "projected_wins": round(float(r.projected_wins), 1)})
     write_json("nba_meta.json", meta)
+    games_with = _game_rows(schedule, ratings, __import__("nba_avail").expected_adjustments(avail) if avail else {})
+    availability["record"] = _avail_record(schedule, _game_rows(schedule, ratings, {}), games_with)
     write_json("nba_futures.json", {"teams": futures, "divisions": DIVS, "east": EAST, "west": WEST, "availability": availability})
     write_json("nba_ratings.json", {"rows": rating_rows})
     write_json("nba_players.json", {"rows": player_rows})
-    write_json("nba_games.json", {"rows": _game_rows(schedule, ratings, avail)})
+    write_json("nba_games.json", {"rows": games_with})
     write_json("nba_team_stats.json", {"rows": team_stats})
     write_json("nba_advanced_team_stats.json", {"rows": advanced_teams})
     write_json("nba_advanced_player_stats.json", {"rows": advanced_players})
