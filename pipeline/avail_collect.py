@@ -747,9 +747,14 @@ class Run:
         lo, hi = today - dt.timedelta(days=7), today + dt.timedelta(days=10)
         for lg, path in (("nfl", "football/nfl"), ("nba", "basketball/nba"), ("nhl", "hockey/nhl")):
             try:
-                j, _ = fetch_json(f"https://site.api.espn.com/apis/site/v2/sports/{path}/scoreboard?dates="
-                                  f"{lo:%Y%m%d}-{hi:%Y%m%d}&limit=1000")
-                types = [((e.get("season") or {}).get("type")) for e in j.get("events") or []]
+                base_u = f"https://site.api.espn.com/apis/site/v2/sports/{path}/scoreboard"
+                try:
+                    events = fetch_json(f"{base_u}?dates={lo:%Y%m%d}-{hi:%Y%m%d}")[0].get("events") or []
+                except urllib.error.HTTPError:
+                    events = []      # range not accepted: fall back to a few single days around today
+                    for k in (-1, 0, 1, 2, 3):
+                        events += fetch_json(f"{base_u}?dates={today + dt.timedelta(days=k):%Y%m%d}")[0].get("events") or []
+                types = [((e.get("season") or {}).get("type")) for e in events]
                 comp = [t for t in types if t in (2, 3)]
                 self.season[lg] = {"state": "in_season" if comp else "off_season",
                                    "why": f"{len(comp)} regular-season/playoff and {len(types) - len(comp)} other games {lo}..{hi}"}
