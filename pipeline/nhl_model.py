@@ -72,8 +72,11 @@ def season_rates(T):
 
 # ---------------------------------------------------------------- fitting on history
 
+ROSTER = os.environ.get("NHL_ROSTER", "none")   # none | rel | abs | mix: roster-based preseason terms (nhl_roster.py)
+
+
 def prior_features(y, TT):
-    """(gd1, xgd1, gd2) per team for season y from the two previous seasons."""
+    """(gd1, xgd1, gd2[, rsk, rg]) per team for season y from the two previous seasons (+ roster value when enabled)."""
     teams = TT[y].index if y in TT else []
     out = pd.DataFrame(0.0, index=teams, columns=["gd1", "xgd1", "gd2"])
     if y - 1 in TT:
@@ -84,6 +87,9 @@ def prior_features(y, TT):
     if y - 2 in TT:
         g2, _ = season_rates(TT[y - 2])
         out["gd2"] = g2.reindex(teams).fillna(out["gd1"]).values
+    if ROSTER != "none":
+        import nhl_roster
+        out = out.join(nhl_roster.roster_features(y, teams, current=nhl.start_year(), mode=ROSTER))
     return out.fillna(0.0)
 
 
