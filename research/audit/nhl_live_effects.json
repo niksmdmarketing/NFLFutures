@@ -1,0 +1,23 @@
+{
+ "nhl": {
+  "schedule_fetch_failed_teams": 0,
+  "games_remaining": 1275,
+  "per_team_played_plus_remaining": [
+   84
+  ],
+  "seed_noise_max_abs": {
+   "playoffs": 0.0131,
+   "div": 0.0083,
+   "pres": 0.0044,
+   "cup": 0.0087
+  },
+  "D_tiebreak_wins_and_ot_goal": {
+   "playoffs": 0.0001,
+   "div": 0.0001,
+   "pres": 0.0,
+   "cup": 0.0001
+  },
+  "E_hist_mass_in_top_bin_160": 1.6666666666666667e-05,
+  "E_max_mean_points": 113.8
+ }
+}
