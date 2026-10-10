@@ -28,4 +28,44 @@ boot(async () => {
   ["iq", "it", "is"].forEach(id => $(id).addEventListener(id === "iq" ? "input" : "change", draw));
   draw();
   document.querySelectorAll("#app table").forEach(sortableTable);
+  monitor();
 });
+
+/* Collection-only monitor of the official NFL report (data/injury_monitor.json). Shown for transparency; it feeds no rating. */
+async function monitor() {
+  let M;
+  try { M = await getJSON("injury_monitor.json"); } catch (e) { M = null; }
+  const sec = document.createElement("section");
+  sec.className = "inj-mon";
+  const when = s => s ? new Date(s).toLocaleString(undefined, {weekday: "short", day: "numeric", month: "short", hour: "numeric", minute: "2-digit"}) : "–";
+  if (!M) {
+    sec.innerHTML = '<div class="table-head"><h2>Official report monitor <small>collection only</small></h2></div><p class="note">The monitor has not produced a status file yet. It runs with every site refresh.</p>';
+    $("app").appendChild(sec);
+    return;
+  }
+  const label = {ok: "Up to date", degraded: "Last check failed", stale: "Out of date", unavailable: "No report collected yet"}[M.collection_status] || M.collection_status;
+  const cov = M.expected_teams ? M.covered_teams.length + " of " + M.expected_teams.length + " teams playing this week" : M.covered_teams.length + " teams";
+  const counts = Object.entries(M.status_counts || {}).sort((a, b) => b[1] - a[1]).map(([k, v]) => '<span class="mon-chip">' + esc(k) + " <b>" + v + "</b></span>").join("");
+  const changes = (M.recent_changes || []).slice(0, 15).map(c => {
+    const who = (c.after || c.before || {}).player || c.player_id;
+    const what = c.kind === "updated" ? esc((c.before.practice_status || "–") + " / " + (c.before.game_status || "no status")) + " → " + esc((c.after.practice_status || "–") + " / " + (c.after.game_status || "no status"))
+      : c.kind === "appeared" ? "added to the report" : c.kind === "team_table_missing" ? "team table not on the page" : "no longer listed (not proof of recovery)";
+    return "<li><b>" + esc(c.team) + "</b> " + esc(who) + ' <span class="muted">' + what + " · seen " + when(c.observed_at) + "</span></li>";
+  }).join("");
+  sec.innerHTML = '<div class="table-head"><h2>Official report monitor <small>collection only</small></h2></div>' +
+    '<p class="note">A record of what the NFL\'s public injury report said each time this site checked it (every three hours), kept for future research. ' +
+    "<b>It does not change any rating, projection or award probability.</b> Check times are when this site looked, not when the NFL published. " +
+    "A blank game status is not an Active designation, and a player who drops off the report has not been shown to have recovered. No return dates are collected.</p>" +
+    '<div class="mon-grid">' +
+    '<div><span>Status</span><b class="mon-' + esc(M.collection_status) + '">' + esc(label) + "</b></div>" +
+    "<div><span>Last successful check</span><b>" + when(M.last_success_at) + "</b></div>" +
+    "<div><span>Last attempt</span><b>" + when(M.last_attempt_at) + (M.last_attempt_ok ? "" : " (failed)") + "</b></div>" +
+    "<div><span>Report</span><b>" + (M.report_season ? M.report_season + " season, week " + M.report_week : "–") + "</b></div>" +
+    "<div><span>Coverage</span><b>" + cov + "</b></div>" +
+    "<div><span>History</span><b>" + M.distinct_reports + " distinct reports, " + M.checks + " checks</b></div></div>" +
+    (counts ? '<p class="mon-counts">' + counts + "</p>" : "") +
+    (M.warnings && M.warnings.length ? '<ul class="mon-warn">' + M.warnings.map(w => "<li>" + esc(w) + "</li>").join("") + "</ul>" : "") +
+    (M.last_error ? '<p class="note">Last error: ' + esc(M.last_error) + "</p>" : "") +
+    (changes ? '<details class="mon-changes"><summary>Recent changes within the week</summary><ul>' + changes + "</ul></details>" : "");
+  $("app").appendChild(sec);
+}

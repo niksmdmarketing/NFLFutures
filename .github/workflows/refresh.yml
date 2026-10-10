@@ -36,6 +36,36 @@ jobs:
           key: nflverse-${{ github.run_id }}
           restore-keys: nflverse-
 
+      - name: Test the NFL injury monitor
+        continue-on-error: true
+        run: python -m unittest discover -s tests -v
+
+      # Collection only: nothing in ratings, simulations or awards reads this. Its history lives on the append-only
+      # injury-monitor branch (not the evictable cache, not the published site). A failure marks this step red
+      # but never stops the other sports.
+      - name: NFL injury monitor (collection only)
+        continue-on-error: true
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git ls-remote --exit-code --heads origin injury-monitor > /dev/null; then
+            git fetch -q origin injury-monitor
+            git worktree add -q -B injury-monitor ../injury-monitor FETCH_HEAD
+          else
+            git worktree add -q --orphan -b injury-monitor ../injury-monitor
+          fi
+          set +e
+          python pipeline/nfl_injuries.py --store ../injury-monitor
+          status=$?
+          set -e
+          cd ../injury-monitor
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -q -m "Injury report check $(date -u +%Y-%m-%dT%H:%MZ)"
+            git push -q origin injury-monitor
+          fi
+          exit $status
+
       - name: Build data and site
         run: python pipeline/run.py
 
