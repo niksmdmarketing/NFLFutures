@@ -133,3 +133,8 @@ rest-of-season games are, a fixture ticker, rolling 5-game difficulty and a sche
 ones the Futures simulations use; home advantage and short/long rest are tuned in `pipeline/sos_tune.py` (stored in
 `sos_params.json`; term choice made with TypeSafe on held-out seasons; travel distance was tested and dropped). When the
 next fixture is not out (AFL off-season) the page shows the completed season's draw as a recap.
+
+## NFL quarterback-layer test
+`pipeline/nfl_qb_backtest.py` (offline) rebuilds ratings and QB values before every 2019-2025 game and scores the QB layer on the
+582 games with a starting-QB change (results in `model/qb_backtest.json`). The layer helps (RMSE 13.48 -> 13.16 at the live
+lambda 0.5); lambda 0.75 was better out of sample (13.09). v4 stays frozen; lambda 0.75 is noted for v5 (TypeSafe 61%).

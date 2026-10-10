@@ -1,0 +1,43 @@
+{
+ "seasons": "2019-2025",
+ "games": 1759,
+ "games_with_qb_change": 582,
+ "by_lambda": {
+  "0.0": {
+   "rmse_all": 13.187,
+   "rmse_changed": 13.479,
+   "winner_right_changed": 0.637
+  },
+  "0.25": {
+   "rmse_all": 13.123,
+   "rmse_changed": 13.289,
+   "winner_right_changed": 0.662
+  },
+  "0.5": {
+   "rmse_all": 13.079,
+   "rmse_changed": 13.157,
+   "winner_right_changed": 0.677
+  },
+  "0.75": {
+   "rmse_all": 13.054,
+   "rmse_changed": 13.084,
+   "winner_right_changed": 0.67
+  },
+  "1.0": {
+   "rmse_all": 13.05,
+   "rmse_changed": 13.071,
+   "winner_right_changed": 0.656
+  }
+ },
+ "oos": {
+  "lambda_fit_2019_2021": 0.75,
+  "rmse_2022_2025_no_layer": 13.576,
+  "rmse_2022_2025_fitted": 13.085,
+  "rmse_2022_2025_live_0.5": 13.198,
+  "games": 368
+ },
+ "free_slope": {
+  "lambda": 0.928,
+  "se": 0.153
+ }
+}
