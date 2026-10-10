@@ -6,7 +6,7 @@
   var state = { d: null, sport: "nfl" };
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
   function pc(p) { return p == null ? "–" : p < 0.005 ? "<1%" : p > 0.995 ? ">99%" : (p * 100).toFixed(p < 0.1 ? 1 : 0) + "%"; }
-  function cents(p) { return p == null ? "–" : (p * 100).toFixed(1); }
+  function pp(p) { return p == null ? "–" : (p * 100).toFixed(p < 0.1 ? 1 : 0) + "%"; }
   function store(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } }
 
   function marketTable(m, solo) {
@@ -14,11 +14,11 @@
       var g = r.model - r.market, big = Math.abs(g) >= 0.05;
       return "<tr><td class=\"sv-team\">" + esc(r.name) + "</td><td>" + pc(r.model) + "</td><td>" + pc(r.market) + "</td><td>" + pc(r.shiv) + "</td>" +
         '<td class="gap' + (big ? " big" : "") + '" data-v="' + g + '">' + (g >= 0 ? "+" : "−") + Math.abs(g * 100).toFixed(1) + (big ? '<span class="sv-flag" title="Large disagreement: check news before reading anything into it">check</span>' : "") + "</td>" +
-        '<td class="q" title="Best bid / best ask in cents per $1 share">' + cents(r.bid) + " / " + cents(r.ask) + "</td></tr>";
+        '<td class="q" title="Range traders are quoting: the highest price someone will pay (bid) to the lowest someone will sell at (ask), as a chance">' + pp(r.bid) + " – " + pp(r.ask) + "</td></tr>";
     }).join("");
-    var fee = m.fee && m.fee.rate ? "Taker fee rate " + (m.fee.rate * 100).toFixed(1) + "% (applied to the trade, on top of the ask). " : "";
-    return '<div class="sv-card">' + (solo ? "" : "<h3>" + esc(m.label) + "</h3>") + '<div class="scroll"><table class="stbl sv-tbl"><thead><tr><th scope="col">Team</th><th scope="col">Our model</th><th scope="col">Market</th><th scope="col">Shiv</th><th scope="col">Model − market<small>pts</small></th><th scope="col">Bid / ask<small>¢</small></th></tr></thead><tbody>' +
-      rows + "</tbody></table></div>" + (fee || !m.one_winner ? '<p class="sv-note">' + fee + (m.one_winner ? "" : "Yes/no market per team: market is the midpoint as quoted; Shiv averages the two in log-odds.") + "</p>" : "") + "</div>";
+    var fee = "";
+    return '<div class="sv-card">' + (solo ? "" : "<h3>" + esc(m.label) + "</h3>") + '<div class="scroll"><table class="stbl sv-tbl"><thead><tr><th scope="col">Team</th><th scope="col">Our model</th><th scope="col">Market</th><th scope="col">Shiv</th><th scope="col">Model − market<small>pts</small></th><th scope="col">Market range<small>bid – ask</small></th></tr></thead><tbody>' +
+      rows + "</tbody></table></div>" + (!m.one_winner ? '<p class="sv-note">Yes/no market per team: the market figure is the middle of the range; Shiv averages the two.</p>' : "") + "</div>";
   }
 
   var BT = {
