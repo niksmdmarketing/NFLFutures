@@ -13,7 +13,9 @@ for page in ("https://www.sportsbookreviewsonline.com/scoresoddsarchives/nba-odd
              "https://www.sportsbookreviewsonline.com/scoresoddsarchives/nhl-odds-archives/"):
     try:
         html = get(page).decode("utf-8", "replace")
-        links = sorted(set(re.findall(r'href="([^"]+\.xlsx?)"', html)))
+        i = html.lower().find("xls")
+        log("snippet", re.sub(r"\s+", " ", html[max(0, i - 1500):i + 1500]) if i >= 0 else html[:1500])
+        links = sorted(set(re.findall(r'href=["\']([^"\']+\.xlsx?)["\']', html, re.I)))
         log("page ok", page, len(links), links[:40])
         for l in links:
             url = l if l.startswith("http") else "https://www.sportsbookreviewsonline.com" + l
