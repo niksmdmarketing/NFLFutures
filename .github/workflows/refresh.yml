@@ -66,8 +66,34 @@ jobs:
           fi
           exit $status
 
+      - name: Check out the Shiv archive (model + market quotes, append-only)
+        continue-on-error: true
+        run: |
+          if git ls-remote --exit-code --heads origin shiv-archive > /dev/null; then
+            git fetch -q origin shiv-archive
+            git worktree add -q -B shiv-archive ../shiv-archive FETCH_HEAD
+          else
+            git worktree add -q --orphan -b shiv-archive ../shiv-archive
+          fi
+
       - name: Build data and site
+        env:
+          SHIV_ARCHIVE: ../shiv-archive
         run: python pipeline/run.py
+
+      - name: Archive this refresh's Shiv record
+        continue-on-error: true
+        run: |
+          if [ -f build/shiv_record.json.gz ] && [ -d ../shiv-archive ]; then
+            d=../shiv-archive/records/$(date -u +%Y-%m)
+            mkdir -p "$d"
+            cp build/shiv_record.json.gz "$d/$(date -u +%Y%m%dT%H%MZ).json.gz"
+            cd ../shiv-archive
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add -A
+            if ! git diff --cached --quiet; then git commit -q -m "Shiv record $(date -u +%Y-%m-%dT%H:%MZ)"; git push -q origin shiv-archive; fi
+          fi
 
       - name: Save history for newly completed seasons
         run: |

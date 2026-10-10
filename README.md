@@ -150,3 +150,11 @@ lambda 0.5); lambda 0.75 was better out of sample (13.09). v4 stays frozen; lamb
 price histories for US-sports futures, and `research/market_report.py` writes a private model-vs-market gap report
 (`reports/latest.md`), both on the `market-data` branch. `research/market_benchmark.py` scores the point-in-time back-tests
 against the market on past seasons (`model/market_benchmark.json`). Prices never feed a projection and are not shown on the site.
+
+## Shiv Value Models (`/shiv/`)
+Three separate approaches for US futures, on their own page so the sport pages stay model-only: our independent model,
+Polymarket (bid/ask midpoint, margin removed), and Shiv, an experimental 50/50 combination (geometric mean; log-odds
+average for yes/no markets). `pipeline/shiv.py` runs every refresh; markets are listed in `pipeline/shiv_markets.json`
+(update the slugs each season). Each refresh's model numbers and raw quotes (bid, ask, last, spread, liquidity, fee
+schedule, time) are appended to the `shiv-archive` branch; settled markets are scored from that archive (forward test).
+The back-test table comes from `model/market_benchmark.json`. No value/edge labels; gaps of 5+ points are flagged "check".

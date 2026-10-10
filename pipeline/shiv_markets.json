@@ -1,0 +1,139 @@
+{
+ "season_note": "2026 NFL season / 2026-27 NBA and NHL. Update the slugs each new season (python research/polymarket_collect.py lists them).",
+ "markets": {
+  "nfl": [
+   {
+    "label": "Super Bowl",
+    "slug": "pro-football-2027-champion-20260729185915366",
+    "field": "p_sb",
+    "one_winner": true
+   },
+   {
+    "label": "AFC champion",
+    "slug": "pro-football-2027-afc-champion",
+    "field": "p_conf",
+    "one_winner": true,
+    "group": "Conference"
+   },
+   {
+    "label": "NFC champion",
+    "slug": "pro-football-2027-nfc-champion",
+    "field": "p_conf",
+    "one_winner": true,
+    "group": "Conference"
+   },
+   {
+    "label": "AFC EAST",
+    "slug": "pro-football-afc-east-champion",
+    "field": "p_div",
+    "one_winner": true,
+    "group": "Division"
+   },
+   {
+    "label": "AFC NORTH",
+    "slug": "pro-football-afc-north-champion",
+    "field": "p_div",
+    "one_winner": true,
+    "group": "Division"
+   },
+   {
+    "label": "AFC SOUTH",
+    "slug": "pro-football-afc-south-champion",
+    "field": "p_div",
+    "one_winner": true,
+    "group": "Division"
+   },
+   {
+    "label": "AFC WEST",
+    "slug": "pro-football-afc-west-champion",
+    "field": "p_div",
+    "one_winner": true,
+    "group": "Division"
+   },
+   {
+    "label": "NFC EAST",
+    "slug": "pro-football-nfc-east-champion",
+    "field": "p_div",
+    "one_winner": true,
+    "group": "Division"
+   },
+   {
+    "label": "NFC NORTH",
+    "slug": "pro-football-nfc-north-champion",
+    "field": "p_div",
+    "one_winner": true,
+    "group": "Division"
+   },
+   {
+    "label": "NFC SOUTH",
+    "slug": "pro-football-nfc-south-champion",
+    "field": "p_div",
+    "one_winner": true,
+    "group": "Division"
+   },
+   {
+    "label": "NFC WEST",
+    "slug": "pro-football-nfc-west-champion",
+    "field": "p_div",
+    "one_winner": true,
+    "group": "Division"
+   },
+   {
+    "label": "Make playoffs",
+    "slug": "nfl-team-to-make-postseason",
+    "field": "p_playoff",
+    "one_winner": false
+   }
+  ],
+  "nba": [
+   {
+    "label": "NBA title",
+    "slug": "nba-2027-champion",
+    "field": "p_title",
+    "one_winner": true
+   },
+   {
+    "label": "East champion",
+    "slug": "nba-2027-eastern-conference-champion-20260624155838911",
+    "field": "p_conf",
+    "one_winner": true,
+    "group": "Conference"
+   },
+   {
+    "label": "West champion",
+    "slug": "nba-2027-western-conference-champion-20260624160106318",
+    "field": "p_conf",
+    "one_winner": true,
+    "group": "Conference"
+   }
+  ],
+  "nhl": [
+   {
+    "label": "Stanley Cup",
+    "slug": "nhl-2027-champion-20260612185656162",
+    "field": "p_cup",
+    "one_winner": true
+   },
+   {
+    "label": "East champion",
+    "slug": "nhl-2027-eastern-conference-champion-20260630185127005",
+    "field": "p_final",
+    "one_winner": true,
+    "group": "Conference"
+   },
+   {
+    "label": "West champion",
+    "slug": "nhl-2027-western-conference-champion-20260630185319860",
+    "field": "p_final",
+    "one_winner": true,
+    "group": "Conference"
+   },
+   {
+    "label": "Make playoffs",
+    "slug": "which-teams-will-make-the-nhl-playoffs-2026-27",
+    "field": "p_playoffs",
+    "one_winner": false
+   }
+  ]
+ }
+}

@@ -114,6 +114,12 @@ def main():
         sos.build_site()
     except Exception as e:  # noqa: BLE001
         log("schedule outlook failed", e)
+    try:  # Shiv Value Models page: our model vs Polymarket vs combination, plus the archive record for this refresh
+        import shiv
+        shiv.build_data()
+        shiv.build_site()
+    except Exception as e:  # noqa: BLE001
+        log("shiv failed", e)
     try:  # private research dataset + leakage/coverage report: written to data/research, never published
         import snapshots
         snapshots.build_all()
