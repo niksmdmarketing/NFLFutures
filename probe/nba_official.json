@@ -1,0 +1,607 @@
+{
+ "index_pages": {
+  "https://official.nba.com/nba-injury-report-2025-26-season/": {
+   "status": 200,
+   "n_links": 0,
+   "first": [],
+   "last": []
+  },
+  "https://official.nba.com/nba-injury-report-2026-27-season/": {
+   "status": 404,
+   "n_links": 0,
+   "first": [],
+   "last": []
+  },
+  "https://official.nba.com/nba-injury-report-2024-25-season/": {
+   "status": 200,
+   "n_links": 0,
+   "first": [],
+   "last": []
+  },
+  "https://official.nba.com/nba-injury-report-2021-22-season/": {
+   "status": 200,
+   "n_links": 0,
+   "first": [],
+   "last": []
+  }
+ },
+ "pdfs": {
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-02-26_05_15AM.pdf": {
+   "status": 200,
+   "bytes": 80566,
+   "chars": 6978,
+   "statuses": {
+    "Out": 57,
+    "Questionable": 24,
+    "Doubtful": 8,
+    "Probable": 2,
+    "Available": 7
+   }
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-02-26_05_00PM.pdf": {
+   "status": 200,
+   "bytes": 85424,
+   "chars": 8654,
+   "statuses": {
+    "Out": 94,
+    "Questionable": 20,
+    "Doubtful": 3,
+    "Probable": 5,
+    "Available": 9
+   }
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-02-26_05PM.pdf": {
+   "status": 403,
+   "bytes": 0
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-02-26_01PM.pdf": {
+   "status": 403,
+   "bytes": 0
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-02-26_12_00PM.pdf": {
+   "status": 200,
+   "bytes": 80289,
+   "chars": 6980,
+   "statuses": {
+    "Out": 57,
+    "Questionable": 24,
+    "Doubtful": 8,
+    "Probable": 2,
+    "Available": 7
+   }
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-02-26_06_30PM.pdf": {
+   "status": 200,
+   "bytes": 89360,
+   "chars": 10164,
+   "statuses": {
+    "Out": 121,
+    "Questionable": 12,
+    "Doubtful": 3,
+    "Probable": 5,
+    "Available": 18
+   }
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-02-26_06PM.pdf": {
+   "status": 403,
+   "bytes": 0
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-02-26_07_30PM.pdf": {
+   "status": 200,
+   "bytes": 89356,
+   "chars": 10060,
+   "statuses": {
+    "Out": 124,
+    "Questionable": 8,
+    "Doubtful": 1,
+    "Probable": 2,
+    "Available": 24
+   }
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-01-15_05_15AM.pdf": {
+   "status": 200,
+   "bytes": 76748,
+   "chars": 5564,
+   "statuses": {
+    "Out": 51,
+    "Questionable": 10,
+    "Doubtful": 5,
+    "Probable": 7,
+    "Available": 3
+   }
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-01-15_05_00PM.pdf": {
+   "status": 200,
+   "bytes": 86969,
+   "chars": 9383,
+   "statuses": {
+    "Out": 105,
+    "Questionable": 17,
+    "Doubtful": 6,
+    "Probable": 12,
+    "Available": 7
+   }
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-01-15_05PM.pdf": {
+   "status": 403,
+   "bytes": 0
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-01-15_01PM.pdf": {
+   "status": 403,
+   "bytes": 0
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-01-15_12_00PM.pdf": {
+   "status": 200,
+   "bytes": 76595,
+   "chars": 5564,
+   "statuses": {
+    "Out": 51,
+    "Questionable": 10,
+    "Doubtful": 5,
+    "Probable": 7,
+    "Available": 3
+   }
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-01-15_06_30PM.pdf": {
+   "status": 200,
+   "bytes": 89201,
+   "chars": 10049,
+   "statuses": {
+    "Out": 116,
+    "Questionable": 17,
+    "Doubtful": 6,
+    "Probable": 9,
+    "Available": 11
+   }
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-01-15_06PM.pdf": {
+   "status": 403,
+   "bytes": 0
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-01-15_07_30PM.pdf": {
+   "status": 200,
+   "bytes": 89237,
+   "chars": 9975,
+   "statuses": {
+    "Out": 120,
+    "Questionable": 11,
+    "Doubtful": 4,
+    "Probable": 8,
+    "Available": 16
+   }
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2025-03-10_05_15AM.pdf": {
+   "status": 403,
+   "bytes": 0
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2025-03-10_05_00PM.pdf": {
+   "status": 403,
+   "bytes": 0
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2025-03-10_05PM.pdf": {
+   "status": 200,
+   "bytes": 91176,
+   "chars": 10768,
+   "statuses": {
+    "Out": 114,
+    "Questionable": 31,
+    "Doubtful": 5,
+    "Probable": 8,
+    "Available": 7
+   }
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2025-03-10_01PM.pdf": {
+   "status": 200,
+   "bytes": 82016,
+   "chars": 7533,
+   "statuses": {
+    "Out": 72,
+    "Questionable": 22,
+    "Doubtful": 2,
+    "Probable": 7,
+    "Available": 4
+   }
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2025-03-10_12_00PM.pdf": {
+   "status": 403,
+   "bytes": 0
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2025-03-10_06_30PM.pdf": {
+   "status": 403,
+   "bytes": 0
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2025-03-10_06PM.pdf": {
+   "status": 200,
+   "bytes": 94046,
+   "chars": 11582,
+   "statuses": {
+    "Out": 138,
+    "Questionable": 19,
+    "Doubtful": 3,
+    "Probable": 7,
+    "Available": 16
+   }
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2025-03-10_07_30PM.pdf": {
+   "status": 403,
+   "bytes": 0
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2024-01-10_05_15AM.pdf": {
+   "status": 403,
+   "bytes": 0
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2024-01-10_05_00PM.pdf": {
+   "status": 403,
+   "bytes": 0
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2024-01-10_05PM.pdf": {
+   "status": 200,
+   "bytes": 82623,
+   "chars": 7510,
+   "statuses": {
+    "Out": 94,
+    "Questionable": 11,
+    "Doubtful": 3,
+    "Probable": 3,
+    "Available": 8
+   }
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2024-01-10_01PM.pdf": {
+   "status": 200,
+   "bytes": 80221,
+   "chars": 6856,
+   "statuses": {
+    "Out": 79,
+    "Questionable": 17,
+    "Doubtful": 4,
+    "Probable": 3,
+    "Available": 3
+   }
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2024-01-10_12_00PM.pdf": {
+   "status": 403,
+   "bytes": 0
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2024-01-10_06_30PM.pdf": {
+   "status": 403,
+   "bytes": 0
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2024-01-10_06PM.pdf": {
+   "status": 200,
+   "bytes": 83565,
+   "chars": 7957,
+   "statuses": {
+    "Out": 104,
+    "Questionable": 5,
+    "Doubtful": 3,
+    "Probable": 2,
+    "Available": 14
+   }
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2024-01-10_07_30PM.pdf": {
+   "status": 403,
+   "bytes": 0
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2023-01-10_05_15AM.pdf": {
+   "status": 403,
+   "bytes": 0
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2023-01-10_05_00PM.pdf": {
+   "status": 403,
+   "bytes": 0
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2023-01-10_05PM.pdf": {
+   "status": 200,
+   "bytes": 36709,
+   "chars": 8339,
+   "statuses": {
+    "Out": 87,
+    "Questionable": 18,
+    "Doubtful": 2,
+    "Probable": 10,
+    "Available": 6
+   }
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2023-01-10_01PM.pdf": {
+   "status": 200,
+   "bytes": 30193,
+   "chars": 5554,
+   "statuses": {
+    "Out": 54,
+    "Questionable": 8,
+    "Doubtful": 1,
+    "Probable": 7,
+    "Available": 2
+   }
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2023-01-10_12_00PM.pdf": {
+   "status": 403,
+   "bytes": 0
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2023-01-10_06_30PM.pdf": {
+   "status": 403,
+   "bytes": 0
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2023-01-10_06PM.pdf": {
+   "status": 200,
+   "bytes": 40089,
+   "chars": 8861,
+   "statuses": {
+    "Out": 93,
+    "Questionable": 19,
+    "Doubtful": 1,
+    "Probable": 10,
+    "Available": 9
+   }
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2023-01-10_07_30PM.pdf": {
+   "status": 403,
+   "bytes": 0
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2022-01-10_05_15AM.pdf": {
+   "status": 403,
+   "bytes": 0
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2022-01-10_05_00PM.pdf": {
+   "status": 403,
+   "bytes": 0
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2022-01-10_05PM.pdf": {
+   "status": 200,
+   "bytes": 31564,
+   "chars": 6355,
+   "statuses": {
+    "Out": 82,
+    "Questionable": 12,
+    "Doubtful": 0,
+    "Probable": 3,
+    "Available": 2
+   }
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2022-01-10_01PM.pdf": {
+   "status": 200,
+   "bytes": 25753,
+   "chars": 4269,
+   "statuses": {
+    "Out": 48,
+    "Questionable": 9,
+    "Doubtful": 0,
+    "Probable": 2,
+    "Available": 0
+   }
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2022-01-10_12_00PM.pdf": {
+   "status": 403,
+   "bytes": 0
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2022-01-10_06_30PM.pdf": {
+   "status": 403,
+   "bytes": 0
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2022-01-10_06PM.pdf": {
+   "status": 200,
+   "bytes": 35448,
+   "chars": 7012,
+   "statuses": {
+    "Out": 91,
+    "Questionable": 12,
+    "Doubtful": 0,
+    "Probable": 2,
+    "Available": 5
+   }
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2022-01-10_07_30PM.pdf": {
+   "status": 403,
+   "bytes": 0
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2021-12-10_05_15AM.pdf": {
+   "status": 403,
+   "bytes": 0
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2021-12-10_05_00PM.pdf": {
+   "status": 403,
+   "bytes": 0
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2021-12-10_05PM.pdf": {
+   "status": 200,
+   "bytes": 36305,
+   "chars": 7704,
+   "statuses": {
+    "Out": 96,
+    "Questionable": 10,
+    "Doubtful": 1,
+    "Probable": 7,
+    "Available": 3
+   }
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2021-12-10_01PM.pdf": {
+   "status": 200,
+   "bytes": 30188,
+   "chars": 5301,
+   "statuses": {
+    "Out": 60,
+    "Questionable": 6,
+    "Doubtful": 1,
+    "Probable": 4,
+    "Available": 2
+   }
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2021-12-10_12_00PM.pdf": {
+   "status": 403,
+   "bytes": 0
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2021-12-10_06_30PM.pdf": {
+   "status": 403,
+   "bytes": 0
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2021-12-10_06PM.pdf": {
+   "status": 200,
+   "bytes": 39923,
+   "chars": 8381,
+   "statuses": {
+    "Out": 110,
+    "Questionable": 7,
+    "Doubtful": 1,
+    "Probable": 6,
+    "Available": 7
+   }
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2021-12-10_07_30PM.pdf": {
+   "status": 403,
+   "bytes": 0
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2020-01-10_05_15AM.pdf": {
+   "status": 403,
+   "bytes": 0
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2020-01-10_05_00PM.pdf": {
+   "status": 403,
+   "bytes": 0
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2020-01-10_05PM.pdf": {
+   "status": 200,
+   "bytes": 37079,
+   "chars": 8300,
+   "statuses": {
+    "Out": 103,
+    "Questionable": 11,
+    "Doubtful": 1,
+    "Probable": 5,
+    "Available": 4
+   }
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2020-01-10_01PM.pdf": {
+   "status": 200,
+   "bytes": 35067,
+   "chars": 6824,
+   "statuses": {
+    "Out": 74,
+    "Questionable": 12,
+    "Doubtful": 1,
+    "Probable": 5,
+    "Available": 2
+   }
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2020-01-10_12_00PM.pdf": {
+   "status": 403,
+   "bytes": 0
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2020-01-10_06_30PM.pdf": {
+   "status": 403,
+   "bytes": 0
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2020-01-10_06PM.pdf": {
+   "status": 403,
+   "bytes": 0
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2020-01-10_07_30PM.pdf": {
+   "status": 403,
+   "bytes": 0
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-04-10_05_15AM.pdf": {
+   "status": 200,
+   "bytes": 84461,
+   "chars": 8165,
+   "statuses": {
+    "Out": 78,
+    "Questionable": 21,
+    "Doubtful": 8,
+    "Probable": 5,
+    "Available": 2
+   }
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-04-10_05_00PM.pdf": {
+   "status": 200,
+   "bytes": 99150,
+   "chars": 13994,
+   "statuses": {
+    "Out": 143,
+    "Questionable": 28,
+    "Doubtful": 10,
+    "Probable": 16,
+    "Available": 9
+   }
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-04-10_05PM.pdf": {
+   "status": 403,
+   "bytes": 0
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-04-10_01PM.pdf": {
+   "status": 403,
+   "bytes": 0
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-04-10_12_00PM.pdf": {
+   "status": 200,
+   "bytes": 84437,
+   "chars": 8317,
+   "statuses": {
+    "Out": 81,
+    "Questionable": 20,
+    "Doubtful": 8,
+    "Probable": 5,
+    "Available": 2
+   }
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-04-10_06_30PM.pdf": {
+   "status": 200,
+   "bytes": 99374,
+   "chars": 14063,
+   "statuses": {
+    "Out": 151,
+    "Questionable": 24,
+    "Doubtful": 7,
+    "Probable": 8,
+    "Available": 18
+   }
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-04-10_06PM.pdf": {
+   "status": 403,
+   "bytes": 0
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-04-10_07_30PM.pdf": {
+   "status": 200,
+   "bytes": 99519,
+   "chars": 13867,
+   "statuses": {
+    "Out": 161,
+    "Questionable": 15,
+    "Doubtful": 1,
+    "Probable": 3,
+    "Available": 30
+   }
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-05_05_15AM.pdf": {
+   "status": 403,
+   "bytes": 0
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-05_05_00PM.pdf": {
+   "status": 403,
+   "bytes": 0
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-05_05PM.pdf": {
+   "status": 403,
+   "bytes": 0
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-05_01PM.pdf": {
+   "status": 403,
+   "bytes": 0
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-05_12_00PM.pdf": {
+   "status": 403,
+   "bytes": 0
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-05_06_30PM.pdf": {
+   "status": 403,
+   "bytes": 0
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-05_06PM.pdf": {
+   "status": 403,
+   "bytes": 0
+  },
+  "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-05_07_30PM.pdf": {
+   "status": 403,
+   "bytes": 0
+  }
+ },
+ "checked_utc": "2026-10-10T11:06+00:00"
+}
