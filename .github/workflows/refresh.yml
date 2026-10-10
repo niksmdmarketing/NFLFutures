@@ -62,7 +62,7 @@ jobs:
           git add -A
           if ! git diff --cached --quiet; then
             git commit -q -m "Injury report check $(date -u +%Y-%m-%dT%H:%MZ)"
-            git push -q origin injury-monitor
+            for i in 1 2 3; do git push -q origin injury-monitor && break; git pull -q --rebase origin injury-monitor; sleep 5; done
           fi
           exit $status
 
@@ -88,7 +88,7 @@ jobs:
           if [ -d ../injury-monitor/nba ]; then
             cd ../injury-monitor
             git add -A nba
-            if ! git diff --cached --quiet; then git commit -q -m "NBA injury report $(date -u +%Y-%m-%dT%H:%MZ)"; git push -q origin injury-monitor; fi
+            if ! git diff --cached --quiet; then git commit -q -m "NBA injury report $(date -u +%Y-%m-%dT%H:%MZ)"; for i in 1 2 3; do git push -q origin injury-monitor && break; git pull -q --rebase origin injury-monitor; sleep 5; done; fi
           fi
 
       - name: Archive this refresh's Shiv record

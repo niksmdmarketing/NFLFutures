@@ -1,0 +1,46 @@
+name: Availability collection (all sports, collection only)
+# Official reports, transactions, reporter context and projected line-ups for NFL, NBA, NHL, NBL and AFL.
+# Nothing here feeds a published projection. History lives on the injury-monitor branch under availability/.
+on:
+  schedule:
+    - cron: "23 * * * *"   # hourly: covers US report windows, NBA's rolling reports and AU selection windows
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: availability
+  cancel-in-progress: false
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Collect
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git ls-remote --exit-code --heads origin injury-monitor > /dev/null; then
+            git fetch -q origin injury-monitor
+            git worktree add -q -B injury-monitor ../injury-monitor FETCH_HEAD
+          else
+            git worktree add -q --orphan -b injury-monitor ../injury-monitor
+          fi
+          python pipeline/avail_collect.py ../injury-monitor
+      - name: Save (append-only history; retries if the site refresh pushed meanwhile)
+        run: |
+          cd ../injury-monitor
+          git add -A availability
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -q -m "Availability collection $(date -u +%Y-%m-%dT%H:%MZ)"
+          for i in 1 2 3 4; do
+            if git push -q origin injury-monitor; then exit 0; fi
+            git pull -q --rebase origin injury-monitor || exit 1
+            sleep 5
+          done
+          exit 1
