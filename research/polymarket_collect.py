@@ -41,6 +41,10 @@ for q in QUERIES:
         if KEEP.search(t) and not DROP.search(t) and float(e.get("volume") or 0) >= 5000 and (e.get("startDate") or "") >= "2024-01-01":
             events[e["slug"]] = t
     time.sleep(0.25)
+for slug in ("superbowl-champion-2025", "super-bowl-champion-2026-731", "pro-football-2027-champion-20260729185915366", "afc-champion",
+             "nfc-champion", "afc-champion-1", "nfc-champion-1", "nba-champion-2024-2025", "2026-nba-champion", "nba-2027-champion",
+             "stanley-cup-winner", "2026-nhl-stanley-cup-champion", "nhl-2027-champion-20260612185656162"):
+    events.setdefault(slug, slug)        # key markets always included even if the search ranking changes
 print(len(events), "events")
 index = json.load(open(os.path.join(ROOT, "index.json"))) if os.path.exists(os.path.join(ROOT, "index.json")) else {}
 snap = {}

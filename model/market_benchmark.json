@@ -1,0 +1,205 @@
+{
+ "nfl": {
+  "sb wk0": {
+   "model": 3.603,
+   "market": 2.797,
+   "blend": 3.137,
+   "events": 1
+  },
+  "sb wk4": {
+   "model": 3.524,
+   "market": 2.988,
+   "blend": 3.214,
+   "events": 1
+  },
+  "sb wk9": {
+   "model": 3.232,
+   "market": 2.739,
+   "blend": 2.957,
+   "events": 1
+  },
+  "sb wk13": {
+   "model": 2.618,
+   "market": 1.92,
+   "blend": 2.248,
+   "events": 1
+  },
+  "conf wk0": {
+   "model": 3.049,
+   "market": 2.789,
+   "blend": 2.871,
+   "events": 4
+  },
+  "conf wk4": {
+   "model": 2.561,
+   "market": 2.824,
+   "blend": 2.656,
+   "events": 4
+  },
+  "conf wk9": {
+   "model": 2.055,
+   "market": 1.993,
+   "blend": 1.988,
+   "events": 4
+  },
+  "conf wk13": {
+   "model": 1.754,
+   "market": 1.512,
+   "blend": 1.616,
+   "events": 4
+  },
+  "div wk0": {
+   "model": 1.407,
+   "market": 1.3,
+   "blend": 1.318,
+   "events": 16
+  },
+  "div wk4": {
+   "model": 1.297,
+   "market": 1.423,
+   "blend": 1.337,
+   "events": 16
+  },
+  "div wk9": {
+   "model": 0.907,
+   "market": 0.965,
+   "blend": 0.927,
+   "events": 16
+  },
+  "div wk13": {
+   "model": 0.62,
+   "market": 0.643,
+   "blend": 0.627,
+   "events": 16
+  },
+  "playoff wk0": {
+   "model": 0.2693,
+   "market": 0.2377,
+   "blend": 0.2491,
+   "teams": 29,
+   "metric": "brier"
+  },
+  "playoff wk4": {
+   "model": 0.23,
+   "market": 0.2132,
+   "blend": 0.2137,
+   "teams": 29,
+   "metric": "brier"
+  },
+  "playoff wk9": {
+   "model": 0.184,
+   "market": 0.1844,
+   "blend": 0.1781,
+   "teams": 29,
+   "metric": "brier"
+  },
+  "playoff wk13": {
+   "model": 0.0867,
+   "market": 0.0932,
+   "blend": 0.0893,
+   "teams": 52,
+   "metric": "brier"
+  }
+ },
+ "nba": {
+  "title 0%": {
+   "model": 2.825,
+   "market": 2.43,
+   "blend": 2.527,
+   "events": 2
+  },
+  "title 20%": {
+   "model": 2.531,
+   "market": 2.497,
+   "blend": 2.452,
+   "events": 2
+  },
+  "title 40%": {
+   "model": 2.021,
+   "market": 2.236,
+   "blend": 2.075,
+   "events": 2
+  },
+  "title 60%": {
+   "model": 1.972,
+   "market": 2.155,
+   "blend": 2.011,
+   "events": 2
+  },
+  "title 80%": {
+   "model": 1.762,
+   "market": 2.199,
+   "blend": 1.943,
+   "events": 2
+  },
+  "conf 0%": {
+   "model": 3.347,
+   "market": 2.431,
+   "blend": 2.782,
+   "events": 4
+  },
+  "conf 20%": {
+   "model": 3.206,
+   "market": 2.454,
+   "blend": 2.759,
+   "events": 4
+  },
+  "conf 40%": {
+   "model": 2.923,
+   "market": 2.079,
+   "blend": 2.452,
+   "events": 4
+  },
+  "conf 60%": {
+   "model": 2.402,
+   "market": 2.148,
+   "blend": 2.238,
+   "events": 4
+  },
+  "conf 80%": {
+   "model": 2.129,
+   "market": 2.034,
+   "blend": 2.051,
+   "events": 4
+  }
+ },
+ "nhl": {
+  "cup 2024 N0": {
+   "model": null,
+   "market": null,
+   "blend": null,
+   "events": 0
+  },
+  "cup 2024 N20": {
+   "model": 2.586,
+   "market": 2.36,
+   "blend": 2.44,
+   "events": 1
+  },
+  "cup 2025 N0": {
+   "model": 2.381,
+   "market": 2.294,
+   "blend": 2.298,
+   "events": 1
+  },
+  "conf 2025 N0": {
+   "model": null,
+   "market": null,
+   "blend": null,
+   "events": 0
+  },
+  "cup 2025 N20": {
+   "model": 2.048,
+   "market": 2.576,
+   "blend": 2.268,
+   "events": 1
+  },
+  "conf 2025 N20": {
+   "model": 1.614,
+   "market": 1.884,
+   "blend": 1.699,
+   "events": 2
+  }
+ },
+ "note": "mean -log(probability given to the eventual winner), lower is better; playoff rows use Brier score per team; blend = geometric mean of model and market"
+}
