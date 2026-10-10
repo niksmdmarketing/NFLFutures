@@ -31,7 +31,14 @@ jobs:
           else
             git worktree add -q --orphan -b injury-monitor ../injury-monitor
           fi
-          python pipeline/avail_collect.py ../injury-monitor
+          # NBL player -> team lookup from the site's own published player tables (last two seasons)
+          mkdir -p ../nbl-players
+          if git fetch -q origin published; then
+            for f in $(git ls-tree --name-only FETCH_HEAD nbl/data/ | grep -E 'players_[0-9]{4}\.json$' | sort | tail -2); do
+              git show "FETCH_HEAD:$f" > "../nbl-players/$(basename "$f")"
+            done
+          fi
+          NBL_PLAYERS_DIR=../nbl-players python pipeline/avail_collect.py ../injury-monitor
       - name: Save (append-only history; retries if the site refresh pushed meanwhile)
         run: |
           cd ../injury-monitor

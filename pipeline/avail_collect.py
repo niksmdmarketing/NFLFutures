@@ -42,6 +42,10 @@ SPACING_S = 1.5
 MAX_ARTICLES_PER_SOURCE = 8
 ARTICLE_MAX_AGE_DAYS = 10
 LIST_MAX_AGE_DAYS = 120       # a full injury list stays the latest picture until a newer list replaces it (off-season)
+PARSER_VERSION = 2            # bump to re-parse cached articles after a parser change
+NBL_ENTRY = re.compile(r"([A-Z][A-Za-z'’\.\-]+(?:\s+[A-Z][A-Za-z'’\.\-]+){1,3})\s+[-–—]\s+(.{2,60}?)\s+[-–—]\s+"
+                       r"(Rounds?\s*\d+(?:\s*[-–]\s*\d+)?|Rd\s*\d+(?:\s*[-–]\s*\d+)?|TBC|TBA|Test|Season|Indefinite|"
+                       r"\d+(?:\s*[-–]\s*\d+)?\s*(?:weeks?|games?|months?))", re.I)
 LIST_URL = re.compile(r"medical-room|injury-list|injury-updates|injuries-list", re.I)
 
 # ------------------------------------------------------------------ teams
@@ -629,7 +633,9 @@ class Run:
     def article(self, league, source_name, url):
         """Fetch once while the article is unchanged; later runs re-use the extracted facts (no re-download)."""
         e = self.seen.get(url)
-        if e and e.get("parsed") and "records" in e:
+        # injury lists are updated in place under the same URL: always re-read them; other articles are re-used
+        # while unchanged unless the parser has changed since
+        if e and e.get("parsed") and "records" in e and e.get("parser") == PARSER_VERSION and not LIST_URL.search(url):
             pub = parse_time(e.get("modified_utc") or e.get("published_utc"))
             if pub and (NOW - pub).days > (LIST_MAX_AGE_DAYS if LIST_URL.search(url) else ARTICLE_MAX_AGE_DAYS):
                 return 0
@@ -646,7 +652,7 @@ class Run:
         blocks, _, ld, _ = page(html)
         head, pub, mod = article_meta(ld, html)
         self.seen[url] = {"first_seen_utc": self.seen.get(url, {}).get("first_seen_utc", iso(NOW)), "published_utc": iso(pub),
-                          "modified_utc": iso(mod), "parsed": True, "headline": head}
+                          "modified_utc": iso(mod), "parsed": True, "headline": head, "parser": PARSER_VERSION}
         if not pub and not mod:
             self.seen[url]["skipped"] = "no publication time: facts not usable"
             return 0
@@ -666,6 +672,8 @@ class Run:
                 return 0
             game = str(gd) if gd else None
         n = 0
+        if league == "nbl" and LIST_URL.search(url):
+            return self._nbl_list(url, head, when, blocks)
         cur_team = None
         for b in blocks:
             if b["tag"] in ("h2", "h3", "h4"):
@@ -684,10 +692,40 @@ class Run:
                     who = self._single_candidate(league, s)
                 if len(who) != 1:
                     continue
-                name, team, pid = who[0]
+                name, team, pid = who[0][:3]
                 r = rec(league, "reported", "context", source_name, url, team=team or cur_team, player=name, player_id=pid,
                         headline=head, published_utc=iso(when), affected_game=game)
                 self.add(apply_facts(r, f))
+                n += 1
+        return n
+
+    def _nbl_list(self, url, head, when, blocks):
+        """NBL.com.au's league injury list: entries 'First Last - injury - Round 5 / Rounds 5-7 / TBC / Test / Season'
+        (several per paragraph). The team comes from the NBL player list (this season, then last season); a player
+        who cannot be placed is kept with team unknown. Test/TBC stay uncertain."""
+        n = 0
+        for b in blocks:
+            if b["tag"] not in ("p", "li"):
+                continue
+            for m in NBL_ENTRY.finditer(b["text"] or ""):
+                name, injury, est = m.group(1).strip(), m.group(2).strip(), m.group(3).strip()
+                hit = self.names.by_league.get("nbl", {}).get(player_key(name))
+                r = rec("nbl", "official", "league_injury_list", "NBL.com.au latest injury list", url, player=name,
+                        team=hit[1] if hit else None, injury=injury, headline=head, published_utc=iso(when),
+                        confirmation="league-published injury list (not a game-day report)")
+                if hit and len(hit) > 3:
+                    r["team_source"] = hit[3]
+                e = est.lower()
+                rr = re.match(r"(?:rounds?|rd)\s*(\d+)(?:\s*[-–]\s*(\d+))?", e)
+                wk = re.match(r"(\d+)(?:\s*[-–]\s*(\d+))?\s*(weeks?|games?|months?)", e)
+                if rr:
+                    r["return_low"], r["return_high"] = "R" + rr.group(1), "R" + (rr.group(2) or rr.group(1))
+                    r["return_text_class"] = "round"
+                elif wk:
+                    r["return_text_class"] = f"{wk.group(1)}-{wk.group(2) or wk.group(1)} {wk.group(3)}"
+                else:
+                    r["return_text_class"] = e          # test / tbc / tba / season / indefinite: no date invented
+                self.add(r)
                 n += 1
         return n
 
@@ -884,8 +922,28 @@ class Run:
         self.source("nhl", "Daily Faceoff line combinations (32 teams, daily)", "projected", url.format("{team}"), go)
 
     # ---------- NBL
+    def _seed_nbl_names(self):
+        """Player -> team from the site's own NBL player tables (published branch, copied by the workflow into
+        NBL_PLAYERS_DIR): this season first, then last season (team may have changed: marked)."""
+        folder = os.environ.get("NBL_PLAYERS_DIR")
+        if not folder or not os.path.isdir(folder):
+            return 0
+        files = sorted((f for f in os.listdir(folder) if re.fullmatch(r"players_\d{4}\.json", f)), reverse=True)[:2]
+        known = self.names.by_league.setdefault("nbl", {})
+        for i, f in enumerate(files):
+            j = _read(os.path.join(folder, f), {})
+            for row in j.get("rows") or []:
+                if len(row) < 2 or not row[0]:
+                    continue
+                k = player_key(row[0])
+                if k not in known:
+                    known[k] = (row[0], row[1], None, "this season's NBL stats" if i == 0 else "last season's NBL stats (team may have changed)")
+        return len(known)
+
     def nbl(self):
         cat = "https://www.nbl.com.au/news-categories/injury"
+
+        self._seed_nbl_names()
 
         def go():
             html, _ = fetch(cat)
