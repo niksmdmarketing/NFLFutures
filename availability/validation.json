@@ -1,5 +1,5 @@
 {
- "checked_utc": "2026-10-10T12:37:14+00:00",
+ "checked_utc": "2026-10-10T12:45:10+00:00",
  "leagues": {
   "nfl": {
    "records": 1676,
@@ -47,6 +47,11 @@
    "conflicts": [],
    "stale_projection_dates": 0,
    "teams_missing_official": [],
+   "season_state": {
+    "state": "unknown",
+    "why": "HTTPError: HTTP Error 400: Bad Request"
+   },
+   "coverage_expected": true,
    "syndicated_headlines": 0,
    "reported_matched_to_official_list": "137/137"
   },
@@ -94,6 +99,11 @@
    "conflicts": [],
    "stale_projection_dates": 0,
    "teams_missing_official": [],
+   "season_state": {
+    "state": "unknown",
+    "why": "HTTPError: HTTP Error 400: Bad Request"
+   },
+   "coverage_expected": true,
    "syndicated_headlines": 0,
    "reported_matched_to_official_list": "79/79"
   },
@@ -144,6 +154,11 @@
    "conflicts": [],
    "stale_projection_dates": 0,
    "teams_missing_official": [],
+   "season_state": {
+    "state": "unknown",
+    "why": "HTTPError: HTTP Error 400: Bad Request"
+   },
+   "coverage_expected": true,
    "syndicated_headlines": 0,
    "reported_matched_to_official_list": "54/55"
   },
@@ -168,6 +183,11 @@
     "SYD",
     "TAS"
    ],
+   "season_state": {
+    "state": "in_season",
+    "why": "18 NBL games 2026-10-03..2026-10-20 (NBL fixture, season 2026)"
+   },
+   "coverage_expected": true,
    "syndicated_headlines": 0,
    "reported_matched_to_official_list": "0/0"
   },
@@ -200,11 +220,18 @@
     "WBD",
     "WCE"
    ],
+   "season_state": {
+    "state": "off_season",
+    "why": "0 AFL games 2026-10-03..2026-10-20 (Squiggle fixture)"
+   },
+   "coverage_expected": false,
+   "teams_missing_official_note": "off-season: no official coverage expected",
    "syndicated_headlines": 0,
    "reported_matched_to_official_list": "0/0"
   }
  },
  "sources_failed": [
   "nba: NBA official injury report (PDF, file-name time) - RuntimeError: no official report found in the last 30 hours"
- ]
+ ],
+ "sources_not_expected": []
 }
