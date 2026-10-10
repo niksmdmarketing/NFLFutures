@@ -1,0 +1,58 @@
+{
+ "seasons": "2006-2025",
+ "games": 4869,
+ "test_seasons": "2009-2025",
+ "by_stage": {
+  "first quarter": {
+   "games": 1043,
+   "model": 0.6564,
+   "market": 0.6348,
+   "pooled": 0.6352,
+   "weight_on_model": 0.03,
+   "seasons_pooled_better": 6,
+   "seasons": 17,
+   "weight_all_seasons": 0.0
+  },
+  "second quarter": {
+   "games": 948,
+   "model": 0.6215,
+   "market": 0.6033,
+   "pooled": 0.6074,
+   "weight_on_model": 0.41,
+   "seasons_pooled_better": 6,
+   "seasons": 17,
+   "weight_all_seasons": 0.1
+  },
+  "third quarter": {
+   "games": 1072,
+   "model": 0.6162,
+   "market": 0.6042,
+   "pooled": 0.6049,
+   "weight_on_model": 0.05,
+   "seasons_pooled_better": 4,
+   "seasons": 17,
+   "weight_all_seasons": 0.05
+  },
+  "last quarter": {
+   "games": 1087,
+   "model": 0.6108,
+   "market": 0.586,
+   "pooled": 0.5866,
+   "weight_on_model": 0.18,
+   "seasons_pooled_better": 7,
+   "seasons": 17,
+   "weight_all_seasons": 0.0
+  }
+ },
+ "overall": {
+  "model": 0.6261,
+  "market": 0.6069,
+  "pooled": 0.6083
+ },
+ "note": "weeks 2+; rating weights were trained on 2010-2021, so those seasons are in-sample for our model",
+ "outside_training_years": {
+  "model": 0.6267453933836244,
+  "market": 0.6072573629885578,
+  "games": 1980
+ }
+}

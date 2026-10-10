@@ -18,7 +18,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import ratings
 from common import FIX, MODEL, TEAMS, games, load_pbp, scrimmage
 
-SEASONS = range(2019, 2026)
+SEASONS = range(int(os.environ.get("QB_FIRST", "2019")), int(os.environ.get("QB_LAST", "2025")) + 1)
 LAMBDAS = (0.0, 0.25, 0.5, 0.75, 1.0)
 
 
