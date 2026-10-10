@@ -151,11 +151,17 @@ def tune_shrinkage(TT, GG, betas_by_year, years):
     return int(best_k), tau
 
 
+# Extra preseason rating uncertainty, fading out by game 20. Point-in-time back-test 2021-2025: F=1.5 cut preseason
+# playoff log-loss 0.572 -> 0.560 and division 1.751 -> 1.719 (better in 4 of 5 seasons); chosen with TypeSafe (96%).
+TAU_PRE = 1.5
+
+
 def tau_at(tau, n):
+    widen = 1 + (TAU_PRE - 1) * max(0.0, 1 - n / 20)
     if n <= 0:
-        return tau[0]
+        return tau[0] * widen
     if n <= 20:
-        return tau[0] + (tau[20] - tau[0]) * n / 20
+        return (tau[0] + (tau[20] - tau[0]) * n / 20) * widen
     if n <= 41:
         return tau[20] + (tau[41] - tau[20]) * (n - 20) / 21
     return tau[41] * float(np.sqrt(41 / n))
@@ -339,7 +345,7 @@ def params_before(TT, GG, fit_years, done, y):
     return beta, k, tau, total, hfa
 
 
-def backtest(TT, GG, fit_years, done, years):
+def backtest(TT, GG, fit_years, done, years, return_rows=False):
     rows = []
     for y in years:
         if y not in GG or y not in TT or y - 1 not in TT:
@@ -390,6 +396,8 @@ def backtest(TT, GG, fit_years, done, years):
     if not rows:
         return None
     d = pd.DataFrame(rows)
+    if return_rows:
+        return d
     out = {}
     for N, x in d.groupby("N"):
         p = x.p_po.clip(0.005, 0.995)
@@ -470,7 +478,7 @@ def build():
                      "p_r2": float(sim["r2"][i]), "p_r3": float(sim["r3"][i]), "p_final": float(sim["final"][i]), "p_cup": float(sim["cup"][i]),
                      "over": [round(float(v), 4) for v in cdf[i][30:141]]})
     cache = os.path.join(nhl.NHL_DATA, "model_backtest.json")
-    key = f"v2-point-in-time-{done[-1]}-{SIMS > 0}"
+    key = f"v3-point-in-time-{done[-1]}-{TAU_PRE}-{SIMS > 0}"
     bt = None
     if os.path.exists(cache):
         c0 = json.load(open(cache))

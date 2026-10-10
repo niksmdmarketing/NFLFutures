@@ -26,6 +26,7 @@ WEEKS = (0, 4, 9, 13)
 MARKETS = [("div", "Division winner", 8), ("playoff", "Make the playoffs", 14), ("seed1", "No. 1 seed", 2),
            ("conf", "Conference champion", 2), ("sb", "Super Bowl", 1)]
 N_SIMS = int(os.environ.get("BT_SIMS", "4000"))
+TEAM_ROWS = []          # per-team probabilities and outcomes (for calibration checks)
 
 
 def outcomes(g, y):
@@ -76,6 +77,9 @@ def run():
                 R = R - R.mean()
                 res = fn(greg, R, N_SIMS, P["tau"], P["sigma"], P["hfa"])
                 r = dict(season=y, week=w, model=name, wins_mae=float(np.abs(res["wins"].mean(0) - out["wins"]).mean()))
+                for i, t in enumerate(TEAMS):
+                    TEAM_ROWS.append(dict(season=y, week=w, model=name, team=t, **{k: float(res[k][i]) for k, _, _ in MARKETS},
+                                          **{"y_" + k: float(out[k][i]) for k, _, _ in MARKETS}))
                 for k, _, _ in MARKETS:
                     r[k] = ll(res[k], out[k])
                     r[k + "_winner_p"] = float(res[k][out[k] == 1].mean())
@@ -111,6 +115,7 @@ def summarise(D):
 
 if __name__ == "__main__":
     D = run()
+    pd.DataFrame(TEAM_ROWS).to_csv(os.path.join(os.environ.get("TMPDIR", "/tmp"), "nfl_bt_teams.csv"), index=False)
     S = summarise(D)
     json.dump(S, open(os.path.join(MODEL, "futures_backtest.json"), "w"), indent=1)
     print(json.dumps(S, indent=1))

@@ -138,3 +138,9 @@ next fixture is not out (AFL off-season) the page shows the completed season's d
 `pipeline/nfl_qb_backtest.py` (offline) rebuilds ratings and QB values before every 2019-2025 game and scores the QB layer on the
 582 games with a starting-QB change (results in `model/qb_backtest.json`). The layer helps (RMSE 13.48 -> 13.16 at the live
 lambda 0.5); lambda 0.75 was better out of sample (13.09). v4 stays frozen; lambda 0.75 is noted for v5 (TypeSafe 61%).
+
+## Calibration and roster tests (Oct 2026)
+- Shrinking futures probabilities toward the field: NFL no (point-in-time 2022-25, slightly sharper was better); NHL preseason
+  yes: extra preseason rating uncertainty `TAU_PRE = 1.5` in `nhl_model.py`, fading out by game 20 (playoff log-loss 0.572 -> 0.560,
+  better in 4 of 5 seasons). NBA needs a title-probability back-test first.
+- Roster continuity for NBL/AFL (`pipeline/roster_continuity_test.py`): no improvement, not adopted.
