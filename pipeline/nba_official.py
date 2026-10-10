@@ -79,11 +79,12 @@ def parse(pdf_bytes):
                 txt = {k: " ".join(v) for k, v in cells.items()}
                 if "Matchup" in txt.get("matchup", "") or "Report:" in " ".join(txt.values()):
                     continue
-                if re.match(r"\d\d/\d\d/\d{4}", txt.get("game_date", "")):
-                    cur["game_date"] = dt.datetime.strptime(txt["game_date"][:10], "%m/%d/%Y").date().isoformat()
+                m = re.search(r"(\d\d/\d\d/\d{4})", " ".join(txt.values()))
+                if m:
+                    cur["game_date"] = dt.datetime.strptime(m.group(1), "%m/%d/%Y").date().isoformat()
                 if re.match(r"[A-Z]{2,3}@[A-Z]{2,3}", txt.get("matchup", "")):
                     cur["matchup"] = txt["matchup"].split()[0]
-                if txt.get("team"):
+                if re.search(r"[A-Za-z]{3}", txt.get("team", "")) and "Page" not in txt["team"]:
                     cur["team"] = txt["team"]
                 st = txt.get("status", "").split()
                 if st and st[0] in STATUSES and txt.get("player"):

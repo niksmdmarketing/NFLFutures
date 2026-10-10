@@ -840,16 +840,17 @@ def _availability(players: pd.DataFrame, end_year: int, schedule: pd.DataFrame) 
     """Known absences -> per-game points adjustments. Any failure leaves the model exactly as before (no adjustment)."""
     try:
         import nba_avail as A
-        injuries, stamp = A.fetch_injuries(NBA_DATA)
+        injuries, feed = A.fetch_injuries(NBA_DATA, os.environ.get("NBA_INJ_STORE"))
         if injuries is None:
-            return {}, {"available": False}
+            return {}, {"available": False, **feed}
+        stamp = feed.get("feed_time")
         values, _ = A.player_values(players, end_year, TEAMS)
         adj, listed = A.game_adjustments(schedule, injuries, values, NAMES)
         store = os.environ.get("NBA_INJ_STORE")
-        if store:
+        if store and not feed["stale"] and feed["age_hours"] == 0:
             A.archive(store, injuries, stamp)
         log("NBA availability", len(listed), "rotation players out or doubtful;", len(adj), "games adjusted")
-        return adj, {"available": True, "feed_time": stamp, "beta": A.BETA, "rows": listed}
+        return adj, {"available": True, **feed, "beta": A.BETA, "rows": listed}
     except Exception as e:  # noqa: BLE001
         log("NBA availability skipped:", e)
         return {}, {"available": False}

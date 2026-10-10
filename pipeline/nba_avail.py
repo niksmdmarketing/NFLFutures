@@ -59,18 +59,7 @@ def player_values(players, end_year, teams):
     return {i: dict(name=r["name"], team=r.team, mpg=round(float(r.mpg), 1), value=round(float(r.value), 2)) for i, r in agg.iterrows()}, rep
 
 
-def fetch_injuries(cache_dir):
-    path = os.path.join(cache_dir, "nba_injuries_latest.json")
-    try:
-        with urllib.request.urlopen(urllib.request.Request(URL, headers={"User-Agent": "SportsFutures/1.0"}), timeout=30) as r:
-            j = json.load(r)
-        json.dump(j, open(path, "w"))
-    except Exception as e:  # noqa: BLE001
-        print("[nba avail] injuries feed unavailable:", e, flush=True)
-        import time
-        if not os.path.exists(path) or time.time() - os.path.getmtime(path) > 24 * 3600:
-            return None, None   # never apply a stale report
-        j = json.load(open(path))
+def _rows_from_espn(j):
     rows = []
     for t in j.get("injuries") or []:
         for i in t.get("injuries") or []:
@@ -79,9 +68,61 @@ def fetch_injuries(cache_dir):
             m = re.search(r"/id/(\d+)/", href)
             det = i.get("details") or {}
             rows.append(dict(athlete_id=m.group(1) if m else None, name=a.get("displayName"), team_name=t.get("displayName"),
-                             status=i.get("status"), return_date=det.get("returnDate"), injury=" ".join(x for x in (det.get("side"), det.get("type"), det.get("detail")) if x),
-                             updated=i.get("date")))
-    return rows, j.get("timestamp")
+                             status=i.get("status"), return_date=det.get("returnDate"),
+                             injury=" ".join(x for x in (det.get("side"), det.get("type"), det.get("detail")) if x), updated=i.get("date")))
+    return rows
+
+
+STALE_FULL_H = 24      # a report this fresh is used as is
+STALE_MAX_DAYS = 21    # beyond this nothing is used
+
+
+def fetch_injuries(cache_dir, store=None, now=None):
+    """-> (rows, meta). If the feed fails, the last known report is kept: within 24 hours as is; older (up to 21 days)
+    only confirmed Out players whose estimated return is still ahead (or, with no date, a report under 14 days old);
+    short-term statuses are dropped. meta says whether the report is stale and how old it is."""
+    now = now or dt.datetime.now(dt.timezone.utc)
+    path = os.path.join(cache_dir, "nba_injuries_latest.json")
+    try:
+        with urllib.request.urlopen(urllib.request.Request(URL, headers={"User-Agent": "SportsFutures/1.0"}), timeout=30) as r:
+            j = json.load(r)
+        os.makedirs(cache_dir, exist_ok=True)
+        json.dump({"collected_utc": now.isoformat(), "feed": j}, open(path, "w"))
+        return _rows_from_espn(j), {"stale": False, "age_hours": 0.0, "feed_time": j.get("timestamp")}
+    except Exception as e:  # noqa: BLE001
+        print("[nba avail] injuries feed unavailable:", e, flush=True)
+    found = []
+    if os.path.exists(path):
+        c = json.load(open(path))
+        if "feed" in c:
+            found.append((dt.datetime.fromisoformat(c["collected_utc"]), _rows_from_espn(c["feed"]), c["feed"].get("timestamp")))
+    if store and os.path.exists(os.path.join(store, "nba", "latest.json")):
+        c = json.load(open(os.path.join(store, "nba", "latest.json")))
+        t = dt.datetime.strptime(c["collected_utc"], "%Y-%m-%dT%H%MZ").replace(tzinfo=dt.timezone.utc)
+        found.append((t, c["rows"], c.get("feed_timestamp")))
+    if not found:
+        return None, {"stale": True, "age_hours": None}
+    t, rows, stamp = max(found, key=lambda f: f[0])
+    age_h = (now - t).total_seconds() / 3600
+    meta = {"stale": age_h > STALE_FULL_H, "age_hours": round(age_h, 1), "feed_time": stamp}
+    if age_h <= STALE_FULL_H:
+        return rows, meta
+    if age_h > STALE_MAX_DAYS * 24:
+        return None, meta
+    today = now.date()
+    keep = []
+    for r in rows:
+        if r["status"] != "Out":
+            continue
+        if r.get("return_date"):
+            try:
+                if dt.date.fromisoformat(str(r["return_date"])[:10]) > today:
+                    keep.append(r)
+            except ValueError:
+                pass
+        elif age_h <= NO_DATE_DAYS * 24:
+            keep.append(r)
+    return keep, meta
 
 
 def game_adjustments(schedule, injuries, values, names, today=None):
