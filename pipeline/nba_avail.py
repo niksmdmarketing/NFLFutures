@@ -251,6 +251,11 @@ def plan(schedule, injuries, values, names, today=None, official=None):
             st = official.get((pid, gd))
             if st in P_MISS:
                 per_game[gi] = v["value"] * (P_MISS[st] - v["baseline"])
+        game_day = [official.get((pid, k[0])) for k in (keys[i] for i in g)]
+        if r is not None and r["status"] == "Out" and any(st in ("Available", "Probable", "Questionable") for st in game_day):
+            r = dict(r, status="Day-To-Day")   # the league's report says he may play: no longer a long-term absence
+        if r is None and any(st in ("Out", "Doubtful") for st in game_day):
+            r = {"status": "Game-day", "injury": "Official report", "return_date": None}
         if r is not None and r["status"] == "Out":
             med, sig = _days_until(r, today)
             episodes.append(dict(team=team, games=g, days=days[g], sign=sign[team][g], cost_out=v["value"] * (1 - v["baseline"]),
@@ -259,9 +264,10 @@ def plan(schedule, injuries, values, names, today=None, official=None):
             fixed[g] += per_game * sign[team][g]
         if r is not None:
             med = _days_until(r, today)[0] if r["status"] == "Out" else DTD_DAYS
-            n = int((days[g] < med).sum())
-            pmiss = 1.0 if r["status"] == "Out" else P_MISS["Day-To-Day"]
-            listed.append(dict(team=team, player=v["name"], status=r["status"], est_return=str(r.get("return_date") or "")[:10] or None,
+            n = int((days[g] < med).sum()) if r["status"] != "Game-day" else int(sum(st is not None for st in game_day))
+            pmiss = 1.0 if r["status"] == "Out" else max([P_MISS.get(st, 0) for st in game_day if st] or [P_MISS["Day-To-Day"]])
+            status = r["status"] if r["status"] != "Game-day" else next(st for st in game_day if st)
+            listed.append(dict(team=team, player=v["name"], status=status, est_return=str(r.get("return_date") or "")[:10] or None,
                                injury=r.get("injury"), points=round(v["value"] * (pmiss - v["baseline"]), 1), value=v["value"],
                                baseline=v["baseline"], mpg=v["mpg"], games=n))
     listed.sort(key=lambda x: (-(x["games"] > 0), -x["points"]))
@@ -308,3 +314,31 @@ def archive(store, injuries, stamp):
     with open(os.path.join(d, "history.jsonl"), "a") as f:
         f.write(json.dumps({"collected_utc": now, "feed_timestamp": stamp, "rows": rows}) + "\n")
     return True
+
+
+def official_statuses(values, store=None, now=None):
+    """Latest official NBA injury report -> ({(athlete_id, game_date): status}, meta). Archived when it changes."""
+    import nba_official as O
+    url, pdf, t = O.latest(now, hours_back=18)
+    if not pdf:
+        return {}, {"official": None}
+    rows = O.parse(pdf)
+    by_name = {}
+    for pid, v in values.items():
+        by_name.setdefault(O.name_key(v["name"]), []).append(pid)
+    out, unmatched = {}, 0
+    for r in rows:
+        ids = by_name.get(O.player_key(r["player"]), [])
+        if len(ids) == 1 and r.get("game_date"):
+            out[(ids[0], r["game_date"])] = r["status"]
+        elif r["status"] in ("Out", "Doubtful", "Questionable"):
+            unmatched += 1
+    if store:
+        d = os.path.join(store, "nba")
+        os.makedirs(d, exist_ok=True)
+        seen = os.path.join(d, "official_last.txt")
+        if not os.path.exists(seen) or open(seen).read().strip() != url:
+            with open(os.path.join(d, "official.jsonl"), "a") as f:
+                f.write(json.dumps({"report": url.rsplit("_", 0)[0].split("Injury-Report_")[-1], "rows": rows}) + "\n")
+            open(seen, "w").write(url)
+    return out, {"official": url.split("Injury-Report_")[-1].removesuffix(".pdf"), "official_rows": len(rows), "official_unmatched": unmatched}

@@ -50,7 +50,7 @@ def load():
         d = pd.read_csv(p, low_memory=False, usecols=lambda c: c in {
             "game_id", "season", "season_type", "game_date", "athlete_id", "team_abbreviation", "minutes", "field_goals_made",
             "field_goals_attempted", "free_throws_made", "free_throws_attempted", "offensive_rebounds", "defensive_rebounds",
-            "assists", "steals", "blocks", "turnovers", "fouls", "points", "did_not_play"})
+            "assists", "steals", "blocks", "turnovers", "fouls", "points", "did_not_play", "athlete_display_name"})
         frames.append(d[pd.to_numeric(d.season_type, errors="coerce") == 2])
     d = pd.concat(frames, ignore_index=True)
     d = d[d.team_abbreviation.isin(N.TEAMS)].copy()
@@ -64,6 +64,33 @@ def load():
     d["season"] = pd.to_numeric(d.season, errors="coerce").astype(int)
     d["athlete_id"] = d.athlete_id.astype(str)
     return d.sort_values(["date", "game_id"])
+
+
+OFFICIAL = {}          # (date, athlete_id) -> pre-game official status, filled from OFFICIAL_CSV
+OFFICIAL_DATES = set()
+P_MISS = {"Out": 1.0, "Doubtful": 0.9, "Questionable": 0.45, "Probable": 0.05, "Available": 0.0}
+
+
+def load_official(d, path):
+    """Match official report rows ('Last, First', team) to box-score athlete ids by name within the season."""
+    sys.path.insert(0, os.path.join(ROOT, "pipeline"))
+    import nba_official as O
+    R = pd.read_csv(path)
+    R = R[R.game_date.notna()]
+    names = d.drop_duplicates(["season", "athlete_id"])
+    key = {}
+    for r in names.itertuples():
+        key.setdefault((r.season, O.name_key(r.athlete_display_name)), set()).add(r.athlete_id)
+    hit = miss = 0
+    for r in R.itertuples():
+        ids = key.get((int(r.season), O.player_key(r.player)), set())
+        if len(ids) == 1:
+            OFFICIAL[(str(r.game_date)[:10], next(iter(ids)))] = r.status
+            hit += 1
+        else:
+            miss += 1
+        OFFICIAL_DATES.add(str(r.game_date)[:10])
+    print("official rows matched", hit, "unmatched", miss, flush=True)
 
 
 def run(d):
@@ -111,7 +138,9 @@ def run(d):
                 n_h = max(1, len(hist))
                 v1_rot = {p: mins / n_h for p, mins in usual.items() if mins / n_h >= ROT_MIN}
                 members = {p for p in season_members[(team, y)] if last_team.get(p) == team}
-                res = {"v1": 0.0, "v1_trade": 0.0, "v1_base": 0.0, "v2_base": 0.0, "v2_typ": 0.0}
+                res = {"v1": 0.0, "v1_trade": 0.0, "v1_base": 0.0, "v2_base": 0.0, "v2_typ": 0.0, "v2_official": 0.0}
+                gd = str(x.date.iloc[0].date())
+                covered = gd in OFFICIAL_DATES
                 lr = league[1] / league[0] if league[0] else 0.12
 
                 def typical(pid):
@@ -137,6 +166,9 @@ def run(d):
                     val2 = ability(p, "v2") * mins / 48
                     res["v2_base"] += val2 * (miss - baseline(p))
                     res["v2_typ"] += val2 * (typical(p) - baseline(p))
+                    if covered:
+                        res["v2_official"] += val2 * (P_MISS.get(OFFICIAL.get((gd, p)), 0.0) - baseline(p))
+                row["covered"] = covered
                 row.update(res)
                 out.append(row)
                 # update baselines for members of this game
@@ -171,8 +203,10 @@ def test(A, ratings_csv, market_csv=None):
     from scipy.stats import norm
     R["m"] = norm.ppf(R.p_model.clip(1e-4, 1 - 1e-4)) * s_eff
     A["date"] = pd.to_datetime(A.date).dt.normalize()
-    variants = ["v1", "v1_trade", "v1_base", "v2_base", "v2_typ"]
-    h = A.rename(columns={"team": "home", **{v: v + "_h" for v in variants}})[["date", "home"] + [v + "_h" for v in variants]]
+    variants = ["v1", "v1_trade", "v1_base", "v2_base", "v2_typ", "v2_official"]
+    if "covered" not in A:
+        A["covered"] = False
+    h = A.rename(columns={"team": "home", **{v: v + "_h" for v in variants}})[["date", "home", "covered"] + [v + "_h" for v in variants]]
     a = A.rename(columns={"team": "away", **{v: v + "_a" for v in variants}})[["date", "away"] + [v + "_a" for v in variants]]
     R = R.merge(h, on=["date", "home"], how="left").merge(a, on=["date", "away"], how="left").fillna(0)
     R = R.dropna(subset=["m", "y"])
@@ -204,6 +238,18 @@ def test(A, ratings_csv, market_csv=None):
             res[v]["vs_closing_odds"] = {"games": int(len(J)), "ours": round(M.ll(J["p_" + v].values, J.y.values), 4),
                                          "ours_no_adjustment": round(M.ll(J.p_model.values, J.y.values), 4),
                                          "market": round(M.ll(J.p_market.values, J.y.values), 4)}
+    C = R[R.covered.astype(bool)]
+    if len(C):
+        out = {"games": int(len(C)), "seasons": sorted(int(x) for x in C.season.unique()), "scale_used": 0.45,
+               "no_adjustment": round(M.ll(M.phi(C.m / s_eff), C.y.values), 4)}
+        for v in ("v2_base", "v2_official"):
+            dd = C[v + "_h"] - C[v + "_a"]
+            out[v] = round(M.ll(M.phi((C.m - 0.45 * dd) / s_eff), C.y.values), 4)
+        if K is not None:
+            J = C.merge(K, on=["date", "home", "away"], how="inner")
+            out["market_same_games"] = {"games": int(len(J)), "market": round(M.ll(J.p_market.values, J.y.values), 4),
+                                        "v2_official": round(M.ll(M.phi((J.m - 0.45 * (J.v2_official_h - J.v2_official_a)) / s_eff), J.y.values), 4)}
+        res["pre_game_official_reports"] = out
     return res, R
 
 
@@ -213,7 +259,11 @@ if __name__ == "__main__":
     if os.path.exists(cache):
         A = pd.read_csv(cache)
     else:
-        A = run(load())
+        D = load()
+        if os.environ.get("OFFICIAL_CSV"):
+            for f in os.environ["OFFICIAL_CSV"].split(","):
+                load_official(D, f)
+        A = run(D)
         A.to_csv(cache, index=False)
     res, R = test(A, sys.argv[1], sys.argv[2] if len(sys.argv) > 2 else None)
     R.to_csv(os.path.join(tmp, "nba_avail2_games.csv"), index=False)

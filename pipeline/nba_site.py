@@ -544,7 +544,9 @@ def _avail_html(a):
              "games at their usual rate. Return dates are ESPN's estimates; each simulation draws its own return date around them "
              "(two weeks with a wide spread if none is given, longer for surgeries), and anyone still out at the end of the regular season "
              "weakens his team in the playoffs. Listed: players whose absence costs at least half a point and who will miss a regular-season game."
-             + (f" Report time {e(str(a.get('feed_time'))[:16].replace('T', ' '))} UTC." if a.get("feed_time") else "") + "</p>")
+             + (f" ESPN report time {e(str(a.get('feed_time'))[:16].replace('T', ' '))} UTC." if a.get("feed_time") else "")
+             + (f" Game-day statuses (Probable / Questionable / Doubtful / Out) from the NBA's official injury report of {e(a['official'].replace('_', ' ', 1).replace('_', ':', 1))} ET." if a.get("official") else "")
+             + "</p>")
     if not rows:
         return stale + intro + '<p class="note">No listed absences reach a regular-season game yet.</p>'
     body = "".join(f"<tr><td>{e(r['team'])}</td><td>{e(r['player'])}</td><td>{e(r['status'])}</td><td>{e(r['injury'] or '')}</td>"

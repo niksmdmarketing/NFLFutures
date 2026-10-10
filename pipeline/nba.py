@@ -858,10 +858,14 @@ def _availability(players: pd.DataFrame, end_year: int, schedule: pd.DataFrame, 
         store = os.environ.get("NBA_INJ_STORE")
         if store and not feed["stale"] and feed["age_hours"] == 0:
             A.archive(store, injuries, stamp)
-        official = {}
+        try:
+            official, off_meta = A.official_statuses(values, store)
+        except Exception as e:  # noqa: BLE001
+            log("NBA official injury report skipped:", e)
+            official, off_meta = {}, {"official": None}
         plan = A.plan(schedule, injuries, values, NAMES, official=official)
         log("NBA availability", len(plan["listed"]), "listed rotation players;", len(plan["episodes"]), "recovery paths simulated")
-        return plan, {"available": report_ok, **feed, "beta": A.BETA, "rows": plan["listed"], "version": 2}
+        return plan, {"available": report_ok, **feed, "beta": A.BETA, "rows": plan["listed"], "version": 2, **off_meta}
     except Exception as e:  # noqa: BLE001
         log("NBA availability skipped:", e)
         return {}, {"available": False}
