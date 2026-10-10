@@ -1,0 +1,3965 @@
+{
+ "dfo_goalies": {
+  "status": 200,
+  "chars": 255089,
+  "next_paths": {
+   ".props.pageProps.data[].homeTeamId": [
+    "int"
+   ],
+   ".props.pageProps.data[].homeTeamName": [
+    "str:13",
+    "str:14",
+    "str:15",
+    "str:16",
+    "str:17",
+    "str:18",
+    "str:19",
+    "str:20"
+   ],
+   ".props.pageProps.data[].homeTeamSlug": [
+    "str:13",
+    "str:14",
+    "str:15",
+    "str:16",
+    "str:17",
+    "str:18",
+    "str:19",
+    "str:20"
+   ],
+   ".props.pageProps.data[].homeTeamFantasydataId": [
+    "int"
+   ],
+   ".props.pageProps.data[].homeTeamLogoSvg": [
+    "str:url"
+   ],
+   ".props.pageProps.data[].homeGoalieId": [
+    "int"
+   ],
+   ".props.pageProps.data[].homeGoalieLegacyId": [
+    "NoneType",
+    "int"
+   ],
+   ".props.pageProps.data[].homeGoalieFantasydataId": [
+    "int"
+   ],
+   ".props.pageProps.data[].homeGoaliePuckpediaUrlId": [
+    "str:10",
+    "str:11",
+    "str:12",
+    "str:13",
+    "str:14",
+    "str:15",
+    "str:16",
+    "str:19"
+   ],
+   ".props.pageProps.data[].homeGoalieSlug": [
+    "str:15",
+    "str:16",
+    "str:17",
+    "str:18",
+    "str:19",
+    "str:20",
+    "str:21",
+    "str:24"
+   ],
+   ".props.pageProps.data[].homeGoalieName": [
+    "str:10",
+    "str:11",
+    "str:12",
+    "str:13",
+    "str:14",
+    "str:15",
+    "str:16",
+    "str:19"
+   ],
+   ".props.pageProps.data[].homeGoalieRating": [
+    "NoneType",
+    "float"
+   ],
+   ".props.pageProps.data[].homeGoaliePositionRank": [
+    "NoneType",
+    "int"
+   ],
+   ".props.pageProps.data[].homeGoaliePositionRankColor": [
+    "NoneType",
+    "str:7"
+   ],
+   ".props.pageProps.data[].homeGoalieFantasydataFaceUrl": [
+    "str:url"
+   ],
+   ".props.pageProps.data[].homeGoalieHeadshotUrl": [
+    "str:url"
+   ],
+   ".props.pageProps.data[].homeGoalieWins": [
+    "int"
+   ],
+   ".props.pageProps.data[].homeGoalieLosses": [
+    "int"
+   ],
+   ".props.pageProps.data[].homeGoalieOvertimeLosses": [
+    "int"
+   ],
+   ".props.pageProps.data[].homeGoalieShutouts": [
+    "int"
+   ],
+   ".props.pageProps.data[].homeGoalieSavePercentage": [
+    "str:3",
+    "str:4",
+    "str:5"
+   ],
+   ".props.pageProps.data[].homeGoalieGoalsAgainstAvg": [
+    "str:3",
+    "str:4"
+   ],
+   ".props.pageProps.data[].homeGoalieFantasySalary": [
+    "NoneType"
+   ],
+   ".props.pageProps.data[].homeGoalieCapHit": [
+    "int"
+   ],
+   ".props.pageProps.data[].homeGoalieContractLength": [
+    "int"
+   ],
+   ".props.pageProps.data[].homeGoalieContractExpiryYear": [
+    "int"
+   ],
+   ".props.pageProps.data[].homeGoalieContractExpiresAs": [
+    "str:3"
+   ],
+   ".props.pageProps.data[].homeNewsStrengthId": [
+    "NoneType"
+   ],
+   ".props.pageProps.data[].homeNewsStrengthName": [
+    "NoneType"
+   ],
+   ".props.pageProps.data[].homeNewsDetails": [
+    "NoneType"
+   ],
+   ".props.pageProps.data[].homeNewsFantasyDetails": [
+    "NoneType"
+   ],
+   ".props.pageProps.data[].homeNewsSourceName": [
+    "NoneType"
+   ],
+   ".props.pageProps.data[].homeNewsSourceUrl": [
+    "NoneType"
+   ],
+   ".props.pageProps.data[].homeNewsCreatedAt": [
+    "NoneType"
+   ],
+   ".props.pageProps.data[].awayTeamId": [
+    "int"
+   ],
+   ".props.pageProps.data[].awayTeamName": [
+    "str:12",
+    "str:13",
+    "str:14",
+    "str:15",
+    "str:17",
+    "str:19",
+    "str:21"
+   ],
+   ".props.pageProps.data[].awayTeamSlug": [
+    "str:12",
+    "str:13",
+    "str:14",
+    "str:15",
+    "str:17",
+    "str:19",
+    "str:21"
+   ],
+   ".props.pageProps.data[].awayTeamFantasydataId": [
+    "int"
+   ],
+   ".props.pageProps.data[].awayTeamLogoSvg": [
+    "str:url"
+   ],
+   ".props.pageProps.data[].awayGoalieId": [
+    "int"
+   ],
+   ".props.pageProps.data[].awayGoalieLegacyId": [
+    "NoneType",
+    "int"
+   ],
+   ".props.pageProps.data[].awayGoalieFantasydataId": [
+    "int"
+   ],
+   ".props.pageProps.data[].awayGoaliePuckpediaUrlId": [
+    "NoneType",
+    "str:10",
+    "str:11",
+    "str:13",
+    "str:14",
+    "str:15",
+    "str:16",
+    "str:18"
+   ],
+   ".props.pageProps.data[].awayGoalieSlug": [
+    "str:15",
+    "str:16",
+    "str:17",
+    "str:18",
+    "str:19",
+    "str:20",
+    "str:21",
+    "str:22",
+    "str:23"
+   ],
+   ".props.pageProps.data[].awayGoalieName": [
+    "str:10",
+    "str:11",
+    "str:13",
+    "str:14",
+    "str:15",
+    "str:16",
+    "str:18"
+   ],
+   ".props.pageProps.data[].awayGoalieRating": [
+    "NoneType",
+    "float"
+   ],
+   ".props.pageProps.data[].awayGoaliePositionRank": [
+    "NoneType",
+    "int"
+   ],
+   ".props.pageProps.data[].awayGoaliePositionRankColor": [
+    "NoneType",
+    "str:7"
+   ],
+   ".props.pageProps.data[].awayGoalieFantasydataFaceUrl": [
+    "str:url"
+   ],
+   ".props.pageProps.data[].awayGoalieHeadshotUrl": [
+    "str:url"
+   ],
+   ".props.pageProps.data[].awayGoalieWins": [
+    "int"
+   ],
+   ".props.pageProps.data[].awayGoalieLosses": [
+    "int"
+   ],
+   ".props.pageProps.data[].awayGoalieOvertimeLosses": [
+    "int"
+   ],
+   ".props.pageProps.data[].awayGoalieShutouts": [
+    "int"
+   ],
+   ".props.pageProps.data[].awayGoalieSavePercentage": [
+    "str:3",
+    "str:4",
+    "str:5"
+   ],
+   ".props.pageProps.data[].awayGoalieGoalsAgainstAvg": [
+    "str:3",
+    "str:4"
+   ],
+   ".props.pageProps.data[].awayGoalieFantasySalary": [
+    "NoneType"
+   ],
+   ".props.pageProps.data[].awayGoalieCapHit": [
+    "NoneType",
+    "int"
+   ],
+   ".props.pageProps.data[].awayGoalieContractLength": [
+    "NoneType",
+    "int"
+   ],
+   ".props.pageProps.data[].awayGoalieContractExpiryYear": [
+    "NoneType",
+    "int"
+   ],
+   ".props.pageProps.data[].awayGoalieContractExpiresAs": [
+    "NoneType",
+    "str:3"
+   ],
+   ".props.pageProps.data[].awayNewsStrengthId": [
+    "NoneType",
+    "int"
+   ],
+   ".props.pageProps.data[].awayNewsStrengthName": [
+    "NoneType",
+    "str:9"
+   ],
+   ".props.pageProps.data[].awayNewsDetails": [
+    "NoneType",
+    "str:42",
+    "str:44"
+   ],
+   ".props.pageProps.data[].awayNewsFantasyDetails": [
+    "NoneType",
+    "str:0"
+   ],
+   ".props.pageProps.data[].awayNewsSourceName": [
+    "NoneType",
+    "str:13",
+    "str:16"
+   ],
+   ".props.pageProps.data[].awayNewsSourceUrl": [
+    "NoneType",
+    "str:url"
+   ],
+   ".props.pageProps.data[].awayNewsCreatedAt": [
+    "NoneType",
+    "str:date"
+   ],
+   ".props.pageProps.data[].date": [
+    "str:date"
+   ],
+   ".props.pageProps.data[].time": [
+    "str:5"
+   ],
+   ".props.pageProps.data[].pointSpread": [
+    "float"
+   ],
+   ".props.pageProps.data[].homeTeamMoneylinePointSpread": [
+    "int"
+   ],
+   ".props.pageProps.data[].awayTeamMoneylinePointSpread": [
+    "int"
+   ],
+   ".props.pageProps.data[].fantasySalaryLogoUrl": [
+    "str:url"
+   ],
+   ".props.pageProps.data[].fantasySalaryProvider": [
+    "str:10"
+   ],
+   ".props.pageProps.data[].dateGmt": [
+    "str:date"
+   ],
+   ".props.pageProps.data[].homeGoalieOverallScore": [
+    "int"
+   ],
+   ".props.pageProps.data[].awayGoalieOverallScore": [
+    "int"
+   ],
+   ".props.pageProps.date": [
+    "str:date"
+   ],
+   ".props.pageProps.specificDate": [
+    "bool"
+   ],
+   ".props.pageProps.toolkitPosts[].node.id": [
+    "str:16"
+   ],
+   ".props.pageProps.toolkitPosts[].node.databaseId": [
+    "int"
+   ],
+   ".props.pageProps.toolkitPosts[].node.title": [
+    "str:43",
+    "str:47",
+    "str:52",
+    "str:82",
+    "str:85"
+   ],
+   ".props.pageProps.toolkitPosts[].node.excerpt": [
+    "str:323",
+    "str:334",
+    "str:357",
+    "str:374",
+    "str:380",
+    "str:75"
+   ],
+   ".props.pageProps.toolkitPosts[].node.slug": [
+    "str:43",
+    "str:47",
+    "str:51",
+    "str:79",
+    "str:91"
+   ],
+   ".props.pageProps.toolkitPosts[].node.author.node.name": [
+    "str:12",
+    "str:13"
+   ],
+   ".props.pageProps.toolkitPosts[].node.author.node.slug": [
+    "str:10",
+    "str:11",
+    "str:12"
+   ],
+   ".props.pageProps.toolkitPosts[].node.categories.edges[].node.name": [
+    "str:13",
+    "str:17",
+    "str:18",
+    "str:19",
+    "str:7",
+    "str:9"
+   ],
+   ".props.pageProps.toolkitPosts[].node.categories.edges[].node.slug": [
+    "str:13",
+    "str:14",
+    "str:17",
+    "str:18",
+    "str:19",
+    "str:9"
+   ],
+   ".props.pageProps.toolkitPosts[].node.featuredImage.node.altText": [
+    "str:0"
+   ],
+   ".props.pageProps.toolkitPosts[].node.featuredImage.node.mediaItemUrl": [
+    "str:url"
+   ],
+   ".props.pageProps.toolkitPosts[].node.featuredImage.node.mediaDetails.height": [
+    "int"
+   ],
+   ".props.pageProps.toolkitPosts[].node.featuredImage.node.mediaDetails.width": [
+    "int"
+   ],
+   ".props.pageProps.stubData.metaTitle": [
+    "str:20"
+   ],
+   ".props.pageProps.stubData.metaDescription": [
+    "str:77"
+   ],
+   ".props.pageProps.stubData.jsonLdSnippet": [
+    "NoneType"
+   ],
+   ".props.pageProps.stubData.content": [
+    "str:999"
+   ],
+   ".props.__N_SSG": [
+    "bool"
+   ],
+   ".page": [
+    "str:url"
+   ],
+   ".buildId": [
+    "str:21"
+   ],
+   ".isFallback": [
+    "bool"
+   ],
+   ".isExperimentalCompile": [
+    "bool"
+   ],
+   ".gsp": [
+    "bool"
+   ],
+   ".scriptLoader[].src": [
+    "str:url"
+   ],
+   ".scriptLoader[].data-website-id": [
+    "str:36"
+   ],
+   ".scriptLoader[].data-domains": [
+    "str:37"
+   ],
+   ".scriptLoader[].strategy": [
+    "str:16"
+   ]
+  },
+  "enums": {
+   ".props.pageProps.data[].homeGoaliePositionRankColor": [
+    "#749f53",
+    "#8bb669",
+    "#f99388",
+    "#ffd66a"
+   ],
+   ".props.pageProps.data[].awayGoaliePositionRankColor": [
+    "#749f53",
+    "#a9c98e",
+    "#fff2d0"
+   ],
+   ".props.pageProps.data[].awayNewsStrengthName": [
+    "Confirmed"
+   ]
+  },
+  "jsonld_0": {
+   ".@context": [
+    "str:url"
+   ],
+   ".@type": [
+    "str:11"
+   ],
+   ".description": [
+    "str:131"
+   ],
+   ".mainEntityOfPage.@type": [
+    "str:7"
+   ],
+   ".mainEntityOfPage.@id": [
+    "str:url"
+   ],
+   ".headline": [
+    "str:39"
+   ],
+   ".image": [
+    "str:url"
+   ],
+   ".articleSection": [
+    "str:16"
+   ]
+  },
+  "jsonld_1": {
+   ".@context": [
+    "str:url"
+   ],
+   ".@type": [
+    "str:21"
+   ],
+   ".name": [
+    "str:13"
+   ],
+   ".description": [
+    "str:91"
+   ],
+   ".url": [
+    "str:url"
+   ],
+   ".logo": [
+    "str:url"
+   ]
+  },
+  "outline": {
+   "table/tbody/tr/td.border-b": 224,
+   "div/table/tbody/tr": 112,
+   "div/div/div/table.w-full": 28,
+   "div/div/div/article.w-full": 14,
+   "div/ul/a/li": 8,
+   "div/div/section/h2.mb-2": 7,
+   "footer/section/ul/li": 7,
+   "section/div/div/p.mb-4": 5,
+   "div/ul/div/li": 3,
+   "div/div/section/h3.mb-2": 3,
+   "main/main/footer/section.border-t": 2,
+   "div/div/div/ul.flex": 1,
+   "div/main/main/section": 1,
+   "main/main/section/section.m-4": 1,
+   "div/div/div/h1.text-center": 1,
+   "div/div/div/h2.text-xl": 1,
+   "section/div/div/section.ml-4": 1,
+   "main/footer/section/h2.mb-4": 1,
+   "main/footer/section/ul.flex": 1
+  },
+  "tables": [
+   {
+    "rows": 4,
+    "max_cols": 2,
+    "headers": []
+   },
+   {
+    "rows": 4,
+    "max_cols": 2,
+    "headers": []
+   },
+   {
+    "rows": 4,
+    "max_cols": 2,
+    "headers": []
+   },
+   {
+    "rows": 4,
+    "max_cols": 2,
+    "headers": []
+   },
+   {
+    "rows": 4,
+    "max_cols": 2,
+    "headers": []
+   },
+   {
+    "rows": 4,
+    "max_cols": 2,
+    "headers": []
+   },
+   {
+    "rows": 4,
+    "max_cols": 2,
+    "headers": []
+   },
+   {
+    "rows": 4,
+    "max_cols": 2,
+    "headers": []
+   },
+   {
+    "rows": 4,
+    "max_cols": 2,
+    "headers": []
+   },
+   {
+    "rows": 4,
+    "max_cols": 2,
+    "headers": []
+   }
+  ],
+  "article_links_sample_paths": [
+   "/news/fantasy-hockey-N-N-weekly-strength-of-schedule-and-streaming-targets-week-N",
+   "/news/scouting-report-breaking-down-top-N-nhl-draft-prospect-landon-dupont-ncaa-debut-michigan",
+   "/news/the-ultimate-N-N-fantasy-hockey-cheat-sheet",
+   "/news/waiver-wire-wednesday-week-N-fantasy-hockey-pickups",
+   "/news/what-we-learned-in-week-N-of-fantasy-hockey"
+  ]
+ },
+ "dfo_team_lines": {
+  "status": 200,
+  "chars": 259487,
+  "next_paths": {
+   ".props.pageProps.slug": [
+    "str:19"
+   ],
+   ".props.pageProps.combinations.teamId": [
+    "int"
+   ],
+   ".props.pageProps.combinations.teamFantasydataId": [
+    "int"
+   ],
+   ".props.pageProps.combinations.teamName": [
+    "str:19"
+   ],
+   ".props.pageProps.combinations.teamAbbreviation": [
+    "str:3"
+   ],
+   ".props.pageProps.combinations.teamLogo": [
+    "str:url"
+   ],
+   ".props.pageProps.combinations.teamSlug": [
+    "str:19"
+   ],
+   ".props.pageProps.combinations.sourceName": [
+    "str:12"
+   ],
+   ".props.pageProps.combinations.source": [
+    "str:url"
+   ],
+   ".props.pageProps.combinations.updatedAt": [
+    "str:date"
+   ],
+   ".props.pageProps.combinations.players[].playerId": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].legacyId": [
+    "NoneType",
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].playerSlug": [
+    "str:11",
+    "str:12",
+    "str:13",
+    "str:14",
+    "str:15",
+    "str:16",
+    "str:20",
+    "str:21",
+    "str:8",
+    "str:9"
+   ],
+   ".props.pageProps.combinations.players[].fantasydataId": [
+    "NoneType",
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].fantasydataFaceUrl": [
+    "str:url"
+   ],
+   ".props.pageProps.combinations.players[].name": [
+    "str:11",
+    "str:12",
+    "str:13",
+    "str:14",
+    "str:15",
+    "str:16",
+    "str:20",
+    "str:8",
+    "str:9"
+   ],
+   ".props.pageProps.combinations.players[].rating": [
+    "NoneType",
+    "float"
+   ],
+   ".props.pageProps.combinations.players[].jerseyUrl": [
+    "str:url"
+   ],
+   ".props.pageProps.combinations.players[].jerseyNumber": [
+    "NoneType",
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].positionIdentifier": [
+    "str:1",
+    "str:2",
+    "str:3"
+   ],
+   ".props.pageProps.combinations.players[].positionName": [
+    "str:10",
+    "str:12",
+    "str:13",
+    "str:15",
+    "str:17",
+    "str:6",
+    "str:8",
+    "str:9"
+   ],
+   ".props.pageProps.combinations.players[].positionRank": [
+    "NoneType",
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].positionRankColor": [
+    "NoneType",
+    "str:7"
+   ],
+   ".props.pageProps.combinations.players[].groupIdentifier": [
+    "str:1",
+    "str:2",
+    "str:3"
+   ],
+   ".props.pageProps.combinations.players[].groupName": [
+    "str:10",
+    "str:15",
+    "str:18",
+    "str:21",
+    "str:7",
+    "str:9"
+   ],
+   ".props.pageProps.combinations.players[].categoryIdentifier": [
+    "str:2"
+   ],
+   ".props.pageProps.combinations.players[].categoryName": [
+    "str:10",
+    "str:12",
+    "str:13",
+    "str:7"
+   ],
+   ".props.pageProps.combinations.players[].injuryStatus": [
+    "NoneType",
+    "str:2",
+    "str:3"
+   ],
+   ".props.pageProps.combinations.players[].gameTimeDecision": [
+    "bool"
+   ],
+   ".props.pageProps.combinations.players[].cap.capHit": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].cap.contractStart": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].cap.contractLength": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].cap.contractExpiryYear": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].cap.contractExpiresAs": [
+    "str:3"
+   ],
+   ".props.pageProps.combinations.players[].cap.puckpediaUrlId": [
+    "str:11",
+    "str:12",
+    "str:13",
+    "str:14",
+    "str:15",
+    "str:16",
+    "str:17",
+    "str:20",
+    "str:8",
+    "str:9"
+   ],
+   ".props.pageProps.combinations.players[].latestNews.id": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].latestNews.createdAt": [
+    "str:date"
+   ],
+   ".props.pageProps.combinations.players[].latestNews.details": [
+    "str:100",
+    "str:108",
+    "str:112",
+    "str:137",
+    "str:42",
+    "str:43",
+    "str:45",
+    "str:46",
+    "str:54",
+    "str:63",
+    "str:66",
+    "str:67",
+    "str:70",
+    "str:75",
+    "str:76",
+    "str:77",
+    "str:81",
+    "str:90"
+   ],
+   ".props.pageProps.combinations.players[].latestNews.fantasyDetails": [
+    "NoneType",
+    "str:0",
+    "str:211",
+    "str:244",
+    "str:288",
+    "str:299",
+    "str:314",
+    "str:343",
+    "str:349",
+    "str:368",
+    "str:398",
+    "str:407",
+    "str:429",
+    "str:448",
+    "str:466",
+    "str:506"
+   ],
+   ".props.pageProps.combinations.players[].draftKingsSalary": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].fanDuelSalary": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].season.gamesPlayed": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].season.goals": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].season.assists": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].season.points": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].season.blocks": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].season.toiMinutes": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].season.toiSeconds": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].season.shots": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].season.powerplayGoals": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].season.powerplayAssists": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].season.powerplayPoints": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].last10.gamesPlayed": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].last10.goals": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].last10.assists": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].last10.points": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].last10.blocks": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].last10.toiMinutes": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].last10.toiSeconds": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].last10.shots": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].last10.powerplayGoals": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].last10.powerplayAssists": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].last10.powerplayPoints": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].last5.gamesPlayed": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].last5.goals": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].last5.assists": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].last5.points": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].last5.blocks": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].last5.toiMinutes": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].last5.toiSeconds": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].last5.shots": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].last5.powerplayGoals": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].last5.powerplayAssists": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].last5.powerplayPoints": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].alternateJerseyUrl": [
+    "NoneType",
+    "str:url"
+   ],
+   ".props.pageProps.combinations.players[].season.goalieWins": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].season.goalieLosses": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].season.goalieOvertimeLosses": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].season.goalieShotsAgainst": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].season.goalieGoalsAgainst": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].season.goalieMinutes": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].season.goalieSeconds": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].season.goalieSaves": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].season.goalieShutouts": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].season.goalieSavePercentage": [
+    "str:3",
+    "str:5"
+   ],
+   ".props.pageProps.combinations.players[].season.goalieGoalsAgainstAvg": [
+    "str:3",
+    "str:4"
+   ],
+   ".props.pageProps.combinations.players[].last10.goalieWins": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].last10.goalieLosses": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].last10.goalieOvertimeLosses": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].last10.goalieShotsAgainst": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].last10.goalieGoalsAgainst": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].last10.goalieMinutes": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].last10.goalieSeconds": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].last10.goalieSaves": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].last10.goalieShutouts": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].last10.goalieSavePercentage": [
+    "str:4",
+    "str:5"
+   ],
+   ".props.pageProps.combinations.players[].last10.goalieGoalsAgainstAvg": [
+    "str:4"
+   ],
+   ".props.pageProps.combinations.players[].last5.goalieWins": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].last5.goalieLosses": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].last5.goalieOvertimeLosses": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].last5.goalieShotsAgainst": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].last5.goalieGoalsAgainst": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].last5.goalieMinutes": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].last5.goalieSeconds": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].last5.goalieSaves": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].last5.goalieShutouts": [
+    "int"
+   ],
+   ".props.pageProps.combinations.players[].last5.goalieSavePercentage": [
+    "str:5"
+   ],
+   ".props.pageProps.combinations.players[].last5.goalieGoalsAgainstAvg": [
+    "str:4"
+   ],
+   ".props.pageProps.combinations.lines[].groupIdentifier": [
+    "str:1",
+    "str:2",
+    "str:3"
+   ],
+   ".props.pageProps.combinations.lines[].groupName": [
+    "str:10",
+    "str:18",
+    "str:21",
+    "str:7",
+    "str:9"
+   ],
+   ".props.pageProps.combinations.lines[].categoryIdentifier": [
+    "str:2"
+   ],
+   ".props.pageProps.combinations.lines[].categoryName": [
+    "str:10",
+    "str:12",
+    "str:13"
+   ],
+   ".props.pageProps.combinations.lines[].rating": [
+    "float",
+    "int"
+   ],
+   ".props.pageProps.combinations.lines[].rank": [
+    "int"
+   ],
+   ".props.pageProps.combinations.lines[].rankColor": [
+    "str:7"
+   ],
+   ".props.pageProps.capSummary.team": [
+    "str:19"
+   ],
+   ".props.pageProps.capSummary.puckpediaUrl": [
+    "str:url"
+   ],
+   ".props.pageProps.capSummary.currentSeason.year": [
+    "int"
+   ],
+   ".props.pageProps.capSummary.currentSeason.label": [
+    "str:7"
+   ],
+   ".props.pageProps.capSummary.currentSeason.projectedCapHit": [
+    "int"
+   ],
+   ".props.pageProps.capSummary.currentSeason.projectedCapSpace": [
+    "int"
+   ],
+   ".props.pageProps.capSummary.currentSeason.currentCapSpace": [
+    "int"
+   ],
+   ".props.pageProps.capSummary.currentSeason.activePlayers": [
+    "int"
+   ],
+   ".props.pageProps.capSummary.currentSeason.rosterLimit": [
+    "int"
+   ],
+   ".props.pageProps.capSummary.currentSeason.draftPicks[].round": [
+    "int"
+   ],
+   ".props.pageProps.capSummary.currentSeason.draftPicks[].count": [
+    "int"
+   ],
+   ".props.pageProps.capSummary.nextSeason.year": [
+    "int"
+   ],
+   ".props.pageProps.capSummary.nextSeason.label": [
+    "str:7"
+   ],
+   ".props.pageProps.capSummary.nextSeason.projectedCapHit": [
+    "int"
+   ],
+   ".props.pageProps.capSummary.nextSeason.projectedCapSpace": [
+    "int"
+   ],
+   ".props.pageProps.capSummary.nextSeason.currentCapSpace": [
+    "int"
+   ],
+   ".props.pageProps.capSummary.nextSeason.activePlayers": [
+    "int"
+   ],
+   ".props.pageProps.capSummary.nextSeason.rosterLimit": [
+    "int"
+   ],
+   ".props.pageProps.capSummary.nextSeason.draftPicks[].round": [
+    "int"
+   ],
+   ".props.pageProps.capSummary.nextSeason.draftPicks[].count": [
+    "int"
+   ],
+   ".props.pageProps.stubData.metaTitle": [
+    "str:37"
+   ],
+   ".props.pageProps.stubData.metaDescription": [
+    "str:142"
+   ],
+   ".props.pageProps.stubData.jsonLdSnippet": [
+    "NoneType"
+   ],
+   ".props.pageProps.stubData.content": [
+    "str:999"
+   ],
+   ".props.pageProps.sortedTeams[].name": [
+    "str:12",
+    "str:13",
+    "str:14",
+    "str:15",
+    "str:16",
+    "str:17",
+    "str:18",
+    "str:19",
+    "str:20",
+    "str:21"
+   ],
+   ".props.pageProps.sortedTeams[].shortName": [
+    "str:2",
+    "str:3"
+   ],
+   ".props.pageProps.sortedTeams[].cityName": [
+    "str:10",
+    "str:11",
+    "str:12",
+    "str:16",
+    "str:18",
+    "str:4",
+    "str:6",
+    "str:7",
+    "str:8",
+    "str:9"
+   ],
+   ".props.pageProps.sortedTeams[].mascot": [
+    "str:10",
+    "str:11",
+    "str:12",
+    "str:14",
+    "str:4",
+    "str:5",
+    "str:6",
+    "str:7",
+    "str:8",
+    "str:9"
+   ],
+   ".props.pageProps.sortedTeams[].slug": [
+    "str:12",
+    "str:13",
+    "str:14",
+    "str:15",
+    "str:16",
+    "str:17",
+    "str:18",
+    "str:19",
+    "str:20",
+    "str:21"
+   ],
+   ".props.pageProps.sortedTeams[].division": [
+    "str:12",
+    "str:7",
+    "str:8"
+   ],
+   ".props.pageProps.historyId": [
+    "int"
+   ],
+   ".props.__N_SSG": [
+    "bool"
+   ],
+   ".page": [
+    "str:url"
+   ],
+   ".query.slug": [
+    "str:19"
+   ],
+   ".buildId": [
+    "str:21"
+   ],
+   ".isFallback": [
+    "bool"
+   ],
+   ".isExperimentalCompile": [
+    "bool"
+   ],
+   ".gsp": [
+    "bool"
+   ],
+   ".scriptLoader[].src": [
+    "str:url"
+   ],
+   ".scriptLoader[].data-website-id": [
+    "str:36"
+   ],
+   ".scriptLoader[].data-domains": [
+    "str:37"
+   ],
+   ".scriptLoader[].strategy": [
+    "str:16"
+   ]
+  },
+  "enums": {
+   ".props.pageProps.combinations.players[].positionIdentifier": [
+    "c",
+    "g1",
+    "g2",
+    "ld",
+    "lw",
+    "rd",
+    "rw",
+    "sk1",
+    "sk2",
+    "sk3",
+    "sk4",
+    "sk5"
+   ],
+   ".props.pageProps.combinations.players[].positionName": [
+    "Backup Goalie",
+    "Center",
+    "Left Defense",
+    "Left Wing",
+    "Right Defense",
+    "Right Wing",
+    "Skater 1",
+    "Skater 2",
+    "Skater 3",
+    "Skater 4",
+    "Skater 5",
+    "Starting Goalie"
+   ],
+   ".props.pageProps.combinations.players[].positionRankColor": [
+    "#749f53",
+    "#8bb669",
+    "#a9c98e",
+    "#f99388",
+    "#ffd66a",
+    "#fff2d0"
+   ],
+   ".props.pageProps.combinations.players[].injuryStatus": [
+    "dtd",
+    "ir",
+    "out"
+   ]
+  },
+  "jsonld_0": {
+   ".@context": [
+    "str:url"
+   ],
+   ".@type": [
+    "str:21"
+   ],
+   ".name": [
+    "str:13"
+   ],
+   ".description": [
+    "str:91"
+   ],
+   ".url": [
+    "str:url"
+   ],
+   ".logo": [
+    "str:url"
+   ]
+  },
+  "outline": {
+   "div/ul/a/li": 8,
+   "footer/section/ul/li": 7,
+   "div/div/section/h4.mb-2": 6,
+   "div/ul/div/li": 3,
+   "div/div/div/h3.text-xs": 2,
+   "div/div/section/h3.mb-2": 2,
+   "main/main/footer/section.border-t": 2,
+   "div/div/div/ul.flex": 1,
+   "div/main/main/section": 1,
+   "main/main/section/section.m-4": 1,
+   "div/div/div/h1.py-1": 1,
+   "div/div/div/section.mb-4": 1,
+   "div/div/div/section.ml-4": 1,
+   "div/div/section/h2.mb-2": 1,
+   "main/footer/section/h2.mb-4": 1,
+   "main/footer/section/ul.flex": 1
+  },
+  "tables": [],
+  "article_links_sample_paths": []
+ },
+ "nhl_projected_topic": {
+  "status": 200,
+  "chars": 130585,
+  "outline": {
+   "li/nav/ul/li.nhl-o-menu__item": 38,
+   "div/nav/ul/li.nhl-o-menu__item": 31,
+   "div/div/div/p": 30,
+   "div/div/a/article.nhl-c-card": 18,
+   "article/div/div/h3.fa-text__title": 18,
+   "ul/li/nav/ul.nhl-o-dropdown__menu": 6,
+   "section/nav/ul/li.nhl-o-menu__item": 6,
+   "div/div/ul/li.nhl-o-sharebar__item": 4,
+   "header/div/nav/ul.nhl-c-header__menu": 3,
+   "div/div/nav/ul.nhl-o-menu": 2,
+   "html/body/div/section.nhl-c-secondary-nav": 1,
+   "div/section/nav/ul.nhl-c-secondary-nav__menu": 1,
+   "body/div/main/section.nhl-l-section-bg": 1,
+   "main/section/div/section.d3-l-grid--outer": 1,
+   "section/div/div/article.d3-l-section-row": 1,
+   "div/div/div/h1.nhl-c-article__title": 1,
+   "div/div/div/p.nhl-c-article__summary": 1,
+   "div/div/div/ul.nhl-o-sharebar": 1,
+   "div/div/div/h2": 1,
+   "section/div/div/section.nhl-c-editorial-list": 1,
+   "div/section/div/h2.nhl-o-heading": 1,
+   "body/div/footer/section.nhl-c-footer__section": 1
+  },
+  "tables": [],
+  "article_links_sample_paths": [
+   "/news/anaheim-ducks-winnipeg-jets-game-preview-october-N-N",
+   "/news/chicago-blackhawks-new-york-islanders-game-preview-october-N-N",
+   "/news/colorado-avalanche-calgary-flames-game-preview-october-N-N",
+   "/news/dallas-stars-buffalo-sabres-game-preview-october-N-N",
+   "/news/edmonton-oilers-anaheim-ducks-game-preview-october-N-N",
+   "/news/edmonton-oilers-san-jose-sharks-game-preview-october-N-N",
+   "/news/minnesota-wild-tampa-bay-lightning-game-preview-october-N-N",
+   "/news/nashville-predators-montreal-canadiens-game-preview-october-N-N",
+   "/news/new-york-rangers-washington-capitals-game-preview-october-N-N",
+   "/news/philadelphia-flyers-boston-bruins-game-preview-october-N-N"
+  ]
+ },
+ "nbl_injury_category": {
+  "status": 200,
+  "chars": 190785,
+  "jsonld_0": {
+   ".@context": [
+    "str:url"
+   ],
+   ".@type": [
+    "str:14"
+   ],
+   ".name": [
+    "str:6"
+   ],
+   ".url": [
+    "str:url"
+   ],
+   ".dateModified": [
+    "str:12"
+   ],
+   ".datePublished": [
+    "str:12"
+   ],
+   ".inLanguage": [
+    "str:2"
+   ]
+  },
+  "outline": {
+   "div/div/a/p.small-paragraph": 100,
+   "div/div/div/p": 32,
+   "div/a/div/p.bold-text": 30,
+   "div/div/a/p": 20,
+   "div/div/div/p.small-paragraph": 7,
+   "section/div/ul/li.xminmt9ycyM3KcUvT7Kl": 6,
+   "div/div/div/p.grey-p": 5,
+   "div/a/div/p.small-paragraph": 5,
+   "div/div/div/h2.heading-15": 3,
+   "div/div/div/h3": 2,
+   "div/div/div/section.page-section-5": 1,
+   "div/form/div/h4": 1,
+   "code-island/template/div/section.MrJE1rasmuteJR8p0npw": 1,
+   "div/section/div/ul.N7qjS20PXBv0I5Urld94": 1,
+   "nav/div/div/p": 1,
+   "header/div/div/h1.news-header": 1,
+   "html/body/main/section.section": 1,
+   "div/div/div/h4": 1,
+   "a/div/div/h4.heading-112": 1
+  },
+  "tables": [],
+  "article_links_sample_paths": [
+   "/news/nbl-podcasts-listen-to-the-latest-audio",
+   "/news/nblN-N-off-season-wrap-team-by-team-best-performances",
+   "/news/nblN-roster-tracker-every-signing-extension-and-departure",
+   "/news/nblN-the-latest-injury-updates"
+  ]
+ },
+ "nbl_injury_list": {
+  "status": 200,
+  "chars": 255290,
+  "jsonld_0": {
+   ".@context": [
+    "str:url"
+   ],
+   ".@type": [
+    "str:11"
+   ],
+   ".headline": [
+    "str:32"
+   ],
+   ".description": [
+    "str:0"
+   ],
+   ".image": [
+    "str:url"
+   ],
+   ".datePublished": [
+    "str:12"
+   ],
+   ".dateModified": [
+    "str:12"
+   ],
+   ".author.@type": [
+    "str:6"
+   ],
+   ".author.name": [
+    "str:10"
+   ],
+   ".publisher.@type": [
+    "str:12"
+   ],
+   ".publisher.name": [
+    "str:26"
+   ],
+   ".publisher.logo.@type": [
+    "str:11"
+   ],
+   ".publisher.logo.url": [
+    "str:url"
+   ],
+   ".articleBody": [
+    "str:0"
+   ],
+   ".url": [
+    "str:url"
+   ],
+   ".inLanguage": [
+    "str:2"
+   ]
+  },
+  "outline": {
+   "div/div/a/p.small-paragraph": 94,
+   "div/div/div/p": 43,
+   "div/a/div/p.bold-text": 30,
+   "div/div/div/p.very-small-paragraph": 25,
+   "div/div/a/p": 20,
+   "div/div/div/p.small-paragraph": 7,
+   "section/div/ul/li.xminmt9ycyM3KcUvT7Kl": 6,
+   "div/div/div/p.grey-p": 5,
+   "div/a/div/p.small-paragraph": 5,
+   "div/div/div/h2.heading-15": 3,
+   "html/body/main/section.section": 3,
+   "div/div/div/section.page-section-5": 1,
+   "div/form/div/h4": 1,
+   "code-island/template/div/section.MrJE1rasmuteJR8p0npw": 1,
+   "div/section/div/ul.N7qjS20PXBv0I5Urld94": 1,
+   "nav/div/div/p": 1,
+   "div/div/div/h1": 1,
+   "div/div/div/h2": 1,
+   "div/div/a/h3": 1
+  },
+  "tables": [],
+  "article_links_sample_paths": [
+   "/news/brandon-knight-perth-wildcats-debut-breakers",
+   "/news/brandon-knight-the-nba-journey-why-perth-his-nbl-mission",
+   "/news/brisbane-bullets-land-off-season-target-mawot-mag-as-injury-replcement",
+   "/news/corey-webster-adelaide-Ners-sos-china",
+   "/news/how-to-watch-talking-points-perth-wildcats-v-new-zealand-breakers",
+   "/news/jackjumpers-franchise-scoring-record-scott-roth-frustrated",
+   "/news/jackjumpers-march-all-over-hawks",
+   "/news/jackson-cartwright-rucker-snub-mvp-race-breakers",
+   "/news/kendric-davis-bryce-cotton-rivalry-kings-Ners",
+   "/news/luke-paul-nbl-debut-cairns-taipans-duke-next-star"
+  ]
+ },
+ "afl_injury_news": {
+  "status": 200,
+  "chars": 386700,
+  "outline": {
+   "table/tbody/tr/td": 372,
+   "div/table/tbody/tr": 136,
+   "div/div/ul/li.sub-menu__item": 57,
+   "table/thead/tr/th": 54,
+   "li/div/ul/li.club-list__club-list-item": 36,
+   "div/div/ul/li.drop-down__option": 27,
+   "li/div/ul/li": 27,
+   "main/article/div/p": 19,
+   "div/div/ul/li.club-list__club-list-item": 18,
+   "main/article/div/table": 18,
+   "div/table/thead/tr": 18,
+   "main/article/div/h4": 18,
+   "article/div/div/section.promo-image": 17,
+   "div/div/ul/li.footer-menu__links-menu-item": 12,
+   "div/div/ul/li.social__item": 10,
+   "div/nav/ul/li.navigation__item": 9,
+   "section/div/ul/li.slider__item": 9,
+   "div/ul/li/article.media-thumbnail": 9,
+   "div/div/a/h2.media-thumbnail__title": 9,
+   "article/div/div/p.media-thumbnail__description": 9,
+   "div/div/ul/li": 8,
+   "li/div/div/ul": 6,
+   "div/div/div/ul.sub-menu": 6,
+   "ul/li/div/ul": 6,
+   "section/nav/ul/li.linked-list__item": 5,
+   "div/div/ul/li.footer-menu__partner-item": 5,
+   "footer/nav/ul/li.telstra-footer__item": 5,
+   "div/div/ul/li.mobile-quicklinks__item": 4,
+   "div/div/ul/li.footer-menu__logo-menu-item": 4,
+   "body/header/ul/li.telstra-bar-v3__item": 2,
+   "div/div/div/section.sub-menu": 2,
+   "div/div/div/ul.clubs-sub-menu": 2,
+   "div/div/ul/li.clubs-sub-menu__sub-menu-item": 2,
+   "ul/li/div/ul.club-list": 2,
+   "div/div/div/ul.social__menu": 2,
+   "body/div/main/article.article": 2,
+   "div/div/div/h3.footer-menu__partner-list-title": 2,
+   "div/div/div/ul.footer-menu__partner-list": 2,
+   "div/div/ul/li.footer-store-listing--item": 2,
+   "div/div/div/ul.footer-menu__links-menu": 2,
+   "div/div/div/ul.social-share__options": 2,
+   "html/body/header/ul.telstra-bar-v3__list": 1,
+   "header/div/div/ul.club-list": 1,
+   "body/header/div/section.telstra-dropdown-v3": 1,
+   "div/section/div/h1.telstra-dropdown-v3__title": 1,
+   "div/section/div/p.telstra-dropdown-v3__subtitle": 1,
+   "div/section/nav/ul.linked-list": 1,
+   "div/div/nav/ul.navigation__menu-links": 1,
+   "div/div/nav/ul.navigation__list": 1,
+   "body/div/div/ul.mobile-quicklinks__link-list": 1,
+   "div/div/div/p.social__title-text": 1,
+   "html/body/section.branding-bar": 1,
+   "body/div/main/section.mixed-content-slider": 1,
+   "section/header/div/h2.widget-header__title": 1,
+   "main/section/div/ul.slider__list": 1,
+   "main/article/div/h2": 1,
+   "html/body/div/section.footer-menu": 1,
+   "div/div/div/h3.footer-store-listing__title": 1,
+   "div/div/div/ul.footer-store-listing__list": 1,
+   "div/div/div/ul.footer-menu__logo-menu": 1
+  },
+  "tables": [
+   {
+    "rows": 8,
+    "max_cols": 3,
+    "headers": [
+     "PLAYER",
+     "INJURY",
+     "ESTIMATED RETURN"
+    ]
+   },
+   {
+    "rows": 7,
+    "max_cols": 3,
+    "headers": [
+     "PLAYER",
+     "INJURY",
+     "ESTIMATED RETURN"
+    ]
+   },
+   {
+    "rows": 10,
+    "max_cols": 3,
+    "headers": [
+     "PLAYER",
+     "INJURY",
+     "ESTIMATED RETURN"
+    ]
+   },
+   {
+    "rows": 10,
+    "max_cols": 3,
+    "headers": [
+     "PLAYER",
+     "INJURY",
+     "ESTIMATED RETURN"
+    ]
+   },
+   {
+    "rows": 8,
+    "max_cols": 3,
+    "headers": [
+     "PLAYER",
+     "INJURY",
+     "ESTIMATED RETURN"
+    ]
+   },
+   {
+    "rows": 13,
+    "max_cols": 3,
+    "headers": [
+     "PLAYER",
+     "INJURY",
+     "ESTIMATED RETURN"
+    ]
+   },
+   {
+    "rows": 13,
+    "max_cols": 3,
+    "headers": [
+     "PLAYER",
+     "INJURY",
+     "ESTIMATED RETURN"
+    ]
+   },
+   {
+    "rows": 5,
+    "max_cols": 3,
+    "headers": [
+     "PLAYER",
+     "INJURY",
+     "ESTIMATED RETURN"
+    ]
+   },
+   {
+    "rows": 6,
+    "max_cols": 3,
+    "headers": [
+     "PLAYER",
+     "INJURY",
+     "ESTIMATED RETURN"
+    ]
+   },
+   {
+    "rows": 6,
+    "max_cols": 3,
+    "headers": [
+     "PLAYER",
+     "INJURY",
+     "ESTIMATED RETURN"
+    ]
+   }
+  ],
+  "article_links_sample_paths": [
+   "/news/N/collingwood-magpie-brayden-maynard-undergoes-shoulder-reconstruction-injured-duo-jamie-elliott-oscar-steene-resume-running",
+   "/news/N/copy-medical-room-the-full-afl-injury-list-pf",
+   "/news/N/medical-room-the-full-afl-injury-list-fwN",
+   "/news/N/medical-room-the-full-afl-injury-list-pf",
+   "/news/N/richmond-tigers-defender-josh-gibcus-set-for-usa-trip-after-another-injury-hit-season",
+   "/news/N/scans-reveal-extent-of-fremantle-dockers-skippers-alex-pearce-brutal-grand-final-blow",
+   "/news/N/sydney-swans-confirm-worst-fears-for-injured-skipper-callum-mills",
+   "/news/N/sydney-swans-star-tom-papley-shattered-for-injured-skipper-callum-mills-as-selection-conundrum-looms",
+   "/news/N/west-coast-eagles-star-harley-reid-undergoes-shoulder-surgery-expected-to-be-ready-for-pre-season"
+  ]
+ },
+ "afl_medical_room": {
+  "status": 200,
+  "chars": 447258,
+  "outline": {
+   "table/tbody/tr/td": 426,
+   "div/table/tbody/tr": 154,
+   "div/div/ul/li.sub-menu__item": 57,
+   "table/thead/tr/th": 54,
+   "li/div/ul/li.club-list__club-list-item": 36,
+   "div/div/ul/li.drop-down__option": 27,
+   "li/div/ul/li": 27,
+   "div/article/div/p": 19,
+   "div/div/ul/li.club-list__club-list-item": 18,
+   "article/div/div/section.promo-image": 18,
+   "div/article/div/table": 18,
+   "div/table/thead/tr": 18,
+   "div/article/div/h4": 18,
+   "div/div/a/h2.media-thumbnail__title": 15,
+   "article/div/div/p.media-thumbnail__description": 15,
+   "div/div/ul/li.footer-menu__links-menu-item": 12,
+   "section/ol/li/article.media-thumbnail": 11,
+   "div/div/ul/li.social__item": 10,
+   "div/nav/ul/li.navigation__item": 9,
+   "main/section/ol/li.media-list__item": 8,
+   "div/div/ul/li": 8,
+   "li/div/div/ul": 6,
+   "div/div/div/ul.sub-menu": 6,
+   "ul/li/div/ul": 6,
+   "section/nav/ul/li.linked-list__item": 5,
+   "div/div/ul/li.footer-menu__partner-item": 5,
+   "footer/nav/ul/li.telstra-footer__item": 5,
+   "div/div/ul/li.mobile-quicklinks__item": 4,
+   "div/div/ul/li.footer-menu__logo-menu-item": 4,
+   "section/header/div/h2.widget-header__title": 3,
+   "section/section/ul/li.media-list__item": 3,
+   "section/ul/li/article.media-thumbnail": 3,
+   "section/section/ol/li.media-list__item": 3,
+   "body/header/ul/li.telstra-bar-v3__item": 2,
+   "div/div/div/section.sub-menu": 2,
+   "div/div/div/ul.clubs-sub-menu": 2,
+   "div/div/ul/li.clubs-sub-menu__sub-menu-item": 2,
+   "ul/li/div/ul.club-list": 2,
+   "div/div/div/ul.social__menu": 2,
+   "div/aside/section/section.media-list": 2,
+   "body/div/main/section.media-list": 2,
+   "header/div/a/h2.widget-header__title": 2,
+   "div/main/section/ol.media-list__list": 2,
+   "div/div/div/h3.footer-menu__partner-list-title": 2,
+   "div/div/div/ul.footer-menu__partner-list": 2,
+   "div/div/ul/li.footer-store-listing--item": 2,
+   "div/div/div/ul.footer-menu__links-menu": 2,
+   "div/div/div/ul.social-share__options": 2,
+   "html/body/header/ul.telstra-bar-v3__list": 1,
+   "header/div/div/ul.club-list": 1,
+   "body/header/div/section.telstra-dropdown-v3": 1,
+   "div/section/div/h1.telstra-dropdown-v3__title": 1,
+   "div/section/div/p.telstra-dropdown-v3__subtitle": 1,
+   "div/section/nav/ul.linked-list": 1,
+   "div/div/nav/ul.navigation__menu-links": 1,
+   "div/div/nav/ul.navigation__list": 1,
+   "body/div/div/ul.mobile-quicklinks__link-list": 1,
+   "div/div/div/p.social__title-text": 1,
+   "div/div/div/article.article": 1,
+   "article/header/div/h1.article__heading": 1
+  },
+  "tables": [
+   {
+    "rows": 10,
+    "max_cols": 3,
+    "headers": [
+     "PLAYER",
+     "INJURY",
+     "ESTIMATED RETURN"
+    ]
+   },
+   {
+    "rows": 11,
+    "max_cols": 3,
+    "headers": [
+     "PLAYER",
+     "INJURY",
+     "ESTIMATED RETURN"
+    ]
+   },
+   {
+    "rows": 6,
+    "max_cols": 3,
+    "headers": [
+     "PLAYER",
+     "INJURY",
+     "ESTIMATED RETURN"
+    ]
+   },
+   {
+    "rows": 6,
+    "max_cols": 3,
+    "headers": [
+     "PLAYER",
+     "INJURY",
+     "ESTIMATED RETURN"
+    ]
+   },
+   {
+    "rows": 11,
+    "max_cols": 3,
+    "headers": [
+     "PLAYER",
+     "INJURY",
+     "ESTIMATED RETURN"
+    ]
+   },
+   {
+    "rows": 8,
+    "max_cols": 3,
+    "headers": [
+     "PLAYER",
+     "INJURY",
+     "ESTIMATED RETURN"
+    ]
+   },
+   {
+    "rows": 10,
+    "max_cols": 3,
+    "headers": [
+     "PLAYER",
+     "INJURY",
+     "ESTIMATED RETURN"
+    ]
+   },
+   {
+    "rows": 9,
+    "max_cols": 3,
+    "headers": [
+     "PLAYER",
+     "INJURY",
+     "ESTIMATED RETURN"
+    ]
+   },
+   {
+    "rows": 14,
+    "max_cols": 3,
+    "headers": [
+     "PLAYER",
+     "INJURY",
+     "ESTIMATED RETURN"
+    ]
+   },
+   {
+    "rows": 6,
+    "max_cols": 3,
+    "headers": [
+     "PLAYER",
+     "INJURY",
+     "ESTIMATED RETURN"
+    ]
+   }
+  ],
+  "article_links_sample_paths": [
+   "/news/N/collingwood-magpies-target-forward-fix-as-key-defenders-darcy-moore-jeremy-howe-make-timely-return",
+   "/news/N/coming-soon-return-of-the-pride-the-story-of-brisbanes-return-to-glory"
+  ]
+ },
+ "afl_lineups": {
+  "status": 200,
+  "chars": 234985,
+  "outline": {
+   "div/div/ul/li.sub-menu__item": 57,
+   "li/div/ul/li.club-list__club-list-item": 36,
+   "div/div/ul/li.drop-down__option": 27,
+   "li/div/ul/li": 27,
+   "div/div/ul/li.club-list__club-list-item": 18,
+   "div/div/ul/li.footer-menu__links-menu-item": 12,
+   "div/div/ul/li.social__item": 10,
+   "div/nav/ul/li.navigation__item": 9,
+   "div/div/ul/li": 8,
+   "li/div/div/ul": 6,
+   "div/div/div/ul.sub-menu": 6,
+   "ul/li/div/ul": 6,
+   "section/nav/ul/li.linked-list__item": 5,
+   "div/div/ul/li.footer-menu__partner-item": 5,
+   "footer/nav/ul/li.telstra-footer__item": 5,
+   "div/div/ul/li.mobile-quicklinks__item": 4,
+   "div/div/ul/li.footer-menu__logo-menu-item": 4,
+   "body/header/ul/li.telstra-bar-v3__item": 2,
+   "div/div/div/section.sub-menu": 2,
+   "div/div/div/ul.clubs-sub-menu": 2,
+   "div/div/ul/li.clubs-sub-menu__sub-menu-item": 2,
+   "ul/li/div/ul.club-list": 2,
+   "div/div/div/ul.social__menu": 2,
+   "div/div/div/h3.footer-menu__partner-list-title": 2,
+   "div/div/div/ul.footer-menu__partner-list": 2,
+   "div/div/ul/li.footer-store-listing--item": 2,
+   "div/div/div/ul.footer-menu__links-menu": 2,
+   "div/div/div/ul.social-share__options": 2,
+   "html/body/header/ul.telstra-bar-v3__list": 1,
+   "header/div/div/ul.club-list": 1,
+   "body/header/div/section.telstra-dropdown-v3": 1,
+   "div/section/div/h1.telstra-dropdown-v3__title": 1,
+   "div/section/div/p.telstra-dropdown-v3__subtitle": 1,
+   "div/section/nav/ul.linked-list": 1,
+   "div/div/nav/ul.navigation__menu-links": 1,
+   "div/div/nav/ul.navigation__list": 1,
+   "body/div/div/ul.mobile-quicklinks__link-list": 1,
+   "div/div/div/p.social__title-text": 1,
+   "html/body/section.branding-bar": 1,
+   "html/body/div/section.footer-menu": 1,
+   "div/div/div/h3.footer-store-listing__title": 1,
+   "div/div/div/ul.footer-store-listing__list": 1,
+   "div/div/div/ul.footer-menu__logo-menu": 1,
+   "div/div/div/h3.footer-menu__links--heading": 1,
+   "div/div/div/p.footer-menu__links--text": 1,
+   "div/footer/nav/ul.telstra-footer__links": 1,
+   "body/div/div/section.adhoc-notification-base": 1,
+   "body/div/div/section.js-trade-radio-mini-popup": 1,
+   "div/div/div/p.video-modal__sidebar-video-up-next": 1,
+   "div/div/div/ul.video-modal__sidebar-video-list": 1
+  },
+  "tables": [],
+  "article_links_sample_paths": []
+ },
+ "nfl_rapoport": {
+  "status": 200,
+  "chars": 279140,
+  "outline": {
+   "div/a/div/h3.d3-o-media-object__title": 27,
+   "div/a/div/p.d3-o-media-object__date": 27,
+   "a/div/div/p": 27,
+   "div/div/div/p": 4,
+   "body/div/main/section.d3-l-grid--outer": 2,
+   "html/body/div/section.d3-l-grid--outer": 1,
+   "body/div/main/h1.nfl-o-page-title": 1,
+   "div/div/div/h3.d3-o-media-object__title": 1,
+   "div/div/div/h4.d3-o-media-object__roofline": 1,
+   "div/div/div/ul.d3-o-list": 1,
+   "div/div/ul/li.d3-o-list__item": 1,
+   "div/div/div/h2.d3-o-section-title": 1
+  },
+  "tables": [],
+  "article_links_sample_paths": [
+   "/news/alvin-kamara-committed-to-saints-despite-trade-interest-from-other-teams",
+   "/news/bears-rebuff-trade-interest-want-to-strike-deal-with-allen-robinson",
+   "/news/bears-saints-loomed-under-the-radar-in-pursuit-of-tom-brady",
+   "/news/bengals-joe-burrow-tee-higgins-ja-marr-chase-hope-game-vs-steelers-isn-t-last-together-with-cincinnati",
+   "/news/broncos-hc-nathaniel-hackett-moves-forward-after-fourth-and-N-decision-going-to",
+   "/news/buccaneers-qb-tom-brady-heading-into-what-s-expected-to-be-his-final-season-in-n",
+   "/news/buccaneers-qb-tom-brady-set-for-veteran-rest-and-personal-day-every-wednesday",
+   "/news/cardinals-star-cb-patrick-peterson-set-to-play-out-contract",
+   "/news/chargers-in-market-for-rb-help-plus-more-trade-nuggets-ahead-of-nov-N-deadline",
+   "/news/cowboys-qb-dak-prescott-to-wear-headset-assist-cooper-rush-during-game-vs-bengal"
+  ]
+ },
+ "nfl_injuries": {
+  "status": 200,
+  "chars": 409878,
+  "outline": {
+   "table/tbody/tr/td": 1785,
+   "div/table/tbody/tr": 357,
+   "table/thead/tr/th": 150,
+   "div/div/div/p.nfl-c-matchup-strip__team-name": 30,
+   "div/section/div/table.d3-o-table": 30,
+   "div/table/thead/tr": 30,
+   "div/a/div/h3.d3-o-media-object__title": 25,
+   "div/div/div/section.nfl-o-injury-report__unit": 15,
+   "section/div/div/p.nfl-c-matchup-strip__date-info": 15,
+   "section/div/div/p.nfl-c-matchup-strip__networks": 15,
+   "div/div/div/h2.d3-o-section-title": 4,
+   "body/div/main/section.d3-l-grid--outer": 3,
+   "body/div/main/h1.nfl-o-page-title": 1,
+   "body/div/main/section.d3-l-section-row": 1,
+   "div/div/div/h1.nfl-c-content-header__title": 1,
+   "div/div/div/h2.nfl-c-content-header__roofline": 1
+  },
+  "tables": [
+   {
+    "rows": 10,
+    "max_cols": 5,
+    "headers": [
+     "Player",
+     "Position",
+     "Injuries",
+     "Practice Status",
+     "Game Status"
+    ]
+   },
+   {
+    "rows": 12,
+    "max_cols": 5,
+    "headers": [
+     "Player",
+     "Position",
+     "Injuries",
+     "Practice Status",
+     "Game Status"
+    ]
+   },
+   {
+    "rows": 16,
+    "max_cols": 5,
+    "headers": [
+     "Player",
+     "Position",
+     "Injuries",
+     "Practice Status",
+     "Game Status"
+    ]
+   },
+   {
+    "rows": 12,
+    "max_cols": 5,
+    "headers": [
+     "Player",
+     "Position",
+     "Injuries",
+     "Practice Status",
+     "Game Status"
+    ]
+   },
+   {
+    "rows": 17,
+    "max_cols": 5,
+    "headers": [
+     "Player",
+     "Position",
+     "Injuries",
+     "Practice Status",
+     "Game Status"
+    ]
+   },
+   {
+    "rows": 11,
+    "max_cols": 5,
+    "headers": [
+     "Player",
+     "Position",
+     "Injuries",
+     "Practice Status",
+     "Game Status"
+    ]
+   },
+   {
+    "rows": 12,
+    "max_cols": 5,
+    "headers": [
+     "Player",
+     "Position",
+     "Injuries",
+     "Practice Status",
+     "Game Status"
+    ]
+   },
+   {
+    "rows": 16,
+    "max_cols": 5,
+    "headers": [
+     "Player",
+     "Position",
+     "Injuries",
+     "Practice Status",
+     "Game Status"
+    ]
+   },
+   {
+    "rows": 11,
+    "max_cols": 5,
+    "headers": [
+     "Player",
+     "Position",
+     "Injuries",
+     "Practice Status",
+     "Game Status"
+    ]
+   },
+   {
+    "rows": 17,
+    "max_cols": 5,
+    "headers": [
+     "Player",
+     "Position",
+     "Injuries",
+     "Practice Status",
+     "Game Status"
+    ]
+   }
+  ],
+  "article_links_sample_paths": [
+   "/news/buccaneers-qb-baker-mayfield-thumb-out-at-least-three-weeks-jalon-daniels",
+   "/news/commanders-jayden-daniels-elbow-start-giants-week-N",
+   "/news/commanders-qb-marcus-mariota-knee-injury-colts-athan-kaliakmanis",
+   "/news/dolphins-rb-devon-achane-miss-N-season-acl-tear",
+   "/news/eagles-rb-saquon-barkley-hamstring-considered-week-to-week-avoids-long-term-injury",
+   "/news/giants-brian-burns-torn-acl-win-titans",
+   "/news/jayden-daniels-left-elbow-out-london-game-qb-marcus-mariota-start-colts",
+   "/news/los-angeles-rams-expect-wr-puka-nacua-to-play-in-week-N-vs-eagles",
+   "/news/nfl-news-roundup-latest-league-updates-from-monday-sept-N",
+   "/news/nfl-news-roundup-latest-league-updates-from-thursday-oct-N"
+  ]
+ },
+ "espn_nba_injuries": {
+  "status": 200,
+  "chars": 1345294,
+  "json_paths": {
+   ".timestamp": [
+    "str:date"
+   ],
+   ".status": [
+    "str:7"
+   ],
+   ".season.year": [
+    "int"
+   ],
+   ".season.type": [
+    "int"
+   ],
+   ".season.name": [
+    "str:9"
+   ],
+   ".season.displayName": [
+    "str:7"
+   ],
+   ".injuries[].id": [
+    "str:1",
+    "str:2"
+   ],
+   ".injuries[].displayName": [
+    "str:10",
+    "str:11",
+    "str:12",
+    "str:13",
+    "str:14",
+    "str:15",
+    "str:16",
+    "str:17",
+    "str:18",
+    "str:19",
+    "str:20",
+    "str:21",
+    "str:22",
+    "str:9"
+   ],
+   ".injuries[].injuries[].id": [
+    "str:6"
+   ],
+   ".injuries[].injuries[].longComment": [
+    "str:104",
+    "str:115",
+    "str:117",
+    "str:137",
+    "str:142",
+    "str:143",
+    "str:147",
+    "str:148",
+    "str:151",
+    "str:153",
+    "str:154",
+    "str:158",
+    "str:159",
+    "str:164",
+    "str:165",
+    "str:167",
+    "str:170",
+    "str:171",
+    "str:172",
+    "str:173",
+    "str:174",
+    "str:186",
+    "str:188",
+    "str:194",
+    "str:201",
+    "str:206",
+    "str:207",
+    "str:208",
+    "str:212",
+    "str:215",
+    "str:216",
+    "str:217",
+    "str:220",
+    "str:221",
+    "str:223",
+    "str:227",
+    "str:228",
+    "str:229",
+    "str:231",
+    "str:234",
+    "str:235",
+    "str:238",
+    "str:239",
+    "str:241",
+    "str:244",
+    "str:247",
+    "str:250",
+    "str:251",
+    "str:252",
+    "str:258",
+    "str:268",
+    "str:269",
+    "str:272",
+    "str:273",
+    "str:276",
+    "str:277",
+    "str:279",
+    "str:280",
+    "str:281",
+    "str:282",
+    "str:287",
+    "str:291",
+    "str:292",
+    "str:298",
+    "str:302",
+    "str:305",
+    "str:306",
+    "str:310",
+    "str:311",
+    "str:313",
+    "str:318",
+    "str:320",
+    "str:324",
+    "str:325",
+    "str:327",
+    "str:335",
+    "str:345",
+    "str:346",
+    "str:351",
+    "str:358",
+    "str:367",
+    "str:372",
+    "str:374",
+    "str:378",
+    "str:382",
+    "str:383",
+    "str:392",
+    "str:394",
+    "str:405",
+    "str:406",
+    "str:414",
+    "str:434",
+    "str:439",
+    "str:445",
+    "str:480",
+    "str:482",
+    "str:493",
+    "str:516",
+    "str:539",
+    "str:542",
+    "str:95"
+   ],
+   ".injuries[].injuries[].shortComment": [
+    "str:100",
+    "str:101",
+    "str:104",
+    "str:107",
+    "str:108",
+    "str:109",
+    "str:111",
+    "str:112",
+    "str:113",
+    "str:115",
+    "str:117",
+    "str:118",
+    "str:119",
+    "str:120",
+    "str:121",
+    "str:122",
+    "str:123",
+    "str:124",
+    "str:125",
+    "str:126",
+    "str:127",
+    "str:128",
+    "str:129",
+    "str:130",
+    "str:131",
+    "str:132",
+    "str:133",
+    "str:135",
+    "str:136",
+    "str:137",
+    "str:139",
+    "str:140",
+    "str:141",
+    "str:142",
+    "str:145",
+    "str:148",
+    "str:149",
+    "str:150",
+    "str:151",
+    "str:152",
+    "str:153",
+    "str:154",
+    "str:157",
+    "str:158",
+    "str:161",
+    "str:162",
+    "str:163",
+    "str:165",
+    "str:166",
+    "str:190",
+    "str:198",
+    "str:208",
+    "str:209",
+    "str:213",
+    "str:221",
+    "str:226",
+    "str:228",
+    "str:242",
+    "str:246",
+    "str:277",
+    "str:64",
+    "str:69",
+    "str:72",
+    "str:73",
+    "str:75",
+    "str:76",
+    "str:81",
+    "str:82",
+    "str:85",
+    "str:86",
+    "str:90",
+    "str:94",
+    "str:95",
+    "str:98",
+    "str:99"
+   ],
+   ".injuries[].injuries[].status": [
+    "str:10",
+    "str:3"
+   ],
+   ".injuries[].injuries[].date": [
+    "str:date"
+   ],
+   ".injuries[].injuries[].athlete.firstName": [
+    "str:10",
+    "str:11",
+    "str:3",
+    "str:4",
+    "str:5",
+    "str:6",
+    "str:7",
+    "str:8",
+    "str:9"
+   ],
+   ".injuries[].injuries[].athlete.lastName": [
+    "str:10",
+    "str:11",
+    "str:12",
+    "str:13",
+    "str:3",
+    "str:4",
+    "str:5",
+    "str:6",
+    "str:7",
+    "str:8",
+    "str:9"
+   ],
+   ".injuries[].injuries[].athlete.displayName": [
+    "str:10",
+    "str:11",
+    "str:12",
+    "str:13",
+    "str:14",
+    "str:15",
+    "str:16",
+    "str:17",
+    "str:18",
+    "str:20",
+    "str:24",
+    "str:9"
+   ],
+   ".injuries[].injuries[].athlete.shortName": [
+    "str:10",
+    "str:11",
+    "str:12",
+    "str:13",
+    "str:14",
+    "str:15",
+    "str:16",
+    "str:6",
+    "str:7",
+    "str:8",
+    "str:9"
+   ],
+   ".injuries[].injuries[].athlete.links[].language": [
+    "str:5"
+   ],
+   ".injuries[].injuries[].athlete.links[].href": [
+    "str:64",
+    "str:67",
+    "str:76",
+    "str:77",
+    "str:78",
+    "str:79",
+    "str:80",
+    "str:81",
+    "str:83",
+    "str:url"
+   ],
+   ".injuries[].injuries[].athlete.links[].text": [
+    "str:11",
+    "str:14",
+    "str:3",
+    "str:4",
+    "str:5",
+    "str:6",
+    "str:8"
+   ],
+   ".injuries[].injuries[].athlete.links[].shortText": [
+    "str:11",
+    "str:14",
+    "str:3",
+    "str:4",
+    "str:5",
+    "str:6",
+    "str:8"
+   ],
+   ".injuries[].injuries[].athlete.links[].isExternal": [
+    "bool"
+   ],
+   ".injuries[].injuries[].athlete.links[].isPremium": [
+    "bool"
+   ],
+   ".injuries[].injuries[].athlete.headshot.href": [
+    "str:url"
+   ],
+   ".injuries[].injuries[].athlete.headshot.alt": [
+    "str:10",
+    "str:11",
+    "str:12",
+    "str:13",
+    "str:14",
+    "str:15",
+    "str:16",
+    "str:17",
+    "str:18",
+    "str:20",
+    "str:24",
+    "str:9"
+   ],
+   ".injuries[].injuries[].athlete.position.id": [
+    "str:1"
+   ],
+   ".injuries[].injuries[].athlete.position.name": [
+    "str:5",
+    "str:6",
+    "str:7"
+   ],
+   ".injuries[].injuries[].athlete.position.displayName": [
+    "str:5",
+    "str:6",
+    "str:7"
+   ],
+   ".injuries[].injuries[].athlete.position.abbreviation": [
+    "str:1"
+   ],
+   ".injuries[].injuries[].athlete.position.leaf": [
+    "bool"
+   ],
+   ".injuries[].injuries[].athlete.team.id": [
+    "str:1",
+    "str:2"
+   ],
+   ".injuries[].injuries[].athlete.team.uid": [
+    "str:13",
+    "str:14"
+   ],
+   ".injuries[].injuries[].athlete.team.slug": [
+    "str:10",
+    "str:11",
+    "str:12",
+    "str:13",
+    "str:14",
+    "str:15",
+    "str:16",
+    "str:17",
+    "str:18",
+    "str:19",
+    "str:20",
+    "str:21",
+    "str:22",
+    "str:9"
+   ],
+   ".injuries[].injuries[].athlete.team.name": [
+    "str:12",
+    "str:13",
+    "str:4",
+    "str:5",
+    "str:6",
+    "str:7",
+    "str:8",
+    "str:9"
+   ],
+   ".injuries[].injuries[].athlete.team.abbreviation": [
+    "str:2",
+    "str:3",
+    "str:4"
+   ],
+   ".injuries[].injuries[].athlete.team.displayName": [
+    "str:10",
+    "str:11",
+    "str:12",
+    "str:13",
+    "str:14",
+    "str:15",
+    "str:16",
+    "str:17",
+    "str:18",
+    "str:19",
+    "str:20",
+    "str:21",
+    "str:22",
+    "str:9"
+   ],
+   ".injuries[].injuries[].athlete.team.logos[].href": [
+    "str:url"
+   ],
+   ".injuries[].injuries[].athlete.team.logos[].width": [
+    "int"
+   ],
+   ".injuries[].injuries[].athlete.team.logos[].height": [
+    "int"
+   ],
+   ".injuries[].injuries[].athlete.team.logos[].alt": [
+    "str:0"
+   ],
+   ".injuries[].injuries[].athlete.team.logos[].lastUpdated": [
+    "str:date"
+   ],
+   ".injuries[].injuries[].athlete.team.links[].language": [
+    "str:5"
+   ],
+   ".injuries[].injuries[].athlete.team.links[].href": [
+    "str:75",
+    "str:76",
+    "str:77",
+    "str:80",
+    "str:81",
+    "str:url"
+   ],
+   ".injuries[].injuries[].athlete.team.links[].text": [
+    "str:10",
+    "str:11",
+    "str:12",
+    "str:6",
+    "str:7",
+    "str:8",
+    "str:9"
+   ],
+   ".injuries[].injuries[].athlete.team.links[].shortText": [
+    "str:10",
+    "str:11",
+    "str:12",
+    "str:6",
+    "str:7",
+    "str:8",
+    "str:9"
+   ],
+   ".injuries[].injuries[].athlete.team.links[].isExternal": [
+    "bool"
+   ],
+   ".injuries[].injuries[].athlete.team.links[].isPremium": [
+    "bool"
+   ],
+   ".injuries[].injuries[].athlete.notes.items[].id": [
+    "str:6"
+   ],
+   ".injuries[].injuries[].athlete.notes.items[].type": [
+    "str:4"
+   ],
+   ".injuries[].injuries[].athlete.notes.items[].date": [
+    "str:date"
+   ],
+   ".injuries[].injuries[].athlete.notes.items[].headline": [
+    "str:100",
+    "str:101",
+    "str:104",
+    "str:107",
+    "str:108",
+    "str:109",
+    "str:111",
+    "str:112",
+    "str:113",
+    "str:115",
+    "str:117",
+    "str:118",
+    "str:119",
+    "str:120",
+    "str:121",
+    "str:122",
+    "str:123",
+    "str:124",
+    "str:125",
+    "str:126",
+    "str:127",
+    "str:128",
+    "str:129",
+    "str:130",
+    "str:131",
+    "str:132",
+    "str:133",
+    "str:135",
+    "str:136",
+    "str:137",
+    "str:139",
+    "str:140",
+    "str:141",
+    "str:142",
+    "str:145",
+    "str:148",
+    "str:149",
+    "str:150",
+    "str:151",
+    "str:152",
+    "str:153",
+    "str:154",
+    "str:157",
+    "str:158",
+    "str:161",
+    "str:162",
+    "str:163",
+    "str:165",
+    "str:166",
+    "str:190",
+    "str:198",
+    "str:208",
+    "str:209",
+    "str:213",
+    "str:221",
+    "str:226",
+    "str:228",
+    "str:242",
+    "str:246",
+    "str:277",
+    "str:64",
+    "str:69",
+    "str:72",
+    "str:73",
+    "str:75",
+    "str:76",
+    "str:81",
+    "str:82",
+    "str:85",
+    "str:86",
+    "str:90",
+    "str:94",
+    "str:95",
+    "str:98",
+    "str:99"
+   ],
+   ".injuries[].injuries[].athlete.notes.items[].text": [
+    "str:104",
+    "str:115",
+    "str:117",
+    "str:137",
+    "str:142",
+    "str:143",
+    "str:147",
+    "str:148",
+    "str:151",
+    "str:153",
+    "str:154",
+    "str:158",
+    "str:159",
+    "str:164",
+    "str:165",
+    "str:167",
+    "str:170",
+    "str:171",
+    "str:172",
+    "str:173",
+    "str:174",
+    "str:186",
+    "str:188",
+    "str:194",
+    "str:201",
+    "str:206",
+    "str:207",
+    "str:208",
+    "str:212",
+    "str:215",
+    "str:216",
+    "str:217",
+    "str:220",
+    "str:221",
+    "str:223",
+    "str:227",
+    "str:228",
+    "str:229",
+    "str:231",
+    "str:234",
+    "str:235",
+    "str:238",
+    "str:239",
+    "str:241",
+    "str:244",
+    "str:247",
+    "str:250",
+    "str:251",
+    "str:252",
+    "str:258",
+    "str:268",
+    "str:269",
+    "str:272",
+    "str:273",
+    "str:276",
+    "str:277",
+    "str:279",
+    "str:280",
+    "str:281",
+    "str:282",
+    "str:287",
+    "str:291",
+    "str:292",
+    "str:298",
+    "str:302",
+    "str:305",
+    "str:306",
+    "str:310",
+    "str:311",
+    "str:313",
+    "str:318",
+    "str:320",
+    "str:324",
+    "str:325",
+    "str:327",
+    "str:335",
+    "str:345",
+    "str:346",
+    "str:351",
+    "str:358",
+    "str:367",
+    "str:372",
+    "str:374",
+    "str:378",
+    "str:382",
+    "str:383",
+    "str:392",
+    "str:394",
+    "str:405",
+    "str:406",
+    "str:414",
+    "str:434",
+    "str:439",
+    "str:445",
+    "str:480",
+    "str:482",
+    "str:493",
+    "str:516",
+    "str:539",
+    "str:542",
+    "str:95"
+   ],
+   ".injuries[].injuries[].athlete.notes.items[].source": [
+    "str:8"
+   ],
+   ".injuries[].injuries[].athlete.notes.items[].injury.$ref": [
+    "str:url"
+   ],
+   ".injuries[].injuries[].athlete.status.id": [
+    "str:1"
+   ],
+   ".injuries[].injuries[].athlete.status.name": [
+    "str:6"
+   ],
+   ".injuries[].injuries[].athlete.status.type": [
+    "str:6"
+   ],
+   ".injuries[].injuries[].athlete.status.abbreviation": [
+    "str:6"
+   ],
+   ".injuries[].injuries[].source.id": [
+    "str:1"
+   ],
+   ".injuries[].injuries[].source.description": [
+    "str:12"
+   ],
+   ".injuries[].injuries[].source.state": [
+    "str:5"
+   ],
+   ".injuries[].injuries[].type.id": [
+    "str:1"
+   ],
+   ".injuries[].injuries[].type.name": [
+    "str:17",
+    "str:22"
+   ],
+   ".injuries[].injuries[].type.description": [
+    "str:10",
+    "str:3"
+   ],
+   ".injuries[].injuries[].type.abbreviation": [
+    "str:1",
+    "str:2"
+   ],
+   ".injuries[].injuries[].details.fantasyStatus.description": [
+    "str:3"
+   ],
+   ".injuries[].injuries[].details.fantasyStatus.abbreviation": [
+    "str:3"
+   ],
+   ".injuries[].injuries[].details.type": [
+    "str:10",
+    "str:11",
+    "str:16",
+    "str:18",
+    "str:3",
+    "str:4",
+    "str:5",
+    "str:6",
+    "str:7",
+    "str:8",
+    "str:9"
+   ],
+   ".injuries[].injuries[].details.location": [
+    "str:3",
+    "str:4",
+    "str:5"
+   ],
+   ".injuries[].injuries[].details.detail": [
+    "str:10",
+    "str:12",
+    "str:13",
+    "str:6",
+    "str:7",
+    "str:8"
+   ],
+   ".injuries[].injuries[].details.side": [
+    "str:13",
+    "str:4",
+    "str:5"
+   ],
+   ".injuries[].injuries[].details.returnDate": [
+    "str:date"
+   ]
+  },
+  "enums": {
+   ".status": [
+    "success"
+   ],
+   ".injuries[].injuries[].status": [
+    "Day-To-Day",
+    "Out"
+   ],
+   ".injuries[].injuries[].athlete.notes.items[].type": [
+    "news"
+   ],
+   ".injuries[].injuries[].athlete.status.type": [
+    "active"
+   ],
+   ".injuries[].injuries[].source.state": [
+    "basic"
+   ],
+   ".injuries[].injuries[].details.type": [
+    "Ankle",
+    "Back",
+    "Calf",
+    "Foot",
+    "Hamstring",
+    "Hip",
+    "Knee",
+    "Leg",
+    "Rest",
+    "Shoulder",
+    "Undisclosed",
+    "Wrist"
+   ]
+  }
+ },
+ "espn_nba_news": {
+  "status": 200,
+  "chars": 20484,
+  "json_paths": {
+   ".header": [
+    "str:8"
+   ],
+   ".link.language": [
+    "str:2"
+   ],
+   ".link.href": [
+    "str:url"
+   ],
+   ".link.text": [
+    "str:12"
+   ],
+   ".link.shortText": [
+    "str:8"
+   ],
+   ".link.isExternal": [
+    "bool"
+   ],
+   ".link.isPremium": [
+    "bool"
+   ],
+   ".articles[].id": [
+    "int"
+   ],
+   ".articles[].nowId": [
+    "str:10"
+   ],
+   ".articles[].contentKey": [
+    "str:14",
+    "str:16"
+   ],
+   ".articles[].dataSourceIdentifier": [
+    "str:13"
+   ],
+   ".articles[].type": [
+    "str:12",
+    "str:5"
+   ],
+   ".articles[].headline": [
+    "str:52",
+    "str:53",
+    "str:56",
+    "str:64",
+    "str:77",
+    "str:89"
+   ],
+   ".articles[].description": [
+    "str:103",
+    "str:109",
+    "str:134",
+    "str:149",
+    "str:52",
+    "str:53"
+   ],
+   ".articles[].lastModified": [
+    "str:date"
+   ],
+   ".articles[].published": [
+    "str:date"
+   ],
+   ".articles[].images[].name": [
+    "str:23",
+    "str:24",
+    "str:28",
+    "str:42",
+    "str:52",
+    "str:53",
+    "str:76"
+   ],
+   ".articles[].images[].caption": [
+    "str:105",
+    "str:51",
+    "str:52",
+    "str:53",
+    "str:78",
+    "str:90"
+   ],
+   ".articles[].images[].alt": [
+    "str:0",
+    "str:155",
+    "str:17",
+    "str:51"
+   ],
+   ".articles[].images[].height": [
+    "int"
+   ],
+   ".articles[].images[].width": [
+    "int"
+   ],
+   ".articles[].images[].url": [
+    "str:url"
+   ],
+   ".articles[].categories[].id": [
+    "int"
+   ],
+   ".articles[].categories[].type": [
+    "str:11",
+    "str:18",
+    "str:4",
+    "str:5",
+    "str:6",
+    "str:7"
+   ],
+   ".articles[].categories[].uid": [
+    "str:11",
+    "str:13",
+    "str:14",
+    "str:19",
+    "str:21",
+    "str:9"
+   ],
+   ".articles[].categories[].guid": [
+    "str:36"
+   ],
+   ".articles[].categories[].description": [
+    "str:10",
+    "str:11",
+    "str:12",
+    "str:13",
+    "str:14",
+    "str:15",
+    "str:16",
+    "str:17",
+    "str:21",
+    "str:25",
+    "str:27",
+    "str:3",
+    "str:33",
+    "str:34",
+    "str:4",
+    "str:7",
+    "str:8",
+    "str:9"
+   ],
+   ".articles[].categories[].sportId": [
+    "int"
+   ],
+   ".articles[].categories[].athleteId": [
+    "int"
+   ],
+   ".articles[].categories[].athlete.id": [
+    "int"
+   ],
+   ".articles[].categories[].athlete.description": [
+    "str:10",
+    "str:11",
+    "str:12",
+    "str:14",
+    "str:16",
+    "str:9"
+   ],
+   ".articles[].categories[].athlete.links.mobile.athletes.href": [
+    "str:url"
+   ],
+   ".articles[].categories[].athlete.links.web.athletes.href": [
+    "str:url"
+   ],
+   ".articles[].categories[].teamId": [
+    "int"
+   ],
+   ".articles[].categories[].team.id": [
+    "int"
+   ],
+   ".articles[].categories[].team.description": [
+    "str:13",
+    "str:15",
+    "str:16",
+    "str:17"
+   ],
+   ".articles[].categories[].team.abbreviation": [
+    "str:3"
+   ],
+   ".articles[].categories[].team.shortDisplayName": [
+    "str:5",
+    "str:7",
+    "str:9"
+   ],
+   ".articles[].categories[].team.links.mobile.teams.href": [
+    "str:url"
+   ],
+   ".articles[].categories[].team.links.web.teams.href": [
+    "str:url"
+   ],
+   ".articles[].categories[].leagueId": [
+    "int"
+   ],
+   ".articles[].categories[].league.id": [
+    "int"
+   ],
+   ".articles[].categories[].league.description": [
+    "str:11",
+    "str:21",
+    "str:27",
+    "str:3",
+    "str:8"
+   ],
+   ".articles[].categories[].league.abbreviation": [
+    "str:3",
+    "str:8"
+   ],
+   ".articles[].categories[].league.links.mobile.leagues.href": [
+    "str:url"
+   ],
+   ".articles[].categories[].league.links.web.leagues.href": [
+    "str:url"
+   ],
+   ".articles[].categories[].topicId": [
+    "int"
+   ],
+   ".articles[].categories[].eventId": [
+    "int"
+   ],
+   ".articles[].categories[].event.id": [
+    "int"
+   ],
+   ".articles[].categories[].event.sport": [
+    "str:10"
+   ],
+   ".articles[].categories[].event.league": [
+    "str:3"
+   ],
+   ".articles[].categories[].event.description": [
+    "str:33",
+    "str:34"
+   ],
+   ".articles[].categories[].event.links.mobile.event.href": [
+    "str:url"
+   ],
+   ".articles[].categories[].event.links.web.event.href": [
+    "str:url"
+   ],
+   ".articles[].links.api.artwork.href": [
+    "str:url"
+   ],
+   ".articles[].links.api.self.href": [
+    "str:url"
+   ],
+   ".articles[].links.sportscenter.href": [
+    "str:79"
+   ],
+   ".articles[].links.web.href": [
+    "str:url"
+   ],
+   ".articles[].links.web.self.href": [
+    "str:url"
+   ],
+   ".articles[].links.web.self.dsi.href": [
+    "str:url"
+   ],
+   ".articles[].premium": [
+    "bool"
+   ],
+   ".articles[].images[].dataSourceIdentifier": [
+    "str:13"
+   ],
+   ".articles[].images[].id": [
+    "int"
+   ],
+   ".articles[].images[].type": [
+    "str:5",
+    "str:6"
+   ],
+   ".articles[].images[].credit": [
+    "str:23",
+    "str:25",
+    "str:4"
+   ],
+   ".articles[].byline": [
+    "str:12",
+    "str:15"
+   ],
+   ".articles[].links.app.sportscenter.href": [
+    "str:52"
+   ],
+   ".articles[].links.mobile.href": [
+    "str:url"
+   ],
+   ".articles[].categories[].slug": [
+    "str:12",
+    "str:15"
+   ],
+   ".articles[].categories[].contributor.id": [
+    "int"
+   ],
+   ".articles[].categories[].contributor.description": [
+    "str:12",
+    "str:15"
+   ]
+  },
+  "enums": {
+   ".articles[].type": [
+    "HeadlineNews",
+    "Media",
+    "Story"
+   ],
+   ".articles[].categories[].type": [
+    "athlete",
+    "contributor",
+    "editorialindicator",
+    "event",
+    "league",
+    "team",
+    "topic"
+   ],
+   ".articles[].images[].type": [
+    "Media",
+    "header"
+   ]
+  }
+ },
+ "espn_nfl_tx": {
+  "status": 200,
+  "chars": 101837,
+  "json_paths": {
+   ".timestamp": [
+    "str:date"
+   ],
+   ".status": [
+    "str:7"
+   ],
+   ".season.year": [
+    "int"
+   ],
+   ".season.type": [
+    "int"
+   ],
+   ".season.name": [
+    "str:14"
+   ],
+   ".season.displayName": [
+    "str:4"
+   ],
+   ".requestedYear.year": [
+    "int"
+   ],
+   ".requestedYear.displayName": [
+    "str:4"
+   ],
+   ".count": [
+    "int"
+   ],
+   ".pageIndex": [
+    "int"
+   ],
+   ".pageSize": [
+    "int"
+   ],
+   ".pageCount": [
+    "int"
+   ],
+   ".transactions[].date": [
+    "str:date"
+   ],
+   ".transactions[].description": [
+    "str:101",
+    "str:110",
+    "str:114",
+    "str:141",
+    "str:146",
+    "str:155",
+    "str:176",
+    "str:23",
+    "str:24",
+    "str:27",
+    "str:43",
+    "str:44",
+    "str:45",
+    "str:47",
+    "str:48",
+    "str:49",
+    "str:53",
+    "str:57",
+    "str:61",
+    "str:72",
+    "str:75",
+    "str:87",
+    "str:94"
+   ],
+   ".transactions[].team.id": [
+    "str:1",
+    "str:2"
+   ],
+   ".transactions[].team.location": [
+    "str:10",
+    "str:11",
+    "str:12",
+    "str:13",
+    "str:5",
+    "str:6",
+    "str:7",
+    "str:8",
+    "str:9"
+   ],
+   ".transactions[].team.name": [
+    "str:10",
+    "str:5",
+    "str:6",
+    "str:7",
+    "str:8"
+   ],
+   ".transactions[].team.abbreviation": [
+    "str:2",
+    "str:3"
+   ],
+   ".transactions[].team.displayName": [
+    "str:13",
+    "str:14",
+    "str:16",
+    "str:17",
+    "str:18",
+    "str:19",
+    "str:20",
+    "str:21"
+   ],
+   ".transactions[].team.color": [
+    "str:6"
+   ],
+   ".transactions[].team.alternateColor": [
+    "str:6"
+   ],
+   ".transactions[].team.logos[].href": [
+    "str:url"
+   ],
+   ".transactions[].team.logos[].width": [
+    "int"
+   ],
+   ".transactions[].team.logos[].height": [
+    "int"
+   ],
+   ".transactions[].team.logos[].alt": [
+    "str:0"
+   ],
+   ".transactions[].team.logos[].lastUpdated": [
+    "str:date"
+   ],
+   ".transactions[].team.links[].language": [
+    "str:5"
+   ],
+   ".transactions[].team.links[].href": [
+    "str:url"
+   ],
+   ".transactions[].team.links[].text": [
+    "str:9"
+   ],
+   ".transactions[].team.links[].shortText": [
+    "str:9"
+   ],
+   ".transactions[].team.links[].isExternal": [
+    "bool"
+   ],
+   ".transactions[].team.links[].isPremium": [
+    "bool"
+   ]
+  },
+  "enums": {
+   ".status": [
+    "success"
+   ]
+  }
+ },
+ "espn_nhl_injuries": {
+  "status": 200,
+  "chars": 1270713,
+  "json_paths": {
+   ".timestamp": [
+    "str:date"
+   ],
+   ".status": [
+    "str:7"
+   ],
+   ".season.year": [
+    "int"
+   ],
+   ".season.type": [
+    "int"
+   ],
+   ".season.name": [
+    "str:14"
+   ],
+   ".season.displayName": [
+    "str:7"
+   ],
+   ".injuries[].id": [
+    "str:1",
+    "str:2",
+    "str:6"
+   ],
+   ".injuries[].displayName": [
+    "str:12",
+    "str:13",
+    "str:14",
+    "str:15",
+    "str:16",
+    "str:17",
+    "str:18",
+    "str:19",
+    "str:20"
+   ],
+   ".injuries[].injuries[].id": [
+    "str:6"
+   ],
+   ".injuries[].injuries[].longComment": [
+    "str:10",
+    "str:134",
+    "str:179",
+    "str:181",
+    "str:183",
+    "str:184",
+    "str:194",
+    "str:2",
+    "str:209",
+    "str:212",
+    "str:223",
+    "str:232",
+    "str:236",
+    "str:259",
+    "str:262",
+    "str:265",
+    "str:266",
+    "str:268",
+    "str:276",
+    "str:281",
+    "str:283",
+    "str:289",
+    "str:291",
+    "str:3",
+    "str:319",
+    "str:323",
+    "str:324",
+    "str:328",
+    "str:337",
+    "str:349",
+    "str:357",
+    "str:359",
+    "str:362",
+    "str:372",
+    "str:377",
+    "str:381",
+    "str:385",
+    "str:386",
+    "str:389",
+    "str:397",
+    "str:402",
+    "str:405",
+    "str:407",
+    "str:413",
+    "str:422",
+    "str:431",
+    "str:435",
+    "str:448",
+    "str:467",
+    "str:471",
+    "str:473",
+    "str:481",
+    "str:5",
+    "str:520",
+    "str:534",
+    "str:543",
+    "str:546",
+    "str:553",
+    "str:640",
+    "str:681"
+   ],
+   ".injuries[].injuries[].shortComment": [
+    "str:10",
+    "str:101",
+    "str:103",
+    "str:104",
+    "str:106",
+    "str:107",
+    "str:108",
+    "str:110",
+    "str:114",
+    "str:115",
+    "str:116",
+    "str:120",
+    "str:122",
+    "str:123",
+    "str:125",
+    "str:127",
+    "str:128",
+    "str:129",
+    "str:130",
+    "str:133",
+    "str:134",
+    "str:137",
+    "str:138",
+    "str:139",
+    "str:140",
+    "str:142",
+    "str:145",
+    "str:148",
+    "str:159",
+    "str:160",
+    "str:166",
+    "str:177",
+    "str:184",
+    "str:2",
+    "str:3",
+    "str:5",
+    "str:61",
+    "str:62",
+    "str:64",
+    "str:65",
+    "str:67",
+    "str:68",
+    "str:70",
+    "str:71",
+    "str:72",
+    "str:74",
+    "str:75",
+    "str:77",
+    "str:81",
+    "str:83",
+    "str:87",
+    "str:93"
+   ],
+   ".injuries[].injuries[].status": [
+    "str:10",
+    "str:15",
+    "str:3"
+   ],
+   ".injuries[].injuries[].date": [
+    "str:date"
+   ],
+   ".injuries[].injuries[].athlete.firstName": [
+    "str:10",
+    "str:2",
+    "str:3",
+    "str:4",
+    "str:5",
+    "str:6",
+    "str:7",
+    "str:8",
+    "str:9"
+   ],
+   ".injuries[].injuries[].athlete.lastName": [
+    "str:10",
+    "str:11",
+    "str:12",
+    "str:13",
+    "str:14",
+    "str:3",
+    "str:4",
+    "str:5",
+    "str:6",
+    "str:7",
+    "str:8",
+    "str:9"
+   ],
+   ".injuries[].injuries[].athlete.displayName": [
+    "str:10",
+    "str:11",
+    "str:12",
+    "str:13",
+    "str:14",
+    "str:15",
+    "str:16",
+    "str:17",
+    "str:18",
+    "str:19",
+    "str:20",
+    "str:8",
+    "str:9"
+   ],
+   ".injuries[].injuries[].athlete.shortName": [
+    "str:10",
+    "str:11",
+    "str:12",
+    "str:13",
+    "str:14",
+    "str:15",
+    "str:16",
+    "str:17",
+    "str:6",
+    "str:7",
+    "str:8",
+    "str:9"
+   ],
+   ".injuries[].injuries[].athlete.links[].language": [
+    "str:5"
+   ],
+   ".injuries[].injuries[].athlete.links[].href": [
+    "str:64",
+    "str:67",
+    "str:76",
+    "str:77",
+    "str:78",
+    "str:79",
+    "str:80",
+    "str:81",
+    "str:83",
+    "str:url"
+   ],
+   ".injuries[].injuries[].athlete.links[].text": [
+    "str:11",
+    "str:3",
+    "str:4",
+    "str:5",
+    "str:6",
+    "str:8"
+   ],
+   ".injuries[].injuries[].athlete.links[].shortText": [
+    "str:11",
+    "str:3",
+    "str:4",
+    "str:5",
+    "str:6",
+    "str:8"
+   ],
+   ".injuries[].injuries[].athlete.links[].isExternal": [
+    "bool"
+   ],
+   ".injuries[].injuries[].athlete.links[].isPremium": [
+    "bool"
+   ],
+   ".injuries[].injuries[].athlete.headshot.href": [
+    "str:url"
+   ],
+   ".injuries[].injuries[].athlete.headshot.alt": [
+    "str:10",
+    "str:11",
+    "str:12",
+    "str:13",
+    "str:14",
+    "str:15",
+    "str:16",
+    "str:17",
+    "str:18",
+    "str:19",
+    "str:20",
+    "str:8",
+    "str:9"
+   ],
+   ".injuries[].injuries[].athlete.position.id": [
+    "str:1"
+   ],
+   ".injuries[].injuries[].athlete.position.name": [
+    "str:10",
+    "str:6",
+    "str:7",
+    "str:9"
+   ],
+   ".injuries[].injuries[].athlete.position.displayName": [
+    "str:10",
+    "str:6",
+    "str:7",
+    "str:9"
+   ],
+   ".injuries[].injuries[].athlete.position.abbreviation": [
+    "str:1",
+    "str:2"
+   ],
+   ".injuries[].injuries[].athlete.position.leaf": [
+    "bool"
+   ],
+   ".injuries[].injuries[].athlete.team.id": [
+    "str:1",
+    "str:2",
+    "str:6"
+   ],
+   ".injuries[].injuries[].athlete.team.uid": [
+    "str:13",
+    "str:14",
+    "str:18"
+   ],
+   ".injuries[].injuries[].athlete.team.slug": [
+    "str:12",
+    "str:13",
+    "str:14",
+    "str:15",
+    "str:16",
+    "str:17",
+    "str:18",
+    "str:19",
+    "str:20"
+   ],
+   ".injuries[].injuries[].athlete.team.name": [
+    "str:10",
+    "str:11",
+    "str:14",
+    "str:4",
+    "str:5",
+    "str:6",
+    "str:7",
+    "str:8",
+    "str:9"
+   ],
+   ".injuries[].injuries[].athlete.team.abbreviation": [
+    "str:2",
+    "str:3"
+   ],
+   ".injuries[].injuries[].athlete.team.displayName": [
+    "str:12",
+    "str:13",
+    "str:14",
+    "str:15",
+    "str:16",
+    "str:17",
+    "str:18",
+    "str:19",
+    "str:20"
+   ],
+   ".injuries[].injuries[].athlete.team.logos[].href": [
+    "str:url"
+   ],
+   ".injuries[].injuries[].athlete.team.logos[].width": [
+    "int"
+   ],
+   ".injuries[].injuries[].athlete.team.logos[].height": [
+    "int"
+   ],
+   ".injuries[].injuries[].athlete.team.logos[].alt": [
+    "str:0"
+   ],
+   ".injuries[].injuries[].athlete.team.logos[].lastUpdated": [
+    "str:date"
+   ],
+   ".injuries[].injuries[].athlete.team.links[].language": [
+    "str:5"
+   ],
+   ".injuries[].injuries[].athlete.team.links[].href": [
+    "str:75",
+    "str:76",
+    "str:77",
+    "str:80",
+    "str:81",
+    "str:url"
+   ],
+   ".injuries[].injuries[].athlete.team.links[].text": [
+    "str:10",
+    "str:12",
+    "str:6",
+    "str:7",
+    "str:8",
+    "str:9"
+   ],
+   ".injuries[].injuries[].athlete.team.links[].shortText": [
+    "str:10",
+    "str:12",
+    "str:6",
+    "str:7",
+    "str:8",
+    "str:9"
+   ],
+   ".injuries[].injuries[].athlete.team.links[].isExternal": [
+    "bool"
+   ],
+   ".injuries[].injuries[].athlete.team.links[].isPremium": [
+    "bool"
+   ],
+   ".injuries[].injuries[].athlete.notes.items[].id": [
+    "str:6"
+   ],
+   ".injuries[].injuries[].athlete.notes.items[].type": [
+    "str:4"
+   ],
+   ".injuries[].injuries[].athlete.notes.items[].date": [
+    "str:date"
+   ],
+   ".injuries[].injuries[].athlete.notes.items[].headline": [
+    "str:10",
+    "str:101",
+    "str:103",
+    "str:104",
+    "str:105",
+    "str:106",
+    "str:111",
+    "str:112",
+    "str:115",
+    "str:118",
+    "str:120",
+    "str:122",
+    "str:125",
+    "str:126",
+    "str:127",
+    "str:128",
+    "str:129",
+    "str:132",
+    "str:133",
+    "str:135",
+    "str:136",
+    "str:137",
+    "str:138",
+    "str:139",
+    "str:140",
+    "str:142",
+    "str:147",
+    "str:148",
+    "str:159",
+    "str:177",
+    "str:184",
+    "str:2",
+    "str:3",
+    "str:5",
+    "str:58",
+    "str:61",
+    "str:64",
+    "str:70",
+    "str:71",
+    "str:72",
+    "str:74",
+    "str:76",
+    "str:77",
+    "str:78",
+    "str:79",
+    "str:81",
+    "str:82",
+    "str:84",
+    "str:85",
+    "str:87",
+    "str:89",
+    "str:90",
+    "str:91",
+    "str:94",
+    "str:95",
+    "str:98"
+   ],
+   ".injuries[].injuries[].athlete.notes.items[].text": [
+    "str:10",
+    "str:183",
+    "str:2",
+    "str:209",
+    "str:227",
+    "str:237",
+    "str:239",
+    "str:243",
+    "str:257",
+    "str:261",
+    "str:262",
+    "str:263",
+    "str:265",
+    "str:266",
+    "str:268",
+    "str:284",
+    "str:285",
+    "str:289",
+    "str:295",
+    "str:3",
+    "str:302",
+    "str:307",
+    "str:311",
+    "str:312",
+    "str:319",
+    "str:324",
+    "str:330",
+    "str:344",
+    "str:349",
+    "str:358",
+    "str:359",
+    "str:373",
+    "str:381",
+    "str:383",
+    "str:384",
+    "str:387",
+    "str:389",
+    "str:396",
+    "str:397",
+    "str:401",
+    "str:403",
+    "str:405",
+    "str:411",
+    "str:435",
+    "str:440",
+    "str:467",
+    "str:481",
+    "str:486",
+    "str:489",
+    "str:491",
+    "str:5",
+    "str:539",
+    "str:546",
+    "str:553",
+    "str:559",
+    "str:561",
+    "str:571",
+    "str:579",
+    "str:595",
+    "str:596",
+    "str:599",
+    "str:619",
+    "str:639",
+    "str:640"
+   ],
+   ".injuries[].injuries[].athlete.notes.items[].source": [
+    "str:8"
+   ],
+   ".injuries[].injuries[].athlete.notes.items[].injury.$ref": [
+    "str:url"
+   ],
+   ".injuries[].injuries[].athlete.status.id": [
+    "str:1"
+   ],
+   ".injuries[].injuries[].athlete.status.name": [
+    "str:6",
+    "str:7",
+    "str:8"
+   ],
+   ".injuries[].injuries[].athlete.status.type": [
+    "str:6",
+    "str:7",
+    "str:8"
+   ],
+   ".injuries[].injuries[].athlete.status.abbreviation": [
+    "str:2",
+    "str:6",
+    "str:8"
+   ],
+   ".injuries[].injuries[].source.id": [
+    "str:1"
+   ],
+   ".injuries[].injuries[].source.description": [
+    "str:12"
+   ],
+   ".injuries[].injuries[].source.state": [
+    "str:5"
+   ],
+   ".injuries[].injuries[].type.id": [
+    "str:1",
+    "str:2"
+   ],
+   ".injuries[].injuries[].type.name": [
+    "str:16",
+    "str:17",
+    "str:22",
+    "str:24"
+   ],
+   ".injuries[].injuries[].type.description": [
+    "str:10",
+    "str:15",
+    "str:3"
+   ],
+   ".injuries[].injuries[].type.abbreviation": [
+    "str:1",
+    "str:2",
+    "str:4"
+   ],
+   ".injuries[].injuries[].details.fantasyStatus.description": [
+    "str:10",
+    "str:2",
+    "str:3",
+    "str:5"
+   ],
+   ".injuries[].injuries[].details.fantasyStatus.abbreviation": [
+    "str:10",
+    "str:2",
+    "str:3",
+    "str:5"
+   ],
+   ".injuries[].injuries[].details.type": [
+    "str:10",
+    "str:11",
+    "str:16",
+    "str:3",
+    "str:4",
+    "str:5",
+    "str:7",
+    "str:8",
+    "str:9"
+   ],
+   ".injuries[].injuries[].details.returnDate": [
+    "str:date"
+   ],
+   ".injuries[].injuries[].details.detail": [
+    "str:13",
+    "str:7"
+   ],
+   ".injuries[].injuries[].details.side": [
+    "str:13",
+    "str:4",
+    "str:5"
+   ]
+  },
+  "enums": {
+   ".status": [
+    "success"
+   ],
+   ".injuries[].injuries[].status": [
+    "Day-To-Day",
+    "Injured Reserve",
+    "Out",
+    "Suspension"
+   ],
+   ".injuries[].injuries[].athlete.notes.items[].type": [
+    "news"
+   ],
+   ".injuries[].injuries[].athlete.status.type": [
+    "active",
+    "inactive",
+    "injured",
+    "minors"
+   ],
+   ".injuries[].injuries[].source.state": [
+    "basic"
+   ],
+   ".injuries[].injuries[].details.type": [
+    "Abdomen",
+    "Contract Dispute",
+    "Hip",
+    "Knee",
+    "Leg",
+    "Lower Body",
+    "Lower Leg",
+    "Shoulder",
+    "Skull",
+    "Suspension",
+    "Undisclosed",
+    "Upper Body"
+   ]
+  }
+ },
+ "afl_api_comps": {
+  "status": 200,
+  "chars": 770,
+  "json_paths": {
+   ".meta.code": [
+    "int"
+   ],
+   ".meta.pagination.page": [
+    "int"
+   ],
+   ".meta.pagination.numPages": [
+    "int"
+   ],
+   ".meta.pagination.pageSize": [
+    "int"
+   ],
+   ".meta.pagination.numEntries": [
+    "int"
+   ],
+   ".competitions[].id": [
+    "int"
+   ],
+   ".competitions[].providerId": [
+    "str:7"
+   ],
+   ".competitions[].code": [
+    "str:3",
+    "str:4"
+   ],
+   ".competitions[].name": [
+    "str:0",
+    "str:10",
+    "str:13",
+    "str:15",
+    "str:16",
+    "str:19",
+    "str:22",
+    "str:4",
+    "str:8"
+   ]
+  },
+  "enums": {}
+ }
+}
