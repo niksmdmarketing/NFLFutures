@@ -205,7 +205,7 @@ def main(folder, out_path):
                 for b in range(len(BUCKETS)):
                     t = g.loc[(c, b)] if (c, b) in g.index and g.loc[(c, b), "size"] >= 30 else gc.loc[c]
                     tab.setdefault(c, {}).setdefault(str(b), {})[str(h)] = round(float((t["sum"] + 1) / (t["size"] + 2)), 4)
-        json.dump({"version": "returns-v1 (frozen " + pd.Timestamp.utcnow().strftime("%Y-%m-%d") + ")",
+        json.dump({"version": "returns-v2 (corrected report parsing; frozen " + pd.Timestamp.utcnow().strftime("%Y-%m-%d") + ")",
                    "fitted_on": [int(s) for s in seasons], "horizons": list(HORIZONS),
                    "buckets_games_already_missed": [list(b) for b in BUCKETS], "classes": "long / injury / non_injury (see research/nba_return_test.py)",
                    "p_still_out": tab}, open(os.environ["FREEZE_TABLE"], "w"), indent=1)

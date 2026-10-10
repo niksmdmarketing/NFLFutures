@@ -58,12 +58,14 @@ and `/afl/` sections.
 - Tests: `research/nba_availability2.py` → `model/availability_nba_v2.json` (2011-26 walk-forward, 0.6195 → 0.6078, 16/16
   seasons; genuine pre-game test with official reports, 8,294 games 2019-26: 0.632 → 0.618); `research/nba_avail_futures_test.py`
   → `model/availability_nba_futures.json` (futures: neutral).
+- Official report parsing was corrected on 11 Oct 2026 after GPT's audit (team/game assignment errors); the pre-game
+  reports were re-parsed (`research/nba_pregame_reparse.py`, original PDFs as the `nba-official-reports` release) and
+  the tests below were rerun on the corrected rows.
 - Return durations (`research/nba_return_test.py` → `model/availability_nba_returns.json`, official reports 2019-26):
   the live undated recovery rule is badly calibrated (restarts its countdown each report; over-predicts short absences,
   under-predicts long ones). A frozen empirical table (`pipeline/nba_return_table.json`) is archived beside it each
   refresh as a challenger (`pipeline/nba_returns_challenger.py` → injury-monitor `nba/returns_challenger.jsonl`); no live change.
-- Shrinkage and replacement quality (`research/nba_shrink_compare.py` → `model/availability_nba_shrink.json`,
-  `model/availability_nba_replacement.json`): 20-game shrinkage makes no material difference to the live rule; valuing
+- Shrinkage and replacement quality (`research/nba_shrink_compare.py` → `model/availability_nba_shrink.json`): 20-game shrinkage makes no material difference to the live rule; valuing
   absences against the team's own bench instead of league replacement level was worse in 5 of 6 seasons.
 
 ### NBL

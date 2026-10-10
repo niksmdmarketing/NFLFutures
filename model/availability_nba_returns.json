@@ -1,11 +1,11 @@
 {
- "observations": 30728,
- "absences": 4968,
- "unmatched_report_rows": 3411,
+ "observations": 38453,
+ "absences": 2824,
+ "unmatched_report_rows": 3300,
  "class_counts": {
-  "injury": 20293,
-  "non_injury": 6883,
-  "long": 3552
+  "injury": 24697,
+  "non_injury": 9126,
+  "long": 4630
  },
  "test_seasons": [
   2022,
@@ -16,772 +16,772 @@
  ],
  "horizons": {
   "1": {
-   "n": 23926,
-   "actual_still_out": 0.861,
+   "n": 29192,
+   "actual_still_out": 0.852,
    "p_live": {
-    "brier": 0.133,
-    "log_loss": 0.6217,
+    "brier": 0.1416,
+    "log_loss": 0.6573,
     "mean_pred": 0.98
    },
    "p_upd": {
-    "brier": 0.1296,
-    "log_loss": 0.5492,
-    "mean_pred": 0.925
+    "brier": 0.1375,
+    "log_loss": 0.575,
+    "mean_pred": 0.923
    },
    "p_emp": {
-    "brier": 0.1002,
-    "log_loss": 0.3313,
-    "mean_pred": 0.871
+    "brier": 0.1085,
+    "log_loss": 0.3561,
+    "mean_pred": 0.861
    },
    "by_class": {
     "injury": {
-     "n": 15391,
-     "actual": 0.847,
+     "n": 18337,
+     "actual": 0.835,
      "p_live": {
-      "brier": 0.1458,
-      "log_loss": 0.6656,
-      "mean_pred": 0.978
+      "brier": 0.1569,
+      "log_loss": 0.7125,
+      "mean_pred": 0.977
      },
      "p_upd": {
-      "brier": 0.1424,
-      "log_loss": 0.5919,
-      "mean_pred": 0.916
+      "brier": 0.1528,
+      "log_loss": 0.628,
+      "mean_pred": 0.914
      },
      "p_emp": {
-      "brier": 0.1088,
-      "log_loss": 0.3548,
-      "mean_pred": 0.86
+      "brier": 0.1185,
+      "log_loss": 0.384,
+      "mean_pred": 0.849
      }
     },
     "long": {
-     "n": 2928,
-     "actual": 0.954,
+     "n": 3664,
+     "actual": 0.952,
      "p_live": {
-      "brier": 0.046,
-      "log_loss": 0.3174,
+      "brier": 0.0479,
+      "log_loss": 0.3307,
       "mean_pred": 1.0
      },
      "p_upd": {
-      "brier": 0.0456,
-      "log_loss": 0.2724,
+      "brier": 0.0475,
+      "log_loss": 0.2898,
       "mean_pred": 0.985
      },
      "p_emp": {
-      "brier": 0.0397,
-      "log_loss": 0.1618,
+      "brier": 0.0379,
+      "log_loss": 0.1524,
       "mean_pred": 0.955
      }
     },
     "non_injury": {
-     "n": 5607,
-     "actual": 0.851,
+     "n": 7191,
+     "actual": 0.843,
      "p_live": {
-      "brier": 0.1435,
-      "log_loss": 0.6604,
-      "mean_pred": 0.978
+      "brier": 0.1502,
+      "log_loss": 0.6828,
+      "mean_pred": 0.977
      },
      "p_upd": {
-      "brier": 0.1386,
-      "log_loss": 0.5768,
-      "mean_pred": 0.917
+      "brier": 0.1441,
+      "log_loss": 0.5851,
+      "mean_pred": 0.916
      },
      "p_emp": {
-      "brier": 0.1082,
-      "log_loss": 0.3552,
-      "mean_pred": 0.855
+      "brier": 0.1192,
+      "log_loss": 0.389,
+      "mean_pred": 0.842
      }
     }
    },
    "by_elapsed_bucket": {
     "0-0": {
-     "n": 3626,
-     "actual": 0.546,
-     "live": 0.979,
-     "live_upd": 0.979,
-     "empirical": 0.59
+     "n": 4754,
+     "actual": 0.564,
+     "live": 0.978,
+     "live_upd": 0.978,
+     "empirical": 0.606
     },
     "1-2": {
-     "n": 3869,
-     "actual": 0.821,
-     "live": 0.978,
+     "n": 5129,
+     "actual": 0.818,
+     "live": 0.977,
      "live_upd": 0.916,
-     "empirical": 0.836
+     "empirical": 0.833
     },
     "3-5": {
-     "n": 3591,
-     "actual": 0.883,
+     "n": 4658,
+     "actual": 0.882,
      "live": 0.98,
-     "live_upd": 0.886,
-     "empirical": 0.886
+     "live_upd": 0.887,
+     "empirical": 0.889
     },
     "6-10": {
-     "n": 3613,
-     "actual": 0.928,
-     "live": 0.981,
-     "live_upd": 0.894,
-     "empirical": 0.927
+     "n": 4467,
+     "actual": 0.926,
+     "live": 0.98,
+     "live_upd": 0.893,
+     "empirical": 0.924
     },
     "11-20": {
-     "n": 3687,
-     "actual": 0.956,
+     "n": 4591,
+     "actual": 0.951,
      "live": 0.982,
      "live_upd": 0.915,
-     "empirical": 0.959
+     "empirical": 0.953
     },
     "21-+": {
-     "n": 5540,
-     "actual": 0.974,
+     "n": 5593,
+     "actual": 0.96,
      "live": 0.982,
-     "live_upd": 0.947,
-     "empirical": 0.974
+     "live_upd": 0.946,
+     "empirical": 0.953
     }
    },
    "by_season": {
     "2022": {
-     "n": 4185,
-     "p_live": 0.1175,
-     "p_upd": 0.1127,
-     "p_emp": 0.0961
+     "n": 5812,
+     "p_live": 0.1323,
+     "p_upd": 0.1261,
+     "p_emp": 0.1093
     },
     "2023": {
-     "n": 4078,
-     "p_live": 0.1343,
-     "p_upd": 0.1313,
-     "p_emp": 0.0972
+     "n": 4925,
+     "p_live": 0.1538,
+     "p_upd": 0.1495,
+     "p_emp": 0.1162
     },
     "2024": {
-     "n": 4701,
-     "p_live": 0.1205,
-     "p_upd": 0.1185,
-     "p_emp": 0.0939
+     "n": 5266,
+     "p_live": 0.1241,
+     "p_upd": 0.1218,
+     "p_emp": 0.0979
     },
     "2025": {
-     "n": 5013,
-     "p_live": 0.1356,
-     "p_upd": 0.1319,
-     "p_emp": 0.1009
+     "n": 6199,
+     "p_live": 0.1378,
+     "p_upd": 0.1344,
+     "p_emp": 0.1046
     },
     "2026": {
-     "n": 5949,
-     "p_live": 0.1509,
-     "p_upd": 0.1473,
-     "p_emp": 0.1096
+     "n": 6990,
+     "p_live": 0.1571,
+     "p_upd": 0.1531,
+     "p_emp": 0.114
     }
    }
   },
   "3": {
-   "n": 22546,
-   "actual_still_out": 0.715,
+   "n": 28071,
+   "actual_still_out": 0.697,
    "p_live": {
-    "brier": 0.2139,
-    "log_loss": 0.6658,
-    "mean_pred": 0.835
+    "brier": 0.2243,
+    "log_loss": 0.6934,
+    "mean_pred": 0.833
    },
    "p_upd": {
-    "brier": 0.2065,
-    "log_loss": 0.6224,
-    "mean_pred": 0.77
+    "brier": 0.2164,
+    "log_loss": 0.6487,
+    "mean_pred": 0.765
    },
    "p_emp": {
-    "brier": 0.168,
-    "log_loss": 0.5082,
-    "mean_pred": 0.726
+    "brier": 0.1785,
+    "log_loss": 0.534,
+    "mean_pred": 0.707
    },
    "by_class": {
     "injury": {
-     "n": 14355,
-     "actual": 0.69,
+     "n": 17558,
+     "actual": 0.669,
      "p_live": {
-      "brier": 0.2284,
-      "log_loss": 0.6659,
-      "mean_pred": 0.812
+      "brier": 0.2407,
+      "log_loss": 0.695,
+      "mean_pred": 0.809
      },
      "p_upd": {
-      "brier": 0.2223,
-      "log_loss": 0.6456,
-      "mean_pred": 0.741
+      "brier": 0.2339,
+      "log_loss": 0.6731,
+      "mean_pred": 0.735
      },
      "p_emp": {
-      "brier": 0.1792,
-      "log_loss": 0.5358,
-      "mean_pred": 0.708
+      "brier": 0.191,
+      "log_loss": 0.5655,
+      "mean_pred": 0.685
      }
     },
     "long": {
-     "n": 2796,
-     "actual": 0.9,
+     "n": 3529,
+     "actual": 0.894,
      "p_live": {
-      "brier": 0.0997,
-      "log_loss": 0.6343,
+      "brier": 0.1057,
+      "log_loss": 0.6688,
       "mean_pred": 0.998
      },
      "p_upd": {
-      "brier": 0.0963,
-      "log_loss": 0.4623,
+      "brier": 0.1023,
+      "log_loss": 0.5008,
       "mean_pred": 0.955
      },
      "p_emp": {
-      "brier": 0.0836,
-      "log_loss": 0.3033,
-      "mean_pred": 0.911
+      "brier": 0.083,
+      "log_loss": 0.3001,
+      "mean_pred": 0.906
      }
     },
     "non_injury": {
-     "n": 5395,
-     "actual": 0.685,
+     "n": 6984,
+     "actual": 0.668,
      "p_live": {
-      "brier": 0.2345,
-      "log_loss": 0.6818,
-      "mean_pred": 0.813
+      "brier": 0.2431,
+      "log_loss": 0.7018,
+      "mean_pred": 0.81
      },
      "p_upd": {
-      "brier": 0.2219,
-      "log_loss": 0.6437,
-      "mean_pred": 0.75
+      "brier": 0.2299,
+      "log_loss": 0.662,
+      "mean_pred": 0.745
      },
      "p_emp": {
-      "brier": 0.1819,
-      "log_loss": 0.5411,
-      "mean_pred": 0.68
+      "brier": 0.1951,
+      "log_loss": 0.5731,
+      "mean_pred": 0.662
      }
     }
    },
    "by_elapsed_bucket": {
     "0-0": {
-     "n": 3395,
-     "actual": 0.351,
-     "live": 0.818,
-     "live_upd": 0.818,
-     "empirical": 0.394
+     "n": 4482,
+     "actual": 0.359,
+     "live": 0.817,
+     "live_upd": 0.817,
+     "empirical": 0.405
     },
     "1-2": {
-     "n": 3717,
-     "actual": 0.586,
+     "n": 4953,
+     "actual": 0.578,
      "live": 0.819,
-     "live_upd": 0.726,
-     "empirical": 0.603
+     "live_upd": 0.727,
+     "empirical": 0.6
     },
     "3-5": {
-     "n": 3462,
+     "n": 4530,
      "actual": 0.687,
-     "live": 0.826,
+     "live": 0.825,
      "live_upd": 0.696,
-     "empirical": 0.703
+     "empirical": 0.706
     },
     "6-10": {
-     "n": 3457,
-     "actual": 0.798,
-     "live": 0.836,
-     "live_upd": 0.723,
-     "empirical": 0.784
+     "n": 4329,
+     "actual": 0.793,
+     "live": 0.833,
+     "live_upd": 0.72,
+     "empirical": 0.777
     },
     "11-20": {
-     "n": 3493,
-     "actual": 0.856,
-     "live": 0.847,
-     "live_upd": 0.773,
-     "empirical": 0.868
+     "n": 4422,
+     "actual": 0.848,
+     "live": 0.844,
+     "live_upd": 0.771,
+     "empirical": 0.86
     },
     "21-+": {
-     "n": 5022,
-     "actual": 0.921,
+     "n": 5355,
+     "actual": 0.895,
      "live": 0.857,
-     "live_upd": 0.851,
-     "empirical": 0.921
+     "live_upd": 0.848,
+     "empirical": 0.879
     }
    },
    "by_season": {
     "2022": {
-     "n": 3943,
-     "p_live": 0.2057,
-     "p_upd": 0.1926,
-     "p_emp": 0.1624
+     "n": 5619,
+     "p_live": 0.2258,
+     "p_upd": 0.2101,
+     "p_emp": 0.1832
     },
     "2023": {
-     "n": 3761,
-     "p_live": 0.2168,
-     "p_upd": 0.2106,
-     "p_emp": 0.1659
+     "n": 4731,
+     "p_live": 0.24,
+     "p_upd": 0.2332,
+     "p_emp": 0.1874
     },
     "2024": {
-     "n": 4460,
-     "p_live": 0.2008,
-     "p_upd": 0.1978,
-     "p_emp": 0.1677
+     "n": 5062,
+     "p_live": 0.205,
+     "p_upd": 0.2027,
+     "p_emp": 0.1723
     },
     "2025": {
-     "n": 4715,
+     "n": 5936,
      "p_live": 0.217,
-     "p_upd": 0.2089,
-     "p_emp": 0.1698
+     "p_upd": 0.2103,
+     "p_emp": 0.1741
     },
     "2026": {
-     "n": 5667,
-     "p_live": 0.2253,
-     "p_upd": 0.2184,
-     "p_emp": 0.1721
+     "n": 6723,
+     "p_live": 0.233,
+     "p_upd": 0.2255,
+     "p_emp": 0.1767
     }
    }
   },
   "5": {
-   "n": 21554,
-   "actual_still_out": 0.615,
+   "n": 27156,
+   "actual_still_out": 0.594,
    "p_live": {
-    "brier": 0.2339,
-    "log_loss": 0.6891,
-    "mean_pred": 0.672
+    "brier": 0.2389,
+    "log_loss": 0.701,
+    "mean_pred": 0.669
    },
    "p_upd": {
-    "brier": 0.2243,
-    "log_loss": 0.6486,
-    "mean_pred": 0.637
+    "brier": 0.231,
+    "log_loss": 0.6653,
+    "mean_pred": 0.631
    },
    "p_emp": {
-    "brier": 0.1943,
-    "log_loss": 0.5726,
-    "mean_pred": 0.627
+    "brier": 0.2017,
+    "log_loss": 0.5894,
+    "mean_pred": 0.603
    },
    "by_class": {
     "injury": {
-     "n": 13653,
-     "actual": 0.582,
+     "n": 16945,
+     "actual": 0.558,
      "p_live": {
-      "brier": 0.2457,
-      "log_loss": 0.6851,
-      "mean_pred": 0.627
+      "brier": 0.2511,
+      "log_loss": 0.6964,
+      "mean_pred": 0.624
      },
      "p_upd": {
-      "brier": 0.238,
-      "log_loss": 0.6672,
-      "mean_pred": 0.593
+      "brier": 0.2454,
+      "log_loss": 0.6836,
+      "mean_pred": 0.584
      },
      "p_emp": {
-      "brier": 0.2057,
-      "log_loss": 0.5977,
-      "mean_pred": 0.607
+      "brier": 0.2155,
+      "log_loss": 0.6207,
+      "mean_pred": 0.578
      }
     },
     "long": {
-     "n": 2678,
-     "actual": 0.853,
+     "n": 3395,
+     "actual": 0.848,
      "p_live": {
-      "brier": 0.1447,
-      "log_loss": 0.7052,
-      "mean_pred": 0.991
+      "brier": 0.1489,
+      "log_loss": 0.7234,
+      "mean_pred": 0.99
      },
      "p_upd": {
-      "brier": 0.1364,
-      "log_loss": 0.5354,
+      "brier": 0.1409,
+      "log_loss": 0.561,
       "mean_pred": 0.924
      },
      "p_emp": {
-      "brier": 0.1215,
-      "log_loss": 0.409,
-      "mean_pred": 0.878
+      "brier": 0.1161,
+      "log_loss": 0.3929,
+      "mean_pred": 0.868
      }
     },
     "non_injury": {
-     "n": 5223,
-     "actual": 0.581,
+     "n": 6816,
+     "actual": 0.558,
      "p_live": {
-      "brier": 0.2486,
-      "log_loss": 0.6912,
-      "mean_pred": 0.627
+      "brier": 0.2535,
+      "log_loss": 0.7012,
+      "mean_pred": 0.623
      },
      "p_upd": {
-      "brier": 0.2337,
-      "log_loss": 0.6581,
-      "mean_pred": 0.608
+      "brier": 0.2401,
+      "log_loss": 0.6719,
+      "mean_pred": 0.601
      },
      "p_emp": {
-      "brier": 0.2019,
-      "log_loss": 0.5908,
-      "mean_pred": 0.55
+      "brier": 0.2101,
+      "log_loss": 0.6092,
+      "mean_pred": 0.533
      }
     }
    },
    "by_elapsed_bucket": {
     "0-0": {
-     "n": 3271,
-     "actual": 0.259,
-     "live": 0.642,
-     "live_upd": 0.642,
-     "empirical": 0.297
+     "n": 4342,
+     "actual": 0.263,
+     "live": 0.64,
+     "live_upd": 0.64,
+     "empirical": 0.301
     },
     "1-2": {
-     "n": 3610,
-     "actual": 0.444,
-     "live": 0.642,
-     "live_upd": 0.566,
-     "empirical": 0.472
+     "n": 4836,
+     "actual": 0.44,
+     "live": 0.643,
+     "live_upd": 0.568,
+     "empirical": 0.47
     },
     "3-5": {
-     "n": 3350,
-     "actual": 0.563,
-     "live": 0.653,
-     "live_upd": 0.552,
-     "empirical": 0.572
+     "n": 4408,
+     "actual": 0.561,
+     "live": 0.652,
+     "live_upd": 0.551,
+     "empirical": 0.577
     },
     "6-10": {
-     "n": 3326,
-     "actual": 0.696,
-     "live": 0.672,
-     "live_upd": 0.593,
-     "empirical": 0.674
+     "n": 4201,
+     "actual": 0.688,
+     "live": 0.669,
+     "live_upd": 0.59,
+     "empirical": 0.661
     },
     "11-20": {
-     "n": 3328,
-     "actual": 0.764,
-     "live": 0.692,
-     "live_upd": 0.658,
-     "empirical": 0.788
+     "n": 4257,
+     "actual": 0.756,
+     "live": 0.689,
+     "live_upd": 0.656,
+     "empirical": 0.774
     },
     "21-+": {
-     "n": 4669,
-     "actual": 0.871,
-     "live": 0.717,
-     "live_upd": 0.768,
-     "empirical": 0.868
+     "n": 5112,
+     "actual": 0.839,
+     "live": 0.719,
+     "live_upd": 0.764,
+     "empirical": 0.816
     }
    },
    "by_season": {
     "2022": {
-     "n": 3761,
-     "p_live": 0.2273,
-     "p_upd": 0.2102,
-     "p_emp": 0.1763
+     "n": 5432,
+     "p_live": 0.2377,
+     "p_upd": 0.2228,
+     "p_emp": 0.1914
     },
     "2023": {
-     "n": 3581,
-     "p_live": 0.2368,
-     "p_upd": 0.2291,
-     "p_emp": 0.1978
+     "n": 4610,
+     "p_live": 0.2498,
+     "p_upd": 0.2459,
+     "p_emp": 0.2134
     },
     "2024": {
-     "n": 4255,
-     "p_live": 0.2269,
-     "p_upd": 0.2222,
-     "p_emp": 0.2025
+     "n": 4875,
+     "p_live": 0.2272,
+     "p_upd": 0.2248,
+     "p_emp": 0.2061
     },
     "2025": {
-     "n": 4517,
-     "p_live": 0.2345,
-     "p_upd": 0.2243,
-     "p_emp": 0.1944
+     "n": 5742,
+     "p_live": 0.2333,
+     "p_upd": 0.2256,
+     "p_emp": 0.1991
     },
     "2026": {
-     "n": 5440,
-     "p_live": 0.2414,
-     "p_upd": 0.2325,
-     "p_emp": 0.198
+     "n": 6497,
+     "p_live": 0.2461,
+     "p_upd": 0.2369,
+     "p_emp": 0.2011
     }
    }
   },
   "10": {
-   "n": 19394,
-   "actual_still_out": 0.457,
+   "n": 24942,
+   "actual_still_out": 0.439,
    "p_live": {
-    "brier": 0.2506,
-    "log_loss": 0.7137,
-    "mean_pred": 0.402
+    "brier": 0.2439,
+    "log_loss": 0.6991,
+    "mean_pred": 0.4
    },
    "p_upd": {
-    "brier": 0.2256,
-    "log_loss": 0.649,
-    "mean_pred": 0.415
+    "brier": 0.2247,
+    "log_loss": 0.6477,
+    "mean_pred": 0.409
    },
    "p_emp": {
-    "brier": 0.2054,
-    "log_loss": 0.5999,
-    "mean_pred": 0.464
+    "brier": 0.2067,
+    "log_loss": 0.6023,
+    "mean_pred": 0.44
    },
    "by_class": {
     "injury": {
-     "n": 12183,
-     "actual": 0.405,
+     "n": 15493,
+     "actual": 0.385,
      "p_live": {
-      "brier": 0.2479,
-      "log_loss": 0.6913,
-      "mean_pred": 0.325
+      "brier": 0.2404,
+      "log_loss": 0.6755,
+      "mean_pred": 0.323
      },
      "p_upd": {
-      "brier": 0.2265,
-      "log_loss": 0.6453,
-      "mean_pred": 0.348
+      "brier": 0.2258,
+      "log_loss": 0.6438,
+      "mean_pred": 0.34
      },
      "p_emp": {
-      "brier": 0.2084,
-      "log_loss": 0.6044,
-      "mean_pred": 0.44
+      "brier": 0.2117,
+      "log_loss": 0.6118,
+      "mean_pred": 0.406
      }
     },
     "long": {
-     "n": 2403,
-     "actual": 0.736,
+     "n": 3082,
+     "actual": 0.738,
      "p_live": {
-      "brier": 0.2366,
-      "log_loss": 0.8022,
-      "mean_pred": 0.944
+      "brier": 0.2343,
+      "log_loss": 0.7934,
+      "mean_pred": 0.943
      },
      "p_upd": {
-      "brier": 0.2138,
-      "log_loss": 0.664,
-      "mean_pred": 0.843
+      "brier": 0.2139,
+      "log_loss": 0.669,
+      "mean_pred": 0.844
      },
      "p_emp": {
-      "brier": 0.1918,
-      "log_loss": 0.5759,
-      "mean_pred": 0.777
+      "brier": 0.1832,
+      "log_loss": 0.556,
+      "mean_pred": 0.772
      }
     },
     "non_injury": {
-     "n": 4808,
-     "actual": 0.448,
+     "n": 6367,
+     "actual": 0.426,
      "p_live": {
-      "brier": 0.2644,
-      "log_loss": 0.7262,
-      "mean_pred": 0.326
+      "brier": 0.2571,
+      "log_loss": 0.711,
+      "mean_pred": 0.324
      },
      "p_upd": {
-      "brier": 0.2294,
-      "log_loss": 0.6508,
-      "mean_pred": 0.371
+      "brier": 0.2274,
+      "log_loss": 0.6469,
+      "mean_pred": 0.365
      },
      "p_emp": {
-      "brier": 0.2045,
-      "log_loss": 0.6003,
-      "mean_pred": 0.37
+      "brier": 0.206,
+      "log_loss": 0.6016,
+      "mean_pred": 0.362
      }
     }
    },
    "by_elapsed_bucket": {
     "0-0": {
-     "n": 2998,
-     "actual": 0.152,
-     "live": 0.351,
-     "live_upd": 0.351,
-     "empirical": 0.169
+     "n": 4003,
+     "actual": 0.159,
+     "live": 0.35,
+     "live_upd": 0.35,
+     "empirical": 0.179
     },
     "1-2": {
-     "n": 3343,
-     "actual": 0.28,
-     "live": 0.356,
-     "live_upd": 0.321,
-     "empirical": 0.293
+     "n": 4539,
+     "actual": 0.279,
+     "live": 0.357,
+     "live_upd": 0.322,
+     "empirical": 0.289
     },
     "3-5": {
-     "n": 3093,
-     "actual": 0.382,
-     "live": 0.369,
-     "live_upd": 0.329,
-     "empirical": 0.383
+     "n": 4125,
+     "actual": 0.379,
+     "live": 0.37,
+     "live_upd": 0.33,
+     "empirical": 0.373
     },
     "6-10": {
-     "n": 3029,
-     "actual": 0.511,
-     "live": 0.398,
-     "live_upd": 0.382,
-     "empirical": 0.503
+     "n": 3876,
+     "actual": 0.505,
+     "live": 0.396,
+     "live_upd": 0.38,
+     "empirical": 0.49
     },
     "11-20": {
-     "n": 2966,
-     "actual": 0.583,
-     "live": 0.435,
-     "live_upd": 0.46,
-     "empirical": 0.614
+     "n": 3843,
+     "actual": 0.578,
+     "live": 0.433,
+     "live_upd": 0.458,
+     "empirical": 0.606
     },
     "21-+": {
-     "n": 3965,
-     "actual": 0.758,
-     "live": 0.484,
-     "live_upd": 0.602,
-     "empirical": 0.754
+     "n": 4556,
+     "actual": 0.725,
+     "live": 0.49,
+     "live_upd": 0.6,
+     "empirical": 0.697
     }
    },
    "by_season": {
     "2022": {
-     "n": 3378,
-     "p_live": 0.2402,
-     "p_upd": 0.2086,
-     "p_emp": 0.1718
+     "n": 4985,
+     "p_live": 0.2226,
+     "p_upd": 0.2026,
+     "p_emp": 0.1757
     },
     "2023": {
-     "n": 3185,
-     "p_live": 0.2564,
-     "p_upd": 0.2327,
-     "p_emp": 0.223
+     "n": 4314,
+     "p_live": 0.2434,
+     "p_upd": 0.2314,
+     "p_emp": 0.224
     },
     "2024": {
-     "n": 3799,
-     "p_live": 0.2562,
-     "p_upd": 0.2358,
-     "p_emp": 0.2257
+     "n": 4430,
+     "p_live": 0.2527,
+     "p_upd": 0.2355,
+     "p_emp": 0.225
     },
     "2025": {
-     "n": 4074,
-     "p_live": 0.2407,
-     "p_upd": 0.2185,
-     "p_emp": 0.1988
+     "n": 5236,
+     "p_live": 0.2409,
+     "p_upd": 0.2228,
+     "p_emp": 0.2047
     },
     "2026": {
-     "n": 4958,
-     "p_live": 0.2579,
-     "p_upd": 0.2308,
-     "p_emp": 0.2068
+     "n": 5977,
+     "p_live": 0.2582,
+     "p_upd": 0.2322,
+     "p_emp": 0.2084
     }
    }
   },
   "20": {
-   "n": 15668,
-   "actual_still_out": 0.29,
+   "n": 20754,
+   "actual_still_out": 0.28,
    "p_live": {
-    "brier": 0.2239,
-    "log_loss": 0.6794,
-    "mean_pred": 0.191
+    "brier": 0.2144,
+    "log_loss": 0.6539,
+    "mean_pred": 0.19
    },
    "p_upd": {
-    "brier": 0.1976,
-    "log_loss": 0.587,
-    "mean_pred": 0.21
+    "brier": 0.1922,
+    "log_loss": 0.5749,
+    "mean_pred": 0.209
    },
    "p_emp": {
-    "brier": 0.1777,
-    "log_loss": 0.5335,
-    "mean_pred": 0.303
+    "brier": 0.1753,
+    "log_loss": 0.5276,
+    "mean_pred": 0.283
    },
    "by_class": {
     "injury": {
-     "n": 9771,
-     "actual": 0.233,
+     "n": 12815,
+     "actual": 0.221,
      "p_live": {
-      "brier": 0.195,
-      "log_loss": 0.6106,
+      "brier": 0.1849,
+      "log_loss": 0.583,
       "mean_pred": 0.106
      },
      "p_upd": {
-      "brier": 0.1754,
-      "log_loss": 0.5375,
-      "mean_pred": 0.139
+      "brier": 0.169,
+      "log_loss": 0.5224,
+      "mean_pred": 0.137
      },
      "p_emp": {
-      "brier": 0.1604,
-      "log_loss": 0.4935,
-      "mean_pred": 0.269
+      "brier": 0.1567,
+      "log_loss": 0.4852,
+      "mean_pred": 0.243
      }
     },
     "long": {
-     "n": 1924,
-     "actual": 0.541,
+     "n": 2530,
+     "actual": 0.55,
      "p_live": {
-      "brier": 0.3076,
-      "log_loss": 0.8367,
-      "mean_pred": 0.789
+      "brier": 0.3024,
+      "log_loss": 0.8249,
+      "mean_pred": 0.79
      },
      "p_upd": {
-      "brier": 0.2755,
-      "log_loss": 0.7528,
-      "mean_pred": 0.685
+      "brier": 0.2738,
+      "log_loss": 0.7498,
+      "mean_pred": 0.687
      },
      "p_emp": {
-      "brier": 0.2555,
-      "log_loss": 0.7077,
-      "mean_pred": 0.622
+      "brier": 0.2491,
+      "log_loss": 0.6933,
+      "mean_pred": 0.607
      }
     },
     "non_injury": {
-     "n": 3973,
-     "actual": 0.308,
+     "n": 5409,
+     "actual": 0.294,
      "p_live": {
-      "brier": 0.2542,
-      "log_loss": 0.7724,
+      "brier": 0.2432,
+      "log_loss": 0.742,
       "mean_pred": 0.107
      },
      "p_upd": {
-      "brier": 0.2144,
-      "log_loss": 0.6284,
-      "mean_pred": 0.157
+      "brier": 0.2091,
+      "log_loss": 0.6176,
+      "mean_pred": 0.155
      },
      "p_emp": {
-      "brier": 0.1827,
-      "log_loss": 0.5476,
-      "mean_pred": 0.231
+      "brier": 0.1849,
+      "log_loss": 0.5508,
+      "mean_pred": 0.225
      }
     }
    },
    "by_elapsed_bucket": {
     "0-0": {
-     "n": 2456,
-     "actual": 0.086,
-     "live": 0.137,
-     "live_upd": 0.137,
-     "empirical": 0.097
+     "n": 3355,
+     "actual": 0.09,
+     "live": 0.139,
+     "live_upd": 0.139,
+     "empirical": 0.101
     },
     "1-2": {
-     "n": 2825,
-     "actual": 0.145,
-     "live": 0.139,
-     "live_upd": 0.131,
+     "n": 3896,
+     "actual": 0.148,
+     "live": 0.143,
+     "live_upd": 0.134,
      "empirical": 0.157
     },
     "3-5": {
-     "n": 2601,
-     "actual": 0.206,
-     "live": 0.153,
-     "live_upd": 0.147,
-     "empirical": 0.216
+     "n": 3517,
+     "actual": 0.208,
+     "live": 0.155,
+     "live_upd": 0.149,
+     "empirical": 0.208
     },
     "6-10": {
-     "n": 2512,
-     "actual": 0.295,
-     "live": 0.184,
-     "live_upd": 0.19,
-     "empirical": 0.299
+     "n": 3245,
+     "actual": 0.292,
+     "live": 0.187,
+     "live_upd": 0.192,
+     "empirical": 0.294
     },
     "11-20": {
-     "n": 2453,
-     "actual": 0.415,
-     "live": 0.236,
-     "live_upd": 0.263,
-     "empirical": 0.447
+     "n": 3220,
+     "actual": 0.413,
+     "live": 0.235,
+     "live_upd": 0.261,
+     "empirical": 0.437
     },
     "21-+": {
-     "n": 2821,
-     "actual": 0.578,
-     "live": 0.289,
-     "live_upd": 0.385,
-     "empirical": 0.587
+     "n": 3521,
+     "actual": 0.546,
+     "live": 0.288,
+     "live_upd": 0.384,
+     "empirical": 0.519
     }
    },
    "by_season": {
     "2022": {
-     "n": 2719,
-     "p_live": 0.2303,
-     "p_upd": 0.2038,
-     "p_emp": 0.1681
+     "n": 4202,
+     "p_live": 0.2056,
+     "p_upd": 0.1878,
+     "p_emp": 0.1665
     },
     "2023": {
-     "n": 2560,
-     "p_live": 0.2105,
-     "p_upd": 0.1877,
-     "p_emp": 0.1915
+     "n": 3717,
+     "p_live": 0.1911,
+     "p_upd": 0.1742,
+     "p_emp": 0.1764
     },
     "2024": {
-     "n": 2968,
-     "p_live": 0.2171,
-     "p_upd": 0.1938,
-     "p_emp": 0.1817
+     "n": 3590,
+     "p_live": 0.2197,
+     "p_upd": 0.1974,
+     "p_emp": 0.1822
     },
     "2025": {
-     "n": 3223,
-     "p_live": 0.2146,
-     "p_upd": 0.1913,
-     "p_emp": 0.1717
+     "n": 4273,
+     "p_live": 0.211,
+     "p_upd": 0.1908,
+     "p_emp": 0.1742
     },
     "2026": {
-     "n": 4198,
-     "p_live": 0.2397,
-     "p_upd": 0.2071,
-     "p_emp": 0.1774
+     "n": 4972,
+     "p_live": 0.2385,
+     "p_upd": 0.2068,
+     "p_emp": 0.1779
     }
    }
   }
