@@ -45,53 +45,158 @@ def _norm(s):
     return re.sub(r"[^a-z]", "", unicodedata.normalize("NFKD", s or "").encode("ascii", "ignore").decode().lower())
 
 
-def parse(pdf_bytes):
-    """-> list of dict(game_date, matchup, team, player, status, reason). Player is 'Last, First' as printed."""
+# Official three-letter codes -> full names (current franchises; older reports use the same codes)
+OFFICIAL_TEAMS = {"ATL": "Atlanta Hawks", "BKN": "Brooklyn Nets", "BOS": "Boston Celtics", "CHA": "Charlotte Hornets",
+                  "CHI": "Chicago Bulls", "CLE": "Cleveland Cavaliers", "DAL": "Dallas Mavericks", "DEN": "Denver Nuggets",
+                  "DET": "Detroit Pistons", "GSW": "Golden State Warriors", "HOU": "Houston Rockets", "IND": "Indiana Pacers",
+                  "LAC": "LA Clippers", "LAL": "Los Angeles Lakers", "MEM": "Memphis Grizzlies", "MIA": "Miami Heat",
+                  "MIL": "Milwaukee Bucks", "MIN": "Minnesota Timberwolves", "NOP": "New Orleans Pelicans", "NYK": "New York Knicks",
+                  "OKC": "Oklahoma City Thunder", "ORL": "Orlando Magic", "PHI": "Philadelphia 76ers", "PHX": "Phoenix Suns",
+                  "POR": "Portland Trail Blazers", "SAC": "Sacramento Kings", "SAS": "San Antonio Spurs", "TOR": "Toronto Raptors",
+                  "UTA": "Utah Jazz", "WAS": "Washington Wizards"}
+ALIASES = {"losangelesclippers": "LAC"}
+NOT_SUBMITTED = "NOT YET SUBMITTED"
+COLS = ("game_date", "game_time", "matchup", "team", "player", "status", "reason")
+
+
+def _header_columns(words):
+    """Column left edges from the header line itself (Game Date | Game Time | Matchup | Team | Player Name |
+    Current Status | Reason). Only words on that line are used, so body text such as 'Not With Team' cannot move a column."""
+    lines = _lines(words)
+    for ws in lines:
+        texts = [w["text"] for w in ws]
+        if "Matchup" in texts and "Reason" in texts:
+            xs = {}
+            games = [w["x0"] for w in ws if w["text"] in ("Game", "GameDate", "GameTime")]
+            if len(games) >= 2:
+                xs["game_date"], xs["game_time"] = games[0], games[1]
+            elif games:
+                xs["game_date"] = games[0]
+            for w in ws:
+                t = w["text"]
+                if t == "Matchup":
+                    xs["matchup"] = w["x0"]
+                elif t == "Team":
+                    xs["team"] = w["x0"]
+                elif t in ("Player", "PlayerName") and "player" not in xs:
+                    xs["player"] = w["x0"]
+                elif t in ("Current", "CurrentStatus") and "status" not in xs:
+                    xs["status"] = w["x0"]
+                elif t == "Reason":
+                    xs["reason"] = w["x0"]
+                elif t == "Category":
+                    xs["category"] = w["x0"]          # 2019-20 layout: Category | Reason
+                elif t in ("Previous", "PreviousStatus"):
+                    xs["previous"] = w["x0"]          # some layouts add a Previous Status column
+            if {"matchup", "team", "player", "status", "reason"} <= set(xs):
+                return sorted(xs.items(), key=lambda c: c[1]), ws[0]["top"]
+    return None, None
+
+
+def _lines(words, tol=2.5):
+    """Group words into printed lines by vertical position."""
+    out = []
+    for w in sorted(words, key=lambda w: (w["top"], w["x0"])):
+        if out and abs(out[-1][0]["top"] - w["top"]) <= tol:
+            out[-1].append(w)
+        else:
+            out.append([w])
+    return [sorted(ws, key=lambda w: w["x0"]) for ws in out]
+
+
+def _team_for(fragment, matchup):
+    """Resolve a (possibly partial, wrapped) team cell against the two teams of the current matchup."""
+    key = _norm(fragment)
+    if not key:
+        return None
+    cands = []
+    if matchup and "@" in matchup:
+        cands = [a for a in matchup.split("@") if a in OFFICIAL_TEAMS]
+    pool = cands or list(OFFICIAL_TEAMS)
+    exact = [a for a in pool if _norm(OFFICIAL_TEAMS[a]) == key or ALIASES.get(key) == a]
+    if exact:
+        return exact[0]
+    pref = [a for a in pool if _norm(OFFICIAL_TEAMS[a]).startswith(key)]
+    return pref[0] if len(pref) == 1 else None
+
+
+def parse(pdf_bytes, with_meta=False):
+    """-> list of dict(game_date, game_time, matchup, team, team_code, player, status, reason).
+
+    Game date, game time, matchup and team are carried from the row where they are printed to the rows below, across
+    page breaks. A team cell is resolved only against the two teams of the current matchup (a wrapped name such as
+    'Oklahoma City' / 'Thunder' is one team); a new matchup clears the team. A team marked NOT YET SUBMITTED gives a row
+    with status 'NOT YET SUBMITTED' and no player (missing coverage, not a healthy team). Rows whose team cannot be
+    resolved keep team None and are reported in the meta (never guessed).
+    Player is 'Last, First' as printed; team_code is the league's three-letter code."""
     import pdfplumber
-    rows = []
-    cur = {"game_date": None, "matchup": None, "team": None}
+    rows, problems = [], []
+    cur = {"game_date": None, "game_time": None, "matchup": None, "team": None, "team_code": None}
+    team_buf = ""
+    cols = None
     with pdfplumber.open(io.BytesIO(pdf_bytes)) as P:
-        cols = None
         for page in P.pages:
             words = page.extract_words(x_tolerance=1.5, y_tolerance=2, keep_blank_chars=False)
-            head = {w["text"]: w["x0"] for w in words if w["text"] in ("GameDate", "Game", "GameTime", "Matchup", "Team", "PlayerName",
-                                                                       "Player", "CurrentStatus", "Current", "Reason")}
-            if "Matchup" in head and "Reason" in head:
-                cols = [("game_date", head.get("GameDate", head.get("Game", 0))), ("game_time", head.get("GameTime", 0)),
-                        ("matchup", head["Matchup"]), ("team", head["Team"]), ("player", head.get("PlayerName", head.get("Player"))),
-                        ("status", head.get("CurrentStatus", head.get("Current"))), ("reason", head["Reason"])]
-                cols = sorted(cols, key=lambda c: c[1])
+            c, head_top = _header_columns(words)
+            if c:
+                cols = c
             if not cols:
                 continue
-            lines = {}
-            for w in words:
-                if w["text"].startswith(("Injury Report", "Page")) or re.match(r"Page\d+of\d+", w["text"]):
+            for ws in _lines(words):
+                if head_top is not None and abs(ws[0]["top"] - head_top) <= 2.5:
                     continue
-                lines.setdefault(round(w["top"] / 3), []).append(w)
-            for _, ws in sorted(lines.items()):
+                joined = " ".join(w["text"] for w in ws)
+                if joined.startswith("Injury Report") or re.fullmatch(r"Page \d+ of \d+", joined) or re.match(r"Page\d+of\d+", joined):
+                    continue
                 cells = {}
-                for w in sorted(ws, key=lambda w: w["x0"]):
+                for w in ws:
                     name = cols[0][0]
-                    for c, x in cols:
-                        if w["x0"] >= x - 2:
-                            name = c
+                    for cname, x in cols:
+                        if w["x0"] >= x - 3:
+                            name = cname
                     cells.setdefault(name, []).append(w["text"])
                 txt = {k: " ".join(v) for k, v in cells.items()}
-                if "Matchup" in txt.get("matchup", "") or "Report:" in " ".join(txt.values()):
-                    continue
-                m = re.search(r"(\d\d/\d\d/\d{4})", " ".join(txt.values()))
+                m = re.search(r"(\d\d/\d\d/\d{4})", txt.get("game_date", ""))
                 if m:
                     cur["game_date"] = dt.datetime.strptime(m.group(1), "%m/%d/%Y").date().isoformat()
-                if re.match(r"[A-Z]{2,3}@[A-Z]{2,3}", txt.get("matchup", "")):
-                    cur["matchup"] = txt["matchup"].split()[0]
-                tm = txt.get("team", "")
-                if re.fullmatch(r"[A-Z][A-Za-z0-9. ]+ [A-Z][A-Za-z0-9]+", tm) and "Page" not in tm and tm != "Team":
-                    cur["team"] = txt["team"]
+                    cur.update(matchup=None, team=None, team_code=None)
+                    team_buf = ""
+                tm = re.search(r"\d\d:\d\d\s*\(ET\)", txt.get("game_time", ""))
+                if tm:
+                    cur["game_time"] = tm.group(0)
+                mu = re.match(r"([A-Z]{3})@([A-Z]{3})", txt.get("matchup", "").replace(" ", ""))
+                if mu:
+                    cur["matchup"] = mu.group(0)
+                    cur.update(team=None, team_code=None)
+                    team_buf = ""
+                team_txt = txt.get("team", "").strip()
+                if team_txt:
+                    combined = (team_buf + " " + team_txt).strip()
+                    if cur["team_code"] and _norm(OFFICIAL_TEAMS[cur["team_code"]]).startswith(_norm(combined)) and team_buf:
+                        team_buf = combined                       # continuation of a wrapped team name
+                    else:
+                        code = _team_for(team_txt, cur["matchup"])
+                        team_buf = team_txt
+                        if code:
+                            cur.update(team=OFFICIAL_TEAMS[code], team_code=code)
+                        else:
+                            cur.update(team=None, team_code=None)
+                            problems.append({"game_date": cur["game_date"], "matchup": cur["matchup"], "team_text": team_txt})
+                if txt.get("category"):
+                    txt["reason"] = (txt["category"] + (" - " + txt["reason"] if txt.get("reason") else "")).strip()
+                rest = " ".join(txt.get(k, "") for k in ("player", "status", "reason", "previous"))
+                if NOT_SUBMITTED in rest:
+                    rows.append(dict(cur, player=None, status=NOT_SUBMITTED, reason="", previous_status=None))
+                    continue
                 st = txt.get("status", "").split()
                 if st and st[0] in STATUSES and txt.get("player"):
-                    rows.append(dict(cur, player=txt["player"], status=st[0], reason=txt.get("reason", "")))
-                elif rows and txt.get("reason") and not txt.get("player"):
+                    prev = txt.get("previous", "").split()
+                    rows.append(dict(cur, player=txt["player"], status=st[0], reason=txt.get("reason", ""),
+                                     previous_status=prev[0] if prev and prev[0] in STATUSES else None))
+                elif rows and txt.get("reason") and not txt.get("player") and not st and rows[-1]["player"]:
                     rows[-1]["reason"] = (rows[-1]["reason"] + " " + txt["reason"]).strip()
+    if with_meta:
+        return rows, {"unresolved_team_cells": problems}
     return rows
 
 

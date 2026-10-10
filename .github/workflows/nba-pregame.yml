@@ -9,7 +9,7 @@ on:
         description: "JSON list of season end years, e.g. [2022, 2023]"
         default: "[2022, 2023, 2024, 2025]"
       mode:
-        description: "collect (pre-game report selection) or verify (printed time, hash, Last-Modified of the selected reports)"
+        description: "collect (pre-game report selection), verify (printed time, hash, Last-Modified) or reparse (corrected parser + PDFs as release assets)"
         default: "collect"
 permissions:
   contents: write
@@ -36,11 +36,27 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git fetch -q origin market-data
           git worktree add -q -B market-data ../market-data FETCH_HEAD
-          if [ "${{ inputs.mode }}" = "verify" ]; then
+          if [ "${{ inputs.mode }}" = "reparse" ]; then
+            python research/nba_pregame_reparse.py ${{ matrix.year }} ../market-data ../pdfs
+          elif [ "${{ inputs.mode }}" = "verify" ]; then
             python research/nba_pregame_verify.py ${{ matrix.year }} ../market-data
           else
             python research/nba_official_pregame.py ${{ matrix.year }} ${{ matrix.year }} ../market-data
           fi
+      - name: Publish original PDFs (release asset, one zip per season, files named by SHA-256)
+        if: ${{ inputs.mode == 'reparse' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cd ../pdfs && zip -q -r ../nba-official-reports-${{ matrix.year }}.zip . && cd ..
+          ls -la nba-official-reports-${{ matrix.year }}.zip
+          gh release view nba-official-reports -R ${{ github.repository }} > /dev/null 2>&1 || \
+            gh release create nba-official-reports -R ${{ github.repository }} --title "NBA official injury reports (research archive)" \
+              --notes "Original league PDFs selected as the latest report published 60+ minutes before each regular-season tip-off. Files are named <sha256>.pdf; the mapping is research/nba_pregame/reparse_v2_<season>_reports.json on the market-data branch. Research only." || true
+          for i in 1 2 3 4; do
+            gh release upload nba-official-reports nba-official-reports-${{ matrix.year }}.zip -R ${{ github.repository }} --clobber && break
+            sleep $((RANDOM % 20 + 5))
+          done
       - name: Save
         if: always()
         run: |
