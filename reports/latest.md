@@ -7,120 +7,120 @@ Back-test vs Polymarket (2024-25): the market was more accurate before the seaso
 
 | Team | Model | Market | Gap |
 |---|---|---|---|
-| SF | 18.4% | 9.4% | +9.0% |
-| JAX | 14.5% | 5.9% | +8.6% |
-| BUF | 5.1% | 11.0% | -5.9% |
-| LA | 6.2% | 12.0% | -5.8% |
-| BAL | 4.3% | 7.7% | -3.4% |
-| IND | 2.8% | 0.9% | +1.9% |
-| ATL | 3.0% | 1.2% | +1.9% |
-| CIN | 2.2% | 3.6% | -1.4% |
+| SF | 18.5% | 9.2% | +9.3% |
+| JAX | 15.0% | 5.7% | +9.3% |
+| LA | 6.3% | 12.0% | -5.7% |
+| BUF | 5.3% | 11.0% | -5.7% |
+| BAL | 1.9% | 7.3% | -5.5% |
+| SEA | 6.0% | 8.2% | -2.1% |
+| IND | 2.9% | 0.9% | +2.0% |
+| ATL | 3.1% | 1.4% | +1.7% |
 
 ## NFL — Pro Football: 2027 AFC Champion
 Back-test vs Polymarket (2024-25): the market was more accurate before the season; from about week 4 the model matched or beat it on divisions and playoffs, but not on the Super Bowl.
 
 | Team | Model | Market | Gap |
 |---|---|---|---|
-| JAX | 26.3% | 13.2% | +13.1% |
-| BUF | 10.8% | 18.3% | -7.5% |
-| BAL | 9.4% | 14.7% | -5.4% |
-| IND | 6.2% | 1.5% | +4.7% |
-| KC | 17.3% | 19.8% | -2.5% |
-| PIT | 4.0% | 1.8% | +2.2% |
-| DEN | 5.4% | 7.6% | -2.2% |
-| CIN | 5.1% | 6.6% | -1.6% |
+| JAX | 27.6% | 11.7% | +15.8% |
+| BAL | 4.5% | 16.8% | -12.3% |
+| BUF | 11.4% | 18.9% | -7.5% |
+| IND | 6.5% | 1.4% | +5.0% |
+| CIN | 5.6% | 8.3% | -2.7% |
+| PIT | 4.3% | 1.8% | +2.6% |
+| DEN | 5.6% | 7.7% | -2.1% |
+| LV | 3.0% | 1.9% | +1.1% |
 
 ## NFL — Pro Football: 2027 NFC Champion
 Back-test vs Polymarket (2024-25): the market was more accurate before the season; from about week 4 the model matched or beat it on divisions and playoffs, but not on the Super Bowl.
 
 | Team | Model | Market | Gap |
 |---|---|---|---|
-| SF | 31.5% | 18.6% | +12.9% |
-| LA | 11.3% | 18.1% | -6.8% |
-| ATL | 6.3% | 1.9% | +4.3% |
+| SF | 31.5% | 17.8% | +13.6% |
+| LA | 11.3% | 18.3% | -7.0% |
+| ATL | 6.3% | 2.1% | +4.2% |
 | PHI | 2.1% | 6.0% | -3.8% |
-| SEA | 11.1% | 14.6% | -3.4% |
-| DAL | 4.0% | 6.7% | -2.7% |
-| WAS | 0.8% | 1.9% | -1.1% |
-| CAR | 3.0% | 2.0% | +1.0% |
+| SEA | 11.1% | 14.4% | -3.2% |
+| DAL | 4.0% | 6.1% | -2.1% |
+| WAS | 0.8% | 2.0% | -1.2% |
+| DET | 5.2% | 6.1% | -0.9% |
 
 ## NFL — Pro Football: AFC East Champion
 Back-test vs Polymarket (2024-25): the market was more accurate before the season; from about week 4 the model matched or beat it on divisions and playoffs, but not on the Super Bowl.
 
 | Team | Model | Market | Gap |
 |---|---|---|---|
-| BUF | 50.6% | 70.0% | -19.4% |
-| NE | 35.9% | 25.9% | +10.0% |
-| NYJ | 8.1% | 3.4% | +4.8% |
-| MIA | 5.3% | 0.7% | +4.6% |
+| BUF | 51.5% | 69.4% | -17.9% |
+| NE | 35.3% | 27.1% | +8.2% |
+| NYJ | 8.0% | 2.6% | +5.4% |
+| MIA | 5.2% | 0.9% | +4.2% |
 
 ## NFL — Pro Football: AFC North Champion
 Back-test vs Polymarket (2024-25): the market was more accurate before the season; from about week 4 the model matched or beat it on divisions and playoffs, but not on the Super Bowl.
 
 | Team | Model | Market | Gap |
 |---|---|---|---|
-| BAL | 42.0% | 54.2% | -12.2% |
-| PIT | 17.8% | 9.0% | +8.7% |
-| CLE | 17.5% | 10.1% | +7.4% |
-| CIN | 22.7% | 26.6% | -3.9% |
+| BAL | 28.6% | 55.8% | -27.2% |
+| PIT | 21.8% | 8.9% | +12.9% |
+| CLE | 21.7% | 9.7% | +12.0% |
+| CIN | 27.9% | 25.7% | +2.2% |
 
 ## NFL — Pro Football: AFC South Champion
 Back-test vs Polymarket (2024-25): the market was more accurate before the season; from about week 4 the model matched or beat it on divisions and playoffs, but not on the Super Bowl.
 
 | Team | Model | Market | Gap |
 |---|---|---|---|
-| HOU | 4.3% | 13.4% | -9.2% |
-| JAX | 73.3% | 66.7% | +6.6% |
-| IND | 20.7% | 16.9% | +3.8% |
-| TEN | 1.7% | 2.9% | -1.2% |
+| HOU | 4.3% | 13.1% | -8.8% |
+| JAX | 73.9% | 66.5% | +7.4% |
+| IND | 20.2% | 18.1% | +2.1% |
+| TEN | 1.6% | 2.3% | -0.7% |
 
 ## NFL — Pro Football: AFC West Champion
 Back-test vs Polymarket (2024-25): the market was more accurate before the season; from about week 4 the model matched or beat it on divisions and playoffs, but not on the Super Bowl.
 
 | Team | Model | Market | Gap |
 |---|---|---|---|
-| DEN | 18.1% | 21.8% | -3.7% |
-| LV | 13.1% | 10.5% | +2.6% |
-| KC | 67.2% | 66.3% | +0.9% |
-| LAC | 1.7% | 1.5% | +0.2% |
+| DEN | 18.0% | 21.6% | -3.6% |
+| LV | 13.1% | 10.1% | +3.0% |
+| LAC | 1.8% | 1.4% | +0.3% |
+| KC | 67.1% | 66.9% | +0.2% |
 
 ## NFL — Pro Football: NFC East Champion
 Back-test vs Polymarket (2024-25): the market was more accurate before the season; from about week 4 the model matched or beat it on divisions and playoffs, but not on the Super Bowl.
 
 | Team | Model | Market | Gap |
 |---|---|---|---|
-| NYG | 32.8% | 19.7% | +13.1% |
-| PHI | 27.0% | 34.1% | -7.1% |
-| DAL | 31.6% | 37.0% | -5.4% |
-| WAS | 8.5% | 9.1% | -0.6% |
+| NYG | 32.8% | 19.6% | +13.2% |
+| PHI | 27.0% | 34.9% | -7.8% |
+| DAL | 31.6% | 36.3% | -4.7% |
+| WAS | 8.6% | 9.2% | -0.6% |
 
 ## NFL — Pro Football: NFC North Champion
 Back-test vs Polymarket (2024-25): the market was more accurate before the season; from about week 4 the model matched or beat it on divisions and playoffs, but not on the Super Bowl.
 
 | Team | Model | Market | Gap |
 |---|---|---|---|
-| CHI | 35.2% | 31.4% | +3.8% |
-| DET | 21.1% | 23.7% | -2.5% |
-| MIN | 36.2% | 37.7% | -1.5% |
-| GB | 7.5% | 7.2% | +0.3% |
+| CHI | 35.1% | 31.7% | +3.4% |
+| DET | 21.1% | 23.9% | -2.8% |
+| MIN | 36.2% | 37.6% | -1.4% |
+| GB | 7.5% | 6.8% | +0.7% |
 
 ## NFL — Pro Football: NFC South Champion
 Back-test vs Polymarket (2024-25): the market was more accurate before the season; from about week 4 the model matched or beat it on divisions and playoffs, but not on the Super Bowl.
 
 | Team | Model | Market | Gap |
 |---|---|---|---|
-| ATL | 42.6% | 35.3% | +7.3% |
-| NO | 14.2% | 20.9% | -6.7% |
-| CAR | 31.5% | 32.1% | -0.6% |
-| TB | 11.7% | 11.7% | -0.0% |
+| ATL | 42.7% | 35.5% | +7.2% |
+| NO | 13.7% | 20.6% | -6.9% |
+| TB | 11.8% | 12.1% | -0.2% |
+| CAR | 31.7% | 31.7% | -0.0% |
 
 ## NFL — Pro Football: NFC West Champion
 Back-test vs Polymarket (2024-25): the market was more accurate before the season; from about week 4 the model matched or beat it on divisions and playoffs, but not on the Super Bowl.
 
 | Team | Model | Market | Gap |
 |---|---|---|---|
-| SF | 66.4% | 42.0% | +24.4% |
-| LA | 13.5% | 26.0% | -12.5% |
+| SF | 66.4% | 41.5% | +24.9% |
+| LA | 13.5% | 26.5% | -13.0% |
 | SEA | 19.4% | 30.5% | -11.1% |
 | ARI | 0.8% | 1.5% | -0.8% |
 
@@ -129,13 +129,13 @@ Back-test vs Polymarket (2024-25): the market was more accurate before the seaso
 
 | Team | Model | Market | Gap |
 |---|---|---|---|
-| CIN | 47.6% | 64.5% | -16.9% |
-| BUF | 71.8% | 87.0% | -15.2% |
-| BAL | 67.0% | 80.0% | -13.0% |
-| PIT | 40.6% | 28.5% | +12.1% |
-| CLE | 38.3% | 26.2% | +12.0% |
-| NYG | 40.4% | 28.5% | +11.9% |
-| DEN | 51.1% | 62.5% | -11.4% |
+| BAL | 51.0% | 81.0% | -30.0% |
+| PIT | 44.0% | 28.5% | +15.5% |
+| CIN | 51.1% | 66.0% | -14.9% |
+| CLE | 41.6% | 27.3% | +14.4% |
+| BUF | 73.1% | 86.5% | -13.4% |
+| HOU | 15.9% | 28.5% | -12.6% |
+| DEN | 51.5% | 62.0% | -10.5% |
 | PHI | 32.3% | 42.5% | -10.2% |
 
 ## NBA — NBA: 2027 Champion
@@ -143,26 +143,26 @@ Back-test vs Polymarket (2024-25, 2025-26): the market was much more accurate be
 
 | Team | Model | Market | Gap |
 |---|---|---|---|
-| OKC | 41.8% | 17.7% | +24.2% |
-| SA | 7.1% | 21.5% | -14.4% |
+| OKC | 41.8% | 17.6% | +24.2% |
+| SA | 7.1% | 21.4% | -14.4% |
 | PHI | 0.5% | 10.5% | -10.1% |
 | BOS | 10.2% | 4.3% | +5.9% |
 | DET | 8.4% | 3.0% | +5.4% |
 | NY | 6.6% | 11.9% | -5.3% |
 | CLE | 5.9% | 2.3% | +3.5% |
-| HOU | 4.8% | 1.8% | +3.0% |
+| HOU | 4.8% | 1.9% | +2.9% |
 
 ## NBA — NBA: 2027 Eastern Conference Champion
 Back-test vs Polymarket (2024-25, 2025-26): the market was much more accurate before the season; from about 40% of the season the model beat it on the title, not on conferences.
 
 | Team | Model | Market | Gap |
 |---|---|---|---|
-| PHI | 2.0% | 22.8% | -20.8% |
+| PHI | 2.0% | 22.7% | -20.7% |
 | DET | 21.2% | 7.1% | +14.1% |
 | BOS | 24.6% | 11.8% | +12.8% |
-| CLE | 16.1% | 6.4% | +9.7% |
+| CLE | 16.1% | 6.3% | +9.8% |
 | MIA | 3.8% | 10.9% | -7.1% |
-| IND | 0.1% | 4.8% | -4.8% |
+| IND | 0.1% | 4.8% | -4.7% |
 | TOR | 4.7% | 8.0% | -3.3% |
 | WSH | 0.0% | 2.5% | -2.5% |
 
@@ -171,64 +171,64 @@ Back-test vs Polymarket (2024-25, 2025-26): the market was much more accurate be
 
 | Team | Model | Market | Gap |
 |---|---|---|---|
-| OKC | 57.6% | 32.4% | +25.3% |
-| SA | 13.2% | 34.3% | -21.1% |
-| HOU | 9.4% | 3.2% | +6.2% |
-| MIN | 4.7% | 9.7% | -5.0% |
-| LAL | 2.0% | 6.5% | -4.4% |
-| DEN | 9.7% | 6.3% | +3.4% |
-| DAL | 0.1% | 2.9% | -2.8% |
-| GS | 1.3% | 2.9% | -1.6% |
+| OKC | 57.2% | 31.3% | +25.9% |
+| SA | 13.0% | 33.2% | -20.1% |
+| HOU | 9.3% | 3.9% | +5.4% |
+| MIN | 4.7% | 9.4% | -4.7% |
+| LAL | 2.0% | 6.1% | -4.1% |
+| DEN | 9.6% | 6.1% | +3.6% |
+| DAL | 0.1% | 2.8% | -2.7% |
+| POR | 0.8% | 2.7% | -1.9% |
 
 ## NHL — NHL: 2027 Champion
 Back-test vs Polymarket (2025-26): the market was slightly more accurate before the season; after about 20 games the model was more accurate on the Cup and conferences.
 
 | Team | Model | Market | Gap |
 |---|---|---|---|
-| FLA | 1.8% | 7.9% | -6.2% |
-| COL | 17.0% | 11.7% | +5.3% |
-| MTL | 1.5% | 5.2% | -3.7% |
-| TBL | 9.1% | 6.1% | +3.0% |
-| EDM | 5.2% | 7.9% | -2.8% |
-| OTT | 5.7% | 3.2% | +2.5% |
-| TOR | 0.8% | 2.9% | -2.2% |
-| SJS | 0.4% | 2.4% | -1.9% |
+| FLA | 2.0% | 7.9% | -5.9% |
+| COL | 17.3% | 11.7% | +5.6% |
+| MTL | 1.7% | 5.2% | -3.5% |
+| EDM | 4.9% | 7.9% | -3.1% |
+| TBL | 9.0% | 6.1% | +2.9% |
+| TOR | 0.6% | 2.9% | -2.3% |
+| OTT | 5.3% | 3.3% | +2.0% |
+| SJS | 0.4% | 2.4% | -2.0% |
 
 ## NHL — NHL: 2027 Eastern Conference Champion
 Back-test vs Polymarket (2025-26): the market was slightly more accurate before the season; after about 20 games the model was more accurate on the Cup and conferences.
 
 | Team | Model | Market | Gap |
 |---|---|---|---|
-| FLA | 5.1% | 18.1% | -13.0% |
-| OTT | 13.5% | 7.8% | +5.7% |
-| TBL | 19.6% | 14.0% | +5.7% |
-| MTL | 4.4% | 9.5% | -5.1% |
-| PIT | 7.6% | 3.9% | +3.6% |
-| CAR | 22.4% | 19.1% | +3.2% |
-| PHI | 1.9% | 2.6% | -0.8% |
-| BUF | 5.9% | 5.1% | +0.7% |
+| FLA | 5.4% | 19.0% | -13.6% |
+| TBL | 19.8% | 14.2% | +5.5% |
+| OTT | 13.2% | 8.0% | +5.2% |
+| MTL | 4.5% | 9.6% | -5.1% |
+| PIT | 7.5% | 4.0% | +3.5% |
+| CAR | 21.9% | 19.5% | +2.4% |
+| BOS | 4.5% | 3.0% | +1.5% |
+| PHI | 1.3% | 2.6% | -1.4% |
 
 ## NHL — NHL: 2027 Western Conference Champion
 Back-test vs Polymarket (2025-26): the market was slightly more accurate before the season; after about 20 games the model was more accurate on the Cup and conferences.
 
 | Team | Model | Market | Gap |
 |---|---|---|---|
-| COL | 61.3% | 41.8% | +19.5% |
-| SJS | 2.9% | 21.5% | -18.7% |
-| DAL | 24.6% | 26.1% | -1.5% |
-| VAN | 1.2% | 0.7% | +0.5% |
-| LAK | 10.1% | 9.8% | +0.2% |
+| COL | 60.9% | 41.1% | +19.8% |
+| SJS | 2.7% | 21.8% | -19.1% |
+| LAK | 9.8% | 10.8% | -1.0% |
+| VAN | 1.3% | 0.7% | +0.6% |
+| DAL | 25.3% | 25.7% | -0.3% |
 
 ## NHL — Which teams will make the NHL Playoffs?
 Back-test vs Polymarket (2025-26): the market was slightly more accurate before the season; after about 20 games the model was more accurate on the Cup and conferences.
 
 | Team | Model | Market | Gap |
 |---|---|---|---|
-| SJS | 27.6% | 60.0% | -32.4% |
-| MTL | 40.5% | 61.5% | -21.0% |
-| FLA | 50.0% | 70.0% | -20.0% |
-| TOR | 27.9% | 47.5% | -19.6% |
-| MIN | 67.1% | 83.0% | -15.9% |
-| WPG | 52.2% | 37.5% | +14.7% |
-| UTA | 66.3% | 73.0% | -6.7% |
-| ANA | 56.3% | 62.0% | -5.7% |
+| SJS | 27.3% | 60.5% | -33.2% |
+| MTL | 39.1% | 62.5% | -23.4% |
+| TOR | 27.0% | 50.0% | -23.0% |
+| FLA | 49.3% | 66.0% | -16.7% |
+| WPG | 52.5% | 38.5% | +14.0% |
+| MIN | 67.6% | 81.5% | -13.9% |
+| NYR | 47.4% | 37.0% | +10.4% |
+| NYI | 37.9% | 30.5% | +7.4% |
