@@ -521,7 +521,8 @@ def futures(cur):
             "line": {"label": "Win total", "unit": "wins", "min": 0},
             "about": ["The model does not use bookmaker prices, so it is independent of the market, not proof of value.",
                       "Rookies, coaching changes and injuries are only partly reflected; they matter most before the season.",
-                      "The roster adjustment cannot be back-tested (no historical rosters), so it is kept small."],
+                      "The roster adjustment cannot be back-tested (no historical rosters), so it is kept small.",
+                      "Against prediction-market prices (Polymarket, 2024-25 and 2025-26) at the same dates: before the season the market was much more accurate; from about 40% of the season the model was more accurate on the title, but not on conference winners. Two seasons only; prices are never used by the model."],
             "teams": rows}
 
 

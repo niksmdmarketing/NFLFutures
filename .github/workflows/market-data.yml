@@ -1,0 +1,53 @@
+name: Market data (Polymarket, daily scorecard)
+# Collects public Polymarket prices for US-sports futures and writes a private model-vs-market report to the
+# market-data branch. Nothing here feeds a projection or is copied to the website.
+on:
+  schedule:
+    - cron: "41 20 * * *"     # daily, 20:41 UTC (07:41 Melbourne)
+  workflow_dispatch:
+    inputs:
+      script:
+        description: "research script to run instead of the daily collection"
+        default: ""
+permissions:
+  contents: write
+concurrency:
+  group: market-data
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Prepare market-data branch and published site files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git ls-remote --exit-code --heads origin market-data > /dev/null; then
+            git fetch -q origin market-data
+            git worktree add -q -B market-data ../market-data FETCH_HEAD
+          else
+            git worktree add -q --orphan -b market-data ../market-data
+          fi
+          git fetch -q origin published
+          mkdir -p ../pub && git archive FETCH_HEAD data/futures.json nba/data/futures.json nhl/data/futures.json | tar -x -C ../pub
+      - name: Collect
+        if: ${{ !inputs.script }}
+        run: python research/polymarket_collect.py ../market-data
+      - name: Report
+        if: ${{ !inputs.script }}
+        run: python research/market_report.py ../market-data ../pub
+      - name: Custom script
+        if: ${{ inputs.script }}
+        run: python ${{ inputs.script }} ../market-data
+      - name: Save
+        run: |
+          cd ../market-data
+          git add -A
+          if ! git diff --cached --quiet; then git commit -q -m "Market data $(date -u +%Y-%m-%dT%H:%MZ)"; git push -q origin market-data; fi

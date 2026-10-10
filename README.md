@@ -144,3 +144,9 @@ lambda 0.5); lambda 0.75 was better out of sample (13.09). v4 stays frozen; lamb
   yes: extra preseason rating uncertainty `TAU_PRE = 1.5` in `nhl_model.py`, fading out by game 20 (playoff log-loss 0.572 -> 0.560,
   better in 4 of 5 seasons). NBA needs a title-probability back-test first.
 - Roster continuity for NBL/AFL (`pipeline/roster_continuity_test.py`): no improvement, not adopted.
+
+## Market scorecard (Polymarket)
+`.github/workflows/market-data.yml` runs daily: `research/polymarket_collect.py` saves public Polymarket prices and full daily
+price histories for US-sports futures, and `research/market_report.py` writes a private model-vs-market gap report
+(`reports/latest.md`), both on the `market-data` branch. `research/market_benchmark.py` scores the point-in-time back-tests
+against the market on past seasons (`model/market_benchmark.json`). Prices never feed a projection and are not shown on the site.
