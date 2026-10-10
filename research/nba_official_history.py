@@ -28,6 +28,7 @@ for y in range(first, last + 1):
     days = sorted(pd.to_datetime(s.game_date).dt.date.unique())
     if sample:
         days = [d for d in days if str(d) in ("2026-02-26", "2026-04-10", "2025-12-25")]
+    days = sorted(days, reverse=True)   # newest first
     for d in days:
         if time.time() - start > 38 * 60:
             log["stopped_early"] = str(d)
@@ -35,7 +36,14 @@ for y in range(first, last + 1):
         log["days"] += 1
         for t in TIMES:
             u = O.BASE.format(f"{d.isoformat()}_{t}")
-            b = O.get(u, timeout=20)
+            try:
+                with O.urllib.request.urlopen(O.urllib.request.Request(u, headers=O.UA), timeout=20) as resp:
+                    b = resp.read()
+            except Exception as e:  # noqa: BLE001
+                b = None
+                if len(log.setdefault("errors", [])) < 15:
+                    log["errors"].append(f"{u.rsplit('/', 1)[-1]} {str(e)[:80]}")
+            time.sleep(0.15)
             if b:
                 try:
                     for r in O.parse(b):
