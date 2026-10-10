@@ -535,13 +535,13 @@ def _avail_html(a):
         stale = (f'<p class="note"><b>The injury report could not be refreshed; using the last one ({a["age_hours"]:.0f} hours old).</b> '
                  "Only confirmed long-term absences are kept from it; short-term statuses have been dropped.</p>")
     if not a.get("available"):
-        return stale + '<p class="note">No injury report could be read, so nobody is listed out; every player is assumed to miss games at his usual rate.</p>'
+        return stale + '<p class="note">No injury report could be read, so nobody is listed out; every player keeps the availability his team rating already reflects.</p>'
     rows = [r for r in a.get("rows", []) if r["points"] >= 0.5 and r.get("games", 1) > 0]
     intro = ('<p class="note">Each player has a points value: how much worse his team is per game without him, from his box-score production '
              "per minute over three seasons against a replacement-level rotation player, times his minutes when he plays. "
              "<b>Already in rating</b> is how often he was missing in the games the team rating is built on; only the difference costs "
-             "points, so an absence the rating already reflects costs little and a return is an uplift. Players not listed are assumed to miss "
-             "games at their usual rate. Return dates are ESPN's estimates; each simulation draws its own return date around them "
+             "points, so an absence the rating already reflects costs little and a return is an uplift. Players not listed are assumed to keep "
+             "the availability their rating already reflects. Return dates are ESPN's estimates; each simulation draws its own return date around them "
              "(two weeks with a wide spread if none is given, longer for surgeries), and anyone still out at the end of the regular season "
              "weakens his team in the playoffs. Listed: players whose absence costs at least half a point and who will miss a regular-season game."
              + (f" ESPN report time {e(str(a.get('feed_time'))[:16].replace('T', ' '))} UTC." if a.get("feed_time") else "")
