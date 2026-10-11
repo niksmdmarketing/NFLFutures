@@ -67,6 +67,12 @@ and `/afl/` sections.
   refresh as a challenger (`pipeline/nba_returns_challenger.py` → injury-monitor `nba/returns_challenger.jsonl`); no live change.
 - Shrinkage and replacement quality (`research/nba_shrink_compare.py` → `model/availability_nba_shrink.json`): 20-game shrinkage makes no material difference to the live rule; valuing
   absences against the team's own bench instead of league replacement level was worse in 5 of 6 seasons.
+- Possession-based player impact (`research/nba_impact_test.py` → `model/availability_nba_impact.json`): our own point-in-time
+  ridge plus-minus from SportsDataverse's NBA Stats possession files (ten players on the floor per possession, weekly
+  snapshots using only earlier games) as the availability player value. Corrected pre-game reports, 7,128 games, log loss:
+  no adjustment 0.6311, live box-score value 0.6163, impact 0.6195, half-and-half blend 0.6167. Impact never beat the live
+  value in any season and the ranking held at ridge penalties 800 / 2500 / 8000. Live value kept (TypeSafe 93%). The other
+  NBA Stats research tables (hustle, synergy, matchups, lineups) are inventoried daily on `market-data` under `research/nba_stats/`.
 
 ### NBL
 

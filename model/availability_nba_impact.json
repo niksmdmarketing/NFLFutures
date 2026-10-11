@@ -1,0 +1,338 @@
+{
+ "data": {
+  "rows_matched": 79258,
+  "rows_unmatched": 3356,
+  "games_with_report": 8289,
+  "source": "pregame_v3 + coverage_v3"
+ },
+ "impact": {
+  "observations": 280075,
+  "with_impact": 274429,
+  "rotation_with_impact": 0.9844092262410693,
+  "espn_ids_mapped": 1528,
+  "lambda": 2500.0,
+  "min_weighted_possessions": 500.0
+ },
+ "status_miss_by_test_season": {
+  "2021": {
+   "Out": 0.9961147086031452,
+   "Doubtful": 0.9891304347826086,
+   "Questionable": 0.4925373134328358,
+   "Probable": 0.09650582362728785,
+   "Available": 0.1906779661016949
+  },
+  "2022": {
+   "Out": 0.9976437323279924,
+   "Doubtful": 0.9758064516129032,
+   "Questionable": 0.49587231700605394,
+   "Probable": 0.10477941176470588,
+   "Available": 0.1592356687898089
+  },
+  "2023": {
+   "Out": 0.9977661545167266,
+   "Doubtful": 0.9753787878787878,
+   "Questionable": 0.4847739157182405,
+   "Probable": 0.0925050641458474,
+   "Available": 0.21169504071058476
+  },
+  "2024": {
+   "Out": 0.9978294947546124,
+   "Doubtful": 0.9774964838255977,
+   "Questionable": 0.49420930722257317,
+   "Probable": 0.09382716049382717,
+   "Available": 0.2312530237058539
+  },
+  "2025": {
+   "Out": 0.9980542944501065,
+   "Doubtful": 0.9789590254706534,
+   "Questionable": 0.493692571250584,
+   "Probable": 0.08874120406567632,
+   "Available": 0.2305638972305639
+  },
+  "2026": {
+   "Out": 0.9982707082684849,
+   "Doubtful": 0.9787985865724381,
+   "Questionable": 0.49987642115669795,
+   "Probable": 0.08933002481389578,
+   "Available": 0.21518987341772153
+  }
+ },
+ "variants": {
+  "L-live": {
+   "by_season": [
+    {
+     "season": 2021,
+     "beta": 0.45,
+     "games": 1054
+    },
+    {
+     "season": 2022,
+     "beta": 0.4,
+     "games": 1214
+    },
+    {
+     "season": 2023,
+     "beta": 0.5,
+     "games": 1214
+    },
+    {
+     "season": 2024,
+     "beta": 0.5,
+     "games": 1216
+    },
+    {
+     "season": 2025,
+     "beta": 0.5,
+     "games": 1215
+    },
+    {
+     "season": 2026,
+     "beta": 0.55,
+     "games": 1215
+    }
+   ]
+  },
+  "L-rapm": {
+   "by_season": [
+    {
+     "season": 2021,
+     "beta": 1.0,
+     "games": 1054
+    },
+    {
+     "season": 2022,
+     "beta": 0.6000000000000001,
+     "games": 1214
+    },
+    {
+     "season": 2023,
+     "beta": 0.75,
+     "games": 1214
+    },
+    {
+     "season": 2024,
+     "beta": 0.75,
+     "games": 1216
+    },
+    {
+     "season": 2025,
+     "beta": 0.75,
+     "games": 1215
+    },
+    {
+     "season": 2026,
+     "beta": 0.75,
+     "games": 1215
+    }
+   ]
+  },
+  "L-blend": {
+   "by_season": [
+    {
+     "season": 2021,
+     "beta": 1.0,
+     "games": 1054
+    },
+    {
+     "season": 2022,
+     "beta": 0.8,
+     "games": 1214
+    },
+    {
+     "season": 2023,
+     "beta": 1.0,
+     "games": 1214
+    },
+    {
+     "season": 2024,
+     "beta": 1.0,
+     "games": 1216
+    },
+    {
+     "season": 2025,
+     "beta": 1.0,
+     "games": 1215
+    },
+    {
+     "season": 2026,
+     "beta": 1.0,
+     "games": 1215
+    }
+   ]
+  }
+ },
+ "note": "NBA availability: does a possession-based player impact beat the box-score player value? (research, shadow only)\n\nLive player value (pipeline/nba_avail.py): Game Score per 36 minutes above replacement, three seasons, shrunk 400 minutes.\nChallenger: our own point-in-time ridge-regression plus-minus (RAPM-style) built from SportsDataverse's NBA Stats\npossession files (nba_stats_possessions: points and the ten players on the floor for every possession).\n\nPoint-in-time construction (nothing from the game being predicted or later):\n  * One row per possession: +1 for each of the five offensive players, -1 for each of the five defensive players;\n    target = points x 100 minus that season's league average per 100 possessions.\n  * Fitted by ridge (lambda fixed at LAMBDA, a conventional value, never tuned on the test seasons) on the three previous\n    regular seasons (weights 1 / 0.6 / 0.36, the same weights as the box-score ability) plus the current season's\n    possessions from games dated before the snapshot. Snapshots are weekly; a game uses the latest snapshot dated on or\n    before its own date, so its own possessions can never enter.\n  * A player with under MIN_POSS weighted possessions is set to replacement level (like the box-score shrink).\n  * value = 2 x (beta - replacement) x minutes / 48, replacement = 30th percentile of established players' betas.\nVariants differ ONLY in the player's value; the baseline, status miss chances, observations, rating engine, scoring and\nthe walk-forward points scale are identical to research/nba_shrink_compare.py (L-live rule):\n  L-live   box-score value (live)\n  L-rapm   possession-impact value\n  L-blend  half box-score (x0.45 to points) and half impact\nName matching between NBA Stats ids and ESPN ids is by normalised name, unique on both sides.",
+ "scores": {
+  "all": {
+   "games": 7128,
+   "no_adjustment": 0.6311,
+   "L-live": 0.6163,
+   "L-rapm": 0.6195,
+   "L-blend": 0.6167,
+   "by_season": {
+    "2021": {
+     "games": 1054,
+     "no_adjustment": 0.6556,
+     "L-live": 0.6473,
+     "L-rapm": 0.6507,
+     "L-blend": 0.6473
+    },
+    "2022": {
+     "games": 1214,
+     "no_adjustment": 0.6394,
+     "L-live": 0.6234,
+     "L-rapm": 0.6249,
+     "L-blend": 0.6226
+    },
+    "2023": {
+     "games": 1214,
+     "no_adjustment": 0.6481,
+     "L-live": 0.6335,
+     "L-rapm": 0.6372,
+     "L-blend": 0.6345
+    },
+    "2024": {
+     "games": 1216,
+     "no_adjustment": 0.6189,
+     "L-live": 0.6068,
+     "L-rapm": 0.6081,
+     "L-blend": 0.6063
+    },
+    "2025": {
+     "games": 1215,
+     "no_adjustment": 0.6174,
+     "L-live": 0.5979,
+     "L-rapm": 0.6068,
+     "L-blend": 0.6017
+    },
+    "2026": {
+     "games": 1215,
+     "no_adjustment": 0.6106,
+     "L-live": 0.5928,
+     "L-rapm": 0.5935,
+     "L-blend": 0.5916
+    }
+   }
+  },
+  "long_term_absence": {
+   "games": 3649,
+   "no_adjustment": 0.6217,
+   "L-live": 0.602,
+   "L-rapm": 0.6082,
+   "L-blend": 0.6036,
+   "by_season": {
+    "2021": {
+     "games": 541,
+     "no_adjustment": 0.6411,
+     "L-live": 0.6331,
+     "L-rapm": 0.6442,
+     "L-blend": 0.6367
+    },
+    "2022": {
+     "games": 713,
+     "no_adjustment": 0.6267,
+     "L-live": 0.611,
+     "L-rapm": 0.6131,
+     "L-blend": 0.6107
+    },
+    "2023": {
+     "games": 501,
+     "no_adjustment": 0.6326,
+     "L-live": 0.6096,
+     "L-rapm": 0.6113,
+     "L-blend": 0.6084
+    },
+    "2024": {
+     "games": 538,
+     "no_adjustment": 0.6198,
+     "L-live": 0.6013,
+     "L-rapm": 0.6087,
+     "L-blend": 0.6039
+    },
+    "2025": {
+     "games": 617,
+     "no_adjustment": 0.6157,
+     "L-live": 0.5837,
+     "L-rapm": 0.5972,
+     "L-blend": 0.5891
+    },
+    "2026": {
+     "games": 739,
+     "no_adjustment": 0.6019,
+     "L-live": 0.5811,
+     "L-rapm": 0.584,
+     "L-blend": 0.5811
+    }
+   }
+  },
+  "returning_player": {
+   "games": 2755,
+   "no_adjustment": 0.6277,
+   "L-live": 0.6133,
+   "L-rapm": 0.6182,
+   "L-blend": 0.6149,
+   "by_season": {
+    "2021": {
+     "games": 488,
+     "no_adjustment": 0.6472,
+     "L-live": 0.6354,
+     "L-rapm": 0.6394,
+     "L-blend": 0.6356
+    },
+    "2022": {
+     "games": 524,
+     "no_adjustment": 0.6411,
+     "L-live": 0.6205,
+     "L-rapm": 0.6248,
+     "L-blend": 0.6211
+    },
+    "2023": {
+     "games": 474,
+     "no_adjustment": 0.6555,
+     "L-live": 0.6436,
+     "L-rapm": 0.649,
+     "L-blend": 0.6459
+    },
+    "2024": {
+     "games": 367,
+     "no_adjustment": 0.6126,
+     "L-live": 0.6088,
+     "L-rapm": 0.6085,
+     "L-blend": 0.608
+    },
+    "2025": {
+     "games": 419,
+     "no_adjustment": 0.6111,
+     "L-live": 0.5948,
+     "L-rapm": 0.6005,
+     "L-blend": 0.597
+    },
+    "2026": {
+     "games": 483,
+     "no_adjustment": 0.5918,
+     "L-live": 0.5731,
+     "L-rapm": 0.582,
+     "L-blend": 0.5773
+    }
+   }
+  }
+ },
+ "lambda_sensitivity_all_games": {
+  "800": {
+   "L-live": 0.6163,
+   "L-rapm": 0.6196,
+   "L-blend": 0.6167
+  },
+  "2500": {
+   "L-live": 0.6163,
+   "L-rapm": 0.6195,
+   "L-blend": 0.6167
+  },
+  "8000": {
+   "L-live": 0.6163,
+   "L-rapm": 0.6203,
+   "L-blend": 0.6168
+  }
+ },
+ "conclusion": "Possession-based point-in-time impact does not beat the live box-score value (log loss 0.6195 vs 0.6163; blend 0.6167). Live value kept. Archived as a negative finding; TypeSafe 93%."
+}
