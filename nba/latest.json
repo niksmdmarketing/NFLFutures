@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-10-11T0055Z",
-"feed_timestamp": "2026-10-11T00:55:13Z",
+"collected_utc": "2026-10-11T0107Z",
+"feed_timestamp": "2026-10-11T01:07:17Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -634,6 +634,12 @@
 "injury": "Left Hip"
 },
 {
+"athlete_id": "3136193",
+"status": "Day-To-Day",
+"return_date": "2026-10-14",
+"injury": "Rest"
+},
+{
 "athlete_id": "4701232",
 "status": "Out",
 "return_date": "2027-02-03",
@@ -642,7 +648,7 @@
 {
 "athlete_id": "4066383",
 "status": "Day-To-Day",
-"return_date": "2026-10-10",
+"return_date": "2026-10-14",
 "injury": "Right Ankle"
 },
 {
@@ -1737,6 +1743,15 @@
 "updated": "2026-10-01T22:07Z"
 },
 {
+"athlete_id": "3136193",
+"name": "Devin Booker",
+"team_name": "Phoenix Suns",
+"status": "Day-To-Day",
+"return_date": "2026-10-14",
+"injury": "Rest",
+"updated": "2026-10-11T00:55Z"
+},
+{
 "athlete_id": "4701232",
 "name": "Mark Williams",
 "team_name": "Phoenix Suns",
@@ -1750,9 +1765,9 @@
 "name": "Miles Bridges",
 "team_name": "Phoenix Suns",
 "status": "Day-To-Day",
-"return_date": "2026-10-10",
+"return_date": "2026-10-14",
 "injury": "Right Ankle",
-"updated": "2026-10-09T20:04Z"
+"updated": "2026-10-11T00:52Z"
 },
 {
 "athlete_id": "4914336",
