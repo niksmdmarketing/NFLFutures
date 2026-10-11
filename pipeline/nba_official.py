@@ -3,6 +3,7 @@
 Statuses: Out, Doubtful, Questionable, Probable, Available. Reports are published at ak-static.cms.nba.com as
 Injury-Report_YYYY-MM-DD_HH_MMAM|PM.pdf in US Eastern time; a missing report returns 403.
 """
+import bisect
 import datetime as dt
 import io
 import re
@@ -142,14 +143,26 @@ def parse(pdf_bytes, with_meta=False):
                 cols = c
             if not cols:
                 continue
+            # Group printed lines into table rows using the PDF's own horizontal rules in the player column, so a reason
+            # that wraps above or below a vertically centred name stays with that player (a 5th fault found by GPT).
+            px = dict(cols).get("player", 0)
+            bounds = sorted({round(l["top"], 1) for l in page.lines
+                             if abs(l["top"] - l["bottom"]) < 1 and l["x0"] <= px + 5 and l["x1"] >= px + 20})
+            groups = []
             for ws in _lines(words):
                 if head_top is not None and abs(ws[0]["top"] - head_top) <= 2.5:
                     continue
                 joined = " ".join(w["text"] for w in ws)
                 if joined.startswith("Injury Report") or re.fullmatch(r"Page \d+ of \d+", joined) or re.match(r"Page\d+of\d+", joined):
                     continue
+                band = bisect.bisect_right(bounds, ws[0]["top"]) if len(bounds) >= 2 else None
+                if band is not None and groups and groups[-1][0] == band:
+                    groups[-1][1].extend(ws)
+                else:
+                    groups.append((band, list(ws)))
+            for _, ws in groups:
                 cells = {}
-                for w in ws:
+                for w in sorted(ws, key=lambda w: (w["top"], w["x0"])):
                     name = cols[0][0]
                     for cname, x in cols:
                         if w["x0"] >= x - 3:
@@ -193,8 +206,8 @@ def parse(pdf_bytes, with_meta=False):
                     prev = txt.get("previous", "").split()
                     rows.append(dict(cur, player=txt["player"], status=st[0], reason=txt.get("reason", ""),
                                      previous_status=prev[0] if prev and prev[0] in STATUSES else None))
-                elif rows and txt.get("reason") and not txt.get("player") and not st and rows[-1]["player"]:
-                    rows[-1]["reason"] = (rows[-1]["reason"] + " " + txt["reason"]).strip()
+                elif rows and txt.get("reason") and not txt.get("player") and not st and rows[-1]["player"] and not team_txt and not mu:
+                    rows[-1]["reason"] = (rows[-1]["reason"] + " " + txt["reason"]).strip()     # reason continued on the next page
     if with_meta:
         return rows, {"unresolved_team_cells": problems}
     return rows

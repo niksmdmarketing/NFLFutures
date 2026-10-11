@@ -106,8 +106,8 @@ for g in games.itertuples():
         cov.append(dict(base, team=t, coverage=c))
 
 D, C = pd.DataFrame(out), pd.DataFrame(cov)
-D.to_csv(os.path.join(folder, f"pregame_v2_{y}.csv.gz"), index=False)
-C.to_csv(os.path.join(folder, f"coverage_v2_{y}.csv.gz"), index=False)
+D.to_csv(os.path.join(folder, f"pregame_v3_{y}.csv.gz"), index=False)
+C.to_csv(os.path.join(folder, f"coverage_v3_{y}.csv.gz"), index=False)
 # comparison with the first parse: same (game, player, status)? same team?
 o = old[old.player.notna()][["game_id", "team", "player", "status"]]
 k = lambda df: set(zip(df.game_id, df.player, df.status))
@@ -122,6 +122,6 @@ summary = {"season": y, "games": int(len(games)), "reports": int(len(parsed)), "
            "rows_only_in_first_parse": len(k(o) - k(D)) if len(D) else len(k(o)),
            "rows_only_in_v2": len(k(D) - k(o)) if len(D) else 0,
            "rows_same_player_status_different_team": len({(a, p, s) for a, t, p, s in kt(o)} & {(a, p, s) for a, t, p, s in kt(D)}) - len(kt(o) & kt(D)) if len(D) else 0}
-json.dump(summary, open(os.path.join(folder, f"reparse_v2_{y}.json"), "w"), indent=1)
-json.dump(meta, open(os.path.join(folder, f"reparse_v2_{y}_reports.json"), "w"))
+json.dump(summary, open(os.path.join(folder, f"reparse_v3_{y}.json"), "w"), indent=1)
+json.dump(meta, open(os.path.join(folder, f"reparse_v3_{y}_reports.json"), "w"))
 print(json.dumps(summary, indent=1))
