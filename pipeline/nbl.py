@@ -22,7 +22,7 @@ NBL_SRC = os.path.join(ROOT, "site_src", "nbl")
 NBL_SITE = os.path.join(ROOT, "site", "nbl")
 API = "https://prod.rosetta.nbl.com.au/get/"
 HISTORY_SEASONS = 15
-BOXSCORE_SEASONS = 5
+BOXSCORE_SEASONS = int(os.environ.get("NBL_BOXSCORE_SEASONS", 5))
 
 
 def _get(route: str, cache_name: str, max_age_h: float) -> tuple[dict, str, str | None]:
@@ -129,7 +129,7 @@ def build_data() -> None:
         latest_year = dt.date.today().year if dt.date.today().month >= 7 else dt.date.today().year - 1
     floor_year = latest_year - HISTORY_SEASONS + 1
     season_rows = [r for r in season_rows if floor_year <= r["_year"] <= latest_year]
-    season_rows.sort(key=lambda r: (r["_year"], str(r.get("season_type", ""))))
+    season_rows.sort(key=lambda r: (r["_year"], str(r.get("season_type", ""))), reverse=True)
     # Keep each distinct official season type (regular season, finals, and any
     # separately published competition phase) rather than dropping finals.
     included = season_rows
@@ -165,6 +165,7 @@ def build_data() -> None:
         # matchup form without downloading gigabytes of full-game payloads.
         # Season and leader stats remain available for the full 15-year window.
         boxscores = []
+        team_boxscores = []
         boxscore_ttl = 24 if active else 24 * 30
         complete_games = [game for game in year_data.get("games", [])
                           if year >= latest_year - BOXSCORE_SEASONS + 1
@@ -186,18 +187,17 @@ def build_data() -> None:
             for item in _data(match_payload):
                 if not isinstance(item, dict):
                     continue
-                clean = {k: _without_odds(v) for k, v in item.items()
-                         if k not in {"play_by_play", "events", "commentary", "shots", "shot_chart"}}
                 game_info = {k: v for k, v in game.items()
                              if k in {"id", "start_time", "match_round", "round_number", "home_score", "away_score",
                                       "home_team", "away_team", "venue", "attendance", "match_status", "status"}}
-                for key in ("data", "players"):
-                    if isinstance(clean.get(key), list):
-                        for player_row in clean[key]:
-                            if isinstance(player_row, dict):
-                                player_row["_game"] = game_info
-                                boxscores.append(player_row)
+                for key, destination in (("player_match_statistics", boxscores),
+                                         ("team_match_statistics", team_boxscores)):
+                    for stat in item.get(key) or []:
+                        # Period 0 includes overtime; other periods are splits.
+                        if isinstance(stat, dict) and str(stat.get("period")) == "0":
+                            destination.append({**_without_odds(stat), "_game": game_info})
         year_data["boxscores"] = boxscores
+        year_data["team_boxscores"] = team_boxscores
         leaders = []
         if season_id:
             route = "nbl/stats/leaders/for/season/id/" + urllib.parse.quote(str(season_id))
@@ -207,7 +207,7 @@ def build_data() -> None:
                 all_updated.append(updated)
         year_data["leaders"] = _without_odds(leaders)
         dataset = datasets.setdefault(str(year), {"season": _without_odds({k: v for k, v in season.items() if k != "_year"}),
-                                                 "standings": [], "games": [], "teams": [], "players": [], "boxscores": [], "leaders": []})
+                                                 "standings": [], "games": [], "teams": [], "players": [], "boxscores": [], "team_boxscores": [], "leaders": []})
         # Keep regular and finals rows together in the familiar year selector,
         # while preserving phase so users can filter or sort it in the table.
         for kind, records in year_data.items():

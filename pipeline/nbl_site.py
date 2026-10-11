@@ -97,8 +97,8 @@ def team_rows(x):
 
 
 def box_by_game(Sd):
-    """Team totals per game from player box scores (recent seasons only)."""
-    B = Sd.get("boxscores") or []
+    """Official whole-game team totals, checked against the fixture score."""
+    B = Sd.get("team_boxscores") or []
     if not B:
         return pd.DataFrame()
     rows = []
@@ -106,14 +106,19 @@ def box_by_game(Sd):
         gm = r.get("_game") or {}
         t = r.get("team") if isinstance(r.get("team"), dict) else {}
         tc = code(t.get("team_code") or r.get("team_code") or "")
-        if not tc or not gm.get("id"):
+        if not tc or not gm.get("id") or str(r.get("period")) != "0":
             continue
+        home = code((gm.get("home_team") or {}).get("team_code"))
+        away = code((gm.get("away_team") or {}).get("team_code"))
+        expected = num(gm.get("home_score")) if tc == home else num(gm.get("away_score")) if tc == away else np.nan
+        if not np.isfinite(expected) or num(r.get("points")) != expected:
+            continue  # Do not publish a partial or misassigned box score.
         rows.append({"gid": gm.get("id"), "team": tc, **{k: num(r.get(k)) for k in (
             "points", "field_goals_made", "field_goals_attempted", "three_points_made", "three_points_attempted", "free_throws_made",
             "free_throws_attempted", "offensive_rebounds", "defensive_rebounds", "rebounds", "assists", "turnovers", "steals", "blocks")}})
     if not rows:
         return pd.DataFrame()
-    return pd.DataFrame(rows).groupby(["gid", "team"]).sum(min_count=1).reset_index()
+    return pd.DataFrame(rows).drop_duplicates(["gid", "team"]).reset_index(drop=True)
 
 
 # ------------------------------------------------------------------ team table
