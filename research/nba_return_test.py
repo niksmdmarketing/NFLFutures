@@ -88,8 +88,15 @@ def main(folder, out_path):
     P = P[(P.status == "Out") & P.player.notna()]
     P["gid"] = P.game_id.astype(str)
     obs, unmatched = [], 0
+    excluded = collections.Counter()
     for r in P.itertuples():
-        ids = key.get((int(r.season), O.player_key(r.player)), set())
+        nk = O.player_key(r.player)
+        ids = key.get((int(r.season), nk), set())
+        if not ids:          # whole-season absentees have no row this season: use the latest earlier season's identity
+            for yy in range(int(r.season) - 1, int(r.season) - 4, -1):
+                ids = key.get((yy, nk), set())
+                if ids:
+                    break
         if len(ids) != 1:
             unmatched += 1
             continue
@@ -108,16 +115,34 @@ def main(folder, out_path):
         last = mm[max(0, j - 10):j]
         if not last or sum(last) / len(last) < 12:
             continue
+        # roster entry (GPT's conservative rule): membership must be established before the report - a row for this
+        # team earlier this season, or last season's final team with no other team this season; a report for a team he
+        # has since left is stale. Team games before he joined are never counted as missed.
+        hist = rows_by_p.get(p, [])
+        hd = [h_[0] for h_ in hist]
+        before = hist[:bisect.bisect_left(hd, d0)]
+        season_start = sc[0][0]
+        cur_rows = [(dt_, t) for dt_, t in before if dt_ >= season_start]
+        if cur_rows:
+            if cur_rows[-1][1] != r.team:
+                excluded["stale_or_other_team"] += 1
+                continue
+            first_here = next(dt_ for dt_, t in cur_rows if t == r.team)
+            k0 = bisect.bisect_left([g[0] for g in sc], first_here)
+        else:
+            prev_rows = [(dt_, t) for dt_, t in before if dt_ < season_start]
+            if not prev_rows or prev_rows[-1][1] != r.team:
+                excluded["roster_entry_unresolved"] += 1
+                continue
+            k0 = 0
         # games already missed (streak) and days since the absence began
         e, k = 0, i - 1
-        while k >= 0 and p not in played.get((gids[k], r.team), set()):
+        while k >= k0 and p not in played.get((gids[k], r.team), set()):
             e += 1
             k -= 1
         start_date = sc[k + 1][0] if e else d0
         elapsed_days = (d0 - start_date).days
         # outcome path: still out at next games until he plays; censor at a team change or season end
-        hist = rows_by_p.get(p, [])
-        hd = [h_[0] for h_ in hist]
         first_other = None
         for dt_, t in hist[bisect.bisect_right(hd, d0):]:
             if t != r.team:
@@ -153,7 +178,7 @@ def main(folder, out_path):
         O_[f"dd{h}"] = O_.days.map(lambda v, h=h: v[h - 1] if len(v) >= h else None)   # date of the team's h-th next game
     seasons = sorted(O_.season.unique())
     test_seasons = seasons[2:]
-    res = {"observations": int(len(O_)), "absences": int(O_.groupby(["pid", "team", "season"]).ngroups), "unmatched_report_rows": unmatched,
+    res = {"excluded": dict(excluded), "observations": int(len(O_)), "absences": int(O_.groupby(["pid", "team", "season"]).ngroups), "unmatched_report_rows": unmatched,
            "class_counts": O_.cls.value_counts().to_dict(), "test_seasons": [int(s) for s in test_seasons], "horizons": {}}
     for h in HORIZONS:
         y, dd = f"y{h}", f"dd{h}"
@@ -205,7 +230,7 @@ def main(folder, out_path):
                 for b in range(len(BUCKETS)):
                     t = g.loc[(c, b)] if (c, b) in g.index and g.loc[(c, b), "size"] >= 30 else gc.loc[c]
                     tab.setdefault(c, {}).setdefault(str(b), {})[str(h)] = round(float((t["sum"] + 1) / (t["size"] + 2)), 4)
-        json.dump({"version": "returns-v2 (corrected report parsing; frozen " + pd.Timestamp.utcnow().strftime("%Y-%m-%d") + ")",
+        json.dump({"version": "returns-v3 (rows grouped by the PDF's rules, GPT's population rules; frozen " + pd.Timestamp.utcnow().strftime("%Y-%m-%d") + ")",
                    "fitted_on": [int(s) for s in seasons], "horizons": list(HORIZONS),
                    "buckets_games_already_missed": [list(b) for b in BUCKETS], "classes": "long / injury / non_injury (see research/nba_return_test.py)",
                    "p_still_out": tab}, open(os.environ["FREEZE_TABLE"], "w"), indent=1)
