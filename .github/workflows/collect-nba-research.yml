@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: nba-research-collection
@@ -30,9 +30,33 @@ jobs:
             nba-research-${{ runner.os }}-
       - name: Collect bounded season files for validation
         run: python pipeline/nba_research_collect.py --seasons 12 --max-file-mb 75 --max-total-mb 1200
+      - name: Install parquet reader
+        run: pip install pandas pyarrow
+      - name: Inspect what was collected (schemas, seasons, rows, gaps)
+        run: python pipeline/nba_research_inspect.py build/nba_research_inventory.json
       - name: Save collection inventory
         uses: actions/upload-artifact@v4
         with:
           name: nba-research-inventory-${{ github.run_id }}
-          path: build/nba_research_collection.json
+          path: |
+            build/nba_research_collection.json
+            build/nba_research_inventory.json
           retention-days: 30
+      - name: Publish the inventory to the market-data branch (research only, no site data)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch -q origin market-data
+          git worktree add -q -B market-data ../market-data FETCH_HEAD
+          mkdir -p ../market-data/research/nba_stats
+          cp build/nba_research_collection.json build/nba_research_inventory.json ../market-data/research/nba_stats/
+          cd ../market-data
+          git add -A research/nba_stats
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -q -m "NBA Stats research inventory"
+          for i in 1 2 3 4 5 6; do
+            if git push -q origin HEAD:market-data; then exit 0; fi
+            git pull -q --rebase origin market-data || exit 1
+            sleep $((RANDOM % 20 + 5))
+          done
+          exit 1
