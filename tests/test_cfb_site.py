@@ -32,6 +32,12 @@ class CollegeStatsTests(unittest.TestCase):
         cols = C.team_columns()
         self.assertEqual(next(c for c in cols if c['k'] == 'success_off')['f'], 'pct')
         self.assertFalse(any('odds' in c['k'] or 'spread' in c['k'] for c in cols))
+        self.assertEqual(C.game_column('box', 'firstDowns')['f'], 'int')
+        self.assertEqual(C.game_column('situational', 'EPA_success_rate_rz')['f'], 'pct')
+        self.assertEqual(C.game_column('situational', 'EPA_success_third')['f'], 'int')
+        self.assertEqual(C.game_column('advanced', 'line_yards')['f'], 'num2')
+        self.assertEqual(C.col('games', count=True)['f'], 'int')
+        self.assertEqual(len({c['l'] for c in cols}), len(cols))
 
 
 if __name__ == '__main__':

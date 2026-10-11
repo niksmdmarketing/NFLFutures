@@ -29,6 +29,9 @@ jobs:
       - name: Install
         run: pip install -r requirements.txt
 
+      - name: Test college football statistics (four regression tests)
+        run: python -m unittest discover -s tests -p 'test_cfb_site.py' -v
+
       - name: Restore nflverse downloads
         uses: actions/cache@v4
         with:
