@@ -125,6 +125,16 @@ def main():
         snapshots.build_all()
     except Exception as e:  # noqa: BLE001
         log("snapshots failed", e)
+    try:  # College football stats are independent of every existing sport model.
+        import cfb_site
+        cfb_site.build_data()
+        cfb_site.build_site()
+    except Exception as e:  # retain the remaining sports when a new upstream feed fails
+        import traceback
+        traceback.print_exc()
+        log('CFB statistics failed', e)
+        if os.path.exists(os.path.join(cfb_site.OUT, 'meta.json')):
+            cfb_site.build_site()  # last validated exports, never substitute empty/zero stats
     # Cloudflare Pages rejects the whole deployment if any file is over 25 MiB: drop such files loudly instead
     for dirpath, _, files in os.walk(os.path.join(os.path.dirname(OUT), "site")):
         for fn in files:
