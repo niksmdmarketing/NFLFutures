@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-10-11T0303Z",
-"feed_timestamp": "2026-10-11T03:02:58Z",
+"collected_utc": "2026-10-11T0552Z",
+"feed_timestamp": "2026-10-11T05:52:08Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -42,7 +42,7 @@
 {
 "athlete_id": "4277951",
 "status": "Day-To-Day",
-"return_date": "2026-10-10",
+"return_date": "2026-10-14",
 "injury": "Nose"
 },
 {
@@ -202,27 +202,15 @@
 "injury": "Not Specified Hamstring"
 },
 {
-"athlete_id": "4433621",
+"athlete_id": "4432166",
 "status": "Day-To-Day",
 "return_date": "2026-10-14",
 "injury": "Rest"
 },
 {
-"athlete_id": "4066436",
+"athlete_id": "4433621",
 "status": "Day-To-Day",
-"return_date": "2026-10-10",
-"injury": "Rest"
-},
-{
-"athlete_id": "3134903",
-"status": "Day-To-Day",
-"return_date": "2026-10-10",
-"injury": "Rest"
-},
-{
-"athlete_id": "2990969",
-"status": "Day-To-Day",
-"return_date": "2026-10-10",
+"return_date": "2026-10-14",
 "injury": "Rest"
 },
 {
@@ -258,7 +246,7 @@
 {
 "athlete_id": "2530530",
 "status": "Day-To-Day",
-"return_date": "2026-10-10",
+"return_date": "2026-10-13",
 "injury": "Undisclosed"
 },
 {
@@ -270,7 +258,7 @@
 {
 "athlete_id": "6580",
 "status": "Day-To-Day",
-"return_date": "2026-10-10",
+"return_date": "2026-10-14",
 "injury": "Not Specified Knee Inflammation"
 },
 {
@@ -288,7 +276,7 @@
 {
 "athlete_id": "4702352",
 "status": "Day-To-Day",
-"return_date": "2026-10-10",
+"return_date": "2026-10-14",
 "injury": "Left Hip"
 },
 {
@@ -676,12 +664,6 @@
 "injury": "Rest"
 },
 {
-"athlete_id": "4395650",
-"status": "Day-To-Day",
-"return_date": "2026-10-10",
-"injury": "Not Specified Face Not Specified"
-},
-{
 "athlete_id": "4066262",
 "status": "Day-To-Day",
 "return_date": "2026-10-13",
@@ -708,14 +690,8 @@
 {
 "athlete_id": "4277880",
 "status": "Day-To-Day",
-"return_date": "2026-10-10",
+"return_date": "2026-10-12",
 "injury": "Undisclosed"
-},
-{
-"athlete_id": "5105337",
-"status": "Day-To-Day",
-"return_date": "2026-10-10",
-"injury": "Back"
 },
 {
 "athlete_id": "6440",
@@ -738,7 +714,7 @@
 {
 "athlete_id": "4590360",
 "status": "Day-To-Day",
-"return_date": "2026-10-10",
+"return_date": "2026-10-13",
 "injury": "Left Hamstring"
 },
 {
@@ -868,7 +844,7 @@
 "name": "Luka Garza",
 "team_name": "Boston Celtics",
 "status": "Day-To-Day",
-"return_date": "2026-10-10",
+"return_date": "2026-10-14",
 "injury": "Nose",
 "updated": "2026-10-11T02:21Z"
 },
@@ -1107,6 +1083,15 @@
 "updated": "2026-10-08T21:51Z"
 },
 {
+"athlete_id": "4432166",
+"name": "Cade Cunningham",
+"team_name": "Detroit Pistons",
+"status": "Day-To-Day",
+"return_date": "2026-10-14",
+"injury": "Rest",
+"updated": "2026-10-11T03:16Z"
+},
+{
 "athlete_id": "4433621",
 "name": "Jalen Duren",
 "team_name": "Detroit Pistons",
@@ -1114,33 +1099,6 @@
 "return_date": "2026-10-14",
 "injury": "Rest",
 "updated": "2026-10-10T21:44Z"
-},
-{
-"athlete_id": "4066436",
-"name": "De'Anthony Melton",
-"team_name": "Golden State Warriors",
-"status": "Day-To-Day",
-"return_date": "2026-10-10",
-"injury": "Rest",
-"updated": "2026-10-07T14:38Z"
-},
-{
-"athlete_id": "3134903",
-"name": "Gary Payton II",
-"team_name": "Golden State Warriors",
-"status": "Day-To-Day",
-"return_date": "2026-10-10",
-"injury": "Rest",
-"updated": "2026-10-07T14:42Z"
-},
-{
-"athlete_id": "2990969",
-"name": "Georges Niang",
-"team_name": "Golden State Warriors",
-"status": "Day-To-Day",
-"return_date": "2026-10-10",
-"injury": "Rest",
-"updated": "2026-10-07T14:40Z"
 },
 {
 "athlete_id": "6430",
@@ -1192,9 +1150,9 @@
 "name": "T.J. McConnell",
 "team_name": "Indiana Pacers",
 "status": "Day-To-Day",
-"return_date": "2026-10-10",
+"return_date": "2026-10-13",
 "injury": "Undisclosed",
-"updated": "2026-10-07T22:43Z"
+"updated": "2026-10-11T03:20Z"
 },
 {
 "athlete_id": "4396993",
@@ -1210,7 +1168,7 @@
 "name": "Bradley Beal",
 "team_name": "LA Clippers",
 "status": "Day-To-Day",
-"return_date": "2026-10-10",
+"return_date": "2026-10-14",
 "injury": "Not Specified Knee Inflammation",
 "updated": "2026-10-07T20:35Z"
 },
@@ -1237,7 +1195,7 @@
 "name": "Kobe Sanders",
 "team_name": "LA Clippers",
 "status": "Day-To-Day",
-"return_date": "2026-10-10",
+"return_date": "2026-10-14",
 "injury": "Left Hip",
 "updated": "2026-10-07T20:42Z"
 },
@@ -1818,15 +1776,6 @@
 "updated": "2026-10-10T23:09Z"
 },
 {
-"athlete_id": "4395650",
-"name": "Leaky Black",
-"team_name": "Sacramento Kings",
-"status": "Day-To-Day",
-"return_date": "2026-10-10",
-"injury": "Not Specified Face Not Specified",
-"updated": "2026-10-09T05:26Z"
-},
-{
 "athlete_id": "4066262",
 "name": "Malik Monk",
 "team_name": "Sacramento Kings",
@@ -1867,18 +1816,9 @@
 "name": "Malik Williams",
 "team_name": "San Antonio Spurs",
 "status": "Day-To-Day",
-"return_date": "2026-10-10",
+"return_date": "2026-10-12",
 "injury": "Undisclosed",
-"updated": "2026-10-09T01:42Z"
-},
-{
-"athlete_id": "5105337",
-"name": "Maliq Brown",
-"team_name": "San Antonio Spurs",
-"status": "Day-To-Day",
-"return_date": "2026-10-10",
-"injury": "Back",
-"updated": "2026-10-08T17:20Z"
+"updated": "2026-10-11T05:04Z"
 },
 {
 "athlete_id": "6440",
@@ -1912,9 +1852,9 @@
 "name": "Chucky Hepburn",
 "team_name": "Toronto Raptors",
 "status": "Day-To-Day",
-"return_date": "2026-10-10",
+"return_date": "2026-10-13",
 "injury": "Left Hamstring",
-"updated": "2026-10-11T00:44Z"
+"updated": "2026-10-11T03:21Z"
 },
 {
 "athlete_id": "6450",
