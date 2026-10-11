@@ -169,7 +169,7 @@ def team_table(Sd, g):
         T["fg_pct"], T["fg3_pct"], T["ft_pct"] = T.fgm / T.fga, T.fg3m / T.fg3a, T.ftm / T.fta
         for k in ("reb", "oreb", "dreb", "ast", "stl", "blk", "tov", "pf_", "fg3m"):
             T[k + "_g"] = T[k] / G
-        T["ast_tov"] = T.ast / T.tov
+        T["ast_tov"] = S.pct(T.ast, T.tov)
         T["drtg"] = 100 * T.pa / (T.poss_g * T.gp)
         T["netrtg"] = T.ortg - T.drtg
     if len(g):
@@ -263,7 +263,8 @@ GAME_COLS = [C("pf", "PTS", "Result", "int"), C("pa", "Opp", "Result", "int", lo
              C("fg_pct", "FG%", "Box score", "pct"), C("fg3m", "3PM", "Box score", "int"), C("fg3a", "3PA", "Box score", "int"),
              C("fg3_pct", "3P%", "Box score", "pct"), C("ftm", "FTM", "Box score", "int"), C("fta", "FTA", "Box score", "int"),
              C("reb", "REB", "Box score", "int"), C("oreb", "OREB", "Box score", "int"), C("ast", "AST", "Box score", "int"),
-             C("tov", "TOV", "Box score", "int", lo=True), C("stl", "STL", "Box score", "int"), C("blk", "BLK", "Box score", "int")]
+             C("tov", "TOV", "Box score", "int", lo=True), C("ast_tov", "AST/TOV", "Box score", "num2", t="Assists per turnover"),
+             C("stl", "STL", "Box score", "int"), C("blk", "BLK", "Box score", "int")]
 
 
 # ------------------------------------------------------------------ ratings and simulation
@@ -397,6 +398,7 @@ def build_data():
             gg = gg.rename(columns=ren)
             if "fga" in gg:
                 gg["fg_pct"], gg["fg3_pct"] = S.pct(gg.fgm, gg.fga), S.pct(gg.fg3m, gg.fg3a)
+                gg["ast_tov"] = S.pct(gg.ast, gg.tov)
             S.write_json(OUT, f"games_{y}.json", S.columnar(gg[~gg.fin], y, ["date", "team", "opp", "ha", "res"], GAME_COLS))
             if gg.fin.any():
                 S.write_json(OUT, f"games_{y}p.json", S.columnar(gg[gg.fin], y, ["date", "team", "opp", "ha", "res"], GAME_COLS))
@@ -537,8 +539,8 @@ CFG = {
     "sport": "NBL", "season_style": "split_start", "po_label": "Finals",
     "ids": {"team": ["team", "name"], "players": ["name", "team"], "games": ["date", "team", "opp", "ha", "res"]},
     "pinned": ["gp"], "team_sort": "wp", "noshade": ["gp", "pos", "close_n", "gs"], "po_kinds": ["team", "games"],
-    "key": {"teams": ["gp", "w", "wp", "net", "netrtg", "ortg", "drtg", "efg", "ts", "tov_pct", "fg3_pct", "fg3a_rate", "luck", "close_wp", "home_m", "away_m", "l5_m"],
-            "players": ["gp", "mpg", "ppg", "rpg", "apg", "eff_g", "ts", "fg3_pct", "pm_g", "spg", "bpg"]},
+    "key": {"teams": ["gp", "w", "wp", "net", "netrtg", "ortg", "drtg", "efg", "ts", "tov_pct", "ast_tov", "fg3_pct", "fg3a_rate", "luck", "close_wp", "home_m", "away_m", "l5_m"],
+            "players": ["gp", "mpg", "ppg", "rpg", "apg", "ast_tov", "eff_g", "ts", "fg3_pct", "pm_g", "spg", "bpg"]},
     "standings": {"sort": "wp", "order": [["wp", 1], ["net", 1]],
                   "cols": ["gp", "w", "l", "wp", "gb", "streak", "l5_w", "ppg", "oppg", "net", "pyth_w", "luck", "home_wp", "away_wp", "netrtg", "close_wp", "vs_top4_wp"],
                   "alias": {"wp": "W%", "pyth_w": "Exp W", "home_wp": "Home", "away_wp": "Away", "netrtg": "Net rtg", "close_wp": "Close W%", "vs_top4_wp": "vs top 4", "l5_w": "L5"},

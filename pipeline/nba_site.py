@@ -135,6 +135,7 @@ def team_season(g, y):
     a["fg3a_rate"], a["o_fg3a_rate"] = a.fg3a / a.fga, a.o_fg3a / a.o_fga
     a["fg3m_g"] = a.fg3m / G
     a["ast_pct"] = a.ast / a.fgm
+    a["ast_tov"] = S.pct(a.ast, a.tov)
     for k in ("reb", "ast", "stl", "blk", "tov", "pf", "fb", "paint", "pot", "o_fb", "o_paint", "o_pot", "oreb", "lead"):
         a[k + "_g"] = a[k] / G
     a["pyth"] = 1 / (1 + (a.o_pts / a.pts) ** 14)
@@ -202,7 +203,8 @@ TEAM_COLS = [
     C("fg3m_g", "3PM/G", "Shooting", "num1"), C("fg3a_rate", "3PA rate", "Shooting", "pct", t="Share of shots taken from three"),
     C("o_fg3_pct", "Opp 3P%", "Shooting", "pct", lo=True), C("o_fg3a_rate", "Opp 3PA rate", "Shooting", "pct", lo=True),
     C("reb_g", "REB/G", "Box score", "num1"), C("oreb_g", "OREB/G", "Box score", "num1"), C("ast_g", "AST/G", "Box score", "num1"),
-    C("ast_pct", "AST%", "Box score", "pct", t="Share of made baskets assisted"), C("stl_g", "STL/G", "Box score", "num1"),
+    C("ast_pct", "AST%", "Box score", "pct", t="Share of made baskets assisted"),
+    C("ast_tov", "AST/TOV", "Box score", "num2", t="Assists per turnover"), C("stl_g", "STL/G", "Box score", "num1"),
     C("blk_g", "BLK/G", "Box score", "num1"), C("tov_g", "TOV/G", "Box score", "num1", lo=True), C("pf_g", "Fouls/G", "Box score", "num1", lo=True),
     C("fb_g", "Fast-break PTS/G", "Box score", "num1"), C("paint_g", "Paint PTS/G", "Box score", "num1"),
     C("pot_g", "PTS off TOV/G", "Box score", "num1"), C("o_fb_g", "Opp fast-break PTS/G", "Box score", "num1", lo=True),
@@ -362,6 +364,7 @@ GAME_COLS = [
     C("orb_pct", "ORB%", "Efficiency", "pct"), C("ftr", "FT rate", "Efficiency", "num2"),
     C("fg3m", "3PM", "Box score", "int"), C("fg3a", "3PA", "Box score", "int"), C("fg3_pct", "3P%", "Box score", "pct"),
     C("reb", "REB", "Box score", "int"), C("ast", "AST", "Box score", "int"), C("tov", "TOV", "Box score", "int", lo=True),
+    C("ast_tov", "AST/TOV", "Box score", "num2", t="Assists per turnover"),
     C("stl", "STL", "Box score", "int"), C("blk", "BLK", "Box score", "int"), C("fb", "Fast-break PTS", "Box score", "int"),
     C("paint", "Paint PTS", "Box score", "int"), C("lead", "Largest lead", "Box score", "int"),
 ]
@@ -377,6 +380,7 @@ def game_table(g):
     g["orb_pct"] = S.pct(g.oreb, g.oreb + g.o_dreb)
     g["ftr"] = S.pct(g.ftm, g.fga)
     g["fg3_pct"] = S.pct(g.fg3m, g.fg3a)
+    g["ast_tov"] = S.pct(g.ast, g.tov)
     g["res"] = np.where(g.win == 1, "W", "L")
     return g
 
@@ -457,9 +461,9 @@ CFG = {
     "sport": "NBA", "season_style": "split_end", "po_label": "Playoffs",
     "ids": {"team": ["team", "name"], "players": ["name", "team", "pos"], "games": ["date", "team", "opp", "ha", "res"]},
     "pinned": ["gp"], "team_sort": "wp", "noshade": ["gp", "gs", "close_n", "b2b_n"],
-    "key": {"teams": ["gp", "w", "wp", "netrtg", "adj_net", "ortg", "drtg", "pace", "efg", "tov_pct", "orb_pct", "ftr", "o_efg",
+    "key": {"teams": ["gp", "w", "wp", "netrtg", "adj_net", "ortg", "drtg", "pace", "efg", "tov_pct", "ast_tov", "orb_pct", "ftr", "o_efg",
                       "fg3_pct", "fg3a_rate", "luck", "close_wp", "vs_win_wp", "b2b_wp", "l10_net"],
-            "players": ["gp", "mpg", "ppg", "rpg", "apg", "spg", "bpg", "fg3m_g", "ts", "usage_pct", "net_rating", "pie", "pm_g", "dd"]},
+            "players": ["gp", "mpg", "ppg", "rpg", "apg", "ast_tov", "spg", "bpg", "fg3m_g", "ts", "usage_pct", "net_rating", "pie", "pm_g", "dd"]},
     "standings": {"sort": "wp", "order": [["wp", 1], ["netrtg", 1]],
                   "cols": ["gp", "w", "l", "wp", "gb", "home_wp", "road_wp", "l10_w", "streak", "ppg", "oppg", "net", "netrtg", "adj_net",
                            "pyth_w", "luck", "close_wp", "vs_win_wp"],
