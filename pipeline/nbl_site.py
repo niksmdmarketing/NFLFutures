@@ -170,6 +170,7 @@ def team_table(Sd, g):
         for k in ("reb", "oreb", "dreb", "ast", "stl", "blk", "tov", "pf_", "fg3m"):
             T[k + "_g"] = T[k] / G
         T["ast_tov"] = S.pct(T.ast, T.tov)
+        T["ast_fgm"] = S.pct(T.ast, T.fgm)
         T["drtg"] = 100 * T.pa / (T.poss_g * T.gp)
         T["netrtg"] = T.ortg - T.drtg
     if len(g):
@@ -201,7 +202,8 @@ TEAM_COLS = [
     C("efg", "eFG%", "Shooting", "pct"), C("ts", "TS%", "Shooting", "pct"), C("fg_pct", "FG%", "Shooting", "pct"), C("fg3_pct", "3P%", "Shooting", "pct"),
     C("ft_pct", "FT%", "Shooting", "pct"), C("fg3a_rate", "3PA rate", "Shooting", "pct"), C("fg3m_g", "3PM/G", "Shooting", "num1"), C("ftr", "FT rate", "Shooting", "num2"),
     C("tov_pct", "TOV%", "Box score", "pct", lo=True), C("reb_g", "REB/G", "Box score", "num1"), C("oreb_g", "OREB/G", "Box score", "num1"),
-    C("ast_g", "AST/G", "Box score", "num1"), C("ast_tov", "AST/TOV", "Box score", "num2"), C("stl_g", "STL/G", "Box score", "num1"),
+    C("ast_g", "AST/G", "Box score", "num1"), C("ast_tov", "AST/TOV", "Box score", "num2"),
+    C("ast_fgm", "AST/FGM", "Box score", "pct", t="Assists to made field goals: share of made baskets that were assisted"), C("stl_g", "STL/G", "Box score", "num1"),
     C("blk_g", "BLK/G", "Box score", "num1"), C("tov_g", "TOV/G", "Box score", "num1", lo=True), C("pf__g", "Fouls/G", "Box score", "num1", lo=True),
     C("q1_ppg", "1st qtr PTS", "Quarters", "num1"), C("q2_ppg", "2nd qtr PTS", "Quarters", "num1"), C("q3_ppg", "3rd qtr PTS", "Quarters", "num1"),
     C("q4_ppg", "4th qtr PTS", "Quarters", "num1"),
@@ -264,6 +266,7 @@ GAME_COLS = [C("pf", "PTS", "Result", "int"), C("pa", "Opp", "Result", "int", lo
              C("fg3_pct", "3P%", "Box score", "pct"), C("ftm", "FTM", "Box score", "int"), C("fta", "FTA", "Box score", "int"),
              C("reb", "REB", "Box score", "int"), C("oreb", "OREB", "Box score", "int"), C("ast", "AST", "Box score", "int"),
              C("tov", "TOV", "Box score", "int", lo=True), C("ast_tov", "AST/TOV", "Box score", "num2", t="Assists per turnover"),
+             C("ast_fgm", "AST/FGM", "Box score", "pct", t="Assists to made field goals: share of made baskets that were assisted"),
              C("stl", "STL", "Box score", "int"), C("blk", "BLK", "Box score", "int")]
 
 
@@ -399,6 +402,8 @@ def build_data():
             if "fga" in gg:
                 gg["fg_pct"], gg["fg3_pct"] = S.pct(gg.fgm, gg.fga), S.pct(gg.fg3m, gg.fg3a)
                 gg["ast_tov"] = S.pct(gg.ast, gg.tov)
+                if "fgm" in gg:
+                    gg["ast_fgm"] = S.pct(gg.ast, gg.fgm)
             S.write_json(OUT, f"games_{y}.json", S.columnar(gg[~gg.fin], y, ["date", "team", "opp", "ha", "res"], GAME_COLS))
             if gg.fin.any():
                 S.write_json(OUT, f"games_{y}p.json", S.columnar(gg[gg.fin], y, ["date", "team", "opp", "ha", "res"], GAME_COLS))
@@ -539,7 +544,7 @@ CFG = {
     "sport": "NBL", "season_style": "split_start", "po_label": "Finals",
     "ids": {"team": ["team", "name"], "players": ["name", "team"], "games": ["date", "team", "opp", "ha", "res"]},
     "pinned": ["gp"], "team_sort": "wp", "noshade": ["gp", "pos", "close_n", "gs"], "po_kinds": ["team", "games"],
-    "key": {"teams": ["gp", "w", "wp", "net", "netrtg", "ortg", "drtg", "efg", "ts", "tov_pct", "ast_tov", "fg3_pct", "fg3a_rate", "luck", "close_wp", "home_m", "away_m", "l5_m"],
+    "key": {"teams": ["gp", "w", "wp", "net", "netrtg", "ortg", "drtg", "efg", "ts", "tov_pct", "ast_tov", "ast_fgm", "fg3_pct", "fg3a_rate", "luck", "close_wp", "home_m", "away_m", "l5_m"],
             "players": ["gp", "mpg", "ppg", "rpg", "apg", "ast_tov", "eff_g", "ts", "fg3_pct", "pm_g", "spg", "bpg"]},
     "standings": {"sort": "wp", "order": [["wp", 1], ["net", 1]],
                   "cols": ["gp", "w", "l", "wp", "gb", "streak", "l5_w", "ppg", "oppg", "net", "pyth_w", "luck", "home_wp", "away_wp", "netrtg", "close_wp", "vs_top4_wp"],
