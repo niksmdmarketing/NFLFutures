@@ -2,7 +2,7 @@ name: Refresh site
 
 on:
   schedule:
-    - cron: "17 */3 * * *"   # every 3 hours (UTC), 17 minutes past
+    - cron: "17 */2 * * *"   # every 2 hours (UTC), 17 minutes past
   workflow_dispatch:          # "Run workflow" button in the Actions tab
   push:
     branches: [main]
