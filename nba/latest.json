@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-10-11T0107Z",
-"feed_timestamp": "2026-10-11T01:07:17Z",
+"collected_utc": "2026-10-11T0303Z",
+"feed_timestamp": "2026-10-11T03:02:58Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -38,6 +38,12 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-14",
 "injury": "Illness"
+},
+{
+"athlete_id": "4277951",
+"status": "Day-To-Day",
+"return_date": "2026-10-10",
+"injury": "Nose"
 },
 {
 "athlete_id": "4397251",
@@ -250,12 +256,6 @@
 "injury": "Right Knee Surgery"
 },
 {
-"athlete_id": "2580365",
-"status": "Day-To-Day",
-"return_date": "2026-10-10",
-"injury": "Hamstring"
-},
-{
 "athlete_id": "2530530",
 "status": "Day-To-Day",
 "return_date": "2026-10-10",
@@ -396,8 +396,14 @@
 {
 "athlete_id": "3950760",
 "status": "Day-To-Day",
-"return_date": "2026-10-10",
+"return_date": "2026-10-14",
 "injury": "Right Calf Strain"
+},
+{
+"athlete_id": "4601025",
+"status": "Day-To-Day",
+"return_date": "2026-10-14",
+"injury": "Illness"
 },
 {
 "athlete_id": "5164559",
@@ -682,9 +688,15 @@
 "injury": "Rest"
 },
 {
+"athlete_id": "4898371",
+"status": "Day-To-Day",
+"return_date": "2026-10-13",
+"injury": "Knee"
+},
+{
 "athlete_id": "4066259",
 "status": "Day-To-Day",
-"return_date": "2026-10-10",
+"return_date": "2026-10-12",
 "injury": "Undisclosed Soreness"
 },
 {
@@ -780,7 +792,7 @@
 {
 "athlete_id": "6609",
 "status": "Day-To-Day",
-"return_date": "2026-10-10",
+"return_date": "2026-10-12",
 "injury": "Rest"
 },
 {
@@ -850,6 +862,15 @@
 "return_date": "2026-10-14",
 "injury": "Illness",
 "updated": "2026-10-10T23:58Z"
+},
+{
+"athlete_id": "4277951",
+"name": "Luka Garza",
+"team_name": "Boston Celtics",
+"status": "Day-To-Day",
+"return_date": "2026-10-10",
+"injury": "Nose",
+"updated": "2026-10-11T02:21Z"
 },
 {
 "athlete_id": "4397251",
@@ -1167,15 +1188,6 @@
 "updated": "2026-02-09T21:43Z"
 },
 {
-"athlete_id": "2580365",
-"name": "Larry Nance Jr.",
-"team_name": "Indiana Pacers",
-"status": "Day-To-Day",
-"return_date": "2026-10-10",
-"injury": "Hamstring",
-"updated": "2026-10-09T18:20Z"
-},
-{
 "athlete_id": "2530530",
 "name": "T.J. McConnell",
 "team_name": "Indiana Pacers",
@@ -1387,9 +1399,18 @@
 "name": "Kylor Kelley",
 "team_name": "Miami Heat",
 "status": "Day-To-Day",
-"return_date": "2026-10-10",
+"return_date": "2026-10-14",
 "injury": "Right Calf Strain",
-"updated": "2026-10-09T03:40Z"
+"updated": "2026-10-11T02:48Z"
+},
+{
+"athlete_id": "4601025",
+"name": "Pelle Larsson",
+"team_name": "Miami Heat",
+"status": "Day-To-Day",
+"return_date": "2026-10-14",
+"injury": "Illness",
+"updated": "2026-10-11T01:59Z"
 },
 {
 "athlete_id": "5164559",
@@ -1815,13 +1836,22 @@
 "updated": "2026-10-10T23:07Z"
 },
 {
+"athlete_id": "4898371",
+"name": "Maxime Raynaud",
+"team_name": "Sacramento Kings",
+"status": "Day-To-Day",
+"return_date": "2026-10-13",
+"injury": "Knee",
+"updated": "2026-10-11T01:46Z"
+},
+{
 "athlete_id": "4066259",
 "name": "De'Aaron Fox",
 "team_name": "San Antonio Spurs",
 "status": "Day-To-Day",
-"return_date": "2026-10-10",
+"return_date": "2026-10-12",
 "injury": "Undisclosed Soreness",
-"updated": "2026-10-10T21:07Z"
+"updated": "2026-10-11T02:09Z"
 },
 {
 "athlete_id": "5101845",
@@ -1963,9 +1993,9 @@
 "name": "Khris Middleton",
 "team_name": "Washington Wizards",
 "status": "Day-To-Day",
-"return_date": "2026-10-10",
+"return_date": "2026-10-12",
 "injury": "Rest",
-"updated": "2026-10-09T17:08Z"
+"updated": "2026-10-11T02:44Z"
 },
 {
 "athlete_id": "4432819",
