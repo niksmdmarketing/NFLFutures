@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-10-10T2322Z",
-"feed_timestamp": "2026-10-10T23:22:51Z",
+"collected_utc": "2026-10-11T0055Z",
+"feed_timestamp": "2026-10-11T00:55:13Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -34,46 +34,16 @@
 "injury": "Rest"
 },
 {
-"athlete_id": "3078576",
+"athlete_id": "4433188",
 "status": "Day-To-Day",
-"return_date": "2026-10-10",
-"injury": "Rest"
-},
-{
-"athlete_id": "4065648",
-"status": "Day-To-Day",
-"return_date": "2026-10-10",
-"injury": "Rest"
-},
-{
-"athlete_id": "4351852",
-"status": "Day-To-Day",
-"return_date": "2026-10-10",
-"injury": "Undisclosed"
-},
-{
-"athlete_id": "4397424",
-"status": "Day-To-Day",
-"return_date": "2026-10-10",
-"injury": "Rest"
-},
-{
-"athlete_id": "4251",
-"status": "Day-To-Day",
-"return_date": "2026-10-10",
-"injury": "Rest"
+"return_date": "2026-10-14",
+"injury": "Illness"
 },
 {
 "athlete_id": "4397251",
 "status": "Day-To-Day",
-"return_date": "2026-10-10",
-"injury": "Shoulder"
-},
-{
-"athlete_id": "4065804",
-"status": "Day-To-Day",
-"return_date": "2026-10-10",
-"injury": "Rest"
+"return_date": "2026-10-14",
+"injury": "Right Shoulder Soreness"
 },
 {
 "athlete_id": "4432194",
@@ -436,10 +406,46 @@
 "injury": "Left Ankle Sprain"
 },
 {
+"athlete_id": "4594268",
+"status": "Day-To-Day",
+"return_date": "2026-10-12",
+"injury": "Rest"
+},
+{
+"athlete_id": "4397002",
+"status": "Day-To-Day",
+"return_date": "2026-10-12",
+"injury": "Rest"
+},
+{
 "athlete_id": "3934673",
 "status": "Out",
 "return_date": "2027-04-01",
 "injury": "Right Achilles Surgery"
+},
+{
+"athlete_id": "4431671",
+"status": "Day-To-Day",
+"return_date": "2026-10-12",
+"injury": "Rest"
+},
+{
+"athlete_id": "4433247",
+"status": "Day-To-Day",
+"return_date": "2026-10-12",
+"injury": "Rest"
+},
+{
+"athlete_id": "4432816",
+"status": "Day-To-Day",
+"return_date": "2026-10-12",
+"injury": "Rest"
+},
+{
+"athlete_id": "3032976",
+"status": "Day-To-Day",
+"return_date": "2026-10-12",
+"injury": "Rest"
 },
 {
 "athlete_id": "3907497",
@@ -712,6 +718,12 @@
 "injury": "Not Specified Groin Not Specified"
 },
 {
+"athlete_id": "4590360",
+"status": "Day-To-Day",
+"return_date": "2026-10-10",
+"injury": "Left Hamstring"
+},
+{
 "athlete_id": "6450",
 "status": "Day-To-Day",
 "return_date": "2026-10-13",
@@ -825,67 +837,22 @@
 "updated": "2026-10-10T21:31Z"
 },
 {
-"athlete_id": "3078576",
-"name": "Derrick White",
+"athlete_id": "4433188",
+"name": "Devin Carter",
 "team_name": "Boston Celtics",
 "status": "Day-To-Day",
-"return_date": "2026-10-10",
-"injury": "Rest",
-"updated": "2026-10-08T22:40Z"
-},
-{
-"athlete_id": "4065648",
-"name": "Jayson Tatum",
-"team_name": "Boston Celtics",
-"status": "Day-To-Day",
-"return_date": "2026-10-10",
-"injury": "Rest",
-"updated": "2026-10-08T22:42Z"
-},
-{
-"athlete_id": "4351852",
-"name": "Mitchell Robinson",
-"team_name": "Boston Celtics",
-"status": "Day-To-Day",
-"return_date": "2026-10-10",
-"injury": "Undisclosed",
-"updated": "2026-10-08T22:59Z"
-},
-{
-"athlete_id": "4397424",
-"name": "Neemias Queta",
-"team_name": "Boston Celtics",
-"status": "Day-To-Day",
-"return_date": "2026-10-10",
-"injury": "Rest",
-"updated": "2026-10-08T22:48Z"
-},
-{
-"athlete_id": "4251",
-"name": "Paul George",
-"team_name": "Boston Celtics",
-"status": "Day-To-Day",
-"return_date": "2026-10-10",
-"injury": "Rest",
-"updated": "2026-10-08T22:44Z"
+"return_date": "2026-10-14",
+"injury": "Illness",
+"updated": "2026-10-10T23:58Z"
 },
 {
 "athlete_id": "4397251",
 "name": "Ron Harper Jr.",
 "team_name": "Boston Celtics",
 "status": "Day-To-Day",
-"return_date": "2026-10-10",
-"injury": "Shoulder",
-"updated": "2026-10-08T23:02Z"
-},
-{
-"athlete_id": "4065804",
-"name": "Sam Hauser",
-"team_name": "Boston Celtics",
-"status": "Day-To-Day",
-"return_date": "2026-10-10",
-"injury": "Rest",
-"updated": "2026-10-08T23:14Z"
+"return_date": "2026-10-14",
+"injury": "Right Shoulder Soreness",
+"updated": "2026-10-10T23:57Z"
 },
 {
 "athlete_id": "4432194",
@@ -1428,6 +1395,24 @@
 "updated": "2026-10-08T01:35Z"
 },
 {
+"athlete_id": "4594268",
+"name": "Anthony Edwards",
+"team_name": "Minnesota Timberwolves",
+"status": "Day-To-Day",
+"return_date": "2026-10-12",
+"injury": "Rest",
+"updated": "2026-10-10T23:38Z"
+},
+{
+"athlete_id": "4397002",
+"name": "Ayo Dosunmu",
+"team_name": "Minnesota Timberwolves",
+"status": "Day-To-Day",
+"return_date": "2026-10-12",
+"injury": "Rest",
+"updated": "2026-10-10T23:45Z"
+},
+{
 "athlete_id": "3934673",
 "name": "Donte DiVincenzo",
 "team_name": "Minnesota Timberwolves",
@@ -1435,6 +1420,42 @@
 "return_date": "2027-04-01",
 "injury": "Right Achilles Surgery",
 "updated": "2026-10-05T20:53Z"
+},
+{
+"athlete_id": "4431671",
+"name": "Jaden McDaniels",
+"team_name": "Minnesota Timberwolves",
+"status": "Day-To-Day",
+"return_date": "2026-10-12",
+"injury": "Rest",
+"updated": "2026-10-10T23:47Z"
+},
+{
+"athlete_id": "4433247",
+"name": "Jonathan Kuminga",
+"team_name": "Minnesota Timberwolves",
+"status": "Day-To-Day",
+"return_date": "2026-10-12",
+"injury": "Rest",
+"updated": "2026-10-10T23:46Z"
+},
+{
+"athlete_id": "4432816",
+"name": "LaMelo Ball",
+"team_name": "Minnesota Timberwolves",
+"status": "Day-To-Day",
+"return_date": "2026-10-12",
+"injury": "Rest",
+"updated": "2026-10-10T23:37Z"
+},
+{
+"athlete_id": "3032976",
+"name": "Rudy Gobert",
+"team_name": "Minnesota Timberwolves",
+"status": "Day-To-Day",
+"return_date": "2026-10-12",
+"injury": "Rest",
+"updated": "2026-10-10T23:44Z"
 },
 {
 "athlete_id": "3907497",
@@ -1840,6 +1861,15 @@
 "return_date": "2026-10-13",
 "injury": "Not Specified Groin Not Specified",
 "updated": "2026-10-10T20:55Z"
+},
+{
+"athlete_id": "4590360",
+"name": "Chucky Hepburn",
+"team_name": "Toronto Raptors",
+"status": "Day-To-Day",
+"return_date": "2026-10-10",
+"injury": "Left Hamstring",
+"updated": "2026-10-11T00:44Z"
 },
 {
 "athlete_id": "6450",
