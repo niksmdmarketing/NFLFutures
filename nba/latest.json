@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-10-11T0552Z",
-"feed_timestamp": "2026-10-11T05:52:08Z",
+"collected_utc": "2026-10-11T1256Z",
+"feed_timestamp": "2026-10-11T12:55:51Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -166,33 +166,27 @@
 "injury": "Back"
 },
 {
-"athlete_id": "3138160",
-"status": "Day-To-Day",
-"return_date": "2026-10-11",
-"injury": "Illness"
-},
-{
 "athlete_id": "4683688",
 "status": "Day-To-Day",
-"return_date": "2026-10-11",
+"return_date": "2026-10-14",
 "injury": "Right Foot Surgery"
 },
 {
 "athlete_id": "4432107",
 "status": "Day-To-Day",
-"return_date": "2026-10-11",
+"return_date": "2026-10-14",
 "injury": "Hip"
 },
 {
-"athlete_id": "4278078",
+"athlete_id": "4873153",
 "status": "Day-To-Day",
-"return_date": "2026-10-11",
-"injury": "Left Ankle Sprain"
+"return_date": "2026-10-14",
+"injury": "Rest"
 },
 {
 "athlete_id": "4593125",
 "status": "Day-To-Day",
-"return_date": "2026-10-11",
+"return_date": "2026-10-14",
 "injury": "Not Specified Knee"
 },
 {
@@ -232,10 +226,28 @@
 "injury": "Left Knee Surgery"
 },
 {
+"athlete_id": "4871144",
+"status": "Day-To-Day",
+"return_date": "2026-10-15",
+"injury": "Rest"
+},
+{
+"athlete_id": "2991230",
+"status": "Day-To-Day",
+"return_date": "2026-10-15",
+"injury": "Rest"
+},
+{
 "athlete_id": "3202",
 "status": "Day-To-Day",
 "return_date": "2026-10-15",
 "injury": "Not Injury Related"
+},
+{
+"athlete_id": "2991235",
+"status": "Day-To-Day",
+"return_date": "2026-10-15",
+"injury": "Rest"
 },
 {
 "athlete_id": "5157066",
@@ -1029,49 +1041,40 @@
 "updated": "2026-10-08T22:48Z"
 },
 {
-"athlete_id": "3138160",
-"name": "Caleb Martin",
-"team_name": "Dallas Mavericks",
-"status": "Day-To-Day",
-"return_date": "2026-10-11",
-"injury": "Illness",
-"updated": "2026-10-09T12:05Z"
-},
-{
 "athlete_id": "4683688",
 "name": "Dereck Lively II",
 "team_name": "Dallas Mavericks",
 "status": "Day-To-Day",
-"return_date": "2026-10-11",
+"return_date": "2026-10-14",
 "injury": "Right Foot Surgery",
-"updated": "2026-10-09T12:03Z"
+"updated": "2026-10-11T09:50Z"
 },
 {
 "athlete_id": "4432107",
 "name": "Marcus Sasser",
 "team_name": "Dallas Mavericks",
 "status": "Day-To-Day",
-"return_date": "2026-10-11",
+"return_date": "2026-10-14",
 "injury": "Hip",
-"updated": "2026-10-09T12:11Z"
+"updated": "2026-10-11T09:55Z"
 },
 {
-"athlete_id": "4278078",
-"name": "P.J. Washington",
+"athlete_id": "4873153",
+"name": "Morez Johnson Jr.",
 "team_name": "Dallas Mavericks",
 "status": "Day-To-Day",
-"return_date": "2026-10-11",
-"injury": "Left Ankle Sprain",
-"updated": "2026-10-09T12:08Z"
+"return_date": "2026-10-14",
+"injury": "Rest",
+"updated": "2026-10-11T09:47Z"
 },
 {
 "athlete_id": "4593125",
 "name": "Santi Aldama",
 "team_name": "Dallas Mavericks",
 "status": "Day-To-Day",
-"return_date": "2026-10-11",
+"return_date": "2026-10-14",
 "injury": "Not Specified Knee",
-"updated": "2026-10-09T12:01Z"
+"updated": "2026-10-11T09:53Z"
 },
 {
 "athlete_id": "4592427",
@@ -1128,6 +1131,24 @@
 "updated": "2026-09-28T15:06Z"
 },
 {
+"athlete_id": "4871144",
+"name": "Alperen Sengun",
+"team_name": "Houston Rockets",
+"status": "Day-To-Day",
+"return_date": "2026-10-15",
+"injury": "Rest",
+"updated": "2026-10-11T10:05Z"
+},
+{
+"athlete_id": "2991230",
+"name": "Fred VanVleet",
+"team_name": "Houston Rockets",
+"status": "Day-To-Day",
+"return_date": "2026-10-15",
+"injury": "Rest",
+"updated": "2026-10-11T10:01Z"
+},
+{
 "athlete_id": "3202",
 "name": "Kevin Durant",
 "team_name": "Houston Rockets",
@@ -1135,6 +1156,15 @@
 "return_date": "2026-10-15",
 "injury": "Not Injury Related",
 "updated": "2026-10-09T15:03Z"
+},
+{
+"athlete_id": "2991235",
+"name": "Steven Adams",
+"team_name": "Houston Rockets",
+"status": "Day-To-Day",
+"return_date": "2026-10-15",
+"injury": "Rest",
+"updated": "2026-10-11T10:06Z"
 },
 {
 "athlete_id": "5157066",
