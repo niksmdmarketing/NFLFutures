@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-10-12T07:28:56+00:00",
+ "checked_utc": "2026-10-12T18:00:02+00:00",
  "leagues": {
   "nfl": {
-   "records": 1616,
+   "records": 1617,
    "by_layer": {
     "official": 1547,
-    "reported": 69
+    "reported": 70
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -63,13 +63,13 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "69/69"
+   "reported_matched_to_official_list": "70/70"
   },
   "nba": {
-   "records": 247,
+   "records": 239,
    "by_layer": {
     "official": 156,
-    "reported": 91
+    "reported": 83
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -116,14 +116,14 @@
    "coverage_expected": false,
    "teams_missing_official_note": "off-season: no official coverage expected",
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "91/91"
+   "reported_matched_to_official_list": "83/83"
   },
   "nhl": {
-   "records": 1512,
+   "records": 1508,
    "by_layer": {
-    "official": 147,
-    "reported": 55,
-    "projected": 1310
+    "official": 145,
+    "reported": 51,
+    "projected": 1312
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -161,7 +161,16 @@
     "WPG",
     "WSH"
    ],
-   "conflicts": [],
+   "conflicts": [
+    {
+     "player": "Marcus Foligno",
+     "official": [
+      "out"
+     ],
+     "other": "expected to play",
+     "source": "NHL.com game previews"
+    }
+   ],
    "stale_projection_dates": 0,
    "teams_missing_official": [
     "CBJ"
@@ -172,7 +181,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "54/55"
+   "reported_matched_to_official_list": "50/51"
   },
   "nbl": {
    "records": 23,
@@ -246,7 +255,9 @@
    "reported_matched_to_official_list": "0/10"
   }
  },
- "sources_failed": [],
+ "sources_failed": [
+  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 43 h old"
+ ],
  "sources_not_expected": [
   "nba: NBA official injury report (PDF, file-name time) - not expected: no regular-season or playoff games in the window (0 regular-season/playoff and 23 other games 2026-10-05..2026-10-22)"
  ]
