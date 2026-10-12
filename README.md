@@ -6,6 +6,9 @@ the NHL's public statistics API and the fitzRoy AFL data archive, rebuilds the s
 branch, which Cloudflare Pages serves behind Cloudflare Access. NFL remains at the root, with separate `/nba/`, `/nbl/`, `/nhl/`
 and `/afl/` sections.
 
+## Updates page
+`/updates.html` lists new statistics and data with a date, newest first, and is linked from every sports bar. To add one, add a line to `site_src/updates.json` (`{"date": "YYYY-MM-DD", "sport": "NBA", "text": "one line"}`) in the same commit as the change. Football entries live in the private repository (`site_src/updates_football.json`) and are merged in at deploy time, so they never reach this repository.
+
 ## Pages
 
 ### NFL
