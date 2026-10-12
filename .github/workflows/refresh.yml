@@ -130,12 +130,17 @@ jobs:
             git worktree add -q --orphan -b forecast-archive ../archive
           fi
           python pipeline/archive.py ../archive
+          python pipeline/sport_archive.py ../archive || true      # NBA/NHL/AFL/NBL futures snapshots (live part of the History pages)
           cd ../archive
           git add -A
           if ! git diff --cached --quiet; then
             git commit -q -m "Forecast snapshot $(date -u +%Y-%m-%dT%H:%MZ)"
             git push -q origin forecast-archive
           fi
+
+      - name: Add the live season to the History pages
+        continue-on-error: true
+        run: python pipeline/replay_site.py --live ../archive
 
       - name: Publish to the published branch
         env:

@@ -5,7 +5,9 @@ Reads model/replay/<sport>_<season>.csv (research/replay_nba.py, replay_nhl.py) 
 The replayed numbers are rebuilt from game data with only information available at each date (no injuries/rosters), so the
 page labels them "replayed", not "as published". Probabilities are stored as per-mille integers to keep the files small.
 """
+import csv
 import glob
+import gzip
 import json
 import os
 import re
@@ -18,15 +20,15 @@ SRC = os.path.join(ROOT, "site_src", "replay")
 REPLAY = os.path.join(ROOT, "model", "replay")
 SITE = os.path.join(ROOT, "site")
 SPORTS = {
-    "nba": {"label": "NBA", "dir": "nba", "end_year": True, "markets": [("title", "p_title", "y_title", "Win the title"), ("finals", "p_conf", "y_finals", "Win the conference"),
+    "nba": {"label": "NBA", "dir": "nba", "end_year": True, "games": 82, "markets": [("title", "p_title", "y_title", "Win the title"), ("finals", "p_conf", "y_finals", "Win the conference"),
                                                         ("div", "p_div", "y_div", "Win the division"), ("seed1", "p_seed1", "y_seed1", "Top seed in the conference"),
                                                         ("playoff", "p_playoff", "y_playoff", "Make the playoffs")]},
-    "nhl": {"label": "NHL", "dir": "nhl", "markets": [("title", "p_title", "y_title", "Win the Stanley Cup"), ("finals", "p_conf", "y_finals", "Win the conference"),
+    "nhl": {"label": "NHL", "dir": "nhl", "games": 82, "markets": [("title", "p_title", "y_title", "Win the Stanley Cup"), ("finals", "p_conf", "y_finals", "Win the conference"),
                                                         ("div", "p_div", "y_div", "Win the division"), ("playoff", "p_playoff", "y_playoff", "Make the playoffs")]},
-    "nbl": {"label": "NBL", "dir": "nbl", "markets": [("title", "p_title", "y_title", "Win the championship"), ("finals", "p_conf", "y_finals", "Make the Grand Final"),
+    "nbl": {"label": "NBL", "dir": "nbl", "games": 28, "markets": [("title", "p_title", "y_title", "Win the championship"), ("finals", "p_conf", "y_finals", "Make the Grand Final"),
                                                         ("div", "p_div", "y_div", "Finish in the top 2"), ("seed1", "p_seed1", "y_seed1", "Minor premiers"),
                                                         ("playoff", "p_playoff", "y_playoff", "Make the finals")]},
-    "afl": {"label": "AFL", "dir": "afl", "end_year": None, "unit": "round",
+    "afl": {"label": "AFL", "dir": "afl", "end_year": None, "unit": "round", "games": 23,
             "markets": [("title", "p_title", "y_title", "Win the premiership"), ("finals", "p_conf", "y_finals", "Make the Grand Final"),
                         ("pf", "p_pf", "y_pf", "Make a preliminary final"), ("div", "p_div", "y_div", "Finish in the top 4"),
                         ("seed1", "p_seed1", "y_seed1", "Minor premiers"), ("top8", "p_top8", "y_top8", "Finish in the top 8"),
@@ -42,7 +44,45 @@ def season_label(y, end_year):
     return f"{y0}-{str((y0 + 1) % 100).zfill(2)}"
 
 
-def build_sport(sport, cfg):
+def live_season(sport, cfg, archive):
+    """The current season from the append-only snapshot archive (pipeline/sport_archive.py): the last snapshot of each
+    7-day stretch, plus the newest one. These are the numbers the site actually showed."""
+    base = os.path.join(archive or "", sport)
+    if not archive or not os.path.isdir(base):
+        return None
+    years = sorted(int(d) for d in os.listdir(base) if d.isdigit())
+    if not years:
+        return None
+    y = years[-1]
+    d = os.path.join(base, str(y))
+    snaps = []
+    for f in sorted(os.listdir(d)):
+        if f.endswith(".json.gz"):
+            try:
+                snaps.append(json.load(gzip.open(os.path.join(d, f), "rt")))
+            except Exception:  # noqa: BLE001
+                continue
+    if not snaps:
+        return None
+    teams = snaps[-1]["teams"]
+    snaps = [x for x in snaps if x["teams"] == teams]
+    t0 = pd.Timestamp(snaps[0]["generated_utc"][:10])
+    keep = {}
+    for x in snaps:
+        keep[(pd.Timestamp(x["generated_utc"][:10]) - t0).days // 7] = x
+    chosen = [keep[k] for k in sorted(keep)]
+    if chosen[-1] is not snaps[-1]:
+        chosen.append(snaps[-1])
+    p = {}
+    for k in snaps[-1]["p"]:
+        p[k] = [x["p"][k] for x in chosen if k in x["p"]]
+        if len(p[k]) != len(chosen):
+            p.pop(k)
+    return {"y": y, "label": season_label(y, cfg.get("end_year", False)) + " (live)", "live": True, "teams": teams,
+            "weeks": [{"w": i, "d": x["generated_utc"][:10], "gp": float(x.get("gp_avg") or 0.0)} for i, x in enumerate(chosen)], "p": p, "o": {}}
+
+
+def build_sport(sport, cfg, archive=None):
     files = sorted(glob.glob(os.path.join(REPLAY, f"{sport}_[0-9]*.csv")))
     if not files:
         return None
@@ -61,6 +101,9 @@ def build_sport(sport, cfg):
             last = D[D.week == D.week.min()].set_index("team")[yc].reindex(teams)
             yy[k] = [int(v) for v in last.values]
         seasons.append({"y": y, "label": season_label(y, cfg.get("end_year", False)), "teams": teams, "weeks": [{"w": int(r.week), "d": r.date, "gp": float(r.gp_avg)} for r in weeks.itertuples()], "p": p, "o": yy})
+    live = live_season(sport, cfg, archive)
+    if live and live["y"] not in {x["y"] for x in seasons}:
+        seasons.append(live)
     score = json.load(open(os.path.join(REPLAY, f"{sport}_score.json"))) if os.path.exists(os.path.join(REPLAY, f"{sport}_score.json")) else {}
     slope = json.load(open(os.path.join(REPLAY, f"{sport}_slope.json"))) if os.path.exists(os.path.join(REPLAY, f"{sport}_slope.json")) else {}
     rel = {}
@@ -71,14 +114,14 @@ def build_sport(sport, cfg):
                 rel[st][k] = {"ll": r[k]["logloss"], "base": r[k]["base"], "gain": r[k]["gain"], "cal": r[k]["calibration"],
                               "slope": slope.get(st, {}).get(k, {}).get("slope"), "n": r["seasons"]}
     return {"sport": cfg["label"], "markets": [{"k": k, "l": l} for k, _, _, l in cfg["markets"] if any(k in s["p"] for s in seasons)],
-            "unit": cfg.get("unit", "week"), "seasons": seasons, "reliability": rel, "stages": ["preseason", "first quarter", "second quarter", "third quarter", "last quarter"]}
+            "unit": cfg.get("unit", "week"), "games": cfg.get("games"), "seasons": seasons, "reliability": rel, "stages": ["preseason", "first quarter", "second quarter", "third quarter", "last quarter"]}
 
 
-def build_site():
+def build_site(archive=None):
     for sport, cfg in SPORTS.items():
         d = os.path.join(SITE, cfg["dir"])
         idx = os.path.join(d, "index.html")
-        data = build_sport(sport, cfg)
+        data = build_sport(sport, cfg, archive)
         if data is None or not os.path.exists(idx):
             continue
         os.makedirs(os.path.join(d, "data"), exist_ok=True)
@@ -107,7 +150,7 @@ def build_site():
   <div class="page-head"><h1>{cfg['label']} week by week</h1><p>How each team's chance of winning each market changed through past seasons, rebuilt for every week of the season. Pick a season, a market and a week to see where the model stood, how much it had moved, and how things ended.</p></div>
   <div id="replay" data-src="data/replay.json"><p class="note">Loading…</p></div>
 </main>
-<footer class="stamp">Replayed from game results using only information available at each date. Injuries and roster moves are not included, so these are not the numbers the site showed at the time. Probabilities and history only, not betting advice.</footer>
+<footer class="stamp">Seasons marked (live) are the numbers this site actually published. Earlier seasons are replayed from game results using only information available at each date, without injuries or roster moves, so they are not what the site showed at the time. Probabilities and history only, not betting advice.</footer>
 </div>
 <link rel="stylesheet" href="replay.css">
 <script src="replay.js"></script>
@@ -119,4 +162,5 @@ def build_site():
 
 
 if __name__ == "__main__":
-    build_site()
+    import sys
+    build_site(sys.argv[sys.argv.index("--live") + 1] if "--live" in sys.argv else None)

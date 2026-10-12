@@ -13,6 +13,12 @@
   }
   function store(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } }
   function stage(S, w) {
+    if (S.live) {
+      var gp = S.weeks[w].gp || 0;
+      if (!gp) return "preseason";
+      var fl = gp / (D.games || 82);
+      return fl < 0.25 ? "first quarter" : fl < 0.5 ? "second quarter" : fl < 0.75 ? "third quarter" : "last quarter";
+    }
     if (w === 0) return "preseason";
     var f = w / Math.max(S.weeks.length - 1, 1);
     return f < 0.25 ? "first quarter" : f < 0.5 ? "second quarter" : f < 0.75 ? "third quarter" : "last quarter";
@@ -31,7 +37,7 @@
       : r.slope > 1.25 ? " Past percentages at this stage were <b>too cautious</b>: the favourites won more often than the model said." : " Past percentages at this stage were <b>about the right size</b>.";
     var rows = r.cal.map(function (c) { return "<tr><td>" + esc(binLabel(c.bin)) + '</td><td class="num">' + pc0(c.pred) + '</td><td class="num">' + pc0(c.actual) + '</td><td class="num">' + c.n + "</td></tr>"; }).join("");
     return '<div class="rp-rel"><h3>How much to trust this</h3>' +
-      "<p>Across " + r.n + " replayed seasons, at the <b>" + esc(sg) + "</b> of the season, the “" + esc(M.l) + "” percentages were " + verdict +
+      "<p>Across " + r.n + " replayed seasons, " + (sg === "preseason" ? "<b>before the season</b>" : "in the <b>" + esc(sg) + "</b> of the season") + ", the “" + esc(M.l) + "” percentages were " + verdict +
       " (error score " + r.ll.toFixed(3) + " against " + r.base.toFixed(3) + " for giving every team the same chance)." + shape + "</p>" +
       '<p class="muted">Weeks in one season move together, so this is really about ' + r.n + " seasons of evidence, not hundreds. Treat gaps of a few points as noise.</p>" +
       '<table class="rp-cal"><thead><tr><th>Model said (range)</th><th>Average said</th><th>Happened</th><th>Team-weeks</th></tr></thead><tbody>' + rows + "</tbody></table></div>";
@@ -39,13 +45,14 @@
   function render() {
     var S = D.seasons[st.s], M = D.markets[st.m], P = S.p[M.k];
     st.w = Math.max(0, Math.min(st.w, S.weeks.length - 1));
+    if (!P) { st.m = D.markets.findIndex(function (m) { return S.p[m.k]; }); M = D.markets[st.m]; P = S.p[M.k]; }
     var cur = P[st.w], prev = st.w > 0 ? P[st.w - 1] : null, prev4 = st.w > 3 ? P[st.w - 4] : (st.w > 0 ? P[0] : null);
     var idx = S.teams.map(function (t, i) { return i; }).sort(function (a, b) { return cur[b] - cur[a]; });
-    var max = Math.max.apply(null, cur) || 1, o = S.o[M.k];
+    var max = Math.max.apply(null, cur) || 1, o = S.live ? null : S.o[M.k];
     var wk = S.weeks[st.w], U = D.unit === "round" ? "rd" : "wk";
     var rows = idx.map(function (i) {
       return "<tr><td>" + esc(S.teams[i]) + '</td><td><span class="rp-bar" style="width:' + Math.round(70 * cur[i] / max) + 'px"></span>' + pc(cur[i]) + "</td><td>" + delta(cur[i], prev && prev[i]) +
-        '</td><td class="hide-sm">' + delta(cur[i], prev4 && prev4[i]) + '</td><td>' + (o[i] ? '<span class="hit">✓</span>' : '<span class="muted">·</span>') + "</td></tr>";
+        '</td><td class="hide-sm">' + delta(cur[i], prev4 && prev4[i]) + '</td>' + (o ? '<td>' + (o[i] ? '<span class="hit">✓</span>' : '<span class="muted">·</span>') + "</td>" : "") + "</tr>";
     }).join("");
     var seasonOpts = D.seasons.map(function (s, i) { return '<option value="' + i + '"' + (i === st.s ? " selected" : "") + ">" + esc(s.label) + "</option>"; }).join("");
     var mk = D.markets.map(function (m, i) { return '<button type="button" data-m="' + i + '" aria-pressed="' + (i === st.m) + '">' + esc(m.l) + "</button>"; }).join("");
@@ -53,8 +60,8 @@
       '<div class="field"><label>Market</label><div class="seg" id="rp-m" role="group">' + mk + "</div></div>" +
       '<div class="rp-week"><label for="rp-w">' + (D.unit === "round" ? "After round " : "Week ") + wk.w + " of " + S.weeks[S.weeks.length - 1].w + " · " + esc(wk.d) + "</label>" +
       '<input type="range" id="rp-w" min="0" max="' + (S.weeks.length - 1) + '" value="' + st.w + '" step="1"></div></div>' +
-      '<div class="rp-head"><b>' + esc(M.l) + "</b><span class=\"rp-tag\">replayed</span><span class=\"muted\">" + (wk.gp ? "about " + wk.gp.toFixed(0) + " games played per team" : "before the season") + "</span></div>" +
-      '<div class="scroll"><table class="rp"><thead><tr><th>Team</th><th>Chance</th><th title="Change since the previous checkpoint, in percentage points">1 ' + U + '</th><th class="hide-sm" title="Change over the previous four checkpoints">4 ' + U + 's</th><th title="Did it happen that season?">Result</th></tr></thead><tbody>' +
+      '<div class="rp-head"><b>' + esc(M.l) + "</b><span class=\"rp-tag\">" + (S.live ? "live: as published" : "replayed") + "</span><span class=\"muted\">" + (wk.gp ? "about " + wk.gp.toFixed(0) + " games played per team" : "before the season") + "</span></div>" +
+      '<div class="scroll"><table class="rp"><thead><tr><th>Team</th><th>Chance</th><th title="Change since the previous checkpoint, in percentage points">1 ' + U + '</th><th class="hide-sm" title="Change over the previous four checkpoints">4 ' + U + 's</th>' + (S.live ? "" : '<th title="Did it happen that season?">Result</th>') + '</tr></thead><tbody>' +
       rows + "</tbody></table></div>" + reliability(S, M, st.w);
     document.getElementById("rp-s").onchange = function (e) { st.s = +e.target.value; st.w = 0; store("rp-s", st.s); render(); };
     document.getElementById("rp-w").oninput = function (e) { st.w = +e.target.value; render(); document.getElementById("rp-w").focus(); };
@@ -63,7 +70,7 @@
   fetch(root.getAttribute("data-src") || "data/replay.json").then(function (r) { return r.json(); }).then(function (d) {
     D = d;
     st.s = D.seasons.length - 1;
-    st.w = Math.floor((D.seasons[st.s].weeks.length - 1) / 2);
+    st.w = D.seasons[st.s].live ? D.seasons[st.s].weeks.length - 1 : Math.floor((D.seasons[st.s].weeks.length - 1) / 2);
     render();
   }).catch(function () { root.innerHTML = '<p class="note">Could not load the history data.</p>'; });
 })();

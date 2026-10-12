@@ -218,3 +218,8 @@ and playoff probability to `model/replay/`. `research/replay_score.py` scores th
 the season) and `research/replay_slope.py` fits a calibration slope. `pipeline/replay_site.py` publishes the "History" page for each sport.
 Replayed means rebuilt from game data: no injuries or rosters, so these are not the numbers the site showed at the time.
 Findings and decisions are in `model/replay/WORKLOG.md`.
+
+### Live history archive
+`pipeline/sport_archive.py` (run in the refresh workflow after `archive.py`) stores each run's NBA/NHL/AFL/NBL futures probabilities on the append-only
+`forecast-archive` branch (`<sport>/<season>/<stamp>.json.gz`, skipped when unchanged). `pipeline/replay_site.py --live <archive>` then adds the current season
+to each History page as "live: as published", one checkpoint per 7-day stretch plus the newest. Past seasons stay "replayed".

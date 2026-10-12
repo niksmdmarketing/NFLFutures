@@ -27,3 +27,20 @@ class Replay(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class Live(unittest.TestCase):
+    def test_archive_dedupe_and_live_season(self):
+        import datetime as dt, tempfile
+        import sport_archive as A
+        d = tempfile.mkdtemp()
+        site = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "site")
+        if not os.path.exists(os.path.join(site, "nba", "data", "futures.json")):
+            self.skipTest("site not built")
+        t = dt.datetime(2026, 10, 5, tzinfo=dt.timezone.utc)
+        self.assertTrue(A.archive_one("nba", d, site, t).startswith("wrote"))
+        self.assertEqual(A.archive_one("nba", d, site, t + dt.timedelta(hours=2)), "unchanged")
+        L = R.live_season("nba", R.SPORTS["nba"], d)
+        self.assertTrue(L["live"] and L["label"].endswith("(live)"))
+        self.assertEqual(len(L["p"]["title"]), len(L["weeks"]))
+        self.assertIsNone(R.live_season("nba", R.SPORTS["nba"], os.path.join(d, "missing")))
