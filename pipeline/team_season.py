@@ -124,10 +124,11 @@ def season_values(season, games, pbp, current=False):
     off, dfn = side_stats(s, "posteam", gp), side_stats(s, "defteam", gp)
     press_allowed = pp.groupby("team").times_pressured.sum().reindex(TEAMS) / dbo if len(pp) else nan
     press_gen = pdf.groupby("team").def_pressures.sum().reindex(TEAMS) / dbd if len(pdf) else nan
+    parts = ("havoc", "havoc_sack", "havoc_tfl", "havoc_pbu", "havoc_to")
     V["offense"] = off.assign(ppg=tg.groupby("team").pf.mean().reindex(TEAMS), press=press_allowed,
-                              havoc=s.groupby("posteam").havoc.mean().reindex(TEAMS))
+                              **{c: s.groupby("posteam")[c].mean().reindex(TEAMS) for c in parts})
     V["defense"] = dfn.assign(ppg=tg.groupby("team").pa.mean().reindex(TEAMS), press=press_gen,
-                              havoc=s.groupby("defteam").havoc.mean().reindex(TEAMS))
+                              **{c: s.groupby("defteam")[c].mean().reindex(TEAMS) for c in parts})
 
     # ---- pass rate over expected ----
     x = s[s.xpass.notna()].copy()

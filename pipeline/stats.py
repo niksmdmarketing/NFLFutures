@@ -36,6 +36,9 @@ def _eff(d):
             col("press", "Pressure rate", "pct", lo),
             col("havoc", "Havoc rate allowed" if d == "high" else "Havoc rate", "pct", lo,
                 note="Share of run and pass plays that end in a sack, tackle for loss, pass breakup, interception or lost fumble"),
+            *[col(k, ("Havoc allowed: " if d == "high" else "Havoc: ") + lab, "pct", lo,
+                  note="Share of run and pass plays; the four parts add up to the havoc rate (turnover first, then sack, tackle for loss, pass breakup)")
+              for k, lab in (("havoc_sack", "sacks"), ("havoc_tfl", "tackles for loss"), ("havoc_pbu", "pass breakups"), ("havoc_to", "turnovers"))],
             col("plays_pg", "Plays/G", "num1", None)]
 
 

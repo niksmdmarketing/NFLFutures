@@ -196,3 +196,10 @@ The back-test table comes from `model/market_benchmark.json`. No value/edge labe
 NBA/NHL Sportsbook Reviews Online archive (via the Internet Archive; on the market-data branch), AFL/NBL AusSportsBetting.
 Results in `model/match_vs_market_*.json`: the market is sharper everywhere; best weight on our ratings ~0-25%, so Shiv is
 displayed at 20% model / 80% market (50/50 scored alongside). The same test re-tuned AFL and NBL rating settings on outcomes.
+
+### Havoc rate (NFL)
+Share of run and pass plays that end in a sack, tackle for loss, pass breakup, interception or lost fumble (`common.scrimmage`; kneels, spikes
+and two-point tries excluded). Shown on the Defense page (havoc created) and Offense page (havoc allowed) with four mutually exclusive parts that
+add to the total (turnover first, then sack, tackle for loss, pass breakup), backfilled for 2018 onward by `pipeline/havoc_backfill.py`. On the
+Defensive players view, "Havoc plays" counts plays on which the player is credited with a sack (or half sack), tackle for loss, pass breakup,
+interception or forced fumble (once per play), with per-game and per-100-defensive-snap rates. College football uses the data provider's own havoc rate.

@@ -19,7 +19,7 @@ import warnings
 import numpy as np
 import pandas as pd
 
-from common import DATA, FIX, OUT, TIX, download, log
+from common import DATA, FIX, OUT, TIX, download, load_pbp, log, scrimmage
 
 warnings.filterwarnings("ignore", category=pd.errors.PerformanceWarning)
 FIRST = 2018
@@ -69,6 +69,24 @@ def weekly(season, current):
     d = _num(d, COUNTS + ["passing_cpoe", "target_share", "air_yards_share", "wopr", "fg_long"])
     d["w1"] = 1.0
     return d
+
+
+def player_havoc(season, current):
+    """Havoc plays per player (gsis id): run or pass plays on which the player is credited with a sack (or half sack), tackle for
+    loss, pass breakup, interception or forced fumble. A play counts once per player however many credits he has."""
+    try:
+        s = scrimmage(load_pbp(season, max_age_h=2.0 if current else 24 * 365))
+    except Exception:  # noqa: BLE001  no play-by-play yet: the column stays blank
+        return pd.Series(dtype=float)
+    ids = ["sack_player_id", "half_sack_1_player_id", "half_sack_2_player_id", "tackle_for_loss_1_player_id", "tackle_for_loss_2_player_id",
+           "pass_defense_1_player_id", "pass_defense_2_player_id", "interception_player_id", "forced_fumble_player_1_player_id",
+           "forced_fumble_player_2_player_id"]
+    ids = [c for c in ids if c in s]
+    if s.empty or not ids:
+        return pd.Series(dtype=float)
+    long = s.reset_index(drop=True)[ids].stack().rename("player").reset_index()
+    long = long[long.player.astype(str).str.len() > 0].drop_duplicates(["level_0", "player"])
+    return long.groupby("player").size().astype(float)
 
 
 def season_table(season, current, P, pfr2gsis):
@@ -127,6 +145,7 @@ def season_table(season, current, P, pfr2gsis):
             pf[f"pfr_{kind}_{c}"] = s[c]
     for k, v in pf.items():
         A[k] = v
+    A["havoc_plays"] = player_havoc(season, current).reindex(A.index).fillna(0.0)
     # snaps
     sn = _csv(f"snap_counts/snap_counts_{season}.csv", current)
     if not sn.empty:
@@ -214,6 +233,9 @@ def derive(A):
     D["pressures"] = A.get("pfr_def_def_pressures")
     D["hurries"] = A.get("pfr_def_def_times_hurried")
     D["dint"], D["pd"], D["ff"], D["fr"], D["dtd"] = A.def_interceptions, A.def_pass_defended, A.def_fumbles_forced, A.fumble_recovery_opp, A.def_tds
+    D["havoc"] = A.get("havoc_plays")
+    D["havoc_g"] = ratio(A.get("havoc_plays"), g)
+    D["havoc_100"] = ratio(A.get("havoc_plays"), A.get("def_snaps")) * 100
     D["tgt_allowed"] = A.get("pfr_def_def_targets")
     D["cmp_allowed"] = ratio(A.get("pfr_def_def_completions_allowed", 0), A.get("pfr_def_def_targets", 0))
     D["ypt_allowed"] = ratio(A.get("pfr_def_def_yards_allowed", 0), A.get("pfr_def_def_targets", 0))

@@ -2,7 +2,7 @@
 
     python pipeline/havoc_backfill.py            # 2018 to last season
 Havoc rate = share of run and pass plays that end in a sack, tackle for loss, pass breakup, interception or lost fumble
-(common.scrimmage). offense.havoc is havoc allowed; defense.havoc is havoc created.
+(common.scrimmage), split into sack / tackle for loss / pass breakup / turnover parts. offense.havoc is havoc allowed; defense.havoc is havoc created.
 """
 import json
 import os
@@ -21,10 +21,11 @@ if __name__ == "__main__":
         s = scrimmage(load_pbp(y, max_age_h=24 * 365))
         d = json.load(open(path))
         for page, by in (("offense", "posteam"), ("defense", "defteam")):
-            r = s.groupby(by).havoc.mean()
-            for t in TEAMS:
-                if t in d["values"][page]:
-                    d["values"][page][t]["havoc"] = round(float(r[t]), 4) if t in r.index else None
+            for c in ("havoc", "havoc_sack", "havoc_tfl", "havoc_pbu", "havoc_to"):
+                r = s.groupby(by)[c].mean()
+                for t in TEAMS:
+                    if t in d["values"][page]:
+                        d["values"][page][t][c] = round(float(r[t]), 4) if t in r.index else None
         with open(path, "w") as f:
             json.dump(d, f, separators=(",", ":"))
         log("havoc", y, round(float(s.havoc.mean()), 4))
