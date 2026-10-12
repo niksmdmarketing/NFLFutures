@@ -37,9 +37,9 @@
       : r.slope > 1.25 ? " Past percentages at this stage were <b>too cautious</b>: the favourites won more often than the model said." : " Past percentages at this stage were <b>about the right size</b>.";
     var rows = r.cal.map(function (c) { return "<tr><td>" + esc(binLabel(c.bin)) + '</td><td class="num">' + pc0(c.pred) + '</td><td class="num">' + pc0(c.actual) + '</td><td class="num">' + c.n + "</td></tr>"; }).join("");
     return '<div class="rp-rel"><h3>How much to trust this</h3>' +
-      "<p>Across " + r.n + " replayed seasons, " + (sg === "preseason" ? "<b>before the season</b>" : "in the <b>" + esc(sg) + "</b> of the season") + ", the “" + esc(M.l) + "” percentages were " + verdict +
+      "<p>Across " + r.n + " replayed " + (D.noun || "seasons") + ", " + (sg === "preseason" ? "<b>before the season</b>" : "in the <b>" + esc(sg) + "</b> of the season") + ", the “" + esc(M.l) + "” percentages were " + verdict +
       " (error score " + r.ll.toFixed(3) + " against " + r.base.toFixed(3) + " for giving every team the same chance)." + shape + "</p>" +
-      '<p class="muted">Weeks in one season move together, so this is really about ' + r.n + " seasons of evidence, not hundreds. Treat gaps of a few points as noise.</p>" +
+      '<p class="muted">Weeks in one season move together, so this is really about ' + r.n + " " + (D.noun || "seasons") + " of evidence, not hundreds. Treat gaps of a few points as noise.</p>" +
       '<table class="rp-cal"><thead><tr><th>Model said (range)</th><th>Average said</th><th>Happened</th><th>Team-weeks</th></tr></thead><tbody>' + rows + "</tbody></table></div>";
   }
   function render() {
