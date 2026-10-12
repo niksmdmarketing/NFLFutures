@@ -376,23 +376,32 @@ def backtest(TT, GG, fit_years, done, years, return_rows=False):
         prior_f = prior_features(y, TT).reindex(teams).fillna(0)
         prior = pd.Series(prior_f.values @ beta_y, index=teams)
         prev_pts = (numcol(TT[y - 1], "points") / numcol(TT[y - 1], "gamesPlayed") * SEASON_GAMES).reindex(teams).fillna(91)
+        # one league-wide checkpoint date, so every game is played or remaining for BOTH sides at once
+        # (the old per-team "first N games" split left 12-19 teams with wrong game counts at N=20)
+        g["date"] = pd.to_datetime(g.date)
+        opp_res = g.set_index(["date", "team"]).res
+        g["opp_otl"] = [opp_res.get((d_, o)) == "OTL" for d_, o in zip(g.date, g.opp)]
+        gp_by_date = g.groupby("date").size().cumsum() / len(teams)
         for N in (0, 20):
-            gp = g[g.n <= N].groupby("team").size().reindex(teams).fillna(0)
-            played = g[g.n <= N]
+            cut = g.date.min() if N == 0 else gp_by_date[gp_by_date >= N].index[0] + pd.Timedelta(days=1)
+            played = g[g.date < cut]
+            gp = played.groupby("team").size().reindex(teams).fillna(0)
             cur = (played.groupby("team").gd.mean().reindex(teams).fillna(0) if N else pd.Series(0.0, index=teams))
             cur = cur - cur.mean()
             rating = (gp * cur + k * prior) / (gp + k)
             rating = rating - rating.mean()
+            win = played.res == "W"
             state = pd.DataFrame({"points": played.groupby("team").pts.sum().reindex(teams).fillna(0),
-                                  "rw": played.assign(w=(played.res == "W").astype(float)).groupby("team").w.sum().reindex(teams).fillna(0),
+                                  "rw": played.assign(w=(win & ~played.opp_otl).astype(float)).groupby("team").w.sum().reindex(teams).fillna(0),
                                   "gd": played.groupby("team").gd.sum().reindex(teams).fillna(0)}, index=teams)
-            state["row"] = state.rw
-            rem = g[(g.n > N) & (g.ha == "H")]
+            state["row"] = played.assign(w=win.astype(float)).groupby("team").w.sum().reindex(teams).fillna(0)  # upper bound: shootout wins cannot be split out
+            rem = g[(g.date >= cut) & (g.ha == "H")]
             games = list(zip(rem.team, rem.opp))
-            sim = simulate(teams, state, games, rating.to_dict(), tau_at(tau, N), total, hfa, 3000, seed=3)
+            N_eff = float(gp.mean())
+            sim = simulate(teams, state, games, rating.to_dict(), tau_at(tau, N_eff), total, hfa, 3000, seed=3)
             for i, t in enumerate(teams):
                 rows.append({"season": y, "N": N, "team": t, "pts_pred": sim["pts_mean"][i], "pts": fin.pts[t], "p_po": sim["playoffs"][i], "po": int(t in po),
-                             "p_div": sim["div"][i], "is_div": int(divwin[ALIGN[t]] == t), "p_cup": sim["cup"][i], "p_final": sim["final"][i], "date": str(g[g.n <= N].date.max()) if N else None, "naive": 91 + 0.5 * (prev_pts[t] - 91)})
+                             "p_div": sim["div"][i], "is_div": int(divwin[ALIGN[t]] == t), "p_cup": sim["cup"][i], "p_final": sim["final"][i], "date": str(played.date.max().date()) if N else None, "naive": 91 + 0.5 * (prev_pts[t] - 91)})
     if not rows:
         return None
     d = pd.DataFrame(rows)
@@ -478,7 +487,7 @@ def build():
                      "p_r2": float(sim["r2"][i]), "p_r3": float(sim["r3"][i]), "p_final": float(sim["final"][i]), "p_cup": float(sim["cup"][i]),
                      "over": [round(float(v), 4) for v in cdf[i][30:141]]})
     cache = os.path.join(nhl.NHL_DATA, "model_backtest.json")
-    key = f"v3-point-in-time-{done[-1]}-{TAU_PRE}-{SIMS > 0}"
+    key = f"v4-dated-checkpoint-{done[-1]}-{TAU_PRE}-{SIMS > 0}"
     bt = None
     if os.path.exists(cache):
         c0 = json.load(open(cache))
