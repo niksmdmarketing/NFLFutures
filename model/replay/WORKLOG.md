@@ -1,0 +1,16 @@
+# Replay work log (Oct 2026, unattended session)
+
+## NBA weekly replay (14 seasons 2013-2026, 2,000 sims per checkpoint, no availability adjustment)
+- Files: model/replay/nba_<season>.csv, scored with research/replay_score.py, slopes with research/replay_slope.py.
+- Five seasons alone suggested the conference-winner probabilities were far too extreme (slope ~0.5). With 14 seasons the slope is 0.87-1.03:
+  five seasons is only ~10 conference outcomes, so slopes from short windows are noise. Use 14 seasons.
+- Division / top seed / playoffs: well calibrated at every stage (slopes 0.98-1.2).
+- Title: slightly too timid late in the season (slope 1.3-1.4); re-calibration would gain only 0.003 log loss, so no change made.
+- 2020 (bubble, 42 weekly checkpoints) and 2021 (72 games) are in the sample and are odd seasons; not excluded yet.
+
+## NHL weekly replay (10 seasons: 2014-2018 and 2021-2025)
+- 2013 skipped (PHX/ARI code), 2019-2020 skipped (shortened / non-standard), earlier alignments rebuilt: 2014-16 30 teams, 2017-18 31 teams.
+- Playoffs and division: slope ~1, well calibrated.
+- Title and conference are too flat at season start (slope ~2.3) and converge to ~1.1 by mid-season. Tested a playoff-strength multiplier
+  (1.5, 2.0): log loss 0.1165 -> 0.1160 (title), 0.1938 -> 0.1933 (conference), better in 5 of 10 seasons. Not worth deploying; the
+  preseason slope is mostly 10 champions' worth of noise. Not changed.

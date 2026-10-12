@@ -1,0 +1,92 @@
+"""Weekly point-in-time replay of the NBA futures model (research / archive builder).
+
+For each past season and each weekly checkpoint (preseason, then every 7 days of the regular season) the ratings are fitted
+with nba._fit_ratings on games before the checkpoint only, the real schedule is replayed with later results hidden and
+nba._simulate gives the same probabilities as the Futures page. Roster/availability adjustments are not included (no
+historical rosters), so these are *replayed* numbers, not what the site showed at the time.
+
+Outputs per season: model/replay/nba_<season>.csv with one row per team per checkpoint:
+  season, week, date, gp_avg, team, p_title, p_conf (reach Finals), p_div, p_seed1, p_playoff, mean_wins, then 0/1 outcomes
+  y_title, y_finals, y_div, y_seed1, y_playoff.
+Usage: python research/replay_nba.py [first_season] [last_season]   (env BT_SIMS, default 2000)
+"""
+import os
+import sys
+
+import numpy as np
+import pandas as pd
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(ROOT, "pipeline"))
+import nba as N  # noqa: E402
+import nba_backtest as B  # noqa: E402
+import nba_title_backtest as T  # noqa: E402
+
+SIMS = int(os.environ.get("BT_SIMS", "2000"))
+OUT = os.path.join(ROOT, "model", "replay")
+
+
+def labels(g):
+    """Division winners and conference No.1 seeds from the regular-season results (wins, then point differential)."""
+    w, pdiff = {t: 0 for t in N.TEAMS}, {t: 0.0 for t in N.TEAMS}
+    for h, a, m in zip(g.home, g.away, g.margin):
+        win = h if m > 0 else a
+        w[win] += 1
+        pdiff[h] += m
+        pdiff[a] -= m
+    key = {t: (w[t], pdiff[t]) for t in N.TEAMS}
+    div = {d: max(ts, key=lambda t: key[t]) for d, ts in N.DIVS.items()}
+    seed1 = {"E": max(N.EAST, key=lambda t: key[t]), "W": max(N.WEST, key=lambda t: key[t])}
+    return set(div.values()), set(seed1.values())
+
+
+def run_season(boxes, y):
+    out = T.outcomes(boxes, y)
+    if out is None:
+        return None
+    p = N._download("espn_nba_schedules", f"nba_schedule_{y}.csv", 24 * 365, required=False)
+    if not p:
+        return None
+    sched = N._schedule(N._csv(p))
+    g = B.season_games(boxes, y)
+    div_w, seed1 = labels(g)
+    first, last = g.date.min(), g.date.max()
+    cuts = [first - pd.Timedelta(days=1)]
+    d = first + pd.Timedelta(days=6)
+    while d < last - pd.Timedelta(days=6):
+        cuts.append(d)
+        d += pd.Timedelta(days=7)
+    rows = []
+    for wk, cutoff in enumerate(cuts):
+        done = g[g.date <= cutoff]
+        tr = boxes[pd.to_numeric(boxes.season, errors="coerce") < y]
+        if len(done):
+            tr = pd.concat([tr, boxes[(pd.to_numeric(boxes.season, errors="coerce") == y) & boxes.game_id.isin(set(done.gid))]])
+        ratings, fit = N._fit_ratings(tr, y)
+        N.HFA = float(fit["home_offense_points_per_100"]) if 0 < fit["home_offense_points_per_100"] < 6 else 2.2
+        N.PACE = ratings.set_index("team").pace.reindex(N.TEAMS).fillna(100.0).to_numpy(float)
+        ratings["rating"] = ratings.raw_net - ratings.raw_net.mean()
+        s = sched.copy()
+        s["completed"] = s.completed & (pd.to_datetime(s.game_date) <= cutoff)
+        res = N._simulate(s, ratings, SIMS)
+        for t, v in res.items():
+            rows.append(dict(season=y, week=wk, date=str(cutoff.date()), gp_avg=round(2 * len(done) / 30, 1), team=t,
+                             p_title=v["p_title"], p_conf=v["p_conf"], p_div=v["p_div"], p_seed1=v["p_seed1"], p_playoff=v["p_playoff"],
+                             mean_wins=v["mean_wins"], y_title=int(t == out["champ"]), y_finals=int(t in out["finalists"]),
+                             y_div=int(t in div_w), y_seed1=int(t in seed1), y_playoff=int(t in out["playoffs"])))
+    return pd.DataFrame(rows)
+
+
+if __name__ == "__main__":
+    cur = N.season_end_year()
+    first = int(sys.argv[1]) if len(sys.argv) > 1 else cur - 5
+    last = int(sys.argv[2]) if len(sys.argv) > 2 else cur - 1
+    os.makedirs(OUT, exist_ok=True)
+    boxes = B.load_boxes(last)
+    for y in range(first, last + 1):
+        D = run_season(boxes, y)
+        if D is None:
+            print("skip", y)
+            continue
+        D.to_csv(os.path.join(OUT, f"nba_{y}.csv"), index=False)
+        print("season", y, "weeks", D.week.nunique(), flush=True)

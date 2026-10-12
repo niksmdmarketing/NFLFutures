@@ -1,0 +1,152 @@
+{
+ "preseason": {
+  "title": {
+   "intercept": 3.543,
+   "slope": 2.255,
+   "ll": 0.1163,
+   "ll_recal": 0.1088,
+   "n": 312
+  },
+  "finals": {
+   "intercept": 3.001,
+   "slope": 2.37,
+   "ll": 0.1938,
+   "ll_recal": 0.1796,
+   "n": 312
+  },
+  "div": {
+   "intercept": -0.138,
+   "slope": 0.915,
+   "ll": 0.3413,
+   "ll_recal": 0.3411,
+   "n": 312
+  },
+  "playoff": {
+   "intercept": -0.004,
+   "slope": 1.041,
+   "ll": 0.5803,
+   "ll_recal": 0.5801,
+   "n": 312
+  }
+ },
+ "first quarter": {
+  "title": {
+   "intercept": 1.597,
+   "slope": 1.575,
+   "ll": 0.1171,
+   "ll_recal": 0.1146,
+   "n": 1842
+  },
+  "finals": {
+   "intercept": 1.22,
+   "slope": 1.566,
+   "ll": 0.1954,
+   "ll_recal": 0.1914,
+   "n": 1842
+  },
+  "div": {
+   "intercept": -0.01,
+   "slope": 0.993,
+   "ll": 0.3006,
+   "ll_recal": 0.3006,
+   "n": 1842
+  },
+  "playoff": {
+   "intercept": -0.0,
+   "slope": 1.003,
+   "ll": 0.5152,
+   "ll_recal": 0.5152,
+   "n": 1842
+  }
+ },
+ "second quarter": {
+  "title": {
+   "intercept": 0.492,
+   "slope": 1.183,
+   "ll": 0.1182,
+   "ll_recal": 0.1179,
+   "n": 1904
+  },
+  "finals": {
+   "intercept": 0.287,
+   "slope": 1.138,
+   "ll": 0.1973,
+   "ll_recal": 0.1969,
+   "n": 1904
+  },
+  "div": {
+   "intercept": 0.051,
+   "slope": 1.05,
+   "ll": 0.2484,
+   "ll_recal": 0.2483,
+   "n": 1904
+  },
+  "playoff": {
+   "intercept": 0.002,
+   "slope": 0.975,
+   "ll": 0.408,
+   "ll_recal": 0.408,
+   "n": 1904
+  }
+ },
+ "third quarter": {
+  "title": {
+   "intercept": 0.145,
+   "slope": 1.06,
+   "ll": 0.117,
+   "ll_recal": 0.117,
+   "n": 2032
+  },
+  "finals": {
+   "intercept": 0.063,
+   "slope": 1.034,
+   "ll": 0.194,
+   "ll_recal": 0.1939,
+   "n": 2032
+  },
+  "div": {
+   "intercept": 0.008,
+   "slope": 1.022,
+   "ll": 0.1963,
+   "ll_recal": 0.1963,
+   "n": 2032
+  },
+  "playoff": {
+   "intercept": -0.001,
+   "slope": 1.011,
+   "ll": 0.3087,
+   "ll_recal": 0.3087,
+   "n": 2032
+  }
+ },
+ "last quarter": {
+  "title": {
+   "intercept": 0.523,
+   "slope": 1.214,
+   "ll": 0.1116,
+   "ll_recal": 0.111,
+   "n": 2184
+  },
+  "finals": {
+   "intercept": 0.177,
+   "slope": 1.098,
+   "ll": 0.1865,
+   "ll_recal": 0.1864,
+   "n": 2184
+  },
+  "div": {
+   "intercept": 0.02,
+   "slope": 1.071,
+   "ll": 0.1385,
+   "ll_recal": 0.1382,
+   "n": 2184
+  },
+  "playoff": {
+   "intercept": -0.002,
+   "slope": 1.099,
+   "ll": 0.1744,
+   "ll_recal": 0.1737,
+   "n": 2184
+  }
+ }
+}
