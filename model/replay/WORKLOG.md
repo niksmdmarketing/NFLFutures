@@ -41,3 +41,12 @@
 - Rating refit with exponentially down-weighted older games (half-life 6/12/24 rounds or weeks) instead of equal weights: every market within 0.003 log loss
   of the live model, title/finals/top-4 slightly worse, make-finals slightly better (0.3565 -> 0.3542 AFL, NBL flat). No evidence of usable in-season form beyond
   the equal-weight rating. Not deployed.
+
+## Review round after GPT critique (13 Oct 2026)
+- Injury-free replays are NOT an upper bound on the live model: the live model may be better or worse. Replay scores describe a different model.
+- Slopes now carry intercepts and season-cluster 90% intervals (model/replay/CALIBRATION_CI.md, research/replay_ci.py). What the intervals support:
+  - Clearly off (interval excludes 1): NBA title/seed1/playoff in the last quarter are too timid (title 1.42 [1.11, 2.04]); NHL preseason and first-quarter title/finals too timid (preseason finals 2.37 [1.99, 2.93]); AFL playoff/top-8 mid-season too extreme (third quarter 0.69 [0.59, 0.85]); AFL last-quarter finals/seed1 too timid.
+  - Not distinguishable from calibrated or from off: most NBL cells, NBA conference, NHL title after the first quarter, AFL title. Ten to fourteen seasons cannot settle title markets.
+- The earlier note that a 5-season NBA window was "false" is withdrawn: it was a noisier estimate of the same quantity.
+- Gains under 0.003 log loss are not called noise by themselves any more; none of the AFL/NBL/NHL variants was deployed, and none is claimed to be harmful or useless.
+- No 'points already banked' correction: simulations start from current standings, so it would double-count.
