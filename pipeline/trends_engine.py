@@ -188,6 +188,12 @@ def features(T, cfg):
     K10 = int(round(np.nanmedian(k10)))
     conf_word = cfg.get("conf_word", "conference")
     END, PRI, Q, H, PRE = "end", "prior", "q", "h", "pre"
+    # wording per competition type (leagues have a table, not playoffs); defaults are the playoff-sport phrases
+    W = dict(place="a playoff place", places="the playoff places", made_prev="Made the playoffs last season",
+             final_prev="Played in the final last season", lost_final_prev="Lost the final last season",
+             deep_prev=f"Won {cfg['deep_rounds']}+ playoff rounds last season", ladder="Top of the ladder",
+             top2="Top-two finish on the ladder")
+    W.update(cfg.get("words") or {})
     title_secs = ["champ", "finalist"]
     pre_secs = ["top_seed", "div_win", "playoffs"]
 
@@ -203,7 +209,7 @@ def features(T, cfg):
         add("conf_top", f"No. 1 seed in its {conf_word}", END, title_secs, T.cf_rank == 1, "wp")
         add("conf_top2", f"Top-two record in its {conf_word}", END, title_secs, T.cf_rank <= 2, "wp")
     else:
-        add("lg_top2", "Top-two finish on the ladder", END, title_secs, T.lg_rank <= 2, "wp")
+        add("lg_top2", W["top2"], END, title_secs, T.lg_rank <= 2, "wp")
     add("pd_best", f"Best {cfg['pd_word']} in the league", END, title_secs, T.pd_lg == 1, "wp")
     add("pd_top3", f"Top-three {cfg['pd_word']} in the league", END, title_secs, T.pd_lg <= 3, "wp")
     add("off_top", f"Top-{K5} attack ({cfg['pf_word']} scored per game)", END, title_secs, T.pf_pg_lg <= k5, "wp")
@@ -229,12 +235,12 @@ def features(T, cfg):
     prev_ok = T.wp_prev.notna()
     allp = title_secs + pre_secs
     add("champ_prev", "Defending champion", PRI, allp, T.champ_prev == 1, "wp_prev", need=prev_ok)
-    add("finalist_prev", "Played in the final last season", PRI, allp, T.finalist_prev == 1, "wp_prev", need=prev_ok)
-    add("lost_final_prev", "Lost the final last season", PRI, allp, (T.finalist_prev == 1) & (T.champ_prev == 0),
+    add("finalist_prev", W["final_prev"], PRI, allp, T.finalist_prev == 1, "wp_prev", need=prev_ok)
+    add("lost_final_prev", W["lost_final_prev"], PRI, allp, (T.finalist_prev == 1) & (T.champ_prev == 0),
         "wp_prev", need=prev_ok)
-    add("deep_prev", f"Won {cfg['deep_rounds']}+ playoff rounds last season", PRI, allp,
-        T.rounds_won_prev >= cfg["deep_rounds"], "wp_prev", need=prev_ok)
-    add("playoffs_prev", "Made the playoffs last season", PRI, allp, T.playoffs_prev == 1, "wp_prev", need=prev_ok)
+    if W["deep_prev"]:
+        add("deep_prev", W["deep_prev"], PRI, allp, T.rounds_won_prev >= cfg["deep_rounds"], "wp_prev", need=prev_ok)
+    add("playoffs_prev", W["made_prev"], PRI, allp, T.playoffs_prev == 1, "wp_prev", need=prev_ok)
     add("pd_top_prev", f"Top-{K5} {cfg['pd_word']} last season", PRI, allp, T.pd_lg_prev <= k5, "wp_prev", need=prev_ok)
     add("lucky_prev", "Lucky last season (won more than its scoring suggested, top quarter)", PRI, allp,
         T.luck_lg_prev <= T.nteams / 4, "wp_prev", need=prev_ok)
@@ -259,9 +265,9 @@ def features(T, cfg):
         b = f"wp_{tag}"
         ok = T[b].notna()
         spots = T.spots
-        add(f"spot_{tag}", f"In a playoff place {word}", tm, ["playoffs"],
+        add(f"spot_{tag}", f"In {W['place']} {word}", tm, ["playoffs"],
             T[f"cf_rank_{tag}"] <= spots, b, need=ok & spots.notna())
-        add(f"out_spot_good_pd_{tag}", f"Outside the playoff places {word} but inside them on {cfg['pd_word']}", tm,
+        add(f"out_spot_good_pd_{tag}", f"Outside {W['places']} {word} but inside them on {cfg['pd_word']}", tm,
             ["playoffs"], (T[f"cf_rank_{tag}"] > spots) & (T[f"pd_cf_{tag}"] <= spots), b, need=ok & spots.notna())
         add(f"lucky_{tag}", f"Lucky {word} (record ahead of scoring, top quarter)", tm, ["playoffs", "top_seed", "div_win"],
             T[f"luck_{tag}_lg"] <= T.nteams / 4, b, need=ok)
@@ -271,7 +277,7 @@ def features(T, cfg):
             add(f"conf_pd_lead_{tag}", f"Best {cfg['pd_word']} in its {conf_word} {word}", tm, ["top_seed"],
                 T[f"pd_cf_{tag}"] == 1, b, need=ok)
         else:
-            add(f"lg_lead_{tag}", f"Top of the ladder {word}", tm, ["top_seed", "finalist", "champ"],
+            add(f"lg_lead_{tag}", f"{W['ladder']} {word}", tm, ["top_seed", "finalist", "champ"],
                 T[f"lg_rank_{tag}"] == 1, b, need=ok)
         if cfg.get("div"):
             dok = ok & T["div"].notna()
