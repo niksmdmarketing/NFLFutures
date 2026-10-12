@@ -18,6 +18,8 @@ from common import MODEL
 
 CHECK = (0.0, 0.2, 0.4, 0.6, 0.8)
 SIMS = int(os.environ.get("BT_SIMS", "3000"))
+N.TAU_PRE = float(os.environ.get("BT_TAU_PRE", N.TAU_PRE))
+CHECK = tuple(float(c) for c in os.environ.get("BT_CHECK", "").split(",") if c) or CHECK
 
 
 def outcomes(boxes, y):
@@ -86,6 +88,6 @@ def score(D):
 if __name__ == "__main__":
     first = int(os.environ.get("BT_FIRST", "2013"))
     D = run(range(first, N.season_end_year()))
-    D.to_csv(os.path.join(MODEL, "nba_title_backtest.csv"), index=False)
+    D.to_csv(os.environ.get("BT_OUT") or os.path.join(MODEL, "nba_title_backtest.csv"), index=False)
     import json
     print(json.dumps(score(D), indent=1))

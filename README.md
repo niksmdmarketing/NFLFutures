@@ -171,6 +171,7 @@ next fixture is not out (AFL off-season) the page shows the completed season's d
 lambda 0.5); lambda 0.75 was better out of sample (13.09). v4 stays frozen; lambda 0.75 is noted for v5 (TypeSafe 61%).
 
 ## Calibration and roster tests (Oct 2026)
+- NBA preseason futures were overconfident (point-in-time replay 2013-26, 14 seasons: low-probability playoff teams made it far more often than priced, high ones less). Fix: team-rating uncertainty `TAU_PRE = 2.0` x, fading out by game 16 (`nba.py`). Preseason playoff log-loss 0.5965 -> 0.5613, conference 0.2173 -> 0.2104, title 0.1179 -> 0.1167 (title gain within noise); 1.5 and 2.5 both worse than 2.0; the 20% checkpoint is unchanged (+-0.0004). Chosen with TypeSafe (84%).
 - Shrinking futures probabilities toward the field: NFL no (point-in-time 2022-25, slightly sharper was better); NHL preseason
   yes: extra preseason rating uncertainty `TAU_PRE = 1.5` in `nhl_model.py`, fading out by game 20 (playoff log-loss 0.572 -> 0.560,
   better in 4 of 5 seasons). NBA needs a title-probability back-test first.

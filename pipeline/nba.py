@@ -59,6 +59,9 @@ RELEASE = "https://github.com/sportsdataverse/sportsdataverse-data/releases/down
 HFA = 2.2            # per 100 possessions; replaced by the fitted value at build time
 GAME_SIGMA = 12.2
 TEAM_TAU = 2.2
+# Extra rating uncertainty before the season starts, fading to nothing by game TAU_PRE_GAMES (see README, NBA futures).
+TAU_PRE = 2.0   # 2013-26 point-in-time replay, preseason playoff log-loss 0.5965 -> 0.5613 (conf 0.2173 -> 0.2104); chosen with TypeSafe (84%)
+TAU_PRE_GAMES = 16
 PACE = np.full(30, 100.0)   # team pace (possessions per 48), replaced at build time
 _OPTIONAL_DOWNLOADS_BLOCKED = False
 
@@ -741,6 +744,8 @@ def _simulate(schedule: pd.DataFrame, ratings: pd.DataFrame, n_sims: int, avail:
     counts = {t: {"div": 0, "top6": 0, "playin": 0, "playoff": 0, "seed1": 0, "conf": 0, "title": 0,
                   "wins": np.zeros(83, dtype=np.int64)} for t in TEAMS}
     rng = np.random.default_rng(20261009)
+    played_each = float(actual_wins.sum()) * 2 / len(TEAMS)
+    tau_now = TEAM_TAU * (1 + (TAU_PRE - 1) * max(0.0, 1 - played_each / TAU_PRE_GAMES))
 
     home_ix = np.array([g[0] for g in remaining], dtype=np.int16)
     away_ix = np.array([g[1] for g in remaining], dtype=np.int16)
@@ -751,7 +756,7 @@ def _simulate(schedule: pd.DataFrame, ratings: pd.DataFrame, n_sims: int, avail:
     done = 0
     while done < n_sims:
         size = min(batch_size, n_sims - done)
-        strengths = base[None, :] + rng.normal(0, TEAM_TAU, (size, len(TEAMS)))
+        strengths = base[None, :] + rng.normal(0, tau_now, (size, len(TEAMS)))
         wins_batch = np.tile(actual_wins, (size, 1))
         pd_batch = np.tile(actual_pd, (size, 1))
         playoff_pen = np.zeros((size, len(TEAMS)))
