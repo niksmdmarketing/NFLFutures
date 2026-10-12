@@ -1,12 +1,24 @@
 {
-"collected_utc": "2026-10-12T1953Z",
-"feed_timestamp": "2026-10-12T19:53:34Z",
+"collected_utc": "2026-10-12T2224Z",
+"feed_timestamp": "2026-10-12T22:23:56Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
-"athlete_id": "2578185",
+"athlete_id": "4397183",
 "status": "Day-To-Day",
-"return_date": "2026-10-12",
+"return_date": "2026-10-16",
+"injury": "Rest"
+},
+{
+"athlete_id": "2490149",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
+"injury": "Rest"
+},
+{
+"athlete_id": "4869342",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
 "injury": "Rest"
 },
 {
@@ -16,10 +28,22 @@
 "injury": "Right Knee"
 },
 {
+"athlete_id": "4701230",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
+"injury": "Rest"
+},
+{
 "athlete_id": "4585618",
 "status": "Day-To-Day",
-"return_date": "2026-10-12",
+"return_date": "2026-10-16",
 "injury": "Left Knee Tendinitis"
+},
+{
+"athlete_id": "4397020",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
+"injury": "Rest"
 },
 {
 "athlete_id": "4712863",
@@ -28,9 +52,9 @@
 "injury": "Left Foot Fracture"
 },
 {
-"athlete_id": "4278039",
+"athlete_id": "4431680",
 "status": "Day-To-Day",
-"return_date": "2026-10-12",
+"return_date": "2026-10-16",
 "injury": "Rest"
 },
 {
@@ -649,7 +673,7 @@
 "athlete_id": "4433174",
 "status": "Day-To-Day",
 "return_date": "2026-10-13",
-"injury": "Rest"
+"injury": "Calf"
 },
 {
 "athlete_id": "4066262",
@@ -732,7 +756,7 @@
 {
 "athlete_id": "4590360",
 "status": "Day-To-Day",
-"return_date": "2026-10-13",
+"return_date": "2026-11-06",
 "injury": "Left Hamstring"
 },
 {
@@ -772,6 +796,12 @@
 "injury": "Neck Soreness"
 },
 {
+"athlete_id": "6583",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
+"injury": "Rest"
+},
+{
 "athlete_id": "4606840",
 "status": "Out",
 "return_date": "2027-04-01",
@@ -798,13 +828,31 @@
 ],
 "rows": [
 {
-"athlete_id": "2578185",
-"name": "Dorian Finney-Smith",
+"athlete_id": "4397183",
+"name": "Aaron Wiggins",
 "team_name": "Atlanta Hawks",
 "status": "Day-To-Day",
-"return_date": "2026-10-12",
+"return_date": "2026-10-16",
 "injury": "Rest",
-"updated": "2026-10-10T21:34Z"
+"updated": "2026-10-12T21:33Z"
+},
+{
+"athlete_id": "2490149",
+"name": "CJ McCollum",
+"team_name": "Atlanta Hawks",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
+"injury": "Rest",
+"updated": "2026-10-12T21:32Z"
+},
+{
+"athlete_id": "4869342",
+"name": "Dyson Daniels",
+"team_name": "Atlanta Hawks",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
+"injury": "Rest",
+"updated": "2026-10-12T21:27Z"
 },
 {
 "athlete_id": "5105571",
@@ -816,13 +864,31 @@
 "updated": "2026-09-21T19:50Z"
 },
 {
+"athlete_id": "4701230",
+"name": "Jalen Johnson",
+"team_name": "Atlanta Hawks",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
+"injury": "Rest",
+"updated": "2026-10-12T21:29Z"
+},
+{
 "athlete_id": "4585618",
 "name": "Keshon Gilbert",
 "team_name": "Atlanta Hawks",
 "status": "Day-To-Day",
-"return_date": "2026-10-12",
+"return_date": "2026-10-16",
 "injury": "Left Knee Tendinitis",
-"updated": "2026-10-10T21:34Z"
+"updated": "2026-10-12T21:36Z"
+},
+{
+"athlete_id": "4397020",
+"name": "Luguentz Dort",
+"team_name": "Atlanta Hawks",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
+"injury": "Rest",
+"updated": "2026-10-12T21:30Z"
 },
 {
 "athlete_id": "4712863",
@@ -834,13 +900,13 @@
 "updated": "2026-07-19T00:14Z"
 },
 {
-"athlete_id": "4278039",
-"name": "Nickeil Alexander-Walker",
+"athlete_id": "4431680",
+"name": "Onyeka Okongwu",
 "team_name": "Atlanta Hawks",
 "status": "Day-To-Day",
-"return_date": "2026-10-12",
+"return_date": "2026-10-16",
 "injury": "Rest",
-"updated": "2026-10-10T21:31Z"
+"updated": "2026-10-12T21:33Z"
 },
 {
 "athlete_id": "4433188",
@@ -1353,7 +1419,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-14",
 "injury": "Illness",
-"updated": "2026-10-11T01:59Z"
+"updated": "2026-10-12T20:34Z"
 },
 {
 "athlete_id": "5082206",
@@ -1758,7 +1824,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-13",
 "injury": "Undisclosed",
-"updated": "2026-10-10T23:08Z"
+"updated": "2026-10-12T20:32Z"
 },
 {
 "athlete_id": "4433174",
@@ -1766,8 +1832,8 @@
 "team_name": "Sacramento Kings",
 "status": "Day-To-Day",
 "return_date": "2026-10-13",
-"injury": "Rest",
-"updated": "2026-10-10T23:09Z"
+"injury": "Calf",
+"updated": "2026-10-12T20:31Z"
 },
 {
 "athlete_id": "4066262",
@@ -1776,7 +1842,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-13",
 "injury": "Rest",
-"updated": "2026-10-10T23:07Z"
+"updated": "2026-10-12T20:34Z"
 },
 {
 "athlete_id": "4898371",
@@ -1884,16 +1950,16 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-13",
 "injury": "Not Specified Groin Not Specified",
-"updated": "2026-10-10T20:55Z"
+"updated": "2026-10-12T20:37Z"
 },
 {
 "athlete_id": "4590360",
 "name": "Chucky Hepburn",
 "team_name": "Toronto Raptors",
 "status": "Day-To-Day",
-"return_date": "2026-10-13",
+"return_date": "2026-11-06",
 "injury": "Left Hamstring",
-"updated": "2026-10-11T03:21Z"
+"updated": "2026-10-12T20:12Z"
 },
 {
 "athlete_id": "4432586",
@@ -1911,7 +1977,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-13",
 "injury": "Teeth",
-"updated": "2026-10-10T20:57Z"
+"updated": "2026-10-12T20:40Z"
 },
 {
 "athlete_id": "5105839",
@@ -1948,6 +2014,15 @@
 "return_date": "2026-10-12",
 "injury": "Neck Soreness",
 "updated": "2026-10-07T00:50Z"
+},
+{
+"athlete_id": "6583",
+"name": "Anthony Davis",
+"team_name": "Washington Wizards",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
+"injury": "Rest",
+"updated": "2026-10-12T21:24Z"
 },
 {
 "athlete_id": "4606840",
