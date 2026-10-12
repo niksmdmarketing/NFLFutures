@@ -50,3 +50,11 @@
 - The earlier note that a 5-season NBA window was "false" is withdrawn: it was a noisier estimate of the same quantity.
 - Gains under 0.003 log loss are not called noise by themselves any more; none of the AFL/NBL/NHL variants was deployed, and none is claimed to be harmful or useless.
 - No 'points already banked' correction: simulations start from current standings, so it would double-count.
+
+## Future-information audit (13 Oct 2026)
+- Soccer (private repo, research/soccer_leak_check.py): scrambling every score after the checkpoint leaves the probabilities unchanged (difference 0.0).
+- AFL (research/replay_leak_check.py afl 2023 10): scrambling every result after round 10 and the finals leaves checkpoints up to round 10 unchanged (0.0); later checkpoints do change, so the test can detect leaks.
+- NBA: read, not run (the box-score downloads are outside the network allowlist here). _fit_ratings sees only earlier seasons plus current-season games on or before the cutoff; no direct leak found.
+- NBL, NHL: not yet checked empirically (NHL uses params_before = earlier seasons only).
+- Selection, not leakage: several settings were chosen on these same seasons and so flatter the replay scores a little: NBA decay 0.2 / current-season weight 4 ("chosen on the point-in-time backtest", per the code comment), AFL/NBL tau and shrinkage constants, soccer K. Soccer K was confirmed walk-forward; the others have not been.
+- Format knowledge (finalist count, play-in era) is read from the season's own final outcome. It is public before each season, so not a leak of results, but it is not strictly 'known at the time' for the earliest seasons.
