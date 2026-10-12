@@ -42,7 +42,7 @@
     var cur = P[st.w], prev = st.w > 0 ? P[st.w - 1] : null, prev4 = st.w > 3 ? P[st.w - 4] : (st.w > 0 ? P[0] : null);
     var idx = S.teams.map(function (t, i) { return i; }).sort(function (a, b) { return cur[b] - cur[a]; });
     var max = Math.max.apply(null, cur) || 1, o = S.o[M.k];
-    var wk = S.weeks[st.w];
+    var wk = S.weeks[st.w], U = D.unit === "round" ? "rd" : "wk";
     var rows = idx.map(function (i) {
       return "<tr><td>" + esc(S.teams[i]) + '</td><td><span class="rp-bar" style="width:' + Math.round(70 * cur[i] / max) + 'px"></span>' + pc(cur[i]) + "</td><td>" + delta(cur[i], prev && prev[i]) +
         '</td><td class="hide-sm">' + delta(cur[i], prev4 && prev4[i]) + '</td><td>' + (o[i] ? '<span class="hit">✓</span>' : '<span class="muted">·</span>') + "</td></tr>";
@@ -51,10 +51,10 @@
     var mk = D.markets.map(function (m, i) { return '<button type="button" data-m="' + i + '" aria-pressed="' + (i === st.m) + '">' + esc(m.l) + "</button>"; }).join("");
     root.innerHTML = '<div class="rp-controls"><div class="field"><label for="rp-s">Season</label><select id="rp-s">' + seasonOpts + '</select></div>' +
       '<div class="field"><label>Market</label><div class="seg" id="rp-m" role="group">' + mk + "</div></div>" +
-      '<div class="rp-week"><label for="rp-w">Week ' + st.w + " of " + (S.weeks.length - 1) + " · " + esc(wk.d) + "</label>" +
+      '<div class="rp-week"><label for="rp-w">' + (D.unit === "round" ? "After round " : "Week ") + wk.w + " of " + S.weeks[S.weeks.length - 1].w + " · " + esc(wk.d) + "</label>" +
       '<input type="range" id="rp-w" min="0" max="' + (S.weeks.length - 1) + '" value="' + st.w + '" step="1"></div></div>' +
       '<div class="rp-head"><b>' + esc(M.l) + "</b><span class=\"rp-tag\">replayed</span><span class=\"muted\">" + (wk.gp ? "about " + wk.gp.toFixed(0) + " games played per team" : "before the season") + "</span></div>" +
-      '<div class="scroll"><table class="rp"><thead><tr><th>Team</th><th>Chance</th><th title="Change since the previous week, in percentage points">1 wk</th><th class="hide-sm" title="Change over the previous four weeks">4 wks</th><th title="Did it happen that season?">Result</th></tr></thead><tbody>' +
+      '<div class="scroll"><table class="rp"><thead><tr><th>Team</th><th>Chance</th><th title="Change since the previous checkpoint, in percentage points">1 ' + U + '</th><th class="hide-sm" title="Change over the previous four checkpoints">4 ' + U + 's</th><th title="Did it happen that season?">Result</th></tr></thead><tbody>' +
       rows + "</tbody></table></div>" + reliability(S, M, st.w);
     document.getElementById("rp-s").onchange = function (e) { st.s = +e.target.value; st.w = 0; store("rp-s", st.s); render(); };
     document.getElementById("rp-w").oninput = function (e) { st.w = +e.target.value; render(); document.getElementById("rp-w").focus(); };

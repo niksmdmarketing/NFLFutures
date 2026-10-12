@@ -1,0 +1,257 @@
+{
+ "preseason": {
+  "title": {
+   "intercept": -0.064,
+   "slope": 0.975,
+   "ll": 0.1957,
+   "ll_recal": 0.1957,
+   "n": 252
+  },
+  "finals": {
+   "intercept": 0.348,
+   "slope": 1.199,
+   "ll": 0.3057,
+   "ll_recal": 0.3049,
+   "n": 252
+  },
+  "div": {
+   "intercept": 0.315,
+   "slope": 1.325,
+   "ll": 0.4404,
+   "ll_recal": 0.4366,
+   "n": 252
+  },
+  "seed1": {
+   "intercept": 0.295,
+   "slope": 1.123,
+   "ll": 0.1888,
+   "ll_recal": 0.1886,
+   "n": 252
+  },
+  "playoff": {
+   "intercept": 0.019,
+   "slope": 1.22,
+   "ll": 0.5638,
+   "ll_recal": 0.5609,
+   "n": 252
+  },
+  "top8": {
+   "intercept": 0.022,
+   "slope": 1.21,
+   "ll": 0.566,
+   "ll_recal": 0.5634,
+   "n": 252
+  },
+  "pf": {
+   "intercept": 0.152,
+   "slope": 1.153,
+   "ll": 0.4543,
+   "ll_recal": 0.4534,
+   "n": 252
+  }
+ },
+ "first quarter": {
+  "title": {
+   "intercept": -0.082,
+   "slope": 0.966,
+   "ll": 0.183,
+   "ll_recal": 0.1829,
+   "n": 1296
+  },
+  "finals": {
+   "intercept": -0.017,
+   "slope": 0.99,
+   "ll": 0.2876,
+   "ll_recal": 0.2876,
+   "n": 1296
+  },
+  "div": {
+   "intercept": 0.038,
+   "slope": 1.05,
+   "ll": 0.3837,
+   "ll_recal": 0.3835,
+   "n": 1296
+  },
+  "seed1": {
+   "intercept": 0.09,
+   "slope": 1.049,
+   "ll": 0.1636,
+   "ll_recal": 0.1635,
+   "n": 1296
+  },
+  "playoff": {
+   "intercept": 0.005,
+   "slope": 1.103,
+   "ll": 0.4681,
+   "ll_recal": 0.4671,
+   "n": 1296
+  },
+  "top8": {
+   "intercept": 0.013,
+   "slope": 1.21,
+   "ll": 0.4513,
+   "ll_recal": 0.4475,
+   "n": 1296
+  },
+  "pf": {
+   "intercept": 0.012,
+   "slope": 1.015,
+   "ll": 0.4081,
+   "ll_recal": 0.4081,
+   "n": 1296
+  }
+ },
+ "second quarter": {
+  "title": {
+   "intercept": -0.279,
+   "slope": 0.871,
+   "ll": 0.1754,
+   "ll_recal": 0.1749,
+   "n": 1476
+  },
+  "finals": {
+   "intercept": 0.049,
+   "slope": 1.041,
+   "ll": 0.2541,
+   "ll_recal": 0.2541,
+   "n": 1476
+  },
+  "div": {
+   "intercept": 0.05,
+   "slope": 1.104,
+   "ll": 0.279,
+   "ll_recal": 0.2782,
+   "n": 1476
+  },
+  "seed1": {
+   "intercept": 0.118,
+   "slope": 1.095,
+   "ll": 0.1252,
+   "ll_recal": 0.1249,
+   "n": 1476
+  },
+  "playoff": {
+   "intercept": 0.007,
+   "slope": 0.768,
+   "ll": 0.418,
+   "ll_recal": 0.4094,
+   "n": 1476
+  },
+  "top8": {
+   "intercept": 0.001,
+   "slope": 0.844,
+   "ll": 0.3932,
+   "ll_recal": 0.3898,
+   "n": 1476
+  },
+  "pf": {
+   "intercept": 0.067,
+   "slope": 1.119,
+   "ll": 0.325,
+   "ll_recal": 0.3239,
+   "n": 1476
+  }
+ },
+ "third quarter": {
+  "title": {
+   "intercept": -0.427,
+   "slope": 0.792,
+   "ll": 0.1735,
+   "ll_recal": 0.1719,
+   "n": 1494
+  },
+  "finals": {
+   "intercept": 0.174,
+   "slope": 1.168,
+   "ll": 0.2253,
+   "ll_recal": 0.2242,
+   "n": 1494
+  },
+  "div": {
+   "intercept": -0.024,
+   "slope": 0.962,
+   "ll": 0.2307,
+   "ll_recal": 0.2305,
+   "n": 1494
+  },
+  "seed1": {
+   "intercept": 0.462,
+   "slope": 1.469,
+   "ll": 0.0854,
+   "ll_recal": 0.081,
+   "n": 1494
+  },
+  "playoff": {
+   "intercept": 0.001,
+   "slope": 0.689,
+   "ll": 0.354,
+   "ll_recal": 0.336,
+   "n": 1494
+  },
+  "top8": {
+   "intercept": -0.002,
+   "slope": 0.754,
+   "ll": 0.3241,
+   "ll_recal": 0.3145,
+   "n": 1494
+  },
+  "pf": {
+   "intercept": -0.011,
+   "slope": 0.988,
+   "ll": 0.3,
+   "ll_recal": 0.3,
+   "n": 1494
+  }
+ },
+ "last quarter": {
+  "title": {
+   "intercept": -0.152,
+   "slope": 0.925,
+   "ll": 0.1562,
+   "ll_recal": 0.156,
+   "n": 1566
+  },
+  "finals": {
+   "intercept": 0.315,
+   "slope": 1.391,
+   "ll": 0.1957,
+   "ll_recal": 0.1913,
+   "n": 1566
+  },
+  "div": {
+   "intercept": -0.027,
+   "slope": 1.009,
+   "ll": 0.1185,
+   "ll_recal": 0.1185,
+   "n": 1566
+  },
+  "seed1": {
+   "intercept": 0.319,
+   "slope": 1.598,
+   "ll": 0.0384,
+   "ll_recal": 0.0338,
+   "n": 1566
+  },
+  "playoff": {
+   "intercept": -0.019,
+   "slope": 0.766,
+   "ll": 0.1803,
+   "ll_recal": 0.1732,
+   "n": 1566
+  },
+  "top8": {
+   "intercept": -0.008,
+   "slope": 0.919,
+   "ll": 0.1426,
+   "ll_recal": 0.142,
+   "n": 1566
+  },
+  "pf": {
+   "intercept": 0.001,
+   "slope": 1.052,
+   "ll": 0.2428,
+   "ll_recal": 0.2425,
+   "n": 1566
+  }
+ }
+}

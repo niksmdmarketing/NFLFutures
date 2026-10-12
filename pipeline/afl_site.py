@@ -31,6 +31,8 @@ SQUIGGLE_NAMES = {"Brisbane": "BRI", "GWS": "GWS", "Greater Western Sydney": "GW
 HGA = 7.0          # points
 GAME_SD = 32.0     # spread of a single game's margin around the expected margin (was 36; tuned on match outcomes 2012-2026, Oct 2026)
 K_PRIOR = 12.0     # games of weight on the preseason prior (was 8)
+TAU0 = 14.0        # extra rating uncertainty (points) at the start of a season, fading to ~3 by round 23 (tau = TAU0 * (1 - min(games, 23) / TAU_FADE))
+TAU_FADE = 30.0
 PRIOR_REG = 0.65   # share of last season's rating carried into the new season (was 0.55)
 STATS = ["disposals", "kicks", "handballs", "marks", "tackles", "clearances", "centre_clearances", "stoppage_clearances",
          "inside_50s", "rebound_50s", "contested_possessions", "uncontested_possessions", "contested_marks", "marks_inside_50",
@@ -314,7 +316,7 @@ def balanced_fixture(teams, rng, n_extra=6):
     return games
 
 
-def simulate(teams, table, remaining, rating, tau, n=20000, seed=7):
+def simulate(teams, table, remaining, rating, tau, n=20000, seed=7, finals8=False):
     """table: current wins/draws/pf/pa by team. remaining: list of (home, away). Returns per-team probabilities."""
     rng = np.random.default_rng(seed)
     T = len(teams)
@@ -365,12 +367,18 @@ def simulate(teams, table, remaining, rating, tau, n=20000, seed=7):
             def play(a, b):
                 p = 1 - _ncdf(-(r[a] - r[b] + 3.0) / GAME_SD)
                 return (a, b) if rng.random() < p else (b, a)
-            s7, _ = play(seed_[6], seed_[9])
-            s8, _ = play(seed_[7], seed_[8])
-            q1w, q1l = play(seed_[0], seed_[3])
-            q2w, q2l = play(seed_[1], seed_[2])
-            e1w, _ = play(seed_[4], s8)
-            e2w, _ = play(seed_[5], s7)
+            if finals8:     # 2000-2023 McIntyre final eight: no wildcard round, elimination finals 5v8 and 6v7
+                q1w, q1l = play(seed_[0], seed_[3])
+                q2w, q2l = play(seed_[1], seed_[2])
+                e1w, _ = play(seed_[4], seed_[7])
+                e2w, _ = play(seed_[5], seed_[6])
+            else:
+                s7, _ = play(seed_[6], seed_[9])
+                s8, _ = play(seed_[7], seed_[8])
+                q1w, q1l = play(seed_[0], seed_[3])
+                q2w, q2l = play(seed_[1], seed_[2])
+                e1w, _ = play(seed_[4], s8)
+                e2w, _ = play(seed_[5], s7)
             s1w, _ = play(q1l, e1w)
             s2w, _ = play(q2l, e2w)
             p1w, p1l = play(q1w, s2w)
@@ -476,7 +484,7 @@ def futures(cur, hist_games, tables):
         remaining = balanced_fixture(teams, rng)
         status = f"{cur} season — fixture not released yet; using a balanced 23-round draw (every pair once plus six repeats)"
     n_played = int(np.mean([v["w"] + v["d"] for v in table.values()])) if table else 0
-    tau = 14.0 * (1 - min(n_played, 23) / 30)
+    tau = TAU0 * (1 - min(n_played, 23) / TAU_FADE)
     res = simulate(teams, table, remaining, rating, tau)
     ctx = {t: {"left": 0, "road_left": 0, "opp": []} for t in teams}
     if fx:

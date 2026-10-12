@@ -23,11 +23,18 @@ SPORTS = {
                                                         ("playoff", "p_playoff", "y_playoff", "Make the playoffs")]},
     "nhl": {"label": "NHL", "dir": "nhl", "markets": [("title", "p_title", "y_title", "Win the Stanley Cup"), ("finals", "p_conf", "y_finals", "Win the conference"),
                                                         ("div", "p_div", "y_div", "Win the division"), ("playoff", "p_playoff", "y_playoff", "Make the playoffs")]},
+    "afl": {"label": "AFL", "dir": "afl", "end_year": None, "unit": "round",
+            "markets": [("title", "p_title", "y_title", "Win the premiership"), ("finals", "p_conf", "y_finals", "Make the Grand Final"),
+                        ("pf", "p_pf", "y_pf", "Make a preliminary final"), ("div", "p_div", "y_div", "Finish in the top 4"),
+                        ("seed1", "p_seed1", "y_seed1", "Minor premiers"), ("top8", "p_top8", "y_top8", "Finish in the top 8"),
+                        ("playoff", "p_playoff", "y_playoff", "Make the finals")]},
 }
 
 
 def season_label(y, end_year):
-    """NBA files are named by the year the season ends; NHL by the year it starts."""
+    """NBA files are named by the year the season ends; NHL by the year it starts; AFL seasons are a single year (end_year=None)."""
+    if end_year is None:
+        return str(y)
     y0 = y - 1 if end_year else y
     return f"{y0}-{str((y0 + 1) % 100).zfill(2)}"
 
@@ -61,7 +68,7 @@ def build_sport(sport, cfg):
                 rel[st][k] = {"ll": r[k]["logloss"], "base": r[k]["base"], "gain": r[k]["gain"], "cal": r[k]["calibration"],
                               "slope": slope.get(st, {}).get(k, {}).get("slope"), "n": r["seasons"]}
     return {"sport": cfg["label"], "markets": [{"k": k, "l": l} for k, _, _, l in cfg["markets"] if any(k in s["p"] for s in seasons)],
-            "seasons": seasons, "reliability": rel, "stages": ["preseason", "first quarter", "second quarter", "third quarter", "last quarter"]}
+            "unit": cfg.get("unit", "week"), "seasons": seasons, "reliability": rel, "stages": ["preseason", "first quarter", "second quarter", "third quarter", "last quarter"]}
 
 
 def build_site():

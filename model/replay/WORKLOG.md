@@ -14,3 +14,11 @@
 - Title and conference are too flat at season start (slope ~2.3) and converge to ~1.1 by mid-season. Tested a playoff-strength multiplier
   (1.5, 2.0): log loss 0.1165 -> 0.1160 (title), 0.1938 -> 0.1933 (conference), better in 5 of 10 seasons. Not worth deploying; the
   preseason slope is mostly 10 champions' worth of noise. Not changed.
+
+## AFL round-by-round replay (14 seasons 2013-2026)
+- Checkpoint before round 1 and after each round; real fixture replayed; ratings and tau exactly as the live model.
+- The top-10 wildcard finals format began in 2026 (earlier seasons had 8 finalists). Read from the data; simulate() got a `finals8` switch (live default unchanged).
+  A first run wrongly assumed 2024 and was corrected after the 'make finals' market scored badly in 2024-25.
+- Calibration is good for most markets. 'Make finals' mid-season is a bit too extreme (slope ~0.7-0.8, recalibration gain 0.007-0.02 log loss).
+- Tested rating-uncertainty variants (TAU0 8/10/14/20/28/40, fade 26/30/40): flat optimum at the current 14/30. No change.
+- afl_site.py now holds TAU0/TAU_FADE as named constants (same values) so the replay can vary them.
