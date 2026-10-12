@@ -30,3 +30,9 @@
 - Tried TAU0 4/6/8, floor .15/.5, GAME_SD 14/16: current settings are best or tied on every market. No change.
 - Both ladder-based sports (AFL, NBL) show over-confident 'make finals' mid-season while NBA/NHL are fine. Possible cause: ratings are re-fitted
   with the same shrinkage all season; a form/injury term is missing. Left for GPT to review; not tested further.
+
+## AFL / NBL 'make finals' over-confidence: investigated, no fix
+- AFL: random-walk form drift 0.7/1.4/2.5 points per round, game spread 28/36/40, tau variants: every change moves any market by < 0.002 log loss
+  (make-finals best case 0.3565 -> 0.3545). NBL: tau and spread variants likewise flat or worse. The mid-season slope (~0.75) is real but small
+  (recalibration would gain ~0.01 log loss) and none of the levers in the model fixes it. Not deployed. Open for GPT: a team-specific variance term, or
+  a proper in-season rating update (e.g. Kalman) rather than a refit with fixed shrinkage.
