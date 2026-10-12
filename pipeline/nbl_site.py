@@ -72,7 +72,8 @@ def season_games(Sd):
     x = pd.DataFrame(rows).sort_values("date").reset_index(drop=True)
     # A game is a final if the feed says so, or if either team has already played its standings (regular-season)
     # count: a team cannot play more than that many ladder games, so anything later is play-in/semi/final.
-    named = x.phase.str.lower().str.contains("final|play|semi|elim|champ")
+    # Post-season rounds carry names (Playoff 1, Elimination, Seeding, Qualifier, Play-In, Championship n); ladder rounds are numbers.
+    named = x.phase.str.lower().str.contains("final|play|semi|elim|champ") | ~x.rnd.str.strip().str.fullmatch(r"\d*")
     cnt = {t: 0 for t in reg_n}
     fin = []
     for h, a, nm in zip(x.h, x.a, named):
