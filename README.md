@@ -72,7 +72,9 @@ and `/afl/` sections.
   snapshots using only earlier games) as the availability player value. Corrected pre-game reports, 7,128 games, log loss:
   no adjustment 0.6311, live box-score value 0.6163, impact 0.6195, half-and-half blend 0.6167. Impact never beat the live
   value in any season and the ranking held at ridge penalties 800 / 2500 / 8000. Live value kept (TypeSafe 93%). The other
-  NBA Stats research tables (hustle, synergy, matchups, lineups) are inventoried daily on `market-data` under `research/nba_stats/`.
+  NBA Stats research tables are inventoried daily on `market-data` under `research/nba_stats/`. Hustle (team and player) and Synergy
+  play-type (player, offense and defense) statistics are shown on the NBA team and player pages from 2015-16 (`pipeline/nba_hustle_synergy.py`);
+  matchups, lineups and possessions stay in the research cache.
 
 ### NBL
 

@@ -11,6 +11,7 @@ import numpy as np
 import pandas as pd
 
 import award_model as AM
+import nba_hustle_synergy as HS
 import sportsite as S
 from sportsite import C
 
@@ -221,6 +222,16 @@ ADV_TEAM = [C("pie", "PIE", "NBA advanced", "pct", t="Player Impact Estimate (te
             C("second_chance_points", "2nd-chance PTS/G", "NBA advanced", "num1"),
             C("opponent_second_chance_points", "Opp 2nd-chance PTS/G", "NBA advanced", "num1", lo=True),
             C("assist_to_turnover", "AST/TOV", "NBA advanced", "num2")]
+
+HUSTLE_COLS = [C("h_" + k, label, "Hustle", fmt, t="Per game, NBA Stats hustle tracking (2015-16 onward)") for k, label, fmt in HS.HUSTLE]
+SYN_PLAYER = []
+for _side, _types, _grp in (("o", HS.OFFENSE, "Synergy offense"), ("d", HS.DEFENSE, "Synergy defense")):
+    for _t in _types:
+        _lab = HS.LABEL[_t] + (" (def)" if _side == "d" else "")
+        SYN_PLAYER += [C(f"syn_{_side}_{_t}_poss", f"{_lab} poss/G", _grp, "num1", t="Possessions per game of this play type (Synergy, NBA Stats)"),
+                       C(f"syn_{_side}_{_t}_freq", f"{_lab} freq", _grp, "pct", t="Share of the player's possessions that were this play type"),
+                       C(f"syn_{_side}_{_t}_ppp", f"{_lab} PPP", _grp, "num2", lo=(_side == "d"),
+                         t="Points per possession" + (" allowed" if _side == "d" else ""))]
 ZONES = [("At rim (0–4 ft)", "rim"), ("Short paint (5–10 ft)", "paint"), ("Mid-range (11–16 ft)", "mid"),
          ("Long mid-range (17–22 ft)", "long"), ("Corner 3", "c3"), ("Above-break 3", "ab3")]
 
@@ -396,6 +407,7 @@ def build_data():
     advT, zones = _adv_team()
     advP = _adv_players()
     seasons, po_seasons, finals = [], [], {}
+    hs_get = lambda age: (lambda tag, name: N._download(tag, name, age, required=False))   # noqa: E731
     names = dict(N.NAMES)
     team_hist, player_hist = {}, []
     for y in range(FIRST, cur + 1):
@@ -403,6 +415,8 @@ def build_data():
         if g is None or g.empty:
             continue
         pb = player_box(y, cur)
+        age = 24 * 365 if y < cur - 1 else (24 if y == cur - 1 else 6)
+        hs = HS.hustle_frames(hs_get(age), y) if y >= HS.FIRST else {}
         for st, suf in ((2, ""), (3, "p")):
             x = g[g.st == st]
             if x.empty:
@@ -417,7 +431,9 @@ def build_data():
                 Z = zones[(zones.season == y) & (zones.season_type == st)]
                 if len(Z):
                     T = T.merge(Z.drop(columns=["season", "season_type"]), on="team", how="left")
-            cols = TEAM_COLS + ADV_TEAM + shot_zone_cols()
+            if st in hs:
+                T = T.merge(hs[st][0], on="team", how="left")
+            cols = TEAM_COLS + ADV_TEAM + shot_zone_cols() + (HUSTLE_COLS if st in hs else [])
             if st == 3:
                 cols = [c for c in cols if c["k"] not in ("gb", "conf_rank", "streak", "l10_w", "l10_net")]
             S.write_json(OUT, f"team_{y}{suf}.json", S.columnar(T, y, ["team", "name"], cols))
@@ -436,8 +452,18 @@ def build_data():
                     P["key"] = P.name.map(_norm)
                     P = P.merge(A[["key", "usage_pct", "off_rating", "def_rating", "net_rating", "pie", "assist_pct", "rebound_pct"]],
                                 on="key", how="left")
+                pcols = PLAYER_COLS
+                if st in hs:
+                    H = hs[st][1].assign(key=lambda d: d.player.map(_norm)).drop_duplicates("key")
+                    P = P.merge(H.drop(columns=["player", "team"]), on="key", how="left")
+                    pcols = pcols + HUSTLE_COLS
+                SY = HS.synergy_frame(hs_get(age), y, "regular-season" if st == 2 else "playoffs") if y >= HS.FIRST else None
+                if SY is not None and len(SY):
+                    SY = SY.assign(key=SY.player.map(_norm)).drop_duplicates("key").drop(columns="player")
+                    P = P.merge(SY, on="key", how="left")
+                    pcols = pcols + [c for c in SYN_PLAYER if c["k"] in SY.columns]
                 P = P.sort_values("pts", ascending=False)
-                S.write_json(OUT, f"players_{y}{suf}.json", S.columnar(P, y, ["name", "team", "pos"], PLAYER_COLS))
+                S.write_json(OUT, f"players_{y}{suf}.json", S.columnar(P, y, ["name", "team", "pos"], pcols))
                 if st == 2:
                     player_hist.append(P.assign(season=y))
     seasons.sort(reverse=True)
@@ -702,8 +728,8 @@ def AM_norm(s):
 PAGES = [("index", "Standings", "NBA standings", "Records, ratings, luck and splits by division, conference or league. Any season since 2002-03."),
          ("futures", "Futures", "NBA season futures", "Projected wins and chances for the playoffs, play-in, division, No. 1 seed, conference and title, plus a win-total over/under tool."),
          ("awards", "Awards", "NBA award chances", "MVP, Defensive Player, Rookie and Sixth Man chances from a model tested on every season since 2002-03, with past winners."),
-         ("teams", "Team stats", "NBA team stats", "Ratings, four factors, shooting, shot profile, splits (home/road, back-to-backs, close games, vs winning teams) and box score. Season table or year by year."),
-         ("players", "Players", "NBA player stats", "Per game, shooting, per 36, totals and NBA advanced (usage, ratings, PIE) for every player since 2002-03, regular season and playoffs."),
+         ("teams", "Team stats", "NBA team stats", "Ratings, four factors, shooting, shot profile, splits (home/road, back-to-backs, close games, vs winning teams), box score and hustle tracking (2015-16 onward). Season table or year by year."),
+         ("players", "Players", "NBA player stats", "Per game, shooting, per 36, totals and NBA advanced (usage, ratings, PIE) for every player since 2002-03, regular season and playoffs. Hustle and Synergy play-type groups (isolation, pick-and-roll, spot-up and more, offense and defense) from 2015-16."),
          ("games", "Games", "NBA game logs", "Every team game since 2002-03 with efficiency, four factors and rest days.")]
 
 
