@@ -22,3 +22,11 @@
 - Calibration is good for most markets. 'Make finals' mid-season is a bit too extreme (slope ~0.7-0.8, recalibration gain 0.007-0.02 log loss).
 - Tested rating-uncertainty variants (TAU0 8/10/14/20/28/40, fade 26/30/40): flat optimum at the current 14/30. No change.
 - afl_site.py now holds TAU0/TAU_FADE as named constants (same values) so the replay can vary them.
+
+## NBL weekly replay (13 seasons 2013-14 to 2025-26)
+- Format by era read from the data: 4 finalists (to 2021-22) = top four, 1v4/2v3 best-of-three semis, no play-in; 6 finalists = play-in format.
+  nbl_site.simulate got a `top4` switch (live default unchanged). Champion = winner of the last game.
+- 'Make the finals' mid-season is too extreme (slope ~0.75), the same pattern as AFL; championship is slightly too timid early (slope 1.5-2.2 preseason).
+- Tried TAU0 4/6/8, floor .15/.5, GAME_SD 14/16: current settings are best or tied on every market. No change.
+- Both ladder-based sports (AFL, NBL) show over-confident 'make finals' mid-season while NBA/NHL are fine. Possible cause: ratings are re-fitted
+  with the same shrinkage all season; a form/injury term is missing. Left for GPT to review; not tested further.

@@ -22,6 +22,8 @@ CANON = {"WOL": "ILL"}
 HCA = 3.0
 GAME_SD = 14.0   # was 12; tuned on match outcomes 2012-2026 (Oct 2026, with K_PRIOR and PRIOR_REG; TypeSafe 68%)
 K_PRIOR = 20.0   # games of weight on the preseason prior (was 6)
+TAU0 = 4.0        # extra rating uncertainty (points) at the start of a season; shrinks to TAU0 * TAU_FLOOR as the schedule is played
+TAU_FLOOR = 0.15
 PRIOR_REG = 0.4  # share of last season's rating carried into the new season (was 0.5)
 
 
@@ -302,14 +304,14 @@ def _p(d):
     return 0.5 * (1 + erf(d / (GAME_SD * sqrt(2))))
 
 
-def simulate(teams, W0, L0, PD0, todo, rating, tau, n=20000, seed=11):
+def simulate(teams, W0, L0, PD0, todo, rating, tau, n=20000, seed=11, top4=False):
     rng = np.random.default_rng(seed)
     T = len(teams)
     ix = {t: i for i, t in enumerate(teams)}
     R = np.array([rating.get(t, 0.0) for t in teams])
     H = np.array([ix[g["home"]] for g in todo], int)
     A = np.array([ix[g["away"]] for g in todo], int)
-    acc = {k: np.zeros(T) for k in ("p1", "p2", "p6", "semi", "gf", "champ")}
+    acc = {k: np.zeros(T) for k in ("p1", "p2", "p4", "p6", "semi", "gf", "champ")}
     maxw = int(max(W0.values(), default=0) + len(todo) + 2)
     wins_hist = np.zeros((T, maxw + 1))
     for start in range(0, n, 2000):
@@ -331,6 +333,7 @@ def simulate(teams, W0, L0, PD0, todo, rating, tau, n=20000, seed=11):
         pos[np.arange(m)[:, None], order] = np.arange(T)[None, :]
         acc["p1"] += (pos < 1).sum(0)
         acc["p2"] += (pos < 2).sum(0)
+        acc["p4"] += (pos < 4).sum(0)
         acc["p6"] += (pos < 6).sum(0)
         wi = np.clip(W.astype(int), 0, maxw)
         np.add.at(wins_hist, (np.tile(np.arange(T), m), wi.ravel()), 1)
@@ -349,12 +352,17 @@ def simulate(teams, W0, L0, PD0, todo, rating, tau, n=20000, seed=11):
                         wb += 1
                     i += 1
                 return (a, b) if wa == need else (b, a)
-            # play-in: 3v4 winner is 3rd; 5v6 winner meets 3v4 loser for 4th
-            s3, l34 = (o[2], o[3]) if game(o[2], o[3]) else (o[3], o[2])
-            w56 = o[4] if game(o[4], o[5]) else o[5]
-            s4 = l34 if game(l34, w56) else w56
-            sf1, _ = series(o[0], s4, 2)
-            sf2, _ = series(o[1], s3, 2)
+            if top4:        # seasons to 2021-22: top four, 1v4 and 2v3 semi-finals, no play-in
+                s3, s4 = o[2], o[3]
+                sf1, _ = series(o[0], s4, 2)
+                sf2, _ = series(o[1], s3, 2)
+            else:
+                # play-in: 3v4 winner is 3rd; 5v6 winner meets 3v4 loser for 4th
+                s3, l34 = (o[2], o[3]) if game(o[2], o[3]) else (o[3], o[2])
+                w56 = o[4] if game(o[4], o[5]) else o[5]
+                s4 = l34 if game(l34, w56) else w56
+                sf1, _ = series(o[0], s4, 2)
+                sf2, _ = series(o[1], s3, 2)
             for t in (o[0], o[1], s3, s4):
                 acc["semi"][t] += 1
             acc["gf"][sf1] += 1
@@ -450,7 +458,7 @@ def futures(y, hist, tables, todo, T, names):
     PD0 = dict(zip(T.team, T.pf - T.pa))
     gp = float(np.mean([W0[t] + L0[t] for t in teams]))
     total = gp + 2 * len(todo) / max(len(teams), 1)
-    tau = 4.0 * max(0.15, 1 - gp / max(total, 1))
+    tau = TAU0 * max(TAU_FLOOR, 1 - gp / max(total, 1))
     res = simulate(teams, W0, L0, PD0, todo, rating, tau)
     left = {t: {"left": 0, "road_left": 0, "opp": []} for t in teams}
     for gm in todo:
