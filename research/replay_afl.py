@@ -20,6 +20,29 @@ sys.path.insert(0, os.path.join(ROOT, "pipeline"))
 import afl_site as A  # noqa: E402
 
 SIMS = int(os.environ.get("BT_SIMS", "1500"))
+HL = float(os.environ.get("BT_HL", "0"))      # recency half-life in rounds for the in-season rating (0 = off, the live model)
+
+
+def srs_w(g, prior, k, hl, ck):
+    """A.srs with exponentially down-weighted older games (weight 0.5 ** (rounds ago / hl))."""
+    teams = sorted(set(g.team) | set(prior or {}))
+    ix = {t: i for i, t in enumerate(teams)}
+    x = g[g.ha == "H"]
+    n = len(teams)
+    A_ = np.zeros((len(x) + n, n))
+    b = np.zeros(len(x) + n)
+    w = 0.5 ** ((ck - x.r.values) / hl)
+    for r, (t, o, m, wt) in enumerate(zip(x.team, x.opp, x.margin, w)):
+        sw = np.sqrt(wt)
+        A_[r, ix[t]], A_[r, ix[o]] = sw, -sw
+        b[r] = (m - A.HGA) * sw
+    lam = np.sqrt(k / 2)
+    for t, i in ix.items():
+        A_[len(x) + i, i] = lam
+        b[len(x) + i] = lam * (prior or {}).get(t, 0.0)
+    sol = np.linalg.lstsq(A_, b, rcond=None)[0]
+    sol -= sol.mean()
+    return dict(zip(teams, sol))
 OUT = os.environ.get("BT_OUTDIR") or os.path.join(ROOT, "model", "replay")
 A.TAU0 = float(os.environ.get("BT_TAU0", A.TAU0))
 A.TAU_FADE = float(os.environ.get("BT_TAU_FADE", A.TAU_FADE))
@@ -72,7 +95,7 @@ def run_season(G, y):
         played = reg[reg.r <= ck]
         remaining = [(h, a) for h, a in zip(ms[ms.r > ck].h, ms[ms.r > ck].a)]
         if len(played):
-            rating = A.srs(played, prior=prior, k=A.K_PRIOR)
+            rating = srs_w(played, prior, A.K_PRIOR, HL, ck) if HL else A.srs(played, prior=prior, k=A.K_PRIOR)
             T = played.groupby("team").agg(w=("win", lambda s: (s == 1).sum()), d=("win", lambda s: (s == .5).sum()), pf=("points_for", "sum"), pa=("points_against", "sum"))
             table = {t: {"w": T.w[t], "d": T.d[t], "pf": T.pf[t], "pa": T.pa[t]} for t in T.index}
             n_played = int(played.groupby("team").size().mean())

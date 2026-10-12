@@ -21,6 +21,28 @@ sys.path.insert(0, os.path.join(ROOT, "pipeline"))
 import nbl_site as N  # noqa: E402
 
 SIMS = int(os.environ.get("BT_SIMS", "3000"))
+HL = float(os.environ.get("BT_HL", "0"))      # recency half-life in weeks for the in-season rating (0 = off, the live model)
+
+
+def srs_w(g, prior, hl, cut):
+    teams = sorted(set(g.team) | set(prior or {}))
+    ix = {t: i for i, t in enumerate(teams)}
+    x = g[g.ha == "H"]
+    n = len(teams)
+    A_ = np.zeros((len(x) + n, n))
+    b = np.zeros(len(x) + n)
+    age = (cut - pd.to_datetime(x.date)).dt.days.values / 7.0
+    w = 0.5 ** (age / hl)
+    for r, (t, o, m, wt) in enumerate(zip(x.team, x.opp, x.margin, w)):
+        sw = np.sqrt(wt)
+        A_[r, ix[t]], A_[r, ix[o]] = sw, -sw
+        b[r] = (m - N.HCA) * sw
+    lam = np.sqrt(N.K_PRIOR / 2)
+    for t, i in ix.items():
+        A_[len(x) + i, i] = lam
+        b[len(x) + i] = lam * (prior or {}).get(t, 0.0)
+    sol = np.linalg.lstsq(A_, b, rcond=None)[0]
+    return dict(zip(teams, sol - sol.mean()))
 N.TAU0 = float(os.environ.get("BT_TAU0", N.TAU0))
 N.TAU_FLOOR = float(os.environ.get("BT_TAU_FLOOR", N.TAU_FLOOR))
 N.GAME_SD = float(os.environ.get("BT_GAME_SD", N.GAME_SD))
@@ -56,7 +78,7 @@ def run_season(S, y, prev_rows):
     for wk, cut in enumerate(cuts):
         pl, rem = reg[reg.dt < cut], reg[reg.dt >= cut]
         g = N.team_rows(pl) if len(pl) else pd.DataFrame(columns=["team", "win", "margin"])
-        rating = N.srs(g, prior=prior) if len(g) else dict(prior)
+        rating = (srs_w(g, prior, HL, cut) if HL else N.srs(g, prior=prior)) if len(g) else dict(prior)
         W0 = g.groupby("team").win.sum().to_dict() if len(g) else {}
         L0 = (g.groupby("team").size() - g.groupby("team").win.sum()).to_dict() if len(g) else {}
         PD0 = g.groupby("team").margin.sum().to_dict() if len(g) else {}

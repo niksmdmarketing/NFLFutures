@@ -36,3 +36,8 @@
   (make-finals best case 0.3565 -> 0.3545). NBL: tau and spread variants likewise flat or worse. The mid-season slope (~0.75) is real but small
   (recalibration would gain ~0.01 log loss) and none of the levers in the model fixes it. Not deployed. Open for GPT: a team-specific variance term, or
   a proper in-season rating update (e.g. Kalman) rather than a refit with fixed shrinkage.
+
+## In-season rating update for AFL and NBL: recency-weighted ratings, no gain
+- Rating refit with exponentially down-weighted older games (half-life 6/12/24 rounds or weeks) instead of equal weights: every market within 0.003 log loss
+  of the live model, title/finals/top-4 slightly worse, make-finals slightly better (0.3565 -> 0.3542 AFL, NBL flat). No evidence of usable in-season form beyond
+  the equal-weight rating. Not deployed.
