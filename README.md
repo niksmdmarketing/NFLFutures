@@ -73,7 +73,7 @@ and `/afl/` sections.
   no adjustment 0.6311, live box-score value 0.6163, impact 0.6195, half-and-half blend 0.6167. Impact never beat the live
   value in any season and the ranking held at ridge penalties 800 / 2500 / 8000. Live value kept (TypeSafe 93%). The other
   NBA Stats research tables are inventoried daily on `market-data` under `research/nba_stats/`. Hustle (team and player) and Synergy
-  play-type (player, offense and defense) statistics are shown on the NBA team and player pages from 2015-16 (`pipeline/nba_hustle_synergy.py`);
+  play-type (player, offense and defense) statistics are shown on the NBA team and player pages (hustle from 2016-17, because the provider's 2015-16 hustle files duplicate 2016-17 and are skipped; box-outs from 2017-18; Synergy from 2015-16) (`pipeline/nba_hustle_synergy.py`);
   matchups, lineups and possessions stay in the research cache.
 
 ### NBL

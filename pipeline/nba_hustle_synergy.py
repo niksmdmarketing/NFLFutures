@@ -23,6 +23,9 @@ HUSTLE = [("contested_shots", "Contested shots", "num1"), ("contested_shots_2_pt
           ("charges_drawn", "Charges drawn", "num2"), ("screen_assists", "Screen assists", "num1"),
           ("screen_ast_pts", "Screen-assist PTS", "num1"), ("loose_balls_recovered", "Loose balls recovered", "num1"),
           ("off_boxouts", "Off. box-outs", "num1"), ("def_boxouts", "Def. box-outs", "num1"), ("box_outs", "Box-outs", "num1")]
+# The provider's 2015-16 hustle files (year 2016) are a copy of the 2016-17 season (Kevin Durant appears as a Warriors player with
+# 61 games), so that season is not shown. Hustle tracking therefore starts here at 2016-17; Synergy 2015-16 is genuine.
+SOURCE_COPY = {2016: "provider file duplicates 2016-17"}
 TEAM_ABBR_FIX = {"GSW": "GS", "NOP": "NO", "NYK": "NY", "SAS": "SA", "UTA": "UTAH", "WAS": "WSH", "PHO": "PHX", "BRK": "BKN", "CHO": "CHA"}
 
 
@@ -39,6 +42,8 @@ def _read(cache_get, tag, name):
 def hustle_frames(cache_get, year):
     """-> {season_type: (team_df, player_df)} with keys: team / player(+name, team, gp) and h_<stat> columns."""
     out = {}
+    if year in SOURCE_COPY:
+        return out
     for stype, code in SEASON_TYPES.items():
         P = _read(cache_get, TAGS["hustle"], f"leaguehustlestatsplayer_{stype}_pergame_{year}.parquet")
         T = _read(cache_get, TAGS["hustle"], f"leaguehustlestatsteam_{stype}_pergame_{year}.parquet")
@@ -53,6 +58,10 @@ def hustle_frames(cache_get, year):
             for df in (T, P):
                 df["h_" + k] = pd.to_numeric(df[k], errors="coerce") if k in df else float("nan")
         P["player"] = P.player_name
+        for df in (T, P):                 # a statistic the league did not track yet is zero for everyone: blank, never zero
+            for k, _, _ in HUSTLE:
+                if df["h_" + k].notna().any() and not (df["h_" + k].fillna(0) != 0).any():
+                    df["h_" + k] = float("nan")
         out[code] = (T[["team"] + ["h_" + k for k, _, _ in HUSTLE]].dropna(subset=["team"]),
                      P[["player", "team"] + ["h_" + k for k, _, _ in HUSTLE]])
     return out

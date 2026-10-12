@@ -223,7 +223,7 @@ ADV_TEAM = [C("pie", "PIE", "NBA advanced", "pct", t="Player Impact Estimate (te
             C("opponent_second_chance_points", "Opp 2nd-chance PTS/G", "NBA advanced", "num1", lo=True),
             C("assist_to_turnover", "AST/TOV", "NBA advanced", "num2")]
 
-HUSTLE_COLS = [C("h_" + k, label, "Hustle", fmt, t="Per game, NBA Stats hustle tracking (2015-16 onward)") for k, label, fmt in HS.HUSTLE]
+HUSTLE_COLS = [C("h_" + k, label, "Hustle", fmt, t="Per game, NBA Stats hustle tracking (2016-17 onward; box-outs from 2017-18)") for k, label, fmt in HS.HUSTLE]
 SYN_PLAYER = []
 for _side, _types, _grp in (("o", HS.OFFENSE, "Synergy offense"), ("d", HS.DEFENSE, "Synergy defense")):
     for _t in _types:

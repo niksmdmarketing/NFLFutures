@@ -40,6 +40,17 @@ class HustleSynergyTests(unittest.TestCase):
         self.assertNotIn('syn_o_cut_ppp', wide.columns)
         self.assertIsNone(H.synergy_frame(self.get, 2026, 'playoffs'))
 
+    def test_provider_copy_season_is_not_shown_and_untracked_zeros_are_blank(self):
+        self.assertEqual(H.hustle_frames(self.get, 2016), {})        # 2015-16 file is a copy of 2016-17
+        pd.DataFrame([dict(player_name='A One', team_id=1, team_abbreviation='GSW', contested_shots=4.0, box_outs=0.0),
+                      dict(player_name='B Two', team_id=2, team_abbreviation='BOS', contested_shots=3.0, box_outs=0.0)]).to_parquet(
+            self.dir / 'leaguehustlestatsplayer_regular-season_pergame_2017.parquet')
+        pd.DataFrame([dict(team_id=1, team_name='Golden State Warriors', contested_shots=40.0, box_outs=0.0)]).to_parquet(
+            self.dir / 'leaguehustlestatsteam_regular-season_pergame_2017.parquet')
+        team, player = H.hustle_frames(self.get, 2017)[2]
+        self.assertTrue(team.h_box_outs.isna().all() and player.h_box_outs.isna().all())
+        self.assertFalse(player.h_contested_shots.isna().any())
+
 
 if __name__ == '__main__':
     unittest.main()
