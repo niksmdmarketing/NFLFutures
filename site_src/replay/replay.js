@@ -39,7 +39,7 @@
     return '<div class="rp-rel"><h3>How much to trust this</h3>' +
       "<p>Across " + r.n + " replayed " + (D.noun || "seasons") + ", " + (sg === "preseason" ? "<b>before the season</b>" : "in the <b>" + esc(sg) + "</b> of the season") + ", the “" + esc(M.l) + "” percentages were " + verdict +
       " (error score " + r.ll.toFixed(3) + " against " + r.base.toFixed(3) + " for giving every team the same chance)." + shape + "</p>" +
-      '<p class="muted">Weeks in one season move together, so this is really about ' + r.n + " " + (D.noun || "seasons") + " of evidence, not hundreds. Treat gaps of a few points as noise.</p>" +
+      '<p class="muted">Weeks in one season move together, so this is really about ' + r.n + " " + (D.noun || "seasons") + " of evidence, not hundreds. Treat gaps of a few points as noise. This describes how the model did in past seasons; it is not a guarantee about today\u2019s percentages.</p>" +
       '<table class="rp-cal"><thead><tr><th>Model said (range)</th><th>Average said</th><th>Happened</th><th>Team-weeks</th></tr></thead><tbody>' + rows + "</tbody></table></div>";
   }
   function render() {
