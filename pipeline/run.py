@@ -140,6 +140,11 @@ def main():
         trends.build_site()
     except Exception as e:  # noqa: BLE001
         log("cfb trends page failed", e)
+    try:  # week-by-week history of replayed futures percentages (NBA, NHL), linked from each sport's nav
+        import replay_site
+        replay_site.build_site()
+    except Exception as e:  # noqa: BLE001
+        log("replay history pages failed", e)
     try:  # dated list of new statistics and data, linked from every sports bar
         import updates
         updates.build_site()

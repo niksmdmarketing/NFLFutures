@@ -210,3 +210,11 @@ and two-point tries excluded). Shown on the Defense page (havoc created) and Off
 add to the total (turnover first, then sack, tackle for loss, pass breakup), backfilled for 2018 onward by `pipeline/havoc_backfill.py`. On the
 Defensive players view, "Havoc plays" counts plays on which the player is credited with a sack (or half sack), tackle for loss, pass breakup,
 interception or forced fumble (once per play), with per-game and per-100-defensive-snap rates. College football uses the data provider's own havoc rate.
+
+## Week-by-week history and replay (Oct 2026)
+`research/replay_nba.py` and `research/replay_nhl.py` rebuild the futures model at every weekly checkpoint of past seasons (NBA 2013-2026,
+NHL 2014-18 and 2021-25) using only information available at each date, and save every team's title, conference, division, top-seed (NBA)
+and playoff probability to `model/replay/`. `research/replay_score.py` scores them (log loss vs a flat base rate, calibration bins by stage of
+the season) and `research/replay_slope.py` fits a calibration slope. `pipeline/replay_site.py` publishes the "History" page for each sport.
+Replayed means rebuilt from game data: no injuries or rosters, so these are not the numbers the site showed at the time.
+Findings and decisions are in `model/replay/WORKLOG.md`.
