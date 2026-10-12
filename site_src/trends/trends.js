@@ -38,7 +38,9 @@
     if (r.now == null) return '<span class="muted" title="Not known yet this season">not yet</span>';
     if (!r.now.length) return '<span class="muted">none</span>';
     var so = r.timing === "end" ? ' <small title="Based on the season so far">so far</small>' : "";
-    return esc(r.now.join(", ")) + so;
+    var CAP = 8, more = r.now.length > CAP
+      ? ' <span class="muted" title="' + esc(r.now.join(", ")) + '">+' + (r.now.length - CAP) + " more</span>" : "";
+    return esc(r.now.slice(0, CAP).join(", ")) + more + so;
   }
 
   function header(d) {

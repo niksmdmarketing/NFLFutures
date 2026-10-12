@@ -135,6 +135,11 @@ def main():
         log('CFB statistics failed', e)
         if os.path.exists(os.path.join(cfb_site.OUT, 'meta.json')):
             cfb_site.build_site()  # last validated exports, never substitute empty/zero stats
+    try:  # the CFB winner-trends page needs the CFB pages (written just above) as its shell
+        import trends
+        trends.build_site()
+    except Exception as e:  # noqa: BLE001
+        log("cfb trends page failed", e)
     # Cloudflare Pages rejects the whole deployment if any file is over 25 MiB: drop such files loudly instead
     for dirpath, _, files in os.walk(os.path.join(os.path.dirname(OUT), "site")):
         for fn in files:

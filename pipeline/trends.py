@@ -477,6 +477,94 @@ def afl():
     return G, P, M, cfg
 
 
+# ------------------------------------------------------------------ CFB
+
+# College Football Playoff results (title game winner, runner-up) and field, season = year the regular season began.
+# 4-team field 2014-2023, 12-team field from 2024. Names are ESPN display names; checked against the schedule archive
+# (cfb_known_check) so a wrong entry cannot pass silently.
+CFB_FIRST = 2014
+CFB_CFP = {
+    2014: ("Ohio State Buckeyes", "Oregon Ducks", ["Alabama Crimson Tide", "Florida State Seminoles"]),
+    2015: ("Alabama Crimson Tide", "Clemson Tigers", ["Michigan State Spartans", "Oklahoma Sooners"]),
+    2016: ("Clemson Tigers", "Alabama Crimson Tide", ["Ohio State Buckeyes", "Washington Huskies"]),
+    2017: ("Alabama Crimson Tide", "Georgia Bulldogs", ["Clemson Tigers", "Oklahoma Sooners"]),
+    2018: ("Clemson Tigers", "Alabama Crimson Tide", ["Notre Dame Fighting Irish", "Oklahoma Sooners"]),
+    2019: ("LSU Tigers", "Clemson Tigers", ["Ohio State Buckeyes", "Oklahoma Sooners"]),
+    2020: ("Alabama Crimson Tide", "Ohio State Buckeyes", ["Clemson Tigers", "Notre Dame Fighting Irish"]),
+    2021: ("Georgia Bulldogs", "Alabama Crimson Tide", ["Michigan Wolverines", "Cincinnati Bearcats"]),
+    2022: ("Georgia Bulldogs", "TCU Horned Frogs", ["Michigan Wolverines", "Ohio State Buckeyes"]),
+    2023: ("Michigan Wolverines", "Washington Huskies", ["Texas Longhorns", "Alabama Crimson Tide"]),
+    2024: ("Ohio State Buckeyes", "Notre Dame Fighting Irish",
+           ["Oregon Ducks", "Georgia Bulldogs", "Boise State Broncos", "Arizona State Sun Devils", "Texas Longhorns",
+            "Penn State Nittany Lions", "Tennessee Volunteers", "Indiana Hoosiers", "SMU Mustangs", "Clemson Tigers"]),
+    2025: ("Indiana Hoosiers", "Miami Hurricanes",
+           ["Ohio State Buckeyes", "Georgia Bulldogs", "Texas Tech Red Raiders", "Oregon Ducks", "Ole Miss Rebels",
+            "Texas A&M Aggies", "Oklahoma Sooners", "Alabama Crimson Tide", "Tulane Green Wave", "James Madison Dukes"]),
+}
+
+
+def cfb():
+    import cfb_site as C
+    today = dt.date.today()
+    current = today.year - (today.month < 7)
+    Gs, Ms = [], []
+    check = {}
+    for y in range(CFB_FIRST, current + 1):
+        refs, _ = C.fetch("teams", y, current)
+        sch, _ = C.fetch("schedule", y, current)
+        if refs.empty or sch.empty:
+            continue
+        names = {C.key(r.team_id): r.display_name for r in refs.itertuples()}
+        fbs = C.fbs_ids(refs)
+        conf = {C.key(r.team_id): r.conference_name for r in refs.itertuples()}
+        sch = sch[sch.status.astype(str).str.upper().isin(["STATUS_FINAL", "FINAL", "COMPLETED"])]
+        sch = sch[pd.notna(sch.home_score) & pd.notna(sch.away_score)]
+        reg = sch[sch.season_type.astype(int) == 2]
+        for r in reg.itertuples():
+            for side, opp in (("home", "away"), ("away", "home")):
+                t = C.key(getattr(r, side + "_id"))
+                if t not in fbs:
+                    continue
+                pf, pa = getattr(r, side + "_score"), getattr(r, opp + "_score")
+                o = C.key(getattr(r, opp + "_id"))
+                Gs.append(dict(season=y, date=str(r.game_date)[:10], team=names[t], opp=names.get(o, getattr(r, opp + "_team")),
+                               home=(side == "home") and not bool(r.neutral_site), pf=float(pf), pa=float(pa),
+                               pts=1.0 if pf > pa else (0.5 if pf == pa else 0.0), maxpts=1.0, gid=C.key(r.game_id),
+                               win=bool(pf > pa)))
+        for t in fbs:
+            spots = 4 if y <= 2023 else 12
+            Ms.append(dict(season=y, team=names[t], name=names[t], conf="FBS", div=None, spots=spots,
+                           real_conf=conf.get(t)))
+        post = sch[sch.season_type.astype(int) == 3]
+        if len(post):                                   # last FBS-v-FBS postseason game: the title game
+            fb = post[post.home_id.map(C.key).isin(fbs) & post.away_id.map(C.key).isin(fbs)].sort_values("game_date")
+            if len(fb):
+                f = fb.iloc[-1]
+                h, a = names[C.key(f.home_id)], names[C.key(f.away_id)]
+                check[y] = (h, a, f.home_score, f.away_score, str(f.game_date)[:10])
+    G = pd.DataFrame(Gs)
+    M = pd.DataFrame(Ms).drop(columns=["real_conf"])
+    known, field = {}, {}
+    for y, (champ, runner, others) in CFB_CFP.items():
+        if y in check:
+            h, a, hs, as_, d = check[y]
+            win, lose = (h, a) if hs > as_ else (a, h)
+            if (win, lose) != (champ, runner):
+                raise RuntimeError(f"CFB title game {y} in the data is {win} over {lose}, not {champ} over {runner}")
+        known[y] = (champ, runner)
+        field[y] = {champ, runner, *others}
+    M["final_playoffs"] = [(1.0 if t in field[s] else 0.0) if s in field else np.nan for s, t in zip(M.season, M.team)]
+    for y, fl in field.items():
+        have = set(M[M.season == y].team)
+        if not fl <= have:
+            raise RuntimeError(f"CFB {y} playoff teams missing from the FBS list: {sorted(fl - have)}")
+    P = pd.DataFrame(columns=["season", "date", "team", "opp", "home", "pf", "pa", "pts", "maxpts", "gid", "win"])
+    cfg = dict(sport="cfb", name="College football (FBS)", close=8, close_word="8 points or fewer", pyth=2.37,
+               pd_word="point differential", pf_word="points", conf=False, div=False, conf_word="league", deep_rounds=2,
+               label=lambda s: str(int(s)), min_games=1, known=known)
+    return G, P, M, cfg
+
+
 # ------------------------------------------------------------------ build
 
 SECTIONS = {
@@ -491,6 +579,9 @@ SECTIONS = {
             ("playoffs", "Make the playoffs", "teams")],
     "afl": [("champ", "Premiers", "finals teams"), ("finalist", "Reach the Grand Final", "finals teams"),
             ("top_seed", "Minor premiership (top of the ladder)", "all teams"), ("playoffs", "Make the finals", "all teams")],
+    "cfb": [("champ", "National champion (College Football Playoff)", "playoff teams"),
+            ("finalist", "Reach the national championship game", "playoff teams"),
+            ("playoffs", "Make the College Football Playoff", "FBS teams")],
     "nbl": [("champ", "NBL champion", "semi-finalists"), ("finalist", "Reach the Grand Final", "semi-finalists"),
             ("top_seed", "Minor premiership (top of the ladder)", "teams"),
             ("playoffs", "Make the semi-finals", "teams")],
@@ -559,8 +650,9 @@ def review(sport, sec, r):
 
 
 OUTPUT = {"afl": os.path.join(SITE, "afl", "data"), "nfl": os.path.join(SITE, "data"), "nba": os.path.join(SITE, "nba", "data"),
-          "nhl": os.path.join(SITE, "nhl", "data"), "nbl": os.path.join(SITE, "nbl", "data")}
-LOADERS = {"nfl": nfl, "nba": nba, "nhl": nhl, "nbl": nbl, "afl": afl}
+          "nhl": os.path.join(SITE, "nhl", "data"), "nbl": os.path.join(SITE, "nbl", "data"),
+          "cfb": os.path.join(SITE, "cfb", "data")}
+LOADERS = {"cfb": cfb, "nfl": nfl, "nba": nba, "nhl": nhl, "nbl": nbl, "afl": afl}
 
 
 def analyse(sport):
@@ -628,7 +720,7 @@ def analyse(sport):
     try:
         import trends_awards
         acur = cur if cur is not None else int(T.season.max()) + 1
-        aw = trends_awards.RUN[sport](cfg["label"](acur), acur, cur_ok)
+        aw = trends_awards.RUN[sport](cfg["label"](acur), acur, cur_ok) if sport in trends_awards.RUN else []
         for sec in aw:
             for r in sec["trends"]:
                 review(sport, sec["key"], r)
@@ -646,7 +738,7 @@ def analyse(sport):
                 fdr=E.FDR, min_pool=E.MIN_POOL_WITH, sections=out)
 
 
-def build_data(sports=("nfl", "nba", "nhl", "nbl", "afl")):
+def build_data(sports=("nfl", "nba", "nhl", "nbl", "afl", "cfb")):
     for s in sports:
         try:
             res = analyse(s)
@@ -663,7 +755,7 @@ def build_data(sports=("nfl", "nba", "nhl", "nbl", "afl")):
 # ------------------------------------------------------------------ pages
 
 PAGE_DIR = {"nfl": SITE, "nba": os.path.join(SITE, "nba"), "nhl": os.path.join(SITE, "nhl"), "nbl": os.path.join(SITE, "nbl"),
-            "afl": os.path.join(SITE, "afl")}
+            "afl": os.path.join(SITE, "afl"), "cfb": os.path.join(SITE, "cfb")}
 INTRO = ("What past winners of each futures market had in common, tested against every other team in the same pool. "
          "Only patterns that pass a strict noise filter are shown as signals; the rest are listed as noise so you can ignore them.")
 
@@ -701,7 +793,7 @@ def build_site():
         top = re.sub(r'\saria-current=("page"|page|\'page\')', "", top)
         top = re.sub(r'(<div class="sportbar">.*?<a href="(?:\./|\.\./)?"?)', lambda m: m.group(1), top, flags=re.S)
         # keep the sport itself marked as current in the sport bar
-        sport_label = {"nfl": "NFL", "nba": "NBA", "nhl": "NHL", "nbl": "NBL", "afl": "AFL"}[sport]
+        sport_label = {"nfl": "NFL", "nba": "NBA", "nhl": "NHL", "nbl": "NBL", "afl": "AFL", "cfb": "College football"}[sport]
         top = re.sub(rf'(<div class="sportbar">.*?)(<a href="[^"]*">{sport_label}</a>)',
                      lambda m: m.group(1) + m.group(2).replace("<a ", '<a aria-current="page" '), top, count=1, flags=re.S)
         top = top.replace('href="trends.html">Trends', 'href="trends.html" aria-current="page">Trends')
@@ -728,4 +820,4 @@ def build_site():
 
 if __name__ == "__main__":
     import sys
-    build_data(tuple(sys.argv[1:]) or ("nfl", "nba", "nhl", "nbl", "afl"))
+    build_data(tuple(sys.argv[1:]) or ("nfl", "nba", "nhl", "nbl", "afl", "cfb"))

@@ -92,6 +92,9 @@ NHL pages cover standings, futures, team and player statistics, awards and game 
 |---|---|
 | Stats & history | AFL Tables match results, quarter scoring, team season profiles and player season totals from 2012 onward; Brownlow vote and goal leader indicators; Footywire player/team match statistics including contested/uncontested possessions, disposal efficiency, clearances, score involvements, metres gained, intercepts, turnovers and pressure/stoppage measures. The current archive runs through 2026, and the public archive is checked every three hours. |
 
+## College football winner trends
+`/cfb/trends.html` runs the same winner-trends engine as the other sports (`trends.py` `cfb()`): national champion, title-game finalist and College Football Playoff teams for 2014 onward (4-team field to 2023, 12-team from 2024). Regular-season FBS games only (including games against FCS opponents). The playoff results are a hand-kept table (`CFB_CFP`) that the loader checks against the schedule archive's last FBS-v-FBS postseason game and stops loudly on a mismatch. 12 seasons of champions is thin: nothing beats the record for the title, so the page says so rather than showing weak rules. Descriptive and historical, not a forecast.
+
 ## Layout
 
 ```
