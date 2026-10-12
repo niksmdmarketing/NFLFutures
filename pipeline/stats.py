@@ -33,7 +33,10 @@ def _eff(d):
             col("early_epa", "Early-down EPA", "num3", d), col("early_succ", "Early-down success", "pct", d),
             col("expl", "Explosive plays", "pct", d), col("third", "3rd-down conv.", "pct", d), col("rz_td", "Red-zone TD", "pct", d),
             col("to_pg", "Turnovers/G", "num2", lo), col("sack_rate", "Sack rate", "pct", lo),
-            col("press", "Pressure rate", "pct", lo), col("plays_pg", "Plays/G", "num1", None)]
+            col("press", "Pressure rate", "pct", lo),
+            col("havoc", "Havoc rate allowed" if d == "high" else "Havoc rate", "pct", lo,
+                note="Share of run and pass plays that end in a sack, tackle for loss, pass breakup, interception or lost fumble"),
+            col("plays_pg", "Plays/G", "num1", None)]
 
 
 NGS = "NFL Next Gen Stats tracking via nflverse; published for 2018–2025 so far, blank for this season until it is released"

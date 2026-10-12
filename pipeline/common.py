@@ -97,7 +97,7 @@ PBP_COLS = ["game_id", "play_id", "season_type", "week", "home_team", "away_team
             "field_goal_attempt", "extra_point_attempt", "penalty_team", "penalty_yards", "penalty_type",
             "fourth_down_converted", "fourth_down_failed", "pass_touchdown", "rush_touchdown", "return_team",
             "goal_to_go", "drive_time_of_possession", "first_down_rush", "first_down_pass", "first_down_penalty",
-            "fumble_recovery_1_team"]
+            "fumble_recovery_1_team", "tackle_for_loss_1_player_id", "pass_defense_1_player_id"]
 
 
 def load_pbp(season, max_age_h=2.0):
@@ -140,6 +140,9 @@ def scrimmage(d):
     s["db"] = ((s["pass"] == 1) | (s.qb_scramble == 1)).astype(int)
     s["dr"] = ((s["rush"] == 1) & (s.qb_scramble != 1)).astype(int)
     s["to"] = ((s.interception == 1) | (s.fumble_lost == 1)).astype(int)
+    # havoc: a sack, tackle for loss, pass breakup or turnover (interception / lost fumble) on a run or pass play
+    s["havoc"] = ((s.sack == 1) | s.get("tackle_for_loss_1_player_id", pd.Series(index=s.index, dtype=object)).notna()
+                  | s.get("pass_defense_1_player_id", pd.Series(index=s.index, dtype=object)).notna() | (s.to == 1)).astype(float)
     s["expl"] = (((s["pass"] == 1) & (s.yards_gained >= 15)) | ((s["rush"] == 1) & (s.yards_gained >= 10))).astype(float)
     return s
 
