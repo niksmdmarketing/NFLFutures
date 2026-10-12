@@ -70,18 +70,18 @@ def season_games(Sd):
     if not rows:
         return pd.DataFrame(), todo, reg_n
     x = pd.DataFrame(rows).sort_values("date").reset_index(drop=True)
-    if x.phase.str.lower().str.contains("final").any():
-        x["fin"] = x.phase.str.lower().str.contains("final")
-    else:                                              # older feed: a game is a final once both teams have played their regular count
-        cnt = {t: 0 for t in reg_n}
-        fin = []
-        for h, a in zip(x.h, x.a):
-            f_ = cnt[h] >= reg_n[h] and cnt[a] >= reg_n[a]
-            fin.append(f_)
-            if not f_:
-                cnt[h] += 1
-                cnt[a] += 1
-        x["fin"] = fin
+    # A game is a final if the feed says so, or if either team has already played its standings (regular-season)
+    # count: a team cannot play more than that many ladder games, so anything later is play-in/semi/final.
+    named = x.phase.str.lower().str.contains("final|play|semi|elim|champ")
+    cnt = {t: 0 for t in reg_n}
+    fin = []
+    for h, a, nm in zip(x.h, x.a, named):
+        f_ = bool(nm) or cnt[h] >= reg_n[h] or cnt[a] >= reg_n[a]
+        fin.append(f_)
+        if not f_:
+            cnt[h] += 1
+            cnt[a] += 1
+    x["fin"] = fin
     return x, todo, reg_n
 
 
