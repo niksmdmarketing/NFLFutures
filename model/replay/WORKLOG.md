@@ -121,3 +121,13 @@ correlated within seasons); near-certainties (85-95%) 86.5% vs 90.2%. Student-t 
 afl_site.GAME_DF, default 0 = normal) did not help: overall -0.0005 to 0.0000, late season worse, tails unchanged.
 Together with the earlier tau/fade/drift/spread/recency tests, no setting fixes the tails; AFL left unchanged.
 The 2026 top-10 format has only the live 2026 archive as evidence.
+
+## Live check (13 Oct 2026, pipeline/live_check.py)
+Each sport's History page now scores this season's published forecasts from the forecast-archive branch:
+- NFL games: every completed game scored once from the latest snapshot before its date, v4 and the v3 challenger, using
+  each model's own single-game probability (first 13 games: v4 0.646, v3 0.639, coin flip 0.693).
+- Other sports: the Outlook page's pre-game win chances (schedule.json, next 8 days) are archived with every snapshot
+  (from 13 Oct) and scored the same way once results arrive.
+- Futures: from half-way through a season, team-markets at exactly 0%/100% in the newest snapshot count as settled and
+  every earlier snapshot is scored (live model and archived challengers, same rows). After the season this is complete.
+Team ratings are also archived (rating_x100) for later checks.
