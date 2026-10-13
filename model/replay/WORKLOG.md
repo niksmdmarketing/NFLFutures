@@ -193,3 +193,5 @@ Winners keyed by AFL Tables player ID (name keys merged the two Josh Kennedys). 
 8/14 seasons; favourite then 30-36% said vs 19-25% won (still short). Page note now says the favourite wins about 1 in 4.
 - Award chances are now archived with every sport snapshot (sport_archive.award_chances: name, team, per-mille, top 15
   per award) so the live check can score them when the awards are announced.
+- Coleman settings, walk-forward check (choose on earlier seasons only, score the next, 2016-2026): 1.935 vs 1.863 for the
+  fixed K 4 / shape 8 (chosen on all seasons). Shape 8 is chosen in every fold; K drifts (4-12). Expect about 1.9 live.
