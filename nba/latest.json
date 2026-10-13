@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-10-12T2224Z",
-"feed_timestamp": "2026-10-12T22:23:56Z",
+"collected_utc": "2026-10-13T0053Z",
+"feed_timestamp": "2026-10-13T00:53:15Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -418,46 +418,34 @@
 "injury": "Left Ankle Sprain"
 },
 {
-"athlete_id": "4594268",
-"status": "Day-To-Day",
-"return_date": "2026-10-12",
-"injury": "Rest"
-},
-{
-"athlete_id": "4397002",
-"status": "Day-To-Day",
-"return_date": "2026-10-12",
-"injury": "Rest"
-},
-{
 "athlete_id": "3934673",
 "status": "Out",
 "return_date": "2027-04-01",
 "injury": "Right Achilles Surgery"
 },
 {
-"athlete_id": "4431671",
+"athlete_id": "4592699",
 "status": "Day-To-Day",
-"return_date": "2026-10-12",
-"injury": "Rest"
+"return_date": "2026-10-14",
+"injury": "Shoulder"
 },
 {
 "athlete_id": "4433247",
 "status": "Day-To-Day",
-"return_date": "2026-10-12",
+"return_date": "2026-10-14",
 "injury": "Rest"
 },
 {
-"athlete_id": "4432816",
+"athlete_id": "5157587",
 "status": "Day-To-Day",
-"return_date": "2026-10-12",
-"injury": "Rest"
+"return_date": "2026-10-14",
+"injury": "Undisclosed"
 },
 {
-"athlete_id": "3032976",
+"athlete_id": "4432847",
 "status": "Day-To-Day",
-"return_date": "2026-10-12",
-"injury": "Rest"
+"return_date": "2026-10-14",
+"injury": "Undisclosed"
 },
 {
 "athlete_id": "3907497",
@@ -772,9 +760,9 @@
 "injury": "Teeth"
 },
 {
-"athlete_id": "5105839",
+"athlete_id": "4396963",
 "status": "Day-To-Day",
-"return_date": "2026-10-12",
+"return_date": "2026-10-16",
 "injury": "Left Hip"
 },
 {
@@ -788,12 +776,6 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-21",
 "injury": "Back"
-},
-{
-"athlete_id": "4066336",
-"status": "Day-To-Day",
-"return_date": "2026-10-12",
-"injury": "Neck Soreness"
 },
 {
 "athlete_id": "6583",
@@ -1449,24 +1431,6 @@
 "updated": "2026-10-11T22:41Z"
 },
 {
-"athlete_id": "4594268",
-"name": "Anthony Edwards",
-"team_name": "Minnesota Timberwolves",
-"status": "Day-To-Day",
-"return_date": "2026-10-12",
-"injury": "Rest",
-"updated": "2026-10-10T23:38Z"
-},
-{
-"athlete_id": "4397002",
-"name": "Ayo Dosunmu",
-"team_name": "Minnesota Timberwolves",
-"status": "Day-To-Day",
-"return_date": "2026-10-12",
-"injury": "Rest",
-"updated": "2026-10-10T23:45Z"
-},
-{
 "athlete_id": "3934673",
 "name": "Donte DiVincenzo",
 "team_name": "Minnesota Timberwolves",
@@ -1476,40 +1440,40 @@
 "updated": "2026-10-05T20:53Z"
 },
 {
-"athlete_id": "4431671",
-"name": "Jaden McDaniels",
+"athlete_id": "4592699",
+"name": "Enrique Freeman",
 "team_name": "Minnesota Timberwolves",
 "status": "Day-To-Day",
-"return_date": "2026-10-12",
-"injury": "Rest",
-"updated": "2026-10-10T23:47Z"
+"return_date": "2026-10-14",
+"injury": "Shoulder",
+"updated": "2026-10-12T23:24Z"
 },
 {
 "athlete_id": "4433247",
 "name": "Jonathan Kuminga",
 "team_name": "Minnesota Timberwolves",
 "status": "Day-To-Day",
-"return_date": "2026-10-12",
+"return_date": "2026-10-14",
 "injury": "Rest",
-"updated": "2026-10-10T23:46Z"
+"updated": "2026-10-12T23:29Z"
 },
 {
-"athlete_id": "4432816",
-"name": "LaMelo Ball",
+"athlete_id": "5157587",
+"name": "Rocco Zikarsky",
 "team_name": "Minnesota Timberwolves",
 "status": "Day-To-Day",
-"return_date": "2026-10-12",
-"injury": "Rest",
-"updated": "2026-10-10T23:37Z"
+"return_date": "2026-10-14",
+"injury": "Undisclosed",
+"updated": "2026-10-12T23:36Z"
 },
 {
-"athlete_id": "3032976",
-"name": "Rudy Gobert",
+"athlete_id": "4432847",
+"name": "Terrence Shannon Jr.",
 "team_name": "Minnesota Timberwolves",
 "status": "Day-To-Day",
-"return_date": "2026-10-12",
-"injury": "Rest",
-"updated": "2026-10-10T23:44Z"
+"return_date": "2026-10-14",
+"injury": "Undisclosed",
+"updated": "2026-10-12T23:30Z"
 },
 {
 "athlete_id": "3907497",
@@ -1980,13 +1944,13 @@
 "updated": "2026-10-12T20:40Z"
 },
 {
-"athlete_id": "5105839",
-"name": "Brice Sensabaugh",
+"athlete_id": "4396963",
+"name": "Blake Hinson",
 "team_name": "Utah Jazz",
 "status": "Day-To-Day",
-"return_date": "2026-10-12",
+"return_date": "2026-10-16",
 "injury": "Left Hip",
-"updated": "2026-10-07T00:28Z"
+"updated": "2026-10-13T00:09Z"
 },
 {
 "athlete_id": "3102530",
@@ -2005,15 +1969,6 @@
 "return_date": "2026-10-21",
 "injury": "Back",
 "updated": "2026-10-10T20:12Z"
-},
-{
-"athlete_id": "4066336",
-"name": "Lauri Markkanen",
-"team_name": "Utah Jazz",
-"status": "Day-To-Day",
-"return_date": "2026-10-12",
-"injury": "Neck Soreness",
-"updated": "2026-10-07T00:50Z"
 },
 {
 "athlete_id": "6583",
