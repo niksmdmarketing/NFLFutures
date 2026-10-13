@@ -1,0 +1,38 @@
+name: NHL award snapshots (research)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: nhl-award-snapshots
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Season dates from the published games files
+        run: |
+          git fetch -q origin published
+          mkdir -p site/nhl/data
+          for y in $(seq 2011 2025); do git show origin/published:nhl/data/games_$y.json > site/nhl/data/games_$y.json || true; done
+      - name: Fetch dated season-to-date reports
+        run: python research/nhl_award_snapshots.py 2011 2025
+      - name: Save
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add model/replay/nhl_award_snapshots
+          if ! git diff --cached --quiet; then
+            git commit -q -m "NHL award research snapshots [skip ci]"
+            git pull -q --rebase origin main
+            git push -q origin HEAD:main
+          fi
