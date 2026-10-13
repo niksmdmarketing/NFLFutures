@@ -89,3 +89,7 @@ Futures resolve only at the end of a season, so the live archives (forecast-arch
 3. Test the exploratory NBA setting (decay 0.1, current-season weight 8) and the soccer prior weight (30) on the new season only, as held-out evidence. Change a deployed setting only if it improves the new season's scores without hurting other markets and tests pass; otherwise write it up undeployed.
 Approximate end dates: AFL 2026 (done, Grand Final played), NBL March 2027, NFL Super Bowl February 2027, soccer leagues May 2027, NBA and NHL finals June 2027.
 A monthly read-only health check (scheduled task, 1st of each month 8:52 Melbourne) checks the archives, workflows and pages, and says when these dates have been reached.
+
+## NFL: playoff simulation and walk-forward weights (13 Oct 2026)
+See model/v5_notes.md. Replay extended to 2013-2025 with walk-forward weights (13 out-of-sample seasons). Playoff home edge 4.0
+is the only change with an interval above zero (conference and title only); added as archived challenger_v5. v4 unchanged.

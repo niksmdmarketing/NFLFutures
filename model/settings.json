@@ -433,5 +433,11 @@
   "n_sims": 20000,
   "rating": "base + qb_adj (no scale, no pressure)",
   "note": "Run alongside v4 every refresh and archived; on 2022-2025 it was more accurate than v4 for conference and Super Bowl, less for division."
+ },
+ "challenger_v5": {
+  "name": "v5 candidate: playoff home edge 4.0",
+  "hfa_post": 4.0,
+  "n_sims": 20000,
+  "note": "Same ratings and settings as v4 except the home edge in conference playoff games (4.0 instead of 1.8). Walk-forward replay 2013-2025: conference log loss -0.0034, title -0.0008, better in 10 of 13 seasons (research/nfl_walkforward_weights.py, model/v5_notes.md). Archived alongside v4; not shown as the live forecast."
  }
 }

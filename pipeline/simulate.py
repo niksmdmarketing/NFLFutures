@@ -31,8 +31,9 @@ for di, (name, ts) in enumerate(DIVS.items()):
 CONF_DIVS = {0: [0, 1, 2, 3], 1: [4, 5, 6, 7]}
 
 
-def simulate(g, R, N, tau, sigma, hfa, seed=7):
-    """g: this season's regular-season games (with result where played). Returns probabilities + wins."""
+def simulate(g, R, N, tau, sigma, hfa, seed=7, hfa_post=None):
+    """g: this season's regular-season games (with result where played). Returns probabilities + wins.
+    hfa_post: home edge in the conference playoff rounds (research option; None = hfa, the frozen v4 behaviour)."""
     rng = np.random.default_rng(seed)
     g = g.sort_values(["week", "gameday", "game_id"]).reset_index(drop=True)
     hi, ai = g.home_team.map(TIX).values, g.away_team.map(TIX).values
@@ -161,6 +162,7 @@ def simulate(g, R, N, tau, sigma, hfa, seed=7):
             rest.remove(t)
         return out
 
+    hpo = hfa if hfa_post is None else hfa_post
     cnt = {k: np.zeros(NT) for k in ("div", "playoff", "seed1", "conf", "sb")}
     seeds_count = np.zeros((NT, 7))
 
@@ -188,17 +190,17 @@ def simulate(g, R, N, tau, sigma, hfa, seed=7):
             alive = [seeds[0]]
             for h, a in ((1, 6), (2, 5), (3, 4)):
                 x, y = seeds[h], seeds[a]
-                p = norm.cdf((Rs[s, x] - Rs[s, y] + hfa) / sigma)
+                p = norm.cdf((Rs[s, x] - Rs[s, y] + hpo) / sigma)
                 alive.append(x if rnd2[s, gi] < p else y); gi += 1
             alive.sort(key=lambda t: rank[t])
             r2 = []
             while alive:
                 x, y = alive.pop(0), alive.pop(-1)
-                p = norm.cdf((Rs[s, x] - Rs[s, y] + hfa) / sigma)
+                p = norm.cdf((Rs[s, x] - Rs[s, y] + hpo) / sigma)
                 r2.append(x if rnd2[s, gi] < p else y); gi += 1
             r2.sort(key=lambda t: rank[t])
             x, y = r2
-            p = norm.cdf((Rs[s, x] - Rs[s, y] + hfa) / sigma)
+            p = norm.cdf((Rs[s, x] - Rs[s, y] + hpo) / sigma)
             champ = x if rnd2[s, gi] < p else y; gi += 1
             cnt["conf"][champ] += 1
             champs.append(champ)

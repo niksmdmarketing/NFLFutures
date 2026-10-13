@@ -26,10 +26,18 @@ SIMS = int(os.environ.get("BT_SIMS", "4000"))
 # BT_SCALE (rating_scale), BT_TAU, BT_SIGMA, BT_TAUFADE (share of tau removed by the end of the regular season).
 OVR = {k: float(os.environ[e]) for k, e in (("rating_scale", "BT_SCALE"), ("tau", "BT_TAU"), ("sigma", "BT_SIGMA")) if os.environ.get(e)}
 TAUFADE = float(os.environ.get("BT_TAUFADE", "0"))
+HFA_POST = float(os.environ["BT_HFA_POST"]) if os.environ.get("BT_HFA_POST") else None
+# BT_COEF=wf: rating weights re-trained walk-forward (research/nfl_walkforward_weights.py), so each season is out of sample.
+WF = None
+if os.environ.get("BT_COEF") == "wf":
+    import json
+    WF = json.load(open(os.path.join(ROOT, "model", "replay", "nfl_wf_coef.json")))["seasons"]
 OUT = os.environ.get("BT_OUTDIR") or os.path.join(ROOT, "model", "replay")
 
 
 def run_season(g, y):
+    if WF is not None:
+        ratings.P["coef"] = WF[str(y)]["coef"]
     cur_all, pri = load_pbp(y), load_pbp(y - 1)
     out = B.outcomes(g, y)
     P = {**ratings.S["sim"], **OVR}
@@ -47,7 +55,7 @@ def run_season(g, y):
         gp = np.array([((played.home_team == t) | (played.away_team == t)).sum() for t in TEAMS], float)
         R = P.get("rating_scale", 1.0) * base
         R = R - R.mean()
-        res = simulate.simulate(greg, R, SIMS, P["tau"] * (1 - TAUFADE * min(gp.mean() / 17.0, 1.0)), P["sigma"], P["hfa"])
+        res = simulate.simulate(greg, R, SIMS, P["tau"] * (1 - TAUFADE * min(gp.mean() / 17.0, 1.0)), P["sigma"], P["hfa"], hfa_post=HFA_POST)
         date = str(pd.to_datetime(played.gameday).max().date()) if len(played) else str(pd.to_datetime(reg_all.gameday).min().date())
         for i, t in enumerate(TEAMS):
             rows.append(dict(season=y, week=w, date=date, gp_avg=round(float(gp.mean()), 1), team=t, p_div=float(res["div"][i]), p_playoff=float(res["playoff"][i]),

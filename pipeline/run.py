@@ -58,6 +58,13 @@ def main():
                                                         **{k: round(float(rc[k.replace("p_", "")][i]), 4) for k in ("p_div", "p_playoff", "p_seed1", "p_conf", "p_sb")}}
                                                     for i, t in enumerate(TEAMS)}}
         log("challenger simulation done")
+    C5 = ratings.S.get("challenger_v5")
+    challenger_v5 = None
+    if C5:
+        r5 = simulate.simulate(greg, Rv, int(os.environ.get("N_SIMS_CHALLENGER", C5["n_sims"])), S["tau"], S["sigma"], S["hfa"], hfa_post=C5["hfa_post"])
+        challenger_v5 = {"name": C5["name"], "teams": {t: {k: round(float(r5[k.replace("p_", "")][i]), 4)
+                                                          for k in ("p_div", "p_playoff", "p_seed1", "p_conf", "p_sb")} for i, t in enumerate(TEAMS)}}
+        log("v5 candidate simulation done")
     now = dt.datetime.now(dt.timezone.utc)
     meta = {"season": season, "through_week": through, "next_week": next_week, "next_week_played": played_next, "updated_utc": now.isoformat(timespec="minutes"),
             "injury_week": int(injuries.week.max()) if injuries is not None and len(injuries) else None,
@@ -65,7 +72,7 @@ def main():
     write_json("meta.json", meta)
     write_json("futures.json", {"season": season, "through_week": through,
                                 "teams": simulate.futures_table(res, Rv, R),
-                                "track_record": _track_record(), "challenger": challenger})
+                                "track_record": _track_record(), "challenger": challenger, "challenger_v5": challenger_v5})
     write_json("awards.json", awards.build(season, g, res, injuries))
     log("awards done")
     import award_race, players  # noqa: E401

@@ -31,7 +31,7 @@ def main(arch):
     body = {"model": meta.get("model"), "season": meta["season"], "through_week": meta.get("through_week"),
             "next_week": meta.get("next_week"), "next_week_played": meta.get("next_week_played"),
             "injury_week": meta.get("injury_week"), "n_sims": meta.get("n_sims"), "teams": teams, "awards": awards,
-            "challenger": fut.get("challenger")}
+            "challenger": fut.get("challenger"), "challenger_v5": fut.get("challenger_v5")}
     digest = hashlib.sha256(json.dumps(body, sort_keys=True).encode()).hexdigest()[:16]
     d = os.path.join(arch, str(meta["season"]))
     os.makedirs(d, exist_ok=True)
