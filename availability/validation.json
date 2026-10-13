@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-10-13T00:46:35+00:00",
+ "checked_utc": "2026-10-13T07:47:11+00:00",
  "leagues": {
   "nfl": {
-   "records": 1623,
+   "records": 1625,
    "by_layer": {
     "official": 1547,
-    "reported": 76
+    "reported": 78
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -55,6 +55,14 @@
      "source": "ESPN injury note"
     },
     {
+     "player": "DeVonta Smith",
+     "official": [
+      "out"
+     ],
+     "other": "expected to play",
+     "source": "ESPN injury note"
+    },
+    {
      "player": "Saquon Barkley",
      "official": [
       "out"
@@ -88,13 +96,13 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "76/76"
+   "reported_matched_to_official_list": "78/78"
   },
   "nba": {
-   "records": 240,
+   "records": 246,
    "by_layer": {
-    "official": 159,
-    "reported": 81
+    "official": 162,
+    "reported": 84
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -119,6 +127,7 @@
     "MIL",
     "MIN",
     "NO",
+    "NY",
     "OKC",
     "ORL",
     "PHI",
@@ -132,9 +141,7 @@
    ],
    "conflicts": [],
    "stale_projection_dates": 0,
-   "teams_missing_official": [
-    "NY"
-   ],
+   "teams_missing_official": [],
    "season_state": {
     "state": "off_season",
     "why": "0 regular-season/playoff and 31 other games 2026-10-06..2026-10-23"
@@ -142,14 +149,14 @@
    "coverage_expected": false,
    "teams_missing_official_note": "off-season: no official coverage expected",
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "81/81"
+   "reported_matched_to_official_list": "84/84"
   },
   "nhl": {
-   "records": 1510,
+   "records": 1540,
    "by_layer": {
-    "official": 147,
-    "reported": 51,
-    "projected": 1312
+    "official": 149,
+    "reported": 53,
+    "projected": 1338
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -197,12 +204,12 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "50/51"
+   "reported_matched_to_official_list": "52/53"
   },
   "nbl": {
-   "records": 23,
+   "records": 25,
    "by_layer": {
-    "official": 23
+    "official": 25
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -272,7 +279,7 @@
   }
  },
  "sources_failed": [
-  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 50 h old"
+  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 57 h old"
  ],
  "sources_not_expected": [
   "nba: NBA official injury report (PDF, file-name time) - not expected: no regular-season or playoff games in the window (0 regular-season/playoff and 31 other games 2026-10-06..2026-10-23)"
