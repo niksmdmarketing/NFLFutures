@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-10-12T18:00:02+00:00",
+ "checked_utc": "2026-10-13T00:46:35+00:00",
  "leagues": {
   "nfl": {
-   "records": 1617,
+   "records": 1623,
    "by_layer": {
     "official": 1547,
-    "reported": 70
+    "reported": 76
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -53,23 +53,48 @@
      ],
      "other": "expected to play",
      "source": "ESPN injury note"
+    },
+    {
+     "player": "Saquon Barkley",
+     "official": [
+      "out"
+     ],
+     "other": "expected to play",
+     "source": "ESPN injury note"
+    },
+    {
+     "player": "Michael Carter II",
+     "official": [
+      "active",
+      "questionable"
+     ],
+     "other": "expected out",
+     "source": "ESPN injury note"
+    },
+    {
+     "player": "Kyle Juszczyk",
+     "official": [
+      "out"
+     ],
+     "other": "expected to play",
+     "source": "ESPN injury note"
     }
    ],
    "stale_projection_dates": 0,
    "teams_missing_official": [],
    "season_state": {
     "state": "in_season",
-    "why": "15 regular-season/playoff and 0 other games 2026-10-05..2026-10-22"
+    "why": "2 regular-season/playoff and 0 other games 2026-10-06..2026-10-23"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "70/70"
+   "reported_matched_to_official_list": "76/76"
   },
   "nba": {
-   "records": 239,
+   "records": 240,
    "by_layer": {
-    "official": 156,
-    "reported": 83
+    "official": 159,
+    "reported": 81
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -94,7 +119,6 @@
     "MIL",
     "MIN",
     "NO",
-    "NY",
     "OKC",
     "ORL",
     "PHI",
@@ -108,20 +132,22 @@
    ],
    "conflicts": [],
    "stale_projection_dates": 0,
-   "teams_missing_official": [],
+   "teams_missing_official": [
+    "NY"
+   ],
    "season_state": {
     "state": "off_season",
-    "why": "0 regular-season/playoff and 23 other games 2026-10-05..2026-10-22"
+    "why": "0 regular-season/playoff and 31 other games 2026-10-06..2026-10-23"
    },
    "coverage_expected": false,
    "teams_missing_official_note": "off-season: no official coverage expected",
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "83/83"
+   "reported_matched_to_official_list": "81/81"
   },
   "nhl": {
-   "records": 1508,
+   "records": 1510,
    "by_layer": {
-    "official": 145,
+    "official": 147,
     "reported": 51,
     "projected": 1312
    },
@@ -133,6 +159,7 @@
     "BOS",
     "BUF",
     "CAR",
+    "CBJ",
     "CGY",
     "CHI",
     "COL",
@@ -161,23 +188,12 @@
     "WPG",
     "WSH"
    ],
-   "conflicts": [
-    {
-     "player": "Marcus Foligno",
-     "official": [
-      "out"
-     ],
-     "other": "expected to play",
-     "source": "NHL.com game previews"
-    }
-   ],
+   "conflicts": [],
    "stale_projection_dates": 0,
-   "teams_missing_official": [
-    "CBJ"
-   ],
+   "teams_missing_official": [],
    "season_state": {
     "state": "in_season",
-    "why": "35 regular-season/playoff and 0 other games 2026-10-05..2026-10-22"
+    "why": "34 regular-season/playoff and 0 other games 2026-10-06..2026-10-23"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
@@ -208,7 +224,7 @@
    "teams_missing_official": [],
    "season_state": {
     "state": "in_season",
-    "why": "16 NBL games 2026-10-05..2026-10-22 (NBL fixture, season 2026)"
+    "why": "17 NBL games 2026-10-06..2026-10-23 (NBL fixture, season 2026)"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
@@ -247,7 +263,7 @@
    ],
    "season_state": {
     "state": "off_season",
-    "why": "0 AFL games 2026-10-05..2026-10-22 (Squiggle fixture)"
+    "why": "0 AFL games 2026-10-06..2026-10-23 (Squiggle fixture)"
    },
    "coverage_expected": false,
    "teams_missing_official_note": "off-season: no official coverage expected",
@@ -256,9 +272,9 @@
   }
  },
  "sources_failed": [
-  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 43 h old"
+  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 50 h old"
  ],
  "sources_not_expected": [
-  "nba: NBA official injury report (PDF, file-name time) - not expected: no regular-season or playoff games in the window (0 regular-season/playoff and 23 other games 2026-10-05..2026-10-22)"
+  "nba: NBA official injury report (PDF, file-name time) - not expected: no regular-season or playoff games in the window (0 regular-season/playoff and 31 other games 2026-10-06..2026-10-23)"
  ]
 }
