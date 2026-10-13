@@ -141,3 +141,13 @@ Wembanyama 2025-26 DPOY with 63 games of 20+).
 - mean -log p(winner): 0.09 better (season-cluster 90% 0.034 to 0.147); MVP 0.11, DPOY 0.11, Sixth Man 0.11, ROY 0.03.
 - first quarter: favourite said 58% vs won 31% (live) -> 47% vs 34% (sim); later stages similar or better.
 - lower noise (talent 0.04, health 0.06) slightly worse. Deployed in nba_site.awards with stats-to-date fallback.
+
+## NFL awards: weekly replay 2018-2025 (14 Oct 2026)
+research/nfl_awards_replay.py: weeks 4-16, live projection method, no historical injury lists. Live weights are fitted
+on 2010-2025 (in-sample); honest leave-one-season-out refits score worse (expected) but show the same pattern.
+- Favourite calibration (live weights): weeks 4-6 says 29% / won 23%; weeks 8-10 28% / 35%; weeks 12-16 32% / 51%.
+- Late sharpening, temperature chosen leave-one-season-out per award and stage: OROY T 0.5 from week 8 (+0.33, 7/8
+  seasons), DROY T 0.5 (+0.83, 7/8), OPOY T 0.7 (+0.08, 6/8); MVP/DPOY/CPOY and every early-season choice no gain.
+  DEPLOYED for those three awards from week 8 (awards.LATE_T; TypeSafe 99%).
+- Comeback Player: winner outside the candidate pool 25% of the time; favourite says 22%, wins 11%. The page already
+  marks it "No proven skill" (names to watch, not odds).

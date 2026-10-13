@@ -22,6 +22,10 @@ COUNT = ["attempts", "passing_yards", "passing_tds", "passing_interceptions", "c
          "def_pass_defended", "def_fumbles_forced", "def_tackles_solo", "def_tackle_assists", "def_qb_hits"]
 EPA = ["passing_epa", "rushing_epa", "receiving_epa"]
 RATE_SD, P_AVAIL, PRIOR_G = 0.22, 0.9, 6.0
+# From week 8 the favourite was too cautious in the 2018-2025 weekly replay (said 32%, won 51%). Temperatures chosen
+# leave-one-season-out (research/nfl_awards_replay.py, Oct 2026): rookies 0.5 (better in 7 of 8 seasons), OPOY 0.7 (6 of 8);
+# MVP, DPOY and CPOY gained nothing and stay as fitted.
+LATE_T, LATE_FROM = {"OROY": 0.5, "DROY": 0.5, "OPOY": 0.7}, 8
 NAMES = {"MVP": "Most Valuable Player", "OPOY": "Offensive Player of the Year", "DPOY": "Defensive Player of the Year",
          "OROY": "Offensive Rookie of the Year", "DROY": "Defensive Rookie of the Year",
          "CPOY": "Comeback Player of the Year", "COY": "Coach of the Year"}
@@ -164,6 +168,8 @@ def build(season, games, sim_res, injuries):
         sim = project(c, ctx, W.shape[0], rng)
         X = np.stack([(sim[f] - p["mu"][i]) / p["sd"][i] for i, f in enumerate(p["feats"])], axis=-1)
         eta = (X @ np.array(p["b"])) / p["T"]
+        if np.median(list(played.values())) >= LATE_FROM:
+            eta = eta / LATE_T.get(a, 1.0)
         prob = np.exp(eta - logsumexp(eta, axis=0, keepdims=True)).mean(1)
         c["prob"] = prob
         c = c.sort_values("prob", ascending=False)
