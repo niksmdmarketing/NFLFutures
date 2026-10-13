@@ -1,4 +1,4 @@
-import json, os, sys, unittest
+import json, os, re, sys, unittest
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "pipeline"))
 import replay_site as R
 
@@ -19,6 +19,12 @@ class Replay(unittest.TestCase):
                         self.assertAlmostEqual(sum(rows[-1]) / 1000, 1.0, delta=0.05)
                     self.assertEqual(len(s["o"][k]), len(s["teams"]))
             self.assertEqual(d["seasons"][0]["label"][:4], str(d["seasons"][0]["y"] - (1 if cfg.get("end_year") else 0)))
+
+    def test_nfl_lives_at_site_root_with_history_link(self):
+        cfg = R.SPORTS["nfl"]
+        self.assertEqual(cfg["dir"], "")
+        nav = '<div class="navgrp"><a href="./">Futures</a><a href="matchups.html">Matchups</a></div>'
+        self.assertEqual(re.sub(cfg["nav_after"], r'\\1<a href="replay.html">History</a>', nav, count=1).count("replay.html"), 1)
 
     def test_season_labels(self):
         self.assertEqual(R.season_label(2026, True), "2025-26")

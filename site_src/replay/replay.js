@@ -62,7 +62,7 @@
       '<input type="range" id="rp-w" min="0" max="' + (S.weeks.length - 1) + '" value="' + st.w + '" step="1"></div></div>' +
       '<div class="rp-head"><b>' + esc(M.l) + "</b><span class=\"rp-tag\">" + (S.live ? "live: as published" : "replayed") + "</span><span class=\"muted\">" + (wk.gp ? "about " + wk.gp.toFixed(0) + " games played per team" : "before the season") + "</span></div>" +
       '<div class="scroll"><table class="rp"><thead><tr><th>Team</th><th>Chance</th><th title="Change since the previous checkpoint, in percentage points">1 ' + U + '</th><th class="hide-sm" title="Change over the previous four checkpoints">4 ' + U + 's</th>' + (S.live ? "" : '<th title="Did it happen that season?">Result</th>') + '</tr></thead><tbody>' +
-      rows + "</tbody></table></div>" + reliability(S, M, st.w);
+      rows + "</tbody></table></div>" + (D.caveat ? '<p class="note rp-caveat">' + esc(D.caveat) + "</p>" : "") + reliability(S, M, st.w);
     document.getElementById("rp-s").onchange = function (e) { st.s = +e.target.value; st.w = 0; store("rp-s", st.s); render(); };
     document.getElementById("rp-w").oninput = function (e) { st.w = +e.target.value; render(); document.getElementById("rp-w").focus(); };
     Array.prototype.forEach.call(document.querySelectorAll("#rp-m button"), function (b) { b.onclick = function () { st.m = +b.getAttribute("data-m"); render(); }; });

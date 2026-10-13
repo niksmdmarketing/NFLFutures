@@ -21,16 +21,19 @@ FIELDS = {
     "nba": {"title": "p_title", "finals": "p_conf", "div": "p_div", "seed1": "p_seed1", "playoff": "p_playoff"},
     "nhl": {"title": "p_cup", "finals": "p_final", "div": "p_div", "playoff": "p_playoffs"},
     "nbl": {"title": "champ", "finals": "gf", "div": "p2", "seed1": "p1", "playoff": "p6"},
+    "nfl": {"title": "p_sb", "finals": "p_conf", "div": "p_div", "seed1": "p_seed1", "playoff": "p_playoff"},
     "afl": {"title": "flag", "finals": "gf", "pf": "pf", "div": "p4", "seed1": "p1", "top8": "p8", "playoff": "p10"},
 }
 
 
 def snapshot(sport, site_dir):
-    path = os.path.join(site_dir, sport, "data", "futures.json")
+    path = os.path.join(site_dir, "data" if sport == "nfl" else os.path.join(sport, "data"), "futures.json")
     if not os.path.exists(path):
         return None
     d = json.load(open(path))
     teams = d.get("teams") or []
+    if isinstance(teams, dict):       # NFL: {abbreviation: {...}}; games played = weeks completed
+        teams = [dict(v, team=k, gp=d.get("through_week")) for k, v in teams.items()]
     if not teams:
         return None
     rows = sorted(teams, key=lambda r: r["team"])

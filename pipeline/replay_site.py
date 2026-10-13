@@ -20,6 +20,11 @@ SRC = os.path.join(ROOT, "site_src", "replay")
 REPLAY = os.path.join(ROOT, "model", "replay")
 SITE = os.path.join(ROOT, "site")
 SPORTS = {
+    "nfl": {"label": "NFL", "dir": "", "end_year": None, "games": 17, "nav_after": r'(<a href="matchups\.html"[^>]*>Matchups</a>)',
+            "caveat": "NFL history covers only four seasons (2022 to 2025): the rating weights were trained on 2010 to 2021, and the spread of outcomes was tuned on 2022 to 2025, so even these are not fully unseen. Four seasons is very little evidence, especially for the Super Bowl and conference markets. The live model also uses quarterback and injury adjustments that the replay cannot.",
+            "markets": [("title", "p_title", "y_title", "Win the Super Bowl"), ("finals", "p_conf", "y_finals", "Win the conference"),
+                        ("div", "p_div", "y_div", "Win the division"), ("seed1", "p_seed1", "y_seed1", "No. 1 seed"),
+                        ("playoff", "p_playoff", "y_playoff", "Make the playoffs")]},
     "nba": {"label": "NBA", "dir": "nba", "end_year": True, "games": 82, "markets": [("title", "p_title", "y_title", "Win the title"), ("finals", "p_conf", "y_finals", "Win the conference"),
                                                         ("div", "p_div", "y_div", "Win the division"), ("seed1", "p_seed1", "y_seed1", "Top seed in the conference"),
                                                         ("playoff", "p_playoff", "y_playoff", "Make the playoffs")]},
@@ -114,12 +119,13 @@ def build_sport(sport, cfg, archive=None):
                 rel[st][k] = {"ll": r[k]["logloss"], "base": r[k]["base"], "gain": r[k]["gain"], "cal": r[k]["calibration"],
                               "slope": slope.get(st, {}).get(k, {}).get("slope"), "n": r["seasons"]}
     return {"sport": cfg["label"], "markets": [{"k": k, "l": l} for k, _, _, l in cfg["markets"] if any(k in s["p"] for s in seasons)],
-            "unit": cfg.get("unit", "week"), "games": cfg.get("games"), "seasons": seasons, "reliability": rel, "stages": ["preseason", "first quarter", "second quarter", "third quarter", "last quarter"]}
+            "unit": cfg.get("unit", "week"), "games": cfg.get("games"), "seasons": seasons, "reliability": rel, "caveat": cfg.get("caveat"), "stages": ["preseason", "first quarter", "second quarter", "third quarter", "last quarter"]}
 
 
 def build_site(archive=None):
     for sport, cfg in SPORTS.items():
-        d = os.path.join(SITE, cfg["dir"])
+        d = os.path.join(SITE, cfg["dir"]) if cfg["dir"] else SITE
+        nav = cfg.get("nav_after", r'(<a href="trends\.html"[^>]*>Trends</a>)')
         idx = os.path.join(d, "index.html")
         data = build_sport(sport, cfg, archive)
         if data is None or not os.path.exists(idx):
@@ -131,7 +137,7 @@ def build_site(archive=None):
                 p = os.path.join(d, fn)
                 s = open(p, encoding="utf-8").read()
                 if 'href="replay.html"' not in s:
-                    s2 = re.sub(r'(<a href="trends\.html"[^>]*>Trends</a>)', r'\1<a href="replay.html">History</a>', s, count=1)
+                    s2 = re.sub(nav, r'\1<a href="replay.html">History</a>', s, count=1)
                     if s2 != s:
                         open(p, "w", encoding="utf-8").write(s2)
         src = open(idx, encoding="utf-8").read()
@@ -142,7 +148,7 @@ def build_site(archive=None):
         top = re.sub(r'(<a )aria-current="?page"? ?(href="trends.html")', r"\1\2", top)
         top = re.sub(r'(<nav class="nav[^"]*"[^>]*>.*?)\saria-current=("page"|page)', r"\1", top, count=1, flags=re.S)
         if 'href="replay.html"' not in top:
-            top = re.sub(r'(<a href="trends\.html"[^>]*>Trends</a>)', r'\1<a href="replay.html">History</a>', top, count=1)
+            top = re.sub(nav, r'\1<a href="replay.html">History</a>', top, count=1)
         top = top.replace('href="replay.html">History', 'href="replay.html" aria-current="page">History')
         top = re.sub(r"<title>.*?</title>", f"<title>{cfg['label']} week-by-week history</title>", top, count=1, flags=re.S)
         body = f"""
