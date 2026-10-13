@@ -62,6 +62,10 @@ def logit_probs(P, feats, beta):
     return e / e.sum()
 
 
+TEMPS = [float(t) for t in os.environ.get("AW_TEMPS", "1").split(",")]
+LATE_ONLY = float(os.environ.get("AW_LATE_ONLY", "0"))   # research: skip checkpoints before this share of the season
+
+
 def replay(first, last):
     years = list(range(first - 1, last + 1))
     FT = final_tables(list(range(2003, last + 1)))
@@ -83,7 +87,7 @@ def replay(first, last):
             beta = AM.fit(train, feats)
             win = AM_norm(NBA_AW[award][y])
             # preseason: last season's final lines scored by the logit ("live" stand-in) vs the simulated season
-            if award != "ROY":
+            if award != "ROY" and LATE_ONLY == 0:
                 Pp = pool(prev.assign(season=y), award, y)
                 Pp[feats] = Pp[feats].fillna(Pp[feats].median())
                 p_live = dict(zip(Pp.name.map(AM_norm), logit_probs(Pp, feats, beta)))
@@ -105,9 +109,11 @@ def replay(first, last):
                 P = pool(D, award, y)
                 P[feats] = P[feats].fillna(P[feats].median())
                 p_live = dict(zip(P.name.map(AM_norm), logit_probs(P, feats, beta)))
-                # ---- candidate: forward simulation
-                p_sim = simulate(a, prev, D, award, feats, beta, L, y)
-                for meth, pm in (("live", p_live), ("sim", p_sim)):
+                if frac < LATE_ONLY:
+                    continue
+                # ---- candidate: forward simulation (TEMPS: logit temperatures, 1 = live)
+                sims = [(("sim" if T == 1.0 else f"simT{T}"), simulate(a, prev, D, award, feats, beta / T, L, y)) for T in TEMPS]
+                for meth, pm in [("live", p_live)] + sims:
                     pw = pm.get(win, 0.0)
                     fav = max(pm.values()) if pm else 0.0
                     rows.append(dict(season=y, award=award, ck=ci, frac=round(frac, 3), method=meth, p_winner=pw, fav=fav,

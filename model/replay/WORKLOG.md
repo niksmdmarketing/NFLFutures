@@ -215,3 +215,11 @@ conference are untouched (the earlier full-season fade made them over-confident)
   overall; x0.8 worse for the title. Gains are within noise, picked from five variants on the same seasons, and the title
   market gets slightly worse, so nothing deployed. The late title/seed-1 caution remains open; the 2026-27 live archive
   will show whether it persists.
+
+## NBA awards: late-season temperature (14 Oct 2026) - not adopted
+research/nba_awards_replay.py now takes AW_TEMPS (logit temperatures for the simulation, 1 = live) and AW_LATE_ONLY.
+Last third of the season, 2010-2026, temperatures 1 / 0.8 / 0.6, chosen leave-one-season-out (research/nba_awards_temp_loso.py):
+- MVP: favourite said 61% / won 82% (too cautious), but T 0.8 is worse on average held-out (-0.082) despite 14/17 seasons better: the
+  few misses get punished hard. Sixth Man the same pattern (-0.037, 13/17). DPOY: favourite 38% / 29% (slightly long); T 1 kept in every fold.
+- ROY: T 0.6 picked in every fold, +0.057 held-out (14/17), but the favourite then wins less often (84% -> 70%), which points to the
+  sharper logit re-ranking candidates rather than better calibration. Not deployed; the live award chances stay as they are.
