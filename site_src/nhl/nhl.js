@@ -351,9 +351,10 @@ async function awardsPage() {
       h += '<p class="note"><b>Track record.</b> Fitted on every winner since 2010-11 and tested one season at a time with that season held out: the model\'s top pick won ' + b.top1 + " of " + b.n + " seasons (top three: " + b.top3 +
         "). Simply picking the stat leader would have won " + b.leader_hits + ". On average it gave the eventual winner " + pct(b.avg_p) + ". Voters are not fully predictable, so treat these as chances, not locks.</p>";
     } else {
-      h += '<p class="note">Simulated finish: the rest of the season is played out ' + "thousands of times from each player\'s current total and his rate (blended with last season), with ties split. Not back-tested.</p>";
+      h += '<p class="note">Simulated finish: the rest of the season is played out ' + "thousands of times from each player\'s current total and his rate (blended with last season), with ties split. Replayed on 2011-12 to 2025-26 from dated season-to-date numbers: about right early, a little cautious from mid-season.</p>";
     }
-    h += '<p class="note">' + (A.games_played ? "Through " + A.games_played + " games per team." : "") + (a.backtest ? " Chances come from simulating each candidate\'s season forward, so they are wide early and narrow as the season goes." : "") + "</p>";
+    h += '<p class="note">' + (A.games_played ? "Through " + A.games_played + " games per team." : "") + (a.backtest ? " Chances come from simulating each candidate\'s season forward, so they are wide early and narrow as the season goes." : "") +
+      (a.backtest && A.games_played && A.games_played < 16 ? " <b>Early-season caution:</b> in a replay of 15 past seasons, the favourite after about ten games won far less often than shown (Norris favourites about 35% shown, 2 of 15 won; Vezina about 38%, 3 of 15). Treat these as early leads, not odds." : "") + "</p>";
     const rows = a.current || [];
     const head = g ? ["Goalie", "Team", "GP", "W", "SV%", "GAA", "Saves above avg", "Proj. saves above avg", "Chance"]
       : race ? ["Player", "Team", "GP", "G", "PTS", st.a === "ArtRoss" ? "Proj. PTS (10–90%)" : "Proj. goals (10–90%)", "Chance"]

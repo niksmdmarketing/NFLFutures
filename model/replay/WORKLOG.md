@@ -195,3 +195,6 @@ Winners keyed by AFL Tables player ID (name keys merged the two Josh Kennedys). 
   per award) so the live check can score them when the awards are announced.
 - Coleman settings, walk-forward check (choose on earlier seasons only, score the next, 2016-2026): 1.935 vs 1.863 for the
   fixed K 4 / shape 8 (chosen on all seasons). Shape 8 is chosen in every fold; K drifts (4-12). Expect about 1.9 live.
+- NHL voted awards early in the season (first checkpoint, about 10% played): favourites over-confident (Norris 33-37% said,
+  2 of 15 won; Vezina 38%, 3 of 15; Hart 24-30%, 3 of 15). Temperatures did not improve log loss on 15 seasons, so the
+  page now shows an early-season caution under 16 games instead of a model change. Race note updated (now replayed).
