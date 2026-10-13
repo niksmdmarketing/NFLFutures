@@ -31,7 +31,7 @@ boot(async () => {
   const R = A.races || {};
   const keys = Object.keys(R).filter(k => R[k].candidates && R[k].candidates.length);
   if (keys.length) {
-    const fmtv = v => (Math.abs(v - Math.round(v)) < 0.05 ? String(Math.round(v)) : v.toFixed(1));
+    const fmtv = v => (v >= 100 || Math.abs(v - Math.round(v)) < 0.05 ? String(Math.round(v)) : v.toFixed(1));
     $("awards").insertAdjacentHTML("beforeend", '<article class="panel award" style="grid-column:1/-1"><h2>Season stat leaders</h2><p class="rel">Chance of finishing the regular season first in each stat: each player\'s total so far, his rate (blended with last season), the games he is likely to play and his team\'s games left are simulated, ties split. Replayed on 2012–2025 from week 3: favourites given about 34% early won 37% of the time, 44% mid-season won 46%, 65% late won 68%.</p></article>' +
       keys.map(k => {
         const a = R[k];
