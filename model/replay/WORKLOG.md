@@ -191,3 +191,5 @@ research/afl_brownlow_replay.py: Footywire per-match stats to each 3rd round, 20
 Winners keyed by AFL Tables player ID (name keys merged the two Josh Kennedys). Live method: favourite said 42-49%, won
 19-25%; winner in the 30-player pool 78% early, 88% mid, 100% late. Temperature 1.4 chosen in all 14 LOSO folds: +0.052,
 8/14 seasons; favourite then 30-36% said vs 19-25% won (still short). Page note now says the favourite wins about 1 in 4.
+- Award chances are now archived with every sport snapshot (sport_archive.award_chances: name, team, per-mille, top 15
+  per award) so the live check can score them when the awards are announced.

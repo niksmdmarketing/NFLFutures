@@ -51,6 +51,24 @@ def upcoming_games(site_dir, sport, days=8):
         return None
 
 
+def award_chances(site_dir, sport):
+    """Published award chances (name, team, per-mille) per award, for scoring at season end (pipeline/live_check.py)."""
+    path = os.path.join(site_dir, "data" if sport == "nfl" else os.path.join(sport, "data"), "awards.json")
+    if not os.path.exists(path):
+        return None
+    try:
+        d = json.load(open(path))
+        aw = d.get("awards", d)
+        out = {}
+        for k, a in aw.items():
+            rows = a.get("current") or a.get("candidates") or []
+            if rows and isinstance(rows, list) and isinstance(rows[0], dict) and "prob" in rows[0]:
+                out[k] = [[r.get("name"), r.get("team"), int(round(float(r["prob"]) * 1000))] for r in rows[:15]]
+        return out or None
+    except Exception:  # noqa: BLE001
+        return None
+
+
 def snapshot(sport, site_dir):
     path = os.path.join(site_dir, "data" if sport == "nfl" else os.path.join(sport, "data"), "futures.json")
     if not os.path.exists(path):
@@ -67,7 +85,8 @@ def snapshot(sport, site_dir):
     if all(isinstance(r.get("rating"), (int, float)) for r in rows):
         p["rating_x100"] = [int(round(float(r["rating"]) * 100)) for r in rows]   # for later game-level live checks
     games = upcoming_games(site_dir, sport)
-    return {"season": int(d["season"]), "status": d.get("status"), "games": games, "gp_avg": round(sum(gp) / len(gp), 1) if gp else 0.0,
+    awards = award_chances(site_dir, sport)
+    return {"season": int(d["season"]), "status": d.get("status"), "games": games, "awards": awards, "gp_avg": round(sum(gp) / len(gp), 1) if gp else 0.0,
             "teams": [r["team"] for r in rows], "p": p}
 
 
@@ -78,6 +97,8 @@ def archive_one(sport, arch, site_dir, now=None):
     body = {k: snap[k] for k in ("gp_avg", "teams", "p")}
     if snap.get("games"):
         body["games"] = snap["games"]
+    if snap.get("awards"):
+        body["awards"] = snap["awards"]
     digest = hashlib.sha256(json.dumps(body, sort_keys=True).encode()).hexdigest()[:16]
     d = os.path.join(arch, sport, str(snap["season"]))
     os.makedirs(d, exist_ok=True)
