@@ -161,3 +161,8 @@ research/nhl_awards_replay.py (live method rerun, weights leave-one-season-out).
   confident early. Stronger rate prior (k 36/44) adds a little for races (+0.11 combined) but untested on the awards.
 - Logit temperature (leave-one-season-out per award and stage): only Vezina late helps (T 0.6, +0.07, 10/13).
 DEPLOYED: TALENT_SHAPE 50 and Vezina late T 0.6.
+
+## NBA: playoff-series gap multiplier (14 Oct 2026) - not adopted
+nba.PO_SCALE (default 1). 14-season replay with the live weight-8 ratings: x1.2 -0.0001 overall (title +0.0007, conference
+-0.0009), x1.4 -0.0004 (title +0.0010, conference -0.0031). Conference finalists are already slightly over-confident
+mid/late (slopes 0.76-0.91) while the title is cautious (1.2-1.3), so no single playoff-strength change fixes both.
