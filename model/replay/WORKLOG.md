@@ -151,3 +151,13 @@ on 2010-2025 (in-sample); honest leave-one-season-out refits score worse (expect
   DEPLOYED for those three awards from week 8 (awards.LATE_T; TypeSafe 99%).
 - Comeback Player: winner outside the candidate pool 25% of the time; favourite says 22%, wins 11%. The page already
   marks it "No proven skill" (names to watch, not odds).
+
+## NHL awards: dated-snapshot replay 2011-2025 (14 Oct 2026)
+research/nhl_award_snapshots.py (GitHub Actions, NHL stats API, games on or before each checkpoint every 21 days) +
+research/nhl_awards_replay.py (live method rerun, weights leave-one-season-out). Team per player = season-end team.
+- Favourite calibration (live): Hart under-confident throughout (said 25-40%, won 31-48%); Vezina over early (41%/22%)
+  and under late (64%/77%); Norris under late (46%/61%); Art Ross/Richard under mid/late (Richard mid 49%/67%).
+- Race noise: talent gamma shape 20 -> 50: Art Ross +0.071 (11/15), Richard +0.072 (11/15), awards +-0.01. Shape 100 over-
+  confident early. Stronger rate prior (k 36/44) adds a little for races (+0.11 combined) but untested on the awards.
+- Logit temperature (leave-one-season-out per award and stage): only Vezina late helps (T 0.6, +0.07, 10/13).
+DEPLOYED: TALENT_SHAPE 50 and Vezina late T 0.6.

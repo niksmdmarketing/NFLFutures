@@ -45,7 +45,12 @@ TITLES = {"Hart": "Hart Trophy (MVP)", "Vezina": "Vezina Trophy (top goalie)", "
 NAME_FIX = {"alexanderovechkin": "alexovechkin", "pksubban": "pksubban", "nicklaslidstrom": "nicklaslidstrom"}
 SEASON_GAMES = 82
 LAMBDAS = (0.01, 0.05, 0.3, 1.0)
-K_PTS, K_GOALS, TALENT_SHAPE = 18, 22, 20      # skater rate prior (games of last season's rate) and gamma talent noise shape
+K_PTS, K_GOALS, TALENT_SHAPE = 18, 22, 50      # skater rate prior (games of last season's rate) and gamma talent noise shape
+# TALENT_SHAPE 20 -> 50 (talent sd 22% -> 14%), Oct 2026: replay 2011-2025 every 21 days (research/nhl_awards_replay.py),
+# Art Ross and Richard -log p(winner) 0.07 better (11 of 15 seasons each), mid-season favourites less under-confident;
+# Hart/Vezina/Norris/Calder unchanged (+-0.01). Vezina from two-thirds of the season: logit temperature 0.6 (favourite
+# said 65%, won 77%; 0.07 better, 10 of 13 seasons).
+LATE_VEZINA_T, LATE_FROM = 0.6, 2 / 3
 
 
 def norm(s) -> str:
@@ -431,7 +436,7 @@ def build():
             lead = c.saa.idxmax() if award == "Vezina" else (c[c.isG == 0].pts.idxmax() if (c.isG == 0).any() else c.index[0])
             base += int(lead == w)
         entry = {"title": TITLES[award], "backtest": {**bt, "lambda": lam, "leader_hits": base},
-                 "current": current_chances(award, cur, T, beta) if cur in T else [],
+                 "current": current_chances(award, cur, T, beta / (LATE_VEZINA_T if award == "Vezina" and out["games_played"] >= LATE_FROM * SEASON_GAMES else 1.0)) if cur in T else [],
                  "past": winner_rows(award, sorted(done, reverse=True), T), "kind": award}
         out["awards"][award] = entry
         log("nhl awards", award, "LOSO top1", bt["top1"], "/", bt["n"], "logloss", round(bt["logloss"], 3), "leader baseline", base)
