@@ -80,6 +80,8 @@ def live_season(sport, cfg, archive):
         chosen.append(snaps[-1])
     p = {}
     for k in snaps[-1]["p"]:
+        if k == "rating_x100" or k.startswith("c_"):
+            continue
         p[k] = [x["p"][k] for x in chosen if k in x["p"]]
         if len(p[k]) != len(chosen):
             p.pop(k)
@@ -118,7 +120,13 @@ def build_sport(sport, cfg, archive=None):
             if k in r:
                 rel[st][k] = {"ll": r[k]["logloss"], "base": r[k]["base"], "gain": r[k]["gain"], "cal": r[k]["calibration"],
                               "slope": slope.get(st, {}).get(k, {}).get("slope"), "n": r["seasons"]}
-    return {"sport": cfg["label"], "markets": [{"k": k, "l": l} for k, _, _, l in cfg["markets"] if any(k in s["p"] for s in seasons)],
+    try:
+        import live_check
+        check = live_check.build(sport, archive, cfg.get("games"))
+    except Exception as exc:  # noqa: BLE001 - the live check must never stop the History page
+        print("live check skipped", sport, exc)
+        check = None
+    return {"sport": cfg["label"], "live_check": check, "markets": [{"k": k, "l": l} for k, _, _, l in cfg["markets"] if any(k in s["p"] for s in seasons)],
             "unit": cfg.get("unit", "week"), "games": cfg.get("games"), "seasons": seasons, "reliability": rel, "caveat": cfg.get("caveat"), "stages": ["preseason", "first quarter", "second quarter", "third quarter", "last quarter"]}
 
 

@@ -42,6 +42,35 @@
       '<p class="muted">Weeks in one season move together, so this is really about ' + r.n + " " + (D.noun || "seasons") + " of evidence, not hundreds. Treat gaps of a few points as noise. This describes how the model did in past seasons; it is not a guarantee about today\u2019s percentages.</p>" +
       '<table class="rp-cal"><thead><tr><th>Model said (range)</th><th>Average said</th><th>Happened</th><th>Team-weeks</th></tr></thead><tbody>' + rows + "</tbody></table></div>";
   }
+  function liveCheck() {
+    var L = D.live_check;
+    if (!L) return "";
+    var h = '<div class="rp-rel"><h3>Live check: this season, as published</h3><p class="muted">Scores the forecasts this site actually published (' + L.snapshots + " saved snapshot" + (L.snapshots === 1 ? "" : "s") + ", " + esc(L.first) + " to " + esc(L.last) + "), not replayed numbers. Early on there is little to score; this fills in as the season goes.</p>";
+    var G = L.games;
+    if (G && G.games) {
+      var rows = ["v4", "v3"].filter(function (m) { return G[m]; }).map(function (m) {
+        var g = G[m];
+        return "<tr><td>" + (m === "v4" ? "v4 (live)" : "v3 (challenger)") + '</td><td class="num">' + g.games + '</td><td class="num">' + g.logloss.toFixed(3) + '</td><td class="num">' + g.brier.toFixed(3) + '</td><td class="num">' + pc0(g.correct) + "</td></tr>";
+      }).join("");
+      h += "<p><b>Games since the archive began</b> (each scored from the last snapshot before kick-off). A coin flip scores " + G.coin_flip_logloss.toFixed(3) + "; lower is better.</p>" +
+        '<table class="rp-cal"><thead><tr><th>Model</th><th>Games</th><th>Error score</th><th>Brier</th><th>Picked winner</th></tr></thead><tbody>' + rows + "</tbody></table>";
+    }
+    var M = L.markets || {};
+    var keys = Object.keys(M).filter(function (k) { return M[k].settled; });
+    if (L.note) h += '<p class="muted">' + esc(L.note) + "</p>";
+    else if (!keys.length) h += '<p class="muted">No futures market is settled yet.</p>';
+    else {
+      h += "<p><b>Settled futures</b>: team-markets now at exactly 0% or 100%, scored at every earlier snapshot. These are mostly the clear cases, so the scores flatter every model; compare models on the same rows.</p>";
+      var body = keys.map(function (k) {
+        var m = M[k], bm = m.by_model || {};
+        return Object.keys(bm).map(function (mod) {
+          return "<tr><td>" + esc((L.labels || {})[k] || k) + "</td><td>" + esc(mod) + '</td><td class="num">' + m.settled + " (" + m.yes + ' yes)</td><td class="num">' + bm[mod].logloss.toFixed(3) + '</td><td class="num">' + bm[mod].flat.toFixed(3) + "</td></tr>";
+        }).join("");
+      }).join("");
+      h += '<table class="rp-cal"><thead><tr><th>Market</th><th>Model</th><th>Settled</th><th>Error score</th><th>Flat guess</th></tr></thead><tbody>' + body + "</tbody></table>";
+    }
+    return h + "</div>";
+  }
   function render() {
     var S = D.seasons[st.s], M = D.markets[st.m], P = S.p[M.k];
     st.w = Math.max(0, Math.min(st.w, S.weeks.length - 1));
@@ -62,7 +91,7 @@
       '<input type="range" id="rp-w" min="0" max="' + (S.weeks.length - 1) + '" value="' + st.w + '" step="1"></div></div>' +
       '<div class="rp-head"><b>' + esc(M.l) + "</b><span class=\"rp-tag\">" + (S.live ? "live: as published" : "replayed") + "</span><span class=\"muted\">" + (wk.gp ? "about " + wk.gp.toFixed(0) + " games played per team" : "before the season") + "</span></div>" +
       '<div class="scroll"><table class="rp"><thead><tr><th>Team</th><th>Chance</th><th title="Change since the previous checkpoint, in percentage points">1 ' + U + '</th><th class="hide-sm" title="Change over the previous four checkpoints">4 ' + U + 's</th>' + (S.live ? "" : '<th title="Did it happen that season?">Result</th>') + '</tr></thead><tbody>' +
-      rows + "</tbody></table></div>" + (D.caveat ? '<p class="note rp-caveat">' + esc(D.caveat) + "</p>" : "") + reliability(S, M, st.w);
+      rows + "</tbody></table></div>" + (D.caveat ? '<p class="note rp-caveat">' + esc(D.caveat) + "</p>" : "") + reliability(S, M, st.w) + liveCheck();
     document.getElementById("rp-s").onchange = function (e) { st.s = +e.target.value; st.w = 0; store("rp-s", st.s); render(); };
     document.getElementById("rp-w").oninput = function (e) { st.w = +e.target.value; render(); document.getElementById("rp-w").focus(); };
     Array.prototype.forEach.call(document.querySelectorAll("#rp-m button"), function (b) { b.onclick = function () { st.m = +b.getAttribute("data-m"); render(); }; });

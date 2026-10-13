@@ -39,6 +39,8 @@ def snapshot(sport, site_dir):
     rows = sorted(teams, key=lambda r: r["team"])
     p = {k: [int(round(float(r.get(f) or 0.0) * 1000)) for r in rows] for k, f in FIELDS[sport].items() if f in rows[0]}
     gp = [r.get("gp") for r in rows if r.get("gp") is not None]
+    if all(isinstance(r.get("rating"), (int, float)) for r in rows):
+        p["rating_x100"] = [int(round(float(r["rating"]) * 100)) for r in rows]   # for later game-level live checks
     return {"season": int(d["season"]), "status": d.get("status"), "gp_avg": round(sum(gp) / len(gp), 1) if gp else 0.0,
             "teams": [r["team"] for r in rows], "p": p}
 
