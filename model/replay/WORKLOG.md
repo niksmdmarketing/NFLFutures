@@ -185,3 +185,9 @@ research/afl_coleman_replay.py with pipeline/race_sim.py: home-and-away goals pe
 every 3rd round, 2013-2026. Grid K {2,4,8,12} x talent shape {3,5,8,20,50}: K 4, shape 8 best (log loss 1.869).
 Favourite said/won: early 29%/15% (too short), mid 35%/31%, late 64%/69%. The Coleman table previously had projections only;
 it now shows chances, with the early-season caveat on the page.
+
+## AFL Brownlow (14 Oct 2026) - DEPLOYED temperature 1.4
+research/afl_brownlow_replay.py: Footywire per-match stats to each 3rd round, 2013-2026, weights leave-one-season-out.
+Winners keyed by AFL Tables player ID (name keys merged the two Josh Kennedys). Live method: favourite said 42-49%, won
+19-25%; winner in the 30-player pool 78% early, 88% mid, 100% late. Temperature 1.4 chosen in all 14 LOSO folds: +0.052,
+8/14 seasons; favourite then 30-36% said vs 19-25% won (still short). Page note now says the favourite wins about 1 in 4.

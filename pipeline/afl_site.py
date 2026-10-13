@@ -587,7 +587,10 @@ def awards(cur, player_hist, tables):
             C("wp", "Team W%", "", "pct")]
     cur_rows = []
     if len(now):
-        now["prob"] = AM.predict(now, feats, beta)
+        # temperature 1.4 (Oct 2026): round-by-round replay 2013-2026 (research/afl_brownlow_replay.py) found the
+        # favourite far too short (said 42-49%, won 19-25%); 1.4 was chosen in every leave-one-season-out fold
+        # (-log p(winner) 0.05 better, 8 of 14 seasons). Still somewhat short (30-36% vs 19-25%).
+        now["prob"] = AM.predict(now, feats, beta / 1.4)
         cur_rows = now.sort_values("prob", ascending=False).head(15)[["name", "team", "prob"] + [c["k"] for c in show]].to_dict("records")
     past = []
     for y in sorted(winners, reverse=True):
@@ -597,7 +600,7 @@ def awards(cur, player_hist, tables):
                      "sc": r.supercoach_points_pg if r.supercoach_points_pg == r.supercoach_points_pg else r.afl_fantasy_points_pg})
     out["Brownlow"] = {"title": "Brownlow Medal", "short": "Brownlow", "backtest": bt, "cols": show, "current": cur_rows, "past": past,
                        "past_cols": [C("brownlow_votes", "Votes", "", "int")] + show,
-                       "note": "Chances from a model fitted on every count since 2012, using the season's per-game numbers, SuperCoach score and team win rate. Umpires' votes are only revealed at the count, so this is the closest public guide during the season.",
+                       "note": "Chances from a model fitted on every count since 2012, using the season's per-game numbers, SuperCoach score and team win rate, deliberately widened after a round-by-round replay showed favourites were too short. Even so, the in-season favourite has won the count only about one time in four. Umpires' votes are only revealed at the count, so this is the closest public guide during the season.",
                        "empty": "The new season has not started; chances appear after the first rounds."}
     # Coleman: most goals (home and away)
     gl = P.loc[P.groupby("season").goals.idxmax()]
