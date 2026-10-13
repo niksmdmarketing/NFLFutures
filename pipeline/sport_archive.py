@@ -26,6 +26,31 @@ FIELDS = {
 }
 
 
+def upcoming_games(site_dir, sport, days=8):
+    """Pre-game win chances the Outlook page shows (pipeline/sos.py, schedule.json): games in the next `days` days, one row
+    per game from the listed home side: [date, home, away, p_home x1000]. Scored later by pipeline/live_check.py."""
+    path = os.path.join(site_dir, "data" if sport == "nfl" else os.path.join(sport, "data"), "schedule.json")
+    if not os.path.exists(path):
+        return None
+    try:
+        d = json.load(open(path))
+        if d.get("recap"):
+            return None
+        today = dt.datetime.now(dt.timezone.utc).date()
+        out = {}
+        for t in d.get("teams", []):
+            for g in t.get("games") or []:
+                day, opp, home, p = g[0], g[1], g[2], g[5]
+                if (dt.date.fromisoformat(day) - today).days > days:
+                    continue
+                key = (day, t["team"], opp) if home else (day, opp, t["team"])
+                if home or key not in out:
+                    out[key] = int(round((p if home else 1 - p) * 1000))
+        return [[k[0], k[1], k[2], v] for k, v in sorted(out.items())]
+    except Exception:  # noqa: BLE001 - archiving the futures must not depend on this
+        return None
+
+
 def snapshot(sport, site_dir):
     path = os.path.join(site_dir, "data" if sport == "nfl" else os.path.join(sport, "data"), "futures.json")
     if not os.path.exists(path):
@@ -41,7 +66,8 @@ def snapshot(sport, site_dir):
     gp = [r.get("gp") for r in rows if r.get("gp") is not None]
     if all(isinstance(r.get("rating"), (int, float)) for r in rows):
         p["rating_x100"] = [int(round(float(r["rating"]) * 100)) for r in rows]   # for later game-level live checks
-    return {"season": int(d["season"]), "status": d.get("status"), "gp_avg": round(sum(gp) / len(gp), 1) if gp else 0.0,
+    games = upcoming_games(site_dir, sport)
+    return {"season": int(d["season"]), "status": d.get("status"), "games": games, "gp_avg": round(sum(gp) / len(gp), 1) if gp else 0.0,
             "teams": [r["team"] for r in rows], "p": p}
 
 
@@ -50,6 +76,8 @@ def archive_one(sport, arch, site_dir, now=None):
     if snap is None:
         return "no data"
     body = {k: snap[k] for k in ("gp_avg", "teams", "p")}
+    if snap.get("games"):
+        body["games"] = snap["games"]
     digest = hashlib.sha256(json.dumps(body, sort_keys=True).encode()).hexdigest()[:16]
     d = os.path.join(arch, sport, str(snap["season"]))
     os.makedirs(d, exist_ok=True)

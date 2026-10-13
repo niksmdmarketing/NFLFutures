@@ -179,6 +179,47 @@ def nfl_games(snaps, season):
     return out
 
 
+SITE = os.path.join(ROOT, "site")
+
+
+def _results(sport, season):
+    """{(date, home, away): 1/0} for completed games, from that sport's published games files (home-side rows)."""
+    d = os.path.join(SITE, sport, "data")
+    out = {}
+    for y in (season, season - 1):
+        p = os.path.join(d, f"games_{y}.json")
+        if not os.path.exists(p):
+            continue
+        for row in json.load(open(p)).get("rows", []):
+            for i in range(2, min(len(row) - 1, 6)):
+                if row[i] in ("H", "A", "R", "N") and isinstance(row[i + 1], str) and row[i + 1] in ("W", "L", "OTL", "D", "T"):
+                    if row[i] == "H" and row[i + 1] in ("W", "L", "OTL"):
+                        out[(str(row[0])[:10], row[i - 2], row[i - 1])] = 1 if row[i + 1] == "W" else 0
+                    break
+    return out
+
+
+def sport_games(sport, season, raw_snaps):
+    """Score the Outlook page's pre-game win chances, each game once from the latest snapshot made before its date."""
+    res = _results(sport, season)
+    if not res:
+        return None
+    pred = {}
+    for x in raw_snaps:
+        day0 = x["generated_utc"][:10]
+        for day, h, a, p in x.get("games") or []:
+            if day0 < day:
+                pred[(day, h, a)] = p / 1000          # later snapshots overwrite earlier ones
+    rows = [(p, res[k]) for k, p in pred.items() if k in res]
+    if not rows:
+        return {"games": 0}
+    return {"games": len(rows), "home_win_share": round(float(np.mean([y for _, y in rows])), 3),
+            "live": {"games": len(rows), "logloss": round(float(np.mean([_ll(p, y) for p, y in rows])), 4),
+                     "correct": round(float(np.mean([(p > 0.5) == (y == 1) for p, y in rows])), 3),
+                     "brier": round(float(np.mean([(p - y) ** 2 for p, y in rows])), 4)},
+            "coin_flip_logloss": round(math.log(2), 4)}
+
+
 def build(sport, archive, games_per_team=None):
     if not archive or not os.path.isdir(archive):
         return None
@@ -195,6 +236,8 @@ def build(sport, archive, games_per_team=None):
             return None
         models = ["live"] + (["challenger"] if any(s.get("challenger") for s in snaps) else [])
         res = settled_scores(snaps, models, progress=float(snaps[-1].get("gp_avg") or 0) / (games_per_team or 82))
+        base = os.path.join(archive, sport, str(season))
+        res["games"] = sport_games(sport, season, _snapshots(base))
     res["season"] = season
     res["labels"] = LABELS
     return res

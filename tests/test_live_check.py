@@ -23,3 +23,17 @@ class LiveCheck(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class LiveGames(unittest.TestCase):
+    def test_games_scored_from_latest_snapshot_before_the_day(self):
+        orig = L._results
+        L._results = lambda sport, season: {("2026-10-15", "A", "B"): 1, ("2026-10-16", "C", "D"): 0}
+        try:
+            snaps = [{"generated_utc": "2026-10-14T00:00", "games": [["2026-10-15", "A", "B", 700], ["2026-10-16", "C", "D", 600]]},
+                     {"generated_utc": "2026-10-15T05:00", "games": [["2026-10-15", "A", "B", 100], ["2026-10-16", "C", "D", 400]]}]
+            r = L.sport_games("nhl", 2026, snaps)
+        finally:
+            L._results = orig
+        self.assertEqual(r["games"], 2)
+        self.assertEqual(r["live"]["correct"], 1.0)   # A-B uses 0.70 (same-day snapshot ignored), C-D uses 0.40
