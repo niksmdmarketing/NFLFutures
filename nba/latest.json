@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-10-13T1919Z",
-"feed_timestamp": "2026-10-13T19:19:33Z",
+"collected_utc": "2026-10-13T2016Z",
+"feed_timestamp": "2026-10-13T20:16:04Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -142,6 +142,12 @@
 "injury": "Not Specified Hamstring"
 },
 {
+"athlete_id": "5105555",
+"status": "Day-To-Day",
+"return_date": "2026-10-14",
+"injury": "Not Specified Knee"
+},
+{
 "athlete_id": "4066650",
 "status": "Day-To-Day",
 "return_date": "2026-10-16",
@@ -186,7 +192,7 @@
 {
 "athlete_id": "4592427",
 "status": "Day-To-Day",
-"return_date": "2026-10-14",
+"return_date": "2026-10-22",
 "injury": "Not Specified Hamstring"
 },
 {
@@ -666,20 +672,8 @@
 {
 "athlete_id": "4706557",
 "status": "Day-To-Day",
-"return_date": "2026-10-13",
-"injury": "Calf"
-},
-{
-"athlete_id": "6606",
-"status": "Day-To-Day",
-"return_date": "2026-10-13",
-"injury": "Rest"
-},
-{
-"athlete_id": "4066211",
-"status": "Day-To-Day",
-"return_date": "2026-10-13",
-"injury": "Rest"
+"return_date": "2026-10-16",
+"injury": "Left Calf Soreness"
 },
 {
 "athlete_id": "4914336",
@@ -1020,7 +1014,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-14",
 "injury": "Undisclosed",
-"updated": "2026-10-13T19:03Z"
+"updated": "2026-10-13T19:05Z"
 },
 {
 "athlete_id": "4898010",
@@ -1041,13 +1035,22 @@
 "updated": "2026-10-05T18:00Z"
 },
 {
+"athlete_id": "5105555",
+"name": "Tobe Awaka",
+"team_name": "Chicago Bulls",
+"status": "Day-To-Day",
+"return_date": "2026-10-14",
+"injury": "Not Specified Knee",
+"updated": "2026-10-13T19:08Z"
+},
+{
 "athlete_id": "4066650",
 "name": "Zach Collins",
 "team_name": "Chicago Bulls",
 "status": "Day-To-Day",
 "return_date": "2026-10-16",
 "injury": "Right Toe Surgery",
-"updated": "2026-10-12T14:14Z"
+"updated": "2026-10-13T19:11Z"
 },
 {
 "athlete_id": "4997530",
@@ -1108,9 +1111,9 @@
 "name": "Spencer Jones",
 "team_name": "Denver Nuggets",
 "status": "Day-To-Day",
-"return_date": "2026-10-14",
+"return_date": "2026-10-22",
 "injury": "Not Specified Hamstring",
-"updated": "2026-10-12T14:19Z"
+"updated": "2026-10-13T19:28Z"
 },
 {
 "athlete_id": "4432166",
@@ -1713,7 +1716,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-13",
 "injury": "Left Knee Sprain",
-"updated": "2026-10-11T21:32Z"
+"updated": "2026-10-13T19:28Z"
 },
 {
 "athlete_id": "5105637",
@@ -1828,27 +1831,9 @@
 "name": "Chris Youngblood",
 "team_name": "Portland Trail Blazers",
 "status": "Day-To-Day",
-"return_date": "2026-10-13",
-"injury": "Calf",
-"updated": "2026-10-12T18:23Z"
-},
-{
-"athlete_id": "6606",
-"name": "Damian Lillard",
-"team_name": "Portland Trail Blazers",
-"status": "Day-To-Day",
-"return_date": "2026-10-13",
-"injury": "Rest",
-"updated": "2026-10-12T18:18Z"
-},
-{
-"athlete_id": "4066211",
-"name": "Robert Williams III",
-"team_name": "Portland Trail Blazers",
-"status": "Day-To-Day",
-"return_date": "2026-10-13",
-"injury": "Rest",
-"updated": "2026-10-12T18:21Z"
+"return_date": "2026-10-16",
+"injury": "Left Calf Soreness",
+"updated": "2026-10-13T19:45Z"
 },
 {
 "athlete_id": "4914336",
