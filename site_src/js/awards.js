@@ -28,4 +28,15 @@ boot(async () => {
     return '<article class="panel award"><div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap"><h2>' + esc(a.title) + '</h2>' + badgeFor(a.eval) + '</div><p class="rel">' + relFor(a.eval) + '</p><ol>' + items +
       '<li><span class="who muted">Rest of the field</span><span class="pct muted">' + pct(rest) + '</span></li></ol></article>';
   }).join("");
+  const R = A.races || {};
+  const keys = Object.keys(R).filter(k => R[k].candidates && R[k].candidates.length);
+  if (keys.length) {
+    const fmtv = v => (Math.abs(v - Math.round(v)) < 0.05 ? String(Math.round(v)) : v.toFixed(1));
+    $("awards").insertAdjacentHTML("beforeend", '<article class="panel award" style="grid-column:1/-1"><h2>Season stat leaders</h2><p class="rel">Chance of finishing the regular season first in each stat: each player\'s total so far, his rate (blended with last season), the games he is likely to play and his team\'s games left are simulated, ties split. Replayed on 2012–2025 from week 3: favourites given about 34% early won 37% of the time, 44% mid-season won 46%, 65% late won 68%.</p></article>' +
+      keys.map(k => {
+        const a = R[k];
+        const items = a.candidates.map(c => '<li><span class="who">' + esc(c.name) + ' <small>' + esc(c.team) + '</small></span><span class="pct">' + pct(c.prob) + '</span><span class="stat">' + fmtv(c.value) + ' in ' + c.games + ' games · projected ' + fmtv(c.proj) + '</span></li>').join("");
+        return '<article class="panel award"><h2>' + esc(a.title) + '</h2><ol>' + items + '</ol></article>';
+      }).join(""));
+  }
 });

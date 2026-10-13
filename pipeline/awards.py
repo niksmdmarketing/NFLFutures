@@ -26,6 +26,10 @@ RATE_SD, P_AVAIL, PRIOR_G = 0.22, 0.9, 6.0
 # leave-one-season-out (research/nfl_awards_replay.py, Oct 2026): rookies 0.5 (better in 7 of 8 seasons), OPOY 0.7 (6 of 8);
 # MVP, DPOY and CPOY gained nothing and stay as fitted.
 LATE_T, LATE_FROM = {"OROY": 0.5, "DROY": 0.5, "OPOY": 0.7}, 8
+# (stat, label, continuous yards or counts, K games of last season's rate, talent noise shape, rate for players without one)
+LEADER_RACES = [("passing_yards", "Most passing yards", "yards", 4, 50, 150.0), ("passing_tds", "Most passing TDs", "count", 2, 20, 1.0),
+                ("rushing_yards", "Most rushing yards", "yards", 2, 20, 30.0), ("receiving_yards", "Most receiving yards", "yards", 2, 50, 30.0),
+                ("receptions", "Most receptions", "count", 4, 20, 2.5), ("def_sacks", "Most sacks", "count", 4, 50, 0.3)]
 NAMES = {"MVP": "Most Valuable Player", "OPOY": "Offensive Player of the Year", "DPOY": "Defensive Player of the Year",
          "OROY": "Offensive Rookie of the Year", "DROY": "Defensive Rookie of the Year",
          "CPOY": "Comeback Player of the Year", "COY": "Coach of the Year"}
@@ -181,6 +185,29 @@ def build(season, games, sim_res, injuries):
                                     for _, r in c.head(15).iterrows()],
                      "field": round(float(c.prob.iloc[15:].sum()), 4)}
         log("award", a, result[a]["candidates"][0]["name"] if result[a]["candidates"] else "-")
+    # Season stat-leader races (most passing yards etc.): pipeline/race_sim.py, settings from research/nfl_leader_replay.py
+    # (2012-2025, weeks 3-15: favourite said/won 34%/37% early, 44%/46% mid, 65%/68% late; walk-forward log loss 1.66).
+    try:
+        import race_sim
+        races = {}
+        for stat, label, kind, k, shape, new in LEADER_RACES:
+            a = cur[cur[stat] > 0].copy()
+            if a.empty:
+                continue
+            pv = prev[prev.games >= 6]
+            pr = a.player_id.map(pv[stat] / pv.games).fillna(new).to_numpy(float)
+            T = np.array([played.get(t, 0) for t in a.team], float)
+            R = np.array([max(ngames.get(t, 17) - played.get(t, 0), 0) for t in a.team], float)
+            rate = (a[stat].to_numpy(float) + k * pr) / (a.games.to_numpy(float) + k)
+            a = a.assign(_T=T, _R=R, _pr=pr, _score=a[stat].to_numpy(float) + rate * R).sort_values("_score", ascending=False).head(50)
+            f = race_sim.simulate_race_yards if kind == "yards" else race_sim.simulate_race
+            p_, proj = f(a[stat], a.games, a._T, a._R, a._pr, k, shape, sims=20000)
+            a = a.assign(prob=p_, proj=proj).sort_values("prob", ascending=False).head(10)
+            races[stat] = {"title": label, "candidates": [{"name": r["name"], "team": r.team, "value": round(float(r[stat]), 1), "games": int(r.games),
+                                                          "proj": round(float(r.proj), 1), "prob": round(float(r.prob), 4)} for _, r in a.iterrows()]}
+        result["races"] = races
+    except Exception as exc:  # noqa: BLE001 - the award cards must not depend on this
+        log("leader races skipped:", exc)
     # Coach of the Year
     p = AW["COY"]
     prev_pct, _ = team_record(games, season - 1)

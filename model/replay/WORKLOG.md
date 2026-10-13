@@ -198,3 +198,9 @@ Winners keyed by AFL Tables player ID (name keys merged the two Josh Kennedys). 
 - NHL voted awards early in the season (first checkpoint, about 10% played): favourites over-confident (Norris 33-37% said,
   2 of 15 won; Vezina 38%, 3 of 15; Hart 24-30%, 3 of 15). Temperatures did not improve log loss on 15 seasons, so the
   page now shows an early-season caution under 16 games instead of a model change. Race note updated (now replayed).
+
+## NFL season stat-leader races (14 Oct 2026) - DEPLOYED on the Awards page
+research/nfl_leader_replay.py: most passing yards / passing TDs / rushing yards / receiving yards / receptions / sacks,
+2012-2025, weeks 3-15 every 2. race_sim (counts: Poisson; yards: Normal per game, cv 0.45) with K x shape grid per stat.
+Chosen: pass yds K4/50, pass TD K2/20, rush yds K2/20, rec yds K2/50, receptions K4/20, sacks K4/50 (log loss 1.616;
+walk-forward choice 1.657). Favourite said/won: weeks 3-5 34%/37%, 7-11 44%/46%, 13-15 65%/68%. No injury input.

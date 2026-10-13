@@ -23,3 +23,23 @@ def simulate_race(G, A, T, R, prior, k, shape, sims=20000, seed=7):
         out += (w / w.sum(1, keepdims=True)).sum(0)
         done += S
     return out / sims, G + rate * avail * R
+
+
+def simulate_race_yards(G, A, T, R, prior, k, shape, cv=0.45, sims=20000, seed=7):
+    """Same as simulate_race for a continuous per-game stat (yards): each remaining game ~ Normal(rate, cv x rate)."""
+    rng = np.random.default_rng(seed)
+    G, A, T, R, prior = (np.asarray(x, float) for x in (G, A, T, R, prior))
+    rate = (G + k * prior) / (A + k)
+    avail = (A + 0.8 * 6) / (T + 6)
+    n = len(G)
+    out = np.zeros(n)
+    done = 0
+    while done < sims:
+        S = min(2000, sims - done)
+        apps = rng.binomial(R.astype(int)[None, :].repeat(S, 0), np.clip(avail[None, :] + rng.normal(0, .1, (S, n)), 0, 1))
+        r = rate[None, :] * rng.gamma(shape, 1 / shape, (S, n))
+        fin = G[None, :] + apps * r + rng.normal(0, 1, (S, n)) * np.sqrt(apps) * cv * r
+        w = (fin == fin.max(1, keepdims=True)).astype(float)
+        out += (w / w.sum(1, keepdims=True)).sum(0)
+        done += S
+    return out / sims, G + rate * avail * R
