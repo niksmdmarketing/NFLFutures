@@ -28,6 +28,8 @@ _orig_fit = N._fit_ratings
 N._fit_ratings = lambda boxes, end_year: _orig_fit(boxes, end_year, decay=_DECAY, current_weight=_CW)
 N.TAU_FADE = float(os.environ.get("BT_TAUFADE", "0"))
 N.PO_SCALE = float(os.environ.get("BT_PO_SCALE", "1"))
+if os.environ.get("BT_SIGMA"):
+    N.GAME_SIGMA = float(os.environ["BT_SIGMA"])
 if os.environ.get("BT_TEAM_TAU"):
     N.TEAM_TAU = float(os.environ["BT_TEAM_TAU"])
 SIMS = int(os.environ.get("BT_SIMS", "2000"))
