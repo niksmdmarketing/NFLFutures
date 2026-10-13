@@ -22,8 +22,12 @@ import nba as N  # noqa: E402
 import nba_backtest as B  # noqa: E402
 import nba_title_backtest as T  # noqa: E402
 
+_DECAY = float(os.environ.get("BT_DECAY", "0.2"))
+_CW = float(os.environ.get("BT_CW", "4"))
+_orig_fit = N._fit_ratings
+N._fit_ratings = lambda boxes, end_year: _orig_fit(boxes, end_year, decay=_DECAY, current_weight=_CW)
 SIMS = int(os.environ.get("BT_SIMS", "2000"))
-OUT = os.path.join(ROOT, "model", "replay")
+OUT = os.environ.get("BT_OUTDIR") or os.path.join(ROOT, "model", "replay")
 
 
 def labels(g):
