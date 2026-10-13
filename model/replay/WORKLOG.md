@@ -105,3 +105,12 @@ NHL_PRIOR_SCALE, NHL_PO_SCALE, NHL_PO_FADE; nhl_model.simulate(po_scale=1.0) def
   first quarter +0.0012, 7/10; conference/Cup only; early slopes 2.37 -> 1.99 and 1.57 -> 1.25, later stages stay near 1.
 TypeSafe low confidence (0.19; deploy 46%, record 30%, challenger 24%); interval includes zero so by the deploy rule it is
 NOT live: added as an archived challenger (futures.json c_final/c_cup, archived as c_finals/c_title).
+
+## NBA: current-season weight and late-season caution (13 Oct 2026)
+14-season replay (2013-2026, 2,000 sims). Knobs: BT_CW, BT_DECAY, BT_TAUFADE (nba.TAU_FADE, default 0 = live), BT_TEAM_TAU.
+- current-season weight 4 -> 8: mean log loss -0.0018 (90% -0.0011 to +0.0046), better 9/14 seasons, every market better
+  (title 0.0021, finals 0.0004, division 0.0007, seed 1 0.0029, playoffs 0.0029). DEPLOYED (TypeSafe 75%, confidence 0.62).
+  History CSVs and nba_score/nba_slope.json regenerated with weight 8. (CALIBRATION_CI.md NBA rows not regenerated.)
+- Fading team uncertainty (50%/80% by game 82) fixes the late title slope (1.42 -> 1.18) but makes conference/division
+  over-confident mid-season; walk-forward selection over all six settings gained nothing (-0.0003). Not deployed.
+- Still open: last-quarter title (slope 1.38 [1.10, 1.89]) and seed 1 (1.46 [1.23, 1.98]) remain too cautious.

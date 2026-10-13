@@ -62,6 +62,7 @@ TEAM_TAU = 2.2
 # Extra rating uncertainty before the season starts, fading to nothing by game TAU_PRE_GAMES (see README, NBA futures).
 TAU_PRE = 2.0   # 2013-26 point-in-time replay, preseason playoff log-loss 0.5965 -> 0.5613 (conf 0.2173 -> 0.2104); chosen with TypeSafe (84%)
 TAU_PRE_GAMES = 16
+TAU_FADE = 0.0  # research option: share of TEAM_TAU removed by the end of the regular season (0 = live behaviour)
 PACE = np.full(30, 100.0)   # team pace (possessions per 48), replaced at build time
 _OPTIONAL_DOWNLOADS_BLOCKED = False
 
@@ -544,7 +545,9 @@ def _regular_boxes(boxes: pd.DataFrame) -> pd.DataFrame:
 
 
 def _fit_ratings(boxes: pd.DataFrame, end_year: int, decay: float = 0.2, ridge: float = 24.0,
-                 current_weight: float = 4.0) -> tuple[pd.DataFrame, dict]:
+                 current_weight: float = 8.0) -> tuple[pd.DataFrame, dict]:
+    # current_weight 4 -> 8 (13 Oct 2026): 14-season weekly replay, every market better, 9 of 14 seasons, mean log loss
+    # -0.0018 (90% -0.0011 to +0.0046); walk-forward choice picked 8 every year from 2015. TypeSafe 75% (confidence 0.62).
     d = _regular_boxes(boxes)
     train = d[d.season >= end_year - 4].copy()
     n = len(train)
@@ -745,7 +748,7 @@ def _simulate(schedule: pd.DataFrame, ratings: pd.DataFrame, n_sims: int, avail:
                   "wins": np.zeros(83, dtype=np.int64)} for t in TEAMS}
     rng = np.random.default_rng(20261009)
     played_each = float(actual_wins.sum()) * 2 / len(TEAMS)
-    tau_now = TEAM_TAU * (1 + (TAU_PRE - 1) * max(0.0, 1 - played_each / TAU_PRE_GAMES))
+    tau_now = TEAM_TAU * (1 + (TAU_PRE - 1) * max(0.0, 1 - played_each / TAU_PRE_GAMES)) * (1 - TAU_FADE * min(played_each / 82, 1.0))
 
     home_ix = np.array([g[0] for g in remaining], dtype=np.int16)
     away_ix = np.array([g[1] for g in remaining], dtype=np.int16)
