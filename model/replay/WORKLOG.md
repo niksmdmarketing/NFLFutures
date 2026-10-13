@@ -114,3 +114,10 @@ NOT live: added as an archived challenger (futures.json c_final/c_cup, archived 
 - Fading team uncertainty (50%/80% by game 82) fixes the late title slope (1.42 -> 1.18) but makes conference/division
   over-confident mid-season; walk-forward selection over all six settings gained nothing (-0.0003). Not deployed.
 - Still open: last-quarter title (slope 1.38 [1.10, 1.89]) and seed 1 (1.46 [1.23, 1.98]) remain too cautious.
+
+## AFL: heavy-tailed game margins (13 Oct 2026)
+Make-finals longshots mid-season (model 5% or less) made the top 8 3.1% of the time vs 0.8% said (873 team-rounds,
+correlated within seasons); near-certainties (85-95%) 86.5% vs 90.2%. Student-t game margins (df 4/6/10, same spread;
+afl_site.GAME_DF, default 0 = normal) did not help: overall -0.0005 to 0.0000, late season worse, tails unchanged.
+Together with the earlier tau/fade/drift/spread/recency tests, no setting fixes the tails; AFL left unchanged.
+The 2026 top-10 format has only the live 2026 archive as evidence.

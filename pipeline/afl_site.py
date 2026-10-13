@@ -33,6 +33,7 @@ GAME_SD = 32.0     # spread of a single game's margin around the expected margin
 K_PRIOR = 12.0     # games of weight on the preseason prior (was 8)
 TAU0 = 14.0        # extra rating uncertainty (points) at the start of a season, fading to ~3 by round 23 (tau = TAU0 * (1 - min(games, 23) / TAU_FADE))
 TAU_FADE = 30.0
+GAME_DF = 0         # research option: Student-t degrees of freedom for game margins (0 = normal, the live model)
 PRIOR_REG = 0.65   # share of last season's rating carried into the new season (was 0.55)
 STATS = ["disposals", "kicks", "handballs", "marks", "tackles", "clearances", "centre_clearances", "stoppage_clearances",
          "inside_50s", "rebound_50s", "contested_possessions", "uncontested_possessions", "contested_marks", "marks_inside_50",
@@ -335,7 +336,10 @@ def simulate(teams, table, remaining, rating, tau, n=20000, seed=7, finals8=Fals
         m = min(2000, n - start)
         Rs = R[None, :] + rng.normal(0, tau, (m, T))
         mu = Rs[:, H] - Rs[:, A] + HGA
-        marg = mu + rng.normal(0, GAME_SD, mu.shape)
+        if GAME_DF:
+            marg = mu + GAME_SD * np.sqrt((GAME_DF - 2) / GAME_DF) * rng.standard_t(GAME_DF, mu.shape)
+        else:
+            marg = mu + rng.normal(0, GAME_SD, mu.shape)
         hw = (marg > 0).astype(float)
         W = np.repeat(w0[None, :], m, 0)
         PF = np.repeat(pf0[None, :], m, 0)

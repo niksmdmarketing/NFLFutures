@@ -46,6 +46,7 @@ def srs_w(g, prior, k, hl, ck):
 OUT = os.environ.get("BT_OUTDIR") or os.path.join(ROOT, "model", "replay")
 A.TAU0 = float(os.environ.get("BT_TAU0", A.TAU0))
 A.TAU_FADE = float(os.environ.get("BT_TAU_FADE", A.TAU_FADE))
+A.GAME_DF = float(os.environ.get("BT_GAME_DF", A.GAME_DF))
 
 
 def season_frames():
