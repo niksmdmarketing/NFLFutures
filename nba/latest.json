@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-10-13T0205Z",
-"feed_timestamp": "2026-10-13T02:05:26Z",
+"collected_utc": "2026-10-13T0231Z",
+"feed_timestamp": "2026-10-13T02:30:57Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -452,6 +452,12 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-14",
 "injury": "Right Toe Bruise"
+},
+{
+"athlete_id": "3934672",
+"status": "Day-To-Day",
+"return_date": "2026-10-15",
+"injury": "Rest"
 },
 {
 "athlete_id": "4900671",
@@ -1477,6 +1483,15 @@
 "return_date": "2026-10-14",
 "injury": "Right Toe Bruise",
 "updated": "2026-10-08T22:28Z"
+},
+{
+"athlete_id": "3934672",
+"name": "Jalen Brunson",
+"team_name": "New York Knicks",
+"status": "Day-To-Day",
+"return_date": "2026-10-15",
+"injury": "Rest",
+"updated": "2026-10-13T02:20Z"
 },
 {
 "athlete_id": "4900671",
