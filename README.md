@@ -223,3 +223,21 @@ Findings and decisions are in `model/replay/WORKLOG.md`.
 `pipeline/sport_archive.py` (run in the refresh workflow after `archive.py`) stores each run's NBA/NHL/AFL/NBL futures probabilities on the append-only
 `forecast-archive` branch (`<sport>/<season>/<stamp>.json.gz`, skipped when unchanged). `pipeline/replay_site.py --live <archive>` then adds the current season
 to each History page as "live: as published", one checkpoint per 7-day stretch plus the newest. Past seasons stay "replayed".
+
+## Live check and award replays (Oct 2026)
+- **Live check** (`pipeline/live_check.py`, shown on every History page): this season's published forecasts are scored from
+  the forecast-archive branch as results arrive. NFL games are scored for v4 and the v3 challenger; for NBA/NHL/AFL/NBL the
+  Outlook page's pre-game chances are archived and scored. Futures are scored from half-way through a season (team-markets at
+  exactly 0%/100%), including the archived challengers (NFL `challenger_v5`: playoff home edge 4; NHL `c_final`/`c_cup`:
+  fading playoff multiplier). Award chances are archived for scoring when the awards are announced.
+- **NBA awards** (`pipeline/nba_award_sim.py`): each candidate's season is simulated to the end (rates shrunk to last season,
+  availability, team record) and the 65-game rule applied (15+ minute games); preseason MVP and DPOY from a simulated full
+  season. Replay 2010-2026 every 14 days (`research/nba_awards_replay.py`): winner log loss 0.09 better than scoring stats to
+  date. Sixth Man and Rookie have no preseason skill, so they wait for games.
+- **NFL awards**: weekly replay 2018-2025 (`research/nfl_awards_replay.py`); rookie awards and OPOY sharpened from week 8
+  (`awards.LATE_T`); Comeback pool widened. **NHL awards**: dated snapshots via `research/nhl_award_snapshots.py` (Actions)
+  and `research/nhl_awards_replay.py`; point/goal-race noise lowered and Vezina sharpened late.
+- **AFL**: Brownlow chances widened (temperature 1.4, `research/afl_brownlow_replay.py`); Coleman race chances from
+  `pipeline/race_sim.py` (`research/afl_coleman_replay.py`).
+- **NFL replay with walk-forward weights** (`research/nfl_walkforward_weights.py`, `replay_nfl.py BT_COEF=wf`): 13
+  out-of-sample seasons (2013-2025) for testing v5 candidates; see `model/v5_notes.md`.
