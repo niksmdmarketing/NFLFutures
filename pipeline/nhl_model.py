@@ -155,6 +155,11 @@ def tune_shrinkage(TT, GG, betas_by_year, years):
 # playoff log-loss 0.572 -> 0.560 and division 1.751 -> 1.719 (better in 4 of 5 seasons); chosen with TypeSafe (96%).
 TAU_PRE = 1.5
 
+# Challenger (archived, not shown): rating gaps in playoff series x(1 + PO_FADE) at season start, fading to x1 by game 82.
+# Replay 2014-2025 (10 seasons): conference/Cup log loss +0.0003 overall (90% -0.0005 to +0.0012), better 6 of 10; first
+# quarter +0.0012, better 7 of 10; early slopes 2.37 -> 1.99 (conference). Not significant, so run alongside, not live.
+PO_FADE_CHALLENGER = 1.0
+
 
 def tau_at(tau, n):
     widen = 1 + (TAU_PRE - 1) * max(0.0, 1 - n / 20)
@@ -180,8 +185,9 @@ def league_scoring(GG, years):
 
 # ---------------------------------------------------------------- simulation
 
-def simulate(teams, state, games, ratings, tau, total, hfa, n_sims, seed=7, div_map=ALIGN):
-    """state: DataFrame by team (points, rw, row, gd). games: list of (home, away) still to play. Returns dict of arrays."""
+def simulate(teams, state, games, ratings, tau, total, hfa, n_sims, seed=7, div_map=ALIGN, po_scale=1.0):
+    """state: DataFrame by team (points, rw, row, gd). games: list of (home, away) still to play. Returns dict of arrays.
+    po_scale: multiplier on rating gaps in playoff series (research option; 1.0 = live behaviour)."""
     rng = np.random.default_rng(seed)
     T = len(teams)
     idx = {t: i for i, t in enumerate(teams)}
@@ -249,7 +255,7 @@ def simulate(teams, state, games, ratings, tau, total, hfa, n_sims, seed=7, div_
         def series(x, y):
             """x has home ice. Returns winners."""
             rx, ry = R[np.arange(S), x], R[np.arange(S), y]
-            ph = ndtr((rx - ry + hfa) / GAME_SD); pa = ndtr((rx - ry - hfa) / GAME_SD)
+            ph = ndtr((po_scale * (rx - ry) + hfa) / GAME_SD); pa = ndtr((po_scale * (rx - ry) - hfa) / GAME_SD)
             wins = np.zeros(S, int)
             for g in range(7):
                 p = ph if g in (0, 1, 4, 6) else pa
@@ -472,6 +478,8 @@ def build():
                 remaining_ct[t_] += 1
     log("nhl model: remaining games", len(games), "remaining per team min/max", int(remaining_ct.min()), int(remaining_ct.max()), "tau", round(tau_now, 3))
     sim = simulate(teams, state, games, rating.to_dict(), tau_now, total, hfa, SIMS)
+    sim_c = simulate(teams, state, games, rating.to_dict(), tau_now, total, hfa, max(SIMS // 2, 1000),
+                     po_scale=1 + PO_FADE_CHALLENGER * max(0.0, 1 - n_avg / SEASON_GAMES))
     cdf = np.cumsum(sim["pts_hist"][:, ::-1], axis=1)[:, ::-1]                      # P(points >= x)
     names = Tc.name.to_dict()
     rows = []
@@ -485,6 +493,7 @@ def build():
                      "pts_mean": float(sim["pts_mean"][i]), "pts_p10": q(0.10), "pts_p50": q(0.50), "pts_p90": q(0.90),
                      "p_playoffs": float(sim["playoffs"][i]), "p_div": float(sim["div"][i]), "p_pres": float(sim["pres"][i]),
                      "p_r2": float(sim["r2"][i]), "p_r3": float(sim["r3"][i]), "p_final": float(sim["final"][i]), "p_cup": float(sim["cup"][i]),
+                     "c_final": float(sim_c["final"][i]), "c_cup": float(sim_c["cup"][i]),
                      "over": [round(float(v), 4) for v in cdf[i][30:141]]})
     cache = os.path.join(nhl.NHL_DATA, "model_backtest.json")
     key = f"v4-dated-checkpoint-{done[-1]}-{TAU_PRE}-{SIMS > 0}"
@@ -498,6 +507,7 @@ def build():
         json.dump({"key": key, "bt": bt}, open(cache, "w"))
     out = {"season": cur, "updated_utc": dt.datetime.now(dt.timezone.utc).isoformat(timespec="minutes"), "games_played": n_avg, "sims": SIMS,
            "params": {"k": k, "tau_now": tau_now, "tau": tau, "total_goals": total, "hfa": hfa, "beta": [float(b) for b in beta], "prior_r2": r2, "prior_rmse": rmse},
-           "backtest": bt, "teams": rows, "pts_axis": [30, 140]}
+           "backtest": bt, "teams": rows, "pts_axis": [30, 140],
+           "challenger": {"name": "fading playoff multiplier", "fields": ["c_final", "c_cup"], "po_fade": PO_FADE_CHALLENGER}}
     nhl.write("futures.json", out)
     log("nhl model done: top cup", sorted(((r["p_cup"], r["team"]) for r in rows), reverse=True)[:4])

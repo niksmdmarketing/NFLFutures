@@ -19,7 +19,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # market key -> field in that sport's futures.json team rows (keys match replay_site.SPORTS)
 FIELDS = {
     "nba": {"title": "p_title", "finals": "p_conf", "div": "p_div", "seed1": "p_seed1", "playoff": "p_playoff"},
-    "nhl": {"title": "p_cup", "finals": "p_final", "div": "p_div", "playoff": "p_playoffs"},
+    "nhl": {"title": "p_cup", "finals": "p_final", "div": "p_div", "playoff": "p_playoffs", "c_title": "c_cup", "c_finals": "c_final"},
     "nbl": {"title": "champ", "finals": "gf", "div": "p2", "seed1": "p1", "playoff": "p6"},
     "nfl": {"title": "p_sb", "finals": "p_conf", "div": "p_div", "seed1": "p_seed1", "playoff": "p_playoff"},
     "afl": {"title": "flag", "finals": "gf", "pf": "pf", "div": "p4", "seed1": "p1", "top8": "p8", "playoff": "p10"},

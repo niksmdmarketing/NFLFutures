@@ -20,6 +20,12 @@ import nhl_model as M  # noqa: E402
 
 nhl.NHL_OUT = M.nhl.NHL_OUT = sys.argv[1]
 SIMS = int(os.environ.get("BT_SIMS", "2000"))
+# Research knobs: NHL_TAU_PRE (preseason widening), NHL_PRIOR_SCALE (stretch preseason prior), NHL_PO_SCALE (playoff gaps).
+if os.environ.get("NHL_TAU_PRE"):
+    M.TAU_PRE = float(os.environ["NHL_TAU_PRE"])
+PRIOR_SCALE = float(os.environ.get("NHL_PRIOR_SCALE", "1"))
+PO_SCALE = float(os.environ.get("NHL_PO_SCALE", "1"))
+PO_FADE = float(os.environ.get("NHL_PO_FADE", "0"))   # extra playoff-gap multiplier at season start, fading to 0 by game 82
 OUT = os.environ.get("BT_OUTDIR") or os.path.join(ROOT, "model", "replay")
 
 
@@ -71,7 +77,7 @@ def run_season(TT, GG, fit_years, done, y):
     comp = fin.pts * 1e6 + fin.wins * 1e3 + fin.gd
     divwin = {d: max([t for t in teams if align[t] == d], key=lambda t: comp[t]) for d in set(align.values())}
     pres = comp.idxmax()
-    prior = pd.Series(M.prior_features(y, TT).reindex(teams).fillna(0).values @ beta_y, index=teams)
+    prior = PRIOR_SCALE * pd.Series(M.prior_features(y, TT).reindex(teams).fillna(0).values @ beta_y, index=teams)
     first, last = g.date.min(), g.date.max()
     cuts = [first]
     d = first + pd.Timedelta(days=7)
@@ -93,7 +99,7 @@ def run_season(TT, GG, fit_years, done, y):
                               "gd": pl.groupby("team").gd.sum().reindex(teams).fillna(0)}, index=teams)
         state["row"] = pl.assign(x=win.astype(float)).groupby("team").x.sum().reindex(teams).fillna(0)
         n_avg = float(gp.mean())
-        sim = M.simulate(teams, state, list(zip(rm.team, rm.opp)), rating.to_dict(), M.tau_at(tau, n_avg), total, hfa, SIMS, seed=3, div_map=align)
+        sim = M.simulate(teams, state, list(zip(rm.team, rm.opp)), rating.to_dict(), M.tau_at(tau, n_avg), total, hfa, SIMS, seed=3, div_map=align, po_scale=PO_SCALE + PO_FADE * max(0.0, 1 - n_avg / 82))
         for i, t in enumerate(teams):
             rows.append(dict(season=y, week=wk, date=str(cut.date()), gp_avg=round(n_avg, 1), team=t, p_playoff=sim["playoffs"][i],
                              p_div=sim["div"][i], p_pres=sim["pres"][i], p_r2=sim["r2"][i], p_r3=sim["r3"][i], p_conf=sim["final"][i],

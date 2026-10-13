@@ -93,3 +93,15 @@ A monthly read-only health check (scheduled task, 1st of each month 8:52 Melbour
 ## NFL: playoff simulation and walk-forward weights (13 Oct 2026)
 See model/v5_notes.md. Replay extended to 2013-2025 with walk-forward weights (13 out-of-sample seasons). Playoff home edge 4.0
 is the only change with an interval above zero (conference and title only); added as archived challenger_v5. v4 unchanged.
+
+## NHL: early conference/Cup flatness (13 Oct 2026)
+Replay 2014-18, 2021-25 (settings from earlier seasons). Preseason/first-quarter conference and Cup slopes 2.37/2.25 and
+1.57/1.58; playoffs, division, best record calibrated. An after-the-fact recalibration would only gain 0.005 (conference)
+and 0.003 (Cup) in early log loss, so the cost is real but small. Knobs added to research/replay_nhl.py (NHL_TAU_PRE,
+NHL_PRIOR_SCALE, NHL_PO_SCALE, NHL_PO_FADE; nhl_model.simulate(po_scale=1.0) default = live behaviour). 3,000 sims:
+- prior x1.25 / x1.5: conference/Cup better but make-playoffs (-0.006/-0.015) and division worse: rejected.
+- no preseason widening (TAU_PRE 1.0): no change. Constant playoff multiplier 1.3: +0.0002.
+- fading playoff multiplier (x2 at season start -> x1 by game 82): overall +0.0003 (90% -0.0005 to +0.0012), better 6/10;
+  first quarter +0.0012, 7/10; conference/Cup only; early slopes 2.37 -> 1.99 and 1.57 -> 1.25, later stages stay near 1.
+TypeSafe low confidence (0.19; deploy 46%, record 30%, challenger 24%); interval includes zero so by the deploy rule it is
+NOT live: added as an archived challenger (futures.json c_final/c_cup, archived as c_finals/c_title).
