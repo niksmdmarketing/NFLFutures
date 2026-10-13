@@ -45,6 +45,7 @@ TITLES = {"Hart": "Hart Trophy (MVP)", "Vezina": "Vezina Trophy (top goalie)", "
 NAME_FIX = {"alexanderovechkin": "alexovechkin", "pksubban": "pksubban", "nicklaslidstrom": "nicklaslidstrom"}
 SEASON_GAMES = 82
 LAMBDAS = (0.01, 0.05, 0.3, 1.0)
+K_PTS, K_GOALS, TALENT_SHAPE = 18, 22, 20      # skater rate prior (games of last season's rate) and gamma talent noise shape
 
 
 def norm(s) -> str:
@@ -267,11 +268,11 @@ def simulate_current(cur: int, T: dict, S: int = 400, seed: int = 11):
         Rt = np.array([R.get(t, 0) for t in df.team], float)
         grem = rng.binomial(Rt.astype(int)[None, :].repeat(S, 0), 0.92)
         res = {}
-        for key, k_prior, repl in (("pts", 18, 0.30), ("goals", 22, 0.10)):
+        for key, k_prior, repl in (("pts", K_PTS, 0.30), ("goals", K_GOALS, 0.10)):
             prior_rate = np.array([(prev_sk.loc[nm, key] / prev_sk.loc[nm, "gp"]) if prev_sk is not None and nm in prev_sk.index and prev_sk.loc[nm, "gp"] >= 25 else repl
                                    for nm in df.name], float)
             rate = (df[key].to_numpy(float) + k_prior * prior_rate) / (df.gp.to_numpy(float) + k_prior)
-            mult = rng.gamma(20, 1 / 20, (S, n))
+            mult = rng.gamma(TALENT_SHAPE, 1 / TALENT_SHAPE, (S, n))
             res[key] = df[key].to_numpy(float)[None, :] + rng.poisson(np.maximum(rate[None, :] * mult * grem, 0))
         res["gp"] = df.gp.to_numpy(float)[None, :] + grem
         prior_toi = np.array([prev_sk.loc[nm, "toi"] if prev_sk is not None and nm in prev_sk.index else df.toi.mean() for nm in df.name], float)

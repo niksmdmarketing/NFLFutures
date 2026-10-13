@@ -62,6 +62,7 @@ TEAM_TAU = 2.2
 # Extra rating uncertainty before the season starts, fading to nothing by game TAU_PRE_GAMES (see README, NBA futures).
 TAU_PRE = 2.0   # 2013-26 point-in-time replay, preseason playoff log-loss 0.5965 -> 0.5613 (conf 0.2173 -> 0.2104); chosen with TypeSafe (84%)
 TAU_PRE_GAMES = 16
+PO_SCALE = 1.0  # research option: multiplier on rating gaps in playoff series (1 = live behaviour)
 TAU_FADE = 0.0  # research option: share of TEAM_TAU removed by the end of the regular season (0 = live behaviour)
 PACE = np.full(30, 100.0)   # team pace (possessions per 48), replaced at build time
 _OPTIONAL_DOWNLOADS_BLOCKED = False
@@ -692,6 +693,8 @@ def _series(rng: np.random.Generator, a: str, b: str, strength: np.ndarray,
     # Better regular-season record owns Games 1, 2, 5 and 7; rating breaks ties.
     if (records[b], strength[TIX[b]]) > (records[a], strength[TIX[a]]):
         a, b = b, a
+    if PO_SCALE != 1.0:
+        strength = strength.mean() + PO_SCALE * (strength - strength.mean())
     wa = wb = 0
     for home_a in (True, True, False, False, True, False, True):
         home, away = (a, b) if home_a else (b, a)
