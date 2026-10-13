@@ -173,3 +173,5 @@ the Futures page live; last season's win% regressed halfway in the replay). Vers
 DPOY +0.069, Sixth Man +0.245, MVP -0.018 (log loss per season). Calibration of the favourite: MVP said 38% / won 35%,
 DPOY 30% / 24%, Sixth Man 43% / 0 of 17 (no preseason skill). Flattening (temperature 1.5-3) helped Sixth Man only.
 Live: MVP and DPOY show preseason chances; Sixth Man and Rookie stay empty until games are played.
+- NFL Comeback Player pool: last-season cap 10 -> 13 games (adds e.g. Tannehill 2019). Winner outside pool 25% -> 12%,
+  LOSO log loss 4.41 -> 4.19; deployed. Still "No proven skill" (Flacco 2023 and Alex Smith 2020 are part-time QBs).

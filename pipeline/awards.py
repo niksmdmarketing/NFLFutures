@@ -80,7 +80,9 @@ def pool(a, award, s=0.6):
     if award == "DROY":
         return a[(a.rookie == 1) & (a.is_def == 1) & ((a.def_sacks >= 3 * s) | (a.def_interceptions >= 2 * s) | (a.tackles >= 50 * s) | (a.def_tackles_for_loss >= 6 * s))]
     if award == "CPOY":
-        return a[(off | dfn) & (a.prev_games <= 10) & (a.rookie == 0)]
+        # last-season cap 10 -> 13 games (Oct 2026): 2018-2025 replay, winner outside the pool 25% -> 12% of checkpoints,
+        # leave-one-season-out log loss 4.41 -> 4.19. Still no proven skill (the page says so).
+        return a[(off | dfn) & (a.prev_games <= 13) & (a.rookie == 0)]
 
 
 def project(c, ctx, NS, rng):

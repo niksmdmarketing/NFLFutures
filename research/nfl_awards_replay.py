@@ -27,7 +27,17 @@ from award_race import WINNERS, ALIAS  # noqa: E402
 
 NFL_AW = {k: {**_OLD.get(k, {}), **WINNERS[k]} for k in WINNERS}
 
-AWARDS = ["MVP", "OPOY", "DPOY", "OROY", "DROY", "CPOY"]
+AWARDS = os.environ.get("AW_ONLY", "MVP OPOY DPOY OROY DROY CPOY").split()
+if os.environ.get("AW_CPOY_WIDE"):        # research: Comeback pool without the 10-game cap on last season (prev_games stays a feature)
+    _pool = AW.pool
+
+    def _wide(a, award, s=0.6):
+        if award != "CPOY":
+            return _pool(a, award, s)
+        off = ((a.is_qb == 1) & (a.attempts >= 250 * s)) | ((a.is_qb == 0) & (a.is_def == 0) & ((a.scrim >= 1000 * s) | (a.tds >= 10 * s)))
+        dfn = (a.is_def == 1) & ((a.def_sacks >= 6 * s) | (a.def_interceptions >= 4 * s) | (a.def_tackles_for_loss >= 12 * s) | (a.tackles >= 100 * s))
+        return a[(off | dfn) & (a.rookie == 0) & (a.prev_games <= 13)]
+    AW.pool = _wide
 WEEKS = [4, 6, 8, 10, 12, 14, 16]
 NS = int(os.environ.get("AW_SIMS", "400"))
 TEMPS = [0.6, 0.8, 1.0, 1.25, 1.6, 2.0]
