@@ -29,3 +29,8 @@
 - Decision (TypeSafe 95%): run "playoff home edge 4.0" as an archived challenger beside v4 (settings challenger_v5,
   simulate(hfa_post=...)); v4 live output unchanged. No. 1 seed and conference remain somewhat timid; regular-season game
   sharpness (k 1.2) is the open item, but tau/scale fixes are not yet robust.
+
+## Game-level sharpness, walk-forward (14 Oct 2026)
+Fitting the late-regular-season sharpness k on earlier seasons only and applying it to the next season (2014-2025):
+k drifts from 1.36 to 1.20 and the out-of-sample log loss is unchanged (-0.0003, better in 6 of 12 seasons). The k 1.2
+finding is real on average but not stable enough to fix by scaling; consistent with the tau 3.5 futures result.

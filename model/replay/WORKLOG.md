@@ -175,3 +175,5 @@ DPOY 30% / 24%, Sixth Man 43% / 0 of 17 (no preseason skill). Flattening (temper
 Live: MVP and DPOY show preseason chances; Sixth Man and Rookie stay empty until games are played.
 - NFL Comeback Player pool: last-season cap 10 -> 13 games (adds e.g. Tannehill 2019). Winner outside pool 25% -> 12%,
   LOSO log loss 4.41 -> 4.19; deployed. Still "No proven skill" (Flacco 2023 and Alex Smith 2020 are part-time QBs).
+- NHL rate prior k 18/22 -> 36/44 (with shape 50): Art Ross +0.057 (9/15), Richard +0.024 (8/15), Hart +0.031 (7/15),
+  Vezina +0.018 (10/15), Norris -0.020 (6/15), Calder +0.007 (7/15). Mixed, not adopted.
