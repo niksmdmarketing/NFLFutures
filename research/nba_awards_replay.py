@@ -82,6 +82,16 @@ def replay(first, last):
             train[feats] = train[feats].fillna(train[feats].median())
             beta = AM.fit(train, feats)
             win = AM_norm(NBA_AW[award][y])
+            # preseason: last season's final lines scored by the logit ("live" stand-in) vs the simulated season
+            if award != "ROY":
+                Pp = pool(prev.assign(season=y), award, y)
+                Pp[feats] = Pp[feats].fillna(Pp[feats].median())
+                p_live = dict(zip(Pp.name.map(AM_norm), logit_probs(Pp, feats, beta)))
+                p_sim = SIM.preseason_probs(prev, award, feats, beta, L, y)
+                for meth, pm in (("live", p_live), ("sim", p_sim)):
+                    pw = pm.get(win, 0.0)
+                    rows.append(dict(season=y, award=award, ck=-1, frac=0.0, method=meth, p_winner=pw, fav=max(pm.values()) if pm else 0.0,
+                                     fav_won=int(bool(pm) and max(pm, key=pm.get) == win), nll=-np.log(max(pw, 0.002))))
             for ci, cut in enumerate(cuts):
                 a = season_lines(b, cut)
                 a["rookie"] = a.index.isin(rookies)

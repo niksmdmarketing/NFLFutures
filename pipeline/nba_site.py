@@ -697,11 +697,26 @@ def awards(cur, player_hist, team_hist):
         beta = AM.fit(hist, feats)
         now = Pool[Pool.season == cur].copy()
         cur_rows = []
-        if len(now):
+        preseason_note = None
+        if len(now) or key in ("MVP", "DPOY"):
             try:   # forward simulation of the rest of the season + 65-game rule (pipeline/nba_award_sim.py)
                 import nba_award_sim as SIM
                 Pc = P[P.season == cur].copy()
                 probs = SIM.live_probs(cur, key, feats, beta, set(Pc.athlete_id[Pc.rookie]))
+                if not probs and key in ("MVP", "DPOY"):
+                    # preseason: last season's leaders simulated over a full season, team strength from the Futures page.
+                    # Replay 2010-2026: MVP favourite said 38% / won 35%, DPOY 30% / 24%; Sixth Man and Rookie have no
+                    # preseason skill (Sixth Man favourite 0 of 17), so those stay empty until games are played.
+                    try:
+                        fut = json.load(open(os.path.join(OUT, "futures.json")))
+                        team_wp = {r["team"]: r["w_mean"] / 82 for r in fut.get("teams", []) if r.get("w_mean") is not None}
+                    except Exception:  # noqa: BLE001
+                        team_wp = None
+                    pb = SIM.boxes(cur - 1)
+                    probs = SIM.preseason_probs(SIM.season_lines(pb), key, feats, beta, 82, cur, team_wp) if pb is not None else {}
+                    if probs:
+                        Pc = P[P.season == cur - 1].copy()
+                        preseason_note = "Preseason: last season's numbers shown; chances simulate a full season from them."
                 Pc["prob"] = Pc.name.map(AM_norm).map(probs).fillna(0.0)
                 now = Pc[Pc.prob > 0].sort_values("prob", ascending=False).head(15)
                 if now.empty:
@@ -722,7 +737,7 @@ def awards(cur, player_hist, team_hist):
                 past.append({"season": int(y), "name": nm, "team": ""})
         out[key] = {"title": title, "short": short, "backtest": bt, "cols": show, "current": cur_rows, "past": past,
                     "past_note": "Each winner's final per-game numbers and his team's record.",
-                    "note": f"Chances come from a model fitted on every winner since {FIRST - 1}-{str(FIRST)[2:]}. Each candidate's season is simulated to the end (numbers so far, last season's level, games he is likely to play, his team's record), and from 2023-24 players who cannot reach 65 games are out. Pool: top {n} by {('box-score production' if rankcol == 'eff_g' else 'steals, blocks and rebounds' if rankcol == 'def_g' else 'scoring')}.",
+                    "note": (preseason_note + " " if preseason_note else "") + f"Chances come from a model fitted on every winner since {FIRST - 1}-{str(FIRST)[2:]}. Each candidate's season is simulated to the end (numbers so far, last season's level, games he is likely to play, his team's record), and from 2023-24 players who cannot reach 65 games are out. Pool: top {n} by {('box-score production' if rankcol == 'eff_g' else 'steals, blocks and rebounds' if rankcol == 'def_g' else 'scoring')}.",
                     "empty": "The season has not started; chances appear after the first games."}
     return {"order": ["MVP", "DPOY", "ROY", "6MOY"], "awards": out,
             "intro": "Award chances from a model trained on past voting, tested one season at a time. The winning-team pull and availability rules (65 games) matter as much as raw numbers — see the Trends tab."}

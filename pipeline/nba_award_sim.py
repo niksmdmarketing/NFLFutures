@@ -87,17 +87,20 @@ def features(A, L):
     return f
 
 
-def simulate(a, prev, D, award, feats, beta, L, y, rng=None):
-    """Average award probabilities over SIMS simulated finishes of the season."""
+def simulate(a, prev, D, award, feats, beta, L, y, rng=None, pre=False):
+    """Average award probabilities over SIMS simulated finishes of the season (pre=True: D is a ready preseason pool)."""
     rng = rng or np.random.default_rng(y * 7 + len(award))
     poolf, rank, n, _ = SPECS[award]
-    # candidates: generous to-date pool (3x) so late risers are not excluded
-    C = D[(D.gp >= 1)].copy()
-    if award == "ROY":
-        C = C[C.rookie]
-    if award == "6MOY":
-        C = C[(C.start / C.gp) < .6]
-    C = C.sort_values(rank, ascending=False).head(3 * n)
+    if pre:
+        C = D.copy()
+    else:
+        # candidates: generous to-date pool (3x) so late risers are not excluded
+        C = D[(D.gp >= 1)].copy()
+        if award == "ROY":
+            C = C[C.rookie]
+        if award == "6MOY":
+            C = C[(C.start / C.gp) < .6]
+        C = C.sort_values(rank, ascending=False).head(3 * n)
     if C.empty:
         return {}
     m = len(C)
@@ -113,7 +116,8 @@ def simulate(a, prev, D, award, feats, beta, L, y, rng=None):
         ok = np.isfinite(r_prev) & (pr.gp.fillna(0).values >= 10)
         rates[k] = np.where(ok, (gp * r_now + K_RATE * np.nan_to_num(r_prev)) / (gp + K_RATE), r_now)
     avail = (gp + 0.85 * K_AVAIL) / (tg + K_AVAIL)
-    wp_hat = (tw + 0.5 * 15) / (tg + 15)
+    wp0 = C.wp_prior.values.astype(float) if "wp_prior" in C else np.full(m, 0.5)
+    wp_hat = (tw + wp0 * 15) / (tg + 15)
     S = SIMS
     a_s = np.clip(avail[None, :] + rng.normal(0, AVAIL_SD, (S, m)), 0.0, 1.0)
     g_rem = rng.binomial(rem.astype(int)[None, :].repeat(S, 0), a_s)
@@ -169,3 +173,31 @@ def live_probs(cur, award, feats, beta, rookies, games_in_season=82):
     D = a.assign(**{k: np.asarray(v, float) for k, v in f.items()})
     D["bench"] = (D.start / D.gp) < .5
     return simulate(a, prev, D, award, feats, np.asarray(beta, float), float(games_in_season), cur)
+
+
+def preseason_pool(prev, award, team_wp=None):
+    """Preseason candidates: last season's leaders (30+ games) with zero games so far; team strength from `team_wp`
+    ({team: projected win%}, e.g. the futures page) or last season's win% regressed halfway to .500."""
+    if award == "ROY" or prev is None or prev.empty:
+        return None
+    P = prev[prev.gp >= 30].copy()
+    P["wp"] = P.tw / P.tg.clip(lower=1)
+    f = features(P, float(P.tg.max()))
+    rank = SPECS[award][1]
+    P["_rank"] = np.asarray(f[rank], float)
+    if award == "6MOY":
+        P = P[(P.start / P.gp) < .6]
+    P = P.sort_values("_rank", ascending=False).head(3 * SPECS[award][2])
+    C0 = P[["name", "team"]].copy()
+    for k in STATS:
+        C0[k] = 0.0
+    C0["gp"], C0["tg"], C0["tw"], C0["rookie"] = 0.0, 0.0, 0.0, False
+    C0["wp_prior"] = [(team_wp or {}).get(t, 0.5 + 0.5 * (w - 0.5)) for t, w in zip(P.team, P.wp)]
+    return C0
+
+
+def preseason_probs(prev, award, feats, beta, L, y, team_wp=None):
+    C0 = preseason_pool(prev, award, team_wp)
+    if C0 is None or C0.empty:
+        return {}
+    return simulate(C0, prev, C0, award, feats, np.asarray(beta, float), float(L), y, pre=True)

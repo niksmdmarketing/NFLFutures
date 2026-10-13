@@ -166,3 +166,10 @@ DEPLOYED: TALENT_SHAPE 50 and Vezina late T 0.6.
 nba.PO_SCALE (default 1). 14-season replay with the live weight-8 ratings: x1.2 -0.0001 overall (title +0.0007, conference
 -0.0009), x1.4 -0.0004 (title +0.0010, conference -0.0031). Conference finalists are already slightly over-confident
 mid/late (slopes 0.76-0.91) while the title is cautious (1.2-1.3), so no single playoff-strength change fixes both.
+
+## NBA awards preseason (14 Oct 2026) - DEPLOYED for MVP and DPOY
+Preseason pool = last season's leaders (30+ games), a full season simulated from last season's rates (team strength from
+the Futures page live; last season's win% regressed halfway in the replay). Versus scoring last season's final lines:
+DPOY +0.069, Sixth Man +0.245, MVP -0.018 (log loss per season). Calibration of the favourite: MVP said 38% / won 35%,
+DPOY 30% / 24%, Sixth Man 43% / 0 of 17 (no preseason skill). Flattening (temperature 1.5-3) helped Sixth Man only.
+Live: MVP and DPOY show preseason chances; Sixth Man and Rookie stay empty until games are played.
