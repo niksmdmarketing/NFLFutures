@@ -64,6 +64,7 @@ TAU_PRE = 2.0   # 2013-26 point-in-time replay, preseason playoff log-loss 0.596
 TAU_PRE_GAMES = 16
 PO_SCALE = 1.0  # research option: multiplier on rating gaps in playoff series (1 = live behaviour)
 TAU_FADE = 0.0  # research option: share of TEAM_TAU removed by the end of the regular season (0 = live behaviour)
+TAU_FADE_START = 0.0  # research option: games played before the fade begins (fade is linear from here to game 82)
 PACE = np.full(30, 100.0)   # team pace (possessions per 48), replaced at build time
 _OPTIONAL_DOWNLOADS_BLOCKED = False
 
@@ -751,7 +752,7 @@ def _simulate(schedule: pd.DataFrame, ratings: pd.DataFrame, n_sims: int, avail:
                   "wins": np.zeros(83, dtype=np.int64)} for t in TEAMS}
     rng = np.random.default_rng(20261009)
     played_each = float(actual_wins.sum()) * 2 / len(TEAMS)
-    tau_now = TEAM_TAU * (1 + (TAU_PRE - 1) * max(0.0, 1 - played_each / TAU_PRE_GAMES)) * (1 - TAU_FADE * min(played_each / 82, 1.0))
+    tau_now = TEAM_TAU * (1 + (TAU_PRE - 1) * max(0.0, 1 - played_each / TAU_PRE_GAMES)) * (1 - TAU_FADE * min(max(played_each - TAU_FADE_START, 0.0) / (82 - TAU_FADE_START), 1.0))
 
     home_ix = np.array([g[0] for g in remaining], dtype=np.int16)
     away_ix = np.array([g[1] for g in remaining], dtype=np.int16)

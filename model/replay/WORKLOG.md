@@ -204,3 +204,14 @@ research/nfl_leader_replay.py: most passing yards / passing TDs / rushing yards 
 2012-2025, weeks 3-15 every 2. race_sim (counts: Poisson; yards: Normal per game, cv 0.45) with K x shape grid per stat.
 Chosen: pass yds K4/50, pass TD K2/20, rush yds K2/20, rec yds K2/50, receptions K4/20, sacks K4/50 (log loss 1.616;
 walk-forward choice 1.657). Favourite said/won: weeks 3-5 34%/37%, 7-11 44%/46%, 13-15 65%/68%. No injury input.
+
+## NBA: late-only uncertainty fade (14 Oct 2026) - not adopted
+nba.TAU_FADE_START (default 0 = live): the team-uncertainty fade starts only after N games, so mid-season division and
+conference are untouched (the earlier full-season fade made them over-confident). 14-season replay, 2,000 sims, games 61+:
+- fade 50% from game 55: +0.0000 overall (7/14); fade 80% from game 60: +0.0001 (90% -0.0001 to +0.0003, 9/14). Late title,
+  division, seed 1 and playoffs all better (late title slope 1.26 -> 1.15, seed 1 1.54 -> 1.47) but late conference worse
+  (0.1744 -> 0.1780).
+- adding a playoff-gap multiplier x0.9 to offset the conference: +0.0001 (8/14), conference better, but title -0.0001
+  overall; x0.8 worse for the title. Gains are within noise, picked from five variants on the same seasons, and the title
+  market gets slightly worse, so nothing deployed. The late title/seed-1 caution remains open; the 2026-27 live archive
+  will show whether it persists.
