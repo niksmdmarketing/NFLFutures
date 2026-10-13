@@ -604,14 +604,28 @@ def awards(cur, player_hist, tables):
     cp = [C("games", "GP", "", "int"), C("goals", "Goals", "", "int"), C("goals_pg", "Goals/G", "", "num2"), C("behinds", "Behinds", "", "int")]
     past_c = [{"season": int(r.season), "name": r["name"], "team": r.team, **{c["k"]: r[c["k"]] for c in cp}} for _, r in gl.sort_values("season", ascending=False).iterrows()]
     cur_c = []
+    has_prob = False
     if cur in P.season.values:
-        x = P[P.season == cur].sort_values("goals", ascending=False).head(15)
-        rem = max(0, 23 - x.games.max())
-        x = x.assign(proj=x.goals + x.goals_pg * rem)
-        cur_c = x[["name", "team"] + [c["k"] for c in cp] + ["proj"]].to_dict("records")
+        x = P[P.season == cur].sort_values("goals", ascending=False).head(60).copy()
+        try:   # race simulation (pipeline/race_sim.py); replay 2013-2026 every 3rd round chose K 4, talent shape 8
+            import race_sim
+            gp_team = tables[cur].set_index("team").gp if "gp" in tables[cur] else None
+            T = x.team.map(gp_team).fillna(x.games.max()).to_numpy(float) if gp_team is not None else np.full(len(x), float(x.games.max()))
+            R = np.clip(23 - T, 0, None)
+            pv = P[(P.season == cur - 1) & (P.games >= 8)]
+            prior = x.name.map(dict(zip(pv.name, pv.goals / pv.games))).fillna(0.4).to_numpy(float)
+            p, proj = race_sim.simulate_race(x.goals.to_numpy(float), x.games.to_numpy(float), T, R, prior, 4, 8)
+            x = x.assign(prob=p, proj=proj).sort_values("prob", ascending=False).head(15)
+            has_prob = True
+        except Exception as exc:  # noqa: BLE001
+            print("coleman race skipped:", exc)
+            x = x.head(15)
+            rem = max(0, 23 - x.games.max())
+            x = x.assign(proj=x.goals + x.goals_pg * rem)
+        cur_c = x[["name", "team"] + [c["k"] for c in cp] + ["proj"] + (["prob"] if has_prob else [])].to_dict("records")
     out["Coleman"] = {"title": "Coleman Medal (most goals, home and away)", "short": "Coleman", "cols": cp + [C("proj", "Projected", "", "num1")],
-                      "current": cur_c, "has_prob": False, "past": past_c, "past_cols": cp,
-                      "note": "Projected goals = goals so far plus the current rate over the remaining rounds.", "empty": "The new season has not started."}
+                      "current": cur_c, "has_prob": has_prob, "past": past_c, "past_cols": cp,
+                      "note": "Chance of kicking the most home-and-away goals: each player's goals and games so far, last season's rate and his team's remaining rounds are simulated (ties share). Replayed on 2013-2026: early-season favourites were too short (said 29%, won 15%); from mid-season the chances were about right. Projected = expected goals at the end of the home and away season.", "empty": "The new season has not started."}
     return {"order": ["Brownlow", "Coleman"], "awards": out}
 
 

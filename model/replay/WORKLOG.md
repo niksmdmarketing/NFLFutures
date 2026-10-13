@@ -179,3 +179,9 @@ Live: MVP and DPOY show preseason chances; Sixth Man and Rookie stay empty until
   Vezina +0.018 (10/15), Norris -0.020 (6/15), Calder +0.007 (7/15). Mixed, not adopted.
 - NBA game sigma 12.2 -> 11.6 / 11.0: -0.0002 / -0.0005 (title +0.0005, others slightly worse). Not adopted; the
   late title/seed-1 caution stays open (no setting tried so far fixes it without hurting other markets).
+
+## AFL Coleman race chances (14 Oct 2026) - DEPLOYED (applies from the 2027 season)
+research/afl_coleman_replay.py with pipeline/race_sim.py: home-and-away goals per match (fitzRoy AFL Tables), checkpoint
+every 3rd round, 2013-2026. Grid K {2,4,8,12} x talent shape {3,5,8,20,50}: K 4, shape 8 best (log loss 1.869).
+Favourite said/won: early 29%/15% (too short), mid 35%/31%, late 64%/69%. The Coleman table previously had projections only;
+it now shows chances, with the early-season caveat on the page.
