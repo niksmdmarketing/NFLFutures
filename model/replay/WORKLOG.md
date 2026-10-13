@@ -58,3 +58,6 @@
 - NBL, NHL: not yet checked empirically (NHL uses params_before = earlier seasons only).
 - Selection, not leakage: several settings were chosen on these same seasons and so flatter the replay scores a little: NBA decay 0.2 / current-season weight 4 ("chosen on the point-in-time backtest", per the code comment), AFL/NBL tau and shrinkage constants, soccer K. Soccer K was confirmed walk-forward; the others have not been.
 - Format knowledge (finalist count, play-in era) is read from the season's own final outcome. It is public before each season, so not a leak of results, but it is not strictly 'known at the time' for the earliest seasons.
+- NBL (research/replay_leak_check_nbl.py 2022 70): scrambling every score from 10 weeks into the season and the finals leaves earlier checkpoints unchanged (0.0); later ones change.
+- NHL (research/replay_leak_check_nhl.py <data> 2023 70): scrambling goals and results from 10 weeks in leaves earlier checkpoints unchanged (0.0); later ones change.
+- Result: soccer, AFL, NBL and NHL replays pass the future-results check; NBA is read-only reviewed (needs its box-score downloads to run). This tests results leakage only, not the selection of settings on the same seasons.
