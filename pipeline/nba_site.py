@@ -698,8 +698,19 @@ def awards(cur, player_hist, team_hist):
         now = Pool[Pool.season == cur].copy()
         cur_rows = []
         if len(now):
-            now["prob"] = AM.predict(now, feats, beta)
-            now = now.sort_values("prob", ascending=False).head(15)
+            try:   # forward simulation of the rest of the season + 65-game rule (pipeline/nba_award_sim.py)
+                import nba_award_sim as SIM
+                Pc = P[P.season == cur].copy()
+                probs = SIM.live_probs(cur, key, feats, beta, set(Pc.athlete_id[Pc.rookie]))
+                Pc["prob"] = Pc.name.map(AM_norm).map(probs).fillna(0.0)
+                now = Pc[Pc.prob > 0].sort_values("prob", ascending=False).head(15)
+                if now.empty:
+                    raise ValueError("no simulated candidates")
+            except Exception as exc:  # noqa: BLE001 - fall back to scoring stats to date
+                print("nba awards: simulation failed, stats-to-date fallback:", exc)
+                now = Pool[Pool.season == cur].copy()
+                now["prob"] = AM.predict(now, feats, beta)
+                now = now.sort_values("prob", ascending=False).head(15)
             cur_rows = now[["name", "team", "prob"] + [c["k"] for c in show]].to_dict("records")
         past = []
         for y, nm in sorted(NBA_AW[key].items(), reverse=True):
@@ -711,7 +722,7 @@ def awards(cur, player_hist, team_hist):
                 past.append({"season": int(y), "name": nm, "team": ""})
         out[key] = {"title": title, "short": short, "backtest": bt, "cols": show, "current": cur_rows, "past": past,
                     "past_note": "Each winner's final per-game numbers and his team's record.",
-                    "note": f"Chances come from a model fitted on every winner since {FIRST - 1}-{str(FIRST)[2:]}, using the candidate's numbers to date, his team's record and games played. Pool: top {n} by {('box-score production' if rankcol == 'eff_g' else 'steals, blocks and rebounds' if rankcol == 'def_g' else 'scoring')}.",
+                    "note": f"Chances come from a model fitted on every winner since {FIRST - 1}-{str(FIRST)[2:]}. Each candidate's season is simulated to the end (numbers so far, last season's level, games he is likely to play, his team's record), and from 2023-24 players who cannot reach 65 games are out. Pool: top {n} by {('box-score production' if rankcol == 'eff_g' else 'steals, blocks and rebounds' if rankcol == 'def_g' else 'scoring')}.",
                     "empty": "The season has not started; chances appear after the first games."}
     return {"order": ["MVP", "DPOY", "ROY", "6MOY"], "awards": out,
             "intro": "Award chances from a model trained on past voting, tested one season at a time. The winning-team pull and availability rules (65 games) matter as much as raw numbers — see the Trends tab."}

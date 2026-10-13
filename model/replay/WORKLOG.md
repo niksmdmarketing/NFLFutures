@@ -131,3 +131,13 @@ Each sport's History page now scores this season's published forecasts from the 
 - Futures: from half-way through a season, team-markets at exactly 0%/100% in the newest snapshot count as settled and
   every earlier snapshot is scored (live model and archived challengers, same rows). After the season this is complete.
 Team ratings are also archived (rating_x100) for later checks.
+
+## NBA awards: forward simulation + 65-game rule (14 Oct 2026) - DEPLOYED
+research/nba_awards_replay.py (core in pipeline/nba_award_sim.py). Seasons 2010-2026, checkpoint every 14 days from
+day 21, logit weights leave-one-season-out. Live method (stats to date) vs simulation of each candidate's season to the
+end (rates shrunk to last season over 10 games, availability shrunk to 85%, health sd 0.12, talent sd 0.08, team win%),
+65-game rule from 2023-24 counted as 15+ minute games (strict 20-minute counting wrongly excluded real winners, e.g.
+Wembanyama 2025-26 DPOY with 63 games of 20+).
+- mean -log p(winner): 0.09 better (season-cluster 90% 0.034 to 0.147); MVP 0.11, DPOY 0.11, Sixth Man 0.11, ROY 0.03.
+- first quarter: favourite said 58% vs won 31% (live) -> 47% vs 34% (sim); later stages similar or better.
+- lower noise (talent 0.04, health 0.06) slightly worse. Deployed in nba_site.awards with stats-to-date fallback.
