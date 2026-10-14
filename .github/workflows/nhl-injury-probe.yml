@@ -13,7 +13,7 @@ jobs:
           ref: main
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: "3.13"
       - run: pip install -r requirements.txt
       - run: bash research/nhl_injury_probe.sh
       - if: always()
