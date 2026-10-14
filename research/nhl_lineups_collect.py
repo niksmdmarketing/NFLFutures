@@ -20,11 +20,31 @@ def sid(y):
     return y * 10000 + y + 1
 
 
+def windows(y):
+    """Half-month date windows covering a season (the API returns at most 10,000 rows per query)."""
+    out = []
+    for yy, m in [(y, 9), (y, 10), (y, 11), (y, 12), (y + 1, 1), (y + 1, 2), (y + 1, 3), (y + 1, 4), (y + 1, 5), (y + 1, 6), (y + 1, 7), (y + 1, 8)]:
+        nxt = (yy + (m == 12), m % 12 + 1)
+        out.append((f"{yy}-{m:02d}-01", f"{yy}-{m:02d}-16"))
+        out.append((f"{yy}-{m:02d}-16", f"{nxt[0]}-{nxt[1]:02d}-01"))
+    return out
+
+
 def get(kind, y):
+    rows = []
+    for a, b in windows(y):
+        part = get_window(kind, y, a, b)
+        if len(part) >= 10000:
+            raise SystemExit(f"window {a}..{b} hit the 10,000-row cap")
+        rows += part
+    return rows
+
+
+def get_window(kind, y, a, b):
     rows, start, page = [], 0, 10000
     while True:
         q = {"isAggregate": "false", "isGame": "true", "limit": str(page), "start": str(start),
-             "sort": "gameId", "cayenneExp": f"seasonId={sid(y)} and gameTypeId=2"}
+             "sort": "gameId", "cayenneExp": f'seasonId={sid(y)} and gameTypeId=2 and gameDate>="{a}" and gameDate<"{b}"'}
         url = f"{API}/{kind}/summary?" + urllib.parse.urlencode(q, quote_via=urllib.parse.quote)
         for attempt in range(4):
             try:
@@ -44,8 +64,8 @@ def get(kind, y):
         rows += part
         total = d.get("total", len(rows))
         start += len(part)
-        print(kind, y, start, "/", total, flush=True)
-        if not part or start >= total:
+        print(kind, y, a, start, "/", total, flush=True)
+        if not part or start >= total or start >= 10000:
             return rows
         time.sleep(1)
 
@@ -55,7 +75,7 @@ def main(first, last):
     for y in range(first, last + 1):
         for kind in ("skater", "goalie"):
             path = os.path.join(OUT, f"{kind}s_{y}.csv.gz")
-            if os.path.exists(path) and y < last:
+            if os.path.exists(path) and y < last and not (kind == "skater" and len(pd.read_csv(path)) == 10000):
                 continue
             R = pd.DataFrame(get(kind, y))
             if R.empty:
