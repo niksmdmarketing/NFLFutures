@@ -61,10 +61,24 @@ def main():
     C5 = ratings.S.get("challenger_v5")
     challenger_v5 = None
     if C5:
-        r5 = simulate.simulate(greg, Rv, int(os.environ.get("N_SIMS_CHALLENGER", C5["n_sims"])),
+        R5 = Rv
+        try:   # v5 candidate ratings: recency-weighted components (pipeline/nfl_engine.py) + the live QB/pressure layers
+            import numpy as np
+            import nfl_engine
+            from common import MODEL
+            W5 = json.load(open(os.path.join(MODEL, "challenger_v5_weights.json")))
+            nfl_engine.EFF_ALPHA = W5["alpha_effects"]
+            cols5, XT = nfl_engine.team_features(cur, pri, g, season, through + 1, W5["H"], 0, False)
+            base5 = XT @ np.array([W5["weights"][c] for c in cols5])
+            base5 = base5 - base5.mean()
+            R5 = S.get("rating_scale", 1.0) * (base5 + R.qb_adj.reindex(TEAMS).fillna(0).values) + R.press_adj.reindex(TEAMS).fillna(0).values
+            R5 = R5 - R5.mean()
+        except Exception as e:  # never block the refresh; fall back to the v4 ratings
+            log("v5 candidate ratings failed, using v4 ratings:", repr(e)[:200])
+        r5 = simulate.simulate(greg, R5, int(os.environ.get("N_SIMS_CHALLENGER", C5["n_sims"])),
                                C5.get("tau", S["tau"]), C5.get("sigma", S["sigma"]), S["hfa"], hfa_post=C5["hfa_post"])
-        challenger_v5 = {"name": C5["name"], "teams": {t: {k: round(float(r5[k.replace("p_", "")][i]), 4)
-                                                          for k in ("p_div", "p_playoff", "p_seed1", "p_conf", "p_sb")} for i, t in enumerate(TEAMS)}}
+        challenger_v5 = {"name": C5["name"], "teams": {t: {**{k: round(float(r5[k.replace("p_", "")][i]), 4)
+                                                          for k in ("p_div", "p_playoff", "p_seed1", "p_conf", "p_sb")}, "rating": round(float(R5[i]), 2)} for i, t in enumerate(TEAMS)}}
         log("v5 candidate simulation done")
     now = dt.datetime.now(dt.timezone.utc)
     meta = {"season": season, "through_week": through, "next_week": next_week, "next_week_played": played_next, "updated_utc": now.isoformat(timespec="minutes"),

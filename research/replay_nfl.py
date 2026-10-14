@@ -36,6 +36,20 @@ OUT = os.environ.get("BT_OUTDIR") or os.path.join(ROOT, "model", "replay")
 # BT_QB=lambda: quarterback layer as live (expected starter vs the QB behind this season's numbers); expected starter = the
 # QB who took the team's first dropback in its next game (known before kickoff), preseason = week-1 starter.
 QB_LAM = float(os.environ.get("BT_QB", "0"))
+# BT_ENGINE=<tag>: team ratings from research/nfl_rating_engine.py features (BT_ENG_H recency half-life, BT_ENG_ALPHA
+# team-effect shrinkage) with walk-forward ridge weights fitted on data/research/nfl_eng_<tag>.npz seasons before y.
+ENG = os.environ.get("BT_ENGINE")
+ENG_H = float(os.environ.get("BT_ENG_H", "0"))
+
+
+def _engine_weights(y):
+    from sklearn.linear_model import Ridge
+    d = np.load(os.path.join(ROOT, "data", "research", f"nfl_eng_{ENG}.npz"), allow_pickle=True)
+    X, yv, s = d["X"], d["y"], d["s"]
+    sd = X[s < 2013].std(0)
+    sd[sd == 0] = 1
+    m = Ridge(alpha=ratings.P["alpha"], fit_intercept=True).fit(X[s < y] / sd, yv[s < y])
+    return m.coef_ / sd
 
 
 def _first_qbs(pbp):
@@ -58,6 +72,11 @@ def run_season(g, y):
         ratings.P["coef"] = WF[str(y)]["coef"]
     cur_all, pri = load_pbp(y), load_pbp(y - 1)
     pri2 = load_pbp(y - 2) if QB_LAM else None
+    if ENG:
+        sys.path.insert(0, os.path.join(ROOT, "research"))
+        os.environ.setdefault("ENG_ALPHA", os.environ.get("BT_ENG_ALPHA", "20"))
+        import nfl_engine as E
+        ew = _engine_weights(y)
     firsts = _first_qbs(cur_all) if QB_LAM else None
     out = B.outcomes(g, y)
     P = {**ratings.S["sim"], **OVR}
@@ -70,6 +89,10 @@ def run_season(g, y):
         gg.loc[m, "result"] = np.nan
         cur = cur_all[cur_all.week <= w] if w else cur_all.iloc[0:0]
         base, _ = ratings.base_ratings(cur, pri, gg, y)
+        if ENG:
+            _, XT = E.team_features(cur, pri, gg, y, w + 1, ENG_H, 0, False)
+            base = XT @ ew
+            base = base - base.mean()
         greg = gg[(gg.season == y) & (gg.game_type == "REG")]
         played = greg[greg.result.notna()]
         gp = np.array([((played.home_team == t) | (played.away_team == t)).sum() for t in TEAMS], float)

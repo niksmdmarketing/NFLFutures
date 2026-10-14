@@ -435,10 +435,10 @@
   "note": "Run alongside v4 every refresh and archived; on 2022-2025 it was more accurate than v4 for conference and Super Bowl, less for division."
  },
  "challenger_v5": {
-  "name": "v5 candidate: playoff home edge 4.0, less rating uncertainty",
+  "name": "v5 candidate: recency-weighted ratings, playoff home edge 4.0, less rating uncertainty",
   "hfa_post": 4.0,
   "n_sims": 20000,
-  "note": "Same ratings as v4 (including the live quarterback layer) with the home edge in playoff games 4.0 instead of 1.8 and team uncertainty tau 4.0 instead of 5.0, game sigma 12.0 instead of 11.37 (same total spread). Walk-forward replay 2013-2025 vs v4 (QB layer included in the candidate runs): +0.0020 mean log loss (90% +0.0002 to +0.0036), better in 9 of 13 seasons; late conference slope 1.49 -> 1.22 (research/replay_nfl.py BT_HFA_POST/BT_QB/BT_TAU/BT_SIGMA; model/v5_notes.md). TypeSafe 75%. Archived alongside v4; not the live forecast.",
+  "note": "Team ratings from pipeline/nfl_engine.py (v4 components with this season's plays weighted by recency, half-life 4 weeks, team-effect shrinkage 60; weights model/challenger_v5_weights.json fitted on game margins 2010-2025) plus the live QB and pressure layers; playoff home edge 4.0 instead of 1.8; tau 4.0 / sigma 12.0 instead of 5.0 / 11.37. Walk-forward futures replay 2013-2025 vs v4: +0.0032 mean log loss (recency ratings +0.0012 over the previous candidate, better in 11 of 13 seasons, every market better). TypeSafe 90%. Archived alongside v4; not the live forecast.",
   "tau": 4.0,
   "sigma": 12.0
  }

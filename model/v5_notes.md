@@ -46,3 +46,13 @@ dropback in its next game). 13 walk-forward seasons 2013-2025, 1,500 sims, vs fr
   season's strength carries over (interaction -0.25, 90% -0.88 to +0.34). Dropped.
 TypeSafe (75%): challenger_v5 = edge 4 + tau 4 / sigma 12.0 on the live v4 ratings (which include the QB layer). Shown on the
 futures page beside v4 (playoffs, division, conference, Super Bowl); v4 stays live until 2027.
+
+## Rating inputs (14 Oct 2026) - recency adopted for the v5 candidate
+pipeline/nfl_engine.py rebuilds the v4 components per game point in time with options; game-level walk-forward 2013-2025
+(ridge on standardised components, win log loss / margin RMSE): baseline 0.6385 / 13.34. Recency half-life 3-6 weeks
++0.0012 to +0.0018 (7/13), half-life 4 + team-effect shrinkage 60 +0.0017 (9/13); garbage-time filter -0.0006; early-down
+EPA + pass rate over expected -0.0017; season-before-last components -0.0029.
+Futures replay (13 walk-forward seasons, with edge 4 / QB 0.5 / tau 4 / sigma 12): recency ratings 0.2347 vs 0.2360 for the
+candidate on v4 ratings (+0.0012, 90% -0.0005 to +0.0026, better 11/13, every market better); the same engine without
+recency -0.0004, so the gain is the recency. Total vs v4: +0.0032. TypeSafe 90%: candidate updated (run.py; weights in
+model/challenger_v5_weights.json fitted 2010-2025). Live check 2026 week 5: correlation with v4 ratings 0.97.
