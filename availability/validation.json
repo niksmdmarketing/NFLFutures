@@ -1,10 +1,10 @@
 {
- "checked_utc": "2026-10-14T05:03:11+00:00",
+ "checked_utc": "2026-10-14T10:17:18+00:00",
  "leagues": {
   "nfl": {
-   "records": 1268,
+   "records": 922,
    "by_layer": {
-    "official": 1201,
+    "official": 855,
     "reported": 67
    },
    "unknown_team": 0,
@@ -46,15 +46,6 @@
    ],
    "conflicts": [
     {
-     "player": "Isaiah Adams",
-     "official": [
-      "injured reserve",
-      "out"
-     ],
-     "other": "expected to play",
-     "source": "ESPN injury note"
-    },
-    {
      "player": "Tershawn Wharton",
      "official": [
       "out"
@@ -83,9 +74,9 @@
    "reported_matched_to_official_list": "67/67"
   },
   "nba": {
-   "records": 253,
+   "records": 252,
    "by_layer": {
-    "official": 162,
+    "official": 161,
     "reported": 91
    },
    "unknown_team": 0,
@@ -136,11 +127,11 @@
    "reported_matched_to_official_list": "91/91"
   },
   "nhl": {
-   "records": 1546,
+   "records": 1518,
    "by_layer": {
-    "official": 155,
-    "reported": 50,
-    "projected": 1341
+    "official": 156,
+    "reported": 49,
+    "projected": 1313
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -198,7 +189,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "50/50"
+   "reported_matched_to_official_list": "49/49"
   },
   "nbl": {
    "records": 25,
