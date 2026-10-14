@@ -159,6 +159,26 @@ TAU_PRE = 1.5
 # Replay 2014-2025 (10 seasons): conference/Cup log loss +0.0003 overall (90% -0.0005 to +0.0012), better 6 of 10; first
 # quarter +0.0012, better 7 of 10; early slopes 2.37 -> 1.99 (conference). Not significant, so run alongside, not live.
 PO_FADE_CHALLENGER = 1.0
+PO_FADE = 1.0        # live from 14 Oct 2026: playoff rating gaps x(1 + PO_FADE x share of season left)
+# Playoff series use a shot-based rating (14 Oct 2026): xG/shot differential predicts playoff series far better than goal
+# differential (2011-25 series log loss 0.676 -> 0.651). 10-season weekly replay: shot-based playoff rating +0.0031 (90%
+# +0.0008 to +0.0054, 7/10); with the fading playoff multiplier +0.0046 (+0.0021 to +0.0072, 8/10); Cup 0.1154 -> 0.1076,
+# conference 0.1928 -> 0.1774; regular-season markets unchanged (research/replay_nhl.py NHL_SHOT_PO/NHL_SHOT_W/NHL_PO_FADE).
+# TypeSafe 73%.
+
+
+def shot_rates(g, teams):
+    """Per-team mean shot differential per game x league shooting % (goals per game), centred."""
+    if g is None or g.empty or "shots" not in g:
+        return pd.Series(0.0, index=teams), 0
+    g = g.copy()
+    sh = pd.to_numeric(g.shots, errors="coerce")
+    opp = dict(zip(zip(g.date, g.team), sh))
+    g["sa"] = [opp.get((d_, o), np.nan) for d_, o in zip(g.date, g.opp)]
+    pct = numcol(g, "goalsFor").sum() / max(sh.sum(), 1.0)
+    g["sd"] = (sh - g.sa) * pct
+    r = g.groupby("team").sd.mean().reindex(teams).fillna(0.0)
+    return r - r.mean(), int(g.sd.notna().sum())
 
 
 def tau_at(tau, n):
@@ -185,7 +205,7 @@ def league_scoring(GG, years):
 
 # ---------------------------------------------------------------- simulation
 
-def simulate(teams, state, games, ratings, tau, total, hfa, n_sims, seed=7, div_map=ALIGN, po_scale=1.0):
+def simulate(teams, state, games, ratings, tau, total, hfa, n_sims, seed=7, div_map=ALIGN, po_scale=1.0, po_delta=None):
     """state: DataFrame by team (points, rw, row, gd). games: list of (home, away) still to play. Returns dict of arrays.
     po_scale: multiplier on rating gaps in playoff series (research option; 1.0 = live behaviour)."""
     rng = np.random.default_rng(seed)
@@ -255,6 +275,8 @@ def simulate(teams, state, games, ratings, tau, total, hfa, n_sims, seed=7, div_
         def series(x, y):
             """x has home ice. Returns winners."""
             rx, ry = R[np.arange(S), x], R[np.arange(S), y]
+            if po_delta is not None:
+                rx, ry = rx + po_delta[x], ry + po_delta[y]
             ph = ndtr((po_scale * (rx - ry) + hfa) / GAME_SD); pa = ndtr((po_scale * (rx - ry) - hfa) / GAME_SD)
             wins = np.zeros(S, int)
             for g in range(7):
@@ -477,9 +499,17 @@ def build():
             if t_ in remaining_ct.index:
                 remaining_ct[t_] += 1
     log("nhl model: remaining games", len(games), "remaining per team min/max", int(remaining_ct.min()), int(remaining_ct.max()), "tau", round(tau_now, 3))
-    sim = simulate(teams, state, games, rating.to_dict(), tau_now, total, hfa, SIMS)
-    sim_c = simulate(teams, state, games, rating.to_dict(), tau_now, total, hfa, max(SIMS // 2, 1000),
-                     po_scale=1 + PO_FADE_CHALLENGER * max(0.0, 1 - n_avg / SEASON_GAMES))
+    srate, n_shot = shot_rates(read_games(cur), teams)
+    if n_shot:
+        rating_po = (gp * srate + k * prior) / (gp + k)
+    else:
+        rating_po = prior.copy()
+    rating_po = rating_po - rating_po.mean()
+    po_delta = (rating_po - rating).reindex(teams).fillna(0).to_numpy(float)
+    po_scale = 1 + PO_FADE * max(0.0, 1 - n_avg / SEASON_GAMES)
+    sim = simulate(teams, state, games, rating.to_dict(), tau_now, total, hfa, SIMS, po_scale=po_scale, po_delta=po_delta)
+    # previous model (goal-based playoff rating, no multiplier), kept as the comparison column
+    sim_c = simulate(teams, state, games, rating.to_dict(), tau_now, total, hfa, max(SIMS // 2, 1000))
     cdf = np.cumsum(sim["pts_hist"][:, ::-1], axis=1)[:, ::-1]                      # P(points >= x)
     names = Tc.name.to_dict()
     rows = []
@@ -489,7 +519,7 @@ def build():
         q = lambda p: int(np.searchsorted(c, p))
         rows.append({"team": t, "name": names.get(t, t), "div": ALIGN.get(t), "gp": int(gp[t]), "points": int(state.points[t]),
                      "record": f"{int(numcol(Tc, 'wins')[t])}-{int(numcol(Tc, 'losses')[t])}-{int(numcol(Tc, 'otLosses')[t])}",
-                     "rating": float(rating[t]), "prior": float(prior[t]), "cur_rate": float(cur_rate[t]),
+                     "rating": float(rating[t]), "rating_po": float(rating_po[t]), "prior": float(prior[t]), "cur_rate": float(cur_rate[t]),
                      "pts_mean": float(sim["pts_mean"][i]), "pts_p10": q(0.10), "pts_p50": q(0.50), "pts_p90": q(0.90),
                      "p_playoffs": float(sim["playoffs"][i]), "p_div": float(sim["div"][i]), "p_pres": float(sim["pres"][i]),
                      "p_r2": float(sim["r2"][i]), "p_r3": float(sim["r3"][i]), "p_final": float(sim["final"][i]), "p_cup": float(sim["cup"][i]),
@@ -508,6 +538,6 @@ def build():
     out = {"season": cur, "updated_utc": dt.datetime.now(dt.timezone.utc).isoformat(timespec="minutes"), "games_played": n_avg, "sims": SIMS,
            "params": {"k": k, "tau_now": tau_now, "tau": tau, "total_goals": total, "hfa": hfa, "beta": [float(b) for b in beta], "prior_r2": r2, "prior_rmse": rmse},
            "backtest": bt, "teams": rows, "pts_axis": [30, 140],
-           "challenger": {"name": "fading playoff multiplier", "fields": ["c_final", "c_cup"], "po_fade": PO_FADE_CHALLENGER}}
+           "challenger": {"name": "previous model (goal-based playoff strength)", "fields": ["c_final", "c_cup"]}}
     nhl.write("futures.json", out)
     log("nhl model done: top cup", sorted(((r["p_cup"], r["team"]) for r in rows), reverse=True)[:4])

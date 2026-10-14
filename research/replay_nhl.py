@@ -26,6 +26,8 @@ if os.environ.get("NHL_TAU_PRE"):
 PRIOR_SCALE = float(os.environ.get("NHL_PRIOR_SCALE", "1"))
 PO_SCALE = float(os.environ.get("NHL_PO_SCALE", "1"))
 PO_FADE = float(os.environ.get("NHL_PO_FADE", "0"))   # extra playoff-gap multiplier at season start, fading to 0 by game 82
+SHOT_W = float(os.environ.get("NHL_SHOT_W", "0"))
+SHOT_PO = os.environ.get("NHL_SHOT_PO") == "1"   # use the shot-blended rate only in playoff series (regular season on goals)   # share of the in-season rate from shot differential (x league shooting %)
 OUT = os.environ.get("BT_OUTDIR") or os.path.join(ROOT, "model", "replay")
 
 
@@ -70,6 +72,14 @@ def run_season(TT, GG, fit_years, done, y):
     g = GG[y].copy()
     g["date"] = pd.to_datetime(g.date)
     g["gd"] = M.numcol(g, "goalsFor") - M.numcol(g, "goalsAgainst")
+    shots = g.set_index(["date", "team"]).shots if "shots" in g else None
+    if SHOT_W and shots is not None:
+        g["sa"] = [shots.get((d_, o), np.nan) for d_, o in zip(g.date, g.opp)]
+        sh_pct = M.numcol(g, "goalsFor").sum() / pd.to_numeric(g.shots, errors="coerce").sum()
+        g["sd"] = (pd.to_numeric(g.shots, errors="coerce") - g.sa) * sh_pct
+        g["rate"] = (1 - SHOT_W) * g.gd + SHOT_W * g.sd.fillna(g.gd)
+    else:
+        g["rate"] = g.gd
     g["pts"] = g.res.map({"W": 2, "OTL": 1, "L": 0}).fillna(0)
     opp_res = g.set_index(["date", "team"]).res
     g["opp_otl"] = [opp_res.get((d_, o)) == "OTL" for d_, o in zip(g.date, g.opp)]
@@ -89,17 +99,25 @@ def run_season(TT, GG, fit_years, done, y):
         pl = g[g.date < cut]
         rm = g[(g.date >= cut) & (g.ha == "H")]
         gp = pl.groupby("team").size().reindex(teams).fillna(0)
-        cur = pl.groupby("team").gd.mean().reindex(teams).fillna(0) if len(pl) else pd.Series(0.0, index=teams)
+        cur = pl.groupby("team").rate.mean().reindex(teams).fillna(0) if len(pl) else pd.Series(0.0, index=teams)
         cur = cur - cur.mean()
         rating = (gp * cur + k * prior) / (gp + k)
         rating = rating - rating.mean()
+        po_delta = None
+        if SHOT_PO:
+            curg = pl.groupby("team").gd.mean().reindex(teams).fillna(0) if len(pl) else pd.Series(0.0, index=teams)
+            curg = curg - curg.mean()
+            rg = (gp * curg + k * prior) / (gp + k)
+            rg = rg - rg.mean()
+            po_delta = (rating - rg).reindex(teams).to_numpy(float)
+            rating = rg
         win = pl.res == "W"
         state = pd.DataFrame({"points": pl.groupby("team").pts.sum().reindex(teams).fillna(0),
                               "rw": pl.assign(x=(win & ~pl.opp_otl).astype(float)).groupby("team").x.sum().reindex(teams).fillna(0),
                               "gd": pl.groupby("team").gd.sum().reindex(teams).fillna(0)}, index=teams)
         state["row"] = pl.assign(x=win.astype(float)).groupby("team").x.sum().reindex(teams).fillna(0)
         n_avg = float(gp.mean())
-        sim = M.simulate(teams, state, list(zip(rm.team, rm.opp)), rating.to_dict(), M.tau_at(tau, n_avg), total, hfa, SIMS, seed=3, div_map=align, po_scale=PO_SCALE + PO_FADE * max(0.0, 1 - n_avg / 82))
+        sim = M.simulate(teams, state, list(zip(rm.team, rm.opp)), rating.to_dict(), M.tau_at(tau, n_avg), total, hfa, SIMS, seed=3, div_map=align, po_scale=PO_SCALE + PO_FADE * max(0.0, 1 - n_avg / 82), po_delta=po_delta)
         for i, t in enumerate(teams):
             rows.append(dict(season=y, week=wk, date=str(cut.date()), gp_avg=round(n_avg, 1), team=t, p_playoff=sim["playoffs"][i],
                              p_div=sim["div"][i], p_pres=sim["pres"][i], p_r2=sim["r2"][i], p_r3=sim["r3"][i], p_conf=sim["final"][i],

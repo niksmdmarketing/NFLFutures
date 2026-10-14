@@ -315,3 +315,15 @@ player who misses the whole season is known to; BT_FULL_NOLEAK=1 keeps such play
    BT_INS_PO): kept in the team rating from game 20 at 15% -0.0008 (8/14), 30% -0.0018; refit used only in the playoff
    rotation -0.0008 (4/14); 15% without the playoff part -0.0004. Conference late improves (0.1492 -> 0.1444 at 15%) but
    playoffs, division and seed 1 get worse; not deployed. The team-results rating already absorbs this season's form.
+
+## NHL: shot-based playoff strength + fading playoff multiplier (14 Oct 2026) - DEPLOYED
+TypeSafe first chose skater + goalie player ratings (81%), but that roster step had already been tested and rejected
+(pipeline/nhl_roster.py, t about -1.2). Second pick, playoff goalie (64%): 227 playoff series 2011-2025, the starter's
+edge over the team's season goalie average did not predict series (coefficient -0.9, 90% -2.35 to +0.75). The same check
+found expected-goal differential predicts series far better than goal differential (log loss 0.676 -> 0.651).
+10-season weekly replay (research/replay_nhl.py; shot differential per game x league shooting % as the xG stand-in):
+- shots in the whole rating 20/40/60%: +0.0007/+0.0009/+0.0005 (Cup/conference better, regular-season markets worse)
+- shot-based rating only in playoff series: 60% +0.0023, 80% +0.0028, 100% +0.0031 (90% +0.0008 to +0.0054, 7/10)
+- 100% + fading playoff multiplier (x2 at season start -> x1 at game 82): +0.0046 (90% +0.0021 to +0.0072, 8/10);
+  Cup 0.1154 -> 0.1076, conference 0.1928 -> 0.1774; division, best record and playoffs unchanged. x1.3 constant +0.0041.
+TypeSafe 73%: both live (nhl_model.shot_rates, PO_FADE, simulate(po_delta)); the page compares with the previous model.
