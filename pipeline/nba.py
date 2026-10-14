@@ -62,6 +62,7 @@ TEAM_TAU = 2.2
 # Extra rating uncertainty before the season starts, fading to nothing by game TAU_PRE_GAMES (see README, NBA futures).
 TAU_PRE = 2.0   # 2013-26 point-in-time replay, preseason playoff log-loss 0.5965 -> 0.5613 (conf 0.2173 -> 0.2104); chosen with TypeSafe (84%)
 TAU_PRE_GAMES = 16
+PO_DELTA_SCEN = None  # per-simulation playoff deltas (scenarios x TEAMS): star availability drawn per scenario
 PO_DELTA = None  # research option: per-team playoff strength change (array over TEAMS), added in playoff series
 PO_SCALE = 1.0  # research option: multiplier on rating gaps in playoff series (1 = live behaviour)
 TAU_FADE = 0.0  # research option: share of TEAM_TAU removed by the end of the regular season (0 = live behaviour)
@@ -883,6 +884,8 @@ def _simulate(schedule: pd.DataFrame, ratings: pd.DataFrame, n_sims: int, avail:
             np.add.at(pd_batch, (sim_ix, tiled_away), -margins.ravel())
 
         for local in range(size):
+            if PO_DELTA_SCEN is not None:
+                globals()["PO_DELTA"] = PO_DELTA_SCEN[(done + local) % len(PO_DELTA_SCEN)]
             strength = strengths[local] - playoff_pen[local]   # long-term absences still out after the regular season
             win_arr = wins_batch[local]
             pd_arr = pd_batch[local]

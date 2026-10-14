@@ -37,7 +37,11 @@ SIMS = int(os.environ.get("BT_SIMS", "2000"))
 PO_K = float(os.environ.get("BT_PO_K", "0"))         # playoff rotation term: k x (top-8 playoff-minutes strength - regular strength)
 PO_GAMMA = float(os.environ.get("BT_PO_GAMMA", "1.5"))  # concentration of playoff minutes among the top 8 (1 = drop depth only)
 PO_CAP = 42 / 240
-PO_MPG = os.environ.get("BT_PO_MPG") == "1"   # rotation by minutes per game (role) rather than total minutes
+PO_MPG = os.environ.get("BT_PO_MPG") == "1"
+PO_AVAIL = os.environ.get("BT_PO_AVAIL") == "1"   # role = minutes per game; star availability drawn per simulated season
+PO_H = float(os.environ.get("BT_PO_H", "0.08"))   # chance a currently healthy player misses the playoffs, whole season ahead
+AV_B = (-4.579, 1.992, 5.308)   # logistic: intercept, share of team games missed, share of the team's last 15 missed (2011-26)
+N_SCEN = 400   # rotation by minutes per game (role) rather than total minutes
 
 
 def _player_ratings(y):
@@ -47,6 +51,54 @@ def _player_ratings(y):
     import nba_player_replay as NP
     import nba_rapm as RA
     return NP.develop(RA.fit(y, lam=3000, w2=0.5, prior=NP.box_prior(y - 1)), y)
+
+
+def _po_scen(pbox, rating, prev_assign, prev_mins, prev_info, rng):
+    """Scenario matrix (N_SCEN x teams): role by minutes per game, availability drawn from the history-based model."""
+    teams = {}
+    if len(pbox):
+        tg = pbox.groupby("team_abbreviation").game_date.nunique()
+        dates = pbox.groupby("team_abbreviation").game_date.apply(lambda s: set(sorted(s.unique())[-15:]))
+        g0 = pbox.groupby(["team_abbreviation", "athlete_id"]).agg(m=("minutes", "sum"), gp=("minutes", "size")).reset_index()
+        late = pbox.groupby(["team_abbreviation", "athlete_id"]).game_date.apply(set)
+        for r in g0.itertuples():
+            t = r.team_abbreviation
+            if r.gp < max(3, 0.3 * tg[t]):
+                continue
+            nl = min(15, tg[t])
+            lm = 1 - len(late[(t, r.athlete_id)] & dates[t]) / nl
+            teams.setdefault(t, []).append((r.athlete_id, r.m / r.gp, r.m, 1 - r.gp / tg[t], lm))
+        rem = max(0.0, 1 - float(tg.mean()) / 82)
+    else:
+        for a, t in prev_assign.items():
+            info = prev_info.get(a)
+            if info:
+                teams.setdefault(t, []).append((a, info[0], prev_mins.get(a, 0.0), info[1], 0.0))
+        rem = 1.0
+    out = np.zeros((N_SCEN, len(N.TEAMS)))
+    for t, pl in teams.items():
+        if t not in N.TIX:
+            continue
+        pl.sort(key=lambda x: -x[1])
+        r = np.array([rating.get(int(a), -1.0) for a, *_ in pl])
+        mpg = np.array([x[1] for x in pl])
+        tot = np.array([x[2] for x in pl])
+        reg = 5 * float(np.sum(tot / tot.sum() * r))
+        z = AV_B[0] + AV_B[1] * np.array([x[3] for x in pl]) + AV_B[2] * np.array([x[4] for x in pl])
+        pf = 1 / (1 + np.exp(-z))
+        pout = 1 - (1 - pf) * (1 - PO_H * rem)
+        avail = rng.random((N_SCEN, len(pl))) >= pout[None, :]
+        for k in range(N_SCEN):
+            idx = np.flatnonzero(avail[k])[:8]
+            if len(idx) == 0:
+                continue
+            top = mpg[idx] ** PO_GAMMA
+            top = top / top.sum()
+            for _ in range(5):
+                top = np.minimum(top, PO_CAP)
+                top = top / top.sum()
+            out[k, N.TIX[t]] = PO_K * (5 * float(np.sum(top * r[idx])) - reg)
+    return out - out.mean(axis=1, keepdims=True)
 
 
 def _po_delta(pbox, rating, prev_assign, prev_mins):
@@ -136,11 +188,18 @@ def run_season(boxes, y):
         gp1 = p1.groupby("athlete_id").minutes.size()
         PREV_MPG.clear()
         PREV_MPG.update((p1.groupby("athlete_id").minutes.sum() / gp1)[gp1 >= 20].to_dict())
+        tg1 = p1.groupby("team_abbreviation").game_date.nunique()
+        last_team = p1.groupby("athlete_id").team_abbreviation.last()
+        prev_info = {a: (PREV_MPG[a], max(0.0, 1 - gp1[a] / tg1.get(last_team[a], 82))) for a in PREV_MPG}
+        rng = np.random.default_rng(11)
         prev_assign = _pbox(y).sort_values("date").groupby("athlete_id").team_abbreviation.first().to_dict()
     for wk, cutoff in enumerate(cuts):
         if PO_K:
             cur = _pbox(y)
-            N.PO_DELTA = _po_delta(cur[cur.date <= cutoff], rating, prev_assign, prev_mins)
+            if PO_AVAIL:
+                N.PO_DELTA_SCEN = _po_scen(cur[cur.date <= cutoff], rating, prev_assign, prev_mins, prev_info, rng)
+            else:
+                N.PO_DELTA = _po_delta(cur[cur.date <= cutoff], rating, prev_assign, prev_mins)
         done = g[g.date <= cutoff]
         tr = boxes[pd.to_numeric(boxes.season, errors="coerce") < y]
         if len(done):

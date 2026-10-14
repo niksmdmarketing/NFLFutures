@@ -273,3 +273,9 @@ markets are unaffected. Live 2026-27 top playoff adjustments: DEN +4.1, MEM +2.9
   power 1.5 +0.0028 (8/14), power 1.0 +0.0014; title about the same but conference over-confident (late conference 0.1744 ->
   0.1871, mid slope 0.77). Total minutes (which also carry availability) stays. San Antonio's lower title chance is what the
   validated version says.
+- Role and availability separated (TypeSafe 97%): role = minutes per game; each top player misses the playoffs with a
+  probability from a 2011-2026 logistic (share of team games missed, share of the team's last 15 missed; calibrated 1-88%)
+  plus 8% x share of the season still to play, drawn per simulated season (400 scenarios). +0.0020 (8-9/14) vs +0.0031 for
+  the live total-minutes version; title 0.0852 vs 0.0827, conference 0.1781 vs 0.1729, worse late in the season too, where
+  the availability term is small, so minutes per game is the weaker role measure. Not deployed; total minutes stays.
+  (nba.PO_DELTA_SCEN and replay BT_PO_AVAIL kept as research options, off.)
