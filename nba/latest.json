@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-10-13T2251Z",
-"feed_timestamp": "2026-10-13T22:51:41Z",
+"collected_utc": "2026-10-14T0046Z",
+"feed_timestamp": "2026-10-14T00:46:18Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -262,6 +262,24 @@
 "injury": "Rest"
 },
 {
+"athlete_id": "4396909",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
+"injury": "Rest"
+},
+{
+"athlete_id": "4395712",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
+"injury": "Undisclosed"
+},
+{
+"athlete_id": "5106060",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
+"injury": "Undisclosed"
+},
+{
 "athlete_id": "5157066",
 "status": "Out",
 "return_date": "2027-01-01",
@@ -270,14 +288,8 @@
 {
 "athlete_id": "2530530",
 "status": "Day-To-Day",
-"return_date": "2026-10-13",
+"return_date": "2026-10-16",
 "injury": "Undisclosed"
-},
-{
-"athlete_id": "4396993",
-"status": "Day-To-Day",
-"return_date": "2026-10-13",
-"injury": "Right Ankle"
 },
 {
 "athlete_id": "6580",
@@ -330,7 +342,7 @@
 {
 "athlete_id": "4277811",
 "status": "Day-To-Day",
-"return_date": "2026-10-13",
+"return_date": "2026-10-16",
 "injury": "Lower Leg"
 },
 {
@@ -340,15 +352,15 @@
 "injury": "Undisclosed Bruise"
 },
 {
-"athlete_id": "4433136",
+"athlete_id": "3945274",
 "status": "Day-To-Day",
-"return_date": "2026-10-13",
-"injury": "Not Specified Finger"
+"return_date": "2026-10-16",
+"injury": "Rest"
 },
 {
 "athlete_id": "4433137",
 "status": "Day-To-Day",
-"return_date": "2026-10-13",
+"return_date": "2026-10-16",
 "injury": "Foot Bruise"
 },
 {
@@ -512,18 +524,6 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-15",
 "injury": "Quadriceps Bruise"
-},
-{
-"athlete_id": "4222252",
-"status": "Day-To-Day",
-"return_date": "2026-10-13",
-"injury": "Ankle"
-},
-{
-"athlete_id": "4683778",
-"status": "Day-To-Day",
-"return_date": "2026-10-13",
-"injury": "Rest"
 },
 {
 "athlete_id": "4432823",
@@ -730,16 +730,16 @@
 "injury": "Rest"
 },
 {
-"athlete_id": "4702656",
-"status": "Day-To-Day",
-"return_date": "2026-10-13",
-"injury": "Knee"
-},
-{
 "athlete_id": "4590360",
 "status": "Day-To-Day",
 "return_date": "2026-11-06",
 "injury": "Left Hamstring"
+},
+{
+"athlete_id": "4431893",
+"status": "Day-To-Day",
+"return_date": "2026-10-15",
+"injury": "Undisclosed"
 },
 {
 "athlete_id": "4432586",
@@ -748,10 +748,10 @@
 "injury": "Right Foot"
 },
 {
-"athlete_id": "4431684",
+"athlete_id": "4395623",
 "status": "Day-To-Day",
-"return_date": "2026-10-13",
-"injury": "Teeth"
+"return_date": "2026-10-15",
+"injury": "Undisclosed"
 },
 {
 "athlete_id": "4396963",
@@ -1185,6 +1185,33 @@
 "updated": "2026-10-11T10:06Z"
 },
 {
+"athlete_id": "4396909",
+"name": "Aaron Nesmith",
+"team_name": "Indiana Pacers",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
+"injury": "Rest",
+"updated": "2026-10-14T00:17Z"
+},
+{
+"athlete_id": "4395712",
+"name": "Andrew Nembhard",
+"team_name": "Indiana Pacers",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
+"injury": "Undisclosed",
+"updated": "2026-10-14T00:16Z"
+},
+{
+"athlete_id": "5106060",
+"name": "Jarace Walker",
+"team_name": "Indiana Pacers",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
+"injury": "Undisclosed",
+"updated": "2026-10-14T00:18Z"
+},
+{
 "athlete_id": "5157066",
 "name": "Johnny Furphy",
 "team_name": "Indiana Pacers",
@@ -1198,18 +1225,9 @@
 "name": "T.J. McConnell",
 "team_name": "Indiana Pacers",
 "status": "Day-To-Day",
-"return_date": "2026-10-13",
+"return_date": "2026-10-16",
 "injury": "Undisclosed",
-"updated": "2026-10-11T03:20Z"
-},
-{
-"athlete_id": "4396993",
-"name": "Tyrese Haliburton",
-"team_name": "Indiana Pacers",
-"status": "Day-To-Day",
-"return_date": "2026-10-13",
-"injury": "Right Ankle",
-"updated": "2026-10-12T17:11Z"
+"updated": "2026-10-14T00:19Z"
 },
 {
 "athlete_id": "6580",
@@ -1288,7 +1306,7 @@
 "name": "Collin Sexton",
 "team_name": "Los Angeles Lakers",
 "status": "Day-To-Day",
-"return_date": "2026-10-13",
+"return_date": "2026-10-16",
 "injury": "Lower Leg",
 "updated": "2026-10-10T19:50Z"
 },
@@ -1302,20 +1320,20 @@
 "updated": "2026-10-09T01:04Z"
 },
 {
-"athlete_id": "4433136",
-"name": "Walker Kessler",
+"athlete_id": "3945274",
+"name": "Luka Doncic",
 "team_name": "Los Angeles Lakers",
 "status": "Day-To-Day",
-"return_date": "2026-10-13",
-"injury": "Not Specified Finger",
-"updated": "2026-10-11T19:52Z"
+"return_date": "2026-10-16",
+"injury": "Rest",
+"updated": "2026-10-14T00:33Z"
 },
 {
 "athlete_id": "4433137",
 "name": "Ziaire Williams",
 "team_name": "Los Angeles Lakers",
 "status": "Day-To-Day",
-"return_date": "2026-10-13",
+"return_date": "2026-10-16",
 "injury": "Foot Bruise",
 "updated": "2026-10-10T20:03Z"
 },
@@ -1561,24 +1579,6 @@
 "return_date": "2026-10-15",
 "injury": "Quadriceps Bruise",
 "updated": "2026-10-13T22:32Z"
-},
-{
-"athlete_id": "4222252",
-"name": "Isaiah Hartenstein",
-"team_name": "Oklahoma City Thunder",
-"status": "Day-To-Day",
-"return_date": "2026-10-13",
-"injury": "Ankle",
-"updated": "2026-10-10T19:28Z"
-},
-{
-"athlete_id": "4683778",
-"name": "Jared McCain",
-"team_name": "Oklahoma City Thunder",
-"status": "Day-To-Day",
-"return_date": "2026-10-13",
-"injury": "Rest",
-"updated": "2026-10-10T19:32Z"
 },
 {
 "athlete_id": "4432823",
@@ -1887,15 +1887,6 @@
 "updated": "2026-10-12T17:43Z"
 },
 {
-"athlete_id": "4702656",
-"name": "Alijah Martin",
-"team_name": "Toronto Raptors",
-"status": "Day-To-Day",
-"return_date": "2026-10-13",
-"injury": "Knee",
-"updated": "2026-10-10T21:01Z"
-},
-{
 "athlete_id": "4590360",
 "name": "Chucky Hepburn",
 "team_name": "Toronto Raptors",
@@ -1903,6 +1894,15 @@
 "return_date": "2026-11-06",
 "injury": "Left Hamstring",
 "updated": "2026-10-12T20:12Z"
+},
+{
+"athlete_id": "4431893",
+"name": "Jamison Battle",
+"team_name": "Toronto Raptors",
+"status": "Day-To-Day",
+"return_date": "2026-10-15",
+"injury": "Undisclosed",
+"updated": "2026-10-13T22:54Z"
 },
 {
 "athlete_id": "4432586",
@@ -1914,13 +1914,13 @@
 "updated": "2026-10-13T21:35Z"
 },
 {
-"athlete_id": "4431684",
-"name": "Trayce Jackson-Davis",
+"athlete_id": "4395623",
+"name": "Trey Jemison III",
 "team_name": "Toronto Raptors",
 "status": "Day-To-Day",
-"return_date": "2026-10-13",
-"injury": "Teeth",
-"updated": "2026-10-12T20:40Z"
+"return_date": "2026-10-15",
+"injury": "Undisclosed",
+"updated": "2026-10-13T22:56Z"
 },
 {
 "athlete_id": "4396963",
