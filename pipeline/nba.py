@@ -64,6 +64,7 @@ TAU_PRE = 2.0   # 2013-26 point-in-time replay, preseason playoff log-loss 0.596
 TAU_PRE_GAMES = 16
 PO_DELTA_SCEN = None  # per-simulation playoff deltas (scenarios x TEAMS): star availability drawn per scenario
 PO_DELTA = None  # research option: per-team playoff strength change (array over TEAMS), added in playoff series
+PO_HFA_EXTRA = 0.0  # extra home edge in playoff games (points per 100)
 PO_SCALE = 1.0  # research option: multiplier on rating gaps in playoff series (1 = live behaviour)
 TAU_FADE = 0.0  # research option: share of TEAM_TAU removed by the end of the regular season (0 = live behaviour)
 TAU_FADE_START = 0.0  # research option: games played before the fade begins (fade is linear from here to game 82)
@@ -781,9 +782,9 @@ def _schedule(schedule: pd.DataFrame) -> pd.DataFrame:
 
 
 def _one_game(rng: np.random.Generator, home: str, away: str, strength: np.ndarray,
-              neutral: bool = False) -> str:
+              neutral: bool = False, extra_home: float = 0.0) -> str:
     pace = (PACE[TIX[home]] + PACE[TIX[away]]) / 200
-    margin = (strength[TIX[home]] - strength[TIX[away]] + (0 if neutral else HFA)) * pace + rng.normal(0, GAME_SIGMA)
+    margin = (strength[TIX[home]] - strength[TIX[away]] + (0 if neutral else HFA + extra_home)) * pace + rng.normal(0, GAME_SIGMA)
     return home if margin > 0 else away
 
 
@@ -799,7 +800,7 @@ def _series(rng: np.random.Generator, a: str, b: str, strength: np.ndarray,
     wa = wb = 0
     for home_a in (True, True, False, False, True, False, True):
         home, away = (a, b) if home_a else (b, a)
-        winner = _one_game(rng, home, away, strength)
+        winner = _one_game(rng, home, away, strength, extra_home=PO_HFA_EXTRA)
         wa += winner == a
         wb += winner == b
         if wa == 4 or wb == 4:

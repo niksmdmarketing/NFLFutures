@@ -304,3 +304,14 @@ player who misses the whole season is known to; BT_FULL_NOLEAK=1 keeps such play
 - History CSVs (model/replay/nba_*.csv), nba_score.json and nba_slope.json regenerated from the full-model replay.
 - Portland's +4.7 playoff boost: Lillard back (valued on his last full season) and last season's 5-game playoff minutes
   ratio (Holiday 1.31, several bench players 0.5) concentrating the rotation; consistent with the tested method.
+
+## NBA: late-title calibration and in-season player ratings (14 Oct 2026) - neither adopted
+1. Playoff games 2011-2026 (1,339, vs each team's regular-season rating at the playoffs): margin = 1.22 x rating gap
+   (90% 1.08-1.35) + 3.5 home (model 2.3); residual sd 13.9. Applied on top of the full live model (14-season replay):
+   gap x1.2 -0.0001, extra home edge +1.3 +0.0000, both -0.0004, x1.1 + home -0.0001. The playoff rotation (top-8 from
+   player ratings) already carries the stronger-team effect; the late title slope (about 1.5) moves to 1.4-1.5 but log
+   loss does not improve (14 champions is little to calibrate on). nba.PO_HFA_EXTRA kept as a research option (0).
+2. Weekly refit of player ratings with this season's lineup stints (research/nba_rapm.fit cutoff/wcur; replay BT_INS,
+   BT_INS_PO): kept in the team rating from game 20 at 15% -0.0008 (8/14), 30% -0.0018; refit used only in the playoff
+   rotation -0.0008 (4/14); 15% without the playoff part -0.0004. Conference late improves (0.1492 -> 0.1444 at 15%) but
+   playoffs, division and seed 1 get worse; not deployed. The team-results rating already absorbs this season's form.

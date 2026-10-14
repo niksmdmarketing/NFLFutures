@@ -23,7 +23,7 @@ def load(y):
     return S
 
 
-def fit(y, lam=3000.0, w2=0.5, w3=0.0, prior=None, cache={}, lam_mult=None):
+def fit(y, lam=3000.0, w2=0.5, w3=0.0, prior=None, cache={}, lam_mult=None, cutoff=None, wcur=1.0):
     """Ratings as of the start of season y. prior: dict athlete_id -> prior rating (default 0)."""
     frames = []
     for k, w in ((1, 1.0), (2, w2), (3, w3)):
@@ -35,6 +35,14 @@ def fit(y, lam=3000.0, w2=0.5, w3=0.0, prior=None, cache={}, lam_mult=None):
         S = cache[key]
         if S is not None:
             frames.append(S.assign(w=w))
+    if cutoff is not None and wcur > 0:
+        if y not in cache:
+            cache[y] = load(y)
+        C = cache[y]
+        if C is not None:
+            C = C[pd.to_datetime(C.date) <= cutoff]
+            if len(C):
+                frames.append(C.assign(w=wcur))
     if not frames:
         return {}
     S = pd.concat(frames, ignore_index=True)

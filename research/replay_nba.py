@@ -29,6 +29,7 @@ N._fit_ratings = lambda boxes, end_year: _orig_fit(boxes, end_year, decay=_DECAY
 N.TAU_FADE = float(os.environ.get("BT_TAUFADE", "0"))
 N.TAU_FADE_START = float(os.environ.get("BT_TAUFADE_START", "0"))
 N.PO_SCALE = float(os.environ.get("BT_PO_SCALE", "1"))
+N.PO_HFA_EXTRA = float(os.environ.get("BT_PO_HFA", "0"))
 if os.environ.get("BT_SIGMA"):
     N.GAME_SIGMA = float(os.environ["BT_SIGMA"])
 if os.environ.get("BT_TEAM_TAU"):
@@ -43,7 +44,10 @@ PO_H = float(os.environ.get("BT_PO_H", "0.08"))   # chance a currently healthy p
 AV_B = (-4.579, 1.992, 5.308)   # logistic: intercept, share of team games missed, share of the team's last 15 missed (2011-26)
 N_SCEN = 400
 PO_GAMES = os.environ.get("BT_PO_GAMES") == "1"
-FULL = os.environ.get("BT_FULL") == "1"   # live roster step + RAPM preseason mix (with development) as in nba.build_data
+FULL = os.environ.get("BT_FULL") == "1"
+INS = float(os.environ.get("BT_INS", "0"))        # in-season player ratings: mix share kept from game 20 on (0 = off)
+INS_W = float(os.environ.get("BT_INS_W", "1.0"))  # weight of this season's stints in the weekly refit
+INS_PO = os.environ.get("BT_INS_PO", "1") == "1"  # also use the refitted ratings in the playoff rotation   # live roster step + RAPM preseason mix (with development) as in nba.build_data
 _RAW = {}
 
 
@@ -87,7 +91,7 @@ def _po_ratio(y):
     return (j.mean_po / j.mean_rs).clip(0.5, 1.5).to_dict()   # rotation by minutes per game (role) rather than total minutes
 
 
-def _player_ratings(y):
+def _player_ratings(y, cutoff=None):
     sys.path.insert(0, os.path.join(ROOT, "research"))
     os.environ.setdefault("NP_KBOX", "2.5")
     os.environ.setdefault("NP_DEV", "1.0")
@@ -98,6 +102,8 @@ def _player_ratings(y):
     sys.modules["research_nba_rapm"] = RA
     import nba_player_replay as NP
     NP.RA = RA
+    if cutoff is not None:
+        return NP.develop(RA.fit(y, lam=3000, w2=0.5, prior=NP.box_prior(y - 1), cutoff=cutoff, wcur=INS_W), y)
     return NP.develop(RA.fit(y, lam=3000, w2=0.5, prior=NP.box_prior(y - 1)), y)
 
 
@@ -252,12 +258,6 @@ def run_season(boxes, y):
             PO_RATIO.update(_po_ratio(y))
         prev_assign = _pbox(y).sort_values("date").groupby("athlete_id").team_abbreviation.first().to_dict()
     for wk, cutoff in enumerate(cuts):
-        if PO_K:
-            cur = _pbox(y)
-            if PO_AVAIL:
-                N.PO_DELTA_SCEN = _po_scen(cur[cur.date <= cutoff], rating, prev_assign, prev_mins, prev_info, rng)
-            else:
-                N.PO_DELTA = _po_delta(cur[cur.date <= cutoff], rating, prev_assign, prev_mins)
         done = g[g.date <= cutoff]
         tr = boxes[pd.to_numeric(boxes.season, errors="coerce") < y]
         if PO_GAMES:
@@ -273,10 +273,34 @@ def run_season(boxes, y):
             gp = 2 * len(done) / 30
             ratings, _ = N._roster_adjustment(ratings, v1, prior_roster.copy(), cur_roster.copy(), v2, gp)
             share = LR.MIX * max(0.0, 1.0 - gp / LR.MIX_GAMES)
-            if share > 0:
+            ck_rating = prating
+            if INS and len(done):
+                ck_rating = _player_ratings(y, cutoff)
+                share = LR.MIX * max(0.0, 1.0 - gp / LR.MIX_GAMES) + INS * min(1.0, gp / LR.MIX_GAMES)
+            if share > 0 and INS and len(done):
+                cur = _pbox(y)
+                cur = cur[cur.date <= cutoff]
+                agg = cur.groupby(["athlete_id"]).agg(m=("minutes", "sum"), t=("team_abbreviation", "last")).reset_index()
+                P = {}
+                for t, gg in agg.groupby("t"):
+                    r = np.array([ck_rating.get(int(a), -1.0) for a in gg.athlete_id])
+                    P[t] = 5 * float(np.sum(gg.m.to_numpy(float) / gg.m.sum() * r))
+                P = pd.Series(P).reindex(N.TEAMS).fillna(0.0)
+                P = P - P.mean()
+                ratings["rating"] = (1 - share) * ratings.rating + share * ratings.team.map(P).fillna(0)
+                ratings["rating"] -= ratings.rating.mean()
+            elif share > 0:
                 P = LR.team_strength(cur_roster, rv, prating, N.TEAMS)
                 ratings["rating"] = (1 - share) * ratings.rating + share * ratings.team.map(P).fillna(0)
                 ratings["rating"] -= ratings.rating.mean()
+        if not FULL:
+            ck_rating = None
+        if PO_K:
+            cur = _pbox(y)
+            if PO_AVAIL:
+                N.PO_DELTA_SCEN = _po_scen(cur[cur.date <= cutoff], rating, prev_assign, prev_mins, prev_info, rng)
+            else:
+                N.PO_DELTA = _po_delta(cur[cur.date <= cutoff], (ck_rating if (INS and INS_PO and ck_rating is not None) else rating), prev_assign, prev_mins)
         s = sched.copy()
         s["completed"] = s.completed & (pd.to_datetime(s.game_date) <= cutoff)
         res = N._simulate(s, ratings, SIMS)
