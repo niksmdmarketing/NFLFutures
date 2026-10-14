@@ -681,13 +681,13 @@ def _roster_values(values: pd.DataFrame, values_prev: pd.DataFrame | None) -> pd
         return v.sort_values("minutes", ascending=False).drop_duplicates("athlete_id").set_index("athlete_id")[["minutes", "impact"]]
     a = rescore(values)
     if values_prev is None or not len(values_prev):
-        return a.reset_index()
+        return a.assign(minutes_last=a.minutes).reset_index()
     b = rescore(values_prev)
     j = a.join(b, how="outer", rsuffix="_2").fillna(0.0)
     back = (j.minutes < 500) & (j.minutes_2 >= 1000)
     w = ROSTER_LAST_W * j.minutes + j.minutes_2
     blend = np.where(w > 0, (ROSTER_LAST_W * j.minutes * j.impact + j.minutes_2 * j.impact_2) / w.where(w > 0, 1), 0.0)
-    out = pd.DataFrame({"minutes": np.where(back, j.minutes_2, j.minutes),
+    out = pd.DataFrame({"minutes": np.where(back, j.minutes_2, j.minutes), "minutes_last": j.minutes,
                         "impact": np.where(back, j.impact_2, np.where(j.minutes > 0, blend, 0.0))}, index=j.index)
     out = out[(j.minutes > 0) | back]
     return out.reset_index().rename(columns={"index": "athlete_id"})
@@ -703,7 +703,9 @@ def _roster_adjustment(ratings: pd.DataFrame, values: pd.DataFrame, prior_roster
     coef = c0 + (c1 - c0) * min(max(games_played, 0.0) / n, 1.0)
     def strength(roster: pd.DataFrame, current: bool) -> pd.Series:
         r = roster[roster.team_abbreviation.isin(TEAMS)].drop_duplicates(["team_abbreviation", "athlete_id"]).copy()
-        r = r.merge(val[["athlete_id", "minutes", "impact"]], how="left", on="athlete_id")
+        r = r.merge(val[["athlete_id", "minutes", "minutes_last", "impact"]], how="left", on="athlete_id")
+        if not current:   # last season's roster: the minutes actually played (a player back from injury adds to the new side only)
+            r["minutes"] = r.minutes_last
         r["minutes"] = r.minutes.fillna(180 if current else 0).clip(0, 2600)
         r["impact"] = r.impact.fillna(0)
         # Keep a realistic 12-player rotation and scale to an 82-game minute budget.
