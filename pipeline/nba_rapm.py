@@ -188,16 +188,35 @@ PO_K, PO_GAMMA, PO_CAP = 1.0, 1.5, 42 / 240
 # conference 0.1808 -> 0.1729. TypeSafe 68% (over k 1.0 / power 1.0 and k 0.5).
 
 
-def playoff_delta(mins: pd.DataFrame, rating: dict[int, float], teams: list[str]) -> pd.Series:
-    """mins: team_abbreviation, athlete_id, m (minutes). Returns centred per-team playoff strength change (points per 100)."""
+def playoff_ratio(last_season_players: pd.DataFrame) -> dict[int, float]:
+    """Last season's playoff / regular-season minutes per game (4+ playoff games, 20+ regular), clipped to [0.5, 1.5].
+    Replay: scaling the playoff rotation's minutes by it +0.0011 (10/14; title 0.0827 -> 0.0800); e.g. managed stars
+    (Wembanyama 28.6 regular, 34.1 playoff mpg) count for more in the playoffs."""
+    d = last_season_players.copy()
+    d["m"] = pd.to_numeric(d.minutes, errors="coerce")
+    d["st"] = pd.to_numeric(d.season_type, errors="coerce")
+    d = d[d.m > 0]
+    d["aid"] = [_id(a) for a in d.athlete_id]
+    po = d[d.st == 3].groupby("aid").m.agg(["mean", "size"])
+    rs = d[d.st == 2].groupby("aid").m.agg(["mean", "size"])
+    j = po.join(rs, lsuffix="_po", rsuffix="_rs", how="inner")
+    j = j[(j.size_po >= 4) & (j.size_rs >= 20)]
+    return (j.mean_po / j.mean_rs).clip(0.5, 1.5).to_dict()
+
+
+def playoff_delta(mins: pd.DataFrame, rating: dict[int, float], teams: list[str], reg_minutes=None) -> pd.Series:
+    """mins: team_abbreviation, athlete_id, m (playoff-role minutes); reg_minutes: regular-season minutes (default m).
+    Returns centred per-team playoff strength change (points per 100)."""
+    mins = mins.assign(reg=mins.m if reg_minutes is None else np.asarray(reg_minutes, float))
     out = {}
     for t, g in mins.groupby("team_abbreviation"):
         if t not in teams or g.m.sum() <= 0:
             continue
+        r_all = np.array([rating.get(_id(a), ROOKIE) for a in g.athlete_id])
+        reg = 5 * float(np.sum(g.reg.to_numpy(float) / max(g.reg.sum(), 1e-9) * r_all))
         g = g.sort_values("m", ascending=False)
         r = np.array([rating.get(_id(a), ROOKIE) for a in g.athlete_id])
         sh = g.m.to_numpy(float) / g.m.sum()
-        reg = 5 * float(np.sum(sh * r))
         top = sh[:8] ** PO_GAMMA
         top = top / top.sum()
         for _ in range(5):

@@ -41,7 +41,25 @@ PO_MPG = os.environ.get("BT_PO_MPG") == "1"
 PO_AVAIL = os.environ.get("BT_PO_AVAIL") == "1"   # role = minutes per game; star availability drawn per simulated season
 PO_H = float(os.environ.get("BT_PO_H", "0.08"))   # chance a currently healthy player misses the playoffs, whole season ahead
 AV_B = (-4.579, 1.992, 5.308)   # logistic: intercept, share of team games missed, share of the team's last 15 missed (2011-26)
-N_SCEN = 400   # rotation by minutes per game (role) rather than total minutes
+N_SCEN = 400
+PO_GAMES = os.environ.get("BT_PO_GAMES") == "1"   # count earlier seasons' playoff games in the team ratings
+PO_LASTPO = os.environ.get("BT_PO_LASTPO") == "1"   # scale each player's minutes by last season's playoff/regular mpg ratio
+PO_RATIO = {}
+
+
+def _po_ratio(y):
+    """athlete -> (playoff mpg / regular mpg) last season, players with 4+ playoff games, clipped to [0.5, 1.5]."""
+    d = pd.read_csv(os.path.join(N.NBA_DATA, f"player_box_{y - 1}.csv"), low_memory=False,
+                    usecols=["athlete_id", "minutes", "season_type", "game_id"])
+    d["minutes"] = pd.to_numeric(d.minutes, errors="coerce")
+    d["st"] = pd.to_numeric(d.season_type, errors="coerce")
+    d = d[d.minutes > 0]
+    d["athlete_id"] = pd.to_numeric(d.athlete_id, errors="coerce")
+    po = d[d.st == 3].groupby("athlete_id").minutes.agg(["mean", "size"])
+    rs = d[d.st == 2].groupby("athlete_id").minutes.agg(["mean", "size"])
+    j = po.join(rs, lsuffix="_po", rsuffix="_rs", how="inner")
+    j = j[(j.size_po >= 4) & (j.size_rs >= 20)]
+    return (j.mean_po / j.mean_rs).clip(0.5, 1.5).to_dict()   # rotation by minutes per game (role) rather than total minutes
 
 
 def _player_ratings(y):
@@ -119,10 +137,14 @@ def _po_delta(pbox, rating, prev_assign, prev_mins):
     for t, g in m.groupby("team_abbreviation"):
         if t not in N.TIX or g.minutes.sum() <= 0:
             continue
+        g = g.copy()
+        r_all = np.array([rating.get(int(a), -1.0) for a in g.athlete_id])
+        reg = 5 * float(np.sum(g.minutes.to_numpy(float) / g.minutes.sum() * r_all))
+        if PO_LASTPO:
+            g["minutes"] = g.minutes * np.array([PO_RATIO.get(a, 1.0) for a in g.athlete_id])
         g = g.sort_values("minutes", ascending=False)
         r = np.array([rating.get(int(a), -1.0) for a in g.athlete_id])
         sh = g.minutes.to_numpy(float) / g.minutes.sum()
-        reg = 5 * float(np.sum(sh * r))
         top = sh[:8] ** PO_GAMMA
         top = top / top.sum()
         for _ in range(5):
@@ -192,6 +214,9 @@ def run_season(boxes, y):
         last_team = p1.groupby("athlete_id").team_abbreviation.last()
         prev_info = {a: (PREV_MPG[a], max(0.0, 1 - gp1[a] / tg1.get(last_team[a], 82))) for a in PREV_MPG}
         rng = np.random.default_rng(11)
+        PO_RATIO.clear()
+        if PO_LASTPO:
+            PO_RATIO.update(_po_ratio(y))
         prev_assign = _pbox(y).sort_values("date").groupby("athlete_id").team_abbreviation.first().to_dict()
     for wk, cutoff in enumerate(cuts):
         if PO_K:
@@ -202,6 +227,9 @@ def run_season(boxes, y):
                 N.PO_DELTA = _po_delta(cur[cur.date <= cutoff], rating, prev_assign, prev_mins)
         done = g[g.date <= cutoff]
         tr = boxes[pd.to_numeric(boxes.season, errors="coerce") < y]
+        if PO_GAMES:
+            tr = tr.copy()
+            tr.loc[pd.to_numeric(tr.season_type, errors="coerce") == 3, "season_type"] = 2
         if len(done):
             tr = pd.concat([tr, boxes[(pd.to_numeric(boxes.season, errors="coerce") == y) & boxes.game_id.isin(set(done.gid))]])
         ratings, fit = N._fit_ratings(tr, y)

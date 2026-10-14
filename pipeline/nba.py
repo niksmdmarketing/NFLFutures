@@ -683,7 +683,10 @@ def _player_mix(ratings: pd.DataFrame, players: pd.DataFrame, values: pd.DataFra
             r = current_roster[current_roster.team_abbreviation.isin(TEAMS)].drop_duplicates(["team_abbreviation", "athlete_id"])
             mins = pd.DataFrame({"team_abbreviation": r.team_abbreviation, "athlete_id": r.athlete_id,
                                  "m": [float(proj.get(nba_rapm._id(a), 0.0)) for a in r.athlete_id]})
-        delta = nba_rapm.playoff_delta(mins, rating, TEAMS)
+        last = players[pd.to_numeric(players.season, errors="coerce") == end_year - 1]
+        ratio = nba_rapm.playoff_ratio(last)
+        mins = mins.assign(m=mins.m * np.array([ratio.get(nba_rapm._id(a), 1.0) for a in mins.athlete_id]))
+        delta = nba_rapm.playoff_delta(mins, rating, TEAMS, reg_minutes=mins.m / np.array([ratio.get(nba_rapm._id(a), 1.0) for a in mins.athlete_id]))
         PO_DELTA = delta.reindex(TEAMS).fillna(0).to_numpy(float)
         ratings["playoff_adj"] = ratings.team.map(delta)
         log("nba player ratings: share", round(share, 2), "stints", sum(len(f) for f, _ in stints),
@@ -1028,7 +1031,12 @@ def build_data() -> None:
     end_year = season_end_year()
     log("NBA season", f"{end_year - 1}-{str(end_year)[-2:]}")
     boxes, raw_schedule, players, prior_roster, current_roster = _load_inputs(end_year)
-    ratings, fit = _fit_ratings(boxes, end_year)
+    # Earlier seasons' playoff games count as games in the team ratings (14-season futures replay with the playoff
+    # rotation: +0.0010, 90% +0.0002 to +0.0018, better 9/14; with the last-playoff role below +0.0019, 10/14; TypeSafe 72%).
+    fit_boxes = boxes.copy()
+    earlier_po = (pd.to_numeric(fit_boxes.season_type, errors="coerce") == 3) & (pd.to_numeric(fit_boxes.season, errors="coerce") < end_year)
+    fit_boxes.loc[earlier_po, "season_type"] = 2
+    ratings, fit = _fit_ratings(fit_boxes, end_year)
     global HFA, PACE
     if 0 < fit["home_offense_points_per_100"] < 6:
         HFA = float(fit["home_offense_points_per_100"])

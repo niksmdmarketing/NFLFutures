@@ -279,3 +279,13 @@ markets are unaffected. Live 2026-27 top playoff adjustments: DEN +4.1, MEM +2.9
   the live total-minutes version; title 0.0852 vs 0.0827, conference 0.1781 vs 0.1729, worse late in the season too, where
   the availability term is small, so minutes per game is the weaker role measure. Not deployed; total minutes stays.
   (nba.PO_DELTA_SCEN and replay BT_PO_AVAIL kept as research options, off.)
+
+## NBA: San Antonio / Denver vs markets and ESPN (14 Oct 2026) - two changes DEPLOYED
+Markets (Kalshi/Polymarket avg, 13 Oct) SA 22%, OKC 21%, DEN 3% and ESPN agreed with each other; ours was OKC 38, DEN 14, SA 5.
+TypeSafe: investigate inputs first (44%). Found: SA's team rating (+4.7) is dragged by earlier poor seasons (last season
++7.8, last 30 games +13.0); last season's playoff games were unused; the playoff rotation ranked Wembanyama (managed 28.6
+mpg, 34.1 in the playoffs) 7th by total minutes. 14-season futures replay vs the live playoff rotation:
+- last-playoff role (minutes x last season's playoff/regular mpg ratio, 4+ playoff games): +0.0011 (10/14)
+- earlier seasons' playoff games counted in the team ratings: +0.0010 (90% +0.0002 to +0.0018, 9/14)
+- both: +0.0019 (-0.0003 to +0.0040, 10/14); title 0.0827 -> 0.0807, conference 0.1729 -> 0.1677, division and playoffs
+  slightly better. TypeSafe: both (72%).
