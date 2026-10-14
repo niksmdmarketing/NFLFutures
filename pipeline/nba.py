@@ -626,11 +626,44 @@ def _player_values(players: pd.DataFrame) -> pd.DataFrame:
     return agg
 
 
+ROSTER_PM_W = 0.09      # plus-minus weight in the roster-step player value (display impact keeps 0.045)
+ROSTER_LAST_W = 2.0     # last season counts twice the season before in the roster-step player value
+ROSTER_COEF = (1.5, 1.0, 20.0)   # coefficient before the season, from game N on, N (linear in between)
+# 14 Oct 2026 (research/nba_roster_replay.py, 2014-2026, preseason rating vs actual net rating): coefficient 0.55 -> 1.5,
+# plus-minus weight 0.045 -> 0.09, two-season player values and players back from a near-lost season valued on the season
+# before: preseason MAE 3.090 -> 2.967 (better 10/13; nested LOSO 0.101, 10/13; walk-forward 0.060, 7/10); at 20 and 41
+# games coefficient 1.0 is best (+0.037 8/13, +0.047 10/13). TypeSafe chose coefficient 1.5 + returning-player fix.
+
+
+def _roster_values(values: pd.DataFrame, values_prev: pd.DataFrame | None) -> pd.DataFrame:
+    """Per-player minutes and impact for the roster step (two seasons, more plus-minus, returning players)."""
+    def rescore(v):
+        v = v.copy()
+        league = np.average(v.gmsc36, weights=v.minutes)
+        v["impact"] = (((v.gmsc36 - league) * .24 + v.pm36 * ROSTER_PM_W) * np.minimum(1, v.minutes / 1200)).clip(-4, 6)
+        return v.sort_values("minutes", ascending=False).drop_duplicates("athlete_id").set_index("athlete_id")[["minutes", "impact"]]
+    a = rescore(values)
+    if values_prev is None or not len(values_prev):
+        return a.reset_index()
+    b = rescore(values_prev)
+    j = a.join(b, how="outer", rsuffix="_2").fillna(0.0)
+    back = (j.minutes < 500) & (j.minutes_2 >= 1000)
+    w = ROSTER_LAST_W * j.minutes + j.minutes_2
+    blend = np.where(w > 0, (ROSTER_LAST_W * j.minutes * j.impact + j.minutes_2 * j.impact_2) / w.where(w > 0, 1), 0.0)
+    out = pd.DataFrame({"minutes": np.where(back, j.minutes_2, j.minutes),
+                        "impact": np.where(back, j.impact_2, np.where(j.minutes > 0, blend, 0.0))}, index=j.index)
+    out = out[(j.minutes > 0) | back]
+    return out.reset_index().rename(columns={"index": "athlete_id"})
+
+
 def _roster_adjustment(ratings: pd.DataFrame, values: pd.DataFrame, prior_roster: pd.DataFrame,
-                       current_roster: pd.DataFrame) -> tuple[pd.DataFrame, list[dict]]:
+                       current_roster: pd.DataFrame, values_prev: pd.DataFrame | None = None,
+                       games_played: float = 0.0) -> tuple[pd.DataFrame, list[dict]]:
     for roster in (prior_roster, current_roster):
         roster["athlete_id"] = roster.athlete_id.astype(str).str.replace(r"\.0$", "", regex=True)
-    val = values.sort_values("minutes", ascending=False).drop_duplicates("athlete_id")
+    val = _roster_values(values, values_prev)
+    c0, c1, n = ROSTER_COEF
+    coef = c0 + (c1 - c0) * min(max(games_played, 0.0) / n, 1.0)
     def strength(roster: pd.DataFrame, current: bool) -> pd.Series:
         r = roster[roster.team_abbreviation.isin(TEAMS)].drop_duplicates(["team_abbreviation", "athlete_id"]).copy()
         r = r.merge(val[["athlete_id", "minutes", "impact"]], how="left", on="athlete_id")
@@ -647,7 +680,7 @@ def _roster_adjustment(ratings: pd.DataFrame, values: pd.DataFrame, prior_roster
 
     old = strength(prior_roster, False)
     new = strength(current_roster, True)
-    adj = ((new - old) * .55).clip(-5, 5)
+    adj = ((new - old) * coef).clip(-6, 6)
     adj -= adj.mean()
     ratings = ratings.copy()
     ratings["roster_adj"] = ratings.team.map(adj).fillna(0)
@@ -656,7 +689,8 @@ def _roster_adjustment(ratings: pd.DataFrame, values: pd.DataFrame, prior_roster
 
     current = current_roster[current_roster.team_abbreviation.isin(TEAMS)].copy()
     current = current.drop_duplicates(["team_abbreviation", "athlete_id"])
-    current = current.merge(val, how="left", on="athlete_id", suffixes=("", "_prior"))
+    shown = values.sort_values("minutes", ascending=False).drop_duplicates("athlete_id")
+    current = current.merge(shown, how="left", on="athlete_id", suffixes=("", "_prior"))
     rows = []
     for _, p in current.iterrows():
         if pd.isna(p.get("minutes")) or float(p.get("minutes", 0)) < 150:
@@ -936,7 +970,11 @@ def build_data() -> None:
     PACE = ratings.set_index("team").pace.reindex(TEAMS).fillna(100.0).to_numpy(float)
     prior_players = players[pd.to_numeric(players.season, errors="coerce") == end_year - 1] if len(players) else players
     values = _player_values(prior_players)
-    ratings, player_rows = _roster_adjustment(ratings, values, prior_roster, current_roster)
+    prev2 = players[pd.to_numeric(players.season, errors="coerce") == end_year - 2] if len(players) else players
+    values_prev = _player_values(prev2) if len(prev2) else None
+    reg = _regular_boxes(boxes)
+    gp_now = float(len(reg[reg.season == end_year])) / len(TEAMS) if len(reg) else 0.0
+    ratings, player_rows = _roster_adjustment(ratings, values, prior_roster, current_roster, values_prev, gp_now)
     team_stats, player_stats, team_games = _stats_data(boxes, players)
     advanced_teams, advanced_players, shot_zones, advanced_meta = _advanced_data(end_year)
     schedule = _schedule(raw_schedule)

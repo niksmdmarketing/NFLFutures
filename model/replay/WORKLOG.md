@@ -223,3 +223,17 @@ Last third of the season, 2010-2026, temperatures 1 / 0.8 / 0.6, chosen leave-on
   few misses get punished hard. Sixth Man the same pattern (-0.037, 13/17). DPOY: favourite 38% / 29% (slightly long); T 1 kept in every fold.
 - ROY: T 0.6 picked in every fold, +0.057 held-out (14/17), but the favourite then wins less often (84% -> 70%), which points to the
   sharper logit re-ranking candidates rather than better calibration. Not deployed; the live award chances stay as they are.
+
+## NBA roster step, prompted by ESPN BPI (14 Oct 2026) - DEPLOYED
+The user supplied ESPN's 7 Oct BPI pages (private reference only; www.espn.com robots.txt disallows anthropic-ai and the BPI
+feed only gives end-of-season values for past seasons, so no ESPN history was collected). Our preseason ratings agreed with BPI
+(r 0.84) except for big offseason moves (Leonard to TOR, Giannis to MIA, Brown and LeBron to PHI, Young back for WSH):
+the live roster step moved no team by more than 0.94 points per 100.
+research/nba_roster_replay.py tests the roster step on 2014-2026 (13 seasons): preseason rating + c x (new - old roster
+strength), new team = first team played for that season, scored against the actual season net rating (MAE per 100 poss).
+- live (c 0.55, plus-minus weight 0.045, last season only): 3.090
+- c 1.5, plus-minus weight 0.09, last season x2 + season before, players back from a near-lost season (<500 min, >=1000 the
+  season before) valued on the season before: 2.967 (better 10/13; nested LOSO over 60 settings 0.101, 10/13; walk-forward
+  0.060, 7/10). At 20 / 41 games c 1.0 is best (+0.037 8/13, +0.047 10/13), so c fades 1.5 -> 1.0 over the first 20 games.
+- two-season minutes for injury-shortened seasons: no gain. TypeSafe: c 1.5 + returning fix (53%).
+Effect on the 7 Oct comparison: correlation with BPI 0.838 -> 0.850; e.g. LAC +1.2 -> -0.1, PHI +0.1 -> +1.9, BOS 5.0 -> 3.7.
