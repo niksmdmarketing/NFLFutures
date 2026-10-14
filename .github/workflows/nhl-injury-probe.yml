@@ -1,0 +1,20 @@
+name: Probe NHL injury sources (research)
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - run: bash research/nhl_injury_probe.sh
+      - if: always()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -f data/research/nhl_injury_probe.txt
+          if ! git diff --cached --quiet; then git commit -q -m 'Research: NHL injury source probe'; git pull -q --rebase origin main; git push origin HEAD:main; fi
