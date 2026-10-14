@@ -539,7 +539,7 @@ def futures(cur):
     gp = np.mean([r["gp"] for r in rows]) if rows else 0
     return {"season": cur, "group_label": "Division", "sims": 100000, "main": "p_title",
             "status": f"{cur - 1}-{str(cur)[2:]} season" + (" — before opening night" if gp == 0 else f" — through about {gp:.0f} games per team"),
-            "intro": "Projected wins and chances from the season simulation (opponent-adjusted offence and defence, weighted heavily to last season and this season's games, plus a cautious roster adjustment, then every remaining game, the play-in and the playoffs).",
+            "intro": "Projected wins and chances from the season simulation (opponent-adjusted offence and defence, weighted heavily to last season and this season's games, plus a roster adjustment and, before the season and in its first 20 games, player ratings from lineup data, then every remaining game, the play-in and the playoffs).",
             "backtest_html": _backtest_html(),
             "avail_html": _avail_html(F.get("availability") or {}),
             "proj": {"k": "w_mean", "l": "Proj. wins", "lo": "w_p10", "hi": "w_p90", "f": "num1"},

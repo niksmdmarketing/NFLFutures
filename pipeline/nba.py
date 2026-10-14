@@ -635,6 +635,43 @@ ROSTER_COEF = (1.5, 1.0, 20.0)   # coefficient before the season, from game N on
 # games coefficient 1.0 is best (+0.037 8/13, +0.047 10/13). TypeSafe chose coefficient 1.5 + returning-player fix.
 
 
+def _player_mix(ratings: pd.DataFrame, players: pd.DataFrame, values: pd.DataFrame, values_prev, current_roster: pd.DataFrame,
+                end_year: int, games_played: float) -> pd.DataFrame:
+    """Mix player ratings (RAPM, pipeline/nba_rapm.py) into the team rating: 40% before the season, fading to 0 by game 20."""
+    import nba_rapm
+    share = nba_rapm.MIX * max(0.0, 1.0 - games_played / nba_rapm.MIX_GAMES)
+    ratings = ratings.copy()
+    ratings["player_strength"] = np.nan
+    if share <= 0:
+        return ratings
+    try:
+        cols = ["game_id", "sequence_number", "type_text", "period_number", "team_id", "athlete_id_1", "athlete_id_2",
+                "athlete_id_3", "scoring_play", "score_value", "shooting_play", "home_team_id", "away_team_id", "season_type"]
+        stints = []
+        for k, w in ((1, 1.0), (2, nba_rapm.W2)):
+            y = end_year - k
+            path = _download("espn_nba_pbp", f"play_by_play_{y}.parquet", 24 * 365, required=False)
+            if not path:
+                continue
+            season_players = players[pd.to_numeric(players.season, errors="coerce") == y]
+            stints.append((nba_rapm.season_stints(pd.read_parquet(path, columns=cols), season_players), w))
+        if not stints or not len(stints[0][0]):
+            log("nba player ratings: no play-by-play, skipped")
+            return ratings
+        rv = _roster_values(values, values_prev)
+        prior = {nba_rapm._id(a): nba_rapm.K_BOX * float(i) for a, i in zip(rv.athlete_id, rv.impact)}
+        rating = nba_rapm.fit(stints, prior)
+        strength = nba_rapm.team_strength(current_roster, rv, rating, TEAMS)
+        ratings["player_strength"] = ratings.team.map(strength)
+        ratings["rating"] = (1 - share) * ratings.rating + share * ratings.player_strength.fillna(0)
+        ratings["rating"] -= ratings.rating.mean()
+        log("nba player ratings: share", round(share, 2), "stints", sum(len(f) for f, _ in stints),
+            "top", strength.sort_values(ascending=False).head(3).round(2).to_dict())
+    except Exception as e:  # never block the refresh
+        log("nba player ratings failed:", repr(e)[:200])
+    return ratings
+
+
 def _roster_values(values: pd.DataFrame, values_prev: pd.DataFrame | None) -> pd.DataFrame:
     """Per-player minutes and impact for the roster step (two seasons, more plus-minus, returning players)."""
     def rescore(v):
@@ -975,6 +1012,7 @@ def build_data() -> None:
     reg = _regular_boxes(boxes)
     gp_now = float(len(reg[reg.season == end_year])) / len(TEAMS) if len(reg) else 0.0
     ratings, player_rows = _roster_adjustment(ratings, values, prior_roster, current_roster, values_prev, gp_now)
+    ratings = _player_mix(ratings, players, values, values_prev, current_roster, end_year, gp_now)
     team_stats, player_stats, team_games = _stats_data(boxes, players)
     advanced_teams, advanced_players, shot_zones, advanced_meta = _advanced_data(end_year)
     schedule = _schedule(raw_schedule)

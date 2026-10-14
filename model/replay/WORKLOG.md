@@ -237,3 +237,14 @@ strength), new team = first team played for that season, scored against the actu
   0.060, 7/10). At 20 / 41 games c 1.0 is best (+0.037 8/13, +0.047 10/13), so c fades 1.5 -> 1.0 over the first 20 games.
 - two-season minutes for injury-shortened seasons: no gain. TypeSafe: c 1.5 + returning fix (53%).
 Effect on the 7 Oct comparison: correlation with BPI 0.838 -> 0.850; e.g. LAC +1.2 -> -0.1, PHI +0.1 -> +1.9, BOS 5.0 -> 3.7.
+
+## NBA player ratings (RAPM) in the preseason rating (14 Oct 2026) - DEPLOYED
+research/nba_stints.py rebuilds 10-man lineup stints from free ESPN play-by-play (sportsdataverse espn_nba_pbp, 2010-2026;
+season minutes match box scores r 0.9995; a few games skipped per season, 49 at most in 2019). research/nba_rapm.py fits
+RAPM (ridge 3000 toward 2.5 x box-score value, last season + half the season before). research/nba_player_replay.py,
+2014-2026 preseason, MAE vs season net rating: live (with today's roster step) 2.967; RAPM team strength alone 3.03-3.15;
+60% live + 40% RAPM 2.865 (better 10/13); weight chosen leave-one-season-out 0.4 in 11/13 folds: +0.092, 10/13. RAPM settings
+picked from 6 configurations on the same seasons. At 20 / 41 games RAPM adds nothing (-0.007, -0.022), so the share fades
+40% -> 0 by game 20 (pipeline/nba_rapm.py, nba._player_mix). TypeSafe: deploy now (74%, confidence 0.61).
+2026-27 preseason: correlation with ESPN BPI 0.850 -> 0.886 (RAPM strength alone 0.891); rating spread 4.03 -> 4.62.
+Futures log loss not replayed (the weekly replay has no roster or player step).
