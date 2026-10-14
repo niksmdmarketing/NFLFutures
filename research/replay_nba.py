@@ -42,7 +42,32 @@ PO_AVAIL = os.environ.get("BT_PO_AVAIL") == "1"   # role = minutes per game; sta
 PO_H = float(os.environ.get("BT_PO_H", "0.08"))   # chance a currently healthy player misses the playoffs, whole season ahead
 AV_B = (-4.579, 1.992, 5.308)   # logistic: intercept, share of team games missed, share of the team's last 15 missed (2011-26)
 N_SCEN = 400
-PO_GAMES = os.environ.get("BT_PO_GAMES") == "1"   # count earlier seasons' playoff games in the team ratings
+PO_GAMES = os.environ.get("BT_PO_GAMES") == "1"
+FULL = os.environ.get("BT_FULL") == "1"   # live roster step + RAPM preseason mix (with development) as in nba.build_data
+_RAW = {}
+
+
+def _raw(y):
+    if y not in _RAW:
+        _RAW[y] = pd.read_csv(os.path.join(N.NBA_DATA, f"player_box_{y}.csv"), low_memory=False)
+    return _RAW[y]
+
+
+def _season_extras(y):
+    """Inputs for the live roster step and player mix, point in time: values from Y-1 and Y-2, last season's roster =
+    each player's last team in Y-1, this season's roster = first team he plays for in Y (known by opening night)."""
+    import nba_rapm as LR
+    v1, v2 = N._player_values(_raw(y - 1)), N._player_values(_raw(y - 2))
+    p1, p0 = _pbox(y - 1).sort_values("date"), _pbox(y).sort_values("date")
+    prior_roster = p1.groupby("athlete_id").team_abbreviation.last().reset_index()
+    cur_roster = p0.groupby("athlete_id").team_abbreviation.first().reset_index()
+    if os.environ.get("BT_FULL_NOLEAK") == "1":   # players absent all season stay on last season's team (bounds the leak)
+        gone = prior_roster[~prior_roster.athlete_id.isin(cur_roster.athlete_id)]
+        cur_roster = pd.concat([cur_roster, gone], ignore_index=True)
+    for r in (prior_roster, cur_roster):
+        r["athlete_id"] = r.athlete_id.astype("int64").astype(str)
+    rv = N._roster_values(v1, v2)
+    return v1, v2, prior_roster, cur_roster, rv, LR   # count earlier seasons' playoff games in the team ratings
 PO_LASTPO = os.environ.get("BT_PO_LASTPO") == "1"   # scale each player's minutes by last season's playoff/regular mpg ratio
 PO_RATIO = {}
 
@@ -66,8 +91,13 @@ def _player_ratings(y):
     sys.path.insert(0, os.path.join(ROOT, "research"))
     os.environ.setdefault("NP_KBOX", "2.5")
     os.environ.setdefault("NP_DEV", "1.0")
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("research_nba_rapm", os.path.join(ROOT, "research", "nba_rapm.py"))
+    RA = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(RA)
+    sys.modules["research_nba_rapm"] = RA
     import nba_player_replay as NP
-    import nba_rapm as RA
+    NP.RA = RA
     return NP.develop(RA.fit(y, lam=3000, w2=0.5, prior=NP.box_prior(y - 1)), y)
 
 
@@ -203,6 +233,9 @@ def run_season(boxes, y):
         cuts.append(d)
         d += pd.Timedelta(days=7)
     rows = []
+    if FULL:
+        v1, v2, prior_roster, cur_roster, rv, LR = _season_extras(y)
+        prating = _player_ratings(y)
     if PO_K:
         rating = _player_ratings(y)
         p1 = _pbox(y - 1).sort_values("date")
@@ -236,6 +269,14 @@ def run_season(boxes, y):
         N.HFA = float(fit["home_offense_points_per_100"]) if 0 < fit["home_offense_points_per_100"] < 6 else 2.2
         N.PACE = ratings.set_index("team").pace.reindex(N.TEAMS).fillna(100.0).to_numpy(float)
         ratings["rating"] = ratings.raw_net - ratings.raw_net.mean()
+        if FULL:
+            gp = 2 * len(done) / 30
+            ratings, _ = N._roster_adjustment(ratings, v1, prior_roster.copy(), cur_roster.copy(), v2, gp)
+            share = LR.MIX * max(0.0, 1.0 - gp / LR.MIX_GAMES)
+            if share > 0:
+                P = LR.team_strength(cur_roster, rv, prating, N.TEAMS)
+                ratings["rating"] = (1 - share) * ratings.rating + share * ratings.team.map(P).fillna(0)
+                ratings["rating"] -= ratings.rating.mean()
         s = sched.copy()
         s["completed"] = s.completed & (pd.to_datetime(s.game_date) <= cutoff)
         res = N._simulate(s, ratings, SIMS)

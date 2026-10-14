@@ -289,3 +289,18 @@ mpg, 34.1 in the playoffs) 7th by total minutes. 14-season futures replay vs the
 - earlier seasons' playoff games counted in the team ratings: +0.0010 (90% +0.0002 to +0.0018, 9/14)
 - both: +0.0019 (-0.0003 to +0.0040, 10/14); title 0.0827 -> 0.0807, conference 0.1729 -> 0.1677, division and playoffs
   slightly better. TypeSafe: both (72%).
+
+## NBA: full live model in the weekly futures replay (14 Oct 2026)
+research/replay_nba.py BT_FULL=1 adds the live roster step (coefficient 1.5 -> 1.0 by game 20) and the RAPM preseason mix
+(40% -> 0 by game 20, with development) to the replay, alongside the playoff rotation (k 1.0, power 1.5), last-playoff role
+and earlier playoff games (BT_PO_*). Rosters are point in time except: this season's team = first team played for, so a
+player who misses the whole season is known to; BT_FULL_NOLEAK=1 keeps such players on last season's team to bound this.
+14 seasons 2013-2026, 2,000 sims, mean log loss over title/conference/division/seed 1/playoffs:
+- this morning's model 0.1778; playoff changes only 0.1726; full live model 0.1649 (+0.0125 vs this morning, 90% +0.0053 to
+  +0.0191, better 12/14); leak-bounded 0.1653 (+0.0070 vs playoff-only, 9/14). Every market better: title 0.0907 -> 0.0753,
+  conference 0.1808 -> 0.1549, division 0.2138 -> 0.2076, seed 1 0.0987 -> 0.0933, playoffs 0.3047 -> 0.2934.
+- Calibration: mid-season conference slope 0.92, division 0.95 (fine); the late title is still cautious (slope 1.5-1.6).
+  Late-only uncertainty fade (80% from game 60) +0.0001 and 15% lower team uncertainty +0.0002: noise, not adopted.
+- History CSVs (model/replay/nba_*.csv), nba_score.json and nba_slope.json regenerated from the full-model replay.
+- Portland's +4.7 playoff boost: Lillard back (valued on his last full season) and last season's 5-game playoff minutes
+  ratio (Holiday 1.31, several bench players 0.5) concentrating the rotation; consistent with the tested method.
