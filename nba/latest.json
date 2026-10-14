@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-10-14T1420Z",
-"feed_timestamp": "2026-10-14T14:20:38Z",
+"collected_utc": "2026-10-14T1718Z",
+"feed_timestamp": "2026-10-14T17:18:01Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -628,7 +628,25 @@
 "injury": "Left Hip"
 },
 {
+"athlete_id": "4278585",
+"status": "Day-To-Day",
+"return_date": "2026-10-14",
+"injury": "Rest"
+},
+{
 "athlete_id": "3136193",
+"status": "Day-To-Day",
+"return_date": "2026-10-14",
+"injury": "Rest"
+},
+{
+"athlete_id": "3155526",
+"status": "Day-To-Day",
+"return_date": "2026-10-14",
+"injury": "Rest"
+},
+{
+"athlete_id": "4437244",
 "status": "Day-To-Day",
 "return_date": "2026-10-14",
 "injury": "Rest"
@@ -644,6 +662,12 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-14",
 "injury": "Right Ankle"
+},
+{
+"athlete_id": "4601023",
+"status": "Day-To-Day",
+"return_date": "2026-10-14",
+"injury": "Rest"
 },
 {
 "athlete_id": "4706557",
@@ -769,7 +793,7 @@
 "athlete_id": "4431893",
 "status": "Day-To-Day",
 "return_date": "2026-10-15",
-"injury": "Undisclosed"
+"injury": "Back"
 },
 {
 "athlete_id": "4432586",
@@ -1764,13 +1788,40 @@
 "updated": "2026-10-01T22:07Z"
 },
 {
+"athlete_id": "4278585",
+"name": "Collin Gillespie",
+"team_name": "Phoenix Suns",
+"status": "Day-To-Day",
+"return_date": "2026-10-14",
+"injury": "Rest",
+"updated": "2026-10-14T16:40Z"
+},
+{
 "athlete_id": "3136193",
 "name": "Devin Booker",
 "team_name": "Phoenix Suns",
 "status": "Day-To-Day",
 "return_date": "2026-10-14",
 "injury": "Rest",
-"updated": "2026-10-11T00:55Z"
+"updated": "2026-10-14T16:35Z"
+},
+{
+"athlete_id": "3155526",
+"name": "Dillon Brooks",
+"team_name": "Phoenix Suns",
+"status": "Day-To-Day",
+"return_date": "2026-10-14",
+"injury": "Rest",
+"updated": "2026-10-14T16:40Z"
+},
+{
+"athlete_id": "4437244",
+"name": "Jalen Green",
+"team_name": "Phoenix Suns",
+"status": "Day-To-Day",
+"return_date": "2026-10-14",
+"injury": "Rest",
+"updated": "2026-10-14T16:37Z"
 },
 {
 "athlete_id": "4701232",
@@ -1788,7 +1839,16 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-14",
 "injury": "Right Ankle",
-"updated": "2026-10-11T00:52Z"
+"updated": "2026-10-14T16:38Z"
+},
+{
+"athlete_id": "4601023",
+"name": "Oso Ighodaro",
+"team_name": "Phoenix Suns",
+"status": "Day-To-Day",
+"return_date": "2026-10-14",
+"injury": "Rest",
+"updated": "2026-10-14T16:41Z"
 },
 {
 "athlete_id": "4706557",
@@ -1976,8 +2036,8 @@
 "team_name": "Toronto Raptors",
 "status": "Day-To-Day",
 "return_date": "2026-10-15",
-"injury": "Undisclosed",
-"updated": "2026-10-13T22:54Z"
+"injury": "Back",
+"updated": "2026-10-14T16:45Z"
 },
 {
 "athlete_id": "4432586",
