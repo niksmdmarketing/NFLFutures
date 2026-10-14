@@ -1,0 +1,47 @@
+name: Collect NHL shifts and shots (research)
+on:
+  workflow_dispatch:
+    inputs:
+      seasons:
+        default: '[2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026]'
+permissions:
+  contents: write
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix:
+        season: ${{ fromJSON(inputs.seasons) }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: pip install pandas
+      - name: Previous output (resume)
+        run: |
+          git fetch -q origin nhl-shifts-data
+          mkdir -p out
+          for f in stints shots players; do git show origin/nhl-shifts-data:${f}_${{ matrix.season }}.csv.gz > out/${f}_${{ matrix.season }}.csv.gz 2>/dev/null || rm -f out/${f}_${{ matrix.season }}.csv.gz; done
+      - run: python research/nhl_shifts_collect.py ${{ matrix.season }} out
+      - name: Save to data branch
+        if: always()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          cp -r out /tmp/out
+          for i in 1 2 3 4 5 6; do
+            git fetch -q origin nhl-shifts-data && git checkout -q -B data origin/nhl-shifts-data
+            cp /tmp/out/*_${{ matrix.season }}.csv.gz . 2>/dev/null || exit 0
+            git add *_${{ matrix.season }}.csv.gz
+            git diff --cached --quiet && exit 0
+            git commit -q -m "NHL shifts ${{ matrix.season }}"
+            git push -q origin data:nhl-shifts-data && exit 0
+            sleep $((RANDOM % 20 + 5))
+          done
+          exit 1
