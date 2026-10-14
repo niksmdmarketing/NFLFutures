@@ -1,95 +1,80 @@
-== robots puckpedia
-#
-# robots.txt
-#
-# This file is to prevent the crawling and indexing of certain parts
-# of your site by web crawlers and spiders run by sites like Yahoo!
-# and Google. By telling these "robots" where not to go on your site,
-# you save bandwidth and server resources.
-#
-# This file will be ignored unless it is at the root of your host:
-# Used:    http://example.com/robots.txt
-# Ignored: http://example.com/site/robots.txt
-#
-# For more information about the robots.txt standard, see:
-# http://www.robotstxt.org/robotstxt.html
+== NHL roster endpoint (redirects followed)
+HTTP 200 https://api-web.nhle.com/v1/roster/TOR/20262027
+['forwards', 'defensemen', 'goalies']
+{"id": 8476927, "headshot": "https://assets.nhle.com/mugs/nhl/20262027/TOR/8476927.png", "firstName": {"default": "Teddy", "cs": "Theodors", "sk": "Theodors"}, "lastName": {"default": "Blueger", "cs": "Blugers", "sk": "Blugers"}, "sweaterNumber": 73, "positionCode": "C", "shootsCatches": "L", "heightInInches": 72, "weightInPounds": 185, "heightInCentimeters": 183, "weightInKilograms": 84, "birthDate": "1994-08-15", "birthCity": {"default": "Riga", "fi": "Riika"}, "birthCountry": "LVA"}
+== robots api-web.nhle.com
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
+<title>Error 404 Not Found</title>
+</head>
+<body>
+<h2>HTTP ERROR 404 Not Found</h2>
+<table>
+<tr><th>URI:</th><td>https://api-web.nhle.com/robots.txt</td></tr>
+<tr><th>STATUS:</th><td>404</td></tr>
+<tr><th>MESSAGE:</th><td>Not Found</td></tr>
+</table>
 
-# -----------------------------------------
-# AI crawlers
-#
-# Real-time AI assistants and AI-search indexers are ALLOWED. They are not
-# listed in any group below, so they fall through to "User-agent: *" and are
-# treated like any other crawler (public content yes; /admin/, /user/*,
-# /search/, /*/e/ edit paths, etc. no).
-#   Allowed agents:  ChatGPT-User, Claude-User, Claude-Web, Perplexity-User
-#   Allowed search:  OAI-SearchBot, Claude-SearchBot, PerplexityBot, GoogleOther
-#
-# Pure model-training / data-resale crawlers remain fully blocked below.
-# -----------------------------------------
-User-agent: GPTBot
-User-agent: CCBot
-User-agent: ClaudeBot
-User-agent: anthropic-ai
-User-agent: xai-crawler
-User-agent: Grok-1
-User-agent: Grokbot
-User-agent: X-AI-Bot
-User-agent: Google-Extended
-User-agent: Applebot-Extended
-User-agent: BingPreview
-User-agent: Omgilibot
-User-agent: cohere-ai
-== puckpedia injuries page (TOR)
-HTTP 403 bytes 5577
-injuries?__cf_chl_tk=NJlp82X1r4ExywNIK6nGmNef1DQLGFiAygwtwsfocl8-1791978788-1.0.1.1-r25wG7AfeG5OAYvX1KhpmzxuwCus_lidmFKoMTXk4
-injuries?__cf_chl_f_tk=NJlp82X1r4ExywNIK6nGmNef1DQLGFiAygwtwsfocl8-1791978788-1.0.1.1-r25wG7AfeG5OAYvX1KhpmzxuwCus_lidmFKoMTX
-injuries?__cf_chl_rt_tk=NJlp82X1r4ExywNIK6nGmNef1DQLGFiAygwtwsfocl8-1791978788-1.0.1.1-r25wG7AfeG5OAYvX1KhpmzxuwCus_lidmFKoMT
-== NHL roster endpoint keys
-HTTP 307
-Traceback (most recent call last):
-  File "<string>", line 1, in <module>
-  File "/usr/lib/python3.12/json/__init__.py", line 293, in load
-    return loads(fp.read(),
-           ^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.12/json/__init__.py", line 346, in loads
-    return _default_decoder.decode(s)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.12/json/decoder.py", line 337, in decode
-    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.12/json/decoder.py", line 355, in raw_decode
-    raise JSONDecodeError("Expecting value", s, err.value) from None
-json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+</body>
+</html>
 == NHL player landing keys
-Traceback (most recent call last):
-  File "<string>", line 1, in <module>
-  File "/usr/lib/python3.12/json/__init__.py", line 293, in load
-    return loads(fp.read(),
-           ^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.12/json/__init__.py", line 346, in loads
-    return _default_decoder.decode(s)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.12/json/decoder.py", line 337, in decode
-    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.12/json/decoder.py", line 355, in raw_decode
-    raise JSONDecodeError("Expecting value", s, err.value) from None
-json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
-HTTP 400
-Traceback (most recent call last):
-  File "<string>", line 1, in <module>
-  File "/usr/lib/python3.12/json/__init__.py", line 293, in load
-    return loads(fp.read(),
-           ^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.12/json/__init__.py", line 346, in loads
-    return _default_decoder.decode(s)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.12/json/decoder.py", line 337, in decode
-    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.12/json/decoder.py", line 355, in raw_decode
-    raise JSONDecodeError("Expecting value", s, err.value) from None
-json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
-== NHL stats API injury/transaction search
-https://api.nhle.com/stats/rest/en/transaction HTTP 404
-https://api-web.nhle.com/v1/transactions HTTP 404
+HTTP 200
+['awards', 'badges', 'birthCity', 'birthCountry', 'birthDate', 'careerTotals', 'currentTeamAbbrev', 'currentTeamId', 'currentTeamRoster', 'draftDetails', 'featuredStats', 'firstName', 'fullTeamName', 'headshot', 'heightInCentimeters', 'heightInInches', 'heroImage', 'inHHOF', 'inTop100AllTime', 'isActive', 'last5Games', 'lastName', 'playerId', 'playerSlug', 'position', 'seasonTotals', 'shootsCatches', 'shopLink', 'sweaterNumber', 'teamCommonName', 'teamLogo', 'teamPlaceNameWithPreposition', 'twitterLink', 'watchLink', 'weightInKilograms', 'weightInPounds']
+== club stats (games played per player, current season)
+HTTP 200
+['season', 'gameType', 'skaters', 'goalies']
+{"playerId": 8475683, "headshot": "https://assets.nhle.com/mugs/nhl/20262027/TOR/8475683.png", "firstName": {"default": "Sergei", "cs": "Sergej", "sk": "Sergej"}, "lastName": {"default": "Bobrovsky", "cs": "Bobrovskij", "fi": "Bobrovski", "sk": "Bobrovskij"}, "gamesPlayed": 4, "gamesStarted": 4, "wins": 1, "losses": 2, "overtimeLosses": 1, "goalsAgainstAverage": 2.969072, "savePercentage": 0.906977, "shotsAgainst": 129, "saves": 117, "goalsAgainst": 12, "shutouts": 0, "goals": 0, "assists": 0, "
+== schedule + boxscore (lineups per game)
+HTTP 200
+boxscore 2026020102 HTTP 200
+['awayTeam', 'homeTeam']
+['forwards', 'defense', 'goalies']
+== robots www.dailyfaceoff.com
+HTTP 200
+  mentions anthropic/claude: []
+   anthropic-ai {'/teams/toronto-maple-leafs/line-combinations': True, '/starting-goalies': True}
+   ClaudeBot {'/teams/toronto-maple-leafs/line-combinations': True, '/starting-goalies': True}
+   SportsFutures {'/teams/toronto-maple-leafs/line-combinations': True, '/starting-goalies': True}
+== robots www.capwages.com
+HTTP 200
+  mentions anthropic/claude: []
+   anthropic-ai {'/teams/toronto_maple_leafs': True, '/injuries': True}
+   ClaudeBot {'/teams/toronto_maple_leafs': True, '/injuries': True}
+   SportsFutures {'/teams/toronto_maple_leafs': True, '/injuries': True}
+== robots www.spotrac.com
+HTTP 403
+  mentions anthropic/claude: []
+   anthropic-ai {'/nhl/injured-reserve/': True}
+   ClaudeBot {'/nhl/injured-reserve/': True}
+   SportsFutures {'/nhl/injured-reserve/': True}
+== robots www.cbssports.com
+HTTP 200
+  mentions anthropic/claude: []
+   anthropic-ai {'/nhl/injuries/': True}
+   ClaudeBot {'/nhl/injuries/': True}
+   SportsFutures {'/nhl/injuries/': True}
+== robots www.rotowire.com
+HTTP 200
+  mentions anthropic/claude: []
+   anthropic-ai {'/hockey/nhl-lineups.php': True, '/hockey/injury-report.php': True}
+   ClaudeBot {'/hockey/nhl-lineups.php': True, '/hockey/injury-report.php': True}
+   SportsFutures {'/hockey/nhl-lineups.php': True, '/hockey/injury-report.php': True}
+== robots www.hockey-reference.com
+HTTP 200
+  mentions anthropic/claude: []
+   anthropic-ai {'/friv/injuries.cgi': True}
+   ClaudeBot {'/friv/injuries.cgi': True}
+   SportsFutures {'/friv/injuries.cgi': True}
+== robots www.tsn.ca
+HTTP 200
+  mentions anthropic/claude: ['user-agent: anthropic-ai', 'user-agent: claude-web']
+   anthropic-ai {'/nhl/injuries': False}
+   ClaudeBot {'/nhl/injuries': True}
+   SportsFutures {'/nhl/injuries': True}
+== robots www.nhl.com
+HTTP 200
+  mentions anthropic/claude: []
+   anthropic-ai {'/news/': True, '/mapleleafs/roster': True}
+   ClaudeBot {'/news/': True, '/mapleleafs/roster': True}
+   SportsFutures {'/news/': True, '/mapleleafs/roster': True}
