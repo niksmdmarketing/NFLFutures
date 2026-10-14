@@ -16,7 +16,7 @@ OUT = os.path.join(ROOT, "data", "research", "mp", "team_games.csv.gz")
 UA = "SportsFutures/1.0"
 BASE = "https://moneypuck.com/moneypuck/playerData/careers/gameByGame"
 TEAMS = ["ANA", "ARI", "BOS", "BUF", "CAR", "CBJ", "CGY", "CHI", "COL", "DAL", "DET", "EDM", "FLA", "L.A", "MIN", "MTL", "N.J",
-         "NSH", "NYI", "NYR", "OTT", "PHI", "PIT", "S.J", "SEA", "STL", "T.B", "TOR", "UTA", "VAN", "VGK", "WPG", "WSH", "ATL"]
+         "NSH", "NYI", "NYR", "OTT", "PHI", "PIT", "S.J", "SEA", "STL", "T.B", "TOR", "UTA", "VAN", "VGK", "WPG", "WSH", "ATL", "LAK", "NJD", "SJS", "TBL"]
 KEEP = ["team", "season", "gameId", "playoffGame", "opposingTeam", "home_or_away", "gameDate", "situation", "xGoalsFor",
         "xGoalsAgainst", "goalsFor", "goalsAgainst", "scoreVenueAdjustedxGoalsFor", "scoreVenueAdjustedxGoalsAgainst",
         "shotsOnGoalFor", "shotsOnGoalAgainst"]
@@ -50,7 +50,7 @@ def main():
             print(t, kind, len(d), flush=True)
             time.sleep(2)
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
-    pd.concat(frames, ignore_index=True).to_csv(OUT, index=False, compression="gzip")
+    pd.concat(frames, ignore_index=True).drop_duplicates(["gameId", "team"]).to_csv(OUT, index=False, compression="gzip")
     return 0
 
 

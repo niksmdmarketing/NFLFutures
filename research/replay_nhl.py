@@ -17,6 +17,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "pipeline"))
 import nhl  # noqa: E402
 import nhl_model as M  # noqa: E402
+import nhl_absence  # noqa: E402
+import nhl_lineup  # noqa: E402
 
 nhl.NHL_OUT = M.nhl.NHL_OUT = sys.argv[1]
 SIMS = int(os.environ.get("BT_SIMS", "2000"))
@@ -28,6 +30,32 @@ PO_SCALE = float(os.environ.get("NHL_PO_SCALE", "1"))
 PO_FADE = float(os.environ.get("NHL_PO_FADE", "0"))   # extra playoff-gap multiplier at season start, fading to 0 by game 82
 SHOT_W = float(os.environ.get("NHL_SHOT_W", "0"))
 SHOT_PO = os.environ.get("NHL_SHOT_PO") == "1"   # use the shot-blended rate only in playoff series (regular season on goals)   # share of the in-season rate from shot differential (x league shooting %)
+RS_SHOT_W = float(os.environ.get("NHL_RS_SHOT_W", "0"))   # with NHL_SHOT_PO: shot share in the regular-season rating
+LINEUP_C = float(os.environ.get("NHL_LINEUP_C", "0"))     # roster term from lineups (pipeline/nhl_lineup.py), x this
+LINEUP_N = int(os.environ.get("NHL_LINEUP_N", "5"))
+LINEUP_PRE = os.environ.get("NHL_LINEUP_PRE", "1") == "1"   # include roster change vs last season (prior part)
+LINEUP_MIN = int(os.environ.get("NHL_LINEUP_MIN", "0"))     # games played before the term applies
+XG = os.environ.get("NHL_XG", "")   # "" = shots x league shooting % as the xG stand-in; raw | adj = MoneyPuck game xG
+MP_ALIAS = {"L.A": "LAK", "N.J": "NJD", "S.J": "SJS", "T.B": "TBL"}
+_MP = None
+
+
+def mp_xg(y):
+    """MoneyPuck regular-season game xG differential by (date, team) for season y."""
+    global _MP
+    if _MP is None:
+        d = pd.read_csv(os.path.join(ROOT, "data", "research", "mp", "team_games.csv.gz"))
+        d = d[d.gameId.astype(str).str[4:6] == "02"].copy()
+        d["team"] = d.team.replace(MP_ALIAS)
+        d["date"] = pd.to_datetime(d.gameDate.astype(str), format="%Y%m%d")
+        pre = "scoreVenueAdjustedxGoals" if XG == "adj" else "xGoals"
+        d["xgd"] = d[pre + "For"] - d[pre + "Against"]
+        _MP = d
+    x = _MP[_MP.season == y]
+    return x.set_index(["date", "team"]).xgd
+
+
+LINEUP_DIR = os.path.join(ROOT, "data", "research", "nhl_lineups")
 OUT = os.environ.get("BT_OUTDIR") or os.path.join(ROOT, "model", "replay")
 
 
@@ -77,6 +105,10 @@ def run_season(TT, GG, fit_years, done, y):
         g["sa"] = [shots.get((d_, o), np.nan) for d_, o in zip(g.date, g.opp)]
         sh_pct = M.numcol(g, "goalsFor").sum() / pd.to_numeric(g.shots, errors="coerce").sum()
         g["sd"] = (pd.to_numeric(g.shots, errors="coerce") - g.sa) * sh_pct
+        if XG:
+            xg = mp_xg(y)
+            g["sd"] = [xg.get((d_, t_), np.nan) for d_, t_ in zip(g.date, g.team)]
+            print(y, "xG coverage", round(float(g.sd.notna().mean()), 3), flush=True)
         g["rate"] = (1 - SHOT_W) * g.gd + SHOT_W * g.sd.fillna(g.gd)
     else:
         g["rate"] = g.gd
@@ -89,6 +121,16 @@ def run_season(TT, GG, fit_years, done, y):
     pres = comp.idxmax()
     prior = PRIOR_SCALE * pd.Series(M.prior_features(y, TT).reindex(teams).fillna(0).values @ beta_y, index=teams)
     first, last = g.date.min(), g.date.max()
+    cur_lv = last_lv = opening = None
+    if LINEUP_C:
+        val = nhl_absence.values(y)
+        S, G = nhl_lineup.load_lineups(LINEUP_DIR, y)
+        S1, G1 = nhl_lineup.load_lineups(LINEUP_DIR, y - 1)
+        if S is not None:
+            cur_lv = nhl_lineup.game_values(S, G, val)
+            opening = cur_lv.groupby("team").lv.first()
+        if S1 is not None:
+            last_lv = nhl_lineup.game_values(S1, G1, val)
     cuts = [first]
     d = first + pd.Timedelta(days=7)
     while d < last - pd.Timedelta(days=6):
@@ -105,12 +147,16 @@ def run_season(TT, GG, fit_years, done, y):
         rating = rating - rating.mean()
         po_delta = None
         if SHOT_PO:
-            curg = pl.groupby("team").gd.mean().reindex(teams).fillna(0) if len(pl) else pd.Series(0.0, index=teams)
+            rs_rate = (1 - RS_SHOT_W) * pl.gd + RS_SHOT_W * pl.sd.fillna(pl.gd) if (RS_SHOT_W and "sd" in pl) else pl.gd
+            curg = rs_rate.groupby(pl.team).mean().reindex(teams).fillna(0) if len(pl) else pd.Series(0.0, index=teams)
             curg = curg - curg.mean()
             rg = (gp * curg + k * prior) / (gp + k)
             rg = rg - rg.mean()
             po_delta = (rating - rg).reindex(teams).to_numpy(float)
             rating = rg
+        if LINEUP_C and cur_lv is not None:
+            adj = LINEUP_C * nhl_lineup.roster_term(cur_lv, last_lv, teams, cut, k, LINEUP_N, opening, LINEUP_PRE, LINEUP_MIN)
+            rating = rating + adj.reindex(teams).fillna(0)
         win = pl.res == "W"
         state = pd.DataFrame({"points": pl.groupby("team").pts.sum().reindex(teams).fillna(0),
                               "rw": pl.assign(x=(win & ~pl.opp_otl).astype(float)).groupby("team").x.sum().reindex(teams).fillna(0),
