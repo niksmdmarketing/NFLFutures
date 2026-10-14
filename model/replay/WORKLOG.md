@@ -342,3 +342,18 @@ Replacement level from the same data: skaters with <25 games for the team -0.04,
 Live (pipeline/nhl_absence.py): each player lowers his team's margin only in remaining games before his return date
 (simulate(game_adj)); out for season also lowers playoff strength. A futures replay is not possible (no free historical
 injury lists). TypeSafe 82% live; page shows live vs no-injury points, playoff and Cup chances.
+
+## NHL: roster term from lineups + fitted goals/xG split (15 Oct 2026) - DEPLOYED (xG playoff switch not deployed)
+TypeSafe's next pick (61%): roster strength from lineups. pipeline/nhl_lineup.py values each game's lineup with the
+calibrated player values (SCALE_SK x skater ice-time-weighted values + SCALE_G x starter); roster term = gp/(gp+k) x
+(mean of last N games - season-to-date mean). Replay (research/replay_nhl.py, 10 seasons, 2000 sims, base = live
+settings NHL_SHOT_W=1 NHL_SHOT_PO=1 NHL_PO_FADE=1; scratch nhll/):
+- with a preseason part (now vs last season's lineups): c0.5 +0.0004, c1 +0.0006 (CIs span 0); preseason worse at c1
+  (0.2700 -> 0.2723; opening-night injuries read as roster change)
+- in-season only: c1 n5 +0.0005 (90% +0.0002 to +0.0008, 7/10), c1.5 +0.0005, n10 +0.0005, n3 +0.0005 (8/10); every
+  market equal or better  <- live (LIVE_C 1, N 5); injured players are added back into the live "current lineup" so the
+  injury layer is not double counted
+Goals vs xG split (MoneyPuck game xG, research/mp_team_games.py): regular-season xG share 20% vs 0% +0.0001 (5/10), 40%
+vs 20% -0.0004; shot stand-in 40% vs 0% -0.0008. Live 0.4 -> 0.2 (TypeSafe 49% for 20%).
+Playoff rating from real adjusted xG instead of shots: +0.0004 alone (6/10), +0.0005 on top of the roster term
+(CI -0.0008 to +0.0018). TypeSafe 52/48 (no confidence): not deployed; NHL_XG=adj in the replay reproduces it.

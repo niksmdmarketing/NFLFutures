@@ -76,3 +76,94 @@ def roster_term(cur_lv, last_lv, teams, cut, k, n=LINEUP_N, opening=None, pre=Tr
             adj += (1 - w_cur) * (now - last_avg[t])
         out[t] = adj
     return out - out.mean()
+
+
+# ---------------------------------------------------------------- live
+
+API = "https://api.nhle.com/stats/rest/en"
+LIVE_C = 1.0            # 15-season-weekly replay (research/replay_nhl.py NHL_LINEUP_C=1 NHL_LINEUP_PRE=0): see WORKLOG
+
+
+def _get(kind, y, a, b):
+    import json
+    import time
+    import urllib.parse
+    import urllib.request
+    q = {"isAggregate": "false", "isGame": "true", "limit": "10000", "start": "0", "sort": "gameId",
+         "cayenneExp": f'seasonId={y * 10000 + y + 1} and gameTypeId=2 and gameDate>="{a}" and gameDate<"{b}"'}
+    url = f"{API}/{kind}/summary?" + urllib.parse.urlencode(q, quote_via=urllib.parse.quote)
+    for attempt in range(3):
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": "SportsFutures/1.0"})
+            with urllib.request.urlopen(req, timeout=120) as r:
+                return json.load(r).get("data", [])
+        except Exception:  # noqa: BLE001
+            time.sleep(3 * (attempt + 1))
+    return None
+
+
+def fetch_season(y, today=None, max_age_h=2.0):
+    """This season's per-game skater and goalie rows from the NHL stats API (half-month windows), cached."""
+    import datetime as dt
+    import time
+    import nhl
+    os.makedirs(nhl.NHL_DATA, exist_ok=True)
+    paths = {k: os.path.join(nhl.NHL_DATA, f"lineups_{k}s_{y}.csv.gz") for k in ("skater", "goalie")}
+    if all(os.path.exists(p) and time.time() - os.path.getmtime(p) < max_age_h * 3600 for p in paths.values()):
+        return pd.read_csv(paths["skater"]), pd.read_csv(paths["goalie"])
+    today = today or dt.date.today()
+    wins = []
+    d = dt.date(y, 9, 1)
+    while d <= today:
+        e = d.replace(day=16) if d.day == 1 else (d.replace(day=28) + dt.timedelta(days=4)).replace(day=1)
+        wins.append((d.isoformat(), e.isoformat()))
+        d = e
+    out = {}
+    for kind in ("skater", "goalie"):
+        rows = []
+        for a, b in wins:
+            part = _get(kind, y, a, b)
+            if part is None:
+                return (pd.read_csv(paths["skater"]), pd.read_csv(paths["goalie"])) if all(os.path.exists(p) for p in paths.values()) else (None, None)
+            rows += part
+        R = pd.DataFrame(rows)
+        if R.empty:
+            return None, None
+        name = "skaterFullName" if kind == "skater" else "goalieFullName"
+        o = pd.DataFrame({"game_id": R.gameId, "date": R.gameDate, "team": R.teamAbbrev, "name": R[name],
+                          "pos": R.positionCode if "positionCode" in R else "G",
+                          "toi": R.timeOnIcePerGame if kind == "skater" else R.timeOnIce})
+        if kind == "goalie":
+            o["started"] = R.gamesStarted.fillna(0).astype(int)
+        o.to_csv(paths[kind], index=False)
+        out[kind] = o
+    return out["skater"], out["goalie"]
+
+
+def live_term(y, teams, k, absences=None, n=LINEUP_N, today=None):
+    """Live roster term (pre=False). Players on the injury list are counted back into the current lineup for the recent
+    games they missed, because the injury adjustment already charges their absence game by game."""
+    import datetime as dt
+    S, G = fetch_season(y, today)
+    if S is None or not len(S):
+        return pd.Series(0.0, index=teams), None
+    val = A.values(y)
+    lv = game_values(S, G, val)
+    cut = pd.Timestamp(today or dt.date.today()) + pd.Timedelta(days=1)
+    term = roster_term(lv, None, list(teams), cut, k, n, None, pre=False)
+    if absences is not None and len(absences):
+        played = set(zip(S.game_id, S.team, S.name.str.strip().str.lower())) | set(zip(G.game_id, G.team, G.name.str.strip().str.lower()))
+        back = pd.Series(0.0, index=list(teams))
+        for r in absences.itertuples():
+            if r.team not in back.index:
+                continue
+            tg = lv[(lv.team == r.team) & (lv.date < cut)]
+            recent = tg.game_id.iloc[-n:]
+            if not len(recent):
+                continue
+            missed = sum((gid, r.team, r.name.strip().lower()) not in played for gid in recent)
+            gp = len(tg)
+            back[r.team] += (gp / (gp + k)) * r.cost * missed / len(recent)
+        term = term + back - back.mean()
+    term = LIVE_C * term
+    return term, lv

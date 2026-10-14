@@ -45,3 +45,13 @@ def test_goalie_cost_and_games(monkeypatch):
     assert adj[0] < 0 and adj[1] > 0 and adj[2] == 0
     assert np.isclose(adj[0], -(g.cost + s.cost)) and np.isclose(adj[1], g.cost)
     assert po == {}
+
+
+def test_roster_term_recent_lineup_shift():
+    import nhl_lineup as L
+    d = pd.date_range("2026-10-01", periods=10)
+    lv = pd.DataFrame({"date": list(d) * 2, "team": ["AAA"] * 10 + ["BBB"] * 10, "game_id": range(20),
+                       "lv": [0.0] * 5 + [0.2] * 5 + [0.0] * 10})
+    t = L.roster_term(lv, None, ["AAA", "BBB"], pd.Timestamp("2026-10-11"), k=30.0, n=5, pre=False)
+    # AAA: recent 0.2 vs season 0.1, weight 10/40 -> +0.025 before centring
+    assert abs((t["AAA"] - t["BBB"]) - 0.025) < 1e-9 and abs(t.sum()) < 1e-12

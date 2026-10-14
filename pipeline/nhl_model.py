@@ -26,6 +26,7 @@ from scipy.special import ndtr
 
 import nhl
 import nhl_absence
+import nhl_lineup
 from common import log
 
 ALIGN = {t: d for d, ts in nhl.DIVS.items() for t in ts}
@@ -160,6 +161,10 @@ TAU_PRE = 1.5
 # Replay 2014-2025 (10 seasons): conference/Cup log loss +0.0003 overall (90% -0.0005 to +0.0012), better 6 of 10; first
 # quarter +0.0012, better 7 of 10; early slopes 2.37 -> 1.99 (conference). Not significant, so run alongside, not live.
 PO_FADE_CHALLENGER = 1.0
+# Share of expected goals in the in-season rate (rest = goals). Was 0.4 by judgement; 10-season weekly replay with
+# MoneyPuck game xG (15 Oct 2026): 20% vs 0% +0.0001, 40% vs 20% -0.0004; TypeSafe chose 20%.
+XG_SHARE = 0.2
+LINEUP = os.environ.get("NHL_LINEUP", "1") == "1"       # roster term from recent lineups (nhl_lineup), live from 15 Oct 2026
 INJURIES = os.environ.get("NHL_INJURIES", "1") == "1"   # injured-player adjustment (nhl_absence), live from 15 Oct 2026
 PO_FADE = 1.0        # live from 14 Oct 2026: playoff rating gaps x(1 + PO_FADE x share of season left)
 # Playoff series use a shot-based rating (14 Oct 2026): xG/shot differential predicts playoff series far better than goal
@@ -495,7 +500,7 @@ def build():
     pf = prior_features(cur, TT).reindex(teams).fillna(0)
     prior = pd.Series(pf.values @ beta, index=teams)
     gdr, xgr = season_rates(Tc)
-    cur_rate = (0.6 * gdr + 0.4 * xgr).reindex(teams).fillna(0)
+    cur_rate = ((1 - XG_SHARE) * gdr + XG_SHARE * xgr).reindex(teams).fillna(0)
     cur_rate = cur_rate - cur_rate.mean()
     rating = ((gp * cur_rate + k * prior) / (gp + k))
     rating = rating - rating.mean()
@@ -528,6 +533,17 @@ def build():
     if absences is not None:
         log("nhl model: injuries", len(absences), "players; biggest", absences.sort_values("season_goals").tail(3)[["name", "team", "games_missed", "season_goals"]].values.tolist())
         po_delta = po_delta + np.array([po_inj.get(t, 0.0) for t in teams])
+    # roster term (live from 15 Oct 2026): recent lineups vs the lineups behind this season's results (nhl_lineup)
+    lineup_term = pd.Series(0.0, index=teams)
+    if LINEUP:
+        try:
+            lineup_term, _ = nhl_lineup.live_term(cur, teams, k, absences)
+            lineup_term = lineup_term.reindex(teams).fillna(0.0)
+            log("nhl model: roster term", lineup_term.round(3).sort_values().iloc[[0, 1, -2, -1]].to_dict())
+        except Exception as e:  # noqa: BLE001
+            log("nhl model: roster term failed:", e)
+            lineup_term = pd.Series(0.0, index=teams)
+    rating = rating + lineup_term
     sim = simulate(teams, state, games, rating.to_dict(), tau_now, total, hfa, SIMS, po_scale=po_scale, po_delta=po_delta, game_adj=game_adj)
     # same model without the injury adjustment, to show what the absences are worth
     sim_n = None
@@ -545,7 +561,7 @@ def build():
         q = lambda p: int(np.searchsorted(c, p))
         rows.append({"team": t, "name": names.get(t, t), "div": ALIGN.get(t), "gp": int(gp[t]), "points": int(state.points[t]),
                      "record": f"{int(numcol(Tc, 'wins')[t])}-{int(numcol(Tc, 'losses')[t])}-{int(numcol(Tc, 'otLosses')[t])}",
-                     "rating": float(rating[t]), "rating_po": float(rating_po[t]), "prior": float(prior[t]), "cur_rate": float(cur_rate[t]),
+                     "rating": float(rating[t]), "roster": float(lineup_term[t]), "rating_po": float(rating_po[t]), "prior": float(prior[t]), "cur_rate": float(cur_rate[t]),
                      "pts_mean": float(sim["pts_mean"][i]), "pts_p10": q(0.10), "pts_p50": q(0.50), "pts_p90": q(0.90),
                      "p_playoffs": float(sim["playoffs"][i]), "p_div": float(sim["div"][i]), "p_pres": float(sim["pres"][i]),
                      "p_r2": float(sim["r2"][i]), "p_r3": float(sim["r3"][i]), "p_final": float(sim["final"][i]), "p_cup": float(sim["cup"][i]),
