@@ -25,6 +25,7 @@ import pandas as pd
 from scipy.special import ndtr
 
 import nhl
+import nhl_absence
 from common import log
 
 ALIGN = {t: d for d, ts in nhl.DIVS.items() for t in ts}
@@ -159,6 +160,7 @@ TAU_PRE = 1.5
 # Replay 2014-2025 (10 seasons): conference/Cup log loss +0.0003 overall (90% -0.0005 to +0.0012), better 6 of 10; first
 # quarter +0.0012, better 7 of 10; early slopes 2.37 -> 1.99 (conference). Not significant, so run alongside, not live.
 PO_FADE_CHALLENGER = 1.0
+INJURIES = os.environ.get("NHL_INJURIES", "1") == "1"   # injured-player adjustment (nhl_absence), live from 15 Oct 2026
 PO_FADE = 1.0        # live from 14 Oct 2026: playoff rating gaps x(1 + PO_FADE x share of season left)
 # Playoff series use a shot-based rating (14 Oct 2026): xG/shot differential predicts playoff series far better than goal
 # differential (2011-25 series log loss 0.676 -> 0.651). 10-season weekly replay: shot-based playoff rating +0.0031 (90%
@@ -205,9 +207,10 @@ def league_scoring(GG, years):
 
 # ---------------------------------------------------------------- simulation
 
-def simulate(teams, state, games, ratings, tau, total, hfa, n_sims, seed=7, div_map=ALIGN, po_scale=1.0, po_delta=None):
+def simulate(teams, state, games, ratings, tau, total, hfa, n_sims, seed=7, div_map=ALIGN, po_scale=1.0, po_delta=None, game_adj=None):
     """state: DataFrame by team (points, rw, row, gd). games: list of (home, away) still to play. Returns dict of arrays.
-    po_scale: multiplier on rating gaps in playoff series (research option; 1.0 = live behaviour)."""
+    po_scale: multiplier on rating gaps in playoff series (research option; 1.0 = live behaviour).
+    game_adj: per-game addition to the home-minus-away margin (injured players, nhl_absence)."""
     rng = np.random.default_rng(seed)
     T = len(teams)
     idx = {t: i for i, t in enumerate(teams)}
@@ -230,6 +233,8 @@ def simulate(teams, state, games, ratings, tau, total, hfa, n_sims, seed=7, div_
         S = min(CHUNK, n_sims - done)
         R = r0[None, :] + rng.normal(0, tau, (S, T))
         m = R[:, h] + 0.0 - R[:, a] + hfa
+        if game_adj is not None:
+            m = m + game_adj[None, :]
         lam_h = np.clip((total + m) / 2, 0.4, None); lam_a = np.clip((total - m) / 2, 0.4, None)
         gh = rng.poisson(lam_h); ga = rng.poisson(lam_a)
         tie = gh == ga
@@ -331,8 +336,9 @@ def simulate(teams, state, games, ratings, tau, total, hfa, n_sims, seed=7, div_
 API = "https://api-web.nhle.com/v1/club-schedule-season"
 
 
-def fetch_schedule(teams, y):
-    """Remaining regular-season games [(home, away)] from the NHL schedule feed, cached for two hours."""
+def fetch_schedule(teams, y, with_dates=False):
+    """Remaining regular-season games [(home, away)] in date order from the NHL schedule feed, cached for two hours.
+    with_dates: also return the matching game dates."""
     os.makedirs(nhl.NHL_DATA, exist_ok=True)
     games, failed = {}, 0
     for t in teams:
@@ -357,8 +363,12 @@ def fetch_schedule(teams, y):
             continue
         for g in data.get("games", []):
             if g.get("gameType") == 2 and g.get("gameState") not in ("FINAL", "OFF"):
-                games[g["id"]] = (g["homeTeam"]["abbrev"], g["awayTeam"]["abbrev"])
-    return list(games.values()), failed
+                games[g["id"]] = (g.get("gameDate", ""), g["homeTeam"]["abbrev"], g["awayTeam"]["abbrev"])
+    ordered = sorted(games.items(), key=lambda kv: (kv[1][0], kv[0]))
+    pairs = [(h, a) for _, (_, h, a) in ordered]
+    if with_dates:
+        return pairs, failed, [d for _, (d, _, _) in ordered]
+    return pairs, failed
 
 
 # ---------------------------------------------------------------- back-test
@@ -477,7 +487,7 @@ def build():
     # ---- current season
     Tc = TT[cur]
     teams = sorted(Tc.index)
-    games, failed = fetch_schedule(teams, cur)
+    games, failed, gdates = fetch_schedule(teams, cur, with_dates=True)
     if failed > 3 or not games:
         log("nhl model: schedule unavailable (", failed, "teams failed )")
         return
@@ -507,7 +517,23 @@ def build():
     rating_po = rating_po - rating_po.mean()
     po_delta = (rating_po - rating).reindex(teams).fillna(0).to_numpy(float)
     po_scale = 1 + PO_FADE * max(0.0, 1 - n_avg / SEASON_GAMES)
-    sim = simulate(teams, state, games, rating.to_dict(), tau_now, total, hfa, SIMS, po_scale=po_scale, po_delta=po_delta)
+    # injured players (live from 15 Oct 2026): each absence lowers the team's rating for the games he is expected to miss
+    game_adj, po_inj, absences = None, {}, None
+    if INJURIES:
+        try:
+            game_adj, po_inj, absences = nhl_absence.adjustments(cur, teams, games, gdates)
+        except Exception as e:  # noqa: BLE001
+            log("nhl model: injury adjustment failed:", e)
+            game_adj, po_inj, absences = None, {}, None
+    if absences is not None:
+        log("nhl model: injuries", len(absences), "players; biggest", absences.sort_values("season_goals").tail(3)[["name", "team", "games_missed", "season_goals"]].values.tolist())
+        po_delta = po_delta + np.array([po_inj.get(t, 0.0) for t in teams])
+    sim = simulate(teams, state, games, rating.to_dict(), tau_now, total, hfa, SIMS, po_scale=po_scale, po_delta=po_delta, game_adj=game_adj)
+    # same model without the injury adjustment, to show what the absences are worth
+    sim_n = None
+    if absences is not None:
+        po_delta_n = po_delta - np.array([po_inj.get(t, 0.0) for t in teams])
+        sim_n = simulate(teams, state, games, rating.to_dict(), tau_now, total, hfa, max(SIMS // 2, 1000), po_scale=po_scale, po_delta=po_delta_n)
     # previous model (goal-based playoff rating, no multiplier), kept as the comparison column
     sim_c = simulate(teams, state, games, rating.to_dict(), tau_now, total, hfa, max(SIMS // 2, 1000))
     cdf = np.cumsum(sim["pts_hist"][:, ::-1], axis=1)[:, ::-1]                      # P(points >= x)
@@ -524,6 +550,8 @@ def build():
                      "p_playoffs": float(sim["playoffs"][i]), "p_div": float(sim["div"][i]), "p_pres": float(sim["pres"][i]),
                      "p_r2": float(sim["r2"][i]), "p_r3": float(sim["r3"][i]), "p_final": float(sim["final"][i]), "p_cup": float(sim["cup"][i]),
                      "c_final": float(sim_c["final"][i]), "c_cup": float(sim_c["cup"][i]),
+                     "n_playoffs": float(sim_n["playoffs"][i]) if sim_n else None, "n_cup": float(sim_n["cup"][i]) if sim_n else None,
+                     "n_pts": float(sim_n["pts_mean"][i]) if sim_n else None,
                      "over": [round(float(v), 4) for v in cdf[i][30:141]]})
     cache = os.path.join(nhl.NHL_DATA, "model_backtest.json")
     key = f"v4-dated-checkpoint-{done[-1]}-{TAU_PRE}-{SIMS > 0}"
@@ -538,6 +566,13 @@ def build():
     out = {"season": cur, "updated_utc": dt.datetime.now(dt.timezone.utc).isoformat(timespec="minutes"), "games_played": n_avg, "sims": SIMS,
            "params": {"k": k, "tau_now": tau_now, "tau": tau, "total_goals": total, "hfa": hfa, "beta": [float(b) for b in beta], "prior_r2": r2, "prior_rmse": rmse},
            "backtest": bt, "teams": rows, "pts_axis": [30, 140],
-           "challenger": {"name": "previous model (goal-based playoff strength)", "fields": ["c_final", "c_cup"]}}
+           "challenger": {"name": "previous model (goal-based playoff strength)", "fields": ["c_final", "c_cup"]},
+           "injuries": None if absences is None else {
+               "source": "CBS Sports NHL injuries", "fetched_utc": dt.datetime.now(dt.timezone.utc).isoformat(timespec="minutes"),
+               "scale_skater": nhl_absence.SCALE_SK, "scale_goalie": nhl_absence.SCALE_G,
+               "players": [{"team": r.team, "name": r.name, "pos": r.pos, "status": r.status, "games_missed": int(r.games_missed),
+                            "per_game": round(float(r.cost), 4), "season_goals": round(float(r.season_goals), 3),
+                            "playoffs": bool(r.season_out)}
+                           for r in absences.sort_values("season_goals", ascending=False).itertuples() if r.games_missed > 0]}}
     nhl.write("futures.json", out)
     log("nhl model done: top cup", sorted(((r["p_cup"], r["team"]) for r in rows), reverse=True)[:4])

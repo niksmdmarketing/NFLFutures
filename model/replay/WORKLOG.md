@@ -327,3 +327,18 @@ found expected-goal differential predicts series far better than goal differenti
 - 100% + fading playoff multiplier (x2 at season start -> x1 at game 82): +0.0046 (90% +0.0021 to +0.0072, 8/10);
   Cup 0.1154 -> 0.1076, conference 0.1928 -> 0.1774; division, best record and playoffs unchanged. x1.3 constant +0.0041.
 TypeSafe 73%: both live (nhl_model.shot_rates, PO_FADE, simulate(po_delta)); the page compares with the previous model.
+
+## NHL: injured players in live futures (15 Oct 2026) - DEPLOYED
+Source: CBS Sports NHL injuries page (robots.txt allows; one fetch per run, 6 h cache): status "IR. Expected to be out
+until at least <date>", "Day-to-Day". PuckPedia (robots blocks, Cloudflare), ESPN and TSN (robots block anthropic-ai) not used.
+Calibration (research/nhl_absence_test.py; lineups from research/nhl_lineups_collect.py, NHL stats API per-game rows):
+12,572 games 2015-2025, residual margin vs a season-to-date team rating regressed on tonight's lineup value minus the
+team's usual (skaters: usual ice time x value; goalies: tonight's starter vs start-weighted usual). Values from the two
+prior seasons. Walk-forward 2017-2025:
+- goalies only (GSAx/60, shrink 10/30/60 h): scale 0.31/0.45/0.63, t about 2.6; log loss +0.00015 (5/9)
+- + skaters xG on/off (rel): skater scale 0.131 (se 0.043); +0.00035 (6/9)
+- + skaters points per 60 vs position (shrink 20 h): skater scale 0.341 (se 0.089), goalie 0.438 (se 0.176); +0.00051 (6/9)  <- live
+Replacement level from the same data: skaters with <25 games for the team -0.04, third-string goalies -0.035.
+Live (pipeline/nhl_absence.py): each player lowers his team's margin only in remaining games before his return date
+(simulate(game_adj)); out for season also lowers playoff strength. A futures replay is not possible (no free historical
+injury lists). TypeSafe 82% live; page shows live vs no-injury points, playoff and Cup chances.
