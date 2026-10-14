@@ -1,18 +1,11 @@
 #!/bin/bash
-# Debug the live injury step in Actions. Writes data/research/nhl_inj_debug.txt
-mkdir -p data/research
-cd pipeline && python3 - > ../data/research/nhl_inj_debug.txt 2>&1 <<'PY'
-import traceback, nhl, nhl_injuries as I, nhl_absence as A, nhl_model as M
-try:
-    h = I.fetch(0)
-    print("html", None if h is None else len(h))
-    d = I.current(nhl.start_year()); print("rows", None if d is None else len(d))
-    teams = sorted(t for v in nhl.DIVS.values() for t in v)
-    games, failed, dates = M.fetch_schedule(teams, nhl.start_year(), with_dates=True)
-    print("games", len(games), failed, dates[:2])
-    adj, po, C = A.adjustments(nhl.start_year(), teams, games, dates)
-    print("adj", None if C is None else len(C), float(abs(adj).sum()))
-    print(C.sort_values("season_goals").tail(5).to_string())
-except Exception:
-    traceback.print_exc()
-PY
+# Probe NHL shift-chart and play-by-play feeds (robots + one game). Writes data/research/nhl_shift_probe/
+D=data/research/nhl_shift_probe; mkdir -p $D
+UA="SportsFutures/1.0 (private research; low volume)"
+{
+for h in api.nhle.com api-web.nhle.com www.nhl.com; do echo "== robots $h"; curl -sSL -m 20 -A "$UA" https://$h/robots.txt -w '\nHTTP %{http_code}\n' | head -30; done
+} > $D/robots.txt 2>&1
+curl -sSL -m 60 -A "$UA" "https://api.nhle.com/stats/rest/en/shiftcharts?cayenneExp=gameId=2024020500" -o $D/shifts.json -w 'shifts HTTP %{http_code} %{size_download} %{time_total}\n' > $D/status.txt
+curl -sSL -m 60 -A "$UA" "https://api-web.nhle.com/v1/gamecenter/2024020500/play-by-play" -o $D/pbp.json -w 'pbp HTTP %{http_code} %{size_download} %{time_total}\n' >> $D/status.txt
+curl -sSL -m 60 -A "$UA" "https://api.nhle.com/stats/rest/en/shiftcharts?cayenneExp=gameId=2014020500" -o $D/shifts2014.json -w 'shifts2014 HTTP %{http_code} %{size_download}\n' >> $D/status.txt
+curl -sSL -m 60 -A "$UA" "https://api-web.nhle.com/v1/gamecenter/2014020500/play-by-play" -o $D/pbp2014.json -w 'pbp2014 HTTP %{http_code} %{size_download}\n' >> $D/status.txt
