@@ -56,3 +56,16 @@ Futures replay (13 walk-forward seasons, with edge 4 / QB 0.5 / tau 4 / sigma 12
 candidate on v4 ratings (+0.0012, 90% -0.0005 to +0.0026, better 11/13, every market better); the same engine without
 recency -0.0004, so the gain is the recency. Total vs v4: +0.0032. TypeSafe 90%: candidate updated (run.py; weights in
 model/challenger_v5_weights.json fitted 2010-2025). Live check 2026 week 5: correlation with v4 ratings 0.97.
+
+## Player model from play-level participation (14 Oct 2026) - no gain, not adopted
+research/nfl_participation.py: 2016-2025 scrimmage plays with the 11 offensive and 11 defensive players (nflverse
+pbp_participation; 88-100% of plays). research/nfl_player_ratings.py: ridge (3000) of play EPA on offensive and defensive
+player effects, earlier seasons at 0.5 per year back, point in time each week (top: Tagovailoa, Allen, Jackson; Bosa).
+Team strength = sum of player effects x expected snap share, tested as an extra input on top of the recency engine,
+game-level walk-forward 2019-2025 (research/nfl_player_test.py):
+- with the lineup = players who took a snap in that game: +0.0015 (net), +0.0028 (injury delta), +0.0090 jointly, 7/7.
+  LEAKY: in-game injuries and garbage-time backups reveal the result. Discarded.
+- with the lineup known before kickoff (previous game's players minus Out/Doubtful on that week's official report):
+  net +0.0002 (4/7), injury delta -0.0007 (4/7), jointly -0.0004 (4/7), usual-lineup strength +0.0001. No gain.
+Conclusion: with free data, non-QB player effects add nothing measurable over team ratings + the QB layer; the earlier
+non-QB injury idea (TypeSafe: gain too small) is consistent with this. Not adopted.
