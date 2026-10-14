@@ -259,3 +259,13 @@ Futures log loss not replayed (the weekly replay has no roster or player step).
 - Young-player ratings (TypeSafe 38%): harder ridge for players with <=1-3 seasons (x2/x4/x8) or a softer box prior for them
   (0 or 1.0 instead of 2.5): preseason MAE 2.803-2.820 vs 2.807 now. No gain; not deployed. The user's ESPN 7 Oct snapshot is
   archived privately (private repo forecast_archive/espn_reference) with a season-end scoring script, as a reference only.
+
+## NBA playoff rotation from player ratings (14 Oct 2026) - DEPLOYED
+TypeSafe's next NBA step (44%). In playoff series each team plays at its regular rating + (top-8 rotation strength with
+minutes concentrated on the most-used players, power 1.5, cap 42 mpg - regular rotation strength), from the RAPM ratings and
+this season's minutes to date (preseason: projected minutes). 14-season weekly replay 2013-2026 (research/replay_nba.py
+BT_PO_K / BT_PO_GAMMA): k 0.5 +0.0022 (90% +0.0005 to +0.0040, 8/14); k 1.0 power 1.5 +0.0031 (-0.0003 to +0.0066, 8/14;
+title 0.0907 -> 0.0827, conference 0.1808 -> 0.1729, late title 0.0860 -> 0.0769); k 1.0 power 1.0 +0.0027 (+0.0001 to
++0.0055, 10/14); k 1.5 over-confident conference mid-season. Largest NBA futures gain so far. Late title slope barely moves
+(1.26 -> 1.23), so the title is still a little cautious late. TypeSafe chose k 1.0 / power 1.5 (68%). Regular-season
+markets are unaffected. Live 2026-27 top playoff adjustments: DEN +4.1, MEM +2.9, TOR +2.4.

@@ -34,6 +34,57 @@ if os.environ.get("BT_SIGMA"):
 if os.environ.get("BT_TEAM_TAU"):
     N.TEAM_TAU = float(os.environ["BT_TEAM_TAU"])
 SIMS = int(os.environ.get("BT_SIMS", "2000"))
+PO_K = float(os.environ.get("BT_PO_K", "0"))         # playoff rotation term: k x (top-8 playoff-minutes strength - regular strength)
+PO_GAMMA = float(os.environ.get("BT_PO_GAMMA", "1.5"))  # concentration of playoff minutes among the top 8 (1 = drop depth only)
+PO_CAP = 42 / 240
+
+
+def _player_ratings(y):
+    sys.path.insert(0, os.path.join(ROOT, "research"))
+    os.environ.setdefault("NP_KBOX", "2.5")
+    os.environ.setdefault("NP_DEV", "1.0")
+    import nba_player_replay as NP
+    import nba_rapm as RA
+    return NP.develop(RA.fit(y, lam=3000, w2=0.5, prior=NP.box_prior(y - 1)), y)
+
+
+def _po_delta(pbox, rating, prev_assign, prev_mins):
+    """Per-team (playoff rotation strength - regular rotation strength), points per 100."""
+    if len(pbox):
+        m = pbox.groupby(["team_abbreviation", "athlete_id"]).minutes.sum().reset_index()
+    else:
+        m = pd.DataFrame([(t, a, prev_mins.get(a, 0.0)) for a, t in prev_assign.items()], columns=["team_abbreviation", "athlete_id", "minutes"])
+    out = np.zeros(len(N.TEAMS))
+    for t, g in m.groupby("team_abbreviation"):
+        if t not in N.TIX or g.minutes.sum() <= 0:
+            continue
+        g = g.sort_values("minutes", ascending=False)
+        r = np.array([rating.get(int(a), -1.0) for a in g.athlete_id])
+        sh = g.minutes.to_numpy(float) / g.minutes.sum()
+        reg = 5 * float(np.sum(sh * r))
+        top = sh[:8] ** PO_GAMMA
+        top = top / top.sum()
+        for _ in range(5):
+            top = np.minimum(top, PO_CAP)
+            top = top / top.sum()
+        po = 5 * float(np.sum(top * r[:8]))
+        out[N.TIX[t]] = PO_K * (po - reg)
+    return out - out.mean()
+
+
+_PB = {}
+
+
+def _pbox(y):
+    if y not in _PB:
+        d = pd.read_csv(os.path.join(N.NBA_DATA, f"player_box_{y}.csv"), low_memory=False,
+                        usecols=["athlete_id", "team_abbreviation", "minutes", "season_type", "game_date"])
+        d = d[(pd.to_numeric(d.season_type, errors="coerce") == 2) & (pd.to_numeric(d.minutes, errors="coerce") > 0)].copy()
+        d["athlete_id"] = pd.to_numeric(d.athlete_id, errors="coerce")
+        d["minutes"] = pd.to_numeric(d.minutes, errors="coerce")
+        d["date"] = pd.to_datetime(d.game_date.astype(str).str[:10])
+        _PB[y] = d.dropna(subset=["athlete_id"])
+    return _PB[y]
 OUT = os.environ.get("BT_OUTDIR") or os.path.join(ROOT, "model", "replay")
 
 
@@ -68,7 +119,15 @@ def run_season(boxes, y):
         cuts.append(d)
         d += pd.Timedelta(days=7)
     rows = []
+    if PO_K:
+        rating = _player_ratings(y)
+        p1 = _pbox(y - 1).sort_values("date")
+        prev_mins = p1.groupby("athlete_id").minutes.sum().to_dict()
+        prev_assign = _pbox(y).sort_values("date").groupby("athlete_id").team_abbreviation.first().to_dict()
     for wk, cutoff in enumerate(cuts):
+        if PO_K:
+            cur = _pbox(y)
+            N.PO_DELTA = _po_delta(cur[cur.date <= cutoff], rating, prev_assign, prev_mins)
         done = g[g.date <= cutoff]
         tr = boxes[pd.to_numeric(boxes.season, errors="coerce") < y]
         if len(done):

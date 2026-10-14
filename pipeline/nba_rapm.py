@@ -179,3 +179,30 @@ def team_strength(current_roster: pd.DataFrame, rv: pd.DataFrame, rating: dict[i
         return float(np.sum(g.v.to_numpy(float) * mm) / (82 * 48))
     s = r.groupby("team_abbreviation").apply(one, include_groups=False).reindex(teams).fillna(0.0)
     return s - s.mean()
+
+
+PO_K, PO_GAMMA, PO_CAP = 1.0, 1.5, 42 / 240
+# Playoff rotation (14 Oct 2026, research/replay_nba.py BT_PO_K/BT_PO_GAMMA, 14 seasons 2013-2026): in playoff series each team
+# plays at its regular rating + (top-8 rotation strength with minutes concentrated on the best-used players, power 1.5, cap
+# 42 mpg - regular rotation strength). Futures log loss +0.0031 (90% -0.0003 to +0.0066, better 8/14); title 0.0907 -> 0.0827,
+# conference 0.1808 -> 0.1729. TypeSafe 68% (over k 1.0 / power 1.0 and k 0.5).
+
+
+def playoff_delta(mins: pd.DataFrame, rating: dict[int, float], teams: list[str]) -> pd.Series:
+    """mins: team_abbreviation, athlete_id, m (minutes). Returns centred per-team playoff strength change (points per 100)."""
+    out = {}
+    for t, g in mins.groupby("team_abbreviation"):
+        if t not in teams or g.m.sum() <= 0:
+            continue
+        g = g.sort_values("m", ascending=False)
+        r = np.array([rating.get(_id(a), ROOKIE) for a in g.athlete_id])
+        sh = g.m.to_numpy(float) / g.m.sum()
+        reg = 5 * float(np.sum(sh * r))
+        top = sh[:8] ** PO_GAMMA
+        top = top / top.sum()
+        for _ in range(5):
+            top = np.minimum(top, PO_CAP)
+            top = top / top.sum()
+        out[t] = PO_K * (5 * float(np.sum(top * r[:8])) - reg)
+    s = pd.Series(out).reindex(teams).fillna(0.0)
+    return s - s.mean()

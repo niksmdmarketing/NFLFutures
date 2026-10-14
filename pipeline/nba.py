@@ -62,6 +62,7 @@ TEAM_TAU = 2.2
 # Extra rating uncertainty before the season starts, fading to nothing by game TAU_PRE_GAMES (see README, NBA futures).
 TAU_PRE = 2.0   # 2013-26 point-in-time replay, preseason playoff log-loss 0.5965 -> 0.5613 (conf 0.2173 -> 0.2104); chosen with TypeSafe (84%)
 TAU_PRE_GAMES = 16
+PO_DELTA = None  # research option: per-team playoff strength change (array over TEAMS), added in playoff series
 PO_SCALE = 1.0  # research option: multiplier on rating gaps in playoff series (1 = live behaviour)
 TAU_FADE = 0.0  # research option: share of TEAM_TAU removed by the end of the regular season (0 = live behaviour)
 TAU_FADE_START = 0.0  # research option: games played before the fade begins (fade is linear from here to game 82)
@@ -639,11 +640,11 @@ def _player_mix(ratings: pd.DataFrame, players: pd.DataFrame, values: pd.DataFra
                 end_year: int, games_played: float) -> pd.DataFrame:
     """Mix player ratings (RAPM, pipeline/nba_rapm.py) into the team rating: 40% before the season, fading to 0 by game 20."""
     import nba_rapm
+    global PO_DELTA
     share = nba_rapm.MIX * max(0.0, 1.0 - games_played / nba_rapm.MIX_GAMES)
     ratings = ratings.copy()
     ratings["player_strength"] = np.nan
-    if share <= 0:
-        return ratings
+    PO_DELTA = None
     try:
         cols = ["game_id", "sequence_number", "type_text", "period_number", "team_id", "athlete_id_1", "athlete_id_2",
                 "athlete_id_3", "scoring_play", "score_value", "shooting_play", "home_team_id", "away_team_id", "season_type"]
@@ -667,10 +668,26 @@ def _player_mix(ratings: pd.DataFrame, players: pd.DataFrame, values: pd.DataFra
         rating = nba_rapm.develop(rating, {int(a): int(y) for a, y in first.items() if a is not None}, end_year)
         strength = nba_rapm.team_strength(current_roster, rv, rating, TEAMS)
         ratings["player_strength"] = ratings.team.map(strength)
-        ratings["rating"] = (1 - share) * ratings.rating + share * ratings.player_strength.fillna(0)
-        ratings["rating"] -= ratings.rating.mean()
+        if share > 0:
+            ratings["rating"] = (1 - share) * ratings.rating + share * ratings.player_strength.fillna(0)
+            ratings["rating"] -= ratings.rating.mean()
+        # Playoff rotation (all season): minutes to date this season, else projected minutes on the current roster.
+        cur = players[(pd.to_numeric(players.season, errors="coerce") == end_year)
+                      & (pd.to_numeric(players.season_type, errors="coerce") == 2)
+                      & (pd.to_numeric(players.minutes, errors="coerce") > 0)]
+        if len(cur) >= 300:
+            mins = cur.assign(m=pd.to_numeric(cur.minutes, errors="coerce")).groupby(["team_abbreviation", "athlete_id"]).m.sum().reset_index()
+        else:
+            proj = dict(zip([nba_rapm._id(a) for a in rv.athlete_id], rv.minutes))
+            r = current_roster[current_roster.team_abbreviation.isin(TEAMS)].drop_duplicates(["team_abbreviation", "athlete_id"])
+            mins = pd.DataFrame({"team_abbreviation": r.team_abbreviation, "athlete_id": r.athlete_id,
+                                 "m": [float(proj.get(nba_rapm._id(a), 0.0)) for a in r.athlete_id]})
+        delta = nba_rapm.playoff_delta(mins, rating, TEAMS)
+        PO_DELTA = delta.reindex(TEAMS).fillna(0).to_numpy(float)
+        ratings["playoff_adj"] = ratings.team.map(delta)
         log("nba player ratings: share", round(share, 2), "stints", sum(len(f) for f, _ in stints),
-            "top", strength.sort_values(ascending=False).head(3).round(2).to_dict())
+            "top", strength.sort_values(ascending=False).head(3).round(2).to_dict(),
+            "playoff adj top", delta.sort_values(ascending=False).head(3).round(2).to_dict())
     except Exception as e:  # never block the refresh
         log("nba player ratings failed:", repr(e)[:200])
     return ratings
@@ -773,6 +790,8 @@ def _series(rng: np.random.Generator, a: str, b: str, strength: np.ndarray,
         a, b = b, a
     if PO_SCALE != 1.0:
         strength = strength.mean() + PO_SCALE * (strength - strength.mean())
+    if PO_DELTA is not None:
+        strength = strength + PO_DELTA
     wa = wb = 0
     for home_a in (True, True, False, False, True, False, True):
         home, away = (a, b) if home_a else (b, a)
