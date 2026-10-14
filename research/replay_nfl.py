@@ -33,12 +33,32 @@ if os.environ.get("BT_COEF") == "wf":
     import json
     WF = json.load(open(os.path.join(ROOT, "model", "replay", "nfl_wf_coef.json")))["seasons"]
 OUT = os.environ.get("BT_OUTDIR") or os.path.join(ROOT, "model", "replay")
+# BT_QB=lambda: quarterback layer as live (expected starter vs the QB behind this season's numbers); expected starter = the
+# QB who took the team's first dropback in its next game (known before kickoff), preseason = week-1 starter.
+QB_LAM = float(os.environ.get("BT_QB", "0"))
+
+
+def _first_qbs(pbp):
+    from common import scrimmage
+    s = scrimmage(pbp)
+    s = s[s.qb_dropback == 1].assign(qb=lambda x: x.passer_player_id.fillna(x.rusher_player_id)).dropna(subset=["qb"])
+    s = s.sort_values(["game_id", "play_id"])
+    return s.groupby(["week", "posteam"]).qb.first()
+
+
+def _ref_qbs(pbp):
+    from common import scrimmage
+    s = scrimmage(pbp)
+    s = s[s.qb_dropback == 1].assign(qb=lambda x: x.passer_player_id.fillna(x.rusher_player_id)).dropna(subset=["qb"])
+    return s.groupby("posteam").qb.agg(lambda x: x.value_counts().index[0]).to_dict()
 
 
 def run_season(g, y):
     if WF is not None:
         ratings.P["coef"] = WF[str(y)]["coef"]
     cur_all, pri = load_pbp(y), load_pbp(y - 1)
+    pri2 = load_pbp(y - 2) if QB_LAM else None
+    firsts = _first_qbs(cur_all) if QB_LAM else None
     out = B.outcomes(g, y)
     P = {**ratings.S["sim"], **OVR}
     rows = []
@@ -53,6 +73,17 @@ def run_season(g, y):
         greg = gg[(gg.season == y) & (gg.game_type == "REG")]
         played = greg[greg.result.notna()]
         gp = np.array([((played.home_team == t) | (played.away_team == t)).sum() for t in TEAMS], float)
+        if QB_LAM:
+            vals, low_val, _ = ratings.qb_values(cur, pri, pri2)
+            ref = _ref_qbs(cur if len(cur) else pri)
+            nxt = {}
+            for t in TEAMS:
+                wk = [k for k in firsts.index if k[1] == t and k[0] > w]
+                if wk:
+                    nxt[t] = firsts[min(wk)]
+            adj = np.array([QB_LAM * (vals.get(nxt.get(t), low_val) - vals.get(ref.get(t), low_val))
+                            if nxt.get(t) and ref.get(t) and nxt[t] != ref[t] else 0.0 for t in TEAMS])
+            base = base + adj
         R = P.get("rating_scale", 1.0) * base
         R = R - R.mean()
         res = simulate.simulate(greg, R, SIMS, P["tau"] * (1 - TAUFADE * min(gp.mean() / 17.0, 1.0)), P["sigma"], P["hfa"], hfa_post=HFA_POST)

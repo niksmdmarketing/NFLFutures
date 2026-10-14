@@ -75,8 +75,8 @@ function renderChallenger5(C) {
   if (!C || !C.teams) return;
   $("challenger5Sec").hidden = false;
   const pair = (a, b) => '<td class="num" data-v="' + b + '">' + pct(a) + ' <span class="muted">· ' + pct(b) + '</span></td>';
-  const ts = Object.keys(FT).filter(t => C.teams[t]).sort((a, b) => C.teams[b].p_conf - C.teams[a].p_conf).slice(0, 14);
-  $("c5body").innerHTML = ts.map(t => '<tr><td><b>' + t + '</b> <span class="muted">' + nm(t) + '</span></td>' + pair(FT[t].p_conf, C.teams[t].p_conf) + pair(FT[t].p_sb, C.teams[t].p_sb) + '</tr>').join("");
+  const ts = Object.keys(FT).filter(t => C.teams[t]).sort((a, b) => C.teams[b].p_conf - C.teams[a].p_conf).slice(0, 32);
+  $("c5body").innerHTML = ts.map(t => '<tr><td><b>' + t + '</b> <span class="muted">' + nm(t) + '</span></td>' + pair(FT[t].p_playoff, C.teams[t].p_playoff) + pair(FT[t].p_div, C.teams[t].p_div) + pair(FT[t].p_conf, C.teams[t].p_conf) + pair(FT[t].p_sb, C.teams[t].p_sb) + '</tr>').join("");
   sortableTable($("c5body").closest("table"));
 }
 function renderTrack(T) {

@@ -61,7 +61,8 @@ def main():
     C5 = ratings.S.get("challenger_v5")
     challenger_v5 = None
     if C5:
-        r5 = simulate.simulate(greg, Rv, int(os.environ.get("N_SIMS_CHALLENGER", C5["n_sims"])), S["tau"], S["sigma"], S["hfa"], hfa_post=C5["hfa_post"])
+        r5 = simulate.simulate(greg, Rv, int(os.environ.get("N_SIMS_CHALLENGER", C5["n_sims"])),
+                               C5.get("tau", S["tau"]), C5.get("sigma", S["sigma"]), S["hfa"], hfa_post=C5["hfa_post"])
         challenger_v5 = {"name": C5["name"], "teams": {t: {k: round(float(r5[k.replace("p_", "")][i]), 4)
                                                           for k in ("p_div", "p_playoff", "p_seed1", "p_conf", "p_sb")} for i, t in enumerate(TEAMS)}}
         log("v5 candidate simulation done")

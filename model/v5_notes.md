@@ -34,3 +34,15 @@
 Fitting the late-regular-season sharpness k on earlier seasons only and applying it to the next season (2014-2025):
 k drifts from 1.36 to 1.20 and the out-of-sample log loss is unchanged (-0.0003, better in 6 of 12 seasons). The k 1.2
 finding is real on average but not stable enough to fix by scaling; consistent with the tau 3.5 futures result.
+
+## v5 candidate rebuilt (14 Oct 2026)
+research/replay_nfl.py now takes BT_QB (quarterback layer as live; expected starter = the QB who took the team's first
+dropback in its next game). 13 walk-forward seasons 2013-2025, 1,500 sims, vs frozen v4 without the QB layer:
+- playoff home edge 4: +0.0009 (90% +0.0003 to +0.0014), 11/13
+- + QB layer 0.5: +0.0013 (+0.0004 to +0.0021), 10/13 (helps in season, slightly worse before the season); 0.75 and 1.0 worse
+- + tau 4.0 / sigma 12.0 (same total spread): +0.0020 (+0.0002 to +0.0036), 9/13; late conference slope 1.49 -> 1.22
+- + tau 3.5 / sigma 12.23: +0.0020 (-0.0005 to +0.0042), 9/13
+- Roster snap continuity (share of last season's snaps back by week 2, 2014-2025): no relationship with how much of last
+  season's strength carries over (interaction -0.25, 90% -0.88 to +0.34). Dropped.
+TypeSafe (75%): challenger_v5 = edge 4 + tau 4 / sigma 12.0 on the live v4 ratings (which include the QB layer). Shown on the
+futures page beside v4 (playoffs, division, conference, Super Bowl); v4 stays live until 2027.
