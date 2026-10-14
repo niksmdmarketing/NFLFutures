@@ -26,7 +26,10 @@ ROOKIE = float(os.environ.get("NP_ROOKIE", "-1.0"))
 K_BOX = float(os.environ.get("NP_KBOX", "0"))   # ridge prior = K_BOX x box-score impact (live roster-step values)
 W3 = float(os.environ.get("NP_W3", "0"))
 DEV_YOUNG = float(os.environ.get("NP_DEV", "0"))     # points per 100 added per year below 4 years of experience
-DEV_OLD = float(os.environ.get("NP_DECL", "0"))      # points per 100 removed per year above 11 years of experience
+DEV_OLD = float(os.environ.get("NP_DECL", "0"))
+YLAM = float(os.environ.get("NP_YLAM", "1"))      # ridge multiplier for players with at most YSEAS seasons before the fit
+YSEAS = int(os.environ.get("NP_YSEAS", "2"))
+YKBOX = float(os.environ.get("NP_YKBOX", "-1"))   # box-prior multiplier for young players (-1 = same as K_BOX)      # points per 100 removed per year above 11 years of experience
 _first = None
 
 
@@ -106,7 +109,15 @@ def main(live_csv, lam, w2, first=2014, last=2026):
     pb = {y: pbox(y) for y in range(first - 2, last + 1)}
     out = []
     for y in range(first, last + 1):
-        rating = develop(RA.fit(y, lam=lam, w2=w2, w3=W3, prior=box_prior(y - 1)), y)
+        lm = None
+        if YLAM != 1:
+            fs = first_season()
+            lm = {a: YLAM for a, f in fs.items() if (y - 1) - f + 1 <= YSEAS}
+        pri = box_prior(y - 1)
+        if YKBOX >= 0 and pri:
+            fs = first_season()
+            pri = {a: (v * YKBOX / K_BOX if (y - 1) - fs.get(a, y) + 1 <= YSEAS else v) for a, v in pri.items()}
+        rating = develop(RA.fit(y, lam=lam, w2=w2, w3=W3, prior=pri, lam_mult=lm), y)
         p1, p2 = pb[y - 1], pb[y - 2]
         mins = p1.groupby("athlete_id").minutes.sum()
         mins2 = p2.groupby("athlete_id").minutes.sum()

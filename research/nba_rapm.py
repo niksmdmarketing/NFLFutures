@@ -23,7 +23,7 @@ def load(y):
     return S
 
 
-def fit(y, lam=3000.0, w2=0.5, w3=0.0, prior=None, cache={}):
+def fit(y, lam=3000.0, w2=0.5, w3=0.0, prior=None, cache={}, lam_mult=None):
     """Ratings as of the start of season y. prior: dict athlete_id -> prior rating (default 0)."""
     frames = []
     for k, w in ((1, 1.0), (2, w2), (3, w3)):
@@ -62,7 +62,8 @@ def fit(y, lam=3000.0, w2=0.5, w3=0.0, prior=None, cache={}):
     pr = np.zeros(m + 1)
     if prior:
         pr[:m] = [prior.get(a, 0.0) for a in ids]
-    A[np.arange(m), np.arange(m)] += lam
-    b[:m] += lam * pr[:m]
+    lm = np.array([lam * (lam_mult or {}).get(a, 1.0) for a in ids])
+    A[np.arange(m), np.arange(m)] += lm
+    b[:m] += lm * pr[:m]
     sol = np.linalg.solve(A, b)
     return dict(zip(ids, sol[:m]))

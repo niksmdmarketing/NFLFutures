@@ -256,3 +256,6 @@ Futures log loss not replayed (the weekly replay has no roster or player step).
      to -0.197). Birth dates exist only in 2025+ roster files, so experience (seasons since first minutes) is the age proxy.
   3. Last season's late-season drop (tanking) and level: no gain (-0.008, -0.005). Not added.
   2026-27 after all three: WSH -9.8 -> -8.5 (BPI -3.4), IND -3.4 -> -2.9 (BPI +0.4), UTAH -5.6 -> -5.1 (BPI -2.2).
+- Young-player ratings (TypeSafe 38%): harder ridge for players with <=1-3 seasons (x2/x4/x8) or a softer box prior for them
+  (0 or 1.0 instead of 2.5): preseason MAE 2.803-2.820 vs 2.807 now. No gain; not deployed. The user's ESPN 7 Oct snapshot is
+  archived privately (private repo forecast_archive/espn_reference) with a season-end scoring script, as a reference only.
