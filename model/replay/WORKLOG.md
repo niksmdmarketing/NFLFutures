@@ -269,3 +269,7 @@ title 0.0907 -> 0.0827, conference 0.1808 -> 0.1729, late title 0.0860 -> 0.0769
 +0.0055, 10/14); k 1.5 over-confident conference mid-season. Largest NBA futures gain so far. Late title slope barely moves
 (1.26 -> 1.23), so the title is still a little cautious late. TypeSafe chose k 1.0 / power 1.5 (68%). Regular-season
 markets are unaffected. Live 2026-27 top playoff adjustments: DEN +4.1, MEM +2.9, TOR +2.4.
+- Rotation by minutes per game instead of total minutes (so stars who missed games, e.g. Wembanyama, rank by role): k 1.0
+  power 1.5 +0.0028 (8/14), power 1.0 +0.0014; title about the same but conference over-confident (late conference 0.1744 ->
+  0.1871, mid slope 0.77). Total minutes (which also carry availability) stays. San Antonio's lower title chance is what the
+  validated version says.

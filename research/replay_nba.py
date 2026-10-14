@@ -37,6 +37,7 @@ SIMS = int(os.environ.get("BT_SIMS", "2000"))
 PO_K = float(os.environ.get("BT_PO_K", "0"))         # playoff rotation term: k x (top-8 playoff-minutes strength - regular strength)
 PO_GAMMA = float(os.environ.get("BT_PO_GAMMA", "1.5"))  # concentration of playoff minutes among the top 8 (1 = drop depth only)
 PO_CAP = 42 / 240
+PO_MPG = os.environ.get("BT_PO_MPG") == "1"   # rotation by minutes per game (role) rather than total minutes
 
 
 def _player_ratings(y):
@@ -50,10 +51,18 @@ def _player_ratings(y):
 
 def _po_delta(pbox, rating, prev_assign, prev_mins):
     """Per-team (playoff rotation strength - regular rotation strength), points per 100."""
-    if len(pbox):
+    if len(pbox) and PO_MPG:
+        g0 = pbox.groupby(["team_abbreviation", "athlete_id"]).agg(minutes=("minutes", "sum"), gp=("minutes", "size")).reset_index()
+        tg = pbox.groupby("team_abbreviation").game_date.nunique()
+        g0 = g0[g0.gp >= np.maximum(3, 0.3 * g0.team_abbreviation.map(tg))]
+        g0["minutes"] = g0.minutes / g0.gp
+        m = g0[["team_abbreviation", "athlete_id", "minutes"]]
+    elif len(pbox):
         m = pbox.groupby(["team_abbreviation", "athlete_id"]).minutes.sum().reset_index()
     else:
         m = pd.DataFrame([(t, a, prev_mins.get(a, 0.0)) for a, t in prev_assign.items()], columns=["team_abbreviation", "athlete_id", "minutes"])
+        if PO_MPG:
+            m["minutes"] = [PREV_MPG.get(a, 0.0) for a in m.athlete_id]
     out = np.zeros(len(N.TEAMS))
     for t, g in m.groupby("team_abbreviation"):
         if t not in N.TIX or g.minutes.sum() <= 0:
@@ -73,6 +82,7 @@ def _po_delta(pbox, rating, prev_assign, prev_mins):
 
 
 _PB = {}
+PREV_MPG = {}
 
 
 def _pbox(y):
@@ -123,6 +133,9 @@ def run_season(boxes, y):
         rating = _player_ratings(y)
         p1 = _pbox(y - 1).sort_values("date")
         prev_mins = p1.groupby("athlete_id").minutes.sum().to_dict()
+        gp1 = p1.groupby("athlete_id").minutes.size()
+        PREV_MPG.clear()
+        PREV_MPG.update((p1.groupby("athlete_id").minutes.sum() / gp1)[gp1 >= 20].to_dict())
         prev_assign = _pbox(y).sort_values("date").groupby("athlete_id").team_abbreviation.first().to_dict()
     for wk, cutoff in enumerate(cuts):
         if PO_K:
