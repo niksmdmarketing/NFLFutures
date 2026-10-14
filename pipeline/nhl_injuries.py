@@ -5,7 +5,7 @@ row gives the team, player, position and a status such as "IR. Expected to be ou
 Nothing here is used for markets; it only says which players will miss which games.
 """
 import datetime as dt
-import io
+import html as html_mod
 import os
 import re
 import time
@@ -55,17 +55,17 @@ def parse(html, season):
             continue
         team = CBS_TEAM.get(m.group(1), m.group(1))
         tbl = b[b.find("<table"):b.find("</table>") + 8]
-        names = re.findall(r'CellPlayerName--long"><span[^>]*><a[^>]*>([^<]+)</a>', tbl)
-        try:
-            t = pd.read_html(io.StringIO(tbl))[0]
-        except ValueError:
-            continue
-        if len(names) != len(t):
-            continue
-        for nm, (_, r) in zip(names, t.iterrows()):
-            st = str(r.get("Injury Status", ""))
+        for tr in re.findall(r"<tr[^>]*>(.*?)</tr>", tbl, flags=re.S):
+            cells = re.findall(r"<td[^>]*>(.*?)</td>", tr, flags=re.S)
+            if len(cells) < 5:
+                continue
+            nm = re.search(r'CellPlayerName--long"><span[^>]*><a[^>]*>([^<]+)</a>', cells[0])
+            if not nm:
+                continue
+            txt = [html_mod.unescape(re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", c))).strip() for c in cells]
+            st = txt[4]
             low = st.lower()
-            rows.append({"team": team, "name": nm.strip(), "pos": str(r.get("Position", "")).strip(), "status": st,
+            rows.append({"team": team, "name": html_mod.unescape(nm.group(1)).strip(), "pos": txt[1], "status": st,
                          "ir": low.startswith("ir") or " ir" in low or "injured reserve" in low,
                          "ret": _date(st, season), "season_out": "season" in low,
                          "dtd": "day-to-day" in low or "game time" in low})
