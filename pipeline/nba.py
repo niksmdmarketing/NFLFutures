@@ -661,6 +661,10 @@ def _player_mix(ratings: pd.DataFrame, players: pd.DataFrame, values: pd.DataFra
         rv = _roster_values(values, values_prev)
         prior = {nba_rapm._id(a): nba_rapm.K_BOX * float(i) for a, i in zip(rv.athlete_id, rv.impact)}
         rating = nba_rapm.fit(stints, prior)
+        played = players[pd.to_numeric(players.minutes, errors="coerce") > 0]
+        first = played.assign(aid=[nba_rapm._id(a) for a in played.athlete_id],
+                              yr=pd.to_numeric(played.season, errors="coerce")).groupby("aid").yr.min()
+        rating = nba_rapm.develop(rating, {int(a): int(y) for a, y in first.items() if a is not None}, end_year)
         strength = nba_rapm.team_strength(current_roster, rv, rating, TEAMS)
         ratings["player_strength"] = ratings.team.map(strength)
         ratings["rating"] = (1 - share) * ratings.rating + share * ratings.player_strength.fillna(0)

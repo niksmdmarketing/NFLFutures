@@ -20,6 +20,10 @@ from scipy import sparse
 
 LAM, W2, K_BOX, ROOKIE = 3000.0, 0.5, 2.5, -1.0
 MIX, MIX_GAMES = 0.4, 20.0
+DEV_YOUNG, DEV_YEARS = 1.0, 4   # +1 point per 100 for each season short of 4 played (young players improve)
+# Development (14 Oct 2026): experience = seasons since first NBA minutes; +1.0 per season below 4 improved the 2014-2026
+# preseason replay 2.865 -> 2.807 (better 9/13); a decline term for veterans made it worse; a late-season tank/drop term and
+# last season's level gave nothing.
 
 
 def _id(x):
@@ -153,6 +157,10 @@ def fit(stints: list[tuple[pd.DataFrame, float]], prior: dict[int, float]) -> di
     b[:m] += LAM * pr
     sol = np.linalg.solve(A, b)
     return dict(zip(ids, sol[:m]))
+
+
+def develop(rating: dict[int, float], first_season: dict[int, int], season: int) -> dict[int, float]:
+    return {a: v + DEV_YOUNG * max(0, DEV_YEARS - (season - first_season.get(a, season))) for a, v in rating.items()}
 
 
 def team_strength(current_roster: pd.DataFrame, rv: pd.DataFrame, rating: dict[int, float], teams: list[str]) -> pd.Series:

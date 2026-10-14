@@ -25,6 +25,36 @@ D = N.NBA_DATA
 ROOKIE = float(os.environ.get("NP_ROOKIE", "-1.0"))
 K_BOX = float(os.environ.get("NP_KBOX", "0"))   # ridge prior = K_BOX x box-score impact (live roster-step values)
 W3 = float(os.environ.get("NP_W3", "0"))
+DEV_YOUNG = float(os.environ.get("NP_DEV", "0"))     # points per 100 added per year below 4 years of experience
+DEV_OLD = float(os.environ.get("NP_DECL", "0"))      # points per 100 removed per year above 11 years of experience
+_first = None
+
+
+def first_season():
+    global _first
+    if _first is None:
+        fs = {}
+        for y in range(2002, 2028):
+            p = os.path.join(D, f"player_box_{y}.csv")
+            if not os.path.exists(p):
+                continue
+            b = pd.read_csv(p, usecols=["athlete_id", "minutes"], low_memory=False)
+            b = b[pd.to_numeric(b.minutes, errors="coerce") > 0]
+            for a in pd.to_numeric(b.athlete_id, errors="coerce").dropna().astype(int).unique():
+                fs.setdefault(int(a), y)
+        _first = fs
+    return _first
+
+
+def develop(rating, y):
+    if not DEV_YOUNG and not DEV_OLD:
+        return rating
+    fs = first_season()
+    out = {}
+    for a, v in rating.items():
+        exp = y - fs.get(int(a), y)          # seasons already played before season y
+        out[a] = v + DEV_YOUNG * max(0, 4 - exp) - DEV_OLD * max(0, exp - 11)
+    return out
 _raw = {}
 
 
@@ -76,7 +106,7 @@ def main(live_csv, lam, w2, first=2014, last=2026):
     pb = {y: pbox(y) for y in range(first - 2, last + 1)}
     out = []
     for y in range(first, last + 1):
-        rating = RA.fit(y, lam=lam, w2=w2, w3=W3, prior=box_prior(y - 1))
+        rating = develop(RA.fit(y, lam=lam, w2=w2, w3=W3, prior=box_prior(y - 1)), y)
         p1, p2 = pb[y - 1], pb[y - 2]
         mins = p1.groupby("athlete_id").minutes.sum()
         mins2 = p2.groupby("athlete_id").minutes.sum()

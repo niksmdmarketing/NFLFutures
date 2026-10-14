@@ -248,3 +248,11 @@ picked from 6 configurations on the same seasons. At 20 / 41 games RAPM adds not
 40% -> 0 by game 20 (pipeline/nba_rapm.py, nba._player_mix). TypeSafe: deploy now (74%, confidence 0.61).
 2026-27 preseason: correlation with ESPN BPI 0.850 -> 0.886 (RAPM strength alone 0.891); rating spread 4.03 -> 4.62.
 Futures log loss not replayed (the weekly replay has no roster or player step).
+- Follow-up (WSH/IND gap vs ESPN; TypeSafe 99%: bug, then age, then injury/tank weight):
+  1. Bug fixed: the live roster step valued returning players (Haliburton, Young) on their previous full season on both the
+     old and new roster, cancelling the return; the old roster now uses minutes actually played (as the replay did). IND +1.25.
+  2. Development: +1.0 per 100 for each season short of 4 played, in the player-rating part: preseason MAE 2.865 -> 2.807
+     (better 9/13 vs no development). Veteran decline worse; development applied to the team-results part too worse (-0.007
+     to -0.197). Birth dates exist only in 2025+ roster files, so experience (seasons since first minutes) is the age proxy.
+  3. Last season's late-season drop (tanking) and level: no gain (-0.008, -0.005). Not added.
+  2026-27 after all three: WSH -9.8 -> -8.5 (BPI -3.4), IND -3.4 -> -2.9 (BPI +0.4), UTAH -5.6 -> -5.1 (BPI -2.2).
