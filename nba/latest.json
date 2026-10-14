@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-10-14T0046Z",
-"feed_timestamp": "2026-10-14T00:46:18Z",
+"collected_utc": "2026-10-14T0121Z",
+"feed_timestamp": "2026-10-14T01:21:44Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -328,6 +328,12 @@
 "injury": "Right Foot Surgery"
 },
 {
+"athlete_id": "5060631",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
+"injury": "Undisclosed"
+},
+{
 "athlete_id": "4433599",
 "status": "Day-To-Day",
 "return_date": "2026-10-13",
@@ -336,7 +342,7 @@
 {
 "athlete_id": "5113969",
 "status": "Day-To-Day",
-"return_date": "2026-10-13",
+"return_date": "2026-10-16",
 "injury": "Undisclosed Bruise"
 },
 {
@@ -652,9 +658,27 @@
 "injury": "Right Knee Surgery"
 },
 {
+"athlete_id": "3907387",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
+"injury": "Rest"
+},
+{
+"athlete_id": "5142620",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
+"injury": "Rest"
+},
+{
+"athlete_id": "4065732",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
+"injury": "Rest"
+},
+{
 "athlete_id": "3155942",
 "status": "Day-To-Day",
-"return_date": "2026-10-13",
+"return_date": "2026-10-16",
 "injury": "Undisclosed"
 },
 {
@@ -666,7 +690,7 @@
 {
 "athlete_id": "4066262",
 "status": "Day-To-Day",
-"return_date": "2026-10-13",
+"return_date": "2026-10-16",
 "injury": "Rest"
 },
 {
@@ -674,6 +698,12 @@
 "status": "Out",
 "return_date": "2026-10-25",
 "injury": "Right Knee Dislocated"
+},
+{
+"athlete_id": "3064440",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
+"injury": "Rest"
 },
 {
 "athlete_id": "5061568",
@@ -1284,6 +1314,15 @@
 "updated": "2026-09-28T18:07Z"
 },
 {
+"athlete_id": "5060631",
+"name": "Adou Thiero",
+"team_name": "Los Angeles Lakers",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
+"injury": "Undisclosed",
+"updated": "2026-10-14T00:37Z"
+},
+{
 "athlete_id": "4433599",
 "name": "Arthur Kaluma",
 "team_name": "Los Angeles Lakers",
@@ -1297,9 +1336,9 @@
 "name": "Cameron Carr",
 "team_name": "Los Angeles Lakers",
 "status": "Day-To-Day",
-"return_date": "2026-10-13",
+"return_date": "2026-10-16",
 "injury": "Undisclosed Bruise",
-"updated": "2026-10-09T00:53Z"
+"updated": "2026-10-14T00:41Z"
 },
 {
 "athlete_id": "4277811",
@@ -1308,7 +1347,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-16",
 "injury": "Lower Leg",
-"updated": "2026-10-10T19:50Z"
+"updated": "2026-10-14T00:39Z"
 },
 {
 "athlete_id": "4897943",
@@ -1335,7 +1374,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-16",
 "injury": "Foot Bruise",
-"updated": "2026-10-10T20:03Z"
+"updated": "2026-10-14T00:35Z"
 },
 {
 "athlete_id": "4432810",
@@ -1770,13 +1809,40 @@
 "updated": "2026-08-24T20:23Z"
 },
 {
+"athlete_id": "3907387",
+"name": "Ben Simmons",
+"team_name": "Sacramento Kings",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
+"injury": "Rest",
+"updated": "2026-10-14T01:05Z"
+},
+{
+"athlete_id": "5142620",
+"name": "Darius Acuff Jr.",
+"team_name": "Sacramento Kings",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
+"injury": "Rest",
+"updated": "2026-10-14T01:02Z"
+},
+{
+"athlete_id": "4065732",
+"name": "De'Andre Hunter",
+"team_name": "Sacramento Kings",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
+"injury": "Rest",
+"updated": "2026-10-14T01:04Z"
+},
+{
 "athlete_id": "3155942",
 "name": "Domantas Sabonis",
 "team_name": "Sacramento Kings",
 "status": "Day-To-Day",
-"return_date": "2026-10-13",
+"return_date": "2026-10-16",
 "injury": "Undisclosed",
-"updated": "2026-10-12T20:32Z"
+"updated": "2026-10-14T00:59Z"
 },
 {
 "athlete_id": "4433174",
@@ -1792,9 +1858,9 @@
 "name": "Malik Monk",
 "team_name": "Sacramento Kings",
 "status": "Day-To-Day",
-"return_date": "2026-10-13",
+"return_date": "2026-10-16",
 "injury": "Rest",
-"updated": "2026-10-12T20:34Z"
+"updated": "2026-10-14T01:00Z"
 },
 {
 "athlete_id": "4898371",
@@ -1804,6 +1870,15 @@
 "return_date": "2026-10-25",
 "injury": "Right Knee Dislocated",
 "updated": "2026-10-11T18:14Z"
+},
+{
+"athlete_id": "3064440",
+"name": "Zach LaVine",
+"team_name": "Sacramento Kings",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
+"injury": "Rest",
+"updated": "2026-10-14T00:57Z"
 },
 {
 "athlete_id": "5061568",
