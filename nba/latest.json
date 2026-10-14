@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-10-14T1718Z",
-"feed_timestamp": "2026-10-14T17:18:01Z",
+"collected_utc": "2026-10-14T2146Z",
+"feed_timestamp": "2026-10-14T21:46:38Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -78,14 +78,8 @@
 {
 "athlete_id": "4870564",
 "status": "Day-To-Day",
-"return_date": "2026-10-14",
+"return_date": "2026-10-21",
 "injury": "Back"
-},
-{
-"athlete_id": "5101761",
-"status": "Day-To-Day",
-"return_date": "2026-10-14",
-"injury": "Left Ankle"
 },
 {
 "athlete_id": "5060701",
@@ -484,6 +478,12 @@
 "injury": "Right Toe Bruise"
 },
 {
+"athlete_id": "6585",
+"status": "Day-To-Day",
+"return_date": "2026-10-15",
+"injury": "Not Specified Rest"
+},
+{
 "athlete_id": "3934672",
 "status": "Day-To-Day",
 "return_date": "2026-10-15",
@@ -497,6 +497,12 @@
 },
 {
 "athlete_id": "3136195",
+"status": "Day-To-Day",
+"return_date": "2026-10-15",
+"injury": "Rest"
+},
+{
+"athlete_id": "3914044",
 "status": "Day-To-Day",
 "return_date": "2026-10-15",
 "injury": "Rest"
@@ -766,12 +772,6 @@
 "injury": "Right Knee Surgery"
 },
 {
-"athlete_id": "4277880",
-"status": "Day-To-Day",
-"return_date": "2026-10-14",
-"injury": "Undisclosed"
-},
-{
 "athlete_id": "4845367",
 "status": "Day-To-Day",
 "return_date": "2026-10-14",
@@ -790,22 +790,10 @@
 "injury": "Rest"
 },
 {
-"athlete_id": "4431893",
-"status": "Day-To-Day",
-"return_date": "2026-10-15",
-"injury": "Back"
-},
-{
 "athlete_id": "4432586",
 "status": "Day-To-Day",
 "return_date": "2026-10-21",
 "injury": "Right Foot"
-},
-{
-"athlete_id": "4395623",
-"status": "Day-To-Day",
-"return_date": "2026-10-15",
-"injury": "Undisclosed"
 },
 {
 "athlete_id": "4396963",
@@ -964,18 +952,9 @@
 "name": "Joshua Jefferson",
 "team_name": "Brooklyn Nets",
 "status": "Day-To-Day",
-"return_date": "2026-10-14",
+"return_date": "2026-10-21",
 "injury": "Back",
-"updated": "2026-10-12T15:02Z"
-},
-{
-"athlete_id": "5101761",
-"name": "Mikel Brown Jr.",
-"team_name": "Brooklyn Nets",
-"status": "Day-To-Day",
-"return_date": "2026-10-14",
-"injury": "Left Ankle",
-"updated": "2026-10-12T14:57Z"
+"updated": "2026-10-14T19:24Z"
 },
 {
 "athlete_id": "5060701",
@@ -1200,7 +1179,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-21",
 "injury": "Undisclosed",
-"updated": "2026-10-12T17:19Z"
+"updated": "2026-10-14T20:29Z"
 },
 {
 "athlete_id": "4432171",
@@ -1572,6 +1551,15 @@
 "updated": "2026-10-08T22:28Z"
 },
 {
+"athlete_id": "6585",
+"name": "Andre Drummond",
+"team_name": "New York Knicks",
+"status": "Day-To-Day",
+"return_date": "2026-10-15",
+"injury": "Not Specified Rest",
+"updated": "2026-10-14T20:40Z"
+},
+{
 "athlete_id": "3934672",
 "name": "Jalen Brunson",
 "team_name": "New York Knicks",
@@ -1597,6 +1585,15 @@
 "return_date": "2026-10-15",
 "injury": "Rest",
 "updated": "2026-10-13T02:47Z"
+},
+{
+"athlete_id": "3914044",
+"name": "Landry Shamet",
+"team_name": "New York Knicks",
+"status": "Day-To-Day",
+"return_date": "2026-10-15",
+"injury": "Rest",
+"updated": "2026-10-14T20:41Z"
 },
 {
 "athlete_id": "3147657",
@@ -1995,15 +1992,6 @@
 "updated": "2026-10-05T21:43Z"
 },
 {
-"athlete_id": "4277880",
-"name": "Malik Williams",
-"team_name": "San Antonio Spurs",
-"status": "Day-To-Day",
-"return_date": "2026-10-14",
-"injury": "Undisclosed",
-"updated": "2026-10-12T17:55Z"
-},
-{
 "athlete_id": "4845367",
 "name": "Stephon Castle",
 "team_name": "San Antonio Spurs",
@@ -2031,15 +2019,6 @@
 "updated": "2026-10-12T17:43Z"
 },
 {
-"athlete_id": "4431893",
-"name": "Jamison Battle",
-"team_name": "Toronto Raptors",
-"status": "Day-To-Day",
-"return_date": "2026-10-15",
-"injury": "Back",
-"updated": "2026-10-14T16:45Z"
-},
-{
 "athlete_id": "4432586",
 "name": "Nate Bittle",
 "team_name": "Toronto Raptors",
@@ -2047,15 +2026,6 @@
 "return_date": "2026-10-21",
 "injury": "Right Foot",
 "updated": "2026-10-13T21:35Z"
-},
-{
-"athlete_id": "4395623",
-"name": "Trey Jemison III",
-"team_name": "Toronto Raptors",
-"status": "Day-To-Day",
-"return_date": "2026-10-15",
-"injury": "Undisclosed",
-"updated": "2026-10-13T22:56Z"
 },
 {
 "athlete_id": "4396963",
