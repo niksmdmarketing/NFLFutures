@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-10-14T2242Z",
-"feed_timestamp": "2026-10-14T22:42:45Z",
+"collected_utc": "2026-10-14T2256Z",
+"feed_timestamp": "2026-10-14T22:56:19Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -178,6 +178,12 @@
 "injury": "Right Foot Surgery"
 },
 {
+"athlete_id": "5105806",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
+"injury": "Illness"
+},
+{
 "athlete_id": "6442",
 "status": "Day-To-Day",
 "return_date": "2026-10-16",
@@ -198,7 +204,7 @@
 {
 "athlete_id": "4593125",
 "status": "Day-To-Day",
-"return_date": "2026-10-14",
+"return_date": "2026-10-16",
 "injury": "Not Specified Knee"
 },
 {
@@ -730,18 +736,6 @@
 "injury": "Not Specified Ankle"
 },
 {
-"athlete_id": "4066259",
-"status": "Day-To-Day",
-"return_date": "2026-10-14",
-"injury": "Undisclosed Soreness"
-},
-{
-"athlete_id": "4395630",
-"status": "Day-To-Day",
-"return_date": "2026-10-14",
-"injury": "Rest"
-},
-{
 "athlete_id": "5037871",
 "status": "Day-To-Day",
 "return_date": "2026-10-14",
@@ -754,22 +748,10 @@
 "injury": "Right Knee Surgery"
 },
 {
-"athlete_id": "4845367",
-"status": "Day-To-Day",
-"return_date": "2026-10-14",
-"injury": "Rest"
-},
-{
 "athlete_id": "6440",
 "status": "Day-To-Day",
 "return_date": "2026-10-20",
 "injury": "Left Calf Strain"
-},
-{
-"athlete_id": "5104157",
-"status": "Day-To-Day",
-"return_date": "2026-10-14",
-"injury": "Rest"
 },
 {
 "athlete_id": "4432586",
@@ -1080,7 +1062,16 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-14",
 "injury": "Right Foot Surgery",
-"updated": "2026-10-11T09:50Z"
+"updated": "2026-10-14T22:40Z"
+},
+{
+"athlete_id": "5105806",
+"name": "Jett Howard",
+"team_name": "Dallas Mavericks",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
+"injury": "Illness",
+"updated": "2026-10-14T22:47Z"
 },
 {
 "athlete_id": "6442",
@@ -1098,7 +1089,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-14",
 "injury": "Hip",
-"updated": "2026-10-11T09:55Z"
+"updated": "2026-10-14T22:43Z"
 },
 {
 "athlete_id": "4873153",
@@ -1107,16 +1098,16 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-16",
 "injury": "Rest",
-"updated": "2026-10-11T09:47Z"
+"updated": "2026-10-14T22:27Z"
 },
 {
 "athlete_id": "4593125",
 "name": "Santi Aldama",
 "team_name": "Dallas Mavericks",
 "status": "Day-To-Day",
-"return_date": "2026-10-14",
+"return_date": "2026-10-16",
 "injury": "Not Specified Knee",
-"updated": "2026-10-11T09:53Z"
+"updated": "2026-10-14T22:34Z"
 },
 {
 "athlete_id": "4592427",
@@ -1911,24 +1902,6 @@
 "updated": "2026-10-12T17:51Z"
 },
 {
-"athlete_id": "4066259",
-"name": "De'Aaron Fox",
-"team_name": "San Antonio Spurs",
-"status": "Day-To-Day",
-"return_date": "2026-10-14",
-"injury": "Undisclosed Soreness",
-"updated": "2026-10-12T17:47Z"
-},
-{
-"athlete_id": "4395630",
-"name": "Devin Vassell",
-"team_name": "San Antonio Spurs",
-"status": "Day-To-Day",
-"return_date": "2026-10-14",
-"injury": "Rest",
-"updated": "2026-10-12T17:49Z"
-},
-{
 "athlete_id": "5037871",
 "name": "Dylan Harper",
 "team_name": "San Antonio Spurs",
@@ -1947,15 +1920,6 @@
 "updated": "2026-10-05T21:43Z"
 },
 {
-"athlete_id": "4845367",
-"name": "Stephon Castle",
-"team_name": "San Antonio Spurs",
-"status": "Day-To-Day",
-"return_date": "2026-10-14",
-"injury": "Rest",
-"updated": "2026-10-12T17:50Z"
-},
-{
 "athlete_id": "6440",
 "name": "Tobias Harris",
 "team_name": "San Antonio Spurs",
@@ -1963,15 +1927,6 @@
 "return_date": "2026-10-20",
 "injury": "Left Calf Strain",
 "updated": "2026-10-05T01:27Z"
-},
-{
-"athlete_id": "5104157",
-"name": "Victor Wembanyama",
-"team_name": "San Antonio Spurs",
-"status": "Day-To-Day",
-"return_date": "2026-10-14",
-"injury": "Rest",
-"updated": "2026-10-12T17:43Z"
 },
 {
 "athlete_id": "4432586",
