@@ -11,10 +11,14 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r requirements.txt
       - run: bash research/nhl_injury_probe.sh
       - if: always()
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -f data/research/nhl_inj_raw
+          git add -f data/research/nhl_inj_debug.txt
           if ! git diff --cached --quiet; then git commit -q -m 'Research: NHL injury source probe'; git pull -q --rebase origin main; git push origin HEAD:main; fi
