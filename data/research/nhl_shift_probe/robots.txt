@@ -1,0 +1,40 @@
+== robots api.nhle.com
+<html><body><h1>404 Not Found</h1></body></html>
+HTTP 404
+== robots api-web.nhle.com
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
+<title>Error 404 Not Found</title>
+</head>
+<body>
+<h2>HTTP ERROR 404 Not Found</h2>
+<table>
+<tr><th>URI:</th><td>https://api-web.nhle.com/robots.txt</td></tr>
+<tr><th>STATUS:</th><td>404</td></tr>
+<tr><th>MESSAGE:</th><td>Not Found</td></tr>
+</table>
+
+</body>
+</html>
+
+HTTP 404
+== robots www.nhl.com
+User-agent: *
+
+Allow: /
+
+Disallow: /js/
+Disallow: /css/
+Disallow: /errors
+Disallow: /redirect
+Disallow: /layouts
+Disallow: /templates
+Disallow: /views
+Disallow: /_*
+Disallow: /*/_*
+Disallow: /search
+
+Sitemap: https://www.nhl.com/sitemap/sitemap-index.xml
+
+HTTP 200
