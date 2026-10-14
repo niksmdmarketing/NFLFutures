@@ -1,0 +1,95 @@
+== robots puckpedia
+#
+# robots.txt
+#
+# This file is to prevent the crawling and indexing of certain parts
+# of your site by web crawlers and spiders run by sites like Yahoo!
+# and Google. By telling these "robots" where not to go on your site,
+# you save bandwidth and server resources.
+#
+# This file will be ignored unless it is at the root of your host:
+# Used:    http://example.com/robots.txt
+# Ignored: http://example.com/site/robots.txt
+#
+# For more information about the robots.txt standard, see:
+# http://www.robotstxt.org/robotstxt.html
+
+# -----------------------------------------
+# AI crawlers
+#
+# Real-time AI assistants and AI-search indexers are ALLOWED. They are not
+# listed in any group below, so they fall through to "User-agent: *" and are
+# treated like any other crawler (public content yes; /admin/, /user/*,
+# /search/, /*/e/ edit paths, etc. no).
+#   Allowed agents:  ChatGPT-User, Claude-User, Claude-Web, Perplexity-User
+#   Allowed search:  OAI-SearchBot, Claude-SearchBot, PerplexityBot, GoogleOther
+#
+# Pure model-training / data-resale crawlers remain fully blocked below.
+# -----------------------------------------
+User-agent: GPTBot
+User-agent: CCBot
+User-agent: ClaudeBot
+User-agent: anthropic-ai
+User-agent: xai-crawler
+User-agent: Grok-1
+User-agent: Grokbot
+User-agent: X-AI-Bot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: BingPreview
+User-agent: Omgilibot
+User-agent: cohere-ai
+== puckpedia injuries page (TOR)
+HTTP 403 bytes 5577
+injuries?__cf_chl_tk=NJlp82X1r4ExywNIK6nGmNef1DQLGFiAygwtwsfocl8-1791978788-1.0.1.1-r25wG7AfeG5OAYvX1KhpmzxuwCus_lidmFKoMTXk4
+injuries?__cf_chl_f_tk=NJlp82X1r4ExywNIK6nGmNef1DQLGFiAygwtwsfocl8-1791978788-1.0.1.1-r25wG7AfeG5OAYvX1KhpmzxuwCus_lidmFKoMTX
+injuries?__cf_chl_rt_tk=NJlp82X1r4ExywNIK6nGmNef1DQLGFiAygwtwsfocl8-1791978788-1.0.1.1-r25wG7AfeG5OAYvX1KhpmzxuwCus_lidmFKoMT
+== NHL roster endpoint keys
+HTTP 307
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/usr/lib/python3.12/json/__init__.py", line 293, in load
+    return loads(fp.read(),
+           ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+== NHL player landing keys
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/usr/lib/python3.12/json/__init__.py", line 293, in load
+    return loads(fp.read(),
+           ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+HTTP 400
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/usr/lib/python3.12/json/__init__.py", line 293, in load
+    return loads(fp.read(),
+           ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+== NHL stats API injury/transaction search
+https://api.nhle.com/stats/rest/en/transaction HTTP 404
+https://api-web.nhle.com/v1/transactions HTTP 404
