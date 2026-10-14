@@ -1,0 +1,29 @@
+name: Collect NHL per-game lineups (research)
+on:
+  workflow_dispatch:
+    inputs:
+      first:
+        default: "2014"
+      last:
+        default: "2026"
+permissions:
+  contents: write
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install pandas
+      - run: python research/nhl_lineups_collect.py ${{ inputs.first }} ${{ inputs.last }}
+      - if: always()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -f data/research/nhl_lineups || true
+          if ! git diff --cached --quiet; then git commit -q -m 'Research: NHL per-game lineups'; git pull -q --rebase origin main; git push origin HEAD:main; fi
