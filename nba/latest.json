@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-10-14T0121Z",
-"feed_timestamp": "2026-10-14T01:21:44Z",
+"collected_utc": "2026-10-14T0200Z",
+"feed_timestamp": "2026-10-14T02:00:07Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -215,6 +215,12 @@
 },
 {
 "athlete_id": "3213",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
+"injury": "Rest"
+},
+{
+"athlete_id": "6589",
 "status": "Day-To-Day",
 "return_date": "2026-10-16",
 "injury": "Rest"
@@ -1152,6 +1158,15 @@
 "updated": "2026-10-12T19:41Z"
 },
 {
+"athlete_id": "6589",
+"name": "Draymond Green",
+"team_name": "Golden State Warriors",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
+"injury": "Rest",
+"updated": "2026-10-14T01:40Z"
+},
+{
 "athlete_id": "6430",
 "name": "Jimmy Butler III",
 "team_name": "Golden State Warriors",
@@ -1815,7 +1830,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-16",
 "injury": "Rest",
-"updated": "2026-10-14T01:05Z"
+"updated": "2026-10-14T01:06Z"
 },
 {
 "athlete_id": "5142620",
