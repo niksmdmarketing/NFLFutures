@@ -19,6 +19,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "pipeline"))
 sys.path.insert(0, os.path.join(ROOT, "research"))
 import nba as N  # noqa: E402
+N.OVERRIDES_PATH = ""   # judgement overrides apply to the live season only, never to replays
 import nba_rapm as RA  # noqa: E402
 
 D = N.NBA_DATA

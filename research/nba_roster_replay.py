@@ -17,6 +17,7 @@ import pandas as pd
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "pipeline"))
 import nba as N  # noqa: E402
+N.OVERRIDES_PATH = ""   # judgement overrides apply to the live season only, never to replays
 
 D = N.NBA_DATA
 MULTI = float(os.environ.get("RR_MULTI", "0"))

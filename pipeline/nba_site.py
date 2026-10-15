@@ -43,6 +43,19 @@ def div_of(team, y):
     return next((d for d, ts in D.items() if team in ts), None)
 
 
+def _overrides_note() -> str:
+    """One sentence listing the owner's judgement overrides (model/nba_overrides.json), if any."""
+    try:
+        import nba
+        ov = nba._overrides()
+    except Exception:  # noqa: BLE001
+        return ""
+    if not ov:
+        return ""
+    items = "; ".join(f"{v.get('name', k)} ({v.get('team', '')}) {int(v['minutes']):,} minutes" for k, v in ov.items() if v.get("minutes") is not None)
+    return (" Judgement overrides (projected minutes set by hand, not tested in the replay): " + items + ".")
+
+
 def _num(df, c):
     return pd.to_numeric(df[c], errors="coerce").fillna(0.0) if c in df else pd.Series(0.0, index=df.index)
 
@@ -539,7 +552,7 @@ def futures(cur):
     gp = np.mean([r["gp"] for r in rows]) if rows else 0
     return {"season": cur, "group_label": "Division", "sims": 100000, "main": "p_title",
             "status": f"{cur - 1}-{str(cur)[2:]} season" + (" — before opening night" if gp == 0 else f" — through about {gp:.0f} games per team"),
-            "intro": "Projected wins and chances from the season simulation (opponent-adjusted offence and defence, weighted heavily to last season and this season's games, plus a roster adjustment and, before the season and in its first 20 games, player ratings from lineup data, then every remaining game, the play-in and the playoffs, where each team's top eight players count more).",
+            "intro": "Projected wins and chances from the season simulation (opponent-adjusted offence and defence, weighted heavily to last season and this season's games, plus a roster adjustment and, before the season and in its first 20 games, player ratings from lineup data, then every remaining game, the play-in and the playoffs, where each team's top eight players count more)." + _overrides_note(),
             "backtest_html": _backtest_html(),
             "avail_html": _avail_html(F.get("availability") or {}),
             "proj": {"k": "w_mean", "l": "Proj. wins", "lo": "w_p10", "hi": "w_p90", "f": "num1"},

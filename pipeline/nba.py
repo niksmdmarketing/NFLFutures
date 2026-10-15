@@ -716,7 +716,35 @@ def _roster_values(values: pd.DataFrame, values_prev: pd.DataFrame | None) -> pd
     out = pd.DataFrame({"minutes": np.where(back, j.minutes_2, j.minutes), "minutes_last": j.minutes,
                         "impact": np.where(back, j.impact_2, np.where(j.minutes > 0, blend, 0.0))}, index=j.index)
     out = out[(j.minutes > 0) | back]
-    return out.reset_index().rename(columns={"index": "athlete_id"})
+    out = out.reset_index().rename(columns={"index": "athlete_id"})
+    return _apply_overrides(out)
+
+
+OVERRIDES_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "model", "nba_overrides.json")
+
+
+def _overrides() -> dict:
+    """Judgement overrides set by the site owner (model/nba_overrides.json): {athlete_id: {"name", "minutes", "note"}}.
+    Projected regular-season minutes for a player whose last season the numbers misread (e.g. a healthy star shut down
+    by a tanking team). Not validated by a replay; listed on the NBA page."""
+    try:
+        with open(OVERRIDES_PATH) as f:
+            return json.load(f).get("minutes", {})
+    except (OSError, ValueError):
+        return {}
+
+
+def _apply_overrides(rv: pd.DataFrame) -> pd.DataFrame:
+    ov = _overrides()
+    if not ov or not len(rv):
+        return rv
+    rv = rv.copy()
+    key = rv.athlete_id.astype(str).str.replace(r"\.0$", "", regex=True)
+    for aid, o in ov.items():
+        m = key == str(aid)
+        if m.any() and o.get("minutes") is not None:
+            rv.loc[m, "minutes"] = float(o["minutes"])
+    return rv
 
 
 DEPTH = os.environ.get("NBA_DEPTH", "0") == "1"   # research: depth-chart minutes on the new roster (see depth_minutes)

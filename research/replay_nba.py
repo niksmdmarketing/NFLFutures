@@ -19,6 +19,7 @@ import pandas as pd
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "pipeline"))
 import nba as N  # noqa: E402
+N.OVERRIDES_PATH = ""   # judgement overrides apply to the live season only, never to replays
 import nba_backtest as B  # noqa: E402
 import nba_title_backtest as T  # noqa: E402
 

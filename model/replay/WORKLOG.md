@@ -409,3 +409,11 @@ title/conference/division better, No. 1 seed 0.0933 -> 0.0936 and playoffs 0.293
 confidence 0.18; replay rule (no market worse) says no. Kept off by default.
 Note: research/replay_nba.py defaults to 2022-2026; pass 2013 2026 for the 14-season replay (live settings BT_FULL=1
 BT_PO_K=1 BT_PO_GAMMA=1.5 BT_PO_LASTPO=1 BT_PO_GAMES=1 reproduce 0.1649 exactly).
+
+## NBA: owner judgement overrides for projected minutes (15 Oct 2026) - LIVE, not replay-tested
+model/nba_overrides.json (pipeline/nba.py _overrides/_apply_overrides, applied to the roster step, player-rating team
+strength and playoff rotation; disabled in all replay scripts via N.OVERRIDES_PATH = ""; replay output verified unchanged).
+- Giannis Antetokounmpo (MIA) 2,300 min: 2025-26 he played 30 of MIL's first 46 games, 0 in Feb, 6 in Mar, none after 15 Mar
+  (63/74/68 games at 32-35 mpg the three seasons before). Miami 40.9 -> 46.2 wins, conf 1.1% -> 12.4%, title 0.2% -> 4.1%.
+- Cody Williams and Trey Lyles (MIN) 700 min each: Minnesota 41.0 -> 43.6 wins, conf 0.9% -> 2.1%, title 0.4% -> 1.1%.
+TypeSafe: Giannis yes (66%), Minnesota yes (72%). Polymarket at the time: MIA conf 10% / title 3.6%, MIN 10% / 6.3%.
