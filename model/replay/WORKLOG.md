@@ -468,3 +468,17 @@ NHL_LINEUP_N=5 NHL_LINEUP_PRE=0 NHL_LINEUP_VAL=rapm RAPM_LAM=300000 RAPM_KBOX=1;
 - 10-season replay vs live (fade 3): pts 0.0000 (4/10), po +0.0004 (CI -0.0014 to +0.0023, 5/10; title/conference better
   and early slopes near 1, but division and Presidents' Trophy worse), hl4 -0.0003 (3/10), win8 -0.0003 (1/10).
   None deployed (replay rule: no gain without harming another market).
+
+## 2026-10-15 NHL: GPT round 3 - playoff-only prior GD and tiebreak audit (no model change)
+- The earlier playoff-GD test had added it to the general prior. Playoff-only version (research/replay_nhl.py
+  NHL_PO_PRIOR_K): last season's playoff GD / (playoff games + K) added to the playoff-series rating only, faded like the
+  prior (k/(gp+k)). vs live fade 3: K20 -0.0010 (3/10), K40 +0.0001 (3/10), K80 +0.0004 (CI -0.0010 to +0.0020, 3/10);
+  K40 with fade 1 vs fade 1: +0.0006 (3/10). Early slopes move to ~1 (K40: Cup 0.99) but log loss does not improve.
+  Not deployed.
+- Tiebreak audit on 10 completed seasons: simplified order (points, RW, ROW, GD) vs era-aware fuller order (points,
+  RW from 2019-20 else ROW, ROW, wins, GD): 0 division winners, 1 playoff spot, 0 Presidents' Trophies differ; 2 team
+  pairs tied through wins (H2H needed). Exact tiebreakers deferred with this evidence.
+- Shadow fade 1.0 now uses the same simulation draws as live (common random numbers).
+- Prospective protocol (2026-27 onward): primary score = combined Cup + conference log loss of live (fade 3) vs shadow
+  (fade 1), weekly snapshots from the forecast archive, averaged within each season; Cup and conference reported
+  separately; no verdict from one season alone.

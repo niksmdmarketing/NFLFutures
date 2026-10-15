@@ -587,7 +587,7 @@ def build():
         sim_n = simulate(teams, state, games, rating.to_dict(), tau_now, total, hfa, max(SIMS // 2, 1000), po_scale=po_scale, po_delta=po_delta_n)
     # shadow (15 Oct 2026): the same model with the previous playoff fade (1.0), archived for prospective scoring vs 3.0
     share_left = max(0.0, 1 - n_avg / (n_avg + float(remaining_ct.mean())))
-    sim_s = simulate(teams, state, games, rating.to_dict(), tau_now, total, hfa, max(SIMS // 2, 1000), po_scale=1 + PO_FADE_SHADOW * share_left,
+    sim_s = simulate(teams, state, games, rating.to_dict(), tau_now, total, hfa, SIMS, po_scale=1 + PO_FADE_SHADOW * share_left,   # same draws as live
                      po_delta=po_delta, game_adj=game_adj)
     # previous model (goal-based playoff rating, no multiplier), kept as the comparison column
     sim_c = simulate(teams, state, games, rating.to_dict(), tau_now, total, hfa, max(SIMS // 2, 1000))

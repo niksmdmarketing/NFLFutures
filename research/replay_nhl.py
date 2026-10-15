@@ -35,6 +35,7 @@ LINEUP_C = float(os.environ.get("NHL_LINEUP_C", "0"))     # roster term from lin
 LINEUP_N = int(os.environ.get("NHL_LINEUP_N", "5"))
 LINEUP_PRE = os.environ.get("NHL_LINEUP_PRE", "1") == "1"   # include roster change vs last season (prior part)
 LINEUP_MIN = int(os.environ.get("NHL_LINEUP_MIN", "0"))     # games played before the term applies
+PO_PRIOR_K = float(os.environ.get("NHL_PO_PRIOR_K", "0"))   # playoff-only last-season playoff GD, K pseudo-games (0 = off)
 XG = os.environ.get("NHL_XG", "")   # "" = shots x league shooting % as the xG stand-in; raw | adj = MoneyPuck game xG
 MP_ALIAS = {"L.A": "LAK", "N.J": "NJD", "S.J": "SJS", "T.B": "TBL"}
 _MP = None
@@ -188,6 +189,15 @@ def run_season(TT, GG, fit_years, done, y):
             opening = cur_lv.groupby("team").lv.first()
         if S1 is not None:
             last_lv = nhl_lineup.game_values(S1, G1, val)
+    po_prev = pd.Series(0.0, index=teams)
+    if PO_PRIOR_K:
+        pp = os.path.join(nhl.NHL_OUT, f"team_{y - 1}p.json")
+        if os.path.exists(pp):
+            import json as _json
+            d_ = _json.load(open(pp))
+            P = pd.DataFrame(d_["rows"], columns=["team", "name"] + [c["k"] for c in d_["cols"]]).set_index("team")
+            gdp = M.numcol(P, "goalsFor") - M.numcol(P, "goalsAgainst")
+            po_prev = (gdp / (M.numcol(P, "gamesPlayed") + PO_PRIOR_K)).reindex(teams).fillna(0.0)   # n games x mean / (n + K)
     cuts = [first]
     d = first + pd.Timedelta(days=7)
     while d < last - pd.Timedelta(days=6):
@@ -231,6 +241,8 @@ def run_season(TT, GG, fit_years, done, y):
                               "gd": pl.groupby("team").gd.sum().reindex(teams).fillna(0)}, index=teams)
         state["row"] = pl.assign(x=win.astype(float)).groupby("team").x.sum().reindex(teams).fillna(0)
         n_avg = float(gp.mean())
+        if PO_PRIOR_K and po_delta is not None:   # playoff-only: last season's playoff goal difference, shrunk, faded like the prior
+            po_delta = po_delta + (po_prev * (k / (gp + k))).reindex(teams).fillna(0).to_numpy(float)
         sim = M.simulate(teams, state, list(zip(rm.team, rm.opp)), rating.to_dict(), M.tau_at(tau, n_avg), total, hfa, SIMS, seed=3, div_map=align, po_scale=PO_SCALE + PO_FADE * max(0.0, 1 - n_avg / 82), po_delta=po_delta)
         for i, t in enumerate(teams):
             rows.append(dict(season=y, week=wk, date=str(cut.date()), gp_avg=round(n_avg, 1), team=t, p_playoff=sim["playoffs"][i],
