@@ -417,3 +417,12 @@ strength and playoff rotation; disabled in all replay scripts via N.OVERRIDES_PA
   (63/74/68 games at 32-35 mpg the three seasons before). Miami 40.9 -> 46.2 wins, conf 1.1% -> 12.4%, title 0.2% -> 4.1%.
 - Cody Williams and Trey Lyles (MIN) 700 min each: Minnesota 41.0 -> 43.6 wins, conf 0.9% -> 2.1%, title 0.4% -> 1.1%.
 TypeSafe: Giannis yes (66%), Minnesota yes (72%). Polymarket at the time: MIA conf 10% / title 3.6%, MIN 10% / 6.3%.
+
+## NBA: general healthy-minutes projection (15 Oct 2026) - NOT DEPLOYED
+TypeSafe's pick (71%; it also judged the NBA model not meaningfully improvable, 85%). pipeline/nba.py NBA_HM (projected
+minutes = minutes per game over two seasons x expected games: last season + season before + 1 pseudo-season of 70 games),
+NBA_HM_UP (keep the larger of this and actual minutes), NBA_HM_AGG (a traded player's whole season, all teams, instead of
+his longest stint). Giannis 1,039 -> 1,877 projected. 14-season replay vs live 0.1649:
+- HM up -0.0005 (7/14); HM up + whole season 0.0000 (8/14); HM replace (can lower) -0.0010 (5/14);
+  whole season only +0.0002 (8/14; division and No. 1 seed worse). Conference and late title slightly better throughout,
+  division and No. 1 seed worse. All off by default; the owner's hand overrides (model/nba_overrides.json) stay.

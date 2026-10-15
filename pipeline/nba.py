@@ -698,6 +698,30 @@ def _player_mix(ratings: pd.DataFrame, players: pd.DataFrame, values: pd.DataFra
     return ratings
 
 
+# Healthy-minutes projection (research, 15 Oct 2026): projected minutes = minutes per game over the last two seasons x
+# expected games (last season, the season before x HM_W2, and HM_K pseudo-seasons of HM_G0 games); HM_UP keeps the larger
+# of this and the actual minutes. HM_AGG counts a traded player's whole season (all teams), not only his longest stint.
+HM = os.environ.get("NBA_HM", "0") == "1"
+HM_AGG = os.environ.get("NBA_HM_AGG", "0") == "1"
+HM_UP = os.environ.get("NBA_HM_UP", "0") == "1"
+HM_W2 = float(os.environ.get("NBA_HM_W2", "1"))
+HM_K = float(os.environ.get("NBA_HM_K", "1"))
+HM_G0 = float(os.environ.get("NBA_HM_G0", "70"))
+
+
+def _whole_season(v: pd.DataFrame) -> pd.DataFrame:
+    """One row per player for a season (sum over teams), keeping the team he played most minutes for."""
+    v = v.copy()
+    v["gmsc_tot"] = v.gmsc36 * v.minutes / 36
+    v["pm_tot"] = v.pm36 * v.minutes / 36
+    team = v.sort_values("minutes", ascending=False).drop_duplicates("athlete_id").set_index("athlete_id").team_abbreviation
+    g = v.groupby("athlete_id").agg(minutes=("minutes", "sum"), games=("games", "sum"), gmsc_tot=("gmsc_tot", "sum"), pm_tot=("pm_tot", "sum"))
+    g["gmsc36"] = g.gmsc_tot / g.minutes * 36
+    g["pm36"] = g.pm_tot / g.minutes * 36
+    g["team_abbreviation"] = team.reindex(g.index)
+    return g.drop(columns=["gmsc_tot", "pm_tot"]).reset_index()
+
+
 def _roster_values(values: pd.DataFrame, values_prev: pd.DataFrame | None) -> pd.DataFrame:
     """Per-player minutes and impact for the roster step (two seasons, more plus-minus, returning players)."""
     def rescore(v):
@@ -705,15 +729,31 @@ def _roster_values(values: pd.DataFrame, values_prev: pd.DataFrame | None) -> pd
         league = np.average(v.gmsc36, weights=v.minutes)
         v["impact"] = (((v.gmsc36 - league) * .24 + v.pm36 * ROSTER_PM_W) * np.minimum(1, v.minutes / 1200)).clip(-4, 6)
         return v.sort_values("minutes", ascending=False).drop_duplicates("athlete_id").set_index("athlete_id")[["minutes", "impact"]]
+    if HM_AGG:
+        values = _whole_season(values)
+        values_prev = _whole_season(values_prev) if values_prev is not None and len(values_prev) else values_prev
     a = rescore(values)
     if values_prev is None or not len(values_prev):
-        return a.assign(minutes_last=a.minutes).reset_index()
+        return _apply_overrides(a.assign(minutes_last=a.minutes).reset_index())
     b = rescore(values_prev)
     j = a.join(b, how="outer", rsuffix="_2").fillna(0.0)
     back = (j.minutes < 500) & (j.minutes_2 >= 1000)
     w = ROSTER_LAST_W * j.minutes + j.minutes_2
     blend = np.where(w > 0, (ROSTER_LAST_W * j.minutes * j.impact + j.minutes_2 * j.impact_2) / w.where(w > 0, 1), 0.0)
-    out = pd.DataFrame({"minutes": np.where(back, j.minutes_2, j.minutes), "minutes_last": j.minutes,
+    if HM:
+        ga = values.groupby("athlete_id").games.sum().reindex(j.index).fillna(0.0) if HM_AGG else \
+            values.sort_values("minutes", ascending=False).drop_duplicates("athlete_id").set_index("athlete_id").games.reindex(j.index).fillna(0.0)
+        gb = values_prev.groupby("athlete_id").games.sum().reindex(j.index).fillna(0.0) if HM_AGG else \
+            values_prev.sort_values("minutes", ascending=False).drop_duplicates("athlete_id").set_index("athlete_id").games.reindex(j.index).fillna(0.0)
+        mpg = (j.minutes + j.minutes_2) / (ga + gb).where(ga + gb > 0, np.nan)
+        g_exp = (ga + HM_W2 * gb + HM_K * HM_G0) / (1 + HM_W2 * (gb > 0) + HM_K)
+        proj = (mpg * g_exp).fillna(0.0).clip(upper=2900)
+        base_min = np.where(back, j.minutes_2, j.minutes)
+        hm = np.maximum(base_min, proj) if HM_UP else proj
+        new_min = np.where(ga > 0, hm, base_min)
+    else:
+        new_min = np.where(back, j.minutes_2, j.minutes)
+    out = pd.DataFrame({"minutes": new_min, "minutes_last": j.minutes,
                         "impact": np.where(back, j.impact_2, np.where(j.minutes > 0, blend, 0.0))}, index=j.index)
     out = out[(j.minutes > 0) | back]
     out = out.reset_index().rename(columns={"index": "athlete_id"})
