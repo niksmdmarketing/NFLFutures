@@ -166,6 +166,7 @@ TAU_PRE = 1.5
 # Replay 2014-2025 (10 seasons): conference/Cup log loss +0.0003 overall (90% -0.0005 to +0.0012), better 6 of 10; first
 # quarter +0.0012, better 7 of 10; early slopes 2.37 -> 1.99 (conference). Not significant, so run alongside, not live.
 PO_FADE_CHALLENGER = 1.0
+PO_FADE_SHADOW = 1.0   # shadow run of the previous live fade, archived (s_final, s_cup) to score 3.0 vs 1.0 prospectively
 # Share of expected goals in the in-season rate (rest = goals). Was 0.4 by judgement; 10-season weekly replay with
 # MoneyPuck game xG (15 Oct 2026): 20% vs 0% +0.0001, 40% vs 20% -0.0004; TypeSafe chose 20%.
 XG_SHARE = 0.2
@@ -557,6 +558,10 @@ def build():
     if absences is not None:
         po_delta_n = po_delta - np.array([po_inj.get(t, 0.0) for t in teams])
         sim_n = simulate(teams, state, games, rating.to_dict(), tau_now, total, hfa, max(SIMS // 2, 1000), po_scale=po_scale, po_delta=po_delta_n)
+    # shadow (15 Oct 2026): the same model with the previous playoff fade (1.0), archived for prospective scoring vs 3.0
+    share_left = max(0.0, 1 - n_avg / (n_avg + float(remaining_ct.mean())))
+    sim_s = simulate(teams, state, games, rating.to_dict(), tau_now, total, hfa, max(SIMS // 2, 1000), po_scale=1 + PO_FADE_SHADOW * share_left,
+                     po_delta=po_delta, game_adj=game_adj)
     # previous model (goal-based playoff rating, no multiplier), kept as the comparison column
     sim_c = simulate(teams, state, games, rating.to_dict(), tau_now, total, hfa, max(SIMS // 2, 1000))
     cdf = np.cumsum(sim["pts_hist"][:, ::-1], axis=1)[:, ::-1]                      # P(points >= x)
@@ -573,6 +578,7 @@ def build():
                      "p_playoffs": float(sim["playoffs"][i]), "p_div": float(sim["div"][i]), "p_pres": float(sim["pres"][i]),
                      "p_r2": float(sim["r2"][i]), "p_r3": float(sim["r3"][i]), "p_final": float(sim["final"][i]), "p_cup": float(sim["cup"][i]),
                      "c_final": float(sim_c["final"][i]), "c_cup": float(sim_c["cup"][i]),
+                     "s_final": float(sim_s["final"][i]), "s_cup": float(sim_s["cup"][i]),
                      "n_playoffs": float(sim_n["playoffs"][i]) if sim_n else None, "n_cup": float(sim_n["cup"][i]) if sim_n else None,
                      "n_pts": float(sim_n["pts_mean"][i]) if sim_n else None,
                      "over": [round(float(v), 4) for v in cdf[i][30:141]]})
