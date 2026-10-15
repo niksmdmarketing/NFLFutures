@@ -83,3 +83,8 @@ k_pass / (dropbacks so far + k_pass) (research/nfl_qb_prior_test.py, ratings.qb_
   +0.0013 (90% -0.0008 to +0.0035, 6/13), every market equal or better on average; on v4 ratings +0.0012 (6/13).
 - 2026 week 5 effect: BAL +1.1, CIN +1.5, HOU +0.8, NYG -0.5 (toward the market), SF +1.2 (away), MIN +2.5, MIA -2.1.
 TypeSafe 60% (low confidence 40%): added to challenger_v5 at weight 1.0 (settings qb_prior). v4 unchanged.
+
+## 16 Oct 2026: early-season rating stretch (TypeSafe's top idea, 33%, low confidence) - rejected
+BT_EARLY in research/replay_nfl.py: ratings x (1 + e x (1 - games played / 10)) from week 1, on the live v5 candidate
+(13 walk-forward seasons, 1,500 sims): e 0.25 -0.0003 (90% -0.0017 to +0.0008, 7/13), e 0.5 -0.0012 (7/13). Conference
+slightly better, playoffs/division worse. Not added. The game-level compression (x1.24) does not carry over to futures.

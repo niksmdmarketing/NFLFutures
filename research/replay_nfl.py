@@ -44,6 +44,10 @@ QB_PRIOR_INSEASON = os.environ.get("BT_QBPRIOR_INSEASON") == "1"   # skip the pr
 # team-effect shrinkage) with walk-forward ridge weights fitted on data/research/nfl_eng_<tag>.npz seasons before y.
 ENG = os.environ.get("BT_ENGINE")
 ENG_H = float(os.environ.get("BT_ENG_H", "0"))
+# BT_EARLY=e: early-season rating stretch (game level: model margins compressed early, x1.24 +/- 0.08 in weeks 4-8):
+# ratings x (1 + e x max(0, 1 - games played / BT_EARLY_N)), applied from week 1 (not preseason).
+EARLY = float(os.environ.get("BT_EARLY", "0"))
+EARLY_N = float(os.environ.get("BT_EARLY_N", "10"))
 
 
 def _engine_weights(y):
@@ -132,6 +136,8 @@ def run_season(g, y):
                 pt.append(kp / (float(ndb.get(t, 0)) + kp) * (vals2.get(mq, low2) - pv) if mq else 0.0)
             base = base + QB_PRIOR * np.array(pt)
         R = P.get("rating_scale", 1.0) * base
+        if EARLY and w > 0:
+            R = R * (1 + EARLY * max(0.0, 1 - gp.mean() / EARLY_N))
         R = R - R.mean()
         res = simulate.simulate(greg, R, SIMS, P["tau"] * (1 - TAUFADE * min(gp.mean() / 17.0, 1.0)), P["sigma"], P["hfa"], hfa_post=HFA_POST)
         date = str(pd.to_datetime(played.gameday).max().date()) if len(played) else str(pd.to_datetime(reg_all.gameday).min().date())
