@@ -457,3 +457,14 @@ NHL_LINEUP_N=5 NHL_LINEUP_PRE=0 NHL_LINEUP_VAL=rapm RAPM_LAM=300000 RAPM_KBOX=1;
   still too flat early, root cause not found. TypeSafe 43% deploy 3 (investigate root cause 38%).
 - 84-game season from 2026-27 (found by GPT): award projections, playoff fade and news trigger fixed.
 - TypeSafe next: stop NHL work (75%).
+
+## 2026-10-15 NHL: GPT follow-up - shadow fade 1.0 archived; three cheap prior tests NOT deployed
+- Live fade 3.0 frozen as provisional; the previous 1.0 now runs as an archived shadow (s_final, s_cup) for 2026-27 scoring.
+- Prior knobs (pipeline/nhl_model.py, research only): NHL_PRIOR_PTS (last-season points residual beyond goal difference),
+  NHL_PRIOR_PO (last season's playoff goal difference / 82), NHL_PRIOR_WIN (last N training seasons), NHL_PRIOR_HL
+  (half-life weighting). k and tau are re-estimated per fold with each prior.
+- Out-of-sample season GD RMSE (2014-2025; live 0.4586, 2023-25 0.4733): pts 0.4606, po 0.4590, win8 0.4615, win5 0.4622,
+  hl4 0.4598: all worse, including in the weak 2023-25 seasons.
+- 10-season replay vs live (fade 3): pts 0.0000 (4/10), po +0.0004 (CI -0.0014 to +0.0023, 5/10; title/conference better
+  and early slopes near 1, but division and Presidents' Trophy worse), hl4 -0.0003 (3/10), win8 -0.0003 (1/10).
+  None deployed (replay rule: no gain without harming another market).

@@ -94,20 +94,47 @@ def prior_features(y, TT):
     if y - 2 in TT:
         g2, _ = season_rates(TT[y - 2])
         out["gd2"] = g2.reindex(teams).fillna(out["gd1"]).values
+    if PRIOR_PTS and y - 1 in TT:            # research: standings points beyond what goal difference implies (last season)
+        T1 = TT[y - 1]
+        ppg = numcol(T1, "points") / numcol(T1, "gamesPlayed").replace(0, np.nan)
+        g1, _ = season_rates(T1)
+        ok = ppg.notna() & g1.notna()
+        b = np.polyfit(g1[ok], ppg[ok], 1)
+        out["pres1"] = (ppg - np.polyval(b, g1)).reindex(teams).fillna(0.0).values
+    if PRIOR_PO and y - 1 in TT:             # research: last season's playoff goal difference, spread over a season
+        p = os.path.join(nhl.NHL_OUT, f"team_{y - 1}p.json")
+        if os.path.exists(p):
+            d = json.load(open(p))
+            P = pd.DataFrame(d["rows"], columns=["team", "name"] + [c["k"] for c in d["cols"]]).set_index("team")
+            po = (numcol(P, "goalsFor") - numcol(P, "goalsAgainst")) / 82.0
+            out["gdpo"] = po.reindex(teams).fillna(0.0).values
+        else:
+            out["gdpo"] = 0.0
     if ROSTER != "none":
         import nhl_roster
         out = out.join(nhl_roster.roster_features(y, teams, current=nhl.start_year(), mode=ROSTER))
     return out.fillna(0.0)
 
 
+PRIOR_PTS = os.environ.get("NHL_PRIOR_PTS") == "1"        # research knobs (GPT critique, 15 Oct 2026); live: off
+PRIOR_PO = os.environ.get("NHL_PRIOR_PO") == "1"
+PRIOR_WIN = int(os.environ.get("NHL_PRIOR_WIN", "0"))       # train the prior on the last N seasons only (0 = all)
+PRIOR_HL = float(os.environ.get("NHL_PRIOR_HL", "0"))      # or weight training seasons by half-life (seasons; 0 = equal)
+
+
 def fit_prior(TT, years):
     X, Y, W = [], [], []
+    years = [y for y in years if y - 1 in TT and y in TT]
+    if PRIOR_WIN:
+        years = sorted(years)[-PRIOR_WIN:]
+    ymax = max(years) if years else 0
     for y in years:
         if y - 1 not in TT or y not in TT:
             continue
         f = prior_features(y, TT)
         g, _ = season_rates(TT[y])
-        X.append(f.values); Y.append(g.reindex(f.index).values); W.append(numcol(TT[y], "gamesPlayed").reindex(f.index).values)
+        X.append(f.values); Y.append(g.reindex(f.index).values)
+        W.append(numcol(TT[y], "gamesPlayed").reindex(f.index).values * (0.5 ** ((ymax - y) / PRIOR_HL) if PRIOR_HL else 1.0))
     X, Y, W = np.vstack(X), np.concatenate(Y), np.concatenate(W)
     ok = np.isfinite(Y) & np.isfinite(X).all(1)
     X, Y, W = X[ok], Y[ok], W[ok]
