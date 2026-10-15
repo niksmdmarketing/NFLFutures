@@ -1,5 +1,5 @@
 {
- "note": "Judgement overrides set by the site owner (15-16 Oct 2026), not validated by a replay. Projected regular-season minutes replace the model's projection for these players only (team model, playoff rotation and award projections). TypeSafe: Giannis yes (66%), Minnesota bench yes (72%), Lillard 1,800 (83%), Morant 900 (68%). Review each September.",
+ "note": "Judgement overrides set by the site owner (15-16 Oct 2026), not validated by a replay. Projected regular-season minutes replace the model's projection for these players only (team model and playoff rotation). TypeSafe: Giannis yes (66%), Minnesota bench yes (72%), Lillard 1,800 (83%). Morant, Tatum, Sabonis and Davis set by the owner on 16 Oct. Review each September.",
  "minutes": {
   "3032977": {
    "name": "Giannis Antetokounmpo",
@@ -28,8 +28,26 @@
   "4279888": {
    "name": "Ja Morant",
    "team": "POR",
-   "minutes": 900,
-   "note": "568 minutes in 2025-26 (20 games, Memphis) and 1,515 in 2024-25; repeated absences, so a partial season rather than last season's low or a full season. Now with Portland (ESPN roster)."
+   "minutes": 1700,
+   "note": "Owner (16 Oct): new team, judge on career and age (27). Career average with the 2023-24 suspension season left out: 2,094 / 2,055 / 1,912 / 1,970 / 1,515 / 568 -> about 1,700."
+  },
+  "4065648": {
+   "name": "Jayson Tatum",
+   "team": "BOS",
+   "minutes": 2700,
+   "note": "Owner (16 Oct): a full season. Full seasons 2021-22 to 2024-25: 2,752 / 2,768 / 2,670 / 2,644; 522 in 2025-26 coming back from the Achilles tear."
+  },
+  "3155942": {
+   "name": "Domantas Sabonis",
+   "team": "SAC",
+   "minutes": 2050,
+   "note": "Owner (16 Oct): career average. 2016-17 to 2025-26 average 2,054 (565 in 2025-26)."
+  },
+  "6583": {
+   "name": "Anthony Davis",
+   "team": "WSH",
+   "minutes": 1700,
+   "note": "Owner (16 Oct): injury-prone, so his recent average, not his career. Last three seasons 2,764 / 1,705 / 625 -> about 1,700."
   }
  }
 }

@@ -522,3 +522,7 @@ NHL_LINEUP_N=5 NHL_LINEUP_PRE=0 NHL_LINEUP_VAL=rapm RAPM_LAM=300000 RAPM_KBOX=1;
     now shown with Toronto.
   - Near-lost-season rule (players under 30 games after 60+ the season before enter on the season before; AW_RETURN in
     research/nba_awards_replay.py, preseason 2010-2026): -0.008 (MVP -0.029, DPOY -0.016, Sixth Man +0.021). Not adopted.
+- 16 Oct (later): owner overrides from the owner's own judgement: Morant 1,700 (career average without the 2023-24
+  suspension season; new team, age 27), Tatum 2,700 (full season), Sabonis 2,050 (career average), Davis 1,700 (last
+  three seasons, not career). vs this morning: BOS 50.9 -> 55.4 wins (title 2.7% -> 6.9%), WSH 21.8 -> 24.4, SAC 25.0 ->
+  26.5, POR 42.5 -> 43.9; others within 0.5 wins. Award models left as they are (owner).
