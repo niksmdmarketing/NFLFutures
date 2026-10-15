@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-10-14T2344Z",
-"feed_timestamp": "2026-10-14T23:44:51Z",
+"collected_utc": "2026-10-15T0000Z",
+"feed_timestamp": "2026-10-15T00:00:25Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -400,10 +400,10 @@
 "injury": "Illness"
 },
 {
-"athlete_id": "5082206",
+"athlete_id": "4397475",
 "status": "Day-To-Day",
-"return_date": "2026-10-14",
-"injury": "Coach's Decision"
+"return_date": "2026-10-16",
+"injury": "Rest"
 },
 {
 "athlete_id": "4277843",
@@ -418,10 +418,10 @@
 "injury": "Rest"
 },
 {
-"athlete_id": "5214640",
+"athlete_id": "4397140",
 "status": "Day-To-Day",
-"return_date": "2026-10-14",
-"injury": "Coach's Decision"
+"return_date": "2026-10-16",
+"injury": "Rest"
 },
 {
 "athlete_id": "3134907",
@@ -430,10 +430,22 @@
 "injury": "Rest"
 },
 {
+"athlete_id": "3133628",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
+"injury": "Rest"
+},
+{
 "athlete_id": "5164559",
 "status": "Day-To-Day",
-"return_date": "2026-10-14",
+"return_date": "2026-10-16",
 "injury": "Left Ankle Sprain"
+},
+{
+"athlete_id": "4591725",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
+"injury": "Rest"
 },
 {
 "athlete_id": "4395725",
@@ -660,7 +672,7 @@
 {
 "athlete_id": "4601023",
 "status": "Day-To-Day",
-"return_date": "2026-10-14",
+"return_date": "2026-10-16",
 "injury": "Rest"
 },
 {
@@ -897,7 +909,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-16",
 "injury": "Illness",
-"updated": "2026-10-10T23:58Z"
+"updated": "2026-10-14T23:43Z"
 },
 {
 "athlete_id": "4277951",
@@ -1404,13 +1416,13 @@
 "updated": "2026-10-14T21:55Z"
 },
 {
-"athlete_id": "5082206",
-"name": "Brayden Burries",
+"athlete_id": "4397475",
+"name": "AJ Green",
 "team_name": "Milwaukee Bucks",
 "status": "Day-To-Day",
-"return_date": "2026-10-14",
-"injury": "Coach's Decision",
-"updated": "2026-10-11T22:45Z"
+"return_date": "2026-10-16",
+"injury": "Rest",
+"updated": "2026-10-14T23:46Z"
 },
 {
 "athlete_id": "4277843",
@@ -1431,13 +1443,13 @@
 "updated": "2026-10-14T22:54Z"
 },
 {
-"athlete_id": "5214640",
-"name": "Kasparas Jakucionis",
+"athlete_id": "4397140",
+"name": "Kevin Porter Jr.",
 "team_name": "Milwaukee Bucks",
 "status": "Day-To-Day",
-"return_date": "2026-10-14",
-"injury": "Coach's Decision",
-"updated": "2026-10-11T22:46Z"
+"return_date": "2026-10-16",
+"injury": "Rest",
+"updated": "2026-10-14T23:47Z"
 },
 {
 "athlete_id": "3134907",
@@ -1449,13 +1461,31 @@
 "updated": "2026-10-14T22:57Z"
 },
 {
+"athlete_id": "3133628",
+"name": "Myles Turner",
+"team_name": "Milwaukee Bucks",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
+"injury": "Rest",
+"updated": "2026-10-14T23:46Z"
+},
+{
 "athlete_id": "5164559",
 "name": "Nate Ament",
 "team_name": "Milwaukee Bucks",
 "status": "Day-To-Day",
-"return_date": "2026-10-14",
+"return_date": "2026-10-16",
 "injury": "Left Ankle Sprain",
 "updated": "2026-10-11T22:41Z"
+},
+{
+"athlete_id": "4591725",
+"name": "Ryan Rollins",
+"team_name": "Milwaukee Bucks",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
+"injury": "Rest",
+"updated": "2026-10-14T23:46Z"
 },
 {
 "athlete_id": "4395725",
@@ -1795,9 +1825,9 @@
 "name": "Oso Ighodaro",
 "team_name": "Phoenix Suns",
 "status": "Day-To-Day",
-"return_date": "2026-10-14",
+"return_date": "2026-10-16",
 "injury": "Rest",
-"updated": "2026-10-14T16:41Z"
+"updated": "2026-10-14T23:38Z"
 },
 {
 "athlete_id": "4706557",
