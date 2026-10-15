@@ -177,6 +177,32 @@ def expected_starters(season, injuries, depth):
     return out
 
 
+def qb_prior_adj(cur_pbp, pri_pbp, pri2_pbp, weight=1.0):
+    """v5 candidate (16 Oct 2026): QB-availability correction of the previous-season prior, in season only.
+    weight x k_pass / (dropbacks so far + k_pass) x (value of this season's main QB - dropback-weighted value of last
+    season's QBs). Game-level 2008-2025 weeks 1-10: slope 0.96 (se 0.22), walk-forward 11/15; futures replay in season
+    +0.0013 (6/13, every market equal or better). Returns points per team (TEAMS order); zeros before any games."""
+    cs = scrimmage(cur_pbp)
+    if not len(cs):
+        return np.zeros(NT)
+    vals, low, _ = qb_values(cur_pbp, pri_pbp, pri2_pbp)
+    cur = cs[cs.qb_dropback == 1].assign(qb=lambda x: x.passer_player_id.fillna(x.rusher_player_id)).dropna(subset=["qb"])
+    ref = cur.groupby("posteam").qb.agg(lambda x: x.value_counts().index[0]).to_dict()
+    ndb = cs[cs.db == 1].groupby("posteam").size()
+    ps = scrimmage(pri_pbp)
+    ps = ps[ps.qb_dropback == 1].assign(qb=lambda x: x.passer_player_id.fillna(x.rusher_player_id)).dropna(subset=["qb"])
+    cnt = ps.groupby(["posteam", "qb"]).size()
+    kp = P["k"]["pass"]
+    out = np.zeros(NT)
+    for i, t in enumerate(TEAMS):
+        if t not in ref or t not in cnt.index.get_level_values(0):
+            continue
+        c = cnt.loc[t]
+        prior_val = float(sum(n * vals.get(q, low) for q, n in c.items()) / c.sum())
+        out[i] = weight * kp / (float(ndb.get(t, 0)) + kp) * (vals.get(ref[t], low) - prior_val)
+    return out
+
+
 def team_ratings(season, games, cur_pbp, pri_pbp, pri2_pbp):
     base, comp = base_ratings(cur_pbp, pri_pbp, games, season)
     log("base ratings done")

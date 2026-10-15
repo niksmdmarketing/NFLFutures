@@ -71,7 +71,13 @@ def main():
             cols5, XT = nfl_engine.team_features(cur, pri, g, season, through + 1, W5["H"], 0, False)
             base5 = XT @ np.array([W5["weights"][c] for c in cols5])
             base5 = base5 - base5.mean()
-            R5 = S.get("rating_scale", 1.0) * (base5 + R.qb_adj.reindex(TEAMS).fillna(0).values) + R.press_adj.reindex(TEAMS).fillna(0).values
+            qp5 = np.zeros(len(TEAMS))
+            if C5.get("qb_prior"):   # QB-availability prior, in season only (ratings.qb_prior_adj)
+                try:
+                    qp5 = ratings.qb_prior_adj(cur, pri, pri2, float(C5["qb_prior"]))
+                except Exception as e:  # noqa: BLE001
+                    log("v5 QB prior skipped:", repr(e)[:120])
+            R5 = S.get("rating_scale", 1.0) * (base5 + R.qb_adj.reindex(TEAMS).fillna(0).values + qp5) + R.press_adj.reindex(TEAMS).fillna(0).values
             R5 = R5 - R5.mean()
         except Exception as e:  # never block the refresh; fall back to the v4 ratings
             log("v5 candidate ratings failed, using v4 ratings:", repr(e)[:200])

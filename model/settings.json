@@ -438,8 +438,9 @@
   "name": "v5 candidate: recency-weighted ratings, playoff home edge 4.0, less rating uncertainty",
   "hfa_post": 4.0,
   "n_sims": 20000,
-  "note": "Team ratings from pipeline/nfl_engine.py (v4 components with this season's plays weighted by recency, half-life 4 weeks, team-effect shrinkage 60; weights model/challenger_v5_weights.json fitted on game margins 2010-2025) plus the live QB and pressure layers; playoff home edge 4.0 instead of 1.8; tau 4.0 / sigma 12.0 instead of 5.0 / 11.37. Walk-forward futures replay 2013-2025 vs v4: +0.0032 mean log loss (recency ratings +0.0012 over the previous candidate, better in 11 of 13 seasons, every market better). TypeSafe 90%. Archived alongside v4; not the live forecast.",
+  "note": "Team ratings from pipeline/nfl_engine.py (v4 components with this season's plays weighted by recency, half-life 4 weeks, team-effect shrinkage 60; weights model/challenger_v5_weights.json fitted on game margins 2010-2025) plus the live QB and pressure layers; playoff home edge 4.0 instead of 1.8; tau 4.0 / sigma 12.0 instead of 5.0 / 11.37. Walk-forward futures replay 2013-2025 vs v4: +0.0032 mean log loss (recency ratings +0.0012 over the previous candidate, better in 11 of 13 seasons, every market better). TypeSafe 90%. Archived alongside v4; not the live forecast. From 16 Oct 2026 also a QB-availability correction of last season's prior, in season only (ratings.qb_prior_adj, weight 1.0): game-level 2008-2025 slope 0.96 (se 0.22), futures replay +0.0013 (6/13), TypeSafe 60%.",
   "tau": 4.0,
-  "sigma": 12.0
+  "sigma": 12.0,
+  "qb_prior": 1.0
  }
 }

@@ -36,6 +36,10 @@ OUT = os.environ.get("BT_OUTDIR") or os.path.join(ROOT, "model", "replay")
 # BT_QB=lambda: quarterback layer as live (expected starter vs the QB behind this season's numbers); expected starter = the
 # QB who took the team's first dropback in its next game (known before kickoff), preseason = week-1 starter.
 QB_LAM = float(os.environ.get("BT_QB", "0"))
+# BT_QBPRIOR=gamma: QB-availability-adjusted prior (research/nfl_qb_prior_test.py): + gamma x wp_pass x (value of this season's
+# main QB, or the week-1 starter before any games - dropback-weighted value of last season's QBs).
+QB_PRIOR = float(os.environ.get("BT_QBPRIOR", "0"))
+QB_PRIOR_INSEASON = os.environ.get("BT_QBPRIOR_INSEASON") == "1"   # skip the preseason checkpoint (no games yet)
 # BT_ENGINE=<tag>: team ratings from research/nfl_rating_engine.py features (BT_ENG_H recency half-life, BT_ENG_ALPHA
 # team-effect shrinkage) with walk-forward ridge weights fitted on data/research/nfl_eng_<tag>.npz seasons before y.
 ENG = os.environ.get("BT_ENGINE")
@@ -71,13 +75,17 @@ def run_season(g, y):
     if WF is not None:
         ratings.P["coef"] = WF[str(y)]["coef"]
     cur_all, pri = load_pbp(y), load_pbp(y - 1)
-    pri2 = load_pbp(y - 2) if QB_LAM else None
+    pri2 = load_pbp(y - 2) if (QB_LAM or QB_PRIOR) else None
     if ENG:
         sys.path.insert(0, os.path.join(ROOT, "research"))
         os.environ.setdefault("ENG_ALPHA", os.environ.get("BT_ENG_ALPHA", "20"))
         import nfl_engine as E
         ew = _engine_weights(y)
-    firsts = _first_qbs(cur_all) if QB_LAM else None
+    firsts = _first_qbs(cur_all) if (QB_LAM or QB_PRIOR) else None
+    if QB_PRIOR:
+        sys.path.insert(0, os.path.join(ROOT, "research"))
+        from nfl_qb_prior_test import qb_mix
+        mix = qb_mix(pri)
     out = B.outcomes(g, y)
     P = {**ratings.S["sim"], **OVR}
     rows = []
@@ -107,6 +115,22 @@ def run_season(g, y):
             adj = np.array([QB_LAM * (vals.get(nxt.get(t), low_val) - vals.get(ref.get(t), low_val))
                             if nxt.get(t) and ref.get(t) and nxt[t] != ref[t] else 0.0 for t in TEAMS])
             base = base + adj
+        if QB_PRIOR and (len(cur) or not QB_PRIOR_INSEASON):
+            from common import scrimmage
+            vals2, low2, _ = ratings.qb_values(cur, pri, pri2)
+            refc = _ref_qbs(cur) if len(cur) else {}
+            cs = scrimmage(cur) if len(cur) else None
+            ndb = cs[cs.db == 1].groupby("posteam").size() if cs is not None and len(cs) else pd.Series(dtype=float)
+            kp = ratings.P["k"]["pass"]
+            pt = []
+            for t in TEAMS:
+                mq = refc.get(t)
+                if mq is None:
+                    wk = [k for k in firsts.index if k[1] == t]
+                    mq = firsts[min(wk)] if wk else None
+                pv = sum(sh * vals2.get(q, low2) for q, sh in mix.get(t, {}).items())
+                pt.append(kp / (float(ndb.get(t, 0)) + kp) * (vals2.get(mq, low2) - pv) if mq else 0.0)
+            base = base + QB_PRIOR * np.array(pt)
         R = P.get("rating_scale", 1.0) * base
         R = R - R.mean()
         res = simulate.simulate(greg, R, SIMS, P["tau"] * (1 - TAUFADE * min(gp.mean() / 17.0, 1.0)), P["sigma"], P["hfa"], hfa_post=HFA_POST)

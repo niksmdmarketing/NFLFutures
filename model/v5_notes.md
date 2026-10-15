@@ -69,3 +69,17 @@ game-level walk-forward 2019-2025 (research/nfl_player_test.py):
   net +0.0002 (4/7), injury delta -0.0007 (4/7), jointly -0.0004 (4/7), usual-lineup strength +0.0001. No gain.
 Conclusion: with free data, non-QB player effects add nothing measurable over team ratings + the QB layer; the earlier
 non-QB injury idea (TypeSafe: gain too small) is consistent with this. Not adopted.
+
+## QB-availability prior (16 Oct 2026) - added to the v5 candidate (in season only)
+Prompted by the 2026 model-vs-market gaps (Baltimore: Jackson started 12/17 in 2025; Cincinnati: Burrow 7/17). The prior
+half of the rating describes last season's QBs, while the QB layer only compares with this season's main QB.
+Candidate: w_prior x (value of this season's main QB - dropback-weighted value of last season's QBs), w_prior =
+k_pass / (dropbacks so far + k_pass) (research/nfl_qb_prior_test.py, ratings.qb_prior_adj).
+- Game level 2008-2025, weeks 1-10 (2,651 games, point in time): free slope 0.96 (se 0.22); margin RMSE 13.566 -> 13.518
+  at weight 1.0; walk-forward weight choice better in 11/15 seasons. The market already prices it (market-minus-model gap on
+  the term: slope 0.75, corr 0.31); beyond the closing spread it adds 0.27 +/- 0.23.
+- Futures replay, 13 walk-forward seasons on the v5 candidate (BT_QBPRIOR in research/replay_nfl.py): including the
+  preseason checkpoint +0.0006 (6/13, preseason clearly worse); in season only weight 0.75 +0.0011 (6/13), weight 1.0
+  +0.0013 (90% -0.0008 to +0.0035, 6/13), every market equal or better on average; on v4 ratings +0.0012 (6/13).
+- 2026 week 5 effect: BAL +1.1, CIN +1.5, HOU +0.8, NYG -0.5 (toward the market), SF +1.2 (away), MIN +2.5, MIA -2.1.
+TypeSafe 60% (low confidence 40%): added to challenger_v5 at weight 1.0 (settings qb_prior). v4 unchanged.
