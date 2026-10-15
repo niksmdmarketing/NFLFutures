@@ -1,6 +1,6 @@
 """NHL injury list for the live model: who is out and until when.
 
-Source: CBS Sports NHL injuries page (robots.txt allows it), fetched once per pipeline run and cached for six hours. Each
+Source: CBS Sports NHL injuries page (robots.txt allows it), fetched once per pipeline run and cached for 1.5 hours. Each
 row gives the team, player, position and a status such as "IR. Expected to be out until at least Nov 25" or "Day-to-Day".
 Nothing here is used for markets; it only says which players will miss which games.
 """
@@ -20,8 +20,10 @@ CBS_TEAM = {"CLB": "CBJ", "LA": "LAK", "LV": "VGK", "MON": "MTL", "NJ": "NJD", "
 MONTHS = {m: i for i, m in enumerate(["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], 1)}
 
 
-def fetch(max_age_h=6.0):
-    """Raw HTML (cached), or None if unavailable."""
+def fetch(max_age_h=None):
+    """Raw HTML (cached), or None if unavailable. Cache age NHL_INJ_MAX_AGE_H (default 1.5 h, so every 2-hourly run reads a fresh list)."""
+    if max_age_h is None:
+        max_age_h = float(os.environ.get("NHL_INJ_MAX_AGE_H", "1.5"))
     os.makedirs(nhl.NHL_DATA, exist_ok=True)
     path = os.path.join(nhl.NHL_DATA, "injuries_cbs.html")
     if os.path.exists(path) and time.time() - os.path.getmtime(path) < max_age_h * 3600:

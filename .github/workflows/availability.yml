@@ -7,6 +7,7 @@ on:
   workflow_dispatch:
 permissions:
   contents: write
+  actions: write
 concurrency:
   group: availability
   cancel-in-progress: false
@@ -39,6 +40,17 @@ jobs:
             done
           fi
           NBL_PLAYERS_DIR=../nbl-players python pipeline/avail_collect.py ../injury-monitor
+      - name: NHL news trigger (re-run the site now if big injury news, threshold set with TypeSafe)
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p ../pub
+          git fetch -q origin published
+          Y=$(git show FETCH_HEAD:nhl/data/futures.json | python -c "import json,sys; print(json.load(sys.stdin)['season'])")
+          git archive FETCH_HEAD nhl/data/futures.json nhl/data/skaters_$((Y-2)).json nhl/data/skaters_$((Y-1)).json nhl/data/skaters_$Y.json \
+            nhl/data/goalies_$((Y-2)).json nhl/data/goalies_$((Y-1)).json nhl/data/goalies_$Y.json | tar -x -C ../pub
+          python pipeline/nhl_news_trigger.py ../pub ../injury-monitor
       - name: Save (append-only history; retries if the site refresh pushed meanwhile)
         run: |
           cd ../injury-monitor

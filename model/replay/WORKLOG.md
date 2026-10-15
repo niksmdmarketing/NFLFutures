@@ -426,3 +426,10 @@ his longest stint). Giannis 1,039 -> 1,877 projected. 14-season replay vs live 0
 - HM up -0.0005 (7/14); HM up + whole season 0.0000 (8/14); HM replace (can lower) -0.0010 (5/14);
   whole season only +0.0002 (8/14; division and No. 1 seed worse). Conference and late title slightly better throughout,
   division and No. 1 seed worse. All off by default; the owner's hand overrides (model/nba_overrides.json) stay.
+
+## 2026-10-15 NHL news trigger (operations, no model change)
+- CBS injury cache 6 h -> 1.5 h, so every 2-hourly refresh reads a fresh list (worst-case lag ~8 h -> ~2 h).
+- Hourly availability job runs `pipeline/nhl_news_trigger.py`: fresh CBS list vs the last published list, each change valued
+  with the model's own absence costs (goals/game x games missed). A new absence or return worth >= 2.0 goals (TypeSafe 60%)
+  starts 'Refresh site' immediately; 6 h cooldown per player; decisions logged to injury-monitor availability/news_trigger.jsonl.
+- NBA: not triggered, because the availability layer is not used in NBA futures (no measurable replay gain).
