@@ -1,11 +1,23 @@
 #!/bin/bash
-# Probe NHL shift-chart and play-by-play feeds (robots + one game). Writes data/research/nhl_shift_probe/
-D=data/research/nhl_shift_probe; mkdir -p $D
+# Robots / access probe for football data sites (robots.txt and one page status only). Writes data/research/site_probe.txt
+mkdir -p data/research; O=data/research/site_probe.txt
 UA="SportsFutures/1.0 (private research; low volume)"
 {
-for h in api.nhle.com api-web.nhle.com www.nhl.com; do echo "== robots $h"; curl -sSL -m 20 -A "$UA" https://$h/robots.txt -w '\nHTTP %{http_code}\n' | head -30; done
-} > $D/robots.txt 2>&1
-curl -sSL -m 60 -A "$UA" "https://api.nhle.com/stats/rest/en/shiftcharts?cayenneExp=gameId=2024020500" -o $D/shifts.json -w 'shifts HTTP %{http_code} %{size_download} %{time_total}\n' > $D/status.txt
-curl -sSL -m 60 -A "$UA" "https://api-web.nhle.com/v1/gamecenter/2024020500/play-by-play" -o $D/pbp.json -w 'pbp HTTP %{http_code} %{size_download} %{time_total}\n' >> $D/status.txt
-curl -sSL -m 60 -A "$UA" "https://api.nhle.com/stats/rest/en/shiftcharts?cayenneExp=gameId=2014020500" -o $D/shifts2014.json -w 'shifts2014 HTTP %{http_code} %{size_download}\n' >> $D/status.txt
-curl -sSL -m 60 -A "$UA" "https://api-web.nhle.com/v1/gamecenter/2014020500/play-by-play" -o $D/pbp2014.json -w 'pbp2014 HTTP %{http_code} %{size_download}\n' >> $D/status.txt
+for site in www.whoscored.com www.transfermarkt.com www.fotmob.com; do
+  echo "== $site"
+  curl -sSL -m 20 -A "$UA" "https://$site/robots.txt" -o /tmp/rb.txt -w 'robots HTTP %{http_code}\n'
+  python3 - "$site" <<'PY'
+import sys, urllib.robotparser
+site = sys.argv[1]
+txt = open('/tmp/rb.txt', errors='ignore').read()
+print('  first lines:', ' | '.join(txt.splitlines()[:12])[:600])
+rp = urllib.robotparser.RobotFileParser(); rp.parse(txt.splitlines())
+paths = {'www.whoscored.com': ['/Regions/252/Tournaments/2/England-Premier-League', '/Players/1'],
+         'www.transfermarkt.com': ['/premier-league/startseite/wettbewerb/GB1', '/liverpool-fc/kader/verein/31'],
+         'www.fotmob.com': ['/api/matchDetails', '/leagues/47/overview/premier-league']}[site]
+for ua in ('anthropic-ai', 'ClaudeBot', 'SportsFutures', '*'):
+    print('  ', ua, {p: rp.can_fetch(ua, f'https://{site}{p}') for p in paths})
+PY
+  curl -sSL -m 20 -A "$UA" "https://$site/" -o /dev/null -w '  home page HTTP %{http_code}\n'
+done
+} > $O 2>&1
