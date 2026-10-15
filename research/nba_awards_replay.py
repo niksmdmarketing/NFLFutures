@@ -91,12 +91,17 @@ def replay(first, last):
                 Pp = pool(prev.assign(season=y), award, y)
                 Pp[feats] = Pp[feats].fillna(Pp[feats].median())
                 p_live = dict(zip(Pp.name.map(AM_norm), logit_probs(Pp, feats, beta)))
-                p_sim = SIM.preseason_probs(prev, award, feats, beta, L, y)
+                ct = None
+                if os.environ.get("AW_CURTEAM") == "1":   # team a player opens the season with (known by opening night)
+                    bb = b.sort_values("date")
+                    ct = {str(k): v for k, v in bb.groupby("athlete_id").team.first().items()}
+                prev2 = FT[y - 2][1] if (y - 2) in FT else None
+                p_sim = SIM.preseason_probs(prev, award, feats, beta, L, y, prev2=prev2, cur_team=ct)
                 for meth, pm in (("live", p_live), ("sim", p_sim)):
                     pw = pm.get(win, 0.0)
                     rows.append(dict(season=y, award=award, ck=-1, frac=0.0, method=meth, p_winner=pw, fav=max(pm.values()) if pm else 0.0,
                                      fav_won=int(bool(pm) and max(pm, key=pm.get) == win), nll=-np.log(max(pw, 0.002))))
-            for ci, cut in enumerate(cuts):
+            for ci, cut in enumerate([] if os.environ.get("AW_PRE_ONLY") == "1" else cuts):
                 a = season_lines(b, cut)
                 a["rookie"] = a.index.isin(rookies)
                 a["wp"] = a.tw / a.tg.clip(lower=1)

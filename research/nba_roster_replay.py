@@ -25,6 +25,8 @@ MINAVG = os.environ.get("RR_MINAVG") == "1"   # injury-shortened season: minutes
 GAMES = float(os.environ.get("RR_GAMES", "0"))   # checkpoint: games per team played (0 = preseason); target = rest of season
 GW = float(os.environ.get("RR_GW", "0.24"))   # weight on game score per 36 above average (live 0.24)
 PW = float(os.environ.get("RR_PW", "0.045"))  # weight on plus-minus per 36 (live 0.045)
+RET_MIN = float(os.environ.get("RR_RET_MIN", "500"))     # returning rule: under this many minutes last season ...
+RET_PREV = float(os.environ.get("RR_RET_PREV", "1000"))  # ... after at least this many the season before
 _orig_values = N._player_values
 
 
@@ -54,7 +56,7 @@ def strength(assign, vals, return_fix, vals2):
     for a, t in assign.items():
         m, im = float(v.minutes.get(a, 0.0)), float(v.impact.get(a, 0.0))
         m2, im2 = (float(v2.minutes.get(a, 0.0)), float(v2.impact.get(a, 0.0))) if v2 is not None else (0.0, 0.0)
-        if return_fix and m < 500 and m2 >= 1000:
+        if return_fix and m < RET_MIN and m2 >= RET_PREV:
             m, im = m2, im2
         elif MULTI and m + m2 > 0:
             im = (MULTI * m * im + m2 * im2) / (MULTI * m + m2)

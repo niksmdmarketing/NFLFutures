@@ -508,3 +508,17 @@ NHL_LINEUP_N=5 NHL_LINEUP_PRE=0 NHL_LINEUP_VAL=rapm RAPM_LAM=300000 RAPM_KBOX=1;
     title 0.1067 = , finals 0.1743 -> 0.1742, division 0.2224 -> 0.2222, playoffs 0.3522 -> 0.3517. History files regenerated.
   - Checked clean: NBA injuries (joined on ESPN athlete id), NBL/AFL team codes across seasons, football squad values
     (every club-season matched), Movers name matching (accent-folded).
+
+## 2026-10-16 NBA: players back from injury (owner question: Giannis, Lillard, Morant)
+- Roster-replay test of a wider 'returning player' rule (valued on the season before at full minutes): under 500 min after
+  1000+ (live) 2.967 preseason MAE; under 800 / 1000 / 1200 after 1500-1800: 2.988 / 2.979 / 2.988. Worse: live rule kept.
+- Owner overrides added on TypeSafe's advice: Damian Lillard 1,800 min (83%; model used his full 2024-25 2,106 after a
+  missed 2025-26), Ja Morant 900 min (68%; model used 2025-26's 568). ESPN roster: Morant is now with Portland.
+  Effect: POR 42.5 -> 43.0 wins, title 4.3% -> 5.5%; other teams within 0.2 wins.
+- Award models (TypeSafe 90%: overrides now, near-lost-season rule only if the award replay improves):
+  - Preseason award candidates now play for their current team (ESPN roster), so a traded player is simulated with his
+    new team's projected record (Giannis was simulated with Milwaukee's 27 wins). Owner minutes overrides become his
+    expected share of games (capped at the 85% everyone gets). Giannis enters the MVP list at 2.3% (MIA); Kawhi Leonard
+    now shown with Toronto.
+  - Near-lost-season rule (players under 30 games after 60+ the season before enter on the season before; AW_RETURN in
+    research/nba_awards_replay.py, preseason 2010-2026): -0.008 (MVP -0.029, DPOY -0.016, Sixth Man +0.021). Not adopted.

@@ -1,8 +1,35 @@
 {
- "note": "Judgement overrides set by the site owner (15 Oct 2026), not validated by a replay. Projected regular-season minutes replace the model's projection for these players only. TypeSafe: Giannis yes (66%), Minnesota bench yes (72%). Review each September.",
+ "note": "Judgement overrides set by the site owner (15-16 Oct 2026), not validated by a replay. Projected regular-season minutes replace the model's projection for these players only (team model, playoff rotation and award projections). TypeSafe: Giannis yes (66%), Minnesota bench yes (72%), Lillard 1,800 (83%), Morant 900 (68%). Review each September.",
  "minutes": {
-  "3032977": {"name": "Giannis Antetokounmpo", "team": "MIA", "minutes": 2300, "note": "Healthy-season minutes: 63, 74 and 68 games at 32-35 mpg before 2025-26; last season Milwaukee shut him down late (none after 15 March)."},
-  "4895758": {"name": "Cody Williams", "team": "MIN", "minutes": 700, "note": "Bench role on a deeper Minnesota roster, not the 1,629 minutes he played on a rebuilding Utah team."},
-  "3136196": {"name": "Trey Lyles", "team": "MIN", "minutes": 700, "note": "Did not play last season; projection came from two seasons ago."}
+  "3032977": {
+   "name": "Giannis Antetokounmpo",
+   "team": "MIA",
+   "minutes": 2300,
+   "note": "Healthy-season minutes: 63, 74 and 68 games at 32-35 mpg before 2025-26; last season Milwaukee shut him down late (none after 15 March)."
+  },
+  "4895758": {
+   "name": "Cody Williams",
+   "team": "MIN",
+   "minutes": 700,
+   "note": "Bench role on a deeper Minnesota roster, not the 1,629 minutes he played on a rebuilding Utah team."
+  },
+  "3136196": {
+   "name": "Trey Lyles",
+   "team": "MIN",
+   "minutes": 700,
+   "note": "Did not play last season; projection came from two seasons ago."
+  },
+  "6606": {
+   "name": "Damian Lillard",
+   "team": "POR",
+   "minutes": 1800,
+   "note": "Age 36, back from an April 2025 Achilles tear after missing all of 2025-26; the model would use his full 2024-25 minutes (2,106)."
+  },
+  "4279888": {
+   "name": "Ja Morant",
+   "team": "POR",
+   "minutes": 900,
+   "note": "568 minutes in 2025-26 (20 games, Memphis) and 1,515 in 2024-25; repeated absences, so a partial season rather than last season's low or a full season. Now with Portland (ESPN roster)."
+  }
  }
 }

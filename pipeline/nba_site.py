@@ -658,6 +658,31 @@ def schedule_context(cur, rating):
 
 # ------------------------------------------------------------------ awards
 
+def _preseason_teams_and_overrides(cur, prev_lines):
+    """Preseason award inputs: each player's current team (ESPN roster for the new season, then the owner's overrides),
+    so a traded player is simulated with his new team's projected record; and the owner's projected-minutes overrides
+    (model/nba_overrides.json) as an expected share of games at last season's minutes per game."""
+    import nba
+    from nba_award_sim import _aid as SIM_aid
+    cur_team, avail0 = {}, {}
+    try:
+        r = nba._csv(nba._download("espn_nba_rosters", f"rosters_{cur}.csv", 12))
+        r = r.assign(athlete_id=r.athlete_id.astype(str).str.replace(r"\.0$", "", regex=True))
+        cur_team = {a: CANON.get(t, t) for a, t in zip(r.athlete_id, r.team_abbreviation)}
+    except Exception as exc:  # noqa: BLE001 - fall back to last season's team
+        print("nba awards: current rosters unavailable:", exc)
+    for aid, o in nba._overrides().items():
+        if o.get("team") and str(aid) not in cur_team:   # the roster feed is fresher than the override's note
+            cur_team[str(aid)] = o["team"]
+        hit = [i for i in prev_lines.index if SIM_aid(i) == str(aid)] if prev_lines is not None else []
+        if o.get("minutes") is not None and hit:
+            line = prev_lines.loc[hit[0]]
+            mpg = float(line.mins) / max(float(line.gp), 1)
+            if mpg > 0:
+                avail0[str(aid)] = min(float(o["minutes"]) / (82 * mpg), 0.85)   # at most the healthy prior every player gets
+    return cur_team, avail0
+
+
 def awards(cur, player_hist, team_hist):
     from trends_awards import NBA_AW
     P = pd.concat(player_hist, ignore_index=True) if player_hist else pd.DataFrame()
@@ -726,9 +751,14 @@ def awards(cur, player_hist, team_hist):
                     except Exception:  # noqa: BLE001
                         team_wp = None
                     pb = SIM.boxes(cur - 1)
-                    probs = SIM.preseason_probs(SIM.season_lines(pb), key, feats, beta, 82, cur, team_wp) if pb is not None else {}
+                    prev_lines = SIM.season_lines(pb) if pb is not None else None
+                    cur_team, avail0 = _preseason_teams_and_overrides(cur, prev_lines)
+                    probs = SIM.preseason_probs(prev_lines, key, feats, beta, 82, cur, team_wp, cur_team=cur_team, avail0=avail0) if pb is not None else {}
                     if probs:
                         Pc = P[P.season == cur - 1].copy()
+                        if cur_team:   # show the team he plays for now
+                            from nba_award_sim import _aid
+                            Pc["team"] = [cur_team.get(_aid(a), t) for a, t in zip(Pc.athlete_id, Pc.team)]
                         preseason_note = "Preseason: last season's numbers shown; chances simulate a full season from them."
                 Pc["prob"] = Pc.name.map(AM_norm).map(probs).fillna(0.0)
                 now = Pc[Pc.prob > 0].sort_values("prob", ascending=False).head(15)

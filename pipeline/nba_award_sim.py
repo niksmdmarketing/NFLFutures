@@ -116,6 +116,9 @@ def simulate(a, prev, D, award, feats, beta, L, y, rng=None, pre=False):
         ok = np.isfinite(r_prev) & (pr.gp.fillna(0).values >= 10)
         rates[k] = np.where(ok, (gp * r_now + K_RATE * np.nan_to_num(r_prev)) / (gp + K_RATE), r_now)
     avail = (gp + 0.85 * K_AVAIL) / (tg + K_AVAIL)
+    if pre and "avail0" in C:      # owner minutes overrides (preseason only)
+        a0 = C.avail0.values.astype(float)
+        avail = np.where(np.isfinite(a0), a0, avail)
     wp0 = C.wp_prior.values.astype(float) if "wp_prior" in C else np.full(m, 0.5)
     wp_hat = (tw + wp0 * 15) / (tg + 15)
     S = SIMS
@@ -175,13 +178,31 @@ def live_probs(cur, award, feats, beta, rookies, games_in_season=82):
     return simulate(a, prev, D, award, feats, np.asarray(beta, float), float(games_in_season), cur)
 
 
-def preseason_pool(prev, award, team_wp=None):
+RETURN = os.environ.get("AW_RETURN", "0") == "1"     # research: players back from a near-lost season use the season before
+RET_GP, RET_PREV_GP = 30, 60
+
+
+def _aid(x):
+    """athlete id as text without a trailing '.0' (box-score ids are read as floats)."""
+    return str(x)[:-2] if str(x).endswith(".0") else str(x)
+
+
+def preseason_pool(prev, award, team_wp=None, prev2=None, cur_team=None, avail0=None):
     """Preseason candidates: last season's leaders (30+ games) with zero games so far; team strength from `team_wp`
-    ({team: projected win%}, e.g. the futures page) or last season's win% regressed halfway to .500."""
+    ({team: projected win%}, e.g. the futures page) or last season's win% regressed halfway to .500.
+    cur_team {athlete_id: team}: the team a player is on now (trades), used for team strength and display.
+    avail0 {athlete_id: share of games}: owner minutes overrides turned into expected availability.
+    prev2 + AW_RETURN=1: players under 30 games last season after 60+ the season before enter on the season before."""
     if award == "ROY" or prev is None or prev.empty:
         return None
     P = prev[prev.gp >= 30].copy()
+    if RETURN and prev2 is not None and len(prev2):
+        back = prev2[(prev2.gp >= RET_PREV_GP) & ~prev2.index.isin(P.index)]
+        short = prev.gp.reindex(back.index).fillna(0) < RET_GP
+        P = pd.concat([P, back[short.values]])
     P["wp"] = P.tw / P.tg.clip(lower=1)
+    if cur_team:
+        P["team"] = [cur_team.get(_aid(i), t) for i, t in zip(P.index, P.team)]
     f = features(P, float(P.tg.max()))
     rank = SPECS[award][1]
     P["_rank"] = np.asarray(f[rank], float)
@@ -193,11 +214,13 @@ def preseason_pool(prev, award, team_wp=None):
         C0[k] = 0.0
     C0["gp"], C0["tg"], C0["tw"], C0["rookie"] = 0.0, 0.0, 0.0, False
     C0["wp_prior"] = [(team_wp or {}).get(t, 0.5 + 0.5 * (w - 0.5)) for t, w in zip(P.team, P.wp)]
+    if avail0:
+        C0["avail0"] = [avail0.get(_aid(i), np.nan) for i in P.index]
     return C0
 
 
-def preseason_probs(prev, award, feats, beta, L, y, team_wp=None):
-    C0 = preseason_pool(prev, award, team_wp)
+def preseason_probs(prev, award, feats, beta, L, y, team_wp=None, prev2=None, cur_team=None, avail0=None):
+    C0 = preseason_pool(prev, award, team_wp, prev2, cur_team, avail0)
     if C0 is None or C0.empty:
         return {}
     return simulate(C0, prev, C0, award, feats, np.asarray(beta, float), float(L), y, pre=True)
