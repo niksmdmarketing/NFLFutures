@@ -33,7 +33,12 @@ ALIGN = {t: d for d, ts in nhl.DIVS.items() for t in ts}
 ALIGN["ARI"] = "Central"                      # Utah took Arizona's slot
 CONF_OF = nhl.CONF
 GAME_SD = 2.4                                  # sd of one game's goal margin
-SEASON_GAMES = 82
+SEASON_GAMES = 82                              # through 2025-26; 84 from 2026-27 (season_games)
+
+
+def season_games(y):
+    """Regular-season games per team: 82 through 2025-26, 84 from 2026-27 (2025 CBA)."""
+    return 84 if y >= 2026 else 82
 SIMS = int(os.environ.get("NHL_SIMS", 20000))
 CHUNK = 2000
 
@@ -418,7 +423,7 @@ def backtest(TT, GG, fit_years, done, years, return_rows=False):
         divwin = {d: max([t for t in teams if ALIGN[t] == d], key=lambda t: comp[t]) for d in set(ALIGN[t] for t in teams)}
         prior_f = prior_features(y, TT).reindex(teams).fillna(0)
         prior = pd.Series(prior_f.values @ beta_y, index=teams)
-        prev_pts = (numcol(TT[y - 1], "points") / numcol(TT[y - 1], "gamesPlayed") * SEASON_GAMES).reindex(teams).fillna(91)
+        prev_pts = (numcol(TT[y - 1], "points") / numcol(TT[y - 1], "gamesPlayed") * season_games(y)).reindex(teams).fillna(91)
         # one league-wide checkpoint date, so every game is played or remaining for BOTH sides at once
         # (the old per-team "first N games" split left 12-19 teams with wrong game counts at N=20)
         g["date"] = pd.to_datetime(g.date)
@@ -521,7 +526,7 @@ def build():
         rating_po = prior.copy()
     rating_po = rating_po - rating_po.mean()
     po_delta = (rating_po - rating).reindex(teams).fillna(0).to_numpy(float)
-    po_scale = 1 + PO_FADE * max(0.0, 1 - n_avg / SEASON_GAMES)
+    po_scale = 1 + PO_FADE * max(0.0, 1 - n_avg / (n_avg + float(remaining_ct.mean())))   # share of the real schedule left
     # injured players (live from 15 Oct 2026): each absence lowers the team's rating for the games he is expected to miss
     game_adj, po_inj, absences = None, {}, None
     if INJURIES:

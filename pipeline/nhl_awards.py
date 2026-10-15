@@ -251,7 +251,7 @@ def simulate_current(cur: int, T: dict, S: int = 400, seed: int = 11):
     prev_tm = prev[2] if prev else None
     tgp = col(tm, "gamesPlayed")
     tpts = col(tm, "points")
-    R = (SEASON_GAMES - tgp).clip(lower=0)
+    R = ((84 if cur >= 2026 else SEASON_GAMES) - tgp).clip(lower=0)      # 84-game schedule from 2026-27
     # team final point % (talent shrunk toward last season, plus binomial noise on the remaining games)
     prior = 0.5 + 0.4 * (col(prev_tm, "pointPct").reindex(tm.index).fillna(0.5) - 0.5) if prev_tm is not None else pd.Series(0.5, index=tm.index)
     p_now = (tpts / (2 * tgp.replace(0, np.nan))).fillna(0.5)
@@ -264,7 +264,7 @@ def simulate_current(cur: int, T: dict, S: int = 400, seed: int = 11):
     tm_index = {t: j for j, t in enumerate(tm.index)}
 
     def team_final(df):
-        return np.stack([T_pts[:, tm_index[t]] / (2 * SEASON_GAMES) if t in tm_index else np.full(S, 0.5) for t in df.team], axis=1)
+        return np.stack([T_pts[:, tm_index[t]] / (2 * (84 if cur >= 2026 else SEASON_GAMES)) if t in tm_index else np.full(S, 0.5) for t in df.team], axis=1)
 
     out = {}
     # ---- skater totals: Poisson on remaining games, rate shrunk to last season, gamma talent noise

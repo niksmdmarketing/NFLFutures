@@ -16,7 +16,7 @@ import sys
 
 THRESHOLD_GOALS = 2.0
 COOLDOWN_H = 6
-GAMES_PER_DAY = 82 / 190     # a team's regular season: 82 games in about 190 days
+GAMES_PER_DAY = 84 / 190     # a team's regular season: 84 games (from 2026-27) in about 190 days
 
 
 def games_missed(r, today, left):
@@ -39,7 +39,8 @@ def main(pub, store):
     F = json.load(open(os.path.join(pub, "nhl", "data", "futures.json"), encoding="utf-8"))
     y = int(F["season"])
     pub_inj = {(p["team"], p["name"]): p for p in (F.get("injuries") or {}).get("players") or []}
-    left = {t["team"]: max(0, 82 - int(t.get("gp") or 0)) for t in F["teams"]}
+    import nhl_model
+    left = {t["team"]: max(0, nhl_model.season_games(y) - int(t.get("gp") or 0)) for t in F["teams"]}
     inj = nhl_injuries.current(y)
     if inj is None:
         print("NHL injury list unavailable; no trigger")
