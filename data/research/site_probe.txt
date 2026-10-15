@@ -1,0 +1,24 @@
+== www.whoscored.com
+robots HTTP 403
+  first lines: <!DOCTYPE html> | <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> | <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en-US"> <![endif]--> | <!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en-US"> <![endif]--> | <!--[if gt IE 8]><!--> <html class="no-js" lang="en-US"> <!--<![endif]--> | <head> | <title>Attention Required! | Cloudflare</title> | <meta charset="UTF-8" /> | <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> | <meta http-equiv="X-UA-Compatible" content="IE=Edge" /> | <meta name="robots" content="noindex, nofollow" /> | <meta 
+   anthropic-ai {'/Regions/252/Tournaments/2/England-Premier-League': True, '/Players/1': True}
+   ClaudeBot {'/Regions/252/Tournaments/2/England-Premier-League': True, '/Players/1': True}
+   SportsFutures {'/Regions/252/Tournaments/2/England-Premier-League': True, '/Players/1': True}
+   * {'/Regions/252/Tournaments/2/England-Premier-League': True, '/Players/1': True}
+  home page HTTP 403
+== www.transfermarkt.com
+robots HTTP 200
+  first lines: User-agent: Slurp | Crawl-delay: 2 |  | User-agent: Mediapartners-Google | Disallow: |  | User-agent: wget | Disallow: / |  | User-agent: * | Allow: /
+   anthropic-ai {'/premier-league/startseite/wettbewerb/GB1': True, '/liverpool-fc/kader/verein/31': True}
+   ClaudeBot {'/premier-league/startseite/wettbewerb/GB1': True, '/liverpool-fc/kader/verein/31': True}
+   SportsFutures {'/premier-league/startseite/wettbewerb/GB1': True, '/liverpool-fc/kader/verein/31': True}
+   * {'/premier-league/startseite/wettbewerb/GB1': True, '/liverpool-fc/kader/verein/31': True}
+  home page HTTP 202
+== www.fotmob.com
+robots HTTP 200
+  first lines:  | User-agent: * | Allow: / | Disallow: /api/* | Disallow: /auth/* | Disallow: /info | Disallow: /health | Disallow: /contact_us |  | User-agent: Googlebot | Allow: /api/* | 
+   anthropic-ai {'/api/matchDetails': False, '/leagues/47/overview/premier-league': True}
+   ClaudeBot {'/api/matchDetails': False, '/leagues/47/overview/premier-league': True}
+   SportsFutures {'/api/matchDetails': False, '/leagues/47/overview/premier-league': True}
+   * {'/api/matchDetails': False, '/leagues/47/overview/premier-league': True}
+  home page HTTP 200
