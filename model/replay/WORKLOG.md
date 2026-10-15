@@ -433,3 +433,14 @@ his longest stint). Giannis 1,039 -> 1,877 projected. 14-season replay vs live 0
   with the model's own absence costs (goals/game x games missed). A new absence or return worth >= 2.0 goals (TypeSafe 60%)
   starts 'Refresh site' immediately; 6 h cooldown per player; decisions logged to injury-monitor availability/news_trigger.jsonl.
 - NBA: not triggered, because the availability layer is not used in NBA futures (no measurable replay gain).
+
+## 2026-10-15 Team-gap audit: our model vs the market (NHL, NFL) - no model change
+- Largest persistent gaps (6 days): NHL playoffs SJS -32pp, FLA -27, TOR -22, SEA +22, MTL -21; NFL BAL div/playoffs -25, SF div +21.
+- NHL 2014-2022 (216 team-seasons, ~6 games in): market strength from first-6-game closing moneylines vs replay p_playoff.
+  LOSO log loss model 0.549, market 0.549, both 0.543: the market adds real information (coef 4.4 +/- 1.6).
+  Tested causes (last-season goal difference, team age, ice-time share of new players from lineups): together they explain
+  ~15% of the gap each, but none predicts playoffs beyond the model; the predictive part is the unexplained residual.
+- NFL 2006-2025 games, weeks 4-8: result ~ 0.15 model margin + 0.98 spread; gap explained 4% by points-to-date and last
+  season (not predictive); residual predictive (0.51 +/- 0.07). Model margins alone too compressed early (x1.24 +/- 0.08).
+- TypeSafe 60%: no systematic fixable cause; treat team gaps as market knowledge, not value. NFL early-stretch challenger
+  (38%) not pursued for now.
