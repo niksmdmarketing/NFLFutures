@@ -36,6 +36,15 @@ GAME_SD = 2.4                                  # sd of one game's goal margin
 SEASON_GAMES = 82                              # through 2025-26; 84 from 2026-27 (season_games)
 
 
+def final_comp(T, y):
+    """Official end-of-season order as one sortable number per team (team table T for season y):
+    points, then regulation wins (from 2019-20; before that regulation + OT wins), regulation + OT wins, total wins,
+    goal difference. Head-to-head is not included (2 tied pairs in 2014-2025, none decisive found)."""
+    rw = numcol(T, "winsInRegulation") if y >= 2019 else numcol(T, "regulationAndOtWins")
+    return (numcol(T, "points") * 1e12 + rw * 1e9 + numcol(T, "regulationAndOtWins") * 1e6 + numcol(T, "wins") * 1e3
+            + numcol(T, "goalDiff"))
+
+
 def season_games(y):
     """Regular-season games per team: 82 through 2025-26, 84 from 2026-27 (2025 CBA)."""
     return 84 if y >= 2026 else 82
@@ -193,13 +202,13 @@ TAU_PRE = 1.5
 # Replay 2014-2025 (10 seasons): conference/Cup log loss +0.0003 overall (90% -0.0005 to +0.0012), better 6 of 10; first
 # quarter +0.0012, better 7 of 10; early slopes 2.37 -> 1.99 (conference). Not significant, so run alongside, not live.
 PO_FADE_CHALLENGER = 1.0
-PO_FADE_SHADOW = 1.0   # shadow run of the previous live fade, archived (s_final, s_cup) to score 3.0 vs 1.0 prospectively
+PO_FADE_SHADOW = 1.0   # shadow run of the previous live fade (2x preseason stretch; live 3.0 = 4x), archived (s_final, s_cup) to score 3.0 vs 1.0 prospectively
 # Share of expected goals in the in-season rate (rest = goals). Was 0.4 by judgement; 10-season weekly replay with
 # MoneyPuck game xG (15 Oct 2026): 20% vs 0% +0.0001, 40% vs 20% -0.0004; TypeSafe chose 20%.
 XG_SHARE = 0.2
 LINEUP = os.environ.get("NHL_LINEUP", "1") == "1"       # roster term from recent lineups (nhl_lineup), live from 15 Oct 2026
 INJURIES = os.environ.get("NHL_INJURIES", "1") == "1"   # injured-player adjustment (nhl_absence), live from 15 Oct 2026
-PO_FADE = 3.0        # playoff rating gaps x(1 + PO_FADE x share of season left). 1.0 from 14 Oct 2026; 3.0 from 15 Oct 2026:
+PO_FADE = 3.0        # playoff rating gaps x(1 + PO_FADE x share of season left): fade 1 = 2x preseason stretch, fade 3 = 4x. 1.0 from 14 Oct 2026; 3.0 from 15 Oct 2026:
                      # 10-season replay +0.0012 (90% +0.0004 to +0.0019, 8/10), only title/conference change; walk-forward
                      # selection picks >= 3 every season. Early title/conference still too flat (Cup slope 1.64 -> 1.43). TypeSafe 43%.
 # Playoff series use a shot-based rating (14 Oct 2026): xG/shot differential predicts playoff series far better than goal
@@ -442,7 +451,7 @@ def backtest(TT, GG, fit_years, done, years, return_rows=False):
             continue
         # actual outcomes
         fin = g.groupby("team").agg(pts=("pts", "sum"), wins=("res", lambda r: (r == "W").sum()), gd=("gd", "sum"))
-        comp = fin.pts * 1e6 + fin.wins * 1e3 + fin.gd
+        comp = final_comp(TT[y], y).reindex(teams).fillna(fin.pts * 1e12)   # official order (was points, wins, GD)
         po = set()
         for d in set(ALIGN[t] for t in teams):
             dt_ = [t for t in teams if ALIGN[t] == d]

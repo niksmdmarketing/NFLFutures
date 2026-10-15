@@ -482,3 +482,10 @@ NHL_LINEUP_N=5 NHL_LINEUP_PRE=0 NHL_LINEUP_VAL=rapm RAPM_LAM=300000 RAPM_KBOX=1;
 - Prospective protocol (2026-27 onward): primary score = combined Cup + conference log loss of live (fade 3) vs shadow
   (fade 1), weekly snapshots from the forecast archive, averaged within each season; Cup and conference reported
   separately; no verdict from one season alone.
+- Naming: fade 1 = 2x preseason playoff-gap stretch (previous live, now shadow); fade 3 = 4x (live). Both fade to 1x by
+  the end of the regular season, so once the playoffs start the two give identical series probabilities.
+- Outcome labels now use the official end-of-season order (nhl_model.final_comp: points, RW from 2019-20 else ROW, ROW,
+  wins, GD) in nhl_model.backtest and research/replay_nhl.py. Fixture tests/test_nhl_tiebreak.py: 2015-16 Detroit over
+  Boston on ROW (both 93 points) - the old points/wins/GD order labelled Boston as the playoff team.
+- Series-level telemetry (rating gap, home ice, series probability, winner, timestamp, version) to be built before the
+  2027 playoffs, when the playoff schedule format can be checked.

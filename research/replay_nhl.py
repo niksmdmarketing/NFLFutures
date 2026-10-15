@@ -164,7 +164,7 @@ def run_season(TT, GG, fit_years, done, y):
     opp_res = g.set_index(["date", "team"]).res
     g["opp_otl"] = [opp_res.get((d_, o)) == "OTL" for d_, o in zip(g.date, g.opp)]
     fin = g.groupby("team").agg(pts=("pts", "sum"), wins=("res", lambda r: (r == "W").sum()), gd=("gd", "sum"))
-    comp = fin.pts * 1e6 + fin.wins * 1e3 + fin.gd
+    comp = M.final_comp(TT[y], y).reindex(teams).fillna(fin.pts * 1e12)   # official order (2015: DET over BOS on ROW)
     divwin = {d: max([t for t in teams if align[t] == d], key=lambda t: comp[t]) for d in set(align.values())}
     pres = comp.idxmax()
     prior = PRIOR_SCALE * pd.Series(M.prior_features(y, TT).reindex(teams).fillna(0).values @ beta_y, index=teams)
