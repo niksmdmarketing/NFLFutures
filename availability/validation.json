@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-10-15T13:29:07+00:00",
+ "checked_utc": "2026-10-15T18:21:10+00:00",
  "leagues": {
   "nfl": {
-   "records": 1489,
+   "records": 1488,
    "by_layer": {
     "official": 1409,
-    "reported": 80
+    "reported": 79
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -53,16 +53,6 @@
      ],
      "other": "expected to play",
      "source": "ESPN injury note"
-    },
-    {
-     "player": "Michael Carter II",
-     "official": [
-      "active",
-      "no designation",
-      "questionable"
-     ],
-     "other": "expected out",
-     "source": "ESPN injury note"
     }
    ],
    "stale_projection_dates": 0,
@@ -73,7 +63,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "80/80"
+   "reported_matched_to_official_list": "79/79"
   },
   "nba": {
    "records": 255,
@@ -116,7 +106,16 @@
     "UTAH",
     "WSH"
    ],
-   "conflicts": [],
+   "conflicts": [
+    {
+     "player": "Kristaps Porzingis",
+     "official": [
+      "out"
+     ],
+     "other": "expected to play",
+     "source": "ESPN news"
+    }
+   ],
    "stale_projection_dates": 0,
    "teams_missing_official": [],
    "season_state": {
@@ -129,10 +128,10 @@
    "reported_matched_to_official_list": "95/95"
   },
   "nhl": {
-   "records": 1548,
+   "records": 1554,
    "by_layer": {
     "official": 154,
-    "reported": 57,
+    "reported": 63,
     "projected": 1337
    },
    "unknown_team": 0,
@@ -154,7 +153,6 @@
     "MIN",
     "MTL",
     "NJD",
-    "NSH",
     "NYI",
     "NYR",
     "OTT",
@@ -174,7 +172,8 @@
    "conflicts": [],
    "stale_projection_dates": 0,
    "teams_missing_official": [
-    "BOS"
+    "BOS",
+    "NSH"
    ],
    "season_state": {
     "state": "in_season",
@@ -182,7 +181,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "57/57"
+   "reported_matched_to_official_list": "54/63"
   },
   "nbl": {
    "records": 26,
