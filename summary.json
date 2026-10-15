@@ -1,17 +1,18 @@
 {
  "schema_version": 2,
  "source_url": "https://www.nfl.com/injuries/",
- "generated_at": "2026-10-14T23:56:17+00:00",
- "last_attempt_at": "2026-10-14T23:56:17+00:00",
+ "generated_at": "2026-10-15T00:33:50+00:00",
+ "last_attempt_at": "2026-10-15T00:33:50+00:00",
  "last_attempt_ok": true,
  "last_error": null,
- "last_success_at": "2026-10-14T23:56:17+00:00",
- "report_first_seen_at": "2026-10-14T22:39:21+00:00",
+ "last_success_at": "2026-10-15T00:33:50+00:00",
+ "report_first_seen_at": "2026-10-15T00:33:50+00:00",
  "collection_status": "ok",
  "stale_after_hours": 6,
  "report_season": 2026,
  "report_week": 6,
  "covered_teams": [
+  "ARI",
   "ATL",
   "BAL",
   "CAR",
@@ -68,7 +69,6 @@
   "WAS"
  ],
  "missing_teams": [
-  "ARI",
   "BUF",
   "SF",
   "WAS"
@@ -79,11 +79,91 @@
   "2026-10-19"
  ],
  "status_counts": {
-  "No game status": 270,
+  "No game status": 278,
   "Out": 5,
   "Questionable": 1
  },
  "rows": [
+  {
+   "team": "ARI",
+   "player_id": "andrew-wingard",
+   "player": "Andrew Wingard",
+   "position": "S",
+   "injury": null,
+   "practice_status": "Did Not Participate In Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/andrew-wingard/"
+  },
+  {
+   "team": "ARI",
+   "player_id": "budda-baker",
+   "player": "Budda Baker",
+   "position": "S",
+   "injury": null,
+   "practice_status": "Did Not Participate In Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/budda-baker/"
+  },
+  {
+   "team": "ARI",
+   "player_id": "devin-duvernay",
+   "player": "Devin Duvernay",
+   "position": "WR",
+   "injury": null,
+   "practice_status": "Limited Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/devin-duvernay/"
+  },
+  {
+   "team": "ARI",
+   "player_id": "isaac-seumalo",
+   "player": "Isaac Seumalo",
+   "position": "G",
+   "injury": null,
+   "practice_status": "Did Not Participate In Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/isaac-seumalo/"
+  },
+  {
+   "team": "ARI",
+   "player_id": "jeremiyah-love",
+   "player": "Jeremiyah Love",
+   "position": "RB",
+   "injury": null,
+   "practice_status": "Did Not Participate In Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/jeremiyah-love/"
+  },
+  {
+   "team": "ARI",
+   "player_id": "josh-sweat",
+   "player": "Josh Sweat",
+   "position": "LB",
+   "injury": null,
+   "practice_status": "Did Not Participate In Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/josh-sweat/"
+  },
+  {
+   "team": "ARI",
+   "player_id": "kitan-crawford",
+   "player": "Kitan Crawford",
+   "position": "S",
+   "injury": null,
+   "practice_status": "Limited Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/kitan-crawford/"
+  },
+  {
+   "team": "ARI",
+   "player_id": "wydett-williams-jr",
+   "player": "Wydett Williams Jr.",
+   "position": "S",
+   "injury": null,
+   "practice_status": "Did Not Participate In Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/wydett-williams-jr/"
+  },
   {
    "team": "ATL",
    "player_id": "c-j-henderson",
@@ -2847,6 +2927,158 @@
  ],
  "recent_changes": [
   {
+   "observed_at": "2026-10-15T00:33:50+00:00",
+   "season": 2026,
+   "week": 6,
+   "team": "ARI",
+   "player_id": "wydett-williams-jr",
+   "kind": "appeared",
+   "before": null,
+   "after": {
+    "team": "ARI",
+    "player_id": "wydett-williams-jr",
+    "player": "Wydett Williams Jr.",
+    "position": "S",
+    "injury": null,
+    "practice_status": "Did Not Participate In Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/wydett-williams-jr/"
+   }
+  },
+  {
+   "observed_at": "2026-10-15T00:33:50+00:00",
+   "season": 2026,
+   "week": 6,
+   "team": "ARI",
+   "player_id": "kitan-crawford",
+   "kind": "appeared",
+   "before": null,
+   "after": {
+    "team": "ARI",
+    "player_id": "kitan-crawford",
+    "player": "Kitan Crawford",
+    "position": "S",
+    "injury": null,
+    "practice_status": "Limited Participation in Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/kitan-crawford/"
+   }
+  },
+  {
+   "observed_at": "2026-10-15T00:33:50+00:00",
+   "season": 2026,
+   "week": 6,
+   "team": "ARI",
+   "player_id": "josh-sweat",
+   "kind": "appeared",
+   "before": null,
+   "after": {
+    "team": "ARI",
+    "player_id": "josh-sweat",
+    "player": "Josh Sweat",
+    "position": "LB",
+    "injury": null,
+    "practice_status": "Did Not Participate In Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/josh-sweat/"
+   }
+  },
+  {
+   "observed_at": "2026-10-15T00:33:50+00:00",
+   "season": 2026,
+   "week": 6,
+   "team": "ARI",
+   "player_id": "jeremiyah-love",
+   "kind": "appeared",
+   "before": null,
+   "after": {
+    "team": "ARI",
+    "player_id": "jeremiyah-love",
+    "player": "Jeremiyah Love",
+    "position": "RB",
+    "injury": null,
+    "practice_status": "Did Not Participate In Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/jeremiyah-love/"
+   }
+  },
+  {
+   "observed_at": "2026-10-15T00:33:50+00:00",
+   "season": 2026,
+   "week": 6,
+   "team": "ARI",
+   "player_id": "isaac-seumalo",
+   "kind": "appeared",
+   "before": null,
+   "after": {
+    "team": "ARI",
+    "player_id": "isaac-seumalo",
+    "player": "Isaac Seumalo",
+    "position": "G",
+    "injury": null,
+    "practice_status": "Did Not Participate In Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/isaac-seumalo/"
+   }
+  },
+  {
+   "observed_at": "2026-10-15T00:33:50+00:00",
+   "season": 2026,
+   "week": 6,
+   "team": "ARI",
+   "player_id": "devin-duvernay",
+   "kind": "appeared",
+   "before": null,
+   "after": {
+    "team": "ARI",
+    "player_id": "devin-duvernay",
+    "player": "Devin Duvernay",
+    "position": "WR",
+    "injury": null,
+    "practice_status": "Limited Participation in Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/devin-duvernay/"
+   }
+  },
+  {
+   "observed_at": "2026-10-15T00:33:50+00:00",
+   "season": 2026,
+   "week": 6,
+   "team": "ARI",
+   "player_id": "budda-baker",
+   "kind": "appeared",
+   "before": null,
+   "after": {
+    "team": "ARI",
+    "player_id": "budda-baker",
+    "player": "Budda Baker",
+    "position": "S",
+    "injury": null,
+    "practice_status": "Did Not Participate In Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/budda-baker/"
+   }
+  },
+  {
+   "observed_at": "2026-10-15T00:33:50+00:00",
+   "season": 2026,
+   "week": 6,
+   "team": "ARI",
+   "player_id": "andrew-wingard",
+   "kind": "appeared",
+   "before": null,
+   "after": {
+    "team": "ARI",
+    "player_id": "andrew-wingard",
+    "player": "Andrew Wingard",
+    "position": "S",
+    "injury": null,
+    "practice_status": "Did Not Participate In Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/andrew-wingard/"
+   }
+  },
+  {
    "observed_at": "2026-10-14T22:39:21+00:00",
    "season": 2026,
    "week": 6,
@@ -3489,165 +3721,13 @@
     "game_status": null,
     "player_url": "https://www.nfl.com/players/marquez-valdes-scantling/"
    }
-  },
-  {
-   "observed_at": "2026-10-14T22:39:21+00:00",
-   "season": 2026,
-   "week": 6,
-   "team": "LAC",
-   "player_id": "ladd-mcconkey",
-   "kind": "appeared",
-   "before": null,
-   "after": {
-    "team": "LAC",
-    "player_id": "ladd-mcconkey",
-    "player": "Ladd McConkey",
-    "position": "WR",
-    "injury": null,
-    "practice_status": "Limited Participation in Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/ladd-mcconkey/"
-   }
-  },
-  {
-   "observed_at": "2026-10-14T22:39:21+00:00",
-   "season": 2026,
-   "week": 6,
-   "team": "LAC",
-   "player_id": "khalil-mack",
-   "kind": "appeared",
-   "before": null,
-   "after": {
-    "team": "LAC",
-    "player_id": "khalil-mack",
-    "player": "Khalil Mack",
-    "position": "DE",
-    "injury": null,
-    "practice_status": "Did Not Participate In Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/khalil-mack/"
-   }
-  },
-  {
-   "observed_at": "2026-10-14T22:39:21+00:00",
-   "season": 2026,
-   "week": 6,
-   "team": "LAC",
-   "player_id": "kendall-williamson",
-   "kind": "appeared",
-   "before": null,
-   "after": {
-    "team": "LAC",
-    "player_id": "kendall-williamson",
-    "player": "Kendall Williamson",
-    "position": "S",
-    "injury": null,
-    "practice_status": "Limited Participation in Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/kendall-williamson/"
-   }
-  },
-  {
-   "observed_at": "2026-10-14T22:39:21+00:00",
-   "season": 2026,
-   "week": 6,
-   "team": "LAC",
-   "player_id": "keandre-lambert-smith",
-   "kind": "appeared",
-   "before": null,
-   "after": {
-    "team": "LAC",
-    "player_id": "keandre-lambert-smith",
-    "player": "KeAndre Lambert-Smith",
-    "position": "WR",
-    "injury": null,
-    "practice_status": "Limited Participation in Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/keandre-lambert-smith/"
-   }
-  },
-  {
-   "observed_at": "2026-10-14T22:39:21+00:00",
-   "season": 2026,
-   "week": 6,
-   "team": "LAC",
-   "player_id": "kayode-awosika",
-   "kind": "appeared",
-   "before": null,
-   "after": {
-    "team": "LAC",
-    "player_id": "kayode-awosika",
-    "player": "Kayode Awosika",
-    "position": "G",
-    "injury": null,
-    "practice_status": "Did Not Participate In Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/kayode-awosika/"
-   }
-  },
-  {
-   "observed_at": "2026-10-14T22:39:21+00:00",
-   "season": 2026,
-   "week": 6,
-   "team": "LAC",
-   "player_id": "justin-eboigbe",
-   "kind": "appeared",
-   "before": null,
-   "after": {
-    "team": "LAC",
-    "player_id": "justin-eboigbe",
-    "player": "Justin Eboigbe",
-    "position": "DE",
-    "injury": null,
-    "practice_status": "Limited Participation in Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/justin-eboigbe/"
-   }
-  },
-  {
-   "observed_at": "2026-10-14T22:39:21+00:00",
-   "season": 2026,
-   "week": 6,
-   "team": "LAC",
-   "player_id": "joe-alt",
-   "kind": "appeared",
-   "before": null,
-   "after": {
-    "team": "LAC",
-    "player_id": "joe-alt",
-    "player": "Joe Alt",
-    "position": "T",
-    "injury": null,
-    "practice_status": "Did Not Participate In Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/joe-alt/"
-   }
-  },
-  {
-   "observed_at": "2026-10-14T22:39:21+00:00",
-   "season": 2026,
-   "week": 6,
-   "team": "LAC",
-   "player_id": "jamaree-caldwell",
-   "kind": "appeared",
-   "before": null,
-   "after": {
-    "team": "LAC",
-    "player_id": "jamaree-caldwell",
-    "player": "Jamaree Caldwell",
-    "position": "DT",
-    "injury": null,
-    "practice_status": "Limited Participation in Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/jamaree-caldwell/"
-   }
   }
  ],
- "distinct_reports": 5,
- "checks": 149,
+ "distinct_reports": 6,
+ "checks": 150,
  "failed_checks": 0,
  "warnings": [
-  "4 team(s) playing this week are not on the report yet (ARI, BUF, SF, WAS). Teams usually appear as their game approaches; absence does not mean healthy."
+  "3 team(s) playing this week are not on the report yet (BUF, SF, WAS). Teams usually appear as their game approaches; absence does not mean healthy."
  ],
  "projection_effect": "none",
  "return_timeline_coverage": "not_collected",
