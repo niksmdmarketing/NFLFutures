@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-10-15T0429Z",
-"feed_timestamp": "2026-10-15T04:29:08Z",
+"collected_utc": "2026-10-15T0518Z",
+"feed_timestamp": "2026-10-15T05:18:48Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -200,6 +200,12 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-16",
 "injury": "Rest"
+},
+{
+"athlete_id": "4432181",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
+"injury": "Left Knee"
 },
 {
 "athlete_id": "4592427",
@@ -1105,6 +1111,15 @@
 "return_date": "2026-10-16",
 "injury": "Rest",
 "updated": "2026-10-15T01:16Z"
+},
+{
+"athlete_id": "4432181",
+"name": "Julian Strawther",
+"team_name": "Denver Nuggets",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
+"injury": "Left Knee",
+"updated": "2026-10-15T04:26Z"
 },
 {
 "athlete_id": "4592427",
