@@ -8,48 +8,53 @@
    "rows": [
     {
      "team": "JAX",
-     "model": 0.1305,
-     "market": 0.0687
+     "model": 0.1316,
+     "market": 0.0686
     },
     {
      "team": "SF",
-     "model": 0.1686,
-     "market": 0.1234
+     "model": 0.1699,
+     "market": 0.1221
     },
     {
      "team": "BUF",
-     "model": 0.0751,
-     "market": 0.1121
-    },
-    {
-     "team": "SEA",
-     "model": 0.0387,
-     "market": 0.0731
+     "model": 0.0724,
+     "market": 0.1119
     },
     {
      "team": "LA",
-     "model": 0.0707,
-     "market": 0.1024
+     "model": 0.0667,
+     "market": 0.1022
+    },
+    {
+     "team": "SEA",
+     "model": 0.0392,
+     "market": 0.073
     },
     {
      "team": "BAL",
-     "model": 0.0495,
-     "market": 0.0765
+     "model": 0.0498,
+     "market": 0.0764
     },
     {
      "team": "KC",
-     "model": 0.0734,
-     "market": 0.0961
+     "model": 0.0738,
+     "market": 0.0959
     },
     {
      "team": "NE",
-     "model": 0.0522,
-     "market": 0.0327
+     "model": 0.0526,
+     "market": 0.0336
     },
     {
      "team": "PIT",
-     "model": 0.0257,
+     "model": 0.0259,
      "market": 0.0073
+    },
+    {
+     "team": "DET",
+     "model": 0.0427,
+     "market": 0.0297
     },
     {
      "team": "IND",
@@ -57,59 +62,54 @@
      "market": 0.0054
     },
     {
-     "team": "DET",
-     "model": 0.0423,
-     "market": 0.0297
-    },
-    {
      "team": "PHI",
-     "model": 0.0064,
+     "model": 0.0065,
      "market": 0.018
     },
     {
-     "team": "ATL",
-     "model": 0.0175,
-     "market": 0.0093
+     "team": "DEN",
+     "model": 0.0222,
+     "market": 0.0307
     },
     {
-     "team": "DEN",
-     "model": 0.0219,
-     "market": 0.0297
+     "team": "ATL",
+     "model": 0.0177,
+     "market": 0.0092
     },
     {
      "team": "DAL",
-     "model": 0.018,
-     "market": 0.0249
+     "model": 0.0182,
+     "market": 0.0258
     },
     {
      "team": "CIN",
-     "model": 0.03,
-     "market": 0.0366
+     "model": 0.0302,
+     "market": 0.0365
     },
     {
      "team": "TB",
-     "model": 0.0105,
+     "model": 0.0106,
      "market": 0.0044
-    },
-    {
-     "team": "CAR",
-     "model": 0.0136,
-     "market": 0.0083
     },
     {
      "team": "MIN",
-     "model": 0.0404,
-     "market": 0.0366
+     "model": 0.0406,
+     "market": 0.0365
     },
     {
      "team": "HOU",
-     "model": 0.0118,
-     "market": 0.0151
+     "model": 0.0119,
+     "market": 0.0156
     },
     {
-     "team": "ARI",
-     "model": 0.0019,
-     "market": 0.0044
+     "team": "CAR",
+     "model": 0.0137,
+     "market": 0.0102
+    },
+    {
+     "team": "GB",
+     "model": 0.0174,
+     "market": 0.0195
     },
     {
      "team": "NYJ",
@@ -117,39 +117,29 @@
      "market": 0.0024
     },
     {
-     "team": "TEN",
-     "model": 0.0006,
+     "team": "NYG",
+     "model": 0.0071,
+     "market": 0.0054
+    },
+    {
+     "team": "LAC",
+     "model": 0.0009,
      "market": 0.0024
     },
     {
      "team": "CHI",
-     "model": 0.0319,
+     "model": 0.0321,
      "market": 0.0336
     },
     {
-     "team": "LAC",
-     "model": 0.0008,
-     "market": 0.0024
-    },
-    {
-     "team": "NYG",
-     "model": 0.007,
-     "market": 0.0054
-    },
-    {
-     "team": "MIA",
-     "model": 0.0014,
-     "market": 0.0024
+     "team": "TEN",
+     "model": 0.0005,
+     "market": 0.0015
     },
     {
      "team": "NO",
-     "model": 0.0051,
+     "model": 0.0053,
      "market": 0.0044
-    },
-    {
-     "team": "GB",
-     "model": 0.0174,
-     "market": 0.018
     },
     {
      "team": "CLE",
@@ -157,14 +147,24 @@
      "market": 0.0034
     },
     {
-     "team": "WAS",
-     "model": 0.0041,
-     "market": 0.0044
+     "team": "ARI",
+     "model": 0.002,
+     "market": 0.0024
     },
     {
      "team": "LV",
-     "model": 0.0065,
+     "model": 0.0066,
      "market": 0.0063
+    },
+    {
+     "team": "WAS",
+     "model": 0.0042,
+     "market": 0.0044
+    },
+    {
+     "team": "MIA",
+     "model": 0.0015,
+     "market": 0.0015
     }
    ]
   },
@@ -175,83 +175,83 @@
    "rows": [
     {
      "team": "JAX",
-     "model": 0.2362,
-     "market": 0.1316
+     "model": 0.2374,
+     "market": 0.1293
     },
     {
      "team": "BUF",
-     "model": 0.1454,
-     "market": 0.2
+     "model": 0.1407,
+     "market": 0.2017
     },
     {
      "team": "BAL",
-     "model": 0.1023,
-     "market": 0.1474
-    },
-    {
-     "team": "KC",
-     "model": 0.1459,
-     "market": 0.1842
+     "model": 0.1028,
+     "market": 0.1551
     },
     {
      "team": "PIT",
-     "model": 0.0545,
-     "market": 0.0205
+     "model": 0.0548,
+     "market": 0.0202
+    },
+    {
+     "team": "KC",
+     "model": 0.1467,
+     "market": 0.181
     },
     {
      "team": "IND",
-     "model": 0.0381,
-     "market": 0.0137
+     "model": 0.0383,
+     "market": 0.014
     },
     {
      "team": "NE",
-     "model": 0.1018,
-     "market": 0.0789
+     "model": 0.1025,
+     "market": 0.0827
     },
     {
      "team": "DEN",
-     "model": 0.0485,
-     "market": 0.0632
+     "model": 0.0488,
+     "market": 0.0672
     },
     {
      "team": "HOU",
      "model": 0.023,
-     "market": 0.0374
-    },
-    {
-     "team": "CIN",
-     "model": 0.063,
-     "market": 0.0711
+     "market": 0.0357
     },
     {
      "team": "NYJ",
-     "model": 0.0106,
-     "market": 0.0047
+     "model": 0.0108,
+     "market": 0.0036
     },
     {
-     "team": "LV",
-     "model": 0.0148,
-     "market": 0.0195
+     "team": "CIN",
+     "model": 0.0632,
+     "market": 0.0698
     },
     {
      "team": "LAC",
-     "model": 0.0017,
-     "market": 0.0058
+     "model": 0.0018,
+     "market": 0.0057
+    },
+    {
+     "team": "LV",
+     "model": 0.0149,
+     "market": 0.0165
     },
     {
      "team": "TEN",
      "model": 0.0011,
-     "market": 0.0047
+     "market": 0.0026
     },
     {
      "team": "CLE",
-     "model": 0.0101,
-     "market": 0.0137
+     "model": 0.0102,
+     "market": 0.0114
     },
     {
      "team": "MIA",
-     "model": 0.003,
-     "market": 0.0037
+     "model": 0.0031,
+     "market": 0.0036
     }
    ]
   },
@@ -262,83 +262,83 @@
    "rows": [
     {
      "team": "SF",
-     "model": 0.3109,
-     "market": 0.2121
+     "model": 0.3127,
+     "market": 0.2127
     },
     {
      "team": "SEA",
-     "model": 0.0768,
-     "market": 0.1465
+     "model": 0.0777,
+     "market": 0.1468
     },
     {
      "team": "LA",
-     "model": 0.127,
-     "market": 0.1768
+     "model": 0.1207,
+     "market": 0.1772
     },
     {
      "team": "DET",
-     "model": 0.0892,
-     "market": 0.0551
+     "model": 0.0899,
+     "market": 0.0613
     },
     {
      "team": "PHI",
-     "model": 0.0162,
-     "market": 0.0475
-    },
-    {
-     "team": "CHI",
-     "model": 0.0649,
-     "market": 0.0859
+     "model": 0.0163,
+     "market": 0.0425
     },
     {
      "team": "ATL",
-     "model": 0.0396,
-     "market": 0.0192
-    },
-    {
-     "team": "MIN",
-     "model": 0.0913,
-     "market": 0.0722
-    },
-    {
-     "team": "DAL",
-     "model": 0.0393,
-     "market": 0.0551
-    },
-    {
-     "team": "CAR",
-     "model": 0.0343,
+     "model": 0.0401,
      "market": 0.0187
     },
     {
+     "team": "CHI",
+     "model": 0.0653,
+     "market": 0.0861
+    },
+    {
+     "team": "MIN",
+     "model": 0.0916,
+     "market": 0.0734
+    },
+    {
+     "team": "DAL",
+     "model": 0.0396,
+     "market": 0.0552
+    },
+    {
+     "team": "CAR",
+     "model": 0.0346,
+     "market": 0.0197
+    },
+    {
      "team": "TB",
-     "model": 0.0234,
-     "market": 0.0106
+     "model": 0.0236,
+     "market": 0.0111
     },
     {
      "team": "NYG",
-     "model": 0.021,
-     "market": 0.0308
+     "model": 0.0211,
+     "market": 0.0263
     },
     {
      "team": "WAS",
-     "model": 0.0097,
-     "market": 0.0136
-    },
-    {
-     "team": "GB",
-     "model": 0.0389,
-     "market": 0.0384
+     "model": 0.0098,
+     "market": 0.0137
     },
     {
      "team": "ARI",
      "model": 0.0045,
-     "market": 0.0045
+     "market": 0.0025
     },
     {
      "team": "NO",
-     "model": 0.0131,
-     "market": 0.0131
+     "model": 0.0132,
+     "market": 0.0137
+    },
+    {
+     "team": "GB",
+     "model": 0.0392,
+     "market": 0.039
     }
    ]
   },
@@ -349,23 +349,23 @@
    "rows": [
     {
      "team": "BUF",
-     "model": 0.5371,
-     "market": 0.6465
+     "model": 0.5294,
+     "market": 0.6515
     },
     {
      "team": "NE",
-     "model": 0.39,
-     "market": 0.3181
+     "model": 0.396,
+     "market": 0.3131
     },
     {
      "team": "NYJ",
-     "model": 0.0583,
-     "market": 0.0272
+     "model": 0.0596,
+     "market": 0.0258
     },
     {
      "team": "MIA",
-     "model": 0.0146,
-     "market": 0.0082
+     "model": 0.015,
+     "market": 0.0096
     }
    ]
   },
@@ -376,23 +376,23 @@
    "rows": [
     {
      "team": "BAL",
-     "model": 0.4394,
-     "market": 0.6062
+     "model": 0.4398,
+     "market": 0.5933
     },
     {
      "team": "PIT",
-     "model": 0.2207,
-     "market": 0.0789
+     "model": 0.2205,
+     "market": 0.0955
     },
     {
      "team": "CLE",
-     "model": 0.0815,
-     "market": 0.0586
+     "model": 0.0814,
+     "market": 0.0548
     },
     {
      "team": "CIN",
-     "model": 0.2584,
-     "market": 0.2563
+     "model": 0.2583,
+     "market": 0.2564
     }
    ]
   },
@@ -404,22 +404,22 @@
     {
      "team": "HOU",
      "model": 0.0706,
-     "market": 0.1311
+     "market": 0.1324
     },
     {
      "team": "IND",
      "model": 0.1507,
-     "market": 0.1117
+     "market": 0.1029
     },
     {
      "team": "JAX",
      "model": 0.7733,
-     "market": 0.7427
+     "market": 0.75
     },
     {
      "team": "TEN",
      "model": 0.0054,
-     "market": 0.0146
+     "market": 0.0147
     }
    ]
   },
@@ -429,19 +429,19 @@
    "event": "Pro Football: AFC West Champion",
    "rows": [
     {
-     "team": "KC",
-     "model": 0.6779,
-     "market": 0.6947
-    },
-    {
      "team": "LV",
      "model": 0.0937,
-     "market": 0.0806
+     "market": 0.0719
+    },
+    {
+     "team": "KC",
+     "model": 0.6785,
+     "market": 0.6937
     },
     {
      "team": "DEN",
-     "model": 0.2218,
-     "market": 0.2181
+     "model": 0.2212,
+     "market": 0.2278
     },
     {
      "team": "LAC",
@@ -457,23 +457,23 @@
    "rows": [
     {
      "team": "NYG",
-     "model": 0.3423,
-     "market": 0.1892
-    },
-    {
-     "team": "PHI",
-     "model": 0.2266,
-     "market": 0.3323
+     "model": 0.3418,
+     "market": 0.231
     },
     {
      "team": "DAL",
-     "model": 0.3256,
-     "market": 0.3834
+     "model": 0.3261,
+     "market": 0.4275
+    },
+    {
+     "team": "PHI",
+     "model": 0.2263,
+     "market": 0.2457
     },
     {
      "team": "WAS",
-     "model": 0.1055,
-     "market": 0.0951
+     "model": 0.1058,
+     "market": 0.0958
     }
    ]
   },
@@ -485,22 +485,22 @@
     {
      "team": "CHI",
      "model": 0.1531,
-     "market": 0.204
+     "market": 0.1869
     },
     {
      "team": "GB",
-     "model": 0.1212,
-     "market": 0.0945
+     "model": 0.1216,
+     "market": 0.096
     },
     {
      "team": "DET",
-     "model": 0.2877,
-     "market": 0.2637
+     "model": 0.2872,
+     "market": 0.2677
     },
     {
      "team": "MIN",
-     "model": 0.438,
-     "market": 0.4378
+     "model": 0.4381,
+     "market": 0.4495
     }
    ]
   },
@@ -511,23 +511,23 @@
    "rows": [
     {
      "team": "TB",
-     "model": 0.195,
-     "market": 0.1617
-    },
-    {
-     "team": "NO",
-     "model": 0.1403,
-     "market": 0.1617
+     "model": 0.1955,
+     "market": 0.1504
     },
     {
      "team": "CAR",
-     "model": 0.3561,
-     "market": 0.3704
+     "model": 0.356,
+     "market": 0.396
+    },
+    {
+     "team": "NO",
+     "model": 0.1402,
+     "market": 0.1554
     },
     {
      "team": "ATL",
-     "model": 0.3086,
-     "market": 0.3062
+     "model": 0.3083,
+     "market": 0.2982
     }
    ]
   },
@@ -538,23 +538,23 @@
    "rows": [
     {
      "team": "SF",
-     "model": 0.7789,
-     "market": 0.6447
+     "model": 0.7823,
+     "market": 0.6507
     },
     {
      "team": "SEA",
-     "model": 0.0958,
-     "market": 0.1624
+     "model": 0.0972,
+     "market": 0.1652
     },
     {
      "team": "LA",
-     "model": 0.1213,
-     "market": 0.1821
+     "model": 0.1164,
+     "market": 0.1752
     },
     {
      "team": "ARI",
-     "model": 0.004,
-     "market": 0.0108
+     "model": 0.0041,
+     "market": 0.009
     }
    ]
   },
@@ -564,34 +564,39 @@
    "event": "Pro Football: Team to Make Postseason",
    "rows": [
     {
+     "team": "PIT",
+     "model": 0.5185,
+     "market": 0.35
+    },
+    {
      "team": "SEA",
-     "model": 0.5549,
+     "model": 0.5576,
      "market": 0.725
     },
     {
-     "team": "PIT",
-     "model": 0.5185,
-     "market": 0.355
-    },
-    {
-     "team": "NYG",
-     "model": 0.4154,
-     "market": 0.275
-    },
-    {
      "team": "BAL",
-     "model": 0.7152,
+     "model": 0.7157,
      "market": 0.855
     },
     {
-     "team": "PHI",
-     "model": 0.2695,
-     "market": 0.38
+     "team": "NYG",
+     "model": 0.4155,
+     "market": 0.285
     },
     {
-     "team": "HOU",
-     "model": 0.2065,
-     "market": 0.315
+     "team": "IND",
+     "model": 0.3672,
+     "market": 0.255
+    },
+    {
+     "team": "DEN",
+     "model": 0.5369,
+     "market": 0.645
+    },
+    {
+     "team": "BUF",
+     "model": 0.8073,
+     "market": 0.915
     },
     {
      "team": "CIN",
@@ -599,124 +604,119 @@
      "market": 0.685
     },
     {
-     "team": "BUF",
-     "model": 0.8138,
-     "market": 0.92
+     "team": "HOU",
+     "model": 0.2065,
+     "market": 0.31
     },
     {
-     "team": "IND",
-     "model": 0.3673,
-     "market": 0.265
-    },
-    {
-     "team": "DEN",
-     "model": 0.5362,
-     "market": 0.635
-    },
-    {
-     "team": "CHI",
-     "model": 0.491,
-     "market": 0.585
+     "team": "DAL",
+     "model": 0.3962,
+     "market": 0.475
     },
     {
      "team": "TB",
-     "model": 0.2431,
+     "model": 0.244,
      "market": 0.175
     },
     {
      "team": "LA",
-     "model": 0.6441,
+     "model": 0.6313,
      "market": 0.7
     },
     {
-     "team": "DAL",
-     "model": 0.3952,
-     "market": 0.445
+     "team": "CHI",
+     "model": 0.4921,
+     "market": 0.56
     },
     {
      "team": "NYJ",
-     "model": 0.1901,
-     "market": 0.145
+     "model": 0.1915,
+     "market": 0.135
     },
     {
-     "team": "NO",
-     "model": 0.1811,
-     "market": 0.225
+     "team": "ATL",
+     "model": 0.4058,
+     "market": 0.355
     },
     {
-     "team": "JAX",
-     "model": 0.8981,
-     "market": 0.855
-    },
-    {
-     "team": "LAC",
-     "model": 0.0231,
-     "market": 0.06
+     "team": "PHI",
+     "model": 0.2694,
+     "market": 0.315
     },
     {
      "team": "CLE",
      "model": 0.2349,
-     "market": 0.2015
+     "market": 0.1985
     },
     {
-     "team": "MIA",
-     "model": 0.0403,
-     "market": 0.017
+     "team": "LAC",
+     "model": 0.0231,
+     "market": 0.055
     },
     {
-     "team": "ATL",
-     "model": 0.4057,
-     "market": 0.385
+     "team": "NO",
+     "model": 0.1812,
+     "market": 0.21
     },
     {
-     "team": "DET",
-     "model": 0.625,
-     "market": 0.645
+     "team": "LV",
+     "model": 0.2884,
+     "market": 0.26
     },
     {
-     "team": "ARI",
-     "model": 0.0578,
-     "market": 0.038
+     "team": "JAX",
+     "model": 0.8982,
+     "market": 0.87
     },
     {
      "team": "GB",
-     "model": 0.4098,
+     "model": 0.4126,
      "market": 0.39
     },
     {
-     "team": "CAR",
-     "model": 0.4263,
-     "market": 0.415
+     "team": "ARI",
+     "model": 0.0586,
+     "market": 0.038
+    },
+    {
+     "team": "MIA",
+     "model": 0.0407,
+     "market": 0.0225
     },
     {
      "team": "SF",
-     "model": 0.9596,
-     "market": 0.95
-    },
-    {
-     "team": "WAS",
-     "model": 0.1415,
-     "market": 0.135
+     "model": 0.96,
+     "market": 0.945
     },
     {
      "team": "MIN",
-     "model": 0.7803,
-     "market": 0.785
+     "model": 0.7815,
+     "market": 0.795
+    },
+    {
+     "team": "WAS",
+     "model": 0.1421,
+     "market": 0.13
+    },
+    {
+     "team": "CAR",
+     "model": 0.4265,
+     "market": 0.415
+    },
+    {
+     "team": "DET",
+     "model": 0.6257,
+     "market": 0.635
     },
     {
      "team": "NE",
-     "model": 0.7204,
-     "market": 0.7245
+     "model": 0.7217,
+     "market": 0.728
     },
     {
      "team": "TEN",
      "model": 0.0182,
-     "market": 0.0205
-    },
-    {
-     "team": "LV",
-     "model": 0.2871,
-     "market": 0.285
+     "market": 0.022
     }
    ]
   },
@@ -727,118 +727,118 @@
    "rows": [
     {
      "team": "OKC",
-     "model": 0.3287,
-     "market": 0.1864
-    },
-    {
-     "team": "DET",
-     "model": 0.0926,
-     "market": 0.0301
-    },
-    {
-     "team": "NY",
-     "model": 0.0298,
-     "market": 0.0908
-    },
-    {
-     "team": "DEN",
-     "model": 0.0906,
-     "market": 0.0311
-    },
-    {
-     "team": "MIN",
-     "model": 0.0038,
-     "market": 0.0626
+     "model": 0.3243,
+     "market": 0.1879
     },
     {
      "team": "PHI",
-     "model": 0.0398,
-     "market": 0.0903
+     "model": 0.0366,
+     "market": 0.0997
     },
     {
-     "team": "MIA",
-     "model": 0.0016,
-     "market": 0.0359
+     "team": "DEN",
+     "model": 0.0912,
+     "market": 0.0313
+    },
+    {
+     "team": "DET",
+     "model": 0.0883,
+     "market": 0.0303
+    },
+    {
+     "team": "MIN",
+     "model": 0.0113,
+     "market": 0.0631
     },
     {
      "team": "SA",
-     "model": 0.1726,
-     "market": 0.2055
+     "model": 0.1584,
+     "market": 0.2071
+    },
+    {
+     "team": "NY",
+     "model": 0.0263,
+     "market": 0.0723
     },
     {
      "team": "POR",
-     "model": 0.0437,
-     "market": 0.0139
-    },
-    {
-     "team": "CLE",
-     "model": 0.0522,
-     "market": 0.0244
+     "model": 0.043,
+     "market": 0.014
     },
     {
      "team": "BOS",
-     "model": 0.0294,
-     "market": 0.0526
+     "model": 0.0257,
+     "market": 0.053
+    },
+    {
+     "team": "CLE",
+     "model": 0.047,
+     "market": 0.0246
     },
     {
      "team": "IND",
-     "model": 0.0005,
-     "market": 0.0196
+     "model": 0.0006,
+     "market": 0.0197
     },
     {
      "team": "LAL",
-     "model": 0.0087,
-     "market": 0.0244
+     "model": 0.0083,
+     "market": 0.0246
     },
     {
      "team": "TOR",
-     "model": 0.02,
-     "market": 0.033
+     "model": 0.0171,
+     "market": 0.0332
     },
     {
      "team": "CHA",
-     "model": 0.017,
+     "model": 0.0157,
      "market": 0.0043
     },
     {
      "team": "MEM",
-     "model": 0.0126,
+     "model": 0.0115,
      "market": 0.0024
     },
     {
      "team": "GS",
-     "model": 0.0028,
-     "market": 0.011
-    },
-    {
-     "team": "UTAH",
-     "model": 0.0,
-     "market": 0.0081
+     "model": 0.0022,
+     "market": 0.0111
     },
     {
      "team": "WSH",
      "model": 0.0,
-     "market": 0.0081
+     "market": 0.0082
+    },
+    {
+     "team": "UTAH",
+     "model": 0.0001,
+     "market": 0.0082
+    },
+    {
+     "team": "HOU",
+     "model": 0.0204,
+     "market": 0.0275
     },
     {
      "team": "PHX",
-     "model": 0.0119,
+     "model": 0.012,
      "market": 0.0053
     },
     {
      "team": "DAL",
-     "model": 0.0004,
-     "market": 0.0062
+     "model": 0.0003,
+     "market": 0.0063
     },
     {
-     "team": "HOU",
-     "model": 0.0205,
-     "market": 0.0253
+     "team": "MIA",
+     "model": 0.0412,
+     "market": 0.0371
     },
     {
-     "team": "ORL",
-     "model": 0.0124,
-     "market": 0.0081
+     "team": "ATL",
+     "model": 0.0067,
+     "market": 0.0101
     },
     {
      "team": "LAC",
@@ -846,19 +846,9 @@
      "market": 0.0024
     },
     {
-     "team": "CHI",
-     "model": 0.0001,
-     "market": 0.0024
-    },
-    {
-     "team": "ATL",
-     "model": 0.0068,
-     "market": 0.0091
-    },
-    {
-     "team": "BKN",
-     "model": 0.0,
-     "market": 0.0014
+     "team": "ORL",
+     "model": 0.0103,
+     "market": 0.0082
     },
     {
      "team": "SAC",
@@ -866,14 +856,24 @@
      "market": 0.0014
     },
     {
-     "team": "NO",
-     "model": 0.0011,
-     "market": 0.0024
+     "team": "BKN",
+     "model": 0.0001,
+     "market": 0.0014
     },
     {
      "team": "MIL",
-     "model": 0.0002,
+     "model": 0.0001,
      "market": 0.0014
+    },
+    {
+     "team": "CHI",
+     "model": 0.0001,
+     "market": 0.0014
+    },
+    {
+     "team": "NO",
+     "model": 0.0012,
+     "market": 0.0024
     }
    ]
   },
@@ -884,68 +884,63 @@
    "rows": [
     {
      "team": "DET",
-     "model": 0.2525,
-     "market": 0.0737
-    },
-    {
-     "team": "CLE",
-     "model": 0.1629,
-     "market": 0.0668
-    },
-    {
-     "team": "MIA",
-     "model": 0.0108,
-     "market": 0.1031
-    },
-    {
-     "team": "PHI",
-     "model": 0.1265,
-     "market": 0.2078
+     "model": 0.233,
+     "market": 0.0739
     },
     {
      "team": "NY",
-     "model": 0.1027,
-     "market": 0.1817
+     "model": 0.0901,
+     "market": 0.1824
     },
     {
-     "team": "CHA",
-     "model": 0.0685,
-     "market": 0.0138
+     "team": "PHI",
+     "model": 0.1115,
+     "market": 0.1986
+    },
+    {
+     "team": "CLE",
+     "model": 0.1443,
+     "market": 0.0675
     },
     {
      "team": "IND",
-     "model": 0.0045,
-     "market": 0.0496
+     "model": 0.0042,
+     "market": 0.0596
     },
     {
-     "team": "ORL",
-     "model": 0.052,
-     "market": 0.0206
-    },
-    {
-     "team": "WSH",
-     "model": 0.0001,
-     "market": 0.0255
+     "team": "CHA",
+     "model": 0.0588,
+     "market": 0.0138
     },
     {
      "team": "BOS",
-     "model": 0.1059,
-     "market": 0.1228
+     "model": 0.0911,
+     "market": 0.1232
+    },
+    {
+     "team": "WSH",
+     "model": 0.0,
+     "market": 0.0256
+    },
+    {
+     "team": "ORL",
+     "model": 0.0438,
+     "market": 0.0217
+    },
+    {
+     "team": "MIA",
+     "model": 0.1256,
+     "market": 0.1035
     },
     {
      "team": "TOR",
-     "model": 0.0779,
-     "market": 0.0884
-    },
-    {
-     "team": "ATL",
-     "model": 0.0326,
-     "market": 0.0231
+     "model": 0.0657,
+     "market": 0.0838
     },
     {
      "team": "MIL",
-     "model": 0.0013,
-     "market": 0.0093
+     "model": 0.001,
+     "market": 0.0094
     },
     {
      "team": "CHI",
@@ -953,8 +948,13 @@
      "market": 0.0074
     },
     {
+     "team": "ATL",
+     "model": 0.0294,
+     "market": 0.0232
+    },
+    {
      "team": "BKN",
-     "model": 0.0008,
+     "model": 0.0006,
      "market": 0.0064
     }
    ]
@@ -966,63 +966,63 @@
    "rows": [
     {
      "team": "OKC",
-     "model": 0.4396,
-     "market": 0.3181
-    },
-    {
-     "team": "MIN",
-     "model": 0.0088,
-     "market": 0.0997
+     "model": 0.4393,
+     "market": 0.316
     },
     {
      "team": "SA",
-     "model": 0.2486,
-     "market": 0.3276
+     "model": 0.2344,
+     "market": 0.3255
+    },
+    {
+     "team": "MIN",
+     "model": 0.0227,
+     "market": 0.1038
     },
     {
      "team": "DEN",
-     "model": 0.1406,
-     "market": 0.0617
+     "model": 0.1419,
+     "market": 0.0613
     },
     {
      "team": "POR",
-     "model": 0.072,
-     "market": 0.0195
+     "model": 0.0726,
+     "market": 0.0193
     },
     {
      "team": "LAL",
-     "model": 0.0183,
+     "model": 0.0177,
      "market": 0.0594
     },
     {
      "team": "GS",
-     "model": 0.0071,
-     "market": 0.0294
+     "model": 0.0062,
+     "market": 0.0302
     },
     {
      "team": "DAL",
-     "model": 0.0013,
-     "market": 0.018
+     "model": 0.0011,
+     "market": 0.0193
     },
     {
      "team": "PHX",
-     "model": 0.0239,
-     "market": 0.0076
+     "model": 0.0238,
+     "market": 0.0075
     },
     {
      "team": "UTAH",
-     "model": 0.0003,
-     "market": 0.0119
+     "model": 0.0001,
+     "market": 0.0118
     },
     {
      "team": "SAC",
      "model": 0.0001,
-     "market": 0.0076
+     "market": 0.0066
     },
     {
      "team": "HOU",
-     "model": 0.0392,
-     "market": 0.0394
+     "model": 0.0402,
+     "market": 0.0392
     }
    ]
   },
@@ -1033,163 +1033,163 @@
    "rows": [
     {
      "team": "COL",
-     "model": 0.1805,
-     "market": 0.1079
-    },
-    {
-     "team": "FLA",
-     "model": 0.0149,
-     "market": 0.0798
+     "model": 0.1967,
+     "market": 0.1072
     },
     {
      "team": "CAR",
-     "model": 0.1568,
-     "market": 0.0985
+     "model": 0.1734,
+     "market": 0.0979
     },
     {
-     "team": "EDM",
-     "model": 0.0333,
-     "market": 0.0798
+     "team": "FLA",
+     "model": 0.0143,
+     "market": 0.0793
     },
     {
      "team": "TBL",
-     "model": 0.1049,
-     "market": 0.061
+     "model": 0.1172,
+     "market": 0.0606
+    },
+    {
+     "team": "EDM",
+     "model": 0.028,
+     "market": 0.0793
     },
     {
      "team": "MTL",
-     "model": 0.0214,
-     "market": 0.0521
-    },
-    {
-     "team": "TOR",
-     "model": 0.0043,
-     "market": 0.0286
+     "model": 0.0197,
+     "market": 0.0517
     },
     {
      "team": "MIN",
-     "model": 0.0356,
-     "market": 0.0587
+     "model": 0.0291,
+     "market": 0.0583
+    },
+    {
+     "team": "TOR",
+     "model": 0.0037,
+     "market": 0.0284
     },
     {
      "team": "SJS",
-     "model": 0.003,
-     "market": 0.023
-    },
-    {
-     "team": "UTA",
-     "model": 0.041,
-     "market": 0.0277
-    },
-    {
-     "team": "NYR",
-     "model": 0.0091,
-     "market": 0.0192
+     "model": 0.0018,
+     "market": 0.0228
     },
     {
      "team": "ANA",
-     "model": 0.0104,
-     "market": 0.0202
-    },
-    {
-     "team": "VGK",
-     "model": 0.08,
-     "market": 0.0704
+     "model": 0.0077,
+     "market": 0.02
     },
     {
      "team": "WSH",
-     "model": 0.028,
-     "market": 0.0371
+     "model": 0.0248,
+     "market": 0.0368
+    },
+    {
+     "team": "NYR",
+     "model": 0.0073,
+     "market": 0.0191
+    },
+    {
+     "team": "VGK",
+     "model": 0.0815,
+     "market": 0.0699
+    },
+    {
+     "team": "UTA",
+     "model": 0.0386,
+     "market": 0.0275
     },
     {
      "team": "DET",
-     "model": 0.0138,
-     "market": 0.0052
-    },
-    {
-     "team": "OTT",
-     "model": 0.0386,
-     "market": 0.03
-    },
-    {
-     "team": "LAK",
-     "model": 0.0249,
-     "market": 0.0174
-    },
-    {
-     "team": "PIT",
-     "model": 0.0213,
-     "market": 0.016
-    },
-    {
-     "team": "WPG",
-     "model": 0.0151,
-     "market": 0.0099
-    },
-    {
-     "team": "STL",
-     "model": 0.01,
-     "market": 0.0056
-    },
-    {
-     "team": "DAL",
-     "model": 0.0559,
-     "market": 0.0516
+     "model": 0.0142,
+     "market": 0.0051
     },
     {
      "team": "BOS",
-     "model": 0.0084,
-     "market": 0.0127
+     "model": 0.0054,
+     "market": 0.0126
     },
     {
-     "team": "BUF",
-     "model": 0.0211,
-     "market": 0.0174
+     "team": "LAK",
+     "model": 0.0244,
+     "market": 0.0172
     },
     {
      "team": "PHI",
-     "model": 0.0035,
-     "market": 0.0066
+     "model": 0.0024,
+     "market": 0.0089
     },
     {
-     "team": "CGY",
-     "model": 0.004,
-     "market": 0.0014
+     "team": "DAL",
+     "model": 0.0576,
+     "market": 0.0513
     },
     {
-     "team": "CHI",
-     "model": 0.001,
-     "market": 0.0033
+     "team": "OTT",
+     "model": 0.0383,
+     "market": 0.0326
     },
     {
-     "team": "NYI",
-     "model": 0.0083,
-     "market": 0.0061
-    },
-    {
-     "team": "VAN",
-     "model": 0.0008,
-     "market": 0.0023
+     "team": "BUF",
+     "model": 0.021,
+     "market": 0.0172
     },
     {
      "team": "NSH",
-     "model": 0.004,
-     "market": 0.0052
+     "model": 0.0022,
+     "market": 0.0051
+    },
+    {
+     "team": "CHI",
+     "model": 0.0004,
+     "market": 0.0033
     },
     {
      "team": "CBJ",
-     "model": 0.0152,
+     "model": 0.0119,
      "market": 0.0145
     },
     {
-     "team": "NJD",
-     "model": 0.0254,
-     "market": 0.0258
+     "team": "PIT",
+     "model": 0.0187,
+     "market": 0.0163
+    },
+    {
+     "team": "STL",
+     "model": 0.0079,
+     "market": 0.0056
     },
     {
      "team": "SEA",
-     "model": 0.0054,
-     "market": 0.0052
+     "model": 0.0029,
+     "market": 0.0051
+    },
+    {
+     "team": "VAN",
+     "model": 0.0004,
+     "market": 0.0023
+    },
+    {
+     "team": "NJD",
+     "model": 0.027,
+     "market": 0.0252
+    },
+    {
+     "team": "NYI",
+     "model": 0.0071,
+     "market": 0.0061
+    },
+    {
+     "team": "CGY",
+     "model": 0.0023,
+     "market": 0.0014
+    },
+    {
+     "team": "WPG",
+     "model": 0.0118,
+     "market": 0.0112
     }
    ]
   },
@@ -1200,58 +1200,58 @@
    "rows": [
     {
      "team": "FLA",
-     "model": 0.0424,
-     "market": 0.2007
+     "model": 0.0397,
+     "market": 0.1999
     },
     {
      "team": "CAR",
-     "model": 0.3175,
-     "market": 0.2007
+     "model": 0.3427,
+     "market": 0.2054
     },
     {
      "team": "TBL",
-     "model": 0.2242,
-     "market": 0.1449
-    },
-    {
-     "team": "OTT",
-     "model": 0.099,
-     "market": 0.0585
+     "model": 0.2419,
+     "market": 0.1444
     },
     {
      "team": "WSH",
-     "model": 0.0724,
-     "market": 0.1059
+     "model": 0.0643,
+     "market": 0.1055
+    },
+    {
+     "team": "OTT",
+     "model": 0.0931,
+     "market": 0.0605
     },
     {
      "team": "MTL",
-     "model": 0.0542,
-     "market": 0.0747
-    },
-    {
-     "team": "PHI",
-     "model": 0.0102,
-     "market": 0.0284
-    },
-    {
-     "team": "PIT",
-     "model": 0.0571,
-     "market": 0.0418
+     "model": 0.0509,
+     "market": 0.0738
     },
     {
      "team": "BOS",
-     "model": 0.0266,
-     "market": 0.0418
+     "model": 0.0189,
+     "market": 0.0394
+    },
+    {
+     "team": "PHI",
+     "model": 0.0081,
+     "market": 0.0283
     },
     {
      "team": "CBJ",
-     "model": 0.0413,
-     "market": 0.0502
+     "model": 0.0355,
+     "market": 0.0489
+    },
+    {
+     "team": "PIT",
+     "model": 0.0506,
+     "market": 0.0416
     },
     {
      "team": "BUF",
-     "model": 0.0552,
-     "market": 0.0524
+     "model": 0.0544,
+     "market": 0.0522
     }
    ]
   },
@@ -1262,43 +1262,43 @@
    "rows": [
     {
      "team": "COL",
-     "model": 0.4851,
-     "market": 0.3584
+     "model": 0.5175,
+     "market": 0.3372
     },
     {
      "team": "SJS",
-     "model": 0.0129,
-     "market": 0.0944
-    },
-    {
-     "team": "DAL",
-     "model": 0.1755,
-     "market": 0.2185
-    },
-    {
-     "team": "WPG",
-     "model": 0.0581,
-     "market": 0.0315
-    },
-    {
-     "team": "STL",
-     "model": 0.0408,
-     "market": 0.0629
+     "model": 0.0086,
+     "market": 0.0946
     },
     {
      "team": "UTA",
-     "model": 0.1365,
-     "market": 0.1486
+     "model": 0.1319,
+     "market": 0.1727
+    },
+    {
+     "team": "STL",
+     "model": 0.0342,
+     "market": 0.074
+    },
+    {
+     "team": "DAL",
+     "model": 0.1742,
+     "market": 0.2056
+    },
+    {
+     "team": "WPG",
+     "model": 0.0447,
+     "market": 0.0296
     },
     {
      "team": "LAK",
-     "model": 0.0874,
-     "market": 0.0804
+     "model": 0.0863,
+     "market": 0.0814
     },
     {
      "team": "VAN",
-     "model": 0.0036,
-     "market": 0.0052
+     "model": 0.0026,
+     "market": 0.0049
     }
    ]
   },
@@ -1309,92 +1309,92 @@
    "rows": [
     {
      "team": "SJS",
-     "model": 0.181,
+     "model": 0.1827,
      "market": 0.51
     },
     {
      "team": "FLA",
-     "model": 0.4408,
-     "market": 0.715
+     "model": 0.4394,
+     "market": 0.71
     },
     {
      "team": "SEA",
-     "model": 0.5488,
+     "model": 0.5494,
      "market": 0.305
     },
     {
      "team": "NYR",
-     "model": 0.6483,
-     "market": 0.415
+     "model": 0.6469,
+     "market": 0.41
     },
     {
      "team": "MTL",
-     "model": 0.4229,
-     "market": 0.645
+     "model": 0.3962,
+     "market": 0.615
     },
     {
      "team": "TOR",
-     "model": 0.3233,
+     "model": 0.3224,
      "market": 0.52
     },
     {
-     "team": "WPG",
-     "model": 0.573,
-     "market": 0.39
+     "team": "BOS",
+     "model": 0.5669,
+     "market": 0.42
     },
     {
      "team": "MIN",
-     "model": 0.7185,
+     "model": 0.7104,
      "market": 0.825
     },
     {
      "team": "LAK",
-     "model": 0.3826,
-     "market": 0.47
-    },
-    {
-     "team": "STL",
-     "model": 0.4652,
-     "market": 0.38
-    },
-    {
-     "team": "NYI",
-     "model": 0.3919,
-     "market": 0.31
-    },
-    {
-     "team": "ANA",
-     "model": 0.5345,
-     "market": 0.615
-    },
-    {
-     "team": "BOS",
-     "model": 0.5737,
+     "model": 0.3858,
      "market": 0.495
     },
     {
-     "team": "BUF",
-     "model": 0.4198,
-     "market": 0.49
+     "team": "WPG",
+     "model": 0.5706,
+     "market": 0.465
     },
     {
-     "team": "CGY",
-     "model": 0.095,
-     "market": 0.0525
-    },
-    {
-     "team": "CBJ",
-     "model": 0.3464,
-     "market": 0.37
+     "team": "STL",
+     "model": 0.4598,
+     "market": 0.38
     },
     {
      "team": "DAL",
-     "model": 0.6867,
-     "market": 0.705
+     "model": 0.7038,
+     "market": 0.77
+    },
+    {
+     "team": "BUF",
+     "model": 0.4172,
+     "market": 0.48
+    },
+    {
+     "team": "ANA",
+     "model": 0.5415,
+     "market": 0.6
+    },
+    {
+     "team": "NYI",
+     "model": 0.3926,
+     "market": 0.335
+    },
+    {
+     "team": "CGY",
+     "model": 0.093,
+     "market": 0.0615
+    },
+    {
+     "team": "CBJ",
+     "model": 0.3492,
+     "market": 0.37
     },
     {
      "team": "UTA",
-     "model": 0.7285,
+     "model": 0.7268,
      "market": 0.745
     }
    ]
