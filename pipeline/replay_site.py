@@ -159,6 +159,8 @@ def build_site(archive=None):
             top = re.sub(nav, r'\1<a href="replay.html">History</a>', top, count=1)
         top = top.replace('href="replay.html">History', 'href="replay.html" aria-current="page">History')
         top = re.sub(r"<title>.*?</title>", f"<title>{cfg['label']} week-by-week history</title>", top, count=1, flags=re.S)
+        top = re.sub(r'(<span class="stamp" id="stamp">)[^<]*',   # the sport's JS (which fills the stamp) is not loaded on this page
+                     lambda m: m.group(1) + "Updated " + __import__("datetime").datetime.now(__import__("datetime").timezone.utc).strftime("%Y-%m-%d %H:%M") + " UTC", top, count=1)
         body = f"""
 <main class="page" id="main">
   <div class="page-head"><h1>{cfg['label']} week by week</h1><p>How each team's chance of winning each market changed through past seasons, rebuilt for every week of the season. Pick a season, a market and a week to see where the model stood, how much it had moved, and how things ended.</p></div>

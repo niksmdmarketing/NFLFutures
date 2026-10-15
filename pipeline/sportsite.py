@@ -101,6 +101,8 @@ def build_pages(folder, sport, brand, pages, data_src=None, keep=()):
     for fn in os.listdir(folder):
         if fn.endswith(".html") and fn not in want:
             os.remove(os.path.join(folder, fn))
+    if os.path.isdir(os.path.join(folder, "js")):   # scripts of the earlier NBA design: no page loads them any more
+        shutil.rmtree(os.path.join(folder, "js"))
     shutil.copy(os.path.join(ENGINE, "sport.js"), folder)
     shutil.copy(NHL_CSS, folder)
     if data_src and os.path.isdir(data_src):
