@@ -499,3 +499,12 @@ NHL_LINEUP_N=5 NHL_LINEUP_PRE=0 NHL_LINEUP_VAL=rapm RAPM_LAM=300000 RAPM_KBOX=1;
 - Leftover scripts of the earlier NBA design (nba/js) removed from the output.
 - Private: Atlético Madrid and Alavés were treated as promoted clubs in the live 2026-27 La Liga prior (source changed accents);
   xG join and prior now accent-safe; football History/reliability files regenerated with the live squad-value prior.
+- Data-quality audit (TypeSafe 61%: audit joins rather than more tweaks):
+  - NHL injuries: CBS names without accents did not match the NHL's accented names (Isac Lundestrom / Lundeström), so the
+    player counted as zero. Accent-insensitive matching added (nhl_absence._plain). 9 of 113 listed players unmatched before;
+    after: only players with no NHL games (Krug, Dube, Trudeau, Garrett Brown).
+  - NHL prior: Utah 2024-25 had no previous season (Arizona's was not carried over), so it started as an average team.
+    nhl_model.RELOCATED carries Arizona into Utah. Replay: 2024 better (division/playoffs/finals), other seasons identical;
+    title 0.1067 = , finals 0.1743 -> 0.1742, division 0.2224 -> 0.2222, playoffs 0.3522 -> 0.3517. History files regenerated.
+  - Checked clean: NBA injuries (joined on ESPN athlete id), NBL/AFL team codes across seasons, football squad values
+    (every club-season matched), Movers name matching (accent-folded).

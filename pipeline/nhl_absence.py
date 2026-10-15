@@ -86,21 +86,30 @@ def _usage(y):
     return hours, starts
 
 
+def _plain(name):
+    import unicodedata
+    return "".join(c for c in unicodedata.normalize("NFKD", str(name)) if not unicodedata.combining(c)).strip().lower()
+
+
 def player_costs(y, inj, val, hours, starts):
     """Per injured player: goals per game the team loses while he is out (positive = team weaker)."""
     out = []
     last = starts.get("_last", {})
     alias = {}
+    plain = {}
     for kk in list(val.index) + list(hours):
         nm, gg = kk.rsplit("|", 1)
-        parts = nm.split()
+        plain.setdefault(f"{_plain(nm)}|{gg}", kk)
+        parts = _plain(nm).split()
         if len(parts) >= 2:
             alias.setdefault((parts[0][0], parts[-1], gg), set()).add(kk)
     for r in inj.itertuples():
         g = _grp(r.pos)
         k = f"{r.name.strip().lower()}|{g}"
         if k not in val.index and k not in hours:
-            parts = r.name.strip().lower().split()
+            k = plain.get(f"{_plain(r.name)}|{g}", k)      # accents: CBS 'Isac Lundestrom' vs NHL 'Isac Lundeström'
+        if k not in val.index and k not in hours:
+            parts = _plain(r.name).split()
             cand = alias.get((parts[0][0], parts[-1], g), set()) if len(parts) >= 2 else set()
             if len(cand) == 1:          # same first initial and last name (Chris / Christopher)
                 k = next(iter(cand))

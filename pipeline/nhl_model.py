@@ -91,18 +91,26 @@ def season_rates(T):
 ROSTER = os.environ.get("NHL_ROSTER", "none")   # none | rel | abs | mix: roster-based preseason terms (nhl_roster.py)
 
 
+RELOCATED = {"UTA": "ARI"}   # Utah took over Arizona's roster in 2024-25: its prior seasons are Arizona's
+
+
+def _carry(series, teams):
+    """series indexed by team -> values for `teams`, using the predecessor franchise where a team is new."""
+    return pd.Series([series.get(t, series.get(RELOCATED.get(t), np.nan)) for t in teams], index=teams)
+
+
 def prior_features(y, TT):
     """(gd1, xgd1, gd2[, rsk, rg]) per team for season y from the two previous seasons (+ roster value when enabled)."""
     teams = TT[y].index if y in TT else []
     out = pd.DataFrame(0.0, index=teams, columns=["gd1", "xgd1", "gd2"])
     if y - 1 in TT:
         g1, x1 = season_rates(TT[y - 1])
-        out["gd1"] = g1.reindex(teams).values
-        out["xgd1"] = x1.reindex(teams).values
+        out["gd1"] = _carry(g1, teams).values
+        out["xgd1"] = _carry(x1, teams).values
         out["gd2"] = out["gd1"]
     if y - 2 in TT:
         g2, _ = season_rates(TT[y - 2])
-        out["gd2"] = g2.reindex(teams).fillna(out["gd1"]).values
+        out["gd2"] = _carry(g2, teams).fillna(out["gd1"]).values
     if PRIOR_PTS and y - 1 in TT:            # research: standings points beyond what goal difference implies (last season)
         T1 = TT[y - 1]
         ppg = numcol(T1, "points") / numcol(T1, "gamesPlayed").replace(0, np.nan)
