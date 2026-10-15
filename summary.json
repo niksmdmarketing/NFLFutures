@@ -1,12 +1,12 @@
 {
  "schema_version": 2,
  "source_url": "https://www.nfl.com/injuries/",
- "generated_at": "2026-10-15T23:23:41+00:00",
- "last_attempt_at": "2026-10-15T23:23:41+00:00",
+ "generated_at": "2026-10-15T23:47:46+00:00",
+ "last_attempt_at": "2026-10-15T23:47:46+00:00",
  "last_attempt_ok": true,
  "last_error": null,
- "last_success_at": "2026-10-15T23:23:41+00:00",
- "report_first_seen_at": "2026-10-15T23:06:09+00:00",
+ "last_success_at": "2026-10-15T23:47:46+00:00",
+ "report_first_seen_at": "2026-10-15T23:47:46+00:00",
  "collection_status": "ok",
  "stale_after_hours": 6,
  "report_season": 2026,
@@ -78,7 +78,7 @@
   "2026-10-19"
  ],
  "status_counts": {
-  "No game status": 347,
+  "No game status": 348,
   "Out": 5,
   "Questionable": 1
  },
@@ -1729,7 +1729,7 @@
    "player": "Alex Bachman",
    "position": "WR",
    "injury": null,
-   "practice_status": "Limited Participation in Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/alex-bachman/"
   },
@@ -1762,6 +1762,16 @@
    "practice_status": "Limited Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/josh-wallace/"
+  },
+  {
+   "team": "LA",
+   "player_id": "keagen-trost",
+   "player": "Keagen Trost",
+   "position": "T",
+   "injury": null,
+   "practice_status": "Full Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/keagen-trost/"
   },
   {
    "team": "LA",
@@ -3616,6 +3626,53 @@
  ],
  "recent_changes": [
   {
+   "observed_at": "2026-10-15T23:47:46+00:00",
+   "season": 2026,
+   "week": 6,
+   "team": "LA",
+   "player_id": "keagen-trost",
+   "kind": "appeared",
+   "before": null,
+   "after": {
+    "team": "LA",
+    "player_id": "keagen-trost",
+    "player": "Keagen Trost",
+    "position": "T",
+    "injury": null,
+    "practice_status": "Full Participation in Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/keagen-trost/"
+   }
+  },
+  {
+   "observed_at": "2026-10-15T23:47:46+00:00",
+   "season": 2026,
+   "week": 6,
+   "team": "LA",
+   "player_id": "alex-bachman",
+   "kind": "updated",
+   "before": {
+    "team": "LA",
+    "player_id": "alex-bachman",
+    "player": "Alex Bachman",
+    "position": "WR",
+    "injury": null,
+    "practice_status": "Limited Participation in Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/alex-bachman/"
+   },
+   "after": {
+    "team": "LA",
+    "player_id": "alex-bachman",
+    "player": "Alex Bachman",
+    "position": "WR",
+    "injury": null,
+    "practice_status": "Full Participation in Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/alex-bachman/"
+   }
+  },
+  {
    "observed_at": "2026-10-15T23:06:09+00:00",
    "season": 2026,
    "week": 6,
@@ -4399,48 +4456,10 @@
     "game_status": null,
     "player_url": "https://www.nfl.com/players/kyle-juszczyk/"
    }
-  },
-  {
-   "observed_at": "2026-10-15T23:06:09+00:00",
-   "season": 2026,
-   "week": 6,
-   "team": "SF",
-   "player_id": "james-thompson-jr",
-   "kind": "appeared",
-   "before": null,
-   "after": {
-    "team": "SF",
-    "player_id": "james-thompson-jr",
-    "player": "James Thompson Jr.",
-    "position": "DT",
-    "injury": null,
-    "practice_status": "Did Not Participate In Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/james-thompson-jr/"
-   }
-  },
-  {
-   "observed_at": "2026-10-15T23:06:09+00:00",
-   "season": 2026,
-   "week": 6,
-   "team": "SF",
-   "player_id": "jacob-cowing",
-   "kind": "appeared",
-   "before": null,
-   "after": {
-    "team": "SF",
-    "player_id": "jacob-cowing",
-    "player": "Jacob Cowing",
-    "position": "WR",
-    "injury": null,
-    "practice_status": "Full Participation in Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/jacob-cowing/"
-   }
   }
  ],
- "distinct_reports": 8,
- "checks": 178,
+ "distinct_reports": 9,
+ "checks": 179,
  "failed_checks": 0,
  "warnings": [],
  "projection_effect": "none",
