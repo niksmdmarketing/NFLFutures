@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-10-15T1825Z",
-"feed_timestamp": "2026-10-15T18:24:51Z",
+"collected_utc": "2026-10-15T2310Z",
+"feed_timestamp": "2026-10-15T23:10:19Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -244,24 +244,6 @@
 "injury": "Left Knee Surgery"
 },
 {
-"athlete_id": "4871144",
-"status": "Day-To-Day",
-"return_date": "2026-10-15",
-"injury": "Rest"
-},
-{
-"athlete_id": "2991230",
-"status": "Day-To-Day",
-"return_date": "2026-10-15",
-"injury": "Rest"
-},
-{
-"athlete_id": "3202",
-"status": "Day-To-Day",
-"return_date": "2026-10-15",
-"injury": "Not Injury Related"
-},
-{
 "athlete_id": "2991235",
 "status": "Day-To-Day",
 "return_date": "2026-10-15",
@@ -378,7 +360,7 @@
 {
 "athlete_id": "4432185",
 "status": "Day-To-Day",
-"return_date": "2026-10-16",
+"return_date": "2026-10-21",
 "injury": "Not Specified Ankle"
 },
 {
@@ -460,6 +442,12 @@
 "injury": "Rest"
 },
 {
+"athlete_id": "4397002",
+"status": "Day-To-Day",
+"return_date": "2026-10-21",
+"injury": "Rest"
+},
+{
 "athlete_id": "3934673",
 "status": "Out",
 "return_date": "2027-04-01",
@@ -482,36 +470,6 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-16",
 "injury": "Right Toe Bruise"
-},
-{
-"athlete_id": "3934672",
-"status": "Day-To-Day",
-"return_date": "2026-10-15",
-"injury": "Rest"
-},
-{
-"athlete_id": "3062679",
-"status": "Day-To-Day",
-"return_date": "2026-10-15",
-"injury": "Rest"
-},
-{
-"athlete_id": "3136195",
-"status": "Day-To-Day",
-"return_date": "2026-10-15",
-"injury": "Rest"
-},
-{
-"athlete_id": "3147657",
-"status": "Day-To-Day",
-"return_date": "2026-10-15",
-"injury": "Rest"
-},
-{
-"athlete_id": "3934719",
-"status": "Day-To-Day",
-"return_date": "2026-10-15",
-"injury": "Rest"
 },
 {
 "athlete_id": "4900671",
@@ -650,6 +608,12 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-16",
 "injury": "Rest"
+},
+{
+"athlete_id": "3913174",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
+"injury": "Left Knee"
 },
 {
 "athlete_id": "4701232",
@@ -1092,7 +1056,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-16",
 "injury": "Left Ankle Sprain",
-"updated": "2026-10-15T03:14Z"
+"updated": "2026-10-15T19:32Z"
 },
 {
 "athlete_id": "4593125",
@@ -1174,33 +1138,6 @@
 "return_date": "2026-12-01",
 "injury": "Left Knee Surgery",
 "updated": "2026-09-28T15:06Z"
-},
-{
-"athlete_id": "4871144",
-"name": "Alperen Sengun",
-"team_name": "Houston Rockets",
-"status": "Day-To-Day",
-"return_date": "2026-10-15",
-"injury": "Rest",
-"updated": "2026-10-11T10:05Z"
-},
-{
-"athlete_id": "2991230",
-"name": "Fred VanVleet",
-"team_name": "Houston Rockets",
-"status": "Day-To-Day",
-"return_date": "2026-10-15",
-"injury": "Rest",
-"updated": "2026-10-11T10:01Z"
-},
-{
-"athlete_id": "3202",
-"name": "Kevin Durant",
-"team_name": "Houston Rockets",
-"status": "Day-To-Day",
-"return_date": "2026-10-15",
-"injury": "Not Injury Related",
-"updated": "2026-10-09T15:03Z"
 },
 {
 "athlete_id": "2991235",
@@ -1326,7 +1263,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-16",
 "injury": "Undisclosed",
-"updated": "2026-10-14T00:37Z"
+"updated": "2026-10-15T20:02Z"
 },
 {
 "athlete_id": "5113969",
@@ -1335,7 +1272,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-16",
 "injury": "Undisclosed Bruise",
-"updated": "2026-10-14T00:41Z"
+"updated": "2026-10-15T20:09Z"
 },
 {
 "athlete_id": "4277811",
@@ -1344,7 +1281,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-16",
 "injury": "Lower Leg",
-"updated": "2026-10-14T00:39Z"
+"updated": "2026-10-15T20:06Z"
 },
 {
 "athlete_id": "3945274",
@@ -1362,7 +1299,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-16",
 "injury": "Foot Bruise",
-"updated": "2026-10-14T00:35Z"
+"updated": "2026-10-15T20:02Z"
 },
 {
 "athlete_id": "4432810",
@@ -1378,9 +1315,9 @@
 "name": "Micah Peavy",
 "team_name": "Memphis Grizzlies",
 "status": "Day-To-Day",
-"return_date": "2026-10-16",
+"return_date": "2026-10-21",
 "injury": "Not Specified Ankle",
-"updated": "2026-10-10T02:41Z"
+"updated": "2026-10-15T19:05Z"
 },
 {
 "athlete_id": "4066261",
@@ -1500,6 +1437,15 @@
 "updated": "2026-10-14T22:59Z"
 },
 {
+"athlete_id": "4397002",
+"name": "Ayo Dosunmu",
+"team_name": "Minnesota Timberwolves",
+"status": "Day-To-Day",
+"return_date": "2026-10-21",
+"injury": "Rest",
+"updated": "2026-10-15T20:11Z"
+},
+{
 "athlete_id": "3934673",
 "name": "Donte DiVincenzo",
 "team_name": "Minnesota Timberwolves",
@@ -1534,51 +1480,6 @@
 "return_date": "2026-10-16",
 "injury": "Right Toe Bruise",
 "updated": "2026-10-15T00:23Z"
-},
-{
-"athlete_id": "3934672",
-"name": "Jalen Brunson",
-"team_name": "New York Knicks",
-"status": "Day-To-Day",
-"return_date": "2026-10-15",
-"injury": "Rest",
-"updated": "2026-10-13T02:20Z"
-},
-{
-"athlete_id": "3062679",
-"name": "Josh Hart",
-"team_name": "New York Knicks",
-"status": "Day-To-Day",
-"return_date": "2026-10-15",
-"injury": "Rest",
-"updated": "2026-10-13T02:40Z"
-},
-{
-"athlete_id": "3136195",
-"name": "Karl-Anthony Towns",
-"team_name": "New York Knicks",
-"status": "Day-To-Day",
-"return_date": "2026-10-15",
-"injury": "Rest",
-"updated": "2026-10-13T02:47Z"
-},
-{
-"athlete_id": "3147657",
-"name": "Mikal Bridges",
-"team_name": "New York Knicks",
-"status": "Day-To-Day",
-"return_date": "2026-10-15",
-"injury": "Rest",
-"updated": "2026-10-13T02:47Z"
-},
-{
-"athlete_id": "3934719",
-"name": "OG Anunoby",
-"team_name": "New York Knicks",
-"status": "Day-To-Day",
-"return_date": "2026-10-15",
-"injury": "Rest",
-"updated": "2026-10-13T02:40Z"
 },
 {
 "athlete_id": "4900671",
@@ -1786,6 +1687,15 @@
 "return_date": "2026-10-16",
 "injury": "Rest",
 "updated": "2026-10-14T23:14Z"
+},
+{
+"athlete_id": "3913174",
+"name": "Luke Kennard",
+"team_name": "Phoenix Suns",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
+"injury": "Left Knee",
+"updated": "2026-10-15T22:56Z"
 },
 {
 "athlete_id": "4701232",
