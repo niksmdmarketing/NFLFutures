@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-10-15T18:21:10+00:00",
+ "checked_utc": "2026-10-15T21:31:33+00:00",
  "leagues": {
   "nfl": {
-   "records": 1488,
+   "records": 1489,
    "by_layer": {
     "official": 1409,
-    "reported": 79
+    "reported": 80
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -63,13 +63,13 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "79/79"
+   "reported_matched_to_official_list": "80/80"
   },
   "nba": {
-   "records": 255,
+   "records": 256,
    "by_layer": {
-    "official": 160,
-    "reported": 95
+    "official": 162,
+    "reported": 94
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -106,16 +106,7 @@
     "UTAH",
     "WSH"
    ],
-   "conflicts": [
-    {
-     "player": "Kristaps Porzingis",
-     "official": [
-      "out"
-     ],
-     "other": "expected to play",
-     "source": "ESPN news"
-    }
-   ],
+   "conflicts": [],
    "stale_projection_dates": 0,
    "teams_missing_official": [],
    "season_state": {
@@ -125,12 +116,12 @@
    "coverage_expected": false,
    "teams_missing_official_note": "off-season: no official coverage expected",
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "95/95"
+   "reported_matched_to_official_list": "94/94"
   },
   "nhl": {
-   "records": 1554,
+   "records": 1553,
    "by_layer": {
-    "official": 154,
+    "official": 153,
     "reported": 63,
     "projected": 1337
    },
@@ -153,6 +144,7 @@
     "MIN",
     "MTL",
     "NJD",
+    "NSH",
     "NYI",
     "NYR",
     "OTT",
@@ -172,8 +164,7 @@
    "conflicts": [],
    "stale_projection_dates": 0,
    "teams_missing_official": [
-    "BOS",
-    "NSH"
+    "BOS"
    ],
    "season_state": {
     "state": "in_season",
