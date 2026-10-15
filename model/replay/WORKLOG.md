@@ -444,3 +444,16 @@ his longest stint). Giannis 1,039 -> 1,877 projected. 14-season replay vs live 0
   season (not predictive); residual predictive (0.51 +/- 0.07). Model margins alone too compressed early (x1.24 +/- 0.08).
 - TypeSafe 60%: no systematic fixable cause; treat team gaps as market knowledge, not value. NFL early-stretch challenger
   (38%) not pursued for now.
+
+## 2026-10-15 NHL: GPT critique - ablations in the 10-season replay; playoff fade 1 -> 3 DEPLOYED
+Live settings reproduced exactly in research/replay_nhl.py (NHL_SHOT_W=1 NHL_SHOT_PO=1 NHL_PO_FADE=1 NHL_LINEUP_C=1
+NHL_LINEUP_N=5 NHL_LINEUP_PRE=0 NHL_LINEUP_VAL=rapm RAPM_LAM=300000 RAPM_KBOX=1; 2016 identical to nhll/lvr).
+- Preseason widening TAU_PRE 1.0 / 1.25 / 1.5: same (0.0000 / +0.0001); 2.0 -0.0005. Unchanged.
+- Prior scale 0 (everyone average) -0.0164 (0/10); 0.8 -0.0007; 1.2 -0.0002; 1.4 -0.0013. Prior out-of-sample R2 0.33
+  (2014-2025, slope 0.94), but 2023-2025 it trailed half of last season's goal difference.
+- Playoff fade (GPT expected it too aggressive): 0 -0.0015, 0.5 -0.0006, 1.5 +0.0004, 2 +0.0007, 3 +0.0012 (90% +0.0004
+  to +0.0019, 8/10), 4 +0.0014, 6 +0.0017, 9 +0.0019 (CI +0.0002 to +0.0034, 7/10); only title and conference change.
+  Walk-forward choice from {0..3}: 3 every season, +0.0012 vs live (6/8). Early Cup slope 1.64 -> 1.43 (3), 1.30 (9):
+  still too flat early, root cause not found. TypeSafe 43% deploy 3 (investigate root cause 38%).
+- 84-game season from 2026-27 (found by GPT): award projections, playoff fade and news trigger fixed.
+- TypeSafe next: stop NHL work (75%).

@@ -171,7 +171,9 @@ PO_FADE_CHALLENGER = 1.0
 XG_SHARE = 0.2
 LINEUP = os.environ.get("NHL_LINEUP", "1") == "1"       # roster term from recent lineups (nhl_lineup), live from 15 Oct 2026
 INJURIES = os.environ.get("NHL_INJURIES", "1") == "1"   # injured-player adjustment (nhl_absence), live from 15 Oct 2026
-PO_FADE = 1.0        # live from 14 Oct 2026: playoff rating gaps x(1 + PO_FADE x share of season left)
+PO_FADE = 3.0        # playoff rating gaps x(1 + PO_FADE x share of season left). 1.0 from 14 Oct 2026; 3.0 from 15 Oct 2026:
+                     # 10-season replay +0.0012 (90% +0.0004 to +0.0019, 8/10), only title/conference change; walk-forward
+                     # selection picks >= 3 every season. Early title/conference still too flat (Cup slope 1.64 -> 1.43). TypeSafe 43%.
 # Playoff series use a shot-based rating (14 Oct 2026): xG/shot differential predicts playoff series far better than goal
 # differential (2011-25 series log loss 0.676 -> 0.651). 10-season weekly replay: shot-based playoff rating +0.0031 (90%
 # +0.0008 to +0.0054, 7/10); with the fading playoff multiplier +0.0046 (+0.0021 to +0.0072, 8/10); Cup 0.1154 -> 0.1076,
