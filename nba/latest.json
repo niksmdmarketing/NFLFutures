@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-10-15T2310Z",
-"feed_timestamp": "2026-10-15T23:10:19Z",
+"collected_utc": "2026-10-15T2326Z",
+"feed_timestamp": "2026-10-15T23:26:11Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -728,6 +728,12 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-20",
 "injury": "Left Calf Strain"
+},
+{
+"athlete_id": "4590360",
+"status": "Day-To-Day",
+"return_date": "2026-11-06",
+"injury": "Left Hamstring"
 },
 {
 "athlete_id": "4432586",
@@ -1695,7 +1701,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-16",
 "injury": "Left Knee",
-"updated": "2026-10-15T22:56Z"
+"updated": "2026-10-15T23:00Z"
 },
 {
 "athlete_id": "4701232",
@@ -1867,6 +1873,15 @@
 "return_date": "2026-10-20",
 "injury": "Left Calf Strain",
 "updated": "2026-10-05T01:27Z"
+},
+{
+"athlete_id": "4590360",
+"name": "Chucky Hepburn",
+"team_name": "Toronto Raptors",
+"status": "Day-To-Day",
+"return_date": "2026-11-06",
+"injury": "Left Hamstring",
+"updated": "2026-10-12T20:12Z"
 },
 {
 "athlete_id": "4432586",
