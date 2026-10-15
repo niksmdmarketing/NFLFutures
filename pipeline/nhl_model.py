@@ -202,6 +202,8 @@ TAU_PRE = 1.5
 # Replay 2014-2025 (10 seasons): conference/Cup log loss +0.0003 overall (90% -0.0005 to +0.0012), better 6 of 10; first
 # quarter +0.0012, better 7 of 10; early slopes 2.37 -> 1.99 (conference). Not significant, so run alongside, not live.
 PO_FADE_CHALLENGER = 1.0
+SENS_D = 0.3          # diagnostic rating shift (goals/game) for market-implied rating gaps
+SENS_SIMS = 2000
 PO_FADE_SHADOW = 1.0   # shadow run of the previous live fade (2x preseason stretch; live 3.0 = 4x), archived (s_final, s_cup) to score 3.0 vs 1.0 prospectively
 # Share of expected goals in the in-season rate (rest = goals). Was 0.4 by judgement; 10-season weekly replay with
 # MoneyPuck game xG (15 Oct 2026): 20% vs 0% +0.0001, 40% vs 20% -0.0004; TypeSafe chose 20%.
@@ -273,7 +275,7 @@ def simulate(teams, state, games, ratings, tau, total, hfa, n_sims, seed=7, div_
     div_idx = {d: np.array([i for i, x in enumerate(div_of) if x == d]) for d in divs}
     conf_idx = {c: np.array([i for i, x in enumerate(div_of) if CONF_OF[x] == c]) for c in ("East", "West")}
     base = {k: state[k].reindex(teams).to_numpy(float) for k in ("points", "rw", "row", "gd")}
-    out = {k: np.zeros(T) for k in ("playoffs", "div", "pres", "r2", "r3", "final", "cup")}
+    out = {k: np.zeros(T) for k in ("playoffs", "top3", "div", "pres", "r2", "r3", "final", "cup")}
     pts_hist = np.zeros((T, 161))
     pts_sum = np.zeros(T); pts_sq = np.zeros(T)
     r0 = np.array([ratings[t] for t in teams], float)
@@ -312,6 +314,7 @@ def simulate(teams, state, games, ratings, tau, total, hfa, n_sims, seed=7, div_
             div_win[np.arange(S), t3[:, 0]] = True
             for j in range(3):
                 in_po[np.arange(S), t3[:, j]] = True
+        out["top3"] += in_po.sum(0)                              # qualified as a top-three division team
         conf_series = {}
         for c, cix in conf_idx.items():
             cdivs = [d for d in divs if CONF_OF[d] == c]
@@ -600,6 +603,21 @@ def build():
                      po_delta=po_delta, game_adj=game_adj)
     # previous model (goal-based playoff rating, no multiplier), kept as the comparison column
     sim_c = simulate(teams, state, games, rating.to_dict(), tau_now, total, hfa, max(SIMS // 2, 1000))
+    # diagnostic (15 Oct 2026, GPT/TypeSafe): each team's playoff and Cup chance with its own rating moved -/+ SENS_D goals
+    # per game (same draws), so a market price can be turned into a market-implied rating gap. Never feeds the forecast.
+    sens, sens0 = {}, None
+    try:
+        sens0 = simulate(teams, state, games, rating.to_dict(), tau_now, total, hfa, SENS_SIMS, po_scale=po_scale, po_delta=po_delta, game_adj=game_adj)
+        for t in teams:
+            pr = []
+            for dlt in (-SENS_D, SENS_D):
+                rr = rating.to_dict(); rr[t] = rr[t] + dlt
+                ss = simulate(teams, state, games, rr, tau_now, total, hfa, SENS_SIMS, po_scale=po_scale, po_delta=po_delta, game_adj=game_adj)
+                i = teams.index(t)
+                pr.append((float(ss["playoffs"][i]), float(ss["cup"][i])))
+            sens[t] = pr
+    except Exception as e:  # noqa: BLE001
+        log("nhl model: sensitivity skipped", e)
     cdf = np.cumsum(sim["pts_hist"][:, ::-1], axis=1)[:, ::-1]                      # P(points >= x)
     names = Tc.name.to_dict()
     rows = []
@@ -615,6 +633,9 @@ def build():
                      "p_r2": float(sim["r2"][i]), "p_r3": float(sim["r3"][i]), "p_final": float(sim["final"][i]), "p_cup": float(sim["cup"][i]),
                      "c_final": float(sim_c["final"][i]), "c_cup": float(sim_c["cup"][i]),
                      "s_final": float(sim_s["final"][i]), "s_cup": float(sim_s["cup"][i]),
+                     "p_top3": float(sim["top3"][i]), "p_wc": float(sim["playoffs"][i] - sim["top3"][i]),
+                     "sens_d": SENS_D, "sens_po": [sens[t][0][0], float(sens0["playoffs"][i]), sens[t][1][0]] if t in sens else None,
+                     "sens_cup": [sens[t][0][1], float(sens0["cup"][i]), sens[t][1][1]] if t in sens else None,
                      "n_playoffs": float(sim_n["playoffs"][i]) if sim_n else None, "n_cup": float(sim_n["cup"][i]) if sim_n else None,
                      "n_pts": float(sim_n["pts_mean"][i]) if sim_n else None,
                      "over": [round(float(v), 4) for v in cdf[i][30:141]]})

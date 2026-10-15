@@ -80,7 +80,7 @@ def live_season(sport, cfg, archive):
         chosen.append(snaps[-1])
     p = {}
     for k in snaps[-1]["p"]:
-        if k == "rating_x100" or k.startswith("c_"):
+        if k in ("rating_x100", "top3") or k.startswith(("c_", "s_", "sens_")):
             continue
         p[k] = [x["p"][k] for x in chosen if k in x["p"]]
         if len(p[k]) != len(chosen):

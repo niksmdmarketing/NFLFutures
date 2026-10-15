@@ -84,6 +84,12 @@ def snapshot(sport, site_dir):
     gp = [r.get("gp") for r in rows if r.get("gp") is not None]
     if all(isinstance(r.get("rating"), (int, float)) for r in rows):
         p["rating_x100"] = [int(round(float(r["rating"]) * 100)) for r in rows]   # for later game-level live checks
+    if sport == "nhl" and rows and "p_top3" in rows[0]:      # diagnostics (route split, rating sensitivity), never scored
+        p["top3"] = [int(round(float(r.get("p_top3") or 0.0) * 1000)) for r in rows]
+        for key in ("sens_po", "sens_cup"):
+            if all(isinstance(r.get(key), list) and len(r[key]) == 3 for r in rows):
+                for j, lab in enumerate(("lo", "0", "hi")):
+                    p[f"{key}_{lab}"] = [int(round(float(r[key][j]) * 10000)) for r in rows]
     games = upcoming_games(site_dir, sport)
     awards = award_chances(site_dir, sport)
     return {"season": int(d["season"]), "status": d.get("status"), "games": games, "awards": awards, "gp_avg": round(sum(gp) / len(gp), 1) if gp else 0.0,

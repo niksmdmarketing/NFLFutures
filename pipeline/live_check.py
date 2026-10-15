@@ -101,9 +101,14 @@ def sport_snapshots(archive, sport):
     snaps = []
     for x in _snapshots(os.path.join(base, str(years[-1]))):
         snaps.append({"generated_utc": x["generated_utc"], "teams": x["teams"], "gp_avg": x.get("gp_avg") or 0.0,
-                      "live": {k: [v / 1000 for v in vals] for k, vals in x["p"].items() if not k.startswith("c_") and k != "rating_x100"},
+                      "live": {k: [v / 1000 for v in vals] for k, vals in x["p"].items() if not _side_key(k)},
                       "challenger": {k[2:]: [v / 1000 for v in vals] for k, vals in x["p"].items() if k.startswith("c_")} or None})
     return years[-1], snaps
+
+
+def _side_key(k):
+    """Archived keys that are not live markets: challenger (c_), shadow (s_), rating and NHL diagnostics."""
+    return k.startswith(("c_", "s_", "sens_")) or k in ("rating_x100", "top3")
 
 
 NFL_KEYS = {"title": "p_sb", "finals": "p_conf", "div": "p_div", "seed1": "p_seed1", "playoff": "p_playoff"}
