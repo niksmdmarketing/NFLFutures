@@ -489,3 +489,13 @@ NHL_LINEUP_N=5 NHL_LINEUP_PRE=0 NHL_LINEUP_VAL=rapm RAPM_LAM=300000 RAPM_KBOX=1;
   Boston on ROW (both 93 points) - the old points/wins/GD order labelled Boston as the playoff team.
 - Series-level telemetry (rating gap, home ice, series probability, winner, timestamp, version) to be built before the
   2027 playoffs, when the playoff schedule format can be checked.
+
+## 2026-10-16 Site sweep
+- NHL History files (model/replay/nhl_*.csv, nhl_score.json, nhl_slope.json) regenerated with the live model: playoff fade 3
+  and official-tiebreak outcome labels (they were from 14 Oct, fade 1 and the old labels). vs old files: title 0.1087 -> 0.1067,
+  finals 0.1787 -> 0.1743, division 0.2239 -> 0.2224, playoffs 0.3535 -> 0.3522.
+- NFL v5 description on the futures page now lists the QB-availability correction (published v5 ratings verified to include it).
+- History and Schedule outlook pages showed "Loading latest update" (sport JS not loaded): now stamped with the build time.
+- Leftover scripts of the earlier NBA design (nba/js) removed from the output.
+- Private: Atlético Madrid and Alavés were treated as promoted clubs in the live 2026-27 La Liga prior (source changed accents);
+  xG join and prior now accent-safe; football History/reliability files regenerated with the live squad-value prior.
