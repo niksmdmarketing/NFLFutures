@@ -142,6 +142,11 @@ def main():
         sos.build_site()
     except Exception as e:  # noqa: BLE001
         log("schedule outlook failed", e)
+    try:  # "why the model thinks this" pages + expected-vs-actual charts; read the futures and schedule files written above
+        import why
+        why.build_site()
+    except Exception as e:  # noqa: BLE001
+        log("why pages failed", e)
     try:  # Shiv Value Models page: our model vs Polymarket vs combination, plus the archive record for this refresh
         import shiv
         shiv.build_data()
