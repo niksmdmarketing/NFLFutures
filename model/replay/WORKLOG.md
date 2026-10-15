@@ -394,3 +394,18 @@ Weekly futures replay vs live (lvr, 10 seasons):
   strength: +0.0001 (5/10; playoffs better, Cup/conference worse). Same as the NBA: in-season refits add nothing.
 TypeSafe: refined roster ratings no (68%), half-weight preseason no (76%). Live keeps model/nhl_player_ratings_2026.csv
 (base ratings). Conclusion: a better season goal-difference forecast does not translate into better futures here.
+
+## NBA: Polymarket comparison and depth-chart minutes (15 Oct 2026) - NOT DEPLOYED
+TypeSafe's pick (50%): compare preseason futures with Polymarket (15 Oct, margin removed), then check inputs for the gaps.
+Biggest conference gaps: DET ours 25% vs 7%, OKC 43 vs 31, CLE 16 vs 7, DEN 14 vs 6 (we are higher); MIA 1 vs 10, MIN 1 vs
+10, SA 24 vs 32, PHI 13 vs 21, NY 10 vs 18 (market higher). Title correlation 0.82.
+Inputs: MIA's Giannis (impact 3.67) projected at 1,039 minutes (36 games last season; the returning rule needs <500);
+MIN lost Randle and Reid, added LaMelo Ball and Kuminga, Cody Williams (impact -2.1) projected 1,629 minutes; DET and OKC
+top-3 on player ratings. TypeSafe: who is right is mixed (87%): market likely right on MIA/MIN, model on OKC/DET.
+Depth-chart minutes (pipeline/nba.py NBA_DEPTH=1, depth_minutes; also in nba_rapm.team_strength): on a new roster whose
+projected minutes exceed 82 x 240, the lowest-rated players lose minutes first. Moves only NY/SA/HOU in 2026-27 (MIN is under
+budget, so it does not address Minnesota). 14-season replay vs live (0.1649): 0.1638, +0.0008 (90% -0.0003 to +0.0020, 6/14);
+title/conference/division better, No. 1 seed 0.0933 -> 0.0936 and playoffs 0.2934 -> 0.2940 worse. TypeSafe 59% yes at
+confidence 0.18; replay rule (no market worse) says no. Kept off by default.
+Note: research/replay_nba.py defaults to 2022-2026; pass 2013 2026 for the 14-season replay (live settings BT_FULL=1
+BT_PO_K=1 BT_PO_GAMMA=1.5 BT_PO_LASTPO=1 BT_PO_GAMES=1 reproduce 0.1649 exactly).

@@ -719,6 +719,24 @@ def _roster_values(values: pd.DataFrame, values_prev: pd.DataFrame | None) -> pd
     return out.reset_index().rename(columns={"index": "athlete_id"})
 
 
+DEPTH = os.environ.get("NBA_DEPTH", "0") == "1"   # research: depth-chart minutes on the new roster (see depth_minutes)
+
+
+def depth_minutes(mins: np.ndarray, rating: np.ndarray, budget: float = 82 * 240) -> np.ndarray:
+    """Projected minutes on a new roster when last season's minutes add up to more than a team can play: the best-rated
+    players keep their minutes and the lowest-rated lose them first (instead of scaling everyone down evenly)."""
+    mins = np.asarray(mins, float).copy()
+    if mins.sum() <= budget:
+        return mins
+    order = np.argsort(-np.asarray(rating, float), kind="stable")
+    out = np.zeros_like(mins)
+    left = budget
+    for i in order:
+        out[i] = min(mins[i], max(left, 0.0))
+        left -= out[i]
+    return out
+
+
 def _roster_adjustment(ratings: pd.DataFrame, values: pd.DataFrame, prior_roster: pd.DataFrame,
                        current_roster: pd.DataFrame, values_prev: pd.DataFrame | None = None,
                        games_played: float = 0.0) -> tuple[pd.DataFrame, list[dict]]:
@@ -738,7 +756,9 @@ def _roster_adjustment(ratings: pd.DataFrame, values: pd.DataFrame, prior_roster
         r = r.sort_values(["team_abbreviation", "minutes"], ascending=[True, False]).groupby("team_abbreviation").head(12)
         def one(g):
             mins = g.minutes.to_numpy(float).copy()
-            if mins.sum() > 82 * 240:
+            if current and DEPTH:
+                mins = depth_minutes(mins, g.impact.to_numpy(float))
+            elif mins.sum() > 82 * 240:
                 mins *= (82 * 240) / mins.sum()
             return float(np.sum(g.impact.to_numpy(float) * mins) / (82 * 48))
         return r.groupby("team_abbreviation").apply(one, include_groups=False).reindex(TEAMS, fill_value=0)

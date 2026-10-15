@@ -174,7 +174,10 @@ def team_strength(current_roster: pd.DataFrame, rv: pd.DataFrame, rating: dict[i
 
     def one(g):
         mm = g.m.to_numpy(float)
-        if mm.sum() > 82 * 240:
+        import nba
+        if nba.DEPTH:
+            mm = nba.depth_minutes(mm, g.v.to_numpy(float))
+        elif mm.sum() > 82 * 240:
             mm = mm * (82 * 240) / mm.sum()
         return float(np.sum(g.v.to_numpy(float) * mm) / (82 * 48))
     s = r.groupby("team_abbreviation").apply(one, include_groups=False).reindex(teams).fillna(0.0)
