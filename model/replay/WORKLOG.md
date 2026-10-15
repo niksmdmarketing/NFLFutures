@@ -378,3 +378,19 @@ Weekly futures replay vs live settings (nopre1):
   better); +0.0008 vs no roster term (90% +0.0001 to +0.0014, 8/10). TypeSafe 80%: DEPLOYED via
   model/nhl_player_ratings_2026.csv (static: ratings use earlier seasons only; rebuild each September).
 TypeSafe next (78%): keep refining the player ratings (aging, finishing, in-season updates).
+
+## NHL: player-rating refinements - shooting talent, age curves, in-season updates (15 Oct 2026) - NOT DEPLOYED
+TypeSafe's pick (78%). research/nhl_rapm.py: RAPM_FIN (goals - xG per shot shrunk by RAPM_KF shots, x shots/60),
+RAPM_AGE "a,b" (+a per 60 per year under 26, -b per year over 29; ages from research/nhl_bios_collect.py), ratings_at()
+(refit with this season's games before a date); design matrix now vectorised (same output, far less memory).
+Preseason goal-difference test (walk-forward, 2015-2025, RMSE vs prior 0.4755):
+- base ratings 0.4690; + finishing 1.0/300 0.4665 (1.5/300 0.4667, 1.0/150 0.4667, 0.5/300 0.4673)
+- + age 0.03,0.03 0.4631; 0.03,0 0.4660; 0,0.03 0.4628; 0.02,0.05 0.4619; 0.02,0.08 0.4616 (best, 2.9% vs prior, 7/9);
+  0.02,0.12 0.4623. The veteran decline carries the age effect.
+Weekly futures replay vs live (lvr, 10 seasons):
+- refined ratings in the roster term: +0.0004 (90% 0.0000 to +0.0007, 7/10); playoff market slightly worse (0.3506 -> 0.3512)
+- preseason blend with refined ratings: full -0.0007 (6/10), half weight +0.0002 (7/10, CI -0.0015 to +0.0019)
+- in-season refits every 4 weeks in the roster term: +0.0001 (7/10); plus 20% blend toward current-lineup player
+  strength: +0.0001 (5/10; playoffs better, Cup/conference worse). Same as the NBA: in-season refits add nothing.
+TypeSafe: refined roster ratings no (68%), half-weight preseason no (76%). Live keeps model/nhl_player_ratings_2026.csv
+(base ratings). Conclusion: a better season goal-difference forecast does not translate into better futures here.

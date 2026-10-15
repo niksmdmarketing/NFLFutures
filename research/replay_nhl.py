@@ -55,6 +55,10 @@ def mp_xg(y):
     return x.set_index(["date", "team"]).xgd
 
 
+UPD_EVERY = int(os.environ.get("NHL_UPD_EVERY", "0"))   # refit player ratings with this season's games every N weeks
+UPD_W = float(os.environ.get("NHL_UPD_W", "1"))
+UPD_MIX = float(os.environ.get("NHL_UPD_MIX", "0"))      # blend team rating toward current-lineup player strength
+PS_B = float(os.environ.get("NHL_PS_B", "0.4"))          # player strength -> goals per game (preseason fit about 0.35-0.5)
 PS = os.environ.get("NHL_PS") == "1"          # preseason prior blended with player-based strength (research/nhl_rapm.py)
 K_MULT = float(os.environ.get("NHL_K_MULT", "1"))
 _PS = {}
@@ -91,7 +95,9 @@ def ps_prior(TT, GG, fit_years, done, y, prior):
         return prior
     X = np.c_[np.ones(len(tr)), tr.prior, tr.ps]
     b = np.linalg.lstsq(X, tr.gd, rcond=None)[0]
-    new = b[1] * prior + b[2] * te.ps.reindex(prior.index).fillna(0)
+    sh = float(os.environ.get("NHL_PS_SHRINK", "1"))
+    b1 = np.linalg.lstsq(np.c_[np.ones(len(tr)), tr.prior], tr.gd, rcond=None)[0][1]
+    new = (sh * b[1] + (1 - sh) * b1) * prior + sh * b[2] * te.ps.reindex(prior.index).fillna(0)
     print(y, "prior blend b_prior %.3f b_players %.3f" % (b[1], b[2]), flush=True)
     return new - new.mean()
 
@@ -166,6 +172,7 @@ def run_season(TT, GG, fit_years, done, y):
     k = k * K_MULT
     first, last = g.date.min(), g.date.max()
     cur_lv = last_lv = opening = None
+    S = None
     if LINEUP_C:
         val = nhl_absence.values(y)
         S, G = nhl_lineup.load_lineups(LINEUP_DIR, y)
@@ -204,6 +211,17 @@ def run_season(TT, GG, fit_years, done, y):
             rg = rg - rg.mean()
             po_delta = (rating - rg).reindex(teams).to_numpy(float)
             rating = rg
+        if UPD_EVERY and wk > 0 and wk % UPD_EVERY == 0 and S is not None:
+            import nhl_rapm as RP
+            gids = set(S[pd.to_datetime(S.date) < cut].game_id)
+            sk_u = RP.ratings_at(y, cut.date(), gids, UPD_W)
+            if sk_u is not None:
+                cur_lv = nhl_lineup.game_values_ratings(S, sk_u)
+                print(y, wk, "ratings updated", flush=True)
+        if UPD_MIX and cur_lv is not None and wk > 0:
+            recent = cur_lv[cur_lv.date < cut].groupby("team").lv.apply(lambda v: v.iloc[-5:].mean()).reindex(teams).fillna(0)
+            recent = (recent - recent.mean()) * PS_B
+            rating = (1 - UPD_MIX) * rating + UPD_MIX * recent
         if LINEUP_C and cur_lv is not None:
             adj = LINEUP_C * nhl_lineup.roster_term(cur_lv, last_lv, teams, cut, k, LINEUP_N, opening, LINEUP_PRE, LINEUP_MIN)
             rating = rating + adj.reindex(teams).fillna(0)
