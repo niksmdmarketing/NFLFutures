@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-10-15T0258Z",
-"feed_timestamp": "2026-10-15T02:58:19Z",
+"collected_utc": "2026-10-15T0429Z",
+"feed_timestamp": "2026-10-15T04:29:08Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -182,6 +182,12 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-16",
 "injury": "Rest"
+},
+{
+"athlete_id": "4701208",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
+"injury": "Left Ankle Sprain"
 },
 {
 "athlete_id": "4593125",
@@ -462,7 +468,7 @@
 {
 "athlete_id": "5157587",
 "status": "Day-To-Day",
-"return_date": "2026-10-14",
+"return_date": "2026-10-16",
 "injury": "Undisclosed"
 },
 {
@@ -1074,6 +1080,15 @@
 "updated": "2026-10-14T22:27Z"
 },
 {
+"athlete_id": "4701208",
+"name": "Moussa Cisse",
+"team_name": "Dallas Mavericks",
+"status": "Day-To-Day",
+"return_date": "2026-10-16",
+"injury": "Left Ankle Sprain",
+"updated": "2026-10-15T03:14Z"
+},
+{
 "athlete_id": "4593125",
 "name": "Santi Aldama",
 "team_name": "Dallas Mavericks",
@@ -1492,9 +1507,9 @@
 "name": "Rocco Zikarsky",
 "team_name": "Minnesota Timberwolves",
 "status": "Day-To-Day",
-"return_date": "2026-10-14",
+"return_date": "2026-10-16",
 "injury": "Undisclosed",
-"updated": "2026-10-12T23:36Z"
+"updated": "2026-10-15T02:53Z"
 },
 {
 "athlete_id": "3907497",
