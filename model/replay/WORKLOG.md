@@ -357,3 +357,24 @@ Goals vs xG split (MoneyPuck game xG, research/mp_team_games.py): regular-season
 vs 20% -0.0004; shot stand-in 40% vs 0% -0.0008. Live 0.4 -> 0.2 (TypeSafe 49% for 20%).
 Playoff rating from real adjusted xG instead of shots: +0.0004 alone (6/10), +0.0005 on top of the roster term
 (CI -0.0008 to +0.0018). TypeSafe 52/48 (no confidence): not deployed; NHL_XG=adj in the replay reproduces it.
+
+## NHL: player-based team strength from shifts (15 Oct 2026) - in-season part DEPLOYED, preseason part NOT
+TypeSafe's pick (99%). Data: NHL shift charts + play-by-play for every regular-season game 2014-2026 (15,000 games;
+research/nhl_shifts_collect.py, workflow nhl-shifts.yml, output on branch nhl-shifts-data: stints, shots, players).
+xG model (research/nhl_xg.py, leave-one-season-out logistic: distance, angle, type, rebound, strength): log loss about
+0.21-0.23 vs 0.23-0.25 base; season totals within about 3% of goals.
+Skater ratings (research/nhl_rapm.py): ridge on stints (two rows per stint, xG per 60, seconds-weighted, state dummies),
+seasons y-1/y-2/y-3 weighted 1/0.5/0.25; prior = points/60 vs position (nhl_absence.values) x RAPM_KBOX. Goalies GSAx/shot.
+Preseason test (research/nhl_player_strength_test.py, season GD per game, walk-forward):
+- lam 2000-200000 without prior: players alone corr about 0.3-0.6, blend worse than prior
+- roster change (this lineup - last season's, same ratings): no signal (b -0.001, se 0.34)
+- + points prior KBOX 1: lam 150000 skater b 0.46 (se 0.17); lam 300000: blend better 7/9, RMSE 0.4755 -> 0.4690,
+  skater b 0.49 (se 0.12); lam 600000 6/9 0.4697; goalie ratings add nothing preseason (corr 0.01-0.08)
+Weekly futures replay vs live settings (nopre1):
+- preseason prior blended walk-forward (NHL_PS=1): -0.0028 (90% -0.0071 to +0.0009, 2/10); 2017 -0.0226 (Vegas
+  expansion: their roster rated weak, they reached the Final), 2024 -0.0097, 2025 +0.0068. Early slopes improve
+  (Cup 1.62 -> 1.26) but log loss is worse. NOT deployed (TypeSafe 64% yes at low confidence; replay rule says no).
+- roster term with the new ratings (NHL_LINEUP_VAL=rapm): +0.0003 vs points/GSAx values (5/10, every market slightly
+  better); +0.0008 vs no roster term (90% +0.0001 to +0.0014, 8/10). TypeSafe 80%: DEPLOYED via
+  model/nhl_player_ratings_2026.csv (static: ratings use earlier seasons only; rebuild each September).
+TypeSafe next (78%): keep refining the player ratings (aging, finishing, in-season updates).

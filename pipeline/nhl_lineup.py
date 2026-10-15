@@ -130,7 +130,7 @@ def fetch_season(y, today=None, max_age_h=2.0):
         if R.empty:
             return None, None
         name = "skaterFullName" if kind == "skater" else "goalieFullName"
-        o = pd.DataFrame({"game_id": R.gameId, "date": R.gameDate, "team": R.teamAbbrev, "name": R[name],
+        o = pd.DataFrame({"game_id": R.gameId, "date": R.gameDate, "team": R.teamAbbrev, "player_id": R.playerId, "name": R[name],
                           "pos": R.positionCode if "positionCode" in R else "G",
                           "toi": R.timeOnIcePerGame if kind == "skater" else R.timeOnIce})
         if kind == "goalie":
@@ -140,6 +140,16 @@ def fetch_season(y, today=None, max_age_h=2.0):
     return out["skater"], out["goalie"]
 
 
+def ratings_file(y):
+    """Skater ratings for season y (model/nhl_player_ratings_<y>.csv: player_id, off, def), built from seasons before y by
+    research/nhl_rapm.py (RAPM_LAM=300000 RAPM_KBOX=1). Replay: roster term with these values +0.0003 vs points/GSAx
+    values, +0.0008 vs no roster term (90% +0.0001 to +0.0014, 8/10); TypeSafe 80%."""
+    p = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "model", f"nhl_player_ratings_{y}.csv")
+    if not os.path.exists(p):
+        return None
+    return pd.read_csv(p).set_index("player_id")[["off", "def"]]
+
+
 def live_term(y, teams, k, absences=None, n=LINEUP_N, today=None):
     """Live roster term (pre=False). Players on the injury list are counted back into the current lineup for the recent
     games they missed, because the injury adjustment already charges their absence game by game."""
@@ -147,8 +157,11 @@ def live_term(y, teams, k, absences=None, n=LINEUP_N, today=None):
     S, G = fetch_season(y, today)
     if S is None or not len(S):
         return pd.Series(0.0, index=teams), None
-    val = A.values(y)
-    lv = game_values(S, G, val)
+    rp = ratings_file(y)
+    if rp is not None and "player_id" in S:
+        lv = game_values_ratings(S, rp)
+    else:
+        lv = game_values(S, G, A.values(y))
     cut = pd.Timestamp(today or dt.date.today()) + pd.Timedelta(days=1)
     term = roster_term(lv, None, list(teams), cut, k, n, None, pre=False)
     if absences is not None and len(absences):
@@ -167,3 +180,23 @@ def live_term(y, teams, k, absences=None, n=LINEUP_N, today=None):
         term = term + back - back.mean()
     term = LIVE_C * term
     return term, lv
+
+
+def game_values_ratings(S, sk, gk=None, g_scale=0.0, G=None, shots_against=40.0):
+    """Lineup value per game from player ratings (research/nhl_rapm.py): sum of (off - def) x ice-time share of 5
+    skater-hours, plus optionally g_scale x starter GSAx/shot x shots against. S needs player_id."""
+    S = S.copy()
+    net = (sk["off"] - sk["def"]) if sk is not None else pd.Series(dtype=float)
+    S["v"] = S.player_id.map(net).fillna(0.0)
+    S["toi"] = pd.to_numeric(S.toi, errors="coerce").fillna(0.0)
+    tot = S.groupby(["game_id", "team"]).toi.transform("sum")
+    S["hv"] = S.v * 5.0 * S.toi / tot.where(tot > 0, 1.0)
+    out = S.groupby(["game_id", "date", "team"]).hv.sum().rename("lv").reset_index()
+    if g_scale and gk is not None and G is not None:
+        g = G[G.started == 1].copy()
+        g["v"] = g.player_id.map(gk["gsax_shot"]).fillna(0.0) * shots_against
+        out = out.merge(g.groupby(["game_id", "team"]).v.mean().rename("gv").reset_index(), on=["game_id", "team"], how="left")
+        out["lv"] = out.lv + g_scale * out.gv.fillna(0.0)
+        out = out.drop(columns="gv")
+    out["date"] = pd.to_datetime(out.date)
+    return out.sort_values(["date", "game_id"])

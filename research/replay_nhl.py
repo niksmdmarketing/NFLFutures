@@ -55,6 +55,47 @@ def mp_xg(y):
     return x.set_index(["date", "team"]).xgd
 
 
+PS = os.environ.get("NHL_PS") == "1"          # preseason prior blended with player-based strength (research/nhl_rapm.py)
+K_MULT = float(os.environ.get("NHL_K_MULT", "1"))
+_PS = {}
+
+
+def ps_table(TT, GG, fit_years, done):
+    """season, team, prior, ps, gd for every season with shift data (point-in-time ratings)."""
+    if "D" in _PS:
+        return _PS["D"]
+    sys.path.insert(0, os.path.join(ROOT, "research"))
+    import nhl_player_strength_test as PST
+    import nhl_rapm as RP
+    rows = []
+    for y in done:
+        if RP.load(y - 1) is None:
+            continue
+        beta = M.fit_prior(TT, [z for z in fit_years if z < y])[0]
+        teams = sorted(TT[y].index)
+        prior = pd.Series(M.prior_features(y, TT).reindex(teams).fillna(0).values @ beta, index=teams)
+        ps, _ = PST.opening_strength(y, teams)
+        g = GG[y]
+        gd = ((M.numcol(g, "goalsFor") - M.numcol(g, "goalsAgainst")).groupby(g.team).mean()).reindex(teams)
+        for t in teams:
+            rows.append(dict(season=y, team=t, gd=gd[t] - gd.mean(), prior=prior[t] - prior.mean(), ps=ps[t] - ps.mean()))
+    _PS["D"] = pd.DataFrame(rows)
+    return _PS["D"]
+
+
+def ps_prior(TT, GG, fit_years, done, y, prior):
+    D = ps_table(TT, GG, fit_years, done)
+    tr = D[D.season < y]
+    te = D[D.season == y].set_index("team")
+    if tr.season.nunique() < 2 or te.empty:
+        return prior
+    X = np.c_[np.ones(len(tr)), tr.prior, tr.ps]
+    b = np.linalg.lstsq(X, tr.gd, rcond=None)[0]
+    new = b[1] * prior + b[2] * te.ps.reindex(prior.index).fillna(0)
+    print(y, "prior blend b_prior %.3f b_players %.3f" % (b[1], b[2]), flush=True)
+    return new - new.mean()
+
+
 LINEUP_DIR = os.path.join(ROOT, "data", "research", "nhl_lineups")
 OUT = os.environ.get("BT_OUTDIR") or os.path.join(ROOT, "model", "replay")
 
@@ -120,13 +161,22 @@ def run_season(TT, GG, fit_years, done, y):
     divwin = {d: max([t for t in teams if align[t] == d], key=lambda t: comp[t]) for d in set(align.values())}
     pres = comp.idxmax()
     prior = PRIOR_SCALE * pd.Series(M.prior_features(y, TT).reindex(teams).fillna(0).values @ beta_y, index=teams)
+    if PS:
+        prior = ps_prior(TT, GG, fit_years, done, y, prior)
+    k = k * K_MULT
     first, last = g.date.min(), g.date.max()
     cur_lv = last_lv = opening = None
     if LINEUP_C:
         val = nhl_absence.values(y)
         S, G = nhl_lineup.load_lineups(LINEUP_DIR, y)
         S1, G1 = nhl_lineup.load_lineups(LINEUP_DIR, y - 1)
-        if S is not None:
+        if S is not None and os.environ.get("NHL_LINEUP_VAL") == "rapm":
+            sys.path.insert(0, os.path.join(ROOT, "research"))
+            import nhl_rapm as RP
+            sk_r, gk_r = RP.ratings(y)
+            cur_lv = nhl_lineup.game_values_ratings(S, sk_r, gk_r, float(os.environ.get("NHL_LINEUP_GS", "0")), G) if sk_r is not None else nhl_lineup.game_values(S, G, val)
+            opening = cur_lv.groupby("team").lv.first()
+        elif S is not None:
             cur_lv = nhl_lineup.game_values(S, G, val)
             opening = cur_lv.groupby("team").lv.first()
         if S1 is not None:
@@ -188,7 +238,7 @@ if __name__ == "__main__":
     last = int(sys.argv[3]) if len(sys.argv) > 3 else max(done)
     os.makedirs(OUT, exist_ok=True)
     for y in [z for z in done if first <= z <= last]:
-        D = run_season(TT, GG, fit_years, done, y)
+        D = run_season(TT, GG, fit_years, done, y) if not (PS and y < int(os.environ.get("NHL_PS_FIRST", "0"))) else None
         if D is None:
             print("skip", y)
             continue
