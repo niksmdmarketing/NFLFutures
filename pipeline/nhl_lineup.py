@@ -110,7 +110,9 @@ def fetch_season(y, today=None, max_age_h=2.0):
     os.makedirs(nhl.NHL_DATA, exist_ok=True)
     paths = {k: os.path.join(nhl.NHL_DATA, f"lineups_{k}s_{y}.csv.gz") for k in ("skater", "goalie")}
     if all(os.path.exists(p) and time.time() - os.path.getmtime(p) < max_age_h * 3600 for p in paths.values()):
-        return pd.read_csv(paths["skater"]), pd.read_csv(paths["goalie"])
+        S0, G0 = pd.read_csv(paths["skater"]), pd.read_csv(paths["goalie"])
+        if "player_id" in S0:
+            return S0, G0
     today = today or dt.date.today()
     wins = []
     d = dt.date(y, 9, 1)
