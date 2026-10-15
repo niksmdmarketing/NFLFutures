@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-14T14:00:33+00:00",
+ "generated_utc": "2026-10-15T13:41:00+00:00",
  "season_window": [
   2016,
   2027
@@ -4466,7 +4466,7 @@
    "errors": []
   },
   "nba_stats_synergy": {
-   "files": 790,
+   "files": 792,
    "size_mb": 16.0,
    "seasons": [
     2016,
@@ -4889,6 +4889,7 @@
       2017,
       2018,
       2019,
+      2020,
       2021,
       2022,
       2023,
@@ -4896,7 +4897,7 @@
       2025,
       2026
      ],
-     "rows": 922,
+     "rows": 1038,
      "columns": [
       "season_id",
       "player_id",
@@ -4958,7 +4959,6 @@
      "null_share_over_5pct": {},
      "column_set_varies": false,
      "missing_seasons_in_window": [
-      2020,
       2027
      ]
     },
@@ -9366,6 +9366,7 @@
      "grain": "player-season",
      "seasons": [
       2016,
+      2017,
       2018,
       2019,
       2020,
@@ -9376,7 +9377,7 @@
       2025,
       2026
      ],
-     "rows": 3130,
+     "rows": 3395,
      "columns": [
       "season_id",
       "player_id",
@@ -9438,7 +9439,6 @@
      "null_share_over_5pct": {},
      "column_set_varies": false,
      "missing_seasons_in_window": [
-      2017,
       2027
      ]
     },

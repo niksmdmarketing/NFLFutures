@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-10-14T14:00:33+00:00",
+  "generated_utc": "2026-10-15T13:41:00+00:00",
   "current_season_end_year": 2027,
   "season_start": 2016,
   "season_end": 2027,
@@ -7174,8 +7174,8 @@
           "size_bytes": 15076,
           "source_updated_utc": "2026-09-30T13:47:47Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_synergy/playoffs_handoff_offensive_totals_2020.parquet",
-          "status": "download_failed",
-          "error": "HTTP Error 500: Internal Server Error"
+          "status": "downloaded",
+          "path": "data/nba/research/nba_stats_synergy/playoffs_handoff_offensive_totals_2020.parquet"
         },
         {
           "name": "playoffs_handoff_offensive_pergame_2020.parquet",
@@ -8454,8 +8454,8 @@
           "size_bytes": 26631,
           "source_updated_utc": "2026-09-30T13:42:31Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_synergy/regular-season_prballhandler_offensive_totals_2017.parquet",
-          "status": "download_failed",
-          "error": "HTTP Error 500: Internal Server Error"
+          "status": "downloaded",
+          "path": "data/nba/research/nba_stats_synergy/regular-season_prballhandler_offensive_totals_2017.parquet"
         },
         {
           "name": "regular-season_prballhandler_offensive_pergame_2017.parquet",
@@ -10000,10 +10000,10 @@
     }
   },
   "totals": {
-    "downloaded": 1238,
+    "downloaded": 1240,
     "cached": 0,
     "skipped": 0,
-    "failed": 2,
-    "bytes_downloaded": 950987827
+    "failed": 0,
+    "bytes_downloaded": 951029534
   }
 }
