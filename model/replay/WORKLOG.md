@@ -553,3 +553,6 @@ History files regenerated with the two new columns; History page shows them.
 - Same day, rolled out to NHL, AFL, NBL (shared skeleton, Model pages; NHL futures split in site_src/nhl/nhl.js, its playoff-model
   change note moved to Model) and CFB (Standings/Teams/Players/Games/More). TypeSafe: staged rollout 75%, 'Standings' over
   'Ladder' 87%, NHL Skaters/Goalies as Players sub-tabs 86%. NFL (own step, Futures page split) and football next.
+- NFL done the same day: navgroups layout for the site root (Teams sub-row labelled Offense / Defense / Other; Matchups under
+  Games, TypeSafe 88%), futures fragment split into in-page views (Chances / vs the market / Win totals, TypeSafe 98%) and a new
+  model.html (fragment site_src/fragments/model.html; QB changes, accuracy by market, v3/v5, method), futures.js null-safe.

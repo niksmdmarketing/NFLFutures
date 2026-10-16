@@ -302,3 +302,8 @@ a.whylink:hover { color: var(--accent); }
 @media (max-width: 600px) {
   .nav.nav-top, .nav.nav-sub { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: thin; padding-bottom: 2px; }
 }
+.nav.nav-sub .navsub-lab { flex: 0 0 auto; align-self: center; font-size: .68rem; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 0 2px 0 8px; }
+.nav.nav-sub .navsub-lab:first-child { margin-left: 0; }
+.ftabs { margin: 2px 0 4px; }
+.ftabs button.on { background: var(--accent); color: var(--surface); }
+.qbchg li.muted { display: block; }

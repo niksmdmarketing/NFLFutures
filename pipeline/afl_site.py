@@ -519,7 +519,6 @@ def futures(cur, hist_games, tables):
                      {"k": "pf", "l": "Prelim final"}, {"k": "gf", "l": "Grand Final"}, {"k": "flag", "l": "Premiers"}],
             "line": {"label": "Win total", "unit": "wins", "min": 0}, "backtest_html": bt,
             "model_page": True, "why_links": True,
-            "model_intro": "How the AFL season chances are worked out and tested, and what they leave out. The chances themselves are on Forecast › Chances.",
             "about": ["Rating is opponent-adjusted margin per game: last season's, pulled 45% back to average, then blended with this season's games (last season counts as 8 games).",
                       f"Each simulation shifts every team's rating by a random amount (typical size {tau:.1f} points) before playing the games, so long-range chances are not over-confident; single games vary by about {GAME_SD:.0f} points.",
                       "It does not know about injuries, list changes, trades or coaching changes — the main reasons to disagree with it in the pre-season.",

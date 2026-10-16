@@ -4,6 +4,7 @@ function pcell(p) {
   return '<td class="pc" data-v="' + p + '"><span class="bar" style="width:calc(' + (Math.min(1, p) * 100).toFixed(1) + '% - 8px)"></span><b>' + pct(p) + '</b></td>';
 }
 function renderFutures() {
+  if (!$("fbody")) return;
   let h = "";
   Object.entries(DIVS).forEach(([dn, ts]) => {
     h += '<tr class="divhead"><td colspan="7">' + dn + '</td></tr>';
@@ -40,6 +41,7 @@ function renderWT() {
   $("dist").innerHTML = '<svg viewBox="0 0 ' + Wd + ' ' + Hd + '" role="img" aria-label="Chance of each final win total for ' + nm(t) + '">' + g + '</svg>';
 }
 function initWT() {
+  if (!$("wtTeam")) return;
   const teams = Object.keys(FT).sort((a, b) => nm(a).localeCompare(nm(b)));
   const top = Object.keys(FT).sort((a, b) => FT[b].p_sb - FT[a].p_sb)[0];
   $("wtTeam").innerHTML = teams.map(t => '<option value="' + t + '"' + (t === top ? " selected" : "") + '>' + nm(t) + '</option>').join("");
@@ -52,12 +54,13 @@ function initWT() {
   renderWT();
 }
 function renderQB() {
+  if (!$("qbchg")) return;
   const rows = Object.entries(FT).filter(([, v]) => v.qb_note && Math.abs(v.qb_adj) >= 0.05).sort((a, b) => a[1].qb_adj - b[1].qb_adj);
   $("qbchg").innerHTML = rows.length ? rows.map(([t, v]) => '<li><b>' + t + '</b><span>' + esc(v.qb_note) + '</span><span class="num ' + (v.qb_adj < 0 ? "adj-neg" : "adj-pos") + '">' + (v.qb_adj > 0 ? "+" : "") + v.qb_adj.toFixed(1) + '</span></li>').join("")
     : '<li class="muted">No quarterback changes are expected this week.</li>';
 }
 function renderChallenger(C) {
-  if (!C || !C.teams) return;
+  if (!C || !C.teams || !$("challengerSec")) return;
   $("challengerSec").hidden = false;
   const pair = (a, b) => '<td class="num" data-v="' + a + '">' + pct(a) + ' <span class="muted">· ' + pct(b) + '</span></td>';
   let h = "";
@@ -72,7 +75,7 @@ function renderChallenger(C) {
   sortableTable($("cbody").closest("table"));
 }
 function renderChallenger5(C) {
-  if (!C || !C.teams) return;
+  if (!C || !C.teams || !$("challenger5Sec")) return;
   $("challenger5Sec").hidden = false;
   const pair = (a, b) => '<td class="num" data-v="' + b + '">' + pct(a) + ' <span class="muted">· ' + pct(b) + '</span></td>';
   const ts = Object.keys(FT).filter(t => C.teams[t]).sort((a, b) => C.teams[b].p_conf - C.teams[a].p_conf).slice(0, 32);
@@ -80,7 +83,7 @@ function renderChallenger5(C) {
   sortableTable($("c5body").closest("table"));
 }
 function renderTrack(T) {
-  if (!T || !T.markets) return;
+  if (!T || !T.markets || !$("trackSec")) return;
   $("trackSec").hidden = false;
   $("trackNote").innerHTML = "Tested on " + T.seasons + ": at each point the model only sees games already played, simulates the rest of that season, and is scored against what happened. " +
     "<b>Skill</b> is how much better than a blind guess (each team getting the base rate) the probabilities were: 0% means no better, higher is better. " +
@@ -97,7 +100,20 @@ function renderTrack(T) {
     '<br><span class="muted">simple guess ' + w["base rate"][i].toFixed(2) + "</span></td>").join("") + "</tr>";
   $("trackBody").innerHTML = h;
 }
+/* in-page views on the futures page (Chances / vs the market / Win totals); the view is kept in the address (#market, #wins) */
+function initTabs() {
+  const tabs = document.querySelectorAll("[data-ftab]");
+  if (!tabs.length) return;
+  const show = k => {
+    if (!document.querySelector('[data-fpanel="' + k + '"]')) k = "chances";
+    document.querySelectorAll("[data-fpanel]").forEach(p => { p.hidden = p.dataset.fpanel !== k; });
+    tabs.forEach(b => { const on = b.dataset.ftab === k; b.classList.toggle("on", on); b.setAttribute("aria-selected", on ? "true" : "false"); });
+  };
+  tabs.forEach(b => b.addEventListener("click", () => { show(b.dataset.ftab); try { history.replaceState(null, "", b.dataset.ftab === "chances" ? location.pathname : "#" + b.dataset.ftab); } catch (e) {} }));
+  show((location.hash || "").slice(1) || "chances");
+}
 boot(async meta => {
+  initTabs();
   const F = await getJSON("futures.json");
   FT = F.teams;
   document.querySelectorAll("[data-nsims]").forEach(el => { if (meta.n_sims) el.textContent = meta.n_sims.toLocaleString(); });

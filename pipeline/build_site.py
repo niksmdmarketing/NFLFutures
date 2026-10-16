@@ -17,6 +17,7 @@ PAGES = [
     "Model",
     ("index", "Futures", "Season futures", "Chances to win each division, make the playoffs, take the No. 1 seed, win the conference and the Super Bowl, plus every team's win-total distribution.", "futures.js", None),
     ("awards", "Awards", "Award chances", "Probability each player or coach wins the season's major awards.", "awards.js", None),
+    ("model", "How it works", "NFL model: how it works", "How the season chances are worked out and tested, the versions being tested alongside the live model, and this week's quarterback adjustments.", "futures.js", None),
     ("matchups", "Matchups", "Matchup edges", "Every offense against the defense it faces this week, ranked 1 to 32 in five categories.", "matchups.js", None),
     "Team stats",
     ("standings", "Standings", None, None, "table.js", "standings"),

@@ -28,6 +28,20 @@ LAYOUT = {
     "nhl": _skeleton((("skaters.html", "Skaters"), ("goalies.html", "Goalies"))),
     "afl": _skeleton(),
     "nbl": _skeleton(),
+    "": [("Standings", [("standings.html", "Standings")]),     # NFL (site root); the landing page stays the chances page
+         ("Forecast", [("index.html", "Chances"), ("why.html", "Why, team by team"), ("awards.html", "Award chances"),
+                       ("award-race.html", "Award race"), ("outlook.html", "Schedule difficulty"), ("sos.html", "Strength of schedule"),
+                       ("trends.html", "Winner trends")]),
+         ("Teams", [(None, "Offense"), ("offense.html", "Overview"), ("passing.html", "Passing"), ("rushing.html", "Rushing"),
+                    ("oline.html", "O-line"), ("drives.html", "Drives"), ("proe.html", "Pass rate"), ("off-tendencies.html", "Tendencies"),
+                    ("pace.html", "Pace"),
+                    (None, "Defense"), ("defense.html", "Overview"), ("dline.html", "D-line"), ("coverage.html", "Coverage"),
+                    ("def-tendencies.html", "Tendencies"),
+                    (None, "Other"), ("situational.html", "Situational"), ("special-teams.html", "Special teams"), ("discipline.html", "Discipline")]),
+         ("Players", [("players-qb.html", "Quarterbacks"), ("players-rushing.html", "Rushing"), ("players-receiving.html", "Receiving"),
+                      ("players-defense.html", "Defense"), ("players-kicking.html", "Kicking")]),
+         ("Games", [("matchups.html", "Matchups"), ("boxscores.html", "Box scores"), ("injuries.html", "Injuries")]),
+         ("Model", [("model.html", "How it works"), ("replay.html", "Accuracy history")])],
     "cfb": [("Standings", [("index.html", "Records")]),
             ("Teams", [("teams.html", "Team stats")]),
             ("Players", [("players.html", "Player stats")]),
@@ -35,7 +49,7 @@ LAYOUT = {
             ("More", [("trends.html", "Winner trends"), ("coverage.html", "Data coverage")])],
 }
 
-NAV_RE = re.compile(r'<nav class="nav[^"]*" aria-label="([^"]*) sections">(.*?)</nav>(?:\s*<nav class="nav nav-sub"[^>]*>.*?</nav>)?', re.S)
+NAV_RE = re.compile(r'<nav class="nav[^"]*" aria-label="(?:([^"]*) )?[Ss]ections">(.*?)</nav>(?:\s*<nav class="nav nav-sub"[^>]*>.*?</nav>)?', re.S)
 A_RE = re.compile(r'<a href="([^"]+)"[^>]*>(.*?)</a>', re.S)
 
 
@@ -44,22 +58,29 @@ def _file(href):
 
 
 def grouped(sport, layout, links, page):
-    """links: [(file, label)] currently in the page's nav (flat or grouped); page: this page's file."""
+    """links: [(file, label)] currently in the page's nav (flat or grouped); page: this page's file.
+    A (None, label) item in a tab starts a labelled block on the second row (kept only if a page follows it)."""
     have = {f for f, _ in links}
-    groups = [(g, [(f, l) for f, l in items if f in have]) for g, items in layout]
-    groups = [(g, items) for g, items in groups if items]
-    known = {f for _, items in groups for f, _ in items}
+    groups = []
+    for g, items in layout:
+        kept = [(f, l) for i, (f, l) in enumerate(items)
+                if (f in have) or (f is None and any(x in have for x, _ in items[i + 1:next((j for j in range(i + 1, len(items)) if items[j][0] is None), len(items))]))]
+        if any(f for f, _ in kept):
+            groups.append((g, kept))
+    known = {f for _, items in groups for f, _ in items if f}
     extra = [(f, l) for f, l in links if f not in known]
     cur = next((g for g, items in groups if any(f == page for f, _ in items)), None)
     href = lambda f: "./" if f == "index.html" else f
-    top = "".join(f'<a href="{href(items[0][0])}"' + (' aria-current="page"' if g == cur else "") + f">{html.escape(g)}</a>"
+    first = lambda items: next(f for f, _ in items if f)
+    top = "".join(f'<a href="{href(first(items))}"' + (' aria-current="page"' if g == cur else "") + f">{html.escape(g)}</a>"
                   for g, items in groups)
     top += "".join(f'<a href="{href(f)}"' + (' aria-current="page"' if f == page else "") + f">{l}</a>" for f, l in extra)
     out = f'<nav class="nav nav-top" aria-label="{sport} sections">{top}</nav>'
     sub = next((items for g, items in groups if g == cur), [])
-    if len(sub) > 1:
+    if sum(1 for f, _ in sub if f) > 1:
         out += (f'<nav class="nav nav-sub" aria-label="{html.escape(cur)} pages">' +
-                "".join(f'<a href="{href(f)}"' + (' aria-current="page"' if f == page else "") + f">{html.escape(l)}</a>" for f, l in sub) + "</nav>")
+                "".join(f'<span class="navsub-lab">{html.escape(l)}</span>' if f is None else
+                        f'<a href="{href(f)}"' + (' aria-current="page"' if f == page else "") + f">{html.escape(l)}</a>" for f, l in sub) + "</nav>")
     return out, extra
 
 
@@ -95,7 +116,7 @@ def apply(site=SITE, layout=LAYOUT):
             m = NAV_RE.search(s)
             if not m:
                 continue
-            new, extra = grouped(m.group(1), lay, union, fn)
+            new, extra = grouped(m.group(1) or "NFL", lay, union, fn)
             for f, _ in extra:
                 if f not in warned:
                     warned.add(f)

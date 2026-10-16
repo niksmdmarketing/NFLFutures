@@ -555,7 +555,6 @@ def futures(cur):
             "intro": "Projected wins and chances from the season simulation (opponent-adjusted offence and defence, weighted heavily to last season and this season's games, plus a roster adjustment and, before the season and in its first 20 games, player ratings from lineup data, then every remaining game, the play-in and the playoffs, where each team's top eight players count more)." + _overrides_note(),
             "backtest_html": _backtest_html(),
             "model_page": True, "why_links": True,
-            "model_intro": "How the NBA season chances are tested and what they leave out. The chances themselves are on Forecast › Chances.",
             "avail_html": _avail_html(F.get("availability") or {}),
             "proj": {"k": "w_mean", "l": "Proj. wins", "lo": "w_p10", "hi": "w_p90", "f": "num1"},
             "rating_note": "Points per 100 possessions better (+) or worse (−) than an average team",

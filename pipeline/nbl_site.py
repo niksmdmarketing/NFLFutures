@@ -484,7 +484,6 @@ def futures(y, hist, tables, todo, T, names):
                      {"k": "champ", "l": "Champions"}],
             "line": {"label": "Win total", "unit": "wins", "min": 0}, "backtest_html": bt,
             "model_page": True, "why_links": True,
-            "model_intro": "How the NBL season chances are worked out and tested, and what they leave out. The chances themselves are on Forecast › Chances.",
             "about": ["Rating is opponent-adjusted point differential per game: last season's, pulled halfway back to average and worth six games, blended with this season's results.",
                       f"Each simulation moves every team's rating by a random amount (typical size {tau:.1f} points) before playing, and single games vary by about {GAME_SD:.0f} points; home court is worth about {HCA:.0f}.",
                       "It does not know about imports arriving or leaving, injuries or coaching changes — the main reasons to disagree with it.",
