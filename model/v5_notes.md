@@ -88,3 +88,6 @@ TypeSafe 60% (low confidence 40%): added to challenger_v5 at weight 1.0 (setting
 BT_EARLY in research/replay_nfl.py: ratings x (1 + e x (1 - games played / 10)) from week 1, on the live v5 candidate
 (13 walk-forward seasons, 1,500 sims): e 0.25 -0.0003 (90% -0.0017 to +0.0008, 7/13), e 0.5 -0.0012 (7/13). Conference
 slightly better, playoffs/division worse. Not added. The game-level compression (x1.24) does not carry over to futures.
+
+## NHL roster continuity (17 Oct 2026) - no gain, not adopted
+research/nhl_continuity_test.py: share of last season's skater ice time in the opening lineup, interaction with the preseason prior, walk-forward 2019-2025 (281 team-seasons): RMSE 0.4922 -> 0.4918, better 2/7, interaction -1.24 (se 0.83).
