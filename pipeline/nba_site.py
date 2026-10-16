@@ -545,7 +545,7 @@ def futures(cur):
         rows.append({"team": t, "name": N.NAMES.get(t, t), "group": div_of(t, cur), "gp": r0.get("gp", 0),
                      "record": f"{int(r0.get('w', 0))}-{int(r0.get('l', 0))}", "rating": v.get("rating"),
                      "w_mean": v.get("mean_wins"), "w_p10": q(.1), "w_p90": q(.9), "over": over,
-                     **{k: v.get(k) for k in ("p_playoff", "p_top6", "p_playin", "p_div", "p_seed1", "p_conf", "p_title")}})
+                     **{k: v.get(k) for k in ("p_playoff", "p_top6", "p_playin", "p_div", "p_seed1", "p_r2", "p_cf", "p_conf", "p_title")}})
     sched = schedule_context(cur, {r["team"]: r["rating"] for r in rows})
     for r in rows:
         r.update(sched.get(r["team"], {}))
@@ -562,7 +562,9 @@ def futures(cur):
                       {"k": "sos_left", "l": "Remaining SOS", "f": "pm1", "t": "Average rating of the opponents still to play (+ = harder)"}],
             "cols": [{"k": "p_playoff", "l": "Playoffs", "t": "Reach the first round (top six or through the play-in)"},
                      {"k": "p_top6", "l": "Top 6", "t": "Avoid the play-in"}, {"k": "p_playin", "l": "Play-in"},
-                     {"k": "p_div", "l": "Division"}, {"k": "p_seed1", "l": "No. 1 seed"}, {"k": "p_conf", "l": "Conference"},
+                     {"k": "p_div", "l": "Division"}, {"k": "p_seed1", "l": "No. 1 seed", "t": "Best record in its conference (tie-breaks: point difference)"},
+                     {"k": "p_r2", "l": "Win a round", "t": "Win a first-round playoff series (reach the conference semi-finals)"},
+                     {"k": "p_cf", "l": "Conf. finals", "t": "Reach the conference finals"}, {"k": "p_conf", "l": "Conference"},
                      {"k": "p_title", "l": "Title"}],
             "line": {"label": "Win total", "unit": "wins", "min": 0},
             "about": ["The model does not use bookmaker prices, so it is independent of the market, not proof of value.",

@@ -937,7 +937,7 @@ def _simulate(schedule: pd.DataFrame, ratings: pd.DataFrame, n_sims: int, avail:
         deficits[away] -= 1
         flex_no += 1
 
-    counts = {t: {"div": 0, "top6": 0, "playin": 0, "playoff": 0, "seed1": 0, "conf": 0, "title": 0,
+    counts = {t: {"div": 0, "top6": 0, "playin": 0, "playoff": 0, "seed1": 0, "r2": 0, "cf": 0, "conf": 0, "title": 0,
                   "wins": np.zeros(83, dtype=np.int64)} for t in TEAMS}
     rng = np.random.default_rng(20261009)
     played_each = float(actual_wins.sum()) * 2 / len(TEAMS)
@@ -1009,8 +1009,12 @@ def _simulate(schedule: pd.DataFrame, ratings: pd.DataFrame, n_sims: int, avail:
                 q2 = _series(rng, seeds[3], seeds[4], strength, wins)
                 q3 = _series(rng, seeds[2], seeds[5], strength, wins)
                 q4 = _series(rng, seeds[1], seeds[6], strength, wins)
+                for t in (q1, q2, q3, q4):
+                    counts[t]["r2"] += 1          # won a first-round series
                 s1 = _series(rng, q1, q2, strength, wins)
                 s2 = _series(rng, q4, q3, strength, wins)
+                counts[s1]["cf"] += 1
+                counts[s2]["cf"] += 1
                 champion = _series(rng, s1, s2, strength, wins)
                 counts[champion]["conf"] += 1
                 conference_winners.append(champion)
@@ -1025,7 +1029,7 @@ def _simulate(schedule: pd.DataFrame, ratings: pd.DataFrame, n_sims: int, avail:
         out[t] = {"mean_wins": round(float(np.dot(np.arange(83), dist)), 2),
                   "p_div": c["div"] / n_sims, "p_top6": c["top6"] / n_sims,
                   "p_playin": c["playin"] / n_sims, "p_playoff": c["playoff"] / n_sims,
-                  "p_seed1": c["seed1"] / n_sims, "p_conf": c["conf"] / n_sims,
+                  "p_seed1": c["seed1"] / n_sims, "p_r2": c["r2"] / n_sims, "p_cf": c["cf"] / n_sims, "p_conf": c["conf"] / n_sims,
                   "p_title": c["title"] / n_sims, "win_dist": dist.tolist(),
                   "rating": round(float(base[TIX[t]]), 2)}
     return out
