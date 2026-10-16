@@ -1,12 +1,12 @@
 {
  "schema_version": 2,
  "source_url": "https://www.nfl.com/injuries/",
- "generated_at": "2026-10-16T11:28:44+00:00",
- "last_attempt_at": "2026-10-16T11:28:44+00:00",
+ "generated_at": "2026-10-16T14:14:57+00:00",
+ "last_attempt_at": "2026-10-16T14:14:57+00:00",
  "last_attempt_ok": true,
  "last_error": null,
- "last_success_at": "2026-10-16T11:28:44+00:00",
- "report_first_seen_at": "2026-10-15T23:47:46+00:00",
+ "last_success_at": "2026-10-16T14:14:57+00:00",
+ "report_first_seen_at": "2026-10-16T14:14:57+00:00",
  "collection_status": "ok",
  "stale_after_hours": 6,
  "report_season": 2026,
@@ -78,7 +78,7 @@
   "2026-10-19"
  ],
  "status_counts": {
-  "No game status": 348,
+  "No game status": 351,
   "Out": 5,
   "Questionable": 1
  },
@@ -559,7 +559,7 @@
    "player": "Spencer Brown",
    "position": "T",
    "injury": null,
-   "practice_status": "Limited Participation in Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/spencer-brown/"
   },
@@ -1762,6 +1762,16 @@
    "practice_status": "Limited Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/josh-wallace/"
+  },
+  {
+   "team": "LA",
+   "player_id": "kamren-curl",
+   "player": "Kam Curl",
+   "position": "S",
+   "injury": null,
+   "practice_status": "Limited Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/kamren-curl/"
   },
   {
    "team": "LA",
@@ -3065,6 +3075,16 @@
   },
   {
    "team": "SF",
+   "player_id": "carver-willis",
+   "player": "Carver Willis",
+   "position": "G",
+   "injury": null,
+   "practice_status": "Limited Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/carver-willis/"
+  },
+  {
+   "team": "SF",
    "player_id": "christian-kirk",
    "player": "Christian Kirk",
    "position": "WR",
@@ -3112,6 +3132,16 @@
    "practice_status": "Did Not Participate In Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/garret-wallow/"
+  },
+  {
+   "team": "SF",
+   "player_id": "gracen-halton",
+   "player": "Gracen Halton",
+   "position": "DT",
+   "injury": null,
+   "practice_status": "Did Not Participate In Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/gracen-halton/"
   },
   {
    "team": "SF",
@@ -3625,6 +3655,91 @@
   }
  ],
  "recent_changes": [
+  {
+   "observed_at": "2026-10-16T14:14:57+00:00",
+   "season": 2026,
+   "week": 6,
+   "team": "SF",
+   "player_id": "gracen-halton",
+   "kind": "appeared",
+   "before": null,
+   "after": {
+    "team": "SF",
+    "player_id": "gracen-halton",
+    "player": "Gracen Halton",
+    "position": "DT",
+    "injury": null,
+    "practice_status": "Did Not Participate In Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/gracen-halton/"
+   }
+  },
+  {
+   "observed_at": "2026-10-16T14:14:57+00:00",
+   "season": 2026,
+   "week": 6,
+   "team": "SF",
+   "player_id": "carver-willis",
+   "kind": "appeared",
+   "before": null,
+   "after": {
+    "team": "SF",
+    "player_id": "carver-willis",
+    "player": "Carver Willis",
+    "position": "G",
+    "injury": null,
+    "practice_status": "Limited Participation in Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/carver-willis/"
+   }
+  },
+  {
+   "observed_at": "2026-10-16T14:14:57+00:00",
+   "season": 2026,
+   "week": 6,
+   "team": "LA",
+   "player_id": "kamren-curl",
+   "kind": "appeared",
+   "before": null,
+   "after": {
+    "team": "LA",
+    "player_id": "kamren-curl",
+    "player": "Kam Curl",
+    "position": "S",
+    "injury": null,
+    "practice_status": "Limited Participation in Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/kamren-curl/"
+   }
+  },
+  {
+   "observed_at": "2026-10-16T14:14:57+00:00",
+   "season": 2026,
+   "week": 6,
+   "team": "BUF",
+   "player_id": "spencer-brown",
+   "kind": "updated",
+   "before": {
+    "team": "BUF",
+    "player_id": "spencer-brown",
+    "player": "Spencer Brown",
+    "position": "T",
+    "injury": null,
+    "practice_status": "Limited Participation in Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/spencer-brown/"
+   },
+   "after": {
+    "team": "BUF",
+    "player_id": "spencer-brown",
+    "player": "Spencer Brown",
+    "position": "T",
+    "injury": null,
+    "practice_status": "Full Participation in Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/spencer-brown/"
+   }
+  },
   {
    "observed_at": "2026-10-15T23:47:46+00:00",
    "season": 2026,
@@ -4380,86 +4495,10 @@
     "game_status": null,
     "player_url": "https://www.nfl.com/players/nick-bosa/"
    }
-  },
-  {
-   "observed_at": "2026-10-15T23:06:09+00:00",
-   "season": 2026,
-   "week": 6,
-   "team": "SF",
-   "player_id": "mykel-williams",
-   "kind": "appeared",
-   "before": null,
-   "after": {
-    "team": "SF",
-    "player_id": "mykel-williams",
-    "player": "Mykel Williams",
-    "position": "DE",
-    "injury": null,
-    "practice_status": "Limited Participation in Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/mykel-williams/"
-   }
-  },
-  {
-   "observed_at": "2026-10-15T23:06:09+00:00",
-   "season": 2026,
-   "week": 6,
-   "team": "SF",
-   "player_id": "mike-evans",
-   "kind": "appeared",
-   "before": null,
-   "after": {
-    "team": "SF",
-    "player_id": "mike-evans",
-    "player": "Mike Evans",
-    "position": "WR",
-    "injury": null,
-    "practice_status": "Did Not Participate In Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/mike-evans/"
-   }
-  },
-  {
-   "observed_at": "2026-10-15T23:06:09+00:00",
-   "season": 2026,
-   "week": 6,
-   "team": "SF",
-   "player_id": "marques-sigle",
-   "kind": "appeared",
-   "before": null,
-   "after": {
-    "team": "SF",
-    "player_id": "marques-sigle",
-    "player": "Marques Sigle",
-    "position": "S",
-    "injury": null,
-    "practice_status": "Did Not Participate In Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/marques-sigle/"
-   }
-  },
-  {
-   "observed_at": "2026-10-15T23:06:09+00:00",
-   "season": 2026,
-   "week": 6,
-   "team": "SF",
-   "player_id": "kyle-juszczyk",
-   "kind": "appeared",
-   "before": null,
-   "after": {
-    "team": "SF",
-    "player_id": "kyle-juszczyk",
-    "player": "Kyle Juszczyk",
-    "position": "FB",
-    "injury": null,
-    "practice_status": "Limited Participation in Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/kyle-juszczyk/"
-   }
   }
  ],
- "distinct_reports": 9,
- "checks": 197,
+ "distinct_reports": 10,
+ "checks": 198,
  "failed_checks": 0,
  "warnings": [],
  "projection_effect": "none",
