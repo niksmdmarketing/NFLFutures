@@ -552,7 +552,7 @@ def futures(cur):
     gp = np.mean([r["gp"] for r in rows]) if rows else 0
     return {"season": cur, "group_label": "Division", "sims": 100000, "main": "p_title",
             "status": f"{cur - 1}-{str(cur)[2:]} season" + (" — before opening night" if gp == 0 else f" — through about {gp:.0f} games per team"),
-            "intro": "Projected wins and chances from the season simulation (opponent-adjusted offence and defence, weighted heavily to last season and this season's games, plus a roster adjustment and, before the season and in its first 20 games, player ratings from lineup data, then every remaining game, the play-in and the playoffs, where each team's top eight players count more)." + _overrides_note(),
+            "intro": "Projected wins and chances from simulating every remaining game, the play-in and the playoffs. Team ratings are opponent-adjusted offence and defence, weighted heavily to last season and this season's games, plus a roster adjustment and, before the season and in its first 20 games, player ratings from lineup data; in the playoffs each team's top eight players count more." + _overrides_note(),
             "backtest_html": _backtest_html(),
             "model_page": True, "why_links": True,
             "avail_html": _avail_html(F.get("availability") or {}),
@@ -798,7 +798,7 @@ def AM_norm(s):
 
 
 PAGES = [("index", "Standings", "NBA standings", "Records, ratings, luck and splits by division, conference or league. Any season since 2002-03."),
-         ("futures", "Futures", "NBA season futures", "Projected wins and chances for the playoffs, play-in, division, No. 1 seed, conference and title, plus a win-total over/under tool."),
+         ("futures", "Futures", "NBA season chances", "Projected wins and chances for the playoffs, play-in, division, No. 1 seed, conference and title, plus a win-total over/under tool."),
          ("awards", "Awards", "NBA award chances", "MVP, Defensive Player, Rookie and Sixth Man chances from a model tested on every season since 2002-03, with past winners."),
          ("teams", "Team stats", "NBA team stats", "Ratings, four factors, shooting, shot profile, splits (home/road, back-to-backs, close games, vs winning teams), box score and hustle tracking (2015-16 onward). Season table or year by year."),
          ("players", "Players", "NBA player stats", "Per game, shooting, per 36, totals and NBA advanced (usage, ratings, PIE) for every player since 2002-03, regular season and playoffs. Hustle and Synergy play-type groups (isolation, pick-and-roll, spot-up and more, offense and defense) from 2015-16."),

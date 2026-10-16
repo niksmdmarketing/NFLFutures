@@ -296,6 +296,13 @@ async function games() {
   draw();
 }
 
+/* a long explanation shows its first sentence; the rest folds out ("More about this table") */
+function foldNote(text, tail) {
+  const t = String(text || "").trim(), m = t.length > 160 ? t.match(/^(.{40,220}?[.)])\s+(.*)$/s) : null;
+  if (!m) return '<p class="note">' + esc(t) + (tail ? " " + esc(tail) : "") + "</p>";
+  return '<p class="note">' + esc(m[1]) + (tail ? " " + esc(tail) : "") + '</p><details class="more"><summary>More about this table</summary><p class="note">' + esc(m[2]) + "</p></details>";
+}
+
 /* ---------------- model (accuracy and limits; moved off the futures page where meta asks for it) ---------------- */
 function modelSections(F) {
   return (F.backtest_html ? '<h2 style="margin-top:22px">How good is it?</h2>' + F.backtest_html : "") +
@@ -311,7 +318,7 @@ async function modelPage() {
 async function futuresPage() {
   const F = await getJSON("futures.json");
   const T = F.teams || [];
-  const pcx = v => v == null ? "–" : v < 0.0005 ? "<0.1%" : v > 0.9995 ? ">99.9%" : v < 0.1 ? (v * 100).toFixed(1) + "%" : Math.round(v * 100) + "%";
+  const pcx = v => v == null ? "–" : v < 0.0005 ? "<0.1%" : v > 0.9995 ? ">99.9%" : v < 0.0995 ? (v * 100).toFixed(1) + "%" : Math.round(v * 100) + "%";
   const P = F.proj;
   const sk = {key: F.main || (F.cols[F.cols.length - 1] || {}).k, dir: -1};
   const hasGroup = T.some(r => r.group);
@@ -335,7 +342,7 @@ async function futuresPage() {
   };
   const L = F.line;
   $("app").innerHTML = (F.status ? '<p class="note"><b>' + esc(F.status) + "</b></p>" : "") +
-    '<p class="note">' + esc(F.intro || "") + " " + (F.sims ? F.sims.toLocaleString() + " simulations. " : "") + "Chances only. Click a heading to sort.</p>" +
+    foldNote(F.intro || "", (F.sims ? F.sims.toLocaleString() + " simulations. " : "") + "Chances only. Click a heading to sort.") +
     '<div class="scroll"><table class="stbl nhl" id="ft"><thead><tr>' + head.map(([h, k, t]) => "<th" + (k ? ' data-k="' + k + '" tabindex="0"' : "") + (t ? ' title="' + esc(t) + '"' : "") + ">" + esc(h) + "</th>").join("") + "</tr></thead><tbody></tbody></table></div>" +
     (L ? '<h2 style="margin-top:22px">' + esc(L.label) + '</h2><p class="note">Pick a team and a line to see the chance it finishes over or under.</p>' +
       '<div class="filters"><div class="field"><label for="pt">Team</label><select id="pt">' + T.slice().sort((a, b) => a.team.localeCompare(b.team)).map(r => opt(r.team, r.team + " · " + (r.name || tname(r.team)))).join("") + "</select></div>" +
@@ -399,6 +406,6 @@ const ROUTES = {index: standings, standings, futures: futuresPage, awards: award
 boot(async meta => {
   META = meta; CFG = meta.cfg;
   const s = $("stamp");
-  if (s) s.textContent = (meta.in_progress ? seasonLabel(meta.season) + " season" : "Stats through " + seasonLabel(meta.season)) + " · updated " + new Date(meta.updated_utc).toLocaleString(undefined, {weekday: "short", day: "numeric", month: "short", hour: "numeric", minute: "2-digit"});
+  if (s) setStamp(meta.updated_utc, meta.in_progress ? seasonLabel(meta.season) + " season" : "Stats through " + seasonLabel(meta.season), s);
   ROUTES[PAGE]();
 });

@@ -186,6 +186,8 @@ def main():
     try:  # grouped section navigation (top tabs + sub-tabs); last, so it sees every page link added above
         import navgroups
         navgroups.apply()
+        navgroups.sportbars()
+        navgroups.stamps()
     except Exception as e:  # noqa: BLE001
         log("grouped navigation failed", e)
     # Cloudflare Pages rejects the whole deployment if any file is over 25 MiB: drop such files loudly instead

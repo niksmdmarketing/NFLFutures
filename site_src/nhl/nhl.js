@@ -303,7 +303,7 @@ async function games() {
 async function modelPage() {
   const F = await getJSON("futures.json");
   const T = F.teams, P = F.params, bt = F.backtest || {};
-  const pc = v => v == null ? "–" : v < 0.0005 ? "<0.1%" : v < 0.1 ? (v * 100).toFixed(1) + "%" : Math.round(v * 100) + "%";
+  const pc = v => v == null ? "–" : v < 0.0005 ? "<0.1%" : v > 0.9995 ? ">99.9%" : v < 0.0995 ? (v * 100).toFixed(1) + "%" : Math.round(v * 100) + "%";
   const calib = (bt.calibration_20 || []).map(c => "<tr><td>" + esc(c.bin.replace("(-0.001", "[0").replace("]", "]")) + "</td><td>" + pct(c.pred) + "</td><td>" + pct(c.actual) + "</td><td>" + c.n + "</td></tr>").join("");
   const b0 = bt["0"], b20 = bt["20"];
   $("app").innerHTML =     (b0 && b20 ? '<h2 style="margin-top:22px">How good is it?</h2><p class="note">The same model was run from the start of each of the last ' + b0.seasons + " seasons (2021-22 on) and again after 20 games, using only what was known at the time (every setting is estimated from earlier seasons only). " +
@@ -325,7 +325,7 @@ async function modelPage() {
 async function futuresPage() {
   const F = await getJSON("futures.json");
   const T = F.teams, P = F.params, bt = F.backtest || {};
-  const pc = v => v == null ? "–" : v < 0.0005 ? "<0.1%" : v < 0.1 ? (v * 100).toFixed(1) + "%" : Math.round(v * 100) + "%";
+  const pc = v => v == null ? "–" : v < 0.0005 ? "<0.1%" : v > 0.9995 ? ">99.9%" : v < 0.0995 ? (v * 100).toFixed(1) + "%" : Math.round(v * 100) + "%";
   const head = [["Team", null], ["Div", null], ["GP", null], ["PTS", null], ["Rating", "Goal difference per game vs average, after blending last season with this one"], ["Proj. PTS", "Average of the simulated seasons"],
     ["10–90%", "Range containing 80% of simulated seasons"], ["Playoffs", null], ["Division", null], ["Round 2", null], ["Conf. final", null], ["Final", null], ["Cup", null], ["Best record", null]];
   const sk = {key: "p_cup", dir: -1};
@@ -415,6 +415,6 @@ async function awardsPage() {
 const ROUTES = {index: standings, futures: futuresPage, model: modelPage, awards: awardsPage, teams, skaters: () => players("skaters"), goalies: () => players("goalies"), games};
 boot(async meta => {
   META = meta;
-  $("stamp").textContent = seasonLabel(meta.season) + " season · updated " + new Date(meta.updated_utc).toLocaleString(undefined, {weekday: "short", day: "numeric", month: "short", hour: "numeric", minute: "2-digit"});
+  setStamp(meta.updated_utc, seasonLabel(meta.season) + " season");
   ROUTES[PAGE]();
 });

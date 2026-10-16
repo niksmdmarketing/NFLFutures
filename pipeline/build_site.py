@@ -15,8 +15,8 @@ SITE = os.path.join(ROOT, "site")
 # slug, nav label, page title, intro (None = taken from the data), script, data file for table pages
 PAGES = [
     "Model",
-    ("index", "Futures", "Season futures", "Chances to win each division, make the playoffs, take the No. 1 seed, win the conference and the Super Bowl, plus every team's win-total distribution.", "futures.js", None),
-    ("awards", "Awards", "Award chances", "Probability each player or coach wins the season's major awards.", "awards.js", None),
+    ("index", "Futures", "NFL season chances", "Chances to win each division, make the playoffs, take the No. 1 seed, win the conference and the Super Bowl, plus every team's win-total distribution.", "futures.js", None),
+    ("awards", "Awards", "NFL award chances", "Probability each player or coach wins the season's major awards.", "awards.js", None),
     ("model", "How it works", "NFL model: how it works", "How the season chances are worked out and tested, the versions being tested alongside the live model, and this week's quarterback adjustments.", "futures.js", None),
     ("matchups", "Matchups", "Matchup edges", "Every offense against the defense it faces this week, ranked 1 to 32 in five categories.", "matchups.js", None),
     "Team stats",

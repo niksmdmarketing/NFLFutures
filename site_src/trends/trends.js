@@ -209,7 +209,7 @@
     section();
     wire();
     var st = document.getElementById("stamp");
-    if (st && d.updated_utc) st.textContent = "Updated " + new Date(d.updated_utc.replace("+00:00", "Z")).toLocaleString();
+    if (st && d.updated_utc) { if (typeof setStamp === "function") setStamp(d.updated_utc, "Winner trends", st); else st.textContent = "Updated " + new Date(d.updated_utc.replace("+00:00", "Z")).toLocaleString(); }
   }).catch(function (e) {
     root.innerHTML = '<p class="note">Trend data is not available yet (' + esc(e.message) + ").</p>";
   });

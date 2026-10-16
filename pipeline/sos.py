@@ -14,6 +14,8 @@ import json
 import math
 import os
 import re
+
+import sportsite  # noqa: E402
 import shutil
 import sys
 import time
@@ -327,8 +329,7 @@ def build_site():
                      lambda m: m.group(1) + m.group(2).replace("<a ", '<a aria-current="page" '), top, count=1, flags=re.S)
         top = top.replace('href="outlook.html">Schedule outlook', 'href="outlook.html" aria-current="page">Schedule outlook')
         top = re.sub(r"<title>.*?</title>", f"<title>{lab} schedule difficulty</title>", top, count=1, flags=re.S)
-        top = re.sub(r'(<span class="stamp" id="stamp">)[^<]*',   # the sport's JS (which fills the stamp) is not loaded on this page
-                     lambda m: m.group(1) + "Updated " + __import__("datetime").datetime.now(__import__("datetime").timezone.utc).strftime("%Y-%m-%d %H:%M") + " UTC", top, count=1)
+        top = sportsite.stamp_sub(top, None, "Schedule difficulty")   # the sport's JS (which fills the stamp) is not loaded on this page
         top = re.sub(r'(<meta name="description" content=")[^"]*', rf"\1{lab} schedule difficulty: next 5 and 10 games and rest-of-season outlook.", top, count=1)
         body = f"""
 <main class="page" id="main">

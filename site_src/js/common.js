@@ -4,7 +4,8 @@ const DIVS = {"AFC East":["BUF","MIA","NE","NYJ"],"AFC North":["BAL","CIN","CLE"
 const nm = t => NAMES[t] || t;
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const pct = p => p == null ? "–" : p < 0.005 ? "<1%" : p > 0.995 ? ">99%" : Math.round(p * 100) + "%";
+/* one chance format on every sport: <0.1%, one decimal under 10%, whole numbers from 10%, >99.9% */
+const pct = p => p == null ? "–" : p < 0.0005 ? "<0.1%" : p > 0.9995 ? ">99.9%" : p < 0.0995 ? (p * 100).toFixed(1) + "%" : Math.round(p * 100) + "%";
 const DAYS = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"], MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 function fmtDate(date) {
   const [y, m, d] = date.split("-").map(Number);
@@ -26,17 +27,31 @@ async function getJSON(name) {
   if (!r.ok) throw new Error("Could not load " + name + " (" + r.status + ")");
   return r.json();
 }
-function stamp(meta) {
-  let when = meta.updated_utc;
+/* one 'updated' line for every page: "<what the data covers> · updated <local time>", plus a warning when the
+   data is more than a day old (the site refreshes every two hours, so that means a feed or the build has stopped) */
+const STALE_HOURS = 26;
+function setStamp(iso, lead, el) {
+  el = el || $("stamp");
+  if (!el) return;
+  let when = iso, age = null;
   try {
-    when = new Date(meta.updated_utc).toLocaleString(undefined, {weekday: "short", day: "numeric", month: "short", hour: "numeric", minute: "2-digit"});
+    const d = new Date(String(iso).replace(" ", "T").replace(/\+00:00$/, "Z"));
+    if (!isNaN(d)) { when = d.toLocaleString(undefined, {weekday: "short", day: "numeric", month: "short", hour: "numeric", minute: "2-digit"}); age = (Date.now() - d) / 3.6e6; }
   } catch (e) {}
+  el.textContent = (lead ? lead + " · " : "") + "updated " + when;
+  if (age != null && age > STALE_HOURS) {
+    const w = document.createElement("b");
+    w.className = "stale";
+    w.textContent = " · last update " + (age < 48 ? Math.round(age) + " hours" : Math.round(age / 24) + " days") + " ago, may be out of date";
+    el.appendChild(w);
+  }
+}
+function stamp(meta) {
   let games = meta.through_week ? "games through Week " + meta.through_week : "preseason";
   if (meta.next_week_played) games += " + " + meta.next_week_played + (meta.next_week_played === 1 ? " game" : " games") + " of Week " + meta.next_week;
   const bits = [meta.season + " season", games];
   if (meta.injury_week) bits.push("Week " + meta.injury_week + " injury report");
-  bits.push("updated " + when);
-  $("stamp").textContent = bits.join(" · ");
+  setStamp(meta.updated_utc, bits.join(" · "));
 }
 async function boot(fn) {
   try {

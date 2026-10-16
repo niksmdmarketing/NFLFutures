@@ -307,3 +307,33 @@ a.whylink:hover { color: var(--accent); }
 .ftabs { margin: 2px 0 4px; }
 .ftabs button.on { background: var(--accent); color: var(--surface); }
 .qbchg li.muted { display: block; }
+details.more { margin: 2px 0 10px; font-size: .85rem; }
+details.more > summary { cursor: pointer; color: var(--accent); font-weight: 600; width: fit-content; }
+details.more > p { margin-top: 6px; max-width: 80ch; }
+
+/* keep the team / player name in view while a wide table scrolls sideways */
+.ftable td:first-child, .ftable th:first-child { position: sticky; left: 0; background: var(--surface); z-index: 1; }
+.ftable tr.divhead td:first-child { background: var(--bg); }
+.stbl.ranked td:first-child, .stbl.ranked th:first-child { width: 2.75rem; min-width: 2.75rem; max-width: 2.75rem; box-sizing: border-box; }
+.stbl.ranked td:nth-child(2), .stbl.ranked th:nth-child(2) { position: sticky; left: 2.75rem; background: var(--surface); z-index: 1; }
+.stbl td:first-child, .stbl.ranked td:nth-child(2), .ftable td:first-child { box-shadow: inset -1px 0 0 var(--line); }
+thead th:first-child, .stbl.ranked thead th:nth-child(2) { z-index: 3; }
+/* menus that run off the screen show a fade at the edge that has more */
+@media (max-width: 600px) {
+  .nav.nav-top, .nav.nav-sub, .sportbar, nav.leaguebar {
+    background: linear-gradient(to right, var(--bg) 30%, transparent) left / 24px 100% no-repeat local,
+                linear-gradient(to left, var(--bg) 30%, transparent) right / 24px 100% no-repeat local,
+                radial-gradient(farthest-side at 0 50%, rgba(0,0,0,.22), transparent) left / 10px 100% no-repeat scroll,
+                radial-gradient(farthest-side at 100% 50%, rgba(0,0,0,.22), transparent) right / 10px 100% no-repeat scroll;
+  }
+  .sportbar { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+  .sportbar a, .sportbar span { flex: 0 0 auto; }
+}
+.stamp .stale { color: var(--def, #b4540a); font-weight: 600; }
+/* football: on phones the league buttons are replaced by one dropdown (built by football.js / football_nav.py) */
+.league-select { display: none; }
+@media (max-width: 600px) {
+  nav.leaguebar a { display: none; }
+  nav.leaguebar .league-select { display: block; min-height: 40px; padding: 6px 10px; font: inherit; border: 1px solid var(--line); border-radius: 5px; background: var(--surface); color: var(--ink); max-width: 100%; }
+  nav.leaguebar { background: none !important; }
+}

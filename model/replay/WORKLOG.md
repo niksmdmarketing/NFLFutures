@@ -556,3 +556,8 @@ History files regenerated with the two new columns; History page shows them.
 - NFL done the same day: navgroups layout for the site root (Teams sub-row labelled Offense / Defense / Other; Matchups under
   Games, TypeSafe 88%), futures fragment split into in-page views (Chances / vs the market / Win totals, TypeSafe 98%) and a new
   model.html (fragment site_src/fragments/model.html; QB changes, accuracy by market, v3/v5, method), futures.js null-safe.
+- Polish pass (TypeSafe 93%): navgroups.sportbars (one bar: NFL NBA NBL NHL AFL CFB Shiv Updates) and navgroups.stamps
+  (stamp script on pages without common.js); common.js setStamp (stale warning after 26 h; site refreshes every 2 h) used by
+  NFL, engine, NHL, trends, CFB coverage; sportsite.stamp_sub for Why/History/Schedule pages; engine foldNote for long table
+  intros; sticky name columns (.ftable, ranked .stbl second column); phone scroll shadows on menus; one chance format
+  (common.js pct, why.py, football pages); page titles '<Sport> season chances' / 'award chances' / 'accuracy history'.

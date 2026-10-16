@@ -115,3 +115,17 @@ def pct(a, b):
     a, b = np.asarray(a, float), np.asarray(b, float)
     with np.errstate(divide="ignore", invalid="ignore"):
         return np.where(b > 0, a / b, np.nan)
+
+
+def stamp_sub(top, iso=None, lead=""):
+    """Fill the header's 'updated' line on pages that do not load the sport's script (Why, History, Schedule difficulty).
+    The text is readable as is (UTC); navgroups adds a small script that shows local time and a stale warning."""
+    when = dt.datetime.fromisoformat(str(iso).replace("Z", "+00:00")) if iso else dt.datetime.now(dt.timezone.utc)
+    if when.tzinfo is None:
+        when = when.replace(tzinfo=dt.timezone.utc)
+    when = when.astimezone(dt.timezone.utc)
+    text = (lead + " · " if lead else "") + "updated " + when.strftime("%a %d %b, %H:%M UTC")
+    import re as _re
+    return _re.sub(r'<span class="stamp" id="stamp"[^>]*>[^<]*',
+                   lambda m: f'<span class="stamp" id="stamp" data-utc="{when.isoformat(timespec="minutes")}" data-lead="{html.escape(lead)}">{html.escape(text)}',
+                   top, count=1)

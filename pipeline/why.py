@@ -12,6 +12,9 @@ import math
 import os
 import re
 
+import sportsite  # noqa: E402
+
+
 import numpy as np
 import pandas as pd
 
@@ -285,7 +288,7 @@ def _rt(v):
 
 
 def _page_html(data, top):
-    pc = lambda v: "–" if v is None else (f"{100 * v:.1f}%" if v >= 0.001 else "<0.1%")
+    pc = lambda v: "–" if v is None else ("<0.1%" if v < 0.0005 else ">99.9%" if v > 0.9995 else f"{100 * v:.1f}%" if v < 0.0995 else f"{100 * v:.0f}%")
     body_rows = "".join(
         f"<tr id=\"t-{html.escape(str(r['team']))}\"><td class=\"why-team\"><b>{html.escape(r['name'])}</b></td><td>{_rt(r['rating'])}</td>"
         f"<td>{pc(r['title'])}</td><td>{pc(r['second'])}</td><td class=\"why-drv\"><ul>{''.join(f'<li>{html.escape(s)}</li>' for s in r['drivers'])}</ul></td></tr>"
@@ -336,8 +339,7 @@ def build_site():
             top = re.sub(nav, r'\1<a href="why.html" aria-current="page">Why</a>', top, count=1)
         top = re.sub(r"<title>.*?</title>", f"<title>{cfg['label']}: why the model thinks this</title>", top, count=1, flags=re.S)
         top = re.sub(r'<script[^>]*>.*?</script>', "", top, flags=re.S)
-        upd = str(data.get("updated") or "")[:16].replace("T", " ")
-        top = re.sub(r'(<span class="stamp" id="stamp">)[^<]*', lambda m: m.group(1) + (f"Updated {upd} UTC" if upd else ""), top, count=1)
+        top = sportsite.stamp_sub(top, (data.get("updated") or None), "Why the model thinks this")
         open(os.path.join(d, "why.html"), "w", encoding="utf-8").write(_page_html(data, top))
         for fn in os.listdir(d):
             if fn.endswith(".html") and fn != "why.html":

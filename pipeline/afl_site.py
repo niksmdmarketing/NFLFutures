@@ -655,8 +655,8 @@ CFG = {
 }
 
 PAGES = [("index", "Ladder", "AFL ladder", "Ladder with percentage, expected wins, luck, home/away, inside-50 and clearance differentials. Every season since 2012."),
-         ("futures", "Futures", "AFL futures", "Premiership, Grand Final, top 4, top 8, finals and minor premiership chances, plus a win-total over/under tool."),
-         ("awards", "Awards", "AFL awards", "Brownlow Medal chances from a model tested on every count since 2012, and the Coleman Medal race, with past winners."),
+         ("futures", "Futures", "AFL season chances", "Premiership, Grand Final, top 4, top 8, finals and minor premiership chances, plus a win-total over/under tool."),
+         ("awards", "Awards", "AFL award chances", "Brownlow Medal chances from a model tested on every count since 2012, and the Coleman Medal race, with past winners."),
          ("teams", "Team stats", "AFL team stats", "Scoring, quarters, differentials, possession, stoppages, territory and splits. Season table or year by year."),
          ("players", "Players", "AFL player stats", "Per game, advanced (contested possessions, metres gained, score involvements), fantasy and totals for every player since 2012."),
          ("games", "Games", "AFL game logs", "Every team game since 2012 with quarter margins, territory and contest stats."),

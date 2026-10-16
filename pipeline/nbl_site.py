@@ -572,8 +572,8 @@ CFG = {
 }
 
 PAGES = [("index", "Ladder", "NBL ladder", "Records, ratings, luck and splits for every season since 2012-13."),
-         ("futures", "Futures", "NBL futures", "Championship, Grand Final, semi-final, top-2, finals and minor premiership chances from the real fixture, plus a win-total over/under tool."),
-         ("awards", "Awards", "NBL MVP", "MVP chances from a model tested on every season since 2012-13, with past winners."),
+         ("futures", "Futures", "NBL season chances", "Championship, Grand Final, semi-final, top-2, finals and minor premiership chances from the real fixture, plus a win-total over/under tool."),
+         ("awards", "Awards", "NBL award chances", "MVP chances from a model tested on every season since 2012-13, with past winners."),
          ("teams", "Team stats", "NBL team stats", "Scoring, ratings, shooting, box score, quarter scoring and splits. Season table or year by year."),
          ("players", "Players", "NBL player stats", "Per game, shooting, per 36 and totals for every player since 2012-13."),
          ("games", "Games", "NBL game logs", "Every team game since 2012-13, regular season and finals."),
