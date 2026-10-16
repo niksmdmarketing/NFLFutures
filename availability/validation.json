@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-10-16T11:31:04+00:00",
+ "checked_utc": "2026-10-16T16:43:55+00:00",
  "leagues": {
   "nfl": {
    "records": 1612,
    "by_layer": {
-    "official": 1533,
-    "reported": 79
+    "official": 1536,
+    "reported": 76
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -63,13 +63,13 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "79/79"
+   "reported_matched_to_official_list": "76/76"
   },
   "nba": {
-   "records": 243,
+   "records": 242,
    "by_layer": {
     "official": 156,
-    "reported": 87
+    "reported": 86
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -106,7 +106,16 @@
     "UTAH",
     "WSH"
    ],
-   "conflicts": [],
+   "conflicts": [
+    {
+     "player": "Moses Moody",
+     "official": [
+      "out"
+     ],
+     "other": "expected to play",
+     "source": "ESPN injury note"
+    }
+   ],
    "stale_projection_dates": 0,
    "teams_missing_official": [],
    "season_state": {
@@ -116,13 +125,13 @@
    "coverage_expected": false,
    "teams_missing_official_note": "off-season: no official coverage expected",
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "87/87"
+   "reported_matched_to_official_list": "86/86"
   },
   "nhl": {
-   "records": 1549,
+   "records": 1560,
    "by_layer": {
-    "official": 160,
-    "reported": 65,
+    "official": 161,
+    "reported": 75,
     "projected": 1324
    },
    "unknown_team": 0,
@@ -172,7 +181,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "56/65"
+   "reported_matched_to_official_list": "66/75"
   },
   "nbl": {
    "records": 27,
