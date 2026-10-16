@@ -166,6 +166,11 @@ def nfl_games(snaps, season):
         neutral = str(getattr(r, "location", "")) == "Neutral"
         y = 1.0 if r.result > 0 else 0.0
         row = {"y": y, "v4": phi((h - a + (0 if neutral else S4["hfa"])) / tot4)}
+        mh, ma = getattr(r, "home_moneyline", None), getattr(r, "away_moneyline", None)
+        if mh == mh and ma == ma and mh and ma:      # closing moneylines (nflverse), margin removed: the market's view
+            ih = 100 / (mh + 100) if mh > 0 else -mh / (-mh + 100)
+            ia = 100 / (ma + 100) if ma > 0 else -ma / (-ma + 100)
+            row["market"] = ih / (ih + ia)
         if tot3 and s.get("ratings_v3"):
             h3, a3 = s["ratings_v3"].get(r.home_team), s["ratings_v3"].get(r.away_team)
             if h3 is not None and a3 is not None:
@@ -174,7 +179,7 @@ def nfl_games(snaps, season):
     if not rows:
         return {"games": 0}
     out = {"games": len(rows), "home_win_share": round(float(np.mean([r["y"] for r in rows])), 3)}
-    for mod in ("v4", "v3"):
+    for mod in ("v4", "v3", "market"):
         rr = [r for r in rows if mod in r]
         if rr:
             out[mod] = {"games": len(rr), "logloss": round(float(np.mean([_ll(r[mod], r["y"]) for r in rr])), 4),

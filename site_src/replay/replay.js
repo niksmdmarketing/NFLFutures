@@ -48,9 +48,9 @@
     var h = '<div class="rp-rel"><h3>Live check: this season, as published</h3><p class="muted">Scores the forecasts this site actually published (' + L.snapshots + " saved snapshot" + (L.snapshots === 1 ? "" : "s") + ", " + esc(L.first) + " to " + esc(L.last) + "), not replayed numbers. Early on there is little to score; this fills in as the season goes.</p>";
     var G = L.games;
     if (G && G.games) {
-      var rows = ["v4", "v3", "live"].filter(function (m) { return G[m]; }).map(function (m) {
+      var rows = ["v4", "v3", "live", "market"].filter(function (m) { return G[m]; }).map(function (m) {
         var g = G[m];
-        return "<tr><td>" + (m === "v4" ? "v4 (live)" : m === "v3" ? "v3 (challenger)" : "Outlook game chances") + '</td><td class="num">' + g.games + '</td><td class="num">' + g.logloss.toFixed(3) + '</td><td class="num">' + g.brier.toFixed(3) + '</td><td class="num">' + pc0(g.correct) + "</td></tr>";
+        return "<tr><td>" + (m === "v4" ? "v4 (live)" : m === "v3" ? "v3 (challenger)" : m === "market" ? "Market (closing moneyline, margin removed)" : "Outlook game chances") + '</td><td class="num">' + g.games + '</td><td class="num">' + g.logloss.toFixed(3) + '</td><td class="num">' + g.brier.toFixed(3) + '</td><td class="num">' + pc0(g.correct) + "</td></tr>";
       }).join("");
       h += "<p><b>Games since the archive began</b> (each scored from the last snapshot before kick-off). A coin flip scores " + G.coin_flip_logloss.toFixed(3) + "; lower is better.</p>" +
         '<table class="rp-cal"><thead><tr><th>Model</th><th>Games</th><th>Error score</th><th>Brier</th><th>Picked winner</th></tr></thead><tbody>' + rows + "</tbody></table>";
