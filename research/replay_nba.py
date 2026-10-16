@@ -46,6 +46,9 @@ AV_B = (-4.579, 1.992, 5.308)   # logistic: intercept, share of team games misse
 N_SCEN = 400
 PO_GAMES = os.environ.get("BT_PO_GAMES") == "1"
 FULL = os.environ.get("BT_FULL") == "1"
+ERA = os.environ.get("BT_ERA", "1") == "1"   # era-correct format: no play-in before 2020-21, 72 games in 2020-21, 2019-20 (bubble) skipped
+ERA_PLAYIN, ERA_GAMES = True, 82
+N.OVERRIDES_ON = False   # the owner overrides are this season's judgement calls; they must not leak into historical replays
 INS = float(os.environ.get("BT_INS", "0"))        # in-season player ratings: mix share kept from game 20 on (0 = off)
 INS_W = float(os.environ.get("BT_INS_W", "1.0"))  # weight of this season's stints in the weekly refit
 INS_PO = os.environ.get("BT_INS_PO", "1") == "1"  # also use the refitted ratings in the playoff rotation   # live roster step + RAPM preseason mix (with development) as in nba.build_data
@@ -240,6 +243,10 @@ def seeds(g):
 
 
 def run_season(boxes, y):
+    global ERA_PLAYIN, ERA_GAMES
+    if ERA and y == 2020:
+        return None   # COVID-interrupted season: 63-67 games, then seeding games and a 22-team bubble
+    ERA_PLAYIN, ERA_GAMES = (y >= 2021, 72 if y == 2021 else 82) if ERA else (True, 82)
     out = T.outcomes(boxes, y)
     if out is None:
         return None
@@ -321,7 +328,7 @@ def run_season(boxes, y):
                 N.PO_DELTA = _po_delta(cur[cur.date <= cutoff], (ck_rating if (INS and INS_PO and ck_rating is not None) else rating), prev_assign, prev_mins)
         s = sched.copy()
         s["completed"] = s.completed & (pd.to_datetime(s.game_date) <= cutoff)
-        res = N._simulate(s, ratings, SIMS)
+        res = N._simulate(s, ratings, SIMS, playin=ERA_PLAYIN, season_games=ERA_GAMES)
         for t, v in res.items():
             rows.append(dict(season=y, week=wk, date=str(cutoff.date()), gp_avg=round(2 * len(done) / 30, 1), team=t,
                              p_title=v["p_title"], p_conf=v["p_conf"], p_div=v["p_div"], p_seed1=v["p_seed1"], p_playoff=v["p_playoff"], p_r2=v.get("p_r2"), p_cf=v.get("p_cf"),

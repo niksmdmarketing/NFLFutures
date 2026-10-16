@@ -922,8 +922,10 @@ def _series(rng: np.random.Generator, a: str, b: str, strength: np.ndarray,
     return a if wa == 4 else b
 
 
-def _simulate(schedule: pd.DataFrame, ratings: pd.DataFrame, n_sims: int, avail: dict | None = None) -> dict[str, dict]:
-    """avail: nba_avail.plan(...) output; each simulation draws its own recovery paths (nba_avail.draw_adjustments)."""
+def _simulate(schedule: pd.DataFrame, ratings: pd.DataFrame, n_sims: int, avail: dict | None = None, playin: bool = True,
+              season_games: int = 82) -> dict[str, dict]:
+    """playin / season_games: era switches for historical replays (the 7-10 play-in began in 2020-21; 2020-21 had 72 games).
+    avail: nba_avail.plan(...) output; each simulation draws its own recovery paths (nba_avail.draw_adjustments)."""
     base = ratings.set_index("team").rating.reindex(TEAMS).to_numpy(float)
     actual_wins = np.zeros(len(TEAMS), dtype=np.int16)
     actual_pd = np.zeros(len(TEAMS), dtype=float)
@@ -945,7 +947,7 @@ def _simulate(schedule: pd.DataFrame, ratings: pd.DataFrame, n_sims: int, avail:
     # simulation still completes an 82-game season; official games replace
     # these automatically as the schedule fills in.
     listed = pd.concat([schedule.home_abbreviation, schedule.away_abbreviation]).value_counts()
-    deficits = {t: max(0, 82 - int(listed.get(t, 0))) for t in TEAMS}
+    deficits = {t: max(0, season_games - int(listed.get(t, 0))) for t in TEAMS}
     flex_no = 0
     while sum(deficits.values()) >= 2:
         home = max(TEAMS, key=lambda t: (deficits[t], -TIX[t]))
@@ -1023,10 +1025,13 @@ def _simulate(schedule: pd.DataFrame, ratings: pd.DataFrame, n_sims: int, avail:
                 for t in order[6:10]:
                     counts[t]["playin"] += 1
 
-                seven = _one_game(rng, order[6], order[7], strength)
-                first_loser = order[7] if seven == order[6] else order[6]
-                nine_winner = _one_game(rng, order[8], order[9], strength)
-                eight = _one_game(rng, first_loser, nine_winner, strength)
+                if playin:
+                    seven = _one_game(rng, order[6], order[7], strength)
+                    first_loser = order[7] if seven == order[6] else order[6]
+                    nine_winner = _one_game(rng, order[8], order[9], strength)
+                    eight = _one_game(rng, first_loser, nine_winner, strength)
+                else:   # before 2020-21 the top eight qualified directly
+                    seven, eight = order[6], order[7]
                 seeds = [order[0], order[1], order[2], order[3], order[4], order[5], seven, eight]
                 for t in seeds:
                     counts[t]["playoff"] += 1
