@@ -46,6 +46,7 @@ def srs_w(g, prior, hl, cut):
 N.TAU0 = float(os.environ.get("BT_TAU0", N.TAU0))
 N.TAU_FLOOR = float(os.environ.get("BT_TAU_FLOOR", N.TAU_FLOOR))
 N.GAME_SD = float(os.environ.get("BT_GAME_SD", N.GAME_SD))
+N.REG_TAU_MULT = float(os.environ.get("BT_REG_TAU_MULT", N.REG_TAU_MULT))
 OUT = os.environ.get("BT_OUTDIR") or os.path.join(ROOT, "model", "replay")
 
 

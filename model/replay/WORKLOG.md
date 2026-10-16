@@ -585,3 +585,9 @@ TypeSafe 87%: give every chances column a track record. Same replays, same live 
   (slope 0.34-0.64 [0.11-0.99] until the last quarter): teams given under 10% reached the semis 33% of the time in the first
   quarter (18 team-checkpoints). Same pattern as the known NBL/AFL make-finals tails. Rated Weak until mid-season.
 - replay_score/slope/ci now skip blank rows per market and record seasons per market; History pages list the new markets.
+- NBL semi-finals fix tests (play-in seasons for semis, all 13 seasons for the rest; gain = live minus test log loss, all /
+  first half): TAU0 6: semis +0.022 / +0.036, others pooled -0.0009 / -0.0029 (Grand Final, title worse). Ladder-only extra
+  uncertainty (new research knob nbl_site.REG_TAU_MULT, env BT_REG_TAU_MULT; 1 = live, reproduces the live replay exactly):
+  1.25x semis +0.012 / +0.021, make finals +0.003, top 2 / minor premiers / Grand Final / title -0.0005 to -0.0023;
+  1.5x semis +0.018 / +0.030 (3 of 4 seasons), make finals +0.004, others -0.0003 to -0.0042. Game spread 16: semis +0.006.
+  Every variant hurts other markets, so none passes the rule. TypeSafe 85%: deploy nothing, keep the Weak badge.

@@ -24,6 +24,7 @@ GAME_SD = 14.0   # was 12; tuned on match outcomes 2012-2026 (Oct 2026, with K_P
 K_PRIOR = 20.0   # games of weight on the preseason prior (was 6)
 TAU0 = 4.0        # extra rating uncertainty (points) at the start of a season; shrinks to TAU0 * TAU_FLOOR as the schedule is played
 TAU_FLOOR = 0.15
+REG_TAU_MULT = 1.0   # research knob: extra rating uncertainty for regular-season games only (1 = same as the finals)
 PRIOR_REG = 0.4  # share of last season's rating carried into the new season (was 0.5)
 
 
@@ -316,11 +317,13 @@ def simulate(teams, W0, L0, PD0, todo, rating, tau, n=20000, seed=11, top4=False
     wins_hist = np.zeros((T, maxw + 1))
     for start in range(0, n, 2000):
         m = min(2000, n - start)
-        Rs = R[None, :] + rng.normal(0, tau, (m, T))
+        z = rng.normal(0, 1, (m, T))
+        Rs = R[None, :] + tau * z                       # season strength used in the finals
+        Rreg = R[None, :] + tau * REG_TAU_MULT * z      # the same draw, optionally wider for the regular-season ladder (research)
         W = np.repeat(np.array([W0.get(t, 0) for t in teams], float)[None, :], m, 0)
         PD = np.repeat(np.array([PD0.get(t, 0) for t in teams], float)[None, :], m, 0)
         if len(todo):
-            mu = Rs[:, H] - Rs[:, A] + HCA
+            mu = Rreg[:, H] - Rreg[:, A] + HCA
             mg = mu + rng.normal(0, GAME_SD, mu.shape)
             hw = (mg > 0).astype(float)
             np.add.at(W.T, H, hw.T)
