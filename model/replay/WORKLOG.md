@@ -598,3 +598,7 @@ TypeSafe 87%: give every chances column a track record. Same replays, same live 
   and any return after 1 July counts as out for the season (playoffs too). tests/test_trust.py covers it.
 - Roster term from lineups (live since 15 Oct) looks inactive: published values identical for every team without injuries.
   Diagnostics now published in nhl/data/futures.json roster_diag (lineup rows, games with non-zero lineup value).
+- Roster term cause: the live fetch (pipeline/nhl_lineup.fetch_season) failed in the build and fell back to a stale cache of
+  six games (roster_diag: rows 12, games 6). nhl_lineup.best_season now uses the research collection
+  (data/research/nhl_lineups, 105 games to 13 Oct) when it holds more games, and nhl-lineups.yml refreshes the current
+  season daily. roster_diag records live_games / research_games / used.

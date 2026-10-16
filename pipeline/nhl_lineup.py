@@ -152,11 +152,34 @@ def ratings_file(y):
     return pd.read_csv(p).set_index("player_id")[["off", "def"]]
 
 
+def _research_season(y):
+    """This season's lineups from the research collection (data/research/nhl_lineups, refreshed by nhl-lineups.yml)."""
+    root = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "research", "nhl_lineups")
+    ps, pg = os.path.join(root, f"skaters_{y}.csv.gz"), os.path.join(root, f"goalies_{y}.csv.gz")
+    if not (os.path.exists(ps) and os.path.exists(pg)):
+        return None, None
+    return pd.read_csv(ps), pd.read_csv(pg)
+
+
+SOURCE = {}
+
+
+def best_season(y, today=None):
+    """Live fetch or research collection, whichever holds more games (16 Oct 2026: the live fetch had fallen back to a
+    stale six-game cache, leaving the roster term inactive)."""
+    S, G = fetch_season(y, today)
+    R, RG = _research_season(y)
+    n_live = int(S.game_id.nunique()) if S is not None and len(S) else 0
+    n_res = int(R.game_id.nunique()) if R is not None and len(R) and "player_id" in R else 0
+    SOURCE.update(live_games=n_live, research_games=n_res, used="research" if n_res > n_live else "live")
+    return (R, RG) if n_res > n_live else (S, G)
+
+
 def live_term(y, teams, k, absences=None, n=LINEUP_N, today=None):
     """Live roster term (pre=False). Players on the injury list are counted back into the current lineup for the recent
     games they missed, because the injury adjustment already charges their absence game by game."""
     import datetime as dt
-    S, G = fetch_season(y, today)
+    S, G = best_season(y, today)
     if S is None or not len(S):
         return pd.Series(0.0, index=teams), None
     rp = ratings_file(y)

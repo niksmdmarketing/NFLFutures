@@ -1,5 +1,7 @@
 name: Collect NHL per-game lineups (research)
 on:
+  schedule:
+    - cron: "41 14 * * *"   # daily: refresh the current season (the live roster term reads it; 16 Oct 2026)
   workflow_dispatch:
     inputs:
       first:
@@ -20,7 +22,9 @@ jobs:
         with:
           python-version: "3.11"
       - run: pip install pandas
-      - run: python research/nhl_lineups_collect.py ${{ inputs.first }} ${{ inputs.last }}
+      - run: |
+          Y=$(python -c "import datetime as d; t=d.date.today(); print(t.year if t.month >= 8 else t.year - 1)")
+          python research/nhl_lineups_collect.py ${{ inputs.first || '$Y' }} ${{ inputs.last || '$Y' }}
       - if: always()
         run: |
           git config user.name 'github-actions[bot]'

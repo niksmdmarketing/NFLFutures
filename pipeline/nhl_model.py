@@ -596,7 +596,7 @@ def build():
             lineup_term, _lv = nhl_lineup.live_term(cur, teams, k, absences)
             ROSTER_DIAG.update(rows=0 if _lv is None else int(len(_lv)), games=0 if _lv is None else int(_lv.game_id.nunique()),
                                nonzero_games=0 if _lv is None else int((_lv.lv.abs() > 1e-9).sum()),
-                               ratings_file=nhl_lineup.ratings_file(cur) is not None)
+                               ratings_file=nhl_lineup.ratings_file(cur) is not None, **nhl_lineup.SOURCE)
             lineup_term = lineup_term.reindex(teams).fillna(0.0)
             log("nhl model: roster term", lineup_term.round(3).sort_values().iloc[[0, 1, -2, -1]].to_dict())
         except Exception as e:  # noqa: BLE001
