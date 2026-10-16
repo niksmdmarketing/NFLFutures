@@ -564,7 +564,7 @@ def futures(cur):
                      {"k": "p_top6", "l": "Top 6", "t": "Avoid the play-in"}, {"k": "p_playin", "l": "Play-in"},
                      {"k": "p_div", "l": "Division"}, {"k": "p_seed1", "l": "No. 1 seed", "t": "Best record in its conference (tie-breaks: point difference)"},
                      {"k": "p_r2", "l": "Win a round", "t": "Win a first-round playoff series (reach the conference semi-finals)"},
-                     {"k": "p_cf", "l": "Conf. finals", "t": "Reach the conference finals"}, {"k": "p_conf", "l": "Conference"},
+                     {"k": "p_cf", "l": "Conf. finals", "t": "Reach the conference finals. Replay 2013-26: a little over-confident for strong teams (given 50-70%, reached about half the time); no tested fix improved it"}, {"k": "p_conf", "l": "Conference"},
                      {"k": "p_title", "l": "Title"}],
             "line": {"label": "Win total", "unit": "wins", "min": 0},
             "about": ["The model does not use bookmaker prices, so it is independent of the market, not proof of value.",

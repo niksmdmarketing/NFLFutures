@@ -535,3 +535,7 @@ win a round 0.452/0.580, 0.393, 0.361, 0.318, 0.283; conference finals 0.320/0.3
 No. 1 seed 0.188/0.245 ... 0.034. Better than the base rate in 14/14 (win a round), 13/14 (conf. finals), 14/14 (No. 1 seed)
 seasons. Calibration good for win-a-round; conference finals a little over-confident at 50-70% (given 59%, happened 48%).
 History files regenerated with the two new columns; History page shows them.
+- Conference-finals over-confidence (owner asked for a fix; TypeSafe 20%): playoff strength spread x0.9 / x1.1 (BT_PO_SCALE)
+  conference finals 0.2679 -> 0.2680 / 0.2683, calibration unchanged; walk-forward logistic recalibration of p_cf worse out of
+  sample (-0.0034, 5/11), also for win-a-round (-0.0035) and conference (-0.0092). TypeSafe 99%: leave the model; caution added
+  to the column's note.
