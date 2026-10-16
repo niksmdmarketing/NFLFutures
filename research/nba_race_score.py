@@ -34,6 +34,15 @@ def race(df, group, pcol, ycol):
     return out
 
 
+def sums(A):
+    """Raw probability sums before normalising: title 1 per checkpoint, conference finalist 1 per conference, division winner 1 per division."""
+    t = A.groupby(["season", "week"]).p_title.sum()
+    c = A.groupby(["season", "week", "conf"]).p_conf.sum()
+    v = A.groupby(["season", "week", "div"]).p_div.sum()
+    print("raw probability sums (should be 1): title min/max %.3f/%.3f | conference %.3f/%.3f | division %.3f/%.3f"
+          % (t.min(), t.max(), c.min(), c.max(), v.min(), v.max()))
+
+
 def main(d):
     parts = []
     for f in sorted(glob.glob(os.path.join(d, "nba_*.csv"))):
@@ -43,6 +52,7 @@ def main(d):
     A = pd.concat(parts, ignore_index=True)
     A["conf"] = A.team.map(CONF)
     A["div"] = A.team.map(DIV)
+    sums(A)
     for label, drop in (("PRIMARY (without 2020-21)", {2021}), ("SENSITIVITY (with 2020-21)", set())):
         X = A[~A.season.isin(drop)]
         print(f"\n{label}: seasons {sorted(X.season.unique())}")

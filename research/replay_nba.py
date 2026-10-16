@@ -48,6 +48,7 @@ PO_GAMES = os.environ.get("BT_PO_GAMES") == "1"
 FULL = os.environ.get("BT_FULL") == "1"
 ERA = os.environ.get("BT_ERA", "1") == "1"   # era-correct format: no play-in before 2020-21, 72 games in 2020-21, 2019-20 (bubble) skipped
 ERA_PLAYIN, ERA_GAMES = True, 82
+N.ROSTER_FADE = float(os.environ.get("BT_RFADE", "0"))   # research: roster adjustment fades to zero by game 82 when 1.0
 N.OVERRIDES_ON = False   # the owner overrides are this season's judgement calls; they must not leak into historical replays
 INS = float(os.environ.get("BT_INS", "0"))        # in-season player ratings: mix share kept from game 20 on (0 = off)
 INS_W = float(os.environ.get("BT_INS_W", "1.0"))  # weight of this season's stints in the weekly refit

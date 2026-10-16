@@ -631,6 +631,7 @@ def _player_values(players: pd.DataFrame) -> pd.DataFrame:
 
 ROSTER_PM_W = 0.09      # plus-minus weight in the roster-step player value (display impact keeps 0.045)
 ROSTER_LAST_W = 2.0     # last season counts twice the season before in the roster-step player value
+ROSTER_FADE = 0.0   # research: share of the roster adjustment removed by game 82 (linear); 0 = live behaviour
 ROSTER_COEF = (1.5, 1.0, 20.0)   # coefficient before the season, from game N on, N (linear in between)
 # 14 Oct 2026 (research/nba_roster_replay.py, 2014-2026, preseason rating vs actual net rating): coefficient 0.55 -> 1.5,
 # plus-minus weight 0.045 -> 0.09, two-season player values and players back from a near-lost season valued on the season
@@ -839,6 +840,7 @@ def _roster_adjustment(ratings: pd.DataFrame, values: pd.DataFrame, prior_roster
     val = _roster_values(values, values_prev)
     c0, c1, n = ROSTER_COEF
     coef = c0 + (c1 - c0) * min(max(games_played, 0.0) / n, 1.0)
+    coef *= 1.0 - ROSTER_FADE * min(max(games_played, 0.0) / 82.0, 1.0)
     def strength(roster: pd.DataFrame, current: bool) -> pd.Series:
         r = roster[roster.team_abbreviation.isin(TEAMS)].drop_duplicates(["team_abbreviation", "athlete_id"]).copy()
         r = r.merge(val[["athlete_id", "minutes", "minutes_last", "impact"]], how="left", on="athlete_id")
