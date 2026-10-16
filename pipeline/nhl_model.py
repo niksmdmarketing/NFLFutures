@@ -216,6 +216,7 @@ PO_FADE_SHADOW = 1.0   # shadow run of the previous live fade (2x preseason stre
 # Share of expected goals in the in-season rate (rest = goals). Was 0.4 by judgement; 10-season weekly replay with
 # MoneyPuck game xG (15 Oct 2026): 20% vs 0% +0.0001, 40% vs 20% -0.0004; TypeSafe chose 20%.
 XG_SHARE = 0.2
+ROSTER_DIAG = {}   # published with the futures so a dead roster term is visible (16 Oct 2026)
 LINEUP = os.environ.get("NHL_LINEUP", "1") == "1"       # roster term from recent lineups (nhl_lineup), live from 15 Oct 2026
 INJURIES = os.environ.get("NHL_INJURIES", "1") == "1"   # injured-player adjustment (nhl_absence), live from 15 Oct 2026
 PO_FADE = 3.0        # playoff rating gaps x(1 + PO_FADE x share of season left): fade 1 = 2x preseason stretch, fade 3 = 4x. 1.0 from 14 Oct 2026; 3.0 from 15 Oct 2026:
@@ -592,7 +593,10 @@ def build():
     lineup_term = pd.Series(0.0, index=teams)
     if LINEUP:
         try:
-            lineup_term, _ = nhl_lineup.live_term(cur, teams, k, absences)
+            lineup_term, _lv = nhl_lineup.live_term(cur, teams, k, absences)
+            ROSTER_DIAG.update(rows=0 if _lv is None else int(len(_lv)), games=0 if _lv is None else int(_lv.game_id.nunique()),
+                               nonzero_games=0 if _lv is None else int((_lv.lv.abs() > 1e-9).sum()),
+                               ratings_file=nhl_lineup.ratings_file(cur) is not None)
             lineup_term = lineup_term.reindex(teams).fillna(0.0)
             log("nhl model: roster term", lineup_term.round(3).sort_values().iloc[[0, 1, -2, -1]].to_dict())
         except Exception as e:  # noqa: BLE001
@@ -659,7 +663,7 @@ def build():
         json.dump({"key": key, "bt": bt}, open(cache, "w"))
     out = {"season": cur, "updated_utc": dt.datetime.now(dt.timezone.utc).isoformat(timespec="minutes"), "games_played": n_avg, "sims": SIMS,
            "params": {"k": k, "tau_now": tau_now, "tau": tau, "total_goals": total, "hfa": hfa, "beta": [float(b) for b in beta], "prior_r2": r2, "prior_rmse": rmse},
-           "backtest": bt, "teams": rows, "pts_axis": [30, 140],
+           "backtest": bt, "teams": rows, "pts_axis": [30, 140], "roster_diag": dict(ROSTER_DIAG),
            "challenger": {"name": "previous model (goal-based playoff strength)", "fields": ["c_final", "c_cup"]},
            "injuries": None if absences is None else {
                "source": "CBS Sports NHL injuries", "fetched_utc": dt.datetime.now(dt.timezone.utc).isoformat(timespec="minutes"),
