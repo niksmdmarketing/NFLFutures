@@ -591,3 +591,10 @@ TypeSafe 87%: give every chances column a track record. Same replays, same live 
   1.25x semis +0.012 / +0.021, make finals +0.003, top 2 / minor premiers / Grand Final / title -0.0005 to -0.0023;
   1.5x semis +0.018 / +0.030 (3 of 4 seasons), make finals +0.004, others -0.0003 to -0.0042. Game spread 16: semis +0.006.
   Every variant hurts other markets, so none passes the rule. TypeSafe 85%: deploy nothing, keep the Weak badge.
+
+## NHL data fixes (16 Oct 2026)
+- Injury dates: CBS 'out until at least Sep 15' during the season was read as 15 Sep 2026 (already past), so Igor
+  Shesterkin (out for the season) counted as healthy. Dates from August/September before 1 October now mean next season,
+  and any return after 1 July counts as out for the season (playoffs too). tests/test_trust.py covers it.
+- Roster term from lineups (live since 15 Oct) looks inactive: published values identical for every team without injuries.
+  Diagnostics now published in nhl/data/futures.json roster_diag (lineup rows, games with non-zero lineup value).

@@ -43,7 +43,10 @@ def _date(txt, season):
     if not m:
         return None
     mo = MONTHS[m.group(1)]
-    return dt.date(season if mo >= 8 else season + 1, mo, int(m.group(2)))
+    d = dt.date(season if mo >= 8 else season + 1, mo, int(m.group(2)))
+    if mo >= 8 and d < dt.date(season, 10, 1):   # 'until at least Sep 15' during the season means next September (16 Oct 2026: Shesterkin)
+        d = dt.date(season + 1, mo, int(m.group(2)))
+    return d
 
 
 def parse(html, season):
@@ -69,7 +72,8 @@ def parse(html, season):
             low = st.lower()
             rows.append({"team": team, "name": html_mod.unescape(nm.group(1)).strip(), "pos": txt[1], "status": st,
                          "ir": low.startswith("ir") or " ir" in low or "injured reserve" in low,
-                         "ret": _date(st, season), "season_out": "season" in low,
+                         "ret": _date(st, season),
+                         "season_out": "season" in low or ((_date(st, season) or dt.date(season, 1, 1)) >= dt.date(season + 1, 7, 1)),
                          "dtd": "day-to-day" in low or "game time" in low})
     return pd.DataFrame(rows, columns=["team", "name", "pos", "status", "ir", "ret", "season_out", "dtd"])
 

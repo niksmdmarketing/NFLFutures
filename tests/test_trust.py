@@ -18,3 +18,11 @@ def test_rules():
     assert T.rate(SC, SL, 14, "div", "preseason", market_note="x.")[0] == "Market usually better"
     assert T.rate(None, None, 0, None, "preseason")[0] == "Not tested"
     assert [T.stage_of(x) for x in (0, 0.1, 0.3, 0.6, 0.9, 1.2)] == ["preseason", "first quarter", "second quarter", "third quarter", "last quarter", "last quarter"]
+
+
+def test_nhl_injury_dates_next_season():
+    import datetime as dt
+    import nhl_injuries as I
+    assert I._date("IR. Expected to be out until at least Sep 15", 2026) == dt.date(2027, 9, 15)
+    assert I._date("Expected to be out until at least Apr 8", 2026) == dt.date(2027, 4, 8)
+    assert I._date("IR. Expected to be out until at least Nov 27", 2026) == dt.date(2026, 11, 27)
