@@ -9,7 +9,11 @@ How it works
      back-test says ratings are typically off by, so futures are not over-confident.
   4. Playoffs follow the real format (3 per division + 2 wild cards, division brackets, best-of-7 with 2-2-1-1-1 home ice).
 Back-test: the same model is run from the start of 2021-22 .. 2025-26 and after 20 games, and scored against simple baselines.
-Not in the model: roster changes, injuries, goalie moves, trade-deadline additions.
+Also in the model (live from 15 Oct 2026): a roster term from recent lineups (nhl_lineup), an injured-player adjustment (nhl_absence)
+and owner overrides (model/nhl_overrides.json), a shot-based playoff rating with a fading playoff multiplier, and 20% xG in the in-season rate.
+Not in the model: goalie starts by game, trade-deadline additions, separate offence/defence/special-teams/goalie ratings.
+Validation: research/replay_nhl.py replays weekly checkpoints with one league-wide date per checkpoint (the older per-team 'first 20 games'
+back-test in backtest() is kept for the fitted parameters only). The replay has no historical injuries, so the injury layer is not replayed.
 """
 from __future__ import annotations
 
@@ -33,6 +37,7 @@ ALIGN = {t: d for d, ts in nhl.DIVS.items() for t in ts}
 ALIGN["ARI"] = "Central"                      # Utah took Arizona's slot
 CONF_OF = nhl.CONF
 GAME_SD = 2.4                                  # sd of one game's goal margin
+PTS_CAP = 170                                  # points histogram top (84 games from 2026-27 allow 168)
 SEASON_GAMES = 82                              # through 2025-26; 84 from 2026-27 (season_games)
 
 
@@ -285,7 +290,7 @@ def simulate(teams, state, games, ratings, tau, total, hfa, n_sims, seed=7, div_
     conf_idx = {c: np.array([i for i, x in enumerate(div_of) if CONF_OF[x] == c]) for c in ("East", "West")}
     base = {k: state[k].reindex(teams).to_numpy(float) for k in ("points", "rw", "row", "gd")}
     out = {k: np.zeros(T) for k in ("playoffs", "top3", "div", "pres", "r2", "r3", "final", "cup")}
-    pts_hist = np.zeros((T, 161))
+    pts_hist = np.zeros((T, PTS_CAP + 1))
     pts_sum = np.zeros(T); pts_sq = np.zeros(T)
     r0 = np.array([ratings[t] for t in teams], float)
     done = 0
@@ -382,7 +387,7 @@ def simulate(teams, state, games, ratings, tau, total, hfa, n_sims, seed=7, div_
         out["pres"] += np.bincount(np.argmax(comp, axis=1), minlength=T)
         pts_sum += pts.sum(0); pts_sq += (pts ** 2).sum(0)
         for t in range(T):
-            pts_hist[t] += np.bincount(np.clip(pts[:, t].astype(int), 0, 160), minlength=161)
+            pts_hist[t] += np.bincount(np.clip(pts[:, t].astype(int), 0, PTS_CAP), minlength=PTS_CAP + 1)
         done += S
     n = float(n_sims)
     res = {k: v / n for k, v in out.items()}
