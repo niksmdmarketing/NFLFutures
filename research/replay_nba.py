@@ -223,6 +223,22 @@ def labels(g):
     return set(div.values()), set(seed1.values())
 
 
+def seeds(g):
+    """Top six and 7th-10th of each conference (the play-in places) from the regular-season results, same order as labels().
+    Before 2020-21 there was no play-in; 7th-10th is still recorded so the columns can be scored on every season."""
+    w, pdiff = {t: 0 for t in N.TEAMS}, {t: 0.0 for t in N.TEAMS}
+    for h, a, m in zip(g.home, g.away, g.margin):
+        w[h if m > 0 else a] += 1
+        pdiff[h] += m
+        pdiff[a] -= m
+    top6, playin = set(), set()
+    for conf in (N.EAST, N.WEST):
+        order = sorted(conf, key=lambda t: (w[t], pdiff[t]), reverse=True)
+        top6 |= set(order[:6])
+        playin |= set(order[6:10])
+    return top6, playin
+
+
 def run_season(boxes, y):
     out = T.outcomes(boxes, y)
     if out is None:
@@ -233,6 +249,7 @@ def run_season(boxes, y):
     sched = N._schedule(N._csv(p))
     g = B.season_games(boxes, y)
     div_w, seed1 = labels(g)
+    top6, playin = seeds(g)
     first, last = g.date.min(), g.date.max()
     cuts = [first - pd.Timedelta(days=1)]
     d = first + pd.Timedelta(days=6)
@@ -309,6 +326,7 @@ def run_season(boxes, y):
             rows.append(dict(season=y, week=wk, date=str(cutoff.date()), gp_avg=round(2 * len(done) / 30, 1), team=t,
                              p_title=v["p_title"], p_conf=v["p_conf"], p_div=v["p_div"], p_seed1=v["p_seed1"], p_playoff=v["p_playoff"], p_r2=v.get("p_r2"), p_cf=v.get("p_cf"),
                              y_r2=int(t in out.get("r2", ())), y_cf=int(t in out.get("cf", ())),
+                             p_top6=v.get("p_top6"), p_playin=v.get("p_playin"), y_top6=int(t in top6), y_playin=int(t in playin),
                              mean_wins=v["mean_wins"], y_title=int(t == out["champ"]), y_finals=int(t in out["finalists"]),
                              y_div=int(t in div_w), y_seed1=int(t in seed1), y_playoff=int(t in out["playoffs"])))
     return pd.DataFrame(rows)

@@ -30,8 +30,9 @@ if __name__ == "__main__":
         out[name] = {}
         for m, (pc, yc) in S.MARKETS.items():
             if pc in x and yc in x and not x[yc].isna().all():
-                a, b, f = fit(x[pc], x[yc])
-                out[name][m] = {"intercept": round(a, 3), "slope": round(b, 3), "ll": round(S.ll(x[pc], x[yc]), 4), "ll_recal": round(f, 4), "n": int(len(x))}
-                print(f"{name:15s} {m:8s} slope {b:5.2f} int {a:+.2f} ll {S.ll(x[pc], x[yc]):.4f} -> {f:.4f}")
+                z = x.dropna(subset=[pc, yc])
+                a, b, f = fit(z[pc], z[yc])
+                out[name][m] = {"intercept": round(a, 3), "slope": round(b, 3), "ll": round(S.ll(z[pc], z[yc]), 4), "ll_recal": round(f, 4), "n": int(len(z))}
+                print(f"{name:15s} {m:8s} slope {b:5.2f} int {a:+.2f} ll {S.ll(z[pc], z[yc]):.4f} -> {f:.4f}")
     if len(sys.argv) > 2:
         json.dump(out, open(sys.argv[2], "w"), indent=1)

@@ -30,12 +30,16 @@ SPORTS = {
     "nba": {"label": "NBA", "dir": "nba", "end_year": True, "games": 82, "markets": [("title", "p_title", "y_title", "Win the title"), ("finals", "p_conf", "y_finals", "Win the conference"),
                                                         ("div", "p_div", "y_div", "Win the division"), ("seed1", "p_seed1", "y_seed1", "Top seed in the conference"),
                                                         ("cf", "p_cf", "y_cf", "Reach the conference finals"), ("r2", "p_r2", "y_r2", "Win a playoff round"),
-                                                        ("playoff", "p_playoff", "y_playoff", "Make the playoffs")]},
+                                                        ("playoff", "p_playoff", "y_playoff", "Make the playoffs"),
+                                                        ("top6", "p_top6", "y_top6", "Top six (avoid the play-in)"), ("playin", "p_playin", "y_playin", "Finish 7th-10th (play-in places)")]},
     "nhl": {"label": "NHL", "dir": "nhl", "games": 82, "markets": [("title", "p_title", "y_title", "Win the Stanley Cup"), ("finals", "p_conf", "y_finals", "Win the conference"),
-                                                        ("div", "p_div", "y_div", "Win the division"), ("playoff", "p_playoff", "y_playoff", "Make the playoffs")]},
+                                                        ("div", "p_div", "y_div", "Win the division"), ("playoff", "p_playoff", "y_playoff", "Make the playoffs"),
+                                                        ("r3", "p_r3", "y_r3", "Reach the conference final"), ("r2", "p_r2", "y_r2", "Win a playoff round"),
+                                                        ("pres", "p_pres", "y_pres", "Best record (Presidents' Trophy)")]},
     "nbl": {"label": "NBL", "dir": "nbl", "games": 28, "markets": [("title", "p_title", "y_title", "Win the championship"), ("finals", "p_conf", "y_finals", "Make the Grand Final"),
                                                         ("div", "p_div", "y_div", "Finish in the top 2"), ("seed1", "p_seed1", "y_seed1", "Minor premiers"),
-                                                        ("playoff", "p_playoff", "y_playoff", "Make the finals")]},
+                                                        ("playoff", "p_playoff", "y_playoff", "Make the finals"),
+                                                        ("semi", "p_semi", "y_semi", "Reach the semi-finals (play-in era)")]},
     "afl": {"label": "AFL", "dir": "afl", "end_year": None, "unit": "round", "games": 23,
             "markets": [("title", "p_title", "y_title", "Win the premiership"), ("finals", "p_conf", "y_finals", "Make the Grand Final"),
                         ("pf", "p_pf", "y_pf", "Make a preliminary final"), ("div", "p_div", "y_div", "Finish in the top 4"),
@@ -104,7 +108,7 @@ def build_sport(sport, cfg, archive=None):
         weeks = D[["week", "date", "gp_avg"]].drop_duplicates("week").sort_values("week")
         p, yy = {}, {}
         for k, pc, yc, _ in cfg["markets"]:
-            if pc not in D or yc not in D:
+            if pc not in D or yc not in D or D[pc].isna().all():   # e.g. NBL semi-finals exist only in the play-in era
                 continue
             piv = D.pivot(index="week", columns="team", values=pc).reindex(weeks.week).reindex(columns=teams)
             p[k] = [[int(round(v * 1000)) for v in row] for row in piv.values]
@@ -122,7 +126,7 @@ def build_sport(sport, cfg, archive=None):
         for k, *_ in cfg["markets"]:
             if k in r:
                 rel[st][k] = {"ll": r[k]["logloss"], "base": r[k]["base"], "gain": r[k]["gain"], "cal": r[k]["calibration"],
-                              "slope": slope.get(st, {}).get(k, {}).get("slope"), "n": r["seasons"]}
+                              "slope": slope.get(st, {}).get(k, {}).get("slope"), "n": r[k].get("seasons", r["seasons"])}
     try:
         import live_check
         check = live_check.build(sport, archive, cfg.get("games"))

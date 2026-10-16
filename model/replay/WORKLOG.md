@@ -569,3 +569,19 @@ History files regenerated with the two new columns; History page shows them.
   seasons, or for one/two-winner markets (title, finals, seed1) unless the CALIBRATION_CI slope interval contains 1 and is
   narrower than 0.8. 'Market usually better' from documented comparisons only (NFL all markets before week 5 and late, Super
   Bowl all season; NBA title/conference preseason, title first quarter, conference all season; NHL Cup/conference preseason).
+
+## 'Not tested' columns replayed (16 Oct 2026)
+TypeSafe 87%: give every chances column a track record. Same replays, same live settings (existing columns reproduced exactly).
+- NBA (14 seasons; research/replay_nba.py now writes p_top6/p_playin and y_top6/y_playin from the final regular-season
+  order, wins then point difference; 7th-10th recorded before the play-in existed too): top 6 gain over a flat guess 25%
+  preseason, 39-77% later (slope 1.42 preseason, ~1 later): Reliable from the first quarter. Play-in places 4% preseason,
+  9% first quarter, 19-57% later: Weak preseason, Mixed early, Reliable from the third quarter. Finishing 7th-10th is hard
+  to call early.
+- NHL (10 seasons; outcomes added without re-simulating: research/nhl_round_outcomes.py, replay_nhl.py writes y_r2/y_r3):
+  win a round 11-37% (slope 0.84-1.08, last quarter 1.35), conference final 21-32% (too cautious, slope 1.15-1.58), best
+  record 9-74% (slope ~1). Mostly Mixed early, Reliable from the third quarter.
+- NBL semi-finals (play-in era only, 2022-23 to 2025-26; with four finalists it equals making the finals): worse than a flat
+  guess before the season (-7%) and in the first quarter (-6%), 5% in the second quarter, 28% / 62% later. Over-confident
+  (slope 0.34-0.64 [0.11-0.99] until the last quarter): teams given under 10% reached the semis 33% of the time in the first
+  quarter (18 team-checkpoints). Same pattern as the known NBL/AFL make-finals tails. Rated Weak until mid-season.
+- replay_score/slope/ci now skip blank rows per market and record seasons per market; History pages list the new markets.

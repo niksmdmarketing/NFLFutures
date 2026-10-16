@@ -20,17 +20,17 @@ REPLAY = os.path.join(ROOT, "model", "replay")
 SITE = os.path.join(ROOT, "site")
 STAGES = ["preseason", "first quarter", "second quarter", "third quarter", "last quarter"]
 ORDER = ["Reliable", "Mixed", "Weak", "Market usually better", "Not tested"]
-FEW_WINNERS = {"title", "finals", "seed1"}   # one or two winners a season: calibration cannot be pinned down
+FEW_WINNERS = {"title", "finals", "seed1", "pres"}   # one or two winners a season: calibration cannot be pinned down
 
 # sport -> (site folder, games in a season, {site column: replay market})
 SPORTS = {
     "nfl": ("", 17, {"p_sb": "title", "p_conf": "finals", "p_div": "div", "p_seed1": "seed1", "p_playoff": "playoff"}),
     "nba": ("nba", 82, {"p_title": "title", "p_conf": "finals", "p_div": "div", "p_seed1": "seed1", "p_cf": "cf", "p_r2": "r2",
-                        "p_playoff": "playoff", "p_top6": None, "p_playin": None}),
-    "nhl": ("nhl", 82, {"p_cup": "title", "p_final": "finals", "p_div": "div", "p_playoffs": "playoff", "p_r2": None, "p_r3": None,
-                        "p_pres": None}),
+                        "p_playoff": "playoff", "p_top6": "top6", "p_playin": "playin"}),
+    "nhl": ("nhl", 82, {"p_cup": "title", "p_final": "finals", "p_div": "div", "p_playoffs": "playoff", "p_r2": "r2", "p_r3": "r3",
+                        "p_pres": "pres"}),
     "afl": ("afl", 23, {"flag": "title", "gf": "finals", "pf": "pf", "p4": "div", "p1": "seed1", "p8": "top8", "p10": "playoff"}),
-    "nbl": ("nbl", 28, {"champ": "title", "gf": "finals", "p2": "div", "p1": "seed1", "p6": "playoff", "semi": None}),
+    "nbl": ("nbl", 28, {"champ": "title", "gf": "finals", "p2": "div", "p1": "seed1", "p6": "playoff", "semi": "semi"}),
 }
 
 # Documented comparisons with market prices (model/replay/WORKLOG.md, the sport pages): stages where the market was more
@@ -73,7 +73,7 @@ def rate(score, slope, seasons, market, stage, market_note=None, ci=None):
     skill = score["gain"] / score["base"] if score.get("base") else 0.0
     cost = (slope["ll"] - slope["ll_recal"]) if slope else 0.0
     sl = slope.get("slope") if slope else None
-    bits = [f"{seasons} past seasons replayed at this stage: {100 * skill:.0f}% better than a flat guess"]
+    bits = [f"{seasons} past seasons replayed at this stage: " + (f"{100 * skill:.0f}% better than a flat guess" if skill >= 0 else f"{-100 * skill:.0f}% worse than a flat guess")]
     if sl is not None:
         bits.append(f"calibration slope {sl:.2f}" + (" (too cautious)" if sl > 1.15 else " (too confident)" if sl < 0.85 else " (about right)"))
     if skill < 0.08:
@@ -136,7 +136,7 @@ def build(site=SITE):
                 return rate(None, None, 0, None, st)
             sc = (score.get(st) or {}).get(market)
             sl = (slope.get(st) or {}).get(market)
-            return rate(sc, sl, (score.get(st) or {}).get("seasons", 0), market, st, note, ci_all.get(sport))
+            return rate(sc, sl, (sc or {}).get("seasons") or (score.get(st) or {}).get("seasons", 0), market, st, note, ci_all.get(sport))
         markets = {c: dict(zip(("r", "why"), one(c, m, stage))) for c, m in cols.items()}
         table = [{"col": c, "by_stage": [one(c, m, st)[0] for st in STAGES]} for c, m in cols.items()]
         out = {"stage": stage, "stages": STAGES, "markets": markets, "table": table,

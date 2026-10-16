@@ -122,3 +122,45 @@ last quarter    div      slope  1.11 [0.83,1.66]  int +0.03 [-0.09,+0.28]  seaso
 last quarter    seed1    slope  1.53 [1.08,3.03]  int +0.27 [+0.03,+0.96]  seasons 13
 last quarter    playoff  slope  0.74 [0.56,1.11]  int +0.01 [-0.03,+0.03]  seasons 13
 ```
+
+## nhl (round 2, conference final, best record; added 16 Oct 2026 from the same 10 replayed seasons)
+```
+preseason       r2       slope  0.84 [0.58,1.12]  int -0.13 [-0.39,+0.10]  seasons 10
+preseason       r3       slope  1.47 [1.19,2.18]  int +0.69 [+0.29,+1.61]  seasons 10
+preseason       pres     slope  0.86 [0.66,1.18]  int -0.44 [-1.04,+0.54]  seasons 10
+first quarter   r2       slope  0.92 [0.66,1.26]  int -0.06 [-0.28,+0.18]  seasons 10
+first quarter   r3       slope  1.32 [1.06,1.91]  int +0.45 [+0.09,+1.22]  seasons 10
+first quarter   pres     slope  1.05 [0.72,1.63]  int +0.10 [-0.80,+1.51]  seasons 10
+second quarter  r2       slope  0.94 [0.70,1.22]  int -0.04 [-0.22,+0.13]  seasons 10
+second quarter  r3       slope  1.15 [0.92,1.47]  int +0.20 [-0.12,+0.58]  seasons 10
+second quarter  pres     slope  1.20 [0.86,2.06]  int +0.36 [-0.35,+1.76]  seasons 10
+third quarter   r2       slope  1.08 [0.85,1.57]  int +0.04 [-0.09,+0.27]  seasons 10
+third quarter   r3       slope  1.32 [1.01,1.86]  int +0.39 [+0.01,+1.07]  seasons 10
+third quarter   pres     slope  1.10 [0.90,1.56]  int +0.10 [-0.25,+0.72]  seasons 10
+last quarter    r2       slope  1.35 [1.03,2.00]  int +0.10 [+0.01,+0.23]  seasons 10
+last quarter    r3       slope  1.58 [1.22,2.05]  int +0.66 [+0.25,+1.14]  seasons 10
+last quarter    pres     slope  1.42 [1.18,1.85]  int +0.38 [+0.13,+0.73]  seasons 10
+```
+
+## nba (top 6 and play-in places; added 16 Oct 2026 from the same 14 replayed seasons; 7th-10th recorded before the play-in existed too)
+```
+preseason       top6     slope  1.42 [1.23,1.65]  int +0.12 [+0.07,+0.20]  seasons 14
+preseason       playin   slope  1.64 [1.20,2.25]  int +0.61 [+0.19,+1.18]  seasons 14
+first quarter   top6     slope  1.07 [0.93,1.25]  int +0.02 [-0.02,+0.05]  seasons 14
+first quarter   playin   slope  0.82 [0.62,1.26]  int -0.15 [-0.32,+0.21]  seasons 14
+second quarter  top6     slope  0.83 [0.71,0.98]  int -0.04 [-0.07,-0.01]  seasons 14
+second quarter  playin   slope  0.74 [0.61,0.96]  int -0.15 [-0.24,-0.02]  seasons 14
+third quarter   top6     slope  0.89 [0.76,1.10]  int -0.02 [-0.05,+0.00]  seasons 14
+third quarter   playin   slope  0.96 [0.80,1.17]  int -0.02 [-0.08,+0.04]  seasons 14
+last quarter    top6     slope  0.99 [0.83,1.20]  int -0.01 [-0.03,+0.01]  seasons 14
+last quarter    playin   slope  1.02 [0.92,1.20]  int -0.01 [-0.02,+0.01]  seasons 14
+```
+
+## nbl (semi-finals; play-in era 2022-23 to 2025-26 only, added 16 Oct 2026)
+```
+preseason       semi     slope -0.40 [-1.66,0.65]  int -0.58 [-1.16,-0.14]  seasons 4
+first quarter   semi     slope  0.34 [0.11,0.53]  int -0.24 [-0.35,-0.16]  seasons 4
+second quarter  semi     slope  0.47 [0.28,0.93]  int -0.16 [-0.25,-0.02]  seasons 4
+third quarter   semi     slope  0.64 [0.51,0.99]  int -0.06 [-0.15,+0.01]  seasons 4
+last quarter    semi     slope  1.20 [0.95,2.19]  int +0.00 [-0.08,+0.12]  seasons 4
+```

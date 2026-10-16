@@ -3,7 +3,7 @@
 Same settings as nhl_model.backtest (params_before: earlier seasons only), but a checkpoint every 7 days from the season
 start, one league-wide date per checkpoint, regulation wins counted from the opponent's OTL. No injuries (not in the model).
 Outputs model/replay/nhl_<season>.csv: season, week, date, gp_avg, team, p_playoff, p_div, p_pres, p_r2, p_r3, p_conf
-(= wins the conference, reaches the Final), p_title, then 0/1 outcomes y_playoff, y_div, y_pres, y_conf, y_title.
+(= wins the conference, reaches the Final), p_title, then 0/1 outcomes y_playoff, y_div, y_pres, y_conf, y_title, y_r2 (won a round), y_r3 (reached the conference final).
 'p_conf' is mapped to the replay score's 'finals' market (y_finals = y_conf).
 Usage: python research/replay_nhl.py <published nhl/data dir> [first] [last]    (env BT_SIMS, default 2000)
 """
@@ -132,7 +132,9 @@ def playoff_outcomes(y, teams):
     final_pair = set(last.team) | set(last.opp)
     fin = pg[pg.team.isin(final_pair) & pg.opp.isin(final_pair)]
     wins = fin[fin.res == "W"].groupby("team").size()
-    return {"po": set(pg.team), "finalists": final_pair, "champ": wins.idxmax()}
+    rounds = pg.groupby("team").opp.nunique()          # series played: 2+ = won the first round, 3+ = reached the conference final
+    return {"po": set(pg.team), "finalists": final_pair, "champ": wins.idxmax(),
+            "r2": set(rounds[rounds >= 2].index), "r3": set(rounds[rounds >= 3].index)}
 
 
 def run_season(TT, GG, fit_years, done, y):
@@ -248,7 +250,8 @@ def run_season(TT, GG, fit_years, done, y):
             rows.append(dict(season=y, week=wk, date=str(cut.date()), gp_avg=round(n_avg, 1), team=t, p_playoff=sim["playoffs"][i],
                              p_div=sim["div"][i], p_pres=sim["pres"][i], p_r2=sim["r2"][i], p_r3=sim["r3"][i], p_conf=sim["final"][i],
                              p_title=sim["cup"][i], y_playoff=int(t in out["po"]), y_div=int(divwin[align[t]] == t), y_pres=int(t == pres),
-                             y_finals=int(t in out["finalists"]), y_title=int(t == out["champ"])))
+                             y_finals=int(t in out["finalists"]), y_title=int(t == out["champ"]),
+                             y_r2=int(t in out["r2"]), y_r3=int(t in out["r3"])))
     return pd.DataFrame(rows)
 
 

@@ -66,6 +66,11 @@ def run_season(S, y, prev_rows):
     last = fin.iloc[-1]
     champ = last.h if last.hs > last["as"] else last.a
     gf = {last.h, last.a}
+    # semi-finalists (play-in era only; with four finalists it is the same as making the finals): teams that met the same opponent at least twice in the finals (semi-finals and the Grand Final are
+    # series; play-in games are single games)
+    pairs = pd.concat([fin[["h", "a"]].rename(columns={"h": "x", "a": "y"}), fin[["a", "h"]].rename(columns={"a": "x", "h": "y"})])
+    cnt = pairs.groupby(["x", "y"]).size()
+    semi = {x for (x, _), n in cnt.items() if n >= 2}
     prior = {t: N.PRIOR_REG * v for t, v in N.srs(prev_rows).items()} if prev_rows is not None and len(prev_rows) else {}
     first, lastd = pd.Timestamp(reg.date.min()), pd.Timestamp(reg.date.max())
     cuts = [first]
@@ -91,7 +96,7 @@ def run_season(S, y, prev_rows):
             r = res[t]
             out.append(dict(season=y, week=wk, date=str(cut.date()), gp_avg=round(gp, 1), team=t, p_playoff=r["p4"] if top4 else r["p6"], p_div=r["p2"],
                             p_seed1=r["p1"], p_conf=r["gf"], p_title=r["champ"], y_playoff=int(t in finalists), y_div=int(pos[t] < 2), y_seed1=int(pos[t] == 0),
-                            y_finals=int(t in gf), y_title=int(t == champ)))
+                            y_finals=int(t in gf), y_title=int(t == champ), p_semi=None if top4 else r.get("semi"), y_semi=None if top4 else int(t in semi)))
     return pd.DataFrame(out), N.team_rows(reg)
 
 

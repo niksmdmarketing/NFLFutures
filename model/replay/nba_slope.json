@@ -48,6 +48,20 @@
    "ll": 0.3196,
    "ll_recal": 0.3195,
    "n": 420
+  },
+  "top6": {
+   "intercept": 0.123,
+   "slope": 1.421,
+   "ll": 0.502,
+   "ll_recal": 0.4911,
+   "n": 420
+  },
+  "playin": {
+   "intercept": 0.61,
+   "slope": 1.635,
+   "ll": 0.5593,
+   "ll_recal": 0.5565,
+   "n": 420
   }
  },
  "first quarter": {
@@ -98,6 +112,20 @@
    "slope": 0.91,
    "ll": 0.2878,
    "ll_recal": 0.2872,
+   "n": 2220
+  },
+  "top6": {
+   "intercept": 0.015,
+   "slope": 1.071,
+   "ll": 0.4098,
+   "ll_recal": 0.4093,
+   "n": 2220
+  },
+  "playin": {
+   "intercept": -0.146,
+   "slope": 0.825,
+   "ll": 0.5292,
+   "ll_recal": 0.5278,
    "n": 2220
   }
  },
@@ -150,6 +178,20 @@
    "ll": 0.2837,
    "ll_recal": 0.277,
    "n": 2610
+  },
+  "top6": {
+   "intercept": -0.037,
+   "slope": 0.832,
+   "ll": 0.3291,
+   "ll_recal": 0.3253,
+   "n": 2610
+  },
+  "playin": {
+   "intercept": -0.149,
+   "slope": 0.741,
+   "ll": 0.4688,
+   "ll_recal": 0.4626,
+   "n": 2610
   }
  },
  "third quarter": {
@@ -201,6 +243,20 @@
    "ll": 0.2609,
    "ll_recal": 0.2587,
    "n": 2610
+  },
+  "top6": {
+   "intercept": -0.018,
+   "slope": 0.89,
+   "ll": 0.2444,
+   "ll_recal": 0.2431,
+   "n": 2610
+  },
+  "playin": {
+   "intercept": -0.016,
+   "slope": 0.962,
+   "ll": 0.367,
+   "ll_recal": 0.3668,
+   "n": 2610
   }
  },
  "last quarter": {
@@ -251,6 +307,20 @@
    "slope": 0.871,
    "ll": 0.2501,
    "ll_recal": 0.2488,
+   "n": 2700
+  },
+  "top6": {
+   "intercept": -0.009,
+   "slope": 0.988,
+   "ll": 0.1544,
+   "ll_recal": 0.1544,
+   "n": 2700
+  },
+  "playin": {
+   "intercept": -0.005,
+   "slope": 1.021,
+   "ll": 0.248,
+   "ll_recal": 0.248,
    "n": 2700
   }
  }

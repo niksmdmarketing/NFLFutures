@@ -14,9 +14,12 @@ def ci_rows(D, markets, stages, cluster, reps=200, seed=0):
     out = []
     for lo, hi, name in stages:
         x = D[(D.frac >= lo) & (D.frac < hi)] if name != "preseason" else D[D.week == 0]
+        x_all = x
         for m, (pc, yc) in markets.items():
+            x = x_all
             if pc not in x or yc not in x or x[yc].isna().all() or x[yc].sum() < 3:
                 continue
+            x = x.dropna(subset=[pc, yc])
             groups = {k: g for k, g in x.groupby(cluster)}
             keys = list(groups)
             a, b, _ = L.fit(x[pc], x[yc])
