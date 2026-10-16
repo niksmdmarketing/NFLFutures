@@ -539,3 +539,14 @@ History files regenerated with the two new columns; History page shows them.
   conference finals 0.2679 -> 0.2680 / 0.2683, calibration unchanged; walk-forward logistic recalibration of p_cf worse out of
   sample (-0.0034, 5/11), also for win-a-round (-0.0035) and conference (-0.0092). TypeSafe 99%: leave the model; caution added
   to the column's note.
+
+## Site layout trial: grouped NBA navigation (16 Oct 2026)
+- Sweep: NFL 32 flat tabs (two 'Rushing', two 'Defense'), NFL Futures page 12 sections; NBA/NHL/AFL/NBL about 10 tabs each with
+  different names (Ladder/Standings, Futures/Forecast, 'History' meaning accuracy vs past seasons); football 27 grouped views.
+- TypeSafe: one shared skeleton (82%), methodology/accuracy to a Model tab (77%), Why into Forecast (66%), NFL Futures into
+  sub-tabs (98%), keep market columns on sport pages plus the Markets tab (72%), schedule difficulty under Forecast (68%),
+  keep every stats view but grouped (53%), pilot on NBA first (55%). NBA pilot: Standings landing (75%), Awards and
+  Winner trends under Forecast (56%, 69%).
+- Built: pipeline/navgroups.py (runs last in run.py; keeps every link, unmapped pages stay on the top row), NBA model.html
+  (engine route 'model'; futures.json model_page/why_links flags), team 'why?' links to why.html#t-<team>. Other sports untouched
+  apart from the stamp wording ('Stats through 2025-26' before a season starts).

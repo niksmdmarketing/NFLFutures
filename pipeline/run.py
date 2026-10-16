@@ -183,6 +183,11 @@ def main():
         updates.build_site()
     except Exception as e:  # noqa: BLE001
         log("updates page failed", e)
+    try:  # grouped section navigation (top tabs + sub-tabs); last, so it sees every page link added above
+        import navgroups
+        navgroups.apply()
+    except Exception as e:  # noqa: BLE001
+        log("grouped navigation failed", e)
     # Cloudflare Pages rejects the whole deployment if any file is over 25 MiB: drop such files loudly instead
     for dirpath, _, files in os.walk(os.path.join(os.path.dirname(OUT), "site")):
         for fn in files:

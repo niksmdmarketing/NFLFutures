@@ -287,7 +287,7 @@ def _rt(v):
 def _page_html(data, top):
     pc = lambda v: "–" if v is None else (f"{100 * v:.1f}%" if v >= 0.001 else "<0.1%")
     body_rows = "".join(
-        f"<tr><td class=\"why-team\"><b>{html.escape(r['name'])}</b></td><td>{_rt(r['rating'])}</td>"
+        f"<tr id=\"t-{html.escape(str(r['team']))}\"><td class=\"why-team\"><b>{html.escape(r['name'])}</b></td><td>{_rt(r['rating'])}</td>"
         f"<td>{pc(r['title'])}</td><td>{pc(r['second'])}</td><td class=\"why-drv\"><ul>{''.join(f'<li>{html.escape(s)}</li>' for s in r['drivers'])}</ul></td></tr>"
         for r in data["rows"])
     chart = _svg(data["chart"], data["unit_word"])
@@ -295,7 +295,7 @@ def _page_html(data, top):
 <style>.why-tbl{{width:100%;border-collapse:collapse}}.why-tbl th,.why-tbl td{{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}}
 .why-tbl td:nth-child(2),.why-tbl td:nth-child(3),.why-tbl td:nth-child(4){{white-space:nowrap;font-variant-numeric:tabular-nums}}
 .why-drv ul{{margin:0;padding-left:18px}}.why-drv li{{margin:2px 0;font-size:.88rem}}.why-scroll{{overflow-x:auto}}
-.why-chart{{margin:10px 0 24px;color:var(--ink)}}@media(max-width:640px){{.why-tbl th,.why-tbl td{{padding:6px}}}}</style>
+.why-chart{{margin:10px 0 24px;color:var(--ink)}}.why-tbl tr:target td{{background:color-mix(in srgb,var(--accent) 14%,transparent)}}.why-tbl tr{{scroll-margin-top:12px}}@media(max-width:640px){{.why-tbl th,.why-tbl td{{padding:6px}}}}</style>
 <main class="page" id="main">
   <div class="page-head"><h1>{data['label']}: why the model thinks this</h1>
   <p>For each team, the forecast and the few things that drive it most, in plain words: how strong the team is rated, how this season compares with last,

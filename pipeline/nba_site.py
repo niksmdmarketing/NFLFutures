@@ -554,6 +554,8 @@ def futures(cur):
             "status": f"{cur - 1}-{str(cur)[2:]} season" + (" — before opening night" if gp == 0 else f" — through about {gp:.0f} games per team"),
             "intro": "Projected wins and chances from the season simulation (opponent-adjusted offence and defence, weighted heavily to last season and this season's games, plus a roster adjustment and, before the season and in its first 20 games, player ratings from lineup data, then every remaining game, the play-in and the playoffs, where each team's top eight players count more)." + _overrides_note(),
             "backtest_html": _backtest_html(),
+            "model_page": True, "why_links": True,
+            "model_intro": "How the NBA season chances are tested and what they leave out. The chances themselves are on Forecast › Chances.",
             "avail_html": _avail_html(F.get("availability") or {}),
             "proj": {"k": "w_mean", "l": "Proj. wins", "lo": "w_p10", "hi": "w_p90", "f": "num1"},
             "rating_note": "Points per 100 possessions better (+) or worse (−) than an average team",
@@ -801,7 +803,8 @@ PAGES = [("index", "Standings", "NBA standings", "Records, ratings, luck and spl
          ("awards", "Awards", "NBA award chances", "MVP, Defensive Player, Rookie and Sixth Man chances from a model tested on every season since 2002-03, with past winners."),
          ("teams", "Team stats", "NBA team stats", "Ratings, four factors, shooting, shot profile, splits (home/road, back-to-backs, close games, vs winning teams), box score and hustle tracking (2015-16 onward). Season table or year by year."),
          ("players", "Players", "NBA player stats", "Per game, shooting, per 36, totals and NBA advanced (usage, ratings, PIE) for every player since 2002-03, regular season and playoffs. Hustle and Synergy play-type groups (isolation, pick-and-roll, spot-up and more, offense and defense) from 2015-16."),
-         ("games", "Games", "NBA game logs", "Every team game since 2002-03 with efficiency, four factors and rest days.")]
+         ("games", "Games", "NBA game logs", "Every team game since 2002-03 with efficiency, four factors and rest days."),
+         ("model", "How it works", "NBA model: how it works", "How the season chances are tested, how accurate they have been, and what the model does not know.")]
 
 
 def build_site():

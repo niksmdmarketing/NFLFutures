@@ -296,6 +296,17 @@ async function games() {
   draw();
 }
 
+/* ---------------- model (accuracy and limits; moved off the futures page where meta asks for it) ---------------- */
+function modelSections(F) {
+  return (F.backtest_html ? '<h2 style="margin-top:22px">How good is it?</h2>' + F.backtest_html : "") +
+    (F.about && F.about.length ? '<h2 style="margin-top:22px">What it does and does not know</h2><ul class="note" style="max-width:80ch">' + F.about.map(x => "<li>" + esc(x) + "</li>").join("") + "</ul>" : "");
+}
+async function modelPage() {
+  const F = await getJSON("futures.json");
+  $("app").innerHTML = (F.model_intro ? '<p class="note">' + esc(F.model_intro) + "</p>" : "") + (modelSections(F) || '<p class="note">Nothing to show yet.</p>') +
+    '<p class="note" style="margin-top:18px">Season-by-season accuracy, replayed week by week: <a href="replay.html">Model › Accuracy history</a>.</p>';
+}
+
 /* ---------------- futures ---------------- */
 async function futuresPage() {
   const F = await getJSON("futures.json");
@@ -311,7 +322,7 @@ async function futuresPage() {
   head.push([P.l, P.k, "Average of the simulated seasons"], ["10–90%", null, "Range containing 80% of simulated seasons"]);
   F.cols.forEach(c => head.push([c.l, c.k, c.t]));
   const cellsFor = r => {
-    let h = "<td><b>" + esc(r.team) + "</b> <small>" + esc(r.name || tname(r.team)) + "</small></td>" + (hasGroup ? "<td>" + esc(r.group || "") + "</td>" : "") + "<td>" + (r.gp ?? "–") + "</td><td>" + esc(r.record || "") + "</td>";
+    let h = "<td><b>" + esc(r.team) + "</b> <small>" + esc(r.name || tname(r.team)) + "</small>" + (F.why_links ? ' <a class="whylink" href="why.html#t-' + encodeURIComponent(r.team) + '" title="Why the model rates ' + esc(r.name || r.team) + ' like this">why?</a>' : "") + "</td>" + (hasGroup ? "<td>" + esc(r.group || "") + "</td>" : "") + "<td>" + (r.gp ?? "–") + "</td><td>" + esc(r.record || "") + "</td>";
     EX.forEach(c => { h += "<td>" + fmt(r[c.k], c.f) + "</td>"; });
     if (head.some(x => x[1] === "rating")) h += "<td>" + (r.rating == null ? "–" : fmt(r.rating, "pm1")) + "</td>";
     h += "<td>" + fmt(r[P.k], P.f || "num1") + "</td><td>" + (r[P.lo] == null ? "–" : fmt(r[P.lo], "int") + "–" + fmt(r[P.hi], "int")) + "</td>";
@@ -330,8 +341,7 @@ async function futuresPage() {
       '<div class="filters"><div class="field"><label for="pt">Team</label><select id="pt">' + T.slice().sort((a, b) => a.team.localeCompare(b.team)).map(r => opt(r.team, r.team + " · " + (r.name || tname(r.team)))).join("") + "</select></div>" +
       '<div class="field"><label for="pl">Line</label><input id="pl" type="number" step="0.5" style="width:100px"></div></div><div id="pout" class="panel" style="margin-top:10px"></div>' : "") +
     (F.avail_html ? '<h2 style="margin-top:22px">Who is out and what it costs</h2>' + F.avail_html : "") +
-    (F.backtest_html ? '<h2 style="margin-top:22px">How good is it?</h2>' + F.backtest_html : "") +
-    (F.about && F.about.length ? '<h2 style="margin-top:22px">What it does and does not know</h2><ul class="note" style="max-width:80ch">' + F.about.map(x => "<li>" + esc(x) + "</li>").join("") + "</ul>" : "");
+    (F.model_page ? '<p class="note" style="margin-top:18px">How accurate these chances have been and what the model does not know: <a href="model.html">Model › How it works</a>.</p>' : modelSections(F));
   draw();
   $("ft").querySelectorAll("th[data-k]").forEach(h => { const go = () => { const k = h.dataset.k; sk.dir = sk.key === k ? -sk.dir : -1; sk.key = k; draw(); }; h.style.cursor = "pointer"; h.onclick = go; h.onkeydown = e => { if (e.key === "Enter") go(); }; });
   if (L) {
@@ -385,10 +395,10 @@ async function awardsPage() {
   draw();
 }
 
-const ROUTES = {index: standings, standings, futures: futuresPage, awards: awardsPage, teams, players, games};
+const ROUTES = {index: standings, standings, futures: futuresPage, awards: awardsPage, teams, players, games, model: modelPage};
 boot(async meta => {
   META = meta; CFG = meta.cfg;
   const s = $("stamp");
-  if (s) s.textContent = seasonLabel(meta.season) + " season · updated " + new Date(meta.updated_utc).toLocaleString(undefined, {weekday: "short", day: "numeric", month: "short", hour: "numeric", minute: "2-digit"});
+  if (s) s.textContent = (meta.in_progress ? seasonLabel(meta.season) + " season" : "Stats through " + seasonLabel(meta.season)) + " · updated " + new Date(meta.updated_utc).toLocaleString(undefined, {weekday: "short", day: "numeric", month: "short", hour: "numeric", minute: "2-digit"});
   ROUTES[PAGE]();
 });
