@@ -11,15 +11,28 @@ import re
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = os.path.join(ROOT, "site")
 
-# sport folder -> [(top tab label, [(page file, sub-tab label)])]; the top tab links to its first page
-LAYOUT = {
-    "nba": [("Standings", [("index.html", "Standings")]),
+def _skeleton(players=(("players.html", "Player stats"),)):
+    """The shared layout for a sport with season forecasts (TypeSafe, Oct 2026)."""
+    return [("Standings", [("index.html", "Standings")]),
             ("Forecast", [("futures.html", "Chances"), ("why.html", "Why, team by team"), ("awards.html", "Awards"),
                           ("outlook.html", "Schedule difficulty"), ("trends.html", "Winner trends")]),
             ("Teams", [("teams.html", "Team stats")]),
+            ("Players", list(players)),
+            ("Games", [("games.html", "Game logs")]),
+            ("Model", [("model.html", "How it works"), ("replay.html", "Accuracy history")])]
+
+
+# sport folder -> [(top tab label, [(page file, sub-tab label)])]; the top tab links to its first page
+LAYOUT = {
+    "nba": _skeleton(),
+    "nhl": _skeleton((("skaters.html", "Skaters"), ("goalies.html", "Goalies"))),
+    "afl": _skeleton(),
+    "nbl": _skeleton(),
+    "cfb": [("Standings", [("index.html", "Records")]),
+            ("Teams", [("teams.html", "Team stats")]),
             ("Players", [("players.html", "Player stats")]),
             ("Games", [("games.html", "Game logs")]),
-            ("Model", [("model.html", "How it works"), ("replay.html", "Accuracy history")])],
+            ("More", [("trends.html", "Winner trends"), ("coverage.html", "Data coverage")])],
 }
 
 NAV_RE = re.compile(r'<nav class="nav[^"]*" aria-label="([^"]*) sections">(.*?)</nav>(?:\s*<nav class="nav nav-sub"[^>]*>.*?</nav>)?', re.S)

@@ -593,7 +593,8 @@ PAGES = [("index", "Standings", "NHL standings", "Points, pace, goal difference,
          ("skaters", "Skaters", "NHL skaters", "Scoring, possession, shooting, ice time, power play and discipline for every skater. Any season or all seasons."),
          ("goalies", "Goalies", "NHL goalies", "Save percentage, saves above average, rest, strength splits and more for every goalie."),
          ("awards", "Awards", "NHL award futures", "Chance of winning the Hart, Vezina, Norris, Calder, Art Ross and Maurice Richard, with how the model has done on past seasons and what past winners looked like."),
-         ("games", "Games", "NHL team game log", "Every team game since 2010-11: shots, possession, hits, faceoffs and special teams, searchable by team and season.")]
+         ("games", "Games", "NHL team game log", "Every team game since 2010-11: shots, possession, hits, faceoffs and special teams, searchable by team and season."),
+         ("model", "How it works", "NHL model: how it works", "How the team chances are worked out and tested, how accurate they have been, and what the model does not know.")]
 
 
 def _page(slug, label, title, intro):

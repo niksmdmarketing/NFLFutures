@@ -550,3 +550,6 @@ History files regenerated with the two new columns; History page shows them.
 - Built: pipeline/navgroups.py (runs last in run.py; keeps every link, unmapped pages stay on the top row), NBA model.html
   (engine route 'model'; futures.json model_page/why_links flags), team 'why?' links to why.html#t-<team>. Other sports untouched
   apart from the stamp wording ('Stats through 2025-26' before a season starts).
+- Same day, rolled out to NHL, AFL, NBL (shared skeleton, Model pages; NHL futures split in site_src/nhl/nhl.js, its playoff-model
+  change note moved to Model) and CFB (Standings/Teams/Players/Games/More). TypeSafe: staged rollout 75%, 'Standings' over
+  'Ladder' 87%, NHL Skaters/Goalies as Players sub-tabs 86%. NFL (own step, Futures page split) and football next.

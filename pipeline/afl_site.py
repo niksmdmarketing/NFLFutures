@@ -518,6 +518,8 @@ def futures(cur, hist_games, tables):
                      {"k": "p4", "l": "Top 4", "t": "Double chance"}, {"k": "p1", "l": "Minor premiers"},
                      {"k": "pf", "l": "Prelim final"}, {"k": "gf", "l": "Grand Final"}, {"k": "flag", "l": "Premiers"}],
             "line": {"label": "Win total", "unit": "wins", "min": 0}, "backtest_html": bt,
+            "model_page": True, "why_links": True,
+            "model_intro": "How the AFL season chances are worked out and tested, and what they leave out. The chances themselves are on Forecast › Chances.",
             "about": ["Rating is opponent-adjusted margin per game: last season's, pulled 45% back to average, then blended with this season's games (last season counts as 8 games).",
                       f"Each simulation shifts every team's rating by a random amount (typical size {tau:.1f} points) before playing the games, so long-range chances are not over-confident; single games vary by about {GAME_SD:.0f} points.",
                       "It does not know about injuries, list changes, trades or coaching changes — the main reasons to disagree with it in the pre-season.",
@@ -658,7 +660,8 @@ PAGES = [("index", "Ladder", "AFL ladder", "Ladder with percentage, expected win
          ("awards", "Awards", "AFL awards", "Brownlow Medal chances from a model tested on every count since 2012, and the Coleman Medal race, with past winners."),
          ("teams", "Team stats", "AFL team stats", "Scoring, quarters, differentials, possession, stoppages, territory and splits. Season table or year by year."),
          ("players", "Players", "AFL player stats", "Per game, advanced (contested possessions, metres gained, score involvements), fantasy and totals for every player since 2012."),
-         ("games", "Games", "AFL game logs", "Every team game since 2012 with quarter margins, territory and contest stats.")]
+         ("games", "Games", "AFL game logs", "Every team game since 2012 with quarter margins, territory and contest stats."),
+         ("model", "How it works", "AFL model: how it works", "How the season chances are worked out and tested, how accurate they have been, and what the model does not know.")]
 
 
 def build_site():

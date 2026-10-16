@@ -299,6 +299,29 @@ async function games() {
   draw();
 }
 
+/* ---------------- model: how the team futures work and how good they are (moved off the futures page, Oct 2026) ---------------- */
+async function modelPage() {
+  const F = await getJSON("futures.json");
+  const T = F.teams, P = F.params, bt = F.backtest || {};
+  const pc = v => v == null ? "–" : v < 0.0005 ? "<0.1%" : v < 0.1 ? (v * 100).toFixed(1) + "%" : Math.round(v * 100) + "%";
+  const calib = (bt.calibration_20 || []).map(c => "<tr><td>" + esc(c.bin.replace("(-0.001", "[0").replace("]", "]")) + "</td><td>" + pct(c.pred) + "</td><td>" + pct(c.actual) + "</td><td>" + c.n + "</td></tr>").join("");
+  const b0 = bt["0"], b20 = bt["20"];
+  $("app").innerHTML = '<p class="note">How the NHL team chances are worked out and tested, and what they leave out. The chances themselves are on Forecast › Chances.</p>' +
+    (b0 && b20 ? '<h2 style="margin-top:22px">How good is it?</h2><p class="note">The same model was run from the start of each of the last ' + b0.seasons + " seasons (2021-22 on) and again after 20 games, using only what was known at the time (every setting is estimated from earlier seasons only). " +
+      "Preseason, its points forecast was off by " + b0.mae_model.toFixed(1) + " on average versus " + b0.mae_naive.toFixed(1) + " for a simple 'last season, pulled halfway to average' guess, so it adds little before the season starts. After 20 games it is off by " + b20.mae_model.toFixed(1) + " versus " + b20.mae_naive.toFixed(1) +
+      ". Playoff log-loss after 20 games: " + b20.logloss_playoffs.toFixed(3) + " (a 50/50 guess scores " + b20.logloss_playoffs_base.toFixed(3) + "); division log-loss " + b20.logloss_division.toFixed(3) + " versus " + b20.logloss_division_base.toFixed(3) + ". Lower is better. This is not a comparison with betting markets.</p>" +
+      '<div class="scroll" style="max-width:520px"><table class="stbl nhl"><thead><tr><th>Predicted playoff chance (after 20 games)</th><th>Average predicted</th><th>Actually made it</th><th>Team-seasons</th></tr></thead><tbody>' + calib + "</tbody></table></div>" : "") +
+    '<p class="note">Against prediction-market prices (Polymarket, 2025-26 only) at the same dates: before the season the market was slightly more accurate; after 20 games the model was more accurate on the Cup and conference winners. Prices are never used by the model.</p>' +
+    '<h2 style="margin-top:22px">What it does and does not know</h2><ul class="note" style="max-width:80ch"><li>Rating = goal difference per game. Before the season it is a regression on last season\'s goal and expected-goal difference and the season before. In season it blends in the current rate (weight on last season worth ' + P.k + " games). Current rate is 80% goals, 20% expected goals (fitted on ten replayed seasons, Oct 2026).</li><li>Roster: the rating also moves with who has actually been playing. Each team's last five lineups are valued with player ratings built from every shift since 2014 (who was on the ice for which expected goals, starting from each player's scoring rate) and compared with the lineups behind its results so far, so trades, call-ups and returning players count straight away (ten replayed seasons: better in 7 of 10). Injured players are counted separately (see Injuries).</li>" +
+    "<li>Each simulation first shifts every team's rating by a random amount (typical size " + P.tau_now.toFixed(2) + " goals per game) so futures are not over-confident, then plays the actual remaining schedule and the real playoff format (3 per division plus 2 wild cards, best-of-7).</li>" +
+    "<li>Injuries: players on the injury list lower their team's rating for the games they are expected to miss (see Injuries on Forecast › Chances). It does not know about trades, a goalie losing his job, or off-season roster moves beyond what shows in results. Those are the main reasons to disagree with it.</li></ul>" +
+    (T.some(r => r.c_cup != null) ? '<details style="margin-top:18px"><summary><h2 style="display:inline">What changed in the playoff model (14 Oct 2026)</h2></summary>' +
+      '<p class="note" style="margin:6px 0 12px">Playoff series now use each team\'s shot differential rather than its goal differential (in 2011–2025 playoffs, shot and expected-goal differential picked series winners far better than goals), and rating gaps count up to four times as much in the playoffs early in the season, fading to normal by the last game (raised from twice on 15 Oct 2026 after a further replay test). Regular-season chances are unchanged. On ten replayed seasons this made Cup and conference chances more accurate in 8 of 10. The table shows the live chances next to the previous model.</p>' +
+      '<div class="scroll" style="max-width:560px"><table class="stbl nhl"><thead><tr><th>Team</th><th>Final<br><small>live · previous</small></th><th>Cup<br><small>live · previous</small></th></tr></thead><tbody>' +
+      T.slice().sort((a, b) => b.p_cup - a.p_cup).slice(0, 12).map(r => "<tr><td><b>" + esc(r.team) + "</b> <small>" + esc(r.name) + "</small></td><td>" + pc(r.p_final) + ' <small>· ' + pc(r.c_final) + "</small></td><td>" + pc(r.p_cup) + ' <small>· ' + pc(r.c_cup) + "</small></td></tr>").join("") +
+      "</tbody></table></div></details>" : "");
+}
+
 /* ---------------- team futures ---------------- */
 async function futuresPage() {
   const F = await getJSON("futures.json");
@@ -307,7 +330,7 @@ async function futuresPage() {
   const head = [["Team", null], ["Div", null], ["GP", null], ["PTS", null], ["Rating", "Goal difference per game vs average, after blending last season with this one"], ["Proj. PTS", "Average of the simulated seasons"],
     ["10–90%", "Range containing 80% of simulated seasons"], ["Playoffs", null], ["Division", null], ["Round 2", null], ["Conf. final", null], ["Final", null], ["Cup", null], ["Best record", null]];
   const sk = {key: "p_cup", dir: -1};
-  const rowsHtml = () => T.slice().sort((a, b) => (b[sk.key] - a[sk.key]) * (sk.dir === -1 ? 1 : -1)).map(r => "<tr><td><b>" + esc(r.team) + '</b> <small>' + esc(r.name) + "</small></td><td>" + esc(r.div) + "</td><td>" + r.gp + "</td><td>" + r.points + '</td><td data-v="' + r.rating + '">' +
+  const rowsHtml = () => T.slice().sort((a, b) => (b[sk.key] - a[sk.key]) * (sk.dir === -1 ? 1 : -1)).map(r => "<tr><td><b>" + esc(r.team) + '</b> <small>' + esc(r.name) + '</small> <a class="whylink" href="why.html#t-' + encodeURIComponent(r.team) + '" title="Why the model rates ' + esc(r.name) + ' like this">why?</a>' + "</td><td>" + esc(r.div) + "</td><td>" + r.gp + "</td><td>" + r.points + '</td><td data-v="' + r.rating + '">' +
     (r.rating >= 0 ? "+" : "−") + Math.abs(r.rating).toFixed(2) + '</td><td data-v="' + r.pts_mean + '">' + r.pts_mean.toFixed(1) + "</td><td>" + r.pts_p10 + "–" + r.pts_p90 + "</td>" +
     ["p_playoffs", "p_div", "p_r2", "p_r3", "p_final", "p_cup", "p_pres"].map(k => '<td data-v="' + r[k] + '"' + (k === "p_cup" ? " style=\"font-weight:700\"" : "") + ">" + pc(r[k]) + "</td>").join("") + "</tr>").join("");
   const draw = () => { $("ft").querySelector("tbody").innerHTML = rowsHtml(); };
@@ -315,11 +338,6 @@ async function futuresPage() {
   const b0 = bt["0"], b20 = bt["20"];
   $("app").innerHTML = '<p class="note">Through ' + Math.round(F.games_played) + " games per team. " + F.sims.toLocaleString() + " simulations of the rest of the season and the playoffs. Chances only. Click a heading to sort.</p>" +
     '<div class="scroll"><table class="stbl nhl" id="ft"><thead><tr>' + head.map(([h, t]) => "<th" + (t ? ' title="' + esc(t) + '"' : "") + ">" + esc(h) + "</th>").join("") + "</tr></thead><tbody>" + rowsHtml() + "</tbody></table></div>" +
-    (T.some(r => r.c_cup != null) ? '<details style="margin-top:18px"><summary><h2 style="display:inline">What changed in the playoff model (14 Oct 2026)</h2></summary>' +
-      '<p class="note" style="margin:6px 0 12px">Playoff series now use each team\'s shot differential rather than its goal differential (in 2011–2025 playoffs, shot and expected-goal differential picked series winners far better than goals), and rating gaps count up to four times as much in the playoffs early in the season, fading to normal by the last game (raised from twice on 15 Oct 2026 after a further replay test). Regular-season chances are unchanged. On ten replayed seasons this made Cup and conference chances more accurate in 8 of 10. The table shows the live chances next to the previous model.</p>' +
-      '<div class="scroll" style="max-width:560px"><table class="stbl nhl"><thead><tr><th>Team</th><th>Final<br><small>live · previous</small></th><th>Cup<br><small>live · previous</small></th></tr></thead><tbody>' +
-      T.slice().sort((a, b) => b.p_cup - a.p_cup).slice(0, 12).map(r => "<tr><td><b>" + esc(r.team) + "</b> <small>" + esc(r.name) + "</small></td><td>" + pc(r.p_final) + ' <small>· ' + pc(r.c_final) + "</small></td><td>" + pc(r.p_cup) + ' <small>· ' + pc(r.c_cup) + "</small></td></tr>").join("") +
-      "</tbody></table></div></details>" : "") +
     (F.injuries && F.injuries.players.length ? (() => { const I = F.injuries, byT = {};
       I.players.forEach(p => { (byT[p.team] = byT[p.team] || []).push(p); });
       const teamsI = T.filter(r => r.n_cup != null && byT[r.team]).map(r => ({r, g: byT[r.team].reduce((s, p) => s + p.season_goals, 0)})).filter(x => x.g >= 0.05).sort((a, b) => b.g - a.g);
@@ -332,14 +350,7 @@ async function futuresPage() {
     '<h2 style="margin-top:22px">Points total</h2><p class="note">Pick a team and a line to see the chance the team finishes over or under it.</p>' +
     '<div class="filters"><div class="field"><label for="pt">Team</label><select id="pt">' + T.slice().sort((a, b) => a.team.localeCompare(b.team)).map(r => opt(r.team, r.team + " · " + r.name)).join("") + "</select></div>" +
     '<div class="field"><label for="pl">Line</label><input id="pl" type="number" step="0.5" style="width:100px"></div></div><div id="pout" class="panel" style="margin-top:10px"></div>' +
-    (b0 && b20 ? '<h2 style="margin-top:22px">How good is it?</h2><p class="note">The same model was run from the start of each of the last ' + b0.seasons + " seasons (2021-22 on) and again after 20 games, using only what was known at the time (every setting is estimated from earlier seasons only). " +
-      "Preseason, its points forecast was off by " + b0.mae_model.toFixed(1) + " on average versus " + b0.mae_naive.toFixed(1) + " for a simple 'last season, pulled halfway to average' guess, so it adds little before the season starts. After 20 games it is off by " + b20.mae_model.toFixed(1) + " versus " + b20.mae_naive.toFixed(1) +
-      ". Playoff log-loss after 20 games: " + b20.logloss_playoffs.toFixed(3) + " (a 50/50 guess scores " + b20.logloss_playoffs_base.toFixed(3) + "); division log-loss " + b20.logloss_division.toFixed(3) + " versus " + b20.logloss_division_base.toFixed(3) + ". Lower is better. This is not a comparison with betting markets.</p>" +
-      '<div class="scroll" style="max-width:520px"><table class="stbl nhl"><thead><tr><th>Predicted playoff chance (after 20 games)</th><th>Average predicted</th><th>Actually made it</th><th>Team-seasons</th></tr></thead><tbody>' + calib + "</tbody></table></div>" : "") +
-    '<p class="note">Against prediction-market prices (Polymarket, 2025-26 only) at the same dates: before the season the market was slightly more accurate; after 20 games the model was more accurate on the Cup and conference winners. Prices are never used by the model.</p>' +
-    '<h2 style="margin-top:22px">What it does and does not know</h2><ul class="note" style="max-width:80ch"><li>Rating = goal difference per game. Before the season it is a regression on last season\'s goal and expected-goal difference and the season before. In season it blends in the current rate (weight on last season worth ' + P.k + " games). Current rate is 80% goals, 20% expected goals (fitted on ten replayed seasons, Oct 2026).</li><li>Roster: the rating also moves with who has actually been playing. Each team's last five lineups are valued with player ratings built from every shift since 2014 (who was on the ice for which expected goals, starting from each player's scoring rate) and compared with the lineups behind its results so far, so trades, call-ups and returning players count straight away (ten replayed seasons: better in 7 of 10). Injured players are counted separately (see Injuries).</li>" +
-    "<li>Each simulation first shifts every team's rating by a random amount (typical size " + P.tau_now.toFixed(2) + " goals per game) so futures are not over-confident, then plays the actual remaining schedule and the real playoff format (3 per division plus 2 wild cards, best-of-7).</li>" +
-    "<li>Injuries: players on the injury list lower their team's rating for the games they are expected to miss (see Injuries above). It does not know about trades, a goalie losing his job, or off-season roster moves beyond what shows in results. Those are the main reasons to disagree with it.</li></ul>";
+    '<p class="note" style="margin-top:18px">How the chances are worked out, how accurate they have been and what the model does not know: <a href="model.html">Model › How it works</a>.</p>';
   $("ft").querySelectorAll("th").forEach((h, i) => { const keys = [null, null, null, null, "rating", "pts_mean", null, "p_playoffs", "p_div", "p_r2", "p_r3", "p_final", "p_cup", "p_pres"]; if (!keys[i]) return;
     h.style.cursor = "pointer"; h.onclick = () => { sk.dir = sk.key === keys[i] ? -sk.dir : -1; sk.key = keys[i]; draw(); }; });
   const upd = () => { const r = T.find(x => x.team === $("pt").value); const L = parseFloat($("pl").value); if (!r || !isFinite(L)) { $("pout").textContent = ""; return; }
@@ -402,7 +413,7 @@ async function awardsPage() {
   draw();
 }
 
-const ROUTES = {index: standings, futures: futuresPage, awards: awardsPage, teams, skaters: () => players("skaters"), goalies: () => players("goalies"), games};
+const ROUTES = {index: standings, futures: futuresPage, model: modelPage, awards: awardsPage, teams, skaters: () => players("skaters"), goalies: () => players("goalies"), games};
 boot(async meta => {
   META = meta;
   $("stamp").textContent = seasonLabel(meta.season) + " season · updated " + new Date(meta.updated_utc).toLocaleString(undefined, {weekday: "short", day: "numeric", month: "short", hour: "numeric", minute: "2-digit"});
