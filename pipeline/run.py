@@ -77,7 +77,11 @@ def main():
                     qp5 = ratings.qb_prior_adj(cur, pri, pri2, float(C5["qb_prior"]))
                 except Exception as e:  # noqa: BLE001
                     log("v5 QB prior skipped:", repr(e)[:120])
-            R5 = S.get("rating_scale", 1.0) * (base5 + R.qb_adj.reindex(TEAMS).fillna(0).values + qp5) + R.press_adj.reindex(TEAMS).fillna(0).values
+            # v5: the quarterback expected to start most remaining games. A starter listed Out/Doubtful for the next game
+            # (qb_note set) keeps his place for the rest of the season instead of the backup taking every remaining game
+            # (owner + GPT review, 16 Oct 2026; v4 stays frozen).
+            qb5 = np.where(R.qb_note.reindex(TEAMS).fillna("").values == "", R.qb_adj.reindex(TEAMS).fillna(0).values, 0.0)
+            R5 = S.get("rating_scale", 1.0) * (base5 + qb5 + qp5) + R.press_adj.reindex(TEAMS).fillna(0).values
             R5 = R5 - R5.mean()
         except Exception as e:  # never block the refresh; fall back to the v4 ratings
             log("v5 candidate ratings failed, using v4 ratings:", repr(e)[:200])

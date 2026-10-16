@@ -1,6 +1,21 @@
 [
  {
   "date": "2026-10-16",
+  "sport": "NBA",
+  "text": "Judgement overrides for 46 players: rookies now get projected minutes and a rookie-level rating (they had none), Washington's rotation (Dybantsa, Trae Young, Davis), players traded mid-season, and players not in the rotation (two-way, waived, injured). Listed on Model › How it works. A version without them is recorded every update so the season can score them."
+ },
+ {
+  "date": "2026-10-16",
+  "sport": "NHL",
+  "text": "Fixes: players out until next season (Shesterkin) were counted as healthy; the roster adjustment from recent lineups was working from a six-game stale cache. Hellebuyck (suspended) is treated as out for the season by owner override."
+ },
+ {
+  "date": "2026-10-16",
+  "sport": "NFL",
+  "text": "v5 candidate only: a starting quarterback listed out for the next game keeps his place for the rest of the season instead of the backup taking every remaining game. The live v4 model is unchanged."
+ },
+ {
+  "date": "2026-10-16",
   "sport": "All",
   "text": "Trust ratings: every chances column now carries a badge (Reliable, Mixed, Weak, Market better, Not tested) for the current stage of the season, from the replayed past seasons and, where we have them, comparisons with market prices. Tap or hover a badge for the evidence; Model › How it works shows the rating at every stage. Market prices are used only as evidence about our accuracy, never in a forecast."
  },

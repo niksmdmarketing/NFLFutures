@@ -305,7 +305,7 @@ function foldNote(text, tail) {
 
 /* ---------------- model (accuracy and limits; moved off the futures page where meta asks for it) ---------------- */
 function modelSections(F) {
-  return (F.backtest_html ? '<h2 style="margin-top:22px">How good is it?</h2>' + F.backtest_html : "") +
+  return (F.overrides_html ? '<h2 style="margin-top:22px">Judgement overrides</h2>' + F.overrides_html : "") + (F.backtest_html ? '<h2 style="margin-top:22px">How good is it?</h2>' + F.backtest_html : "") +
     (F.about && F.about.length ? '<h2 style="margin-top:22px">What it does and does not know</h2><ul class="note" style="max-width:80ch">' + F.about.map(x => "<li>" + esc(x) + "</li>").join("") + "</ul>" : "");
 }
 async function modelPage() {

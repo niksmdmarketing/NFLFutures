@@ -10,6 +10,8 @@ Games missed: the injury list's "out until at least <date>" (remaining games bef
 "out for the season" = every remaining game plus the playoffs, IR with no date = IR_DEFAULT games.
 """
 import datetime as dt
+import json
+import os
 
 import numpy as np
 import pandas as pd
@@ -136,11 +138,28 @@ def player_costs(y, inj, val, hours, starts):
     return pd.DataFrame(out)
 
 
+def _with_overrides(inj):
+    """Owner overrides (model/nhl_overrides.json) replace or add injury-list rows, e.g. a suspended player with no return date."""
+    p = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "model", "nhl_overrides.json")
+    try:
+        ov = json.load(open(p)).get("injuries", [])
+    except (OSError, ValueError):
+        return inj
+    if not ov:
+        return inj
+    rows = pd.DataFrame([{"team": o["team"], "name": o["name"], "pos": o.get("pos", ""), "status": o.get("status", "Out (owner override)"),
+                          "ir": True, "ret": None, "season_out": bool(o.get("season_out", True)), "dtd": False} for o in ov])
+    if inj is None or not len(inj):
+        return rows
+    keep = ~inj.name.str.strip().str.lower().isin(rows.name.str.strip().str.lower())
+    return pd.concat([inj[keep], rows], ignore_index=True)
+
+
 def adjustments(y, teams, games, dates, today=None):
     """games: remaining (home, away) list; dates: matching game dates. Returns (game_adj [len(games)], po_adj {team: goals},
     table of absences with games missed). game_adj is added to the home-minus-away margin."""
     today = today or dt.date.today()
-    inj = nhl_injuries.current(y)
+    inj = _with_overrides(nhl_injuries.current(y))
     if inj is None or (SCALE_SK == 0 and SCALE_G == 0):
         return np.zeros(len(games)), {}, None
     inj = inj[inj.team.isin(teams)]

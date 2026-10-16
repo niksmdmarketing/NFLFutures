@@ -668,6 +668,9 @@ def _player_mix(ratings: pd.DataFrame, players: pd.DataFrame, values: pd.DataFra
         first = played.assign(aid=[nba_rapm._id(a) for a in played.athlete_id],
                               yr=pd.to_numeric(played.season, errors="coerce")).groupby("aid").yr.min()
         rating = nba_rapm.develop(rating, {int(a): int(y) for a, y in first.items() if a is not None}, end_year)
+        global LAST_RATING
+        LAST_RATING = dict(rating)
+        rating = {**rating, **_rating_overrides()}
         strength = nba_rapm.team_strength(current_roster, rv, rating, TEAMS)
         ratings["player_strength"] = ratings.team.map(strength)
         if share > 0:
@@ -763,10 +766,18 @@ def _roster_values(values: pd.DataFrame, values_prev: pd.DataFrame | None) -> pd
 OVERRIDES_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "model", "nba_overrides.json")
 
 
+OVERRIDES_ON = True   # switched off once per refresh to archive the same forecast without the owner's overrides
+LAST_RATING = None    # player ratings of the last fit, before rating overrides (used for the no-overrides version)
+
+
 def _overrides() -> dict:
-    """Judgement overrides set by the site owner (model/nba_overrides.json): {athlete_id: {"name", "minutes", "note"}}.
-    Projected regular-season minutes for a player whose last season the numbers misread (e.g. a healthy star shut down
-    by a tanking team). Not validated by a replay; listed on the NBA page."""
+    """Judgement overrides set by the site owner (model/nba_overrides.json): {athlete_id: {"name", "minutes", "note",
+    optional "rating"}}. Projected regular-season minutes for a player whose last season the numbers misread (e.g. a
+    healthy star shut down by a tanking team), and for rookies (no NBA data) minutes plus a rating: 0 = average NBA
+    player, -0.75 slightly below, -1.5 below. Not validated by a replay; listed on the NBA page and scored against a
+    no-overrides version archived every refresh."""
+    if not OVERRIDES_ON:
+        return {}
     try:
         with open(OVERRIDES_PATH) as f:
             return json.load(f).get("minutes", {})
@@ -780,11 +791,26 @@ def _apply_overrides(rv: pd.DataFrame) -> pd.DataFrame:
         return rv
     rv = rv.copy()
     key = rv.athlete_id.astype(str).str.replace(r"\.0$", "", regex=True)
+    add = []
     for aid, o in ov.items():
         m = key == str(aid)
-        if m.any() and o.get("minutes") is not None:
+        if o.get("minutes") is None:
+            continue
+        if m.any():
             rv.loc[m, "minutes"] = float(o["minutes"])
+        else:   # a rookie or a player with no NBA minutes: add him with the owner's minutes and rating
+            add.append({"athlete_id": str(aid), "minutes": float(o["minutes"]), "minutes_last": 0.0,
+                        "impact": float(o.get("rating", -1.0))})
+    if add:
+        extra = pd.DataFrame(add)
+        if rv.athlete_id.dtype != object:
+            extra["athlete_id"] = extra.athlete_id.astype(rv.athlete_id.dtype)
+        rv = pd.concat([rv, extra[[c for c in extra.columns if c in rv.columns]]], ignore_index=True)
     return rv
+
+
+def _rating_overrides() -> dict:
+    return {int(a): float(o["rating"]) for a, o in _overrides().items() if o.get("rating") is not None}
 
 
 DEPTH = os.environ.get("NBA_DEPTH", "0") == "1"   # research: depth-chart minutes on the new roster (see depth_minutes)
@@ -1120,6 +1146,28 @@ def _avail_record(schedule: pd.DataFrame, without: list[dict], with_: list[dict]
             "big_with": ll(p1, big) if big.any() else 0.0, "big_without": ll(p0, big) if big.any() else 0.0}
 
 
+def _no_overrides(ratings_base, values, prior_roster, current_roster, values_prev, gp_now, schedule, n=20000):
+    """Team chances with the owner's overrides switched off (same fitted player ratings, same simulation settings;
+    the playoff-rotation term keeps the live value)."""
+    import nba_rapm
+    global OVERRIDES_ON
+    if not _overrides() or LAST_RATING is None:
+        return {}
+    OVERRIDES_ON = False
+    try:
+        r, _ = _roster_adjustment(ratings_base.copy(), values, prior_roster.copy(), current_roster.copy(), values_prev, gp_now)
+        share = nba_rapm.MIX * max(0.0, 1.0 - gp_now / nba_rapm.MIX_GAMES)
+        if share > 0:
+            strength = nba_rapm.team_strength(current_roster, _roster_values(values, values_prev), LAST_RATING, TEAMS)
+            r["rating"] = (1 - share) * r.rating + share * r.team.map(strength).fillna(0)
+            r["rating"] -= r.rating.mean()
+    finally:
+        OVERRIDES_ON = True
+    sim = _simulate(schedule, r, n)
+    return {t: {"rating": round(float(r.set_index("team").rating[t]), 2), "mean_wins": round(v["mean_wins"], 2),
+                **{k: round(v[k], 4) for k in ("p_playoff", "p_conf", "p_title", "p_seed1", "p_div")}} for t, v in sim.items()}
+
+
 def build_data() -> None:
     end_year = season_end_year()
     log("NBA season", f"{end_year - 1}-{str(end_year)[-2:]}")
@@ -1130,6 +1178,7 @@ def build_data() -> None:
     earlier_po = (pd.to_numeric(fit_boxes.season_type, errors="coerce") == 3) & (pd.to_numeric(fit_boxes.season, errors="coerce") < end_year)
     fit_boxes.loc[earlier_po, "season_type"] = 2
     ratings, fit = _fit_ratings(fit_boxes, end_year)
+    ratings_base = ratings.copy()
     global HFA, PACE
     if 0 < fit["home_offense_points_per_100"] < 6:
         HFA = float(fit["home_offense_points_per_100"])
@@ -1153,6 +1202,12 @@ def build_data() -> None:
     # gain). It is NOT applied to the published futures: a 2013-26 replay showed no measurable futures gain. A smaller
     # shadow simulation with it is archived each refresh so the futures effect can be scored prospectively.
     futures = _simulate(schedule, ratings, n_sims)
+    try:   # the same forecast without the owner's overrides (minutes, rookies), archived so the season can score them
+        no_ovr = _no_overrides(ratings_base, values, prior_roster, current_roster, values_prev, gp_now, schedule)
+        for t, v in futures.items():
+            v["no_overrides"] = no_ovr.get(t)
+    except Exception as e:  # noqa: BLE001
+        log("nba no-overrides version skipped:", repr(e)[:200])
     if avail:
         shadow = _simulate(schedule, ratings, min(n_sims, 20000), avail)
         availability["shadow"] = {t: {k: round(v[k], 4) for k in ("mean_wins", "p_playoff", "p_conf", "p_title")} for t, v in shadow.items()}

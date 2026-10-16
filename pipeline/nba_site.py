@@ -44,7 +44,7 @@ def div_of(team, y):
 
 
 def _overrides_note() -> str:
-    """One sentence listing the owner's judgement overrides (model/nba_overrides.json), if any."""
+    """One sentence on the owner's judgement overrides (model/nba_overrides.json), if any; the list is on the Model page."""
     try:
         import nba
         ov = nba._overrides()
@@ -52,8 +52,27 @@ def _overrides_note() -> str:
         return ""
     if not ov:
         return ""
-    items = "; ".join(f"{v.get('name', k)} ({v.get('team', '')}) {int(v['minutes']):,} minutes" for k, v in ov.items() if v.get("minutes") is not None)
-    return (" Judgement overrides (projected minutes set by hand, not tested in the replay): " + items + ".")
+    return (f" Projected minutes for {len(ov)} players (rookies with a rating too) are set by judgement, not by the model; "
+            "they are listed on Model › How it works, and a version without them is recorded so the season can score them.")
+
+
+def _overrides_html() -> str:
+    try:
+        import nba
+        ov = nba._overrides()
+    except Exception:  # noqa: BLE001
+        return ""
+    if not ov:
+        return ""
+    import html as H
+    lab = lambda r: "" if r is None else ("average" if r >= 0 else "slightly below average" if r > -1 else "below average")
+    rows = "".join(f"<tr><td>{H.escape(v.get('name', k))}</td><td>{H.escape(v.get('team', ''))}</td><td>{int(v['minutes']):,}</td>"
+                   f"<td style=\"text-align:left\">{H.escape(lab(v.get('rating')))}</td><td style=\"text-align:left;white-space:normal\">{H.escape(v.get('note', ''))}</td></tr>"
+                   for k, v in sorted(ov.items(), key=lambda kv: (kv[1].get("team", ""), -kv[1].get("minutes", 0))) if v.get("minutes") is not None)
+    return ('<p class="note">Projected regular-season minutes set by judgement (owner, 15-16 Oct 2026) instead of the model\'s projection, '
+            'for players whose last season misleads (injury, trade, new role) and for rookies, who have no NBA data. Not tested in the replay; '
+            'a version without them is recorded every update and scored when the season ends.</p><div class="scroll"><table class="stbl">'
+            '<thead><tr><th>Player</th><th>Team</th><th>Minutes</th><th>Rookie level</th><th>Why</th></tr></thead><tbody>' + rows + "</tbody></table></div>")
 
 
 def _num(df, c):
@@ -545,7 +564,8 @@ def futures(cur):
         rows.append({"team": t, "name": N.NAMES.get(t, t), "group": div_of(t, cur), "gp": r0.get("gp", 0),
                      "record": f"{int(r0.get('w', 0))}-{int(r0.get('l', 0))}", "rating": v.get("rating"),
                      "w_mean": v.get("mean_wins"), "w_p10": q(.1), "w_p90": q(.9), "over": over,
-                     **{k: v.get(k) for k in ("p_playoff", "p_top6", "p_playin", "p_div", "p_seed1", "p_r2", "p_cf", "p_conf", "p_title")}})
+                     **{k: v.get(k) for k in ("p_playoff", "p_top6", "p_playin", "p_div", "p_seed1", "p_r2", "p_cf", "p_conf", "p_title")},
+                     **{"n_" + k: (v.get("no_overrides") or {}).get(k) for k in ("p_title", "p_conf", "p_playoff", "p_seed1", "p_div", "mean_wins")}})
     sched = schedule_context(cur, {r["team"]: r["rating"] for r in rows})
     for r in rows:
         r.update(sched.get(r["team"], {}))
@@ -554,7 +574,7 @@ def futures(cur):
             "status": f"{cur - 1}-{str(cur)[2:]} season" + (" — before opening night" if gp == 0 else f" — through about {gp:.0f} games per team"),
             "intro": "Projected wins and chances from simulating every remaining game, the play-in and the playoffs. Team ratings are opponent-adjusted offence and defence, weighted heavily to last season and this season's games, plus a roster adjustment and, before the season and in its first 20 games, player ratings from lineup data; in the playoffs each team's top eight players count more." + _overrides_note(),
             "backtest_html": _backtest_html(),
-            "model_page": True, "why_links": True,
+            "model_page": True, "why_links": True, "overrides_html": _overrides_html(),
             "avail_html": _avail_html(F.get("availability") or {}),
             "proj": {"k": "w_mean", "l": "Proj. wins", "lo": "w_p10", "hi": "w_p90", "f": "num1"},
             "rating_note": "Points per 100 possessions better (+) or worse (−) than an average team",

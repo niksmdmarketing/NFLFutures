@@ -602,3 +602,12 @@ TypeSafe 87%: give every chances column a track record. Same replays, same live 
   six games (roster_diag: rows 12, games 6). nhl_lineup.best_season now uses the research collection
   (data/research/nhl_lineups, 105 games to 13 Oct) when it holds more games, and nhl-lineups.yml refreshes the current
   season daily. roster_diag records live_games / research_games / used.
+
+## Owner overrides applied (16 Oct 2026)
+- NBA: 46 minutes overrides in model/nba_overrides.json (rookies with a rating: 0 average, -0.75 slightly below, -1.5 below;
+  added to the roster step and the player ratings since rookies had no rows). nba._no_overrides archives the same forecast
+  without them each refresh (futures n_* fields, forecast archive n_title / n_finals / n_playoff). Local check vs the published
+  numbers: Washington 24.4 -> 27.5 wins, New York +2.9, Golden State +2.4, Phoenix +2.2; Milwaukee -2.8, Brooklyn -2.4,
+  Clippers -2.3, Atlanta -1.8 (below-average rookies now take minutes that were implicitly average).
+- NHL: model/nhl_overrides.json (Hellebuyck out for the season), merged into the injury list by nhl_absence._with_overrides.
+- NFL: v5 candidate keeps the majority starter when the next-game starter is listed Out/Doubtful (run.py, qb_note); v4 unchanged.

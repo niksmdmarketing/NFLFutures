@@ -1,5 +1,5 @@
 {
- "note": "Judgement overrides set by the site owner (15-16 Oct 2026), not validated by a replay. Projected regular-season minutes replace the model's projection for these players only (team model and playoff rotation). TypeSafe: Giannis yes (66%), Minnesota bench yes (72%), Lillard 1,800 (83%). Morant, Tatum, Sabonis and Davis set by the owner on 16 Oct. Review each September.",
+ "note": "Judgement overrides set by the site owner (15-16 Oct 2026), not validated by a replay. Projected regular-season minutes (and, for rookies, a rating: 0 average, -0.75 slightly below, -1.5 below) replace the model's projection for these players only (team model and playoff rotation). A no-overrides version is archived every refresh so the season can score them. TypeSafe: Giannis yes (66%), Minnesota bench yes (72%), Lillard 1,800 (83%); GPT review of 16 Oct: clear errors only (57%), rookie tiers (51%), traded players' minutes (50%). Review each September.",
  "minutes": {
   "3032977": {
    "name": "Giannis Antetokounmpo",
@@ -46,8 +46,252 @@
   "6583": {
    "name": "Anthony Davis",
    "team": "WSH",
+   "minutes": 1975,
+   "note": "Owner set 1,700 on 16 Oct; GPT review 1,850-2,100, midpoint used. GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)"
+  },
+  "5142718": {
+   "name": "AJ Dybantsa",
+   "team": "WSH",
+   "minutes": 2300,
+   "note": "No. 1 pick, immediate starter; about average NBA impact as a rookie. GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)",
+   "rating": 0.0
+  },
+  "4277905": {
+   "name": "Trae Young",
+   "team": "WSH",
+   "minutes": 2375,
+   "note": "About 70 games at 33-34 mpg, not his old 2,738. GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)"
+  },
+  "4845374": {
+   "name": "Bub Carrington",
+   "team": "WSH",
+   "minutes": 1250,
+   "note": "Bench role behind Trae Young and Dybantsa (depth chart ~16 mpg). GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)"
+  },
+  "5144126": {
+   "name": "Will Riley",
+   "team": "WSH",
+   "minutes": 1350,
+   "note": "Reduced role (~20 mpg). GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)"
+  },
+  "2581184": {
+   "name": "Anthony Gill",
+   "team": "WSH",
+   "minutes": 125,
+   "note": "Fringe roster spot. GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)"
+  },
+  "4432819": {
+   "name": "Tre Mann",
+   "team": "WSH",
+   "minutes": 900,
+   "note": "Reserve guard (~14 mpg). GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)"
+  },
+  "6609": {
+   "name": "Khris Middleton",
+   "team": "WSH",
+   "minutes": 1250,
+   "note": "Limited veteran role (~20 mpg). GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)"
+  },
+  "5041955": {
+   "name": "Darryn Peterson",
+   "team": "UTAH",
+   "minutes": 2300,
+   "note": "Starter on a crowded roster (rookie). GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)",
+   "rating": -0.75
+  },
+  "5041935": {
+   "name": "Cameron Boozer",
+   "team": "MEM",
+   "minutes": 2425,
+   "note": "Major role; average to above average (rookie). GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)",
+   "rating": 0.0
+  },
+  "5095151": {
+   "name": "Caleb Wilson",
+   "team": "CHI",
+   "minutes": 2425,
+   "note": "Major role; average to above average (rookie). GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)",
+   "rating": 0.0
+  },
+  "5101761": {
+   "name": "Mikel Brown Jr.",
+   "team": "BKN",
+   "minutes": 2300,
+   "note": "Large role, below average (rookie). GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)",
+   "rating": -1.5
+  },
+  "5149077": {
+   "name": "Kingston Flemings",
+   "team": "ATL",
+   "minutes": 1900,
+   "note": "Rotation guard, below average (rookie). GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)",
+   "rating": -1.5
+  },
+  "5164559": {
+   "name": "Nate Ament",
+   "team": "MIL",
+   "minutes": 1100,
+   "note": "Bench role (rookie). GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)",
+   "rating": -1.5
+  },
+  "5082206": {
+   "name": "Brayden Burries",
+   "team": "MIL",
+   "minutes": 1600,
+   "note": "Rotation guard (rookie). GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)",
+   "rating": -0.75
+  },
+  "5041953": {
+   "name": "Koa Peat",
+   "team": "PHX",
+   "minutes": 575,
+   "note": "Limited role (rookie). GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)",
+   "rating": -1.5
+  },
+  "5142620": {
+   "name": "Darius Acuff Jr.",
+   "team": "SAC",
+   "minutes": 2375,
+   "note": "High-usage starter (Kings preview) (rookie). GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)",
+   "rating": -0.75
+  },
+  "5254165": {
+   "name": "Keaton Wagler",
+   "team": "LAC",
+   "minutes": 2000,
+   "note": "Rotation guard (rookie). GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)",
+   "rating": -0.75
+  },
+  "5101845": {
+   "name": "Jayden Quaintance",
+   "team": "SA",
+   "minutes": 125,
+   "note": "Knee surgery, no return timetable (rookie). GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)",
+   "rating": -1.5
+  },
+  "5060701": {
+   "name": "Christian Anderson",
+   "team": "CHA",
+   "minutes": 675,
+   "note": "Limited role (rookie). GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)",
+   "rating": -1.5
+  },
+  "5175737": {
+   "name": "Yaxel Lendeborg",
+   "team": "GS",
+   "minutes": 1850,
+   "note": "Rotation forward, about average (rookie). GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)",
+   "rating": 0.0
+  },
+  "4873153": {
+   "name": "Morez Johnson Jr.",
+   "team": "DAL",
+   "minutes": 1850,
+   "note": "Rotation big, about average defensively (rookie). GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)",
+   "rating": 0.0
+  },
+  "5281370": {
+   "name": "Hannes Steinbach",
+   "team": "CHA",
+   "minutes": 1500,
+   "note": "Rotation big (rookie). GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)",
+   "rating": -0.75
+  },
+  "5107897": {
+   "name": "Jonathan Mogbo",
+   "team": "SAC",
+   "minutes": 450,
+   "note": "Two-way contract, mostly G League. GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)"
+  },
+  "4291678": {
+   "name": "Haywood Highsmith",
+   "team": "PHX",
+   "minutes": 475,
+   "note": "Waived and re-signed as a marginal option. GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)"
+  },
+  "4610139": {
+   "name": "Jeremy Sochan",
+   "team": "POR",
+   "minutes": 725,
+   "note": "Bench role after injury-hit season. GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)"
+  },
+  "4065670": {
+   "name": "Bruce Brown",
+   "team": "NY",
+   "minutes": 0,
+   "note": "Non-guaranteed deal, fighting for the last roster spot. GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)"
+  },
+  "3975": {
+   "name": "Stephen Curry",
+   "team": "GS",
+   "minutes": 2225,
+   "note": "About 73 games at 32 mpg; last season's 1,331 was injury-affected. GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)"
+  },
+  "4277961": {
+   "name": "Jaren Jackson Jr.",
+   "team": "UTAH",
+   "minutes": 2125,
+   "note": "Starter in Utah; last season's minutes were split by a trade. GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)"
+  },
+  "3913176": {
+   "name": "Brandon Ingram",
+   "team": "LAC",
+   "minutes": 2175,
+   "note": "New role and injury history. GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)"
+  },
+  "2583632": {
+   "name": "Royce O'Neale",
+   "team": "CHA",
+   "minutes": 1725,
+   "note": "Bench role in Charlotte. GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)"
+  },
+  "3992": {
+   "name": "James Harden",
+   "team": "CLE",
+   "minutes": 2500,
+   "note": "Traded mid-season: the model counted only his longest stint; minutes set to his current role. GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)"
+  },
+  "2490149": {
+   "name": "CJ McCollum",
+   "team": "ATL",
+   "minutes": 2300,
+   "note": "Traded mid-season: the model counted only his longest stint; minutes set to his current role. GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)"
+  },
+  "4397002": {
+   "name": "Ayo Dosunmu",
+   "team": "MIN",
+   "minutes": 2125,
+   "note": "Traded mid-season: the model counted only his longest stint; minutes set to his current role. GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)"
+  },
+  "4277811": {
+   "name": "Collin Sexton",
+   "team": "LAL",
+   "minutes": 1875,
+   "note": "Traded mid-season: the model counted only his longest stint; minutes set to his current role. GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)"
+  },
+  "3032979": {
+   "name": "Dennis Schröder",
+   "team": "CHA",
    "minutes": 1700,
-   "note": "Owner (16 Oct): injury-prone, so his recent average, not his career. Last three seasons 2,764 / 1,705 / 625 -> about 1,700."
+   "note": "Traded mid-season: the model counted only his longest stint; minutes set to his current role. GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)"
+  },
+  "4683634": {
+   "name": "Bennedict Mathurin",
+   "team": "NO",
+   "minutes": 1600,
+   "note": "Traded mid-season: the model counted only his longest stint; minutes set to his current role. GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)"
+  },
+  "3913174": {
+   "name": "Luke Kennard",
+   "team": "PHX",
+   "minutes": 1550,
+   "note": "Traded mid-season: the model counted only his longest stint; minutes set to his current role. GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)"
+  },
+  "4066372": {
+   "name": "Kevin Huerter",
+   "team": "DET",
+   "minutes": 1525,
+   "note": "Traded mid-season: the model counted only his longest stint; minutes set to his current role. GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)"
   }
  }
 }
