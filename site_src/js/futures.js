@@ -112,6 +112,18 @@ function initTabs() {
   tabs.forEach(b => b.addEventListener("click", () => { show(b.dataset.ftab); try { history.replaceState(null, "", b.dataset.ftab === "chances" ? location.pathname : "#" + b.dataset.ftab); } catch (e) {} }));
   show((location.hash || "").slice(1) || "chances");
 }
+/* trust badges under the chances table's headings, and the by-stage table on the Model page */
+function renderTrust(TR) {
+  if (!TR) return;
+  const tb = $("fbody");
+  if (tb) {
+    const keys = [null, null, "p_div", "p_playoff", "p_seed1", "p_conf", "p_sb"];
+    tb.closest("table").querySelectorAll("thead th").forEach((th, i) => { if (keys[i]) th.insertAdjacentHTML("beforeend", trustBadge(TR, keys[i])); });
+    tb.closest(".scroll").insertAdjacentHTML("beforebegin", trustLegend(TR));
+  }
+  const sec = $("trustSec");
+  if (sec) sec.innerHTML = trustTable(TR, {p_div: "Win division", p_playoff: "Make the playoffs", p_seed1: "No. 1 seed", p_conf: "Win conference", p_sb: "Win the Super Bowl"});
+}
 boot(async meta => {
   initTabs();
   const F = await getJSON("futures.json");
@@ -123,4 +135,5 @@ boot(async meta => {
   renderChallenger(F.challenger);
   renderChallenger5(F.challenger_v5);
   renderTrack(F.track_record);
+  renderTrust(await getTrust());
 });

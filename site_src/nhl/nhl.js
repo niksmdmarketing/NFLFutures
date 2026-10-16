@@ -301,12 +301,13 @@ async function games() {
 
 /* ---------------- model: how the team futures work and how good they are (moved off the futures page, Oct 2026) ---------------- */
 async function modelPage() {
-  const F = await getJSON("futures.json");
+  const F = await getJSON("futures.json"), TR = await getTrust();
   const T = F.teams, P = F.params, bt = F.backtest || {};
   const pc = v => v == null ? "–" : v < 0.0005 ? "<0.1%" : v > 0.9995 ? ">99.9%" : v < 0.0995 ? (v * 100).toFixed(1) + "%" : Math.round(v * 100) + "%";
   const calib = (bt.calibration_20 || []).map(c => "<tr><td>" + esc(c.bin.replace("(-0.001", "[0").replace("]", "]")) + "</td><td>" + pct(c.pred) + "</td><td>" + pct(c.actual) + "</td><td>" + c.n + "</td></tr>").join("");
   const b0 = bt["0"], b20 = bt["20"];
-  $("app").innerHTML =     (b0 && b20 ? '<h2 style="margin-top:22px">How good is it?</h2><p class="note">The same model was run from the start of each of the last ' + b0.seasons + " seasons (2021-22 on) and again after 20 games, using only what was known at the time (every setting is estimated from earlier seasons only). " +
+  $("app").innerHTML = trustTable(TR, {p_playoffs: "Playoffs", p_div: "Division", p_r2: "Round 2", p_r3: "Conference final", p_final: "Final", p_cup: "Stanley Cup", p_pres: "Best record"}) +
+    (b0 && b20 ? '<h2 style="margin-top:22px">How good is it?</h2><p class="note">The same model was run from the start of each of the last ' + b0.seasons + " seasons (2021-22 on) and again after 20 games, using only what was known at the time (every setting is estimated from earlier seasons only). " +
       "Preseason, its points forecast was off by " + b0.mae_model.toFixed(1) + " on average versus " + b0.mae_naive.toFixed(1) + " for a simple 'last season, pulled halfway to average' guess, so it adds little before the season starts. After 20 games it is off by " + b20.mae_model.toFixed(1) + " versus " + b20.mae_naive.toFixed(1) +
       ". Playoff log-loss after 20 games: " + b20.logloss_playoffs.toFixed(3) + " (a 50/50 guess scores " + b20.logloss_playoffs_base.toFixed(3) + "); division log-loss " + b20.logloss_division.toFixed(3) + " versus " + b20.logloss_division_base.toFixed(3) + ". Lower is better. This is not a comparison with betting markets.</p>" +
       '<div class="scroll" style="max-width:520px"><table class="stbl nhl"><thead><tr><th>Predicted playoff chance (after 20 games)</th><th>Average predicted</th><th>Actually made it</th><th>Team-seasons</th></tr></thead><tbody>' + calib + "</tbody></table></div>" : "") +
@@ -321,9 +322,12 @@ async function modelPage() {
       "</tbody></table></div></details>" : "");
 }
 
+/* table columns of the chances table -> trust.json keys */
+const NHL_TRUST_KEYS = [null, null, null, null, null, null, null, "p_playoffs", "p_div", "p_r2", "p_r3", "p_final", "p_cup", "p_pres"];
+
 /* ---------------- team futures ---------------- */
 async function futuresPage() {
-  const F = await getJSON("futures.json");
+  const F = await getJSON("futures.json"), TR = await getTrust();
   const T = F.teams, P = F.params, bt = F.backtest || {};
   const pc = v => v == null ? "–" : v < 0.0005 ? "<0.1%" : v > 0.9995 ? ">99.9%" : v < 0.0995 ? (v * 100).toFixed(1) + "%" : Math.round(v * 100) + "%";
   const head = [["Team", null], ["Div", null], ["GP", null], ["PTS", null], ["Rating", "Goal difference per game vs average, after blending last season with this one"], ["Proj. PTS", "Average of the simulated seasons"],
@@ -336,7 +340,7 @@ async function futuresPage() {
   const calib = (bt.calibration_20 || []).map(c => "<tr><td>" + esc(c.bin.replace("(-0.001", "[0").replace("]", "]")) + "</td><td>" + pct(c.pred) + "</td><td>" + pct(c.actual) + "</td><td>" + c.n + "</td></tr>").join("");
   const b0 = bt["0"], b20 = bt["20"];
   $("app").innerHTML = '<p class="note">Through ' + Math.round(F.games_played) + " games per team. " + F.sims.toLocaleString() + " simulations of the rest of the season and the playoffs. Chances only. Click a heading to sort.</p>" +
-    '<div class="scroll"><table class="stbl nhl" id="ft"><thead><tr>' + head.map(([h, t]) => "<th" + (t ? ' title="' + esc(t) + '"' : "") + ">" + esc(h) + "</th>").join("") + "</tr></thead><tbody>" + rowsHtml() + "</tbody></table></div>" +
+    trustLegend(TR) + '<div class="scroll"><table class="stbl nhl" id="ft"><thead><tr>' + head.map(([h, t], i) => "<th" + (t ? ' title="' + esc(t) + '"' : "") + ">" + esc(h) + trustBadge(TR, NHL_TRUST_KEYS[i]) + "</th>").join("") + "</tr></thead><tbody>" + rowsHtml() + "</tbody></table></div>" +
     (F.injuries && F.injuries.players.length ? (() => { const I = F.injuries, byT = {};
       I.players.forEach(p => { (byT[p.team] = byT[p.team] || []).push(p); });
       const teamsI = T.filter(r => r.n_cup != null && byT[r.team]).map(r => ({r, g: byT[r.team].reduce((s, p) => s + p.season_goals, 0)})).filter(x => x.g >= 0.05).sort((a, b) => b.g - a.g);

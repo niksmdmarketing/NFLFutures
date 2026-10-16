@@ -309,14 +309,16 @@ function modelSections(F) {
     (F.about && F.about.length ? '<h2 style="margin-top:22px">What it does and does not know</h2><ul class="note" style="max-width:80ch">' + F.about.map(x => "<li>" + esc(x) + "</li>").join("") + "</ul>" : "");
 }
 async function modelPage() {
-  const F = await getJSON("futures.json");
-  $("app").innerHTML = (F.model_intro ? '<p class="note">' + esc(F.model_intro) + "</p>" : "") + (modelSections(F) || '<p class="note">Nothing to show yet.</p>') +
+  const F = await getJSON("futures.json"), TR = await getTrust();
+  const labels = Object.fromEntries((F.cols || []).map(c => [c.k, c.l]));
+  $("app").innerHTML = (F.model_intro ? '<p class="note">' + esc(F.model_intro) + "</p>" : "") + trustTable(TR, labels) + (modelSections(F) || '<p class="note">Nothing to show yet.</p>') +
     '<p class="note" style="margin-top:18px">Season-by-season accuracy, replayed week by week: <a href="replay.html">Model › Accuracy history</a>.</p>';
 }
 
 /* ---------------- futures ---------------- */
 async function futuresPage() {
   const F = await getJSON("futures.json");
+  const TR = await getTrust();
   const T = F.teams || [];
   const pcx = v => v == null ? "–" : v < 0.0005 ? "<0.1%" : v > 0.9995 ? ">99.9%" : v < 0.0995 ? (v * 100).toFixed(1) + "%" : Math.round(v * 100) + "%";
   const P = F.proj;
@@ -343,7 +345,8 @@ async function futuresPage() {
   const L = F.line;
   $("app").innerHTML = (F.status ? '<p class="note"><b>' + esc(F.status) + "</b></p>" : "") +
     foldNote(F.intro || "", (F.sims ? F.sims.toLocaleString() + " simulations. " : "") + "Chances only. Click a heading to sort.") +
-    '<div class="scroll"><table class="stbl nhl" id="ft"><thead><tr>' + head.map(([h, k, t]) => "<th" + (k ? ' data-k="' + k + '" tabindex="0"' : "") + (t ? ' title="' + esc(t) + '"' : "") + ">" + esc(h) + "</th>").join("") + "</tr></thead><tbody></tbody></table></div>" +
+    trustLegend(TR) +
+    '<div class="scroll"><table class="stbl nhl" id="ft"><thead><tr>' + head.map(([h, k, t]) => "<th" + (k ? ' data-k="' + k + '" tabindex="0"' : "") + (t ? ' title="' + esc(t) + '"' : "") + ">" + esc(h) + (k ? trustBadge(TR, k) : "") + "</th>").join("") + "</tr></thead><tbody></tbody></table></div>" +
     (L ? '<h2 style="margin-top:22px">' + esc(L.label) + '</h2><p class="note">Pick a team and a line to see the chance it finishes over or under.</p>' +
       '<div class="filters"><div class="field"><label for="pt">Team</label><select id="pt">' + T.slice().sort((a, b) => a.team.localeCompare(b.team)).map(r => opt(r.team, r.team + " · " + (r.name || tname(r.team)))).join("") + "</select></div>" +
       '<div class="field"><label for="pl">Line</label><input id="pl" type="number" step="0.5" style="width:100px"></div></div><div id="pout" class="panel" style="margin-top:10px"></div>' : "") +

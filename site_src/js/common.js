@@ -146,3 +146,40 @@ function sortableTable(table) {
     th.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
   });
 }
+
+/* ---- trust ratings (pipeline/trust.py -> data/trust.json): a badge under each chances column, a legend, and the
+   by-stage table on the Model pages ---- */
+async function getTrust() { try { return await getJSON("trust.json"); } catch (e) { return null; } }
+const TRUST_CLASS = {"Reliable": "t-good", "Mixed": "t-mixed", "Weak": "t-weak", "Market usually better": "t-mkt", "Not tested": "t-none"};
+function trustBadge(T, key) {
+  const m = T && T.markets && T.markets[key];
+  if (!m) return "";
+  return '<span class="trust ' + (TRUST_CLASS[m.r] || "") + '" title="Trust (' + esc(T.stage) + "): " + esc(m.r) + ". " + esc(m.why) + '">' + esc(m.r === "Market usually better" ? "Market better" : m.r) + "</span>";
+}
+function trustLegend(T) {
+  if (!T) return "";
+  return '<p class="note trust-legend"><b>Trust</b> (under each column, for this stage of the season: ' + esc(T.stage) + '): ' +
+    ["Reliable", "Mixed", "Weak", "Market usually better", "Not tested"].map(r => '<span class="trust ' + TRUST_CLASS[r] + '">' + (r === "Market usually better" ? "Market better" : r) + "</span>").join(" ") +
+    ' <span class="muted">Hover or tap a badge for the evidence; the full table is on Model › How it works.</span></p>';
+}
+function trustTable(T, labels) {
+  if (!T || !T.table) return "";
+  return '<h2 style="margin-top:22px">How far to trust each column</h2><p class="note">' + esc(T.legend) + " Now: " + esc(T.stage) + ".</p>" +
+    '<div class="scroll"><table class="stbl"><thead><tr><th>Column</th>' + T.stages.map(s => "<th>" + esc(s) + "</th>").join("") + "</tr></thead><tbody>" +
+    T.table.map(r => "<tr><td>" + esc(labels[r.col] || r.col) + "</td>" + r.by_stage.map((x, i) => '<td style="text-align:left"><span class="trust ' + TRUST_CLASS[x] + '"' + (T.stages[i] === T.stage ? ' style="outline:2px solid var(--ink)"' : "") + ">" + (x === "Market usually better" ? "Market better" : x) + "</span></td>").join("") + "</tr>").join("") +
+    "</tbody></table></div>";
+}
+/* phones have no hover: tapping a trust badge shows its evidence in a small box */
+document.addEventListener("click", e => {
+  const old = document.getElementById("trustPop");
+  const b = e.target.closest && e.target.closest(".trust[title]");
+  if (old) old.remove();
+  if (!b) return;
+  e.preventDefault(); e.stopPropagation();
+  const pop = document.createElement("div");
+  pop.id = "trustPop"; pop.className = "trust-pop"; pop.textContent = b.getAttribute("title");
+  document.body.appendChild(pop);
+  const r = b.getBoundingClientRect();
+  pop.style.top = (window.scrollY + r.bottom + 6) + "px";
+  pop.style.left = Math.max(8, Math.min(window.scrollX + r.left - 40, window.scrollX + document.documentElement.clientWidth - pop.offsetWidth - 8)) + "px";
+}, true);

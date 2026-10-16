@@ -337,3 +337,13 @@ thead th:first-child, .stbl.ranked thead th:nth-child(2) { z-index: 3; }
   nav.leaguebar .league-select { display: block; min-height: 40px; padding: 6px 10px; font: inherit; border: 1px solid var(--line); border-radius: 5px; background: var(--surface); color: var(--ink); max-width: 100%; }
   nav.leaguebar { background: none !important; }
 }
+/* trust badges (pipeline/trust.py) */
+.trust { display: inline-block; margin-top: 3px; padding: 1px 6px; border-radius: 999px; font-family: var(--font-body); font-size: .62rem; font-weight: 600; letter-spacing: .02em; text-transform: none; white-space: nowrap; border: 1px solid transparent; cursor: help; }
+th .trust { display: block; width: fit-content; margin-left: auto; }
+.trust.t-good { background: var(--off-bg, #d6efe6); color: var(--off-ink, #0b5a44); }
+.trust.t-mixed { background: color-mix(in srgb, #d9a400 22%, transparent); color: var(--ink); }
+.trust.t-weak { background: var(--def-bg, #f6e0cf); color: var(--def-ink, #8a3d0a); }
+.trust.t-mkt { background: transparent; border-color: var(--def, #b4540a); color: var(--def-ink, #8a3d0a); }
+.trust.t-none { background: transparent; border-color: var(--line); color: var(--muted); }
+.trust-legend .trust { margin: 0 2px; }
+.trust-pop { position: absolute; z-index: 50; max-width: min(340px, calc(100vw - 16px)); background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px; font-size: .8rem; line-height: 1.35; box-shadow: 0 6px 20px rgba(0,0,0,.15); }

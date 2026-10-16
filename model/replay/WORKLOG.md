@@ -561,3 +561,11 @@ History files regenerated with the two new columns; History page shows them.
   NFL, engine, NHL, trends, CFB coverage; sportsite.stamp_sub for Why/History/Schedule pages; engine foldNote for long table
   intros; sticky name columns (.ftable, ranked .stbl second column); phone scroll shadows on menus; one chance format
   (common.js pct, why.py, football pages); page titles '<Sport> season chances' / 'award chances' / 'accuracy history'.
+
+## Trust ratings (16 Oct 2026)
+- TypeSafe: trust ratings only (99%; fair odds / odds checker not now), badges above each chances column with legend and a
+  Model-page table (97%), rule with thin-evidence caps (69%). pipeline/trust.py: skill = log-loss gain / base rate,
+  miscalibration cost = ll - ll_recal; Weak < 8%, Mixed 8-25% or cost >= 0.005, Reliable otherwise; capped at Mixed with < 8
+  seasons, or for one/two-winner markets (title, finals, seed1) unless the CALIBRATION_CI slope interval contains 1 and is
+  narrower than 0.8. 'Market usually better' from documented comparisons only (NFL all markets before week 5 and late, Super
+  Bowl all season; NBA title/conference preseason, title first quarter, conference all season; NHL Cup/conference preseason).

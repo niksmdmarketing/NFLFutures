@@ -183,6 +183,11 @@ def main():
         updates.build_site()
     except Exception as e:  # noqa: BLE001
         log("updates page failed", e)
+    try:  # trust rating for every chances column (replay evidence + documented market comparisons); read by the pages
+        import trust
+        trust.build()
+    except Exception as e:  # noqa: BLE001
+        log("trust ratings failed", e)
     try:  # grouped section navigation (top tabs + sub-tabs); last, so it sees every page link added above
         import navgroups
         navgroups.apply()
