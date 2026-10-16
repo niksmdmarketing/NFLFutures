@@ -15,7 +15,8 @@ import pandas as pd
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MARKETS = {"title": ("p_title", "y_title"), "finals": ("p_conf", "y_finals"), "div": ("p_div", "y_div"),
-           "seed1": ("p_seed1", "y_seed1"), "playoff": ("p_playoff", "y_playoff"), "top8": ("p_top8", "y_top8"), "pf": ("p_pf", "y_pf")}
+           "seed1": ("p_seed1", "y_seed1"), "playoff": ("p_playoff", "y_playoff"), "top8": ("p_top8", "y_top8"), "pf": ("p_pf", "y_pf"),
+           "r2": ("p_r2", "y_r2"), "cf": ("p_cf", "y_cf")}
 STAGES = [(0, 0.001, "preseason"), (0.001, 0.25, "first quarter"), (0.25, 0.5, "second quarter"), (0.5, 0.75, "third quarter"),
           (0.75, 1.01, "last quarter")]
 

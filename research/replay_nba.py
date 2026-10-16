@@ -307,7 +307,8 @@ def run_season(boxes, y):
         res = N._simulate(s, ratings, SIMS)
         for t, v in res.items():
             rows.append(dict(season=y, week=wk, date=str(cutoff.date()), gp_avg=round(2 * len(done) / 30, 1), team=t,
-                             p_title=v["p_title"], p_conf=v["p_conf"], p_div=v["p_div"], p_seed1=v["p_seed1"], p_playoff=v["p_playoff"],
+                             p_title=v["p_title"], p_conf=v["p_conf"], p_div=v["p_div"], p_seed1=v["p_seed1"], p_playoff=v["p_playoff"], p_r2=v.get("p_r2"), p_cf=v.get("p_cf"),
+                             y_r2=int(t in out.get("r2", ())), y_cf=int(t in out.get("cf", ())),
                              mean_wins=v["mean_wins"], y_title=int(t == out["champ"]), y_finals=int(t in out["finalists"]),
                              y_div=int(t in div_w), y_seed1=int(t in seed1), y_playoff=int(t in out["playoffs"])))
     return pd.DataFrame(rows)

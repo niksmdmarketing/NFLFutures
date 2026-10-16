@@ -35,7 +35,9 @@ def outcomes(boxes, y):
     wins = fin[fin.team_winner.astype(str).str.lower() == "true"].groupby("team_abbreviation").size()
     champ = wins.idxmax()
     playoff_teams = set(d.team_abbreviation)
-    return dict(champ=champ, finalists=finalists, playoffs=playoff_teams)
+    rounds = d.groupby("team_abbreviation").opponent_team_abbreviation.nunique()   # play-in games are a separate season type
+    return dict(champ=champ, finalists=finalists, playoffs=playoff_teams,
+                r2=set(rounds[rounds >= 2].index), cf=set(rounds[rounds >= 3].index))
 
 
 def run(seasons):

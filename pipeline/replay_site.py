@@ -27,6 +27,7 @@ SPORTS = {
                         ("playoff", "p_playoff", "y_playoff", "Make the playoffs")]},
     "nba": {"label": "NBA", "dir": "nba", "end_year": True, "games": 82, "markets": [("title", "p_title", "y_title", "Win the title"), ("finals", "p_conf", "y_finals", "Win the conference"),
                                                         ("div", "p_div", "y_div", "Win the division"), ("seed1", "p_seed1", "y_seed1", "Top seed in the conference"),
+                                                        ("cf", "p_cf", "y_cf", "Reach the conference finals"), ("r2", "p_r2", "y_r2", "Win a playoff round"),
                                                         ("playoff", "p_playoff", "y_playoff", "Make the playoffs")]},
     "nhl": {"label": "NHL", "dir": "nhl", "games": 82, "markets": [("title", "p_title", "y_title", "Win the Stanley Cup"), ("finals", "p_conf", "y_finals", "Win the conference"),
                                                         ("div", "p_div", "y_div", "Win the division"), ("playoff", "p_playoff", "y_playoff", "Make the playoffs")]},

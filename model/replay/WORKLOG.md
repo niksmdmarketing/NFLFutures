@@ -526,3 +526,12 @@ NHL_LINEUP_N=5 NHL_LINEUP_PRE=0 NHL_LINEUP_VAL=rapm RAPM_LAM=300000 RAPM_KBOX=1;
   suspension season; new team, age 27), Tatum 2,700 (full season), Sabonis 2,050 (career average), Davis 1,700 (last
   three seasons, not career). vs this morning: BOS 50.9 -> 55.4 wins (title 2.7% -> 6.9%), WSH 21.8 -> 24.4, SAC 25.0 ->
   26.5, POR 42.5 -> 43.9; others within 0.5 wins. Award models left as they are (owner).
+
+## 2026-10-16 NBA: win-a-round and conference-finals markets, replayed
+New outputs p_r2 (win a first-round series) and p_cf (reach the conference finals) from the existing simulation; labels from
+playoff series (distinct playoff opponents; play-in is a separate season type). 14-season replay 2013-2026 with live settings
+(other columns identical to the stored History files): log loss vs base rate, preseason / Q1 / Q2 / Q3 / Q4:
+win a round 0.452/0.580, 0.393, 0.361, 0.318, 0.283; conference finals 0.320/0.393, 0.288, 0.284, 0.261, 0.250;
+No. 1 seed 0.188/0.245 ... 0.034. Better than the base rate in 14/14 (win a round), 13/14 (conf. finals), 14/14 (No. 1 seed)
+seasons. Calibration good for win-a-round; conference finals a little over-confident at 50-70% (given 59%, happened 48%).
+History files regenerated with the two new columns; History page shows them.
