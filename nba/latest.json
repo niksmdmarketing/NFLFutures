@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-10-15T2326Z",
-"feed_timestamp": "2026-10-15T23:26:11Z",
+"collected_utc": "2026-10-15T2352Z",
+"feed_timestamp": "2026-10-15T23:51:58Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -470,6 +470,12 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-16",
 "injury": "Right Toe Bruise"
+},
+{
+"athlete_id": "3062679",
+"status": "Day-To-Day",
+"return_date": "2026-10-20",
+"injury": "Right Ankle Soreness"
 },
 {
 "athlete_id": "4900671",
@@ -1488,6 +1494,15 @@
 "updated": "2026-10-15T00:23Z"
 },
 {
+"athlete_id": "3062679",
+"name": "Josh Hart",
+"team_name": "New York Knicks",
+"status": "Day-To-Day",
+"return_date": "2026-10-20",
+"injury": "Right Ankle Soreness",
+"updated": "2026-10-15T23:29Z"
+},
+{
 "athlete_id": "4900671",
 "name": "Ajay Mitchell",
 "team_name": "Oklahoma City Thunder",
@@ -1701,7 +1716,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-16",
 "injury": "Left Knee",
-"updated": "2026-10-15T23:00Z"
+"updated": "2026-10-15T23:39Z"
 },
 {
 "athlete_id": "4701232",
