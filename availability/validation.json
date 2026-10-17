@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-10-16T22:53:32+00:00",
+ "checked_utc": "2026-10-17T01:21:09+00:00",
  "leagues": {
   "nfl": {
-   "records": 1610,
+   "records": 1637,
    "by_layer": {
-    "official": 1537,
-    "reported": 73
+    "official": 1553,
+    "reported": 84
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -49,7 +49,8 @@
      "player": "Tershawn Wharton",
      "official": [
       "no designation",
-      "out"
+      "out",
+      "questionable"
      ],
      "other": "expected to play",
      "source": "ESPN injury note"
@@ -59,17 +60,17 @@
    "teams_missing_official": [],
    "season_state": {
     "state": "in_season",
-    "why": "14 regular-season/playoff and 0 other games 2026-10-09..2026-10-26"
+    "why": "13 regular-season/playoff and 0 other games 2026-10-10..2026-10-27"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "73/73"
+   "reported_matched_to_official_list": "84/84"
   },
   "nba": {
-   "records": 231,
+   "records": 227,
    "by_layer": {
-    "official": 151,
-    "reported": 80
+    "official": 148,
+    "reported": 79
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -83,7 +84,6 @@
     "CLE",
     "DAL",
     "DEN",
-    "DET",
     "GS",
     "HOU",
     "IND",
@@ -117,20 +117,21 @@
     }
    ],
    "stale_projection_dates": 0,
-   "teams_missing_official": [],
+   "teams_missing_official": [
+    "DET"
+   ],
    "season_state": {
-    "state": "off_season",
-    "why": "0 regular-season/playoff and 14 other games 2026-10-09..2026-10-26"
+    "state": "in_season",
+    "why": "3 regular-season/playoff and 12 other games 2026-10-10..2026-10-27"
    },
-   "coverage_expected": false,
-   "teams_missing_official_note": "off-season: no official coverage expected",
+   "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "80/80"
+   "reported_matched_to_official_list": "79/79"
   },
   "nhl": {
-   "records": 1548,
+   "records": 1549,
    "by_layer": {
-    "official": 160,
+    "official": 161,
     "reported": 64,
     "projected": 1324
    },
@@ -177,7 +178,7 @@
    ],
    "season_state": {
     "state": "in_season",
-    "why": "33 regular-season/playoff and 0 other games 2026-10-09..2026-10-26"
+    "why": "33 regular-season/playoff and 0 other games 2026-10-10..2026-10-27"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
@@ -208,7 +209,7 @@
    "teams_missing_official": [],
    "season_state": {
     "state": "in_season",
-    "why": "19 NBL games 2026-10-09..2026-10-26 (NBL fixture, season 2026)"
+    "why": "18 NBL games 2026-10-10..2026-10-27 (NBL fixture, season 2026)"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
@@ -247,7 +248,7 @@
    ],
    "season_state": {
     "state": "off_season",
-    "why": "0 AFL games 2026-10-09..2026-10-26 (Squiggle fixture)"
+    "why": "0 AFL games 2026-10-10..2026-10-27 (Squiggle fixture)"
    },
    "coverage_expected": false,
    "teams_missing_official_note": "off-season: no official coverage expected",
@@ -255,8 +256,8 @@
    "reported_matched_to_official_list": "0/10"
   }
  },
- "sources_failed": [],
- "sources_not_expected": [
-  "nba: NBA official injury report (PDF, file-name time) - not expected: no regular-season or playoff games in the window (0 regular-season/playoff and 14 other games 2026-10-09..2026-10-26)"
- ]
+ "sources_failed": [
+  "nba: NBA official injury report (PDF, file-name time) - RuntimeError: no official report found in the last 30 hours"
+ ],
+ "sources_not_expected": []
 }
