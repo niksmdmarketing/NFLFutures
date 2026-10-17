@@ -1,0 +1,177 @@
+[
+ {
+  "date": "2026-10-16",
+  "sport": "NBA",
+  "text": "Judgement overrides for 46 players: rookies now get projected minutes and a rookie-level rating (they had none), Washington's rotation (Dybantsa, Trae Young, Davis), players traded mid-season, and players not in the rotation (two-way, waived, injured). Listed on Model \u203a How it works. A version without them is recorded every update so the season can score them."
+ },
+ {
+  "date": "2026-10-16",
+  "sport": "NHL",
+  "text": "Fixes: players out until next season (Shesterkin) were counted as healthy; the roster adjustment from recent lineups was working from a six-game stale cache. Hellebuyck (suspended) is treated as out for the season by owner override."
+ },
+ {
+  "date": "2026-10-16",
+  "sport": "NFL",
+  "text": "v5 candidate only: a starting quarterback listed out for the next game keeps his place for the rest of the season instead of the backup taking every remaining game. The live v4 model is unchanged."
+ },
+ {
+  "date": "2026-10-16",
+  "sport": "All",
+  "text": "Trust ratings: every chances column now carries a badge (Reliable, Mixed, Weak, Market better, Not tested) for the current stage of the season, from the replayed past seasons and, where we have them, comparisons with market prices. Tap or hover a badge for the evidence; Model \u203a How it works shows the rating at every stage. Market prices are used only as evidence about our accuracy, never in a forecast."
+ },
+ {
+  "date": "2026-10-16",
+  "sport": "All",
+  "text": "Tidier pages: the same sport bar everywhere; long table explanations shortened to one line with 'More about this table'; team and player names stay in view when a wide table scrolls; chances shown the same way in every sport (<0.1%, one decimal under 10%, whole numbers above); page titles match their tabs; one 'updated' line with a warning if a page has not refreshed for over a day."
+ },
+ {
+  "date": "2026-10-16",
+  "sport": "NFL",
+  "text": "New layout: the 32 section tabs become six (Standings, Forecast, Teams, Players, Games, Model). Team stats are grouped into Offense, Defense and Other; Matchups, Box scores and Injuries sit under Games. The futures page now has three views (Chances, vs the market, Win totals); quarterback adjustments, accuracy by market, the v3 and v5 test versions and how the season is simulated moved to Model \u203a How it works. Nothing removed."
+ },
+ {
+  "date": "2026-10-16",
+  "sport": "All",
+  "text": "The NBA layout now applies to the NHL, AFL, NBL and college football: Standings, Forecast, Teams, Players, Games and Model tabs, with related pages grouped underneath (NHL Skaters and Goalies under Players). Each sport's 'How good is it' and 'What it does and does not know' moved from the chances page to Model \u203a How it works. NFL and football to follow. Nothing removed."
+ },
+ {
+  "date": "2026-10-16",
+  "sport": "NBA",
+  "text": "New layout (trial): six tabs (Standings, Forecast, Teams, Players, Games, Model) with the related pages grouped underneath. Forecast holds the chances, Why, Awards, Schedule difficulty and Winner trends; each team in the chances table links to its Why entry. Model holds how the forecast is tested and the week-by-week accuracy history. Nothing removed."
+ },
+ {
+  "date": "2026-10-15",
+  "sport": "NBA",
+  "text": "Futures: three projected-minutes judgement overrides, listed on the page. Giannis Antetokounmpo is projected for a healthy season with Miami (2,300 minutes) rather than last season's 36 games, and two Minnesota newcomers get bench minutes. Not tested in the replay."
+ },
+ {
+  "date": "2026-10-15",
+  "sport": "NHL",
+  "text": "Futures: the roster adjustment now uses player ratings built from every shift and shot since 2014 (each skater's effect on expected goals, separated from his linemates). Ten replayed seasons: better than no roster adjustment in 8 of 10. A player-based preseason rating was also tested and not used: it made futures less accurate, mostly because it missed Vegas's 2017 expansion run."
+ },
+ {
+  "date": "2026-10-15",
+  "sport": "NHL",
+  "text": "Futures: ratings now move with who has actually been playing (each team's last five lineups, valued player by player), so trades, call-ups and returning players count straight away; better in 7 of 10 replayed seasons. The in-season rating now weights goals 80% and expected goals 20% (was 60/40 by judgement; fitted on ten seasons)."
+ },
+ {
+  "date": "2026-10-15",
+  "sport": "NHL",
+  "text": "Futures now account for injuries: each player on the injury list lowers his team's rating for the games he is expected to miss, priced by how much missing players changed results in 12,572 games (2015-2025). A new section on the futures page shows each team's absences next to its chances without them."
+ },
+ {
+  "date": "2026-10-14",
+  "sport": "NHL",
+  "text": "Futures: playoff series now use shot differential instead of goal differential, and favourites count for more in the playoffs early in the season. Cup and conference chances were more accurate in 8 of 10 replayed seasons; regular-season chances are unchanged."
+ },
+ {
+  "date": "2026-10-14",
+  "sport": "NHL",
+  "text": "Futures page: a candidate model that gives favourites more weight in the playoffs early in the season is shown next to the live Final and Cup chances (replays found early Cup chances too flat; the live model is unchanged)."
+ },
+ {
+  "date": "2026-10-14",
+  "sport": "NFL",
+  "text": "Awards page: chances of leading the league in passing yards, passing TDs, rushing yards, receiving yards, receptions and sacks, tested on 2012\u20132025. Rookie awards and Offensive Player chances sharpen from week 8 after a weekly replay showed late favourites were too cautious."
+ },
+ {
+  "date": "2026-10-14",
+  "sport": "NFL",
+  "text": "Futures page: a candidate model with a bigger playoff home edge is shown next to the live model for conference and Super Bowl chances (it was more accurate in 10 of 13 replayed seasons; the live model is unchanged)."
+ },
+ {
+  "date": "2026-10-14",
+  "sport": "NBA",
+  "text": "Award chances now simulate each candidate's season to the end and apply the 65-game rule; MVP and Defensive Player chances are shown before the season. Tested on 2010\u20132026."
+ },
+ {
+  "date": "2026-10-14",
+  "sport": "NHL",
+  "text": "Award chances replayed on 2011\u20132026 from dated season-to-date numbers: Art Ross and Rocket Richard races tightened, Vezina sharper late, and an early-season caution added (early favourites won much less often than shown)."
+ },
+ {
+  "date": "2026-10-14",
+  "sport": "AFL",
+  "text": "Brownlow chances widened after a round-by-round replay showed favourites were far too short; the Coleman table now gives each player's chance of kicking the most goals."
+ },
+ {
+  "date": "2026-10-13",
+  "sport": "All",
+  "text": "History pages now include a Live check: this season's published forecasts are scored as results come in (NFL games already; futures once a season is half played), including the archived challenger models."
+ },
+ {
+  "date": "2026-10-13",
+  "sport": "NFL",
+  "text": "NFL now has a week-by-week History page: the model replayed for every week of 2022 to 2025, with a note on how much to trust each market. Only four seasons, so treat it as a rough guide. The live season will be added as it is played."
+ },
+ {
+  "date": "2026-10-13",
+  "sport": "All",
+  "text": "History pages now keep the live season: each refresh with new numbers is archived, so you can look back at what the site showed for any week of this season (NBA, NHL, AFL, NBL)."
+ },
+ {
+  "date": "2026-10-13",
+  "sport": "NBL",
+  "text": "Week-by-week history page: championship, Grand Final, top 2, minor premier and finals chances for each week of 13 past seasons, with movement and a reliability note."
+ },
+ {
+  "date": "2026-10-13",
+  "sport": "AFL",
+  "text": "Round-by-round history page: every team's premiership, Grand Final, top 4, top 8 and finals chances after each round of 14 past seasons, with movement and a reliability note."
+ },
+ {
+  "date": "2026-10-13",
+  "sport": "NBA",
+  "text": "Week-by-week history page: every team's title, conference, division, top-seed and playoff chance for each week of 14 past seasons, with 1- and 4-week movement and a reliability note (also NHL, 10 seasons)."
+ },
+ {
+  "date": "2026-10-12",
+  "sport": "NHL",
+  "text": "Back-test now uses one league-wide checkpoint date (the old split gave wrong game counts for many teams); 20-game playoff score is 0.428 over 2021-25, not the 0.415 shown before."
+ },
+ {
+  "date": "2026-10-12",
+  "sport": "CFB",
+  "text": "Winner trends page: what national champions, finalists and playoff teams had in common (2014 onward)."
+ },
+ {
+  "date": "2026-10-12",
+  "sport": "NFL",
+  "text": "Havoc rate (sacks, tackles for loss, pass breakups, turnovers) on team pages, plus havoc plays per defender on the players page."
+ },
+ {
+  "date": "2026-10-12",
+  "sport": "NBA",
+  "text": "Hustle stats (deflections, loose balls, box-outs) and Synergy play-type stats for teams and players, from 2015-16."
+ },
+ {
+  "date": "2026-10-12",
+  "sport": "NBA",
+  "text": "Preseason playoff and conference probabilities are less overconfident (tested over 14 seasons); fades out by game 16."
+ },
+ {
+  "date": "2026-10-12",
+  "sport": "NBL",
+  "text": "Fixed extra games showing in 2025-26 regular-season game logs (finals and play-in games now kept separate)."
+ },
+ {
+  "date": "2026-10-12",
+  "sport": "CFB",
+  "text": "College football (FBS) advanced team and player stats and 12 seasons of history."
+ },
+ {
+  "date": "2026-10-11",
+  "sport": "NBA",
+  "text": "Assist-to-turnover ratio and assists as a share of made field goals for teams, players and game logs (also NBL)."
+ },
+ {
+  "date": "2026-10-11",
+  "sport": "NBL",
+  "text": "Game logs now use official full-game team totals, backfilled for all 15 seasons."
+ },
+ {
+  "date": "2026-10-10",
+  "sport": "NBA",
+  "text": "Availability page: injured players' points value and games affected, now feeding the season simulation."
+ }
+]
