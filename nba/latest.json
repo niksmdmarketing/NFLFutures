@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-10-17T0437Z",
-"feed_timestamp": "2026-10-17T04:37:04Z",
+"collected_utc": "2026-10-17T1544Z",
+"feed_timestamp": "2026-10-17T15:44:31Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -22,24 +22,6 @@
 "injury": "Rest"
 },
 {
-"athlete_id": "4433188",
-"status": "Day-To-Day",
-"return_date": "2026-10-20",
-"injury": "Illness"
-},
-{
-"athlete_id": "4065648",
-"status": "Day-To-Day",
-"return_date": "2026-10-20",
-"injury": "Rest"
-},
-{
-"athlete_id": "3195",
-"status": "Day-To-Day",
-"return_date": "2026-10-20",
-"injury": "Rest"
-},
-{
 "athlete_id": "4351852",
 "status": "Day-To-Day",
 "return_date": "2026-10-20",
@@ -47,12 +29,6 @@
 },
 {
 "athlete_id": "4397424",
-"status": "Day-To-Day",
-"return_date": "2026-10-20",
-"injury": "Rest"
-},
-{
-"athlete_id": "4251",
 "status": "Day-To-Day",
 "return_date": "2026-10-20",
 "injury": "Rest"
@@ -202,12 +178,6 @@
 "injury": "Not Specified Hamstring"
 },
 {
-"athlete_id": "3213",
-"status": "Day-To-Day",
-"return_date": "2026-10-16",
-"injury": "Rest"
-},
-{
 "athlete_id": "6430",
 "status": "Out",
 "return_date": "2027-01-02",
@@ -337,7 +307,7 @@
 "athlete_id": "2991070",
 "status": "Day-To-Day",
 "return_date": "2026-10-21",
-"injury": "Rest"
+"injury": "Undisclosed Soreness"
 },
 {
 "athlete_id": "4432185",
@@ -694,18 +664,6 @@
 "injury": "Rest"
 },
 {
-"athlete_id": "6450",
-"status": "Day-To-Day",
-"return_date": "2026-10-21",
-"injury": "Rest"
-},
-{
-"athlete_id": "4432586",
-"status": "Day-To-Day",
-"return_date": "2026-10-21",
-"injury": "Right Foot"
-},
-{
 "athlete_id": "4395625",
 "status": "Day-To-Day",
 "return_date": "2026-10-21",
@@ -750,7 +708,7 @@
 {
 "athlete_id": "4606840",
 "status": "Out",
-"return_date": "2027-04-01",
+"return_date": "2027-04-02",
 "injury": "Left Knee"
 },
 {
@@ -789,33 +747,6 @@
 "updated": "2026-10-16T23:05Z"
 },
 {
-"athlete_id": "4433188",
-"name": "Devin Carter",
-"team_name": "Boston Celtics",
-"status": "Day-To-Day",
-"return_date": "2026-10-20",
-"injury": "Illness",
-"updated": "2026-10-16T23:09Z"
-},
-{
-"athlete_id": "4065648",
-"name": "Jayson Tatum",
-"team_name": "Boston Celtics",
-"status": "Day-To-Day",
-"return_date": "2026-10-20",
-"injury": "Rest",
-"updated": "2026-10-16T23:04Z"
-},
-{
-"athlete_id": "3195",
-"name": "Mike Conley",
-"team_name": "Boston Celtics",
-"status": "Day-To-Day",
-"return_date": "2026-10-20",
-"injury": "Rest",
-"updated": "2026-10-16T23:05Z"
-},
-{
 "athlete_id": "4351852",
 "name": "Mitchell Robinson",
 "team_name": "Boston Celtics",
@@ -832,15 +763,6 @@
 "return_date": "2026-10-20",
 "injury": "Rest",
 "updated": "2026-10-16T23:08Z"
-},
-{
-"athlete_id": "4251",
-"name": "Paul George",
-"team_name": "Boston Celtics",
-"status": "Day-To-Day",
-"return_date": "2026-10-20",
-"injury": "Rest",
-"updated": "2026-10-16T23:07Z"
 },
 {
 "athlete_id": "4066354",
@@ -984,7 +906,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-22",
 "injury": "Right Elbow Soreness",
-"updated": "2026-10-13T22:09Z"
+"updated": "2026-10-17T15:16Z"
 },
 {
 "athlete_id": "4683688",
@@ -1057,15 +979,6 @@
 "return_date": "2026-10-22",
 "injury": "Not Specified Hamstring",
 "updated": "2026-10-13T19:28Z"
-},
-{
-"athlete_id": "3213",
-"name": "Al Horford",
-"team_name": "Golden State Warriors",
-"status": "Day-To-Day",
-"return_date": "2026-10-16",
-"injury": "Rest",
-"updated": "2026-10-12T19:41Z"
 },
 {
 "athlete_id": "6430",
@@ -1262,7 +1175,7 @@
 "team_name": "Memphis Grizzlies",
 "status": "Day-To-Day",
 "return_date": "2026-10-21",
-"injury": "Rest",
+"injury": "Undisclosed Soreness",
 "updated": "2026-10-16T23:06Z"
 },
 {
@@ -1632,7 +1545,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-21",
 "injury": "Left Knee Strain",
-"updated": "2026-10-17T04:00Z"
+"updated": "2026-10-17T15:34Z"
 },
 {
 "athlete_id": "4701232",
@@ -1797,24 +1710,6 @@
 "updated": "2026-10-16T22:52Z"
 },
 {
-"athlete_id": "6450",
-"name": "Kawhi Leonard",
-"team_name": "Toronto Raptors",
-"status": "Day-To-Day",
-"return_date": "2026-10-21",
-"injury": "Rest",
-"updated": "2026-10-16T21:46Z"
-},
-{
-"athlete_id": "4432586",
-"name": "Nate Bittle",
-"team_name": "Toronto Raptors",
-"status": "Day-To-Day",
-"return_date": "2026-10-21",
-"injury": "Right Foot",
-"updated": "2026-10-13T21:35Z"
-},
-{
 "athlete_id": "4395625",
 "name": "RJ Barrett",
 "team_name": "Toronto Raptors",
@@ -1882,7 +1777,7 @@
 "name": "Jamir Watkins",
 "team_name": "Washington Wizards",
 "status": "Out",
-"return_date": "2027-04-01",
+"return_date": "2027-04-02",
 "injury": "Left Knee",
 "updated": "2026-07-30T20:11Z"
 },
