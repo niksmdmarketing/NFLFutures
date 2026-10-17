@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-10-17T01:21:09+00:00",
+ "checked_utc": "2026-10-17T05:40:58+00:00",
  "leagues": {
   "nfl": {
-   "records": 1637,
+   "records": 1683,
    "by_layer": {
     "official": 1553,
-    "reported": 84
+    "reported": 130
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -46,6 +46,16 @@
    ],
    "conflicts": [
     {
+     "player": "Taylor Moton",
+     "official": [
+      "no designation",
+      "out",
+      "questionable"
+     ],
+     "other": "expected to play",
+     "source": "ESPN injury note"
+    },
+    {
      "player": "Tershawn Wharton",
      "official": [
       "no designation",
@@ -53,6 +63,16 @@
       "questionable"
      ],
      "other": "expected to play",
+     "source": "ESPN injury note"
+    },
+    {
+     "player": "Michael Carter II",
+     "official": [
+      "active",
+      "no designation",
+      "out"
+     ],
+     "other": "expected out",
      "source": "ESPN injury note"
     }
    ],
@@ -64,12 +84,12 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "84/84"
+   "reported_matched_to_official_list": "130/130"
   },
   "nba": {
-   "records": 227,
+   "records": 230,
    "by_layer": {
-    "official": 148,
+    "official": 151,
     "reported": 79
    },
    "unknown_team": 0,
