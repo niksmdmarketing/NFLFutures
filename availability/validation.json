@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-10-17T19:27:32+00:00",
+ "checked_utc": "2026-10-17T22:23:55+00:00",
  "leagues": {
   "nfl": {
-   "records": 1701,
+   "records": 1703,
    "by_layer": {
     "official": 1573,
-    "reported": 128
+    "reported": 130
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -63,13 +63,13 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "128/128"
+   "reported_matched_to_official_list": "130/130"
   },
   "nba": {
-   "records": 176,
+   "records": 166,
    "by_layer": {
-    "official": 121,
-    "reported": 55
+    "official": 115,
+    "reported": 51
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -125,13 +125,13 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "55/55"
+   "reported_matched_to_official_list": "51/51"
   },
   "nhl": {
-   "records": 1561,
+   "records": 1557,
    "by_layer": {
-    "official": 152,
-    "reported": 61,
+    "official": 153,
+    "reported": 56,
     "projected": 1348
    },
    "unknown_team": 0,
@@ -181,7 +181,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "52/61"
+   "reported_matched_to_official_list": "47/56"
   },
   "nbl": {
    "records": 25,
@@ -257,7 +257,7 @@
   }
  },
  "sources_failed": [
-  "nba: NBA official injury report (PDF, file-name time) - RuntimeError: no official report found in the last 30 hours"
+  "nba: NBA official injury report (PDF, file-name time) - PdfminerException: No /Root object! - Is this really a PDF?"
  ],
  "sources_not_expected": []
 }
