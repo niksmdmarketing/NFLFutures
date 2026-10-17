@@ -1,10 +1,10 @@
 {
- "checked_utc": "2026-10-17T05:40:58+00:00",
+ "checked_utc": "2026-10-17T10:50:49+00:00",
  "leagues": {
   "nfl": {
-   "records": 1683,
+   "records": 1703,
    "by_layer": {
-    "official": 1553,
+    "official": 1573,
     "reported": 130
    },
    "unknown_team": 0,
@@ -48,7 +48,6 @@
     {
      "player": "Taylor Moton",
      "official": [
-      "no designation",
       "out",
       "questionable"
      ],
@@ -58,7 +57,6 @@
     {
      "player": "Tershawn Wharton",
      "official": [
-      "no designation",
       "out",
       "questionable"
      ],
@@ -69,7 +67,6 @@
      "player": "Michael Carter II",
      "official": [
       "active",
-      "no designation",
       "out"
      ],
      "other": "expected out",
@@ -149,17 +146,18 @@
    "reported_matched_to_official_list": "79/79"
   },
   "nhl": {
-   "records": 1549,
+   "records": 1574,
    "by_layer": {
-    "official": 161,
+    "official": 162,
     "reported": 64,
-    "projected": 1324
+    "projected": 1348
    },
    "unknown_team": 0,
    "no_player": 0,
    "future_published": 0,
    "teams_covered_official": [
     "ANA",
+    "BOS",
     "BUF",
     "CAR",
     "CGY",
@@ -193,7 +191,6 @@
    "conflicts": [],
    "stale_projection_dates": 0,
    "teams_missing_official": [
-    "BOS",
     "CBJ"
    ],
    "season_state": {
@@ -205,9 +202,9 @@
    "reported_matched_to_official_list": "60/64"
   },
   "nbl": {
-   "records": 27,
+   "records": 25,
    "by_layer": {
-    "official": 27
+    "official": 25
    },
    "unknown_team": 0,
    "no_player": 0,
