@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-10-17T17:16:13+00:00",
+ "checked_utc": "2026-10-17T19:27:32+00:00",
  "leagues": {
   "nfl": {
-   "records": 1707,
+   "records": 1701,
    "by_layer": {
     "official": 1573,
-    "reported": 134
+    "reported": 128
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -46,24 +46,6 @@
    ],
    "conflicts": [
     {
-     "player": "Taylor Moton",
-     "official": [
-      "out",
-      "questionable"
-     ],
-     "other": "expected to play",
-     "source": "ESPN injury note"
-    },
-    {
-     "player": "Tershawn Wharton",
-     "official": [
-      "out",
-      "questionable"
-     ],
-     "other": "expected to play",
-     "source": "ESPN injury note"
-    },
-    {
      "player": "Michael Carter II",
      "official": [
       "active",
@@ -81,13 +63,13 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "134/134"
+   "reported_matched_to_official_list": "128/128"
   },
   "nba": {
-   "records": 192,
+   "records": 176,
    "by_layer": {
-    "official": 130,
-    "reported": 62
+    "official": 121,
+    "reported": 55
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -102,7 +84,6 @@
     "DAL",
     "DEN",
     "GS",
-    "HOU",
     "IND",
     "LAC",
     "LAL",
@@ -135,7 +116,8 @@
    ],
    "stale_projection_dates": 0,
    "teams_missing_official": [
-    "DET"
+    "DET",
+    "HOU"
    ],
    "season_state": {
     "state": "in_season",
@@ -143,13 +125,13 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "62/62"
+   "reported_matched_to_official_list": "55/55"
   },
   "nhl": {
-   "records": 1564,
+   "records": 1561,
    "by_layer": {
-    "official": 154,
-    "reported": 62,
+    "official": 152,
+    "reported": 61,
     "projected": 1348
    },
    "unknown_team": 0,
@@ -199,7 +181,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "55/62"
+   "reported_matched_to_official_list": "52/61"
   },
   "nbl": {
    "records": 25,
