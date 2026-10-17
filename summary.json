@@ -1,12 +1,12 @@
 {
  "schema_version": 2,
  "source_url": "https://www.nfl.com/injuries/",
- "generated_at": "2026-10-17T15:40:22+00:00",
- "last_attempt_at": "2026-10-17T15:40:22+00:00",
+ "generated_at": "2026-10-17T18:32:35+00:00",
+ "last_attempt_at": "2026-10-17T18:32:35+00:00",
  "last_attempt_ok": true,
  "last_error": null,
- "last_success_at": "2026-10-17T15:40:22+00:00",
- "report_first_seen_at": "2026-10-17T00:32:01+00:00",
+ "last_success_at": "2026-10-17T18:32:35+00:00",
+ "report_first_seen_at": "2026-10-17T18:32:35+00:00",
  "collection_status": "ok",
  "stale_after_hours": 6,
  "report_season": 2026,
@@ -79,8 +79,8 @@
  ],
  "status_counts": {
   "Out": 70,
-  "Questionable": 84,
-  "No game status": 215,
+  "Questionable": 83,
+  "No game status": 216,
   "Doubtful": 5
  },
  "rows": [
@@ -1639,9 +1639,9 @@
    "player_id": "will-mallory",
    "player": "Will Mallory",
    "position": "TE",
-   "injury": "Thumb",
+   "injury": null,
    "practice_status": "Full Participation in Practice",
-   "game_status": "Questionable",
+   "game_status": null,
    "player_url": "https://www.nfl.com/players/will-mallory/"
   },
   {
@@ -3827,6 +3827,34 @@
  ],
  "recent_changes": [
   {
+   "observed_at": "2026-10-17T18:32:35+00:00",
+   "season": 2026,
+   "week": 6,
+   "team": "IND",
+   "player_id": "will-mallory",
+   "kind": "updated",
+   "before": {
+    "team": "IND",
+    "player_id": "will-mallory",
+    "player": "Will Mallory",
+    "position": "TE",
+    "injury": "Thumb",
+    "practice_status": "Full Participation in Practice",
+    "game_status": "Questionable",
+    "player_url": "https://www.nfl.com/players/will-mallory/"
+   },
+   "after": {
+    "team": "IND",
+    "player_id": "will-mallory",
+    "player": "Will Mallory",
+    "position": "TE",
+    "injury": null,
+    "practice_status": "Full Participation in Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/will-mallory/"
+   }
+  },
+  {
    "observed_at": "2026-10-17T00:32:01+00:00",
    "season": 2026,
    "week": 6,
@@ -4881,38 +4909,10 @@
     "game_status": "Out",
     "player_url": "https://www.nfl.com/players/michael-carter-ii/"
    }
-  },
-  {
-   "observed_at": "2026-10-17T00:32:01+00:00",
-   "season": 2026,
-   "week": 6,
-   "team": "PHI",
-   "player_id": "marquise-brown",
-   "kind": "updated",
-   "before": {
-    "team": "PHI",
-    "player_id": "marquise-brown",
-    "player": "Marquise Brown",
-    "position": "WR",
-    "injury": null,
-    "practice_status": "Limited Participation in Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/marquise-brown/"
-   },
-   "after": {
-    "team": "PHI",
-    "player_id": "marquise-brown",
-    "player": "Marquise Brown",
-    "position": "WR",
-    "injury": null,
-    "practice_status": "Full Participation in Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/marquise-brown/"
-   }
   }
  ],
- "distinct_reports": 12,
- "checks": 207,
+ "distinct_reports": 13,
+ "checks": 208,
  "failed_checks": 0,
  "warnings": [],
  "projection_effect": "none",
