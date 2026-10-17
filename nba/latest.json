@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-10-17T1836Z",
-"feed_timestamp": "2026-10-17T18:36:44Z",
+"collected_utc": "2026-10-17T2226Z",
+"feed_timestamp": "2026-10-17T22:26:54Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -14,36 +14,6 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-21",
 "injury": "Left Foot Fracture"
-},
-{
-"athlete_id": "3078576",
-"status": "Day-To-Day",
-"return_date": "2026-10-20",
-"injury": "Rest"
-},
-{
-"athlete_id": "4351852",
-"status": "Day-To-Day",
-"return_date": "2026-10-20",
-"injury": "Rest"
-},
-{
-"athlete_id": "4397424",
-"status": "Day-To-Day",
-"return_date": "2026-10-20",
-"injury": "Rest"
-},
-{
-"athlete_id": "4066354",
-"status": "Day-To-Day",
-"return_date": "2026-10-20",
-"injury": "Rest"
-},
-{
-"athlete_id": "4065804",
-"status": "Day-To-Day",
-"return_date": "2026-10-20",
-"injury": "Rest"
 },
 {
 "athlete_id": "4870564",
@@ -142,12 +112,6 @@
 "injury": "Illness"
 },
 {
-"athlete_id": "4432582",
-"status": "Day-To-Day",
-"return_date": null,
-"injury": ""
-},
-{
 "athlete_id": "4593125",
 "status": "Day-To-Day",
 "return_date": "2026-10-21",
@@ -158,12 +122,6 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-21",
 "injury": "Right Heel"
-},
-{
-"athlete_id": "3064290",
-"status": "Day-To-Day",
-"return_date": "2026-10-22",
-"injury": "Rest"
 },
 {
 "athlete_id": "4432181",
@@ -236,12 +194,6 @@
 "status": "Out",
 "return_date": "2027-03-01",
 "injury": "Shoulder Surgery"
-},
-{
-"athlete_id": "4702352",
-"status": "Day-To-Day",
-"return_date": "2026-10-21",
-"injury": "Left Hip"
 },
 {
 "athlete_id": "4065778",
@@ -340,12 +292,6 @@
 "injury": "Right Achilles Surgery"
 },
 {
-"athlete_id": "4592699",
-"status": "Day-To-Day",
-"return_date": "2026-10-21",
-"injury": "Shoulder"
-},
-{
 "athlete_id": "5157587",
 "status": "Day-To-Day",
 "return_date": "2026-10-21",
@@ -431,8 +377,8 @@
 },
 {
 "athlete_id": "5214637",
-"status": "Day-To-Day",
-"return_date": "2026-10-21",
+"status": "Out",
+"return_date": "2026-11-18",
 "injury": "Right Hamstring"
 },
 {
@@ -618,51 +564,6 @@
 "updated": "2026-07-19T00:14Z"
 },
 {
-"athlete_id": "3078576",
-"name": "Derrick White",
-"team_name": "Boston Celtics",
-"status": "Day-To-Day",
-"return_date": "2026-10-20",
-"injury": "Rest",
-"updated": "2026-10-16T23:05Z"
-},
-{
-"athlete_id": "4351852",
-"name": "Mitchell Robinson",
-"team_name": "Boston Celtics",
-"status": "Day-To-Day",
-"return_date": "2026-10-20",
-"injury": "Rest",
-"updated": "2026-10-16T23:09Z"
-},
-{
-"athlete_id": "4397424",
-"name": "Neemias Queta",
-"team_name": "Boston Celtics",
-"status": "Day-To-Day",
-"return_date": "2026-10-20",
-"injury": "Rest",
-"updated": "2026-10-16T23:08Z"
-},
-{
-"athlete_id": "4066354",
-"name": "Payton Pritchard",
-"team_name": "Boston Celtics",
-"status": "Day-To-Day",
-"return_date": "2026-10-20",
-"injury": "Rest",
-"updated": "2026-10-16T23:06Z"
-},
-{
-"athlete_id": "4065804",
-"name": "Sam Hauser",
-"team_name": "Boston Celtics",
-"status": "Day-To-Day",
-"return_date": "2026-10-20",
-"injury": "Rest",
-"updated": "2026-10-16T23:12Z"
-},
-{
 "athlete_id": "4870564",
 "name": "Joshua Jefferson",
 "team_name": "Brooklyn Nets",
@@ -807,15 +708,6 @@
 "updated": "2026-10-16T22:25Z"
 },
 {
-"athlete_id": "4432582",
-"name": "Max Christie",
-"team_name": "Dallas Mavericks",
-"status": "Day-To-Day",
-"return_date": null,
-"injury": "",
-"updated": "2026-10-16T22:28Z"
-},
-{
 "athlete_id": "4593125",
 "name": "Santi Aldama",
 "team_name": "Dallas Mavericks",
@@ -832,15 +724,6 @@
 "return_date": "2026-10-21",
 "injury": "Right Heel",
 "updated": "2026-10-16T22:25Z"
-},
-{
-"athlete_id": "3064290",
-"name": "Aaron Gordon",
-"team_name": "Denver Nuggets",
-"status": "Day-To-Day",
-"return_date": "2026-10-22",
-"injury": "Rest",
-"updated": "2026-10-17T01:08Z"
 },
 {
 "athlete_id": "4432181",
@@ -949,15 +832,6 @@
 "return_date": "2027-03-01",
 "injury": "Shoulder Surgery",
 "updated": "2026-08-26T20:04Z"
-},
-{
-"athlete_id": "4702352",
-"name": "Kobe Sanders",
-"team_name": "LA Clippers",
-"status": "Day-To-Day",
-"return_date": "2026-10-21",
-"injury": "Left Hip",
-"updated": "2026-10-15T01:08Z"
 },
 {
 "athlete_id": "4065778",
@@ -1104,15 +978,6 @@
 "updated": "2026-10-05T20:53Z"
 },
 {
-"athlete_id": "4592699",
-"name": "Enrique Freeman",
-"team_name": "Minnesota Timberwolves",
-"status": "Day-To-Day",
-"return_date": "2026-10-21",
-"injury": "Shoulder",
-"updated": "2026-10-17T00:03Z"
-},
-{
 "athlete_id": "5157587",
 "name": "Rocco Zikarsky",
 "team_name": "Minnesota Timberwolves",
@@ -1242,10 +1107,10 @@
 "athlete_id": "5214637",
 "name": "Noah Penda",
 "team_name": "Orlando Magic",
-"status": "Day-To-Day",
-"return_date": "2026-10-21",
+"status": "Out",
+"return_date": "2026-11-18",
 "injury": "Right Hamstring",
-"updated": "2026-10-16T23:54Z"
+"updated": "2026-10-17T22:01Z"
 },
 {
 "athlete_id": "5105637",
@@ -1308,7 +1173,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-21",
 "injury": "Left Knee Strain",
-"updated": "2026-10-17T18:22Z"
+"updated": "2026-10-17T22:02Z"
 },
 {
 "athlete_id": "4701232",
