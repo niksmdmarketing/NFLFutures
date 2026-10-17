@@ -21,7 +21,8 @@ def load_box():
         parts.append(d)
     b = pd.concat(parts, ignore_index=True)
     b["fga"], b["fta"], b["orb"], b["tov"], b["reb"] = (b[c] for c in ("field_goals_attempted", "free_throws_attempted", "offensive_rebounds", "total_turnovers", "total_rebounds"))
-    b = b.dropna(subset=["fga", "fta", "reb", "team_score", "opponent_team_score"])
+    b = b.dropna(subset=["fga", "fta", "reb", "team_score", "opponent_team_score", "orb", "tov"])
+    b = b[(b.fga > 0) & (b.reb > 0)]   # some provider rows carry empty box-score fields (zero shots): not usable
     own = b[["game_id", "season", "game_date", "team_id", "team_display_name", "team_score", "opponent_team_score", "fga", "fta", "orb", "tov", "reb"]]
     opp = own.rename(columns={"team_id": "opponent_team_id", "team_score": "o_score", "opponent_team_score": "_x", "fga": "o_fga", "fta": "o_fta", "orb": "o_orb",
                               "tov": "o_tov", "reb": "o_reb", "team_display_name": "_n"})[["game_id", "opponent_team_id", "o_fga", "o_fta", "o_orb", "o_tov", "o_reb"]]

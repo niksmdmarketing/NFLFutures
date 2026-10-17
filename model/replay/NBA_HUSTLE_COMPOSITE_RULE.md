@@ -27,3 +27,12 @@ Otherwise: not used in the model, reported as a descriptive statistic only. For 
 not a trial.
 
 Display is separate: rankings are shown on the site regardless of the result, labelled descriptive.
+
+## Outcome (17 Oct 2026; research/nba_hustle_composite_test.py; TypeSafe 97% reject for the model, confidence 0.95)
+Held-out gain in MSE of future margin, margin-only model vs margin + composite (positive = composite helps), season-bootstrap 90%:
+- Rest of season, N=20: H1 -0.004 (-0.038..+0.027), H2 -0.013; N=41: H1 -0.026 (-0.050..-0.004), H2 -0.022. Better in about 13 of 23 seasons.
+- Next season: H1 -0.009, H2 -0.028 (-0.044..-0.013; better 6/21). Coefficient sign is negative within a season and positive next season.
+- With offence/defence rating in place of margin: +0.006 to +0.058, all intervals span zero.
+- Tracking hustle T vs next season's margin: -0.10 (-0.58..+0.33), better 4/7 (only 7 season transitions matched).
+Conditions 1, 2 and 3 fail for every composite. Not used in the model. Rankings stay on the site as descriptive statistics.
+Reading: rebounds and free throws are already inside a team's margin; having lots of them does not add information about the future beyond it.
