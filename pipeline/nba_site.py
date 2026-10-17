@@ -6,6 +6,7 @@ simulation in nba.py (futures). Season keys are end years (2026 = 2025-26).
 """
 import json
 import os
+import shutil
 
 import numpy as np
 import pandas as pd
@@ -822,12 +823,18 @@ PAGES = [("index", "Standings", "NBA standings", "Records, ratings, luck and spl
          ("awards", "Awards", "NBA award chances", "MVP, Defensive Player, Rookie and Sixth Man chances from a model tested on every season since 2002-03, with past winners."),
          ("teams", "Team stats", "NBA team stats", "Ratings, four factors, shooting, shot profile, splits (home/road, back-to-backs, close games, vs winning teams), box score and hustle tracking (2015-16 onward). Season table or year by year."),
          ("players", "Players", "NBA player stats", "Per game, shooting, per 36, totals and NBA advanced (usage, ratings, PIE) for every player since 2002-03, regular season and playoffs. Hustle and Synergy play-type groups (isolation, pick-and-roll, spot-up and more, offense and defense) from 2015-16."),
+         ("hustle", "Hustle & Synergy", "NBA hustle and Synergy rankings", "Who leads the league in deflections, loose balls, contested shots, box-outs and screen assists, and who is best at each play type (isolation, pick-and-roll, spot-up and more) on offense and defense. Descriptive rankings, 2016-17 onward."),
          ("games", "Games", "NBA game logs", "Every team game since 2002-03 with efficiency, four factors and rest days."),
          ("model", "How it works", "NBA model: how it works", "How the season chances are tested, how accurate they have been, and what the model does not know.")]
 
 
 def build_site():
     S.build_pages(SITE, "NBA", "Futures", PAGES, data_src=OUT)
+    nav = [(s, l) for s, l, _, _ in PAGES]
+    slug, _, title, intro = next(p for p in PAGES if p[0] == "hustle")   # its own script: rankings are descriptive, not part of the shared stats engine
+    with open(os.path.join(SITE, "hustle.html"), "w", encoding="utf-8") as fh:
+        fh.write(S.page_html("NBA", "Futures", nav, slug, title, intro, script="hustle.js"))
+    shutil.copy(os.path.join(S.ENGINE, "hustle.js"), SITE)
     S.log("NBA site pages written")
 
 
