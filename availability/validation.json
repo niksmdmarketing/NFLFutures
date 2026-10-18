@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-10-17T22:23:55+00:00",
+ "checked_utc": "2026-10-18T01:08:11+00:00",
  "leagues": {
   "nfl": {
-   "records": 1703,
+   "records": 1705,
    "by_layer": {
     "official": 1573,
-    "reported": 130
+    "reported": 132
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -59,16 +59,16 @@
    "teams_missing_official": [],
    "season_state": {
     "state": "in_season",
-    "why": "13 regular-season/playoff and 0 other games 2026-10-10..2026-10-27"
+    "why": "13 regular-season/playoff and 0 other games 2026-10-11..2026-10-28"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "130/130"
+   "reported_matched_to_official_list": "132/132"
   },
   "nba": {
-   "records": 166,
+   "records": 165,
    "by_layer": {
-    "official": 115,
+    "official": 114,
     "reported": 51
    },
    "unknown_team": 0,
@@ -77,13 +77,14 @@
    "teams_covered_official": [
     "ATL",
     "BKN",
-    "BOS",
     "CHA",
     "CHI",
     "CLE",
     "DAL",
     "DEN",
+    "DET",
     "GS",
+    "HOU",
     "IND",
     "LAC",
     "LAL",
@@ -116,21 +117,20 @@
    ],
    "stale_projection_dates": 0,
    "teams_missing_official": [
-    "DET",
-    "HOU"
+    "BOS"
    ],
    "season_state": {
     "state": "in_season",
-    "why": "3 regular-season/playoff and 12 other games 2026-10-10..2026-10-27"
+    "why": "14 regular-season/playoff and 0 other games 2026-10-11..2026-10-28"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
    "reported_matched_to_official_list": "51/51"
   },
   "nhl": {
-   "records": 1557,
+   "records": 1558,
    "by_layer": {
-    "official": 153,
+    "official": 154,
     "reported": 56,
     "projected": 1348
    },
@@ -177,7 +177,7 @@
    ],
    "season_state": {
     "state": "in_season",
-    "why": "33 regular-season/playoff and 0 other games 2026-10-10..2026-10-27"
+    "why": "33 regular-season/playoff and 0 other games 2026-10-11..2026-10-28"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
@@ -199,17 +199,16 @@
     "MEL",
     "NZL",
     "PER",
+    "SEM",
     "SYD",
     "TAS"
    ],
    "conflicts": [],
    "stale_projection_dates": 0,
-   "teams_missing_official": [
-    "SEM"
-   ],
+   "teams_missing_official": [],
    "season_state": {
     "state": "in_season",
-    "why": "18 NBL games 2026-10-10..2026-10-27 (NBL fixture, season 2026)"
+    "why": "17 NBL games 2026-10-11..2026-10-28 (NBL fixture, season 2026)"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
@@ -248,7 +247,7 @@
    ],
    "season_state": {
     "state": "off_season",
-    "why": "0 AFL games 2026-10-10..2026-10-27 (Squiggle fixture)"
+    "why": "0 AFL games 2026-10-11..2026-10-28 (Squiggle fixture)"
    },
    "coverage_expected": false,
    "teams_missing_official_note": "off-season: no official coverage expected",
@@ -257,7 +256,7 @@
   }
  },
  "sources_failed": [
-  "nba: NBA official injury report (PDF, file-name time) - PdfminerException: No /Root object! - Is this really a PDF?"
+  "nba: NBA official injury report (PDF, file-name time) - RuntimeError: no official report found in the last 30 hours"
  ],
  "sources_not_expected": []
 }
