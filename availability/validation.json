@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-10-18T14:38:32+00:00",
+ "checked_utc": "2026-10-18T18:10:16+00:00",
  "leagues": {
   "nfl": {
-   "records": 1716,
+   "records": 1672,
    "by_layer": {
     "official": 1577,
-    "reported": 139
+    "reported": 95
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -46,12 +46,29 @@
    ],
    "conflicts": [
     {
-     "player": "Michael Carter II",
+     "player": "Andrew Vorhees",
      "official": [
-      "active",
+      "out",
+      "questionable"
+     ],
+     "other": "expected to play",
+     "source": "ESPN injury note"
+    },
+    {
+     "player": "Monroe Freeling",
+     "official": [
+      "doubtful",
       "out"
      ],
-     "other": "expected out",
+     "other": "expected to play",
+     "source": "ESPN injury note"
+    },
+    {
+     "player": "Case Keenum",
+     "official": [
+      "out"
+     ],
+     "other": "expected to play",
      "source": "ESPN injury note"
     }
    ],
@@ -63,13 +80,13 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "139/139"
+   "reported_matched_to_official_list": "95/95"
   },
   "nba": {
-   "records": 166,
+   "records": 164,
    "by_layer": {
     "official": 115,
-    "reported": 51
+    "reported": 49
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -124,12 +141,12 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "51/51"
+   "reported_matched_to_official_list": "49/49"
   },
   "nhl": {
-   "records": 1552,
+   "records": 1553,
    "by_layer": {
-    "official": 157,
+    "official": 158,
     "reported": 72,
     "projected": 1323
    },
@@ -180,7 +197,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "64/72"
+   "reported_matched_to_official_list": "65/72"
   },
   "nbl": {
    "records": 25,
@@ -193,18 +210,19 @@
    "teams_covered_official": [
     "ADL",
     "BRI",
-    "CNS",
     "ILL",
     "MEL",
     "NZL",
     "PER",
-    "SEM",
     "SYD",
     "TAS"
    ],
    "conflicts": [],
    "stale_projection_dates": 0,
-   "teams_missing_official": [],
+   "teams_missing_official": [
+    "CNS",
+    "SEM"
+   ],
    "season_state": {
     "state": "in_season",
     "why": "17 NBL games 2026-10-11..2026-10-28 (NBL fixture, season 2026)"
