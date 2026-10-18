@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-10-18T20:50:02+00:00",
+ "checked_utc": "2026-10-18T23:18:24+00:00",
  "leagues": {
   "nfl": {
-   "records": 1670,
+   "records": 1662,
    "by_layer": {
     "official": 1577,
-    "reported": 93
+    "reported": 85
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -80,13 +80,13 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "93/93"
+   "reported_matched_to_official_list": "85/85"
   },
   "nba": {
-   "records": 162,
+   "records": 166,
    "by_layer": {
-    "official": 115,
-    "reported": 47
+    "official": 117,
+    "reported": 49
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -141,7 +141,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "47/47"
+   "reported_matched_to_official_list": "49/49"
   },
   "nhl": {
    "records": 1551,
@@ -210,19 +210,18 @@
    "teams_covered_official": [
     "ADL",
     "BRI",
+    "CNS",
     "ILL",
     "MEL",
     "NZL",
     "PER",
+    "SEM",
     "SYD",
     "TAS"
    ],
    "conflicts": [],
    "stale_projection_dates": 0,
-   "teams_missing_official": [
-    "CNS",
-    "SEM"
-   ],
+   "teams_missing_official": [],
    "season_state": {
     "state": "in_season",
     "why": "17 NBL games 2026-10-11..2026-10-28 (NBL fixture, season 2026)"
