@@ -4,12 +4,16 @@ import glob, json, sys
 import numpy as np, pandas as pd
 from math import erf, sqrt
 
+def _frame(block):
+    b = block[0]
+    return pd.DataFrame(b) if all(isinstance(v, list) for v in b.values()) else pd.DataFrame([b])
+
 def load(d):
     rows = []
     for p in sorted(glob.glob(d + "/*.json")):
         x = json.load(open(p))
-        if "TeamData" not in x or not x.get("Matches") or "MatchId" not in x["Matches"][0] or not isinstance(x["Matches"][0]["MatchId"], list): continue
-        s = x["Summary"][0]; td = pd.DataFrame(x["TeamData"][0]); m = pd.DataFrame(x["Matches"][0])
+        if len(p.split("/")[-1]) != 11 or "TeamData" not in x or not x.get("Matches"): continue
+        s = x["Summary"][0]; td = _frame(x["TeamData"]); m = _frame(x["Matches"])     # one-match files (grand finals) hold scalars, not lists
         has = "xScore" in td
         ix = td.set_index(["MatchId", "Team"])
         for r in m.itertuples():

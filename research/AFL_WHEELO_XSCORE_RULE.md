@@ -44,3 +44,6 @@ Run: research/afl_wheelo_xscore_test.py, results research/afl_wheelo_xscore_resu
 - Log loss 0.5707 to 0.5608; calibration slope of the mix 1.03.
 - Reported: expected-only is slightly better than the 50/50 mix, so the fixed 0.5 weight is not optimal; the weight stays fixed for the shadow and can be reviewed after the 2027 season.
 Decision (TypeSafe 97%): run expected scores as a shadow challenger in the 2027 AFL build from March; no change to the live AFL page before then. Low power (4 seasons, one set of weights and hyperparameters), so a pass means "worth a shadow", not adoption.
+
+## Data correction (19 Oct 2026, found while building the clean AFL tables)
+Grand-final round files hold a single match stored as scalars rather than lists, and the first run's loader silently skipped them, so the four 2023-2026 grand finals were missing. Fixed loader rerun (816 games): MSE actual 1160.9, mix 1127.8, expected-only 1122.3; mix gain 33.1 (90% interval 17.0 to 48.9); 4 of 4 seasons (19, 61, 18, 36); early 49.9, late 26.1; log loss 0.5721 to 0.5622; slope 1.03. All gates still pass; decision unchanged. First-run file kept as afl_wheelo_xscore_results_first_run.json.
