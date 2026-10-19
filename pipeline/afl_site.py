@@ -476,8 +476,9 @@ def model_d(cur, played):
     n_played = int(played.rnd.nunique()) if played is not None and len(played) else 0
     if int(doc.get("season", 0)) != cur:
         return None, None, f"model D ratings are for {doc.get('season')}, not {cur}"
-    if n_played > int(doc.get("rounds_played_this_season", 0)):
+    if n_played > int(doc.get("rounds_played_this_season", 0)) + 1:      # one round behind is allowed (weekly refresh); two is not
         return None, None, f"model D ratings cover {doc.get('rounds_played_this_season')} rounds of {cur}; {n_played} have been played"
+    doc["behind"] = max(0, n_played - int(doc.get("rounds_played_this_season", 0)))
     return {k: float(v) for k, v in doc["ratings"].items()}, float(doc["home_term"]), doc
 
 
@@ -497,7 +498,8 @@ def futures(cur, hist_games, tables):
     hga = HGA
     if d_rating is not None:
         rating, hga = {t: d_rating.get(t, 0.0) for t in teams}, d_home
-        model_status = f"Model D (team stats + players, Wheelo data through {d_doc['data_through']['round_name']} {d_doc['data_through']['season']})"
+        model_status = (f"Model D (team stats + players), ratings through {d_doc['data_through']['round_name']} {d_doc['data_through']['season']}"
+                        + (" - one round behind the results; refreshed weekly on Tuesdays" if d_doc.get("behind") else ""))
     else:
         model_status = f"current margin model (model D unavailable: {d_doc})"
         S.log("AFL futures:", model_status)
@@ -535,7 +537,7 @@ def futures(cur, hist_games, tables):
                      "p10": r["p10"], "p8": r["p8"], "p4": r["p4"], "p1": r["p1"], "pf": r["pf"], "gf": r["gf"], "flag": r["flag"]})
     bt = backtest(hist_games)
     return {"season": cur, "status": status, "sims": 20000, "main": "flag", "group_label": "",
-            "intro": "Ladder and finals chances from simulating the home-and-away season and the top-10 finals series (wildcard round, then the final eight).",
+            "intro": "Ladder and finals chances from simulating the home-and-away season and the top-10 finals series (wildcard round, then the final eight). " + model_status + ".",
             "proj": {"k": "w_mean", "l": "Proj. wins", "lo": "w_p10", "hi": "w_p90", "f": "num1"},
             "rating_note": "Points per game better (+) or worse (−) than an average team on a neutral ground",
             "extra": ([{"k": "left", "l": "Games left", "f": "int"}, {"k": "road_left", "l": "Away left", "f": "int"},

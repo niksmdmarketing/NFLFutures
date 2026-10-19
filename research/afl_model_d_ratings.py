@@ -9,6 +9,7 @@ Usage:
   python afl_model_d_ratings.py <clean_dir> --check            (rebuild ratings before past rounds and compare with the test's D predictions)
   python afl_model_d_ratings.py <clean_dir> --preseason 2027   (ratings before round 0 of that season: all games through the previous season)
   python afl_model_d_ratings.py <clean_dir> --before 2027 5    (in-season: ratings before round 5 of 2027)
+  python afl_model_d_ratings.py <clean_dir> --auto 2027         (weekly job: pre-season, or before the round after the latest one in the data)
 """
 import datetime as dt
 import json
@@ -115,7 +116,11 @@ def main():
         print(df.to_string())
         print("max abs diff", float((df.from_ratings - df.test_D).abs().max()))
         return
-    if "--preseason" in sys.argv:
+    if "--auto" in sys.argv:                 # weekly refresh: pre-season if no games of that season yet, else before the next round
+        season = int(sys.argv[sys.argv.index("--auto") + 1])
+        played = M[M.season == season]
+        rnd = int(played["round"].max()) + 1 if len(played) else -1
+    elif "--preseason" in sys.argv:
         season, rnd = int(sys.argv[sys.argv.index("--preseason") + 1]), -1
     else:
         i = sys.argv.index("--before")
