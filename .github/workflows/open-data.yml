@@ -45,6 +45,7 @@ jobs:
           python collectors/open_data/cbb_data.py $Y $Y || true
           python collectors/open_data/cbb_box.py $Y $Y || true
           python collectors/open_data/cbb_schedule_meta.py $Y $Y || true
+          python collectors/open_data/cbb_player_minutes.py $Y $Y || true
       - name: Polymarket college football prices
         if: ${{ github.event.schedule != '40 10 * 1-4,11-12 *' || inputs.what == 'polymarket' || inputs.what == 'all' }}
         env:
