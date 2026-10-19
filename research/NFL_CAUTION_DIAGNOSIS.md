@@ -37,8 +37,8 @@ The often-quoted "1.2" is v4's 0.89 rating scale applied to gaps that were alrea
 
 (Integer win totals inflate interval coverage above 80%; the z-sd is the cleaner measure.) Win-total uncertainty is not where the caution is: v4 is slightly too wide, v5like about right. The two models predict wins equally well at every stage. One real issue: v5like's pre-season expected wins are too spread (slope 0.84).
 
-### 3. Playoffs with the actual field and seeds (diagnostic only)
-Only 2020-2025 (the 7-seed format; 12 conference champions), so this is too small to conclude anything. Conference forecasts beat a uniform guess; title forecasts did not. No. 1 seeds won 6 of 12 conferences against 35% predicted by v4 and 43% by v5like (v5's larger playoff home edge moves in the right direction).
+### 3. Playoffs with the actual field and seeds (diagnostic only; superseded by sections 7 and 9)
+First version, only 2020-2025 (the 7-seed format; 12 conference champions), so this is too small to conclude anything. Conference forecasts beat a uniform guess; title forecasts did not. No. 1 seeds won 6 of 12 conferences against 35% predicted by v4 and 43% by v5like (v5's larger playoff home edge moves in the right direction).
 
 ### 4. Futures by stage: the caution is market-specific
 Calibration slopes with 90% intervals:
@@ -97,7 +97,7 @@ pipeline/simulate.py draws each team's season strength once per simulation (rati
 - No QB layers in either replay model (live v4 and v5 have them).
 - v5like is a close research copy, not the exact live v5 (no QB-availability prior, no pressure term).
 - v4's walk-forward weights are a reconstruction (correlation 0.66 with the frozen weights; same accuracy).
-- The playoff-field check covers 2020-2025 only; 2013-2019 used 6 seeds and were skipped.
+- The playoff-field check now covers 2013-2025 (6-seed format to 2019, 7-seed from 2020); see sections 7 and 9.
 - 2,000 simulations per checkpoint; slopes for rare markets are noisy.
 
 ## Next (proposed, not run; superseded by the review order below)
@@ -112,3 +112,29 @@ TypeSafe leaned to (a) (61%), with "no change; wait for 2026 live scoring" at 25
 2. Done: strength persistence audit (section 8) - full persistence.
 3. Next candidate: one targeted change in the playoff rounds, e.g. the conference-round home edge (v5's 4.0 already moves No. 1 seeds from 9.5 to 11.6 of 16), or whether the No. 1 seed's rating is under-stated going into the playoffs. No manual bye bonus.
 Separate (next season): v5 pre-season expected-win gaps (slope 0.84), without changing per-team uncertainty.
+
+## Second review round (20 Oct 2026)
+GPT's points, accepted: the actual-field result is concentrated in 2013-19 (slopes 2.50 / 2.23) and absent or reversed in 2020-25 (1.05 / 0.81), so it is no reason to sharpen current playoff forecasts; "most of the error is in the playoff rounds" is not established without comparable forecast dates and inputs for qualification and seeding; the v4 -> v5like move (9.5 -> 11.6 No. 1-seed titles) is a whole-model comparison, not a home-edge result.
+
+Forecast date of the actual-field check (confirmed in code): ratings are built from every regular-season game and nothing from the playoffs (research/nfl_futures_diagnosis.py, checkpoint "end": plays with week <= last regular-season week, season_type REG, all regular-season results known). No seed adjustment is added; seeds only set the bracket.
+
+### 9. Individual playoff games, 2013-2025 (research/nfl_playoff_games.py; ratings fixed just before each postseason)
+155 playoff games. Predicted margin = rating gap + the model's playoff home edge (Super Bowl neutral); win probability as in the simulation.
+
+| | v4 (edge 1.8) | v5like (edge 4.0) | actual |
+|---|---|---|---|
+| Home wins, all 155 | 92.0 | 100.2 | 98 |
+| Mean home margin | +3.3 | +5.3 | +4.9 |
+| Home wins 2013-19 (77) | 45.9 | 50.1 | 48 |
+| Home wins 2020-25 (78) | 46.1 | 50.1 | 50 |
+| Conference finals, home wins (26) | 16.0 | 17.4 | 20 |
+| No. 1 seed games 2013-19: wins (28) | 17.5 | 18.9 | 23 |
+| No. 1 seed games 2020-25: wins (25) | 15.9 | 17.0 | 16 |
+| No. 1 seed mean margin 2013-19 / 2020-25 | +4.5 / +4.9 | +6.4 / +6.6 | +9.5 / +4.8 |
+
+- No. 1 seeds outperform their ratings only in 2013-19 (23 wins vs 17.5 predicted by v4); in 2020-25 they match (16 vs 15.9). In 2013-19 they won 11 of 14 one-score games (7 points or fewer) against 3 losses; in 2020-25 8 wins and 6 losses. A handful of close games (and New England's run) drive the historical finding. This is not consistent evidence that No. 1 seeds are under-rated.
+- Margin slopes in playoff games are below 1 overall (v4 0.80, v5like 0.66) and unstable by era (1.33 vs 0.44): in the playoffs the rating gap is, if anything, less decisive than predicted, not more.
+- Home teams: with ratings fixed, home sides beat v4's predicted margin by 1.6 points on average (SE about 1.1), implying a playoff home edge around 3.4 rather than 1.8. This is the only isolated (ratings-fixed) evidence for the home-edge change in v5, and it is weak; v5like's 4.0 slightly over-predicts home wins (100 vs 98).
+
+### Verdict after the second review
+No demonstrated reason to raise current conference-favourite probabilities. The conference-market "caution" in the 13-season replay is mostly a 2013-19 effect driven by No. 1 seeds winning close playoff games; 2020-25 is calibrated or slightly over-confident. The only adjustment with some isolated support is a playoff home edge between v4's 1.8 and v5's 4.0; if tested, it should be tested alone with ratings and uncertainty fixed.
