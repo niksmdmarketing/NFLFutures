@@ -138,3 +138,5 @@ Forecast date of the actual-field check (confirmed in code): ratings are built f
 
 ### Verdict after the second review
 No demonstrated reason to raise current conference-favourite probabilities. The conference-market "caution" in the 13-season replay is mostly a 2013-19 effect driven by No. 1 seeds winning close playoff games; 2020-25 is calibrated or slightly over-confident. The only adjustment with some isolated support is a playoff home edge between v4's 1.8 and v5's 4.0; if tested, it should be tested alone with ratings and uncertainty fixed.
+
+Decision (TypeSafe 64%): stop here. No change to current conference probabilities; v5 keeps playoff home edge 4.0 in shadow and the 2026 live scoring judges it. An isolated home-edge test (33%) stays on the list.
