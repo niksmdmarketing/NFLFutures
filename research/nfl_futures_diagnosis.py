@@ -27,7 +27,7 @@ import simulate  # noqa: E402
 from common import FIX, TEAMS, TIX, games, load_pbp  # noqa: E402
 
 N = int(os.environ.get("DIAG_SIMS", "3000"))
-CHECK = [0, 4, 8, 12, 16]
+CHECK = [0, 4, 8, 12, 16] if os.environ.get("DIAG_FIELD_ONLY") != "1" else []   # DIAG_FIELD_ONLY=1: only the actual-field playoff check
 WF = json.load(open(os.path.join(ROOT, "model", "replay", "nfl_wf_coef.json")))["seasons"]
 V4 = dict(scale=0.89, tau=5.0, sigma=11.37, hfa=1.8, hfa_post=None)
 V5 = dict(scale=0.89, tau=4.0, sigma=12.0, hfa=1.8, hfa_post=4.0)
@@ -53,8 +53,8 @@ def playoffs_given_field(R, seeds, tau, sigma, hpo, rng):
         for c in (0, 1):
             sd = seeds[c]
             rank = {t: i for i, t in enumerate(sd)}
-            alive = [sd[0]]
-            for h, a in ((1, 6), (2, 5), (3, 4)):
+            alive = [sd[0]] if len(sd) == 7 else [sd[0], sd[1]]          # 7-seed format (2020+): one bye; 6-seed (to 2019): two
+            for h, a in (((1, 6), (2, 5), (3, 4)) if len(sd) == 7 else ((2, 5), (3, 4))):
                 x, y = sd[h], sd[a]
                 alive.append(x if u[s, gi] < norm.cdf((Rs[s, x] - Rs[s, y] + hpo) / sigma) else y); gi += 1
             alive.sort(key=lambda t: rank[t])
@@ -99,7 +99,7 @@ def run(y, g, st):
                 for c, conf in ((0, "AFC"), (1, "NFC")):
                     x = s[(s.conf == conf) & s.seed.notna()].sort_values("seed")
                     seeds[c] = [TIX[FIX.get(t, t)] for t in x.team]
-                if any(len(v) != 7 for v in seeds.values()):
+                if any(len(v) not in (6, 7) for v in seeds.values()):
                     continue
                 hpo = P["hfa"] if P["hfa_post"] is None else P["hfa_post"]
                 pc, pt = playoffs_given_field(R, seeds, P["tau"], P["sigma"], hpo, rng)
@@ -133,5 +133,8 @@ if __name__ == "__main__":
         a, b = run(y, g, st)
         R_ += a
         PR += b
+        if os.environ.get("DIAG_FIELD_ONLY") == "1":
+            pd.DataFrame(PR).to_csv(os.path.join(ROOT, "research", "nfl_futures_diagnosis_playoff_rows_2013_19.csv"), index=False)
+            continue
         pd.DataFrame(R_).to_csv(os.path.join(ROOT, "research", "nfl_futures_diagnosis_rows.csv"), index=False)
         pd.DataFrame(PR).to_csv(os.path.join(ROOT, "research", "nfl_futures_diagnosis_playoff_rows.csv"), index=False)

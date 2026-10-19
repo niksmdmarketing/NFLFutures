@@ -1,0 +1,136 @@
+{
+ "v4wf": {
+  "seasons": 13,
+  "conference_champions": 26,
+  "ll_conf": 0.3264,
+  "ll_conf_uniform": 0.4303,
+  "intercept_slope_conf": [
+   0.75,
+   1.59
+  ],
+  "by_seed": {
+   "1": {
+    "predicted": 9.52,
+    "actual": 16,
+    "n": 26
+   },
+   "2": {
+    "predicted": 6.75,
+    "actual": 6,
+    "n": 26
+   },
+   "3": {
+    "predicted": 3.23,
+    "actual": 1,
+    "n": 26
+   },
+   "4": {
+    "predicted": 1.72,
+    "actual": 2,
+    "n": 26
+   },
+   "5": {
+    "predicted": 2.19,
+    "actual": 1,
+    "n": 26
+   },
+   "6": {
+    "predicted": 2.05,
+    "actual": 0,
+    "n": 26
+   },
+   "7": {
+    "predicted": 0.53,
+    "actual": 0,
+    "n": 12
+   }
+  },
+  "by_format": {
+   "6-seed": {
+    "intercept_slope": [
+     1.56,
+     2.5
+    ],
+    "ll": 0.3011,
+    "ll_uniform": 0.4506
+   },
+   "7-seed": {
+    "intercept_slope": [
+     0.08,
+     1.05
+    ],
+    "ll": 0.3517,
+    "ll_uniform": 0.4101
+   }
+  },
+  "title_ll": 0.2428,
+  "title_ll_uniform": 0.2721
+ },
+ "v5like": {
+  "seasons": 13,
+  "conference_champions": 26,
+  "ll_conf": 0.3085,
+  "ll_conf_uniform": 0.4303,
+  "intercept_slope_conf": [
+   0.31,
+   1.27
+  ],
+  "by_seed": {
+   "1": {
+    "predicted": 11.63,
+    "actual": 16,
+    "n": 26
+   },
+   "2": {
+    "predicted": 7.1,
+    "actual": 6,
+    "n": 26
+   },
+   "3": {
+    "predicted": 2.76,
+    "actual": 1,
+    "n": 26
+   },
+   "4": {
+    "predicted": 1.43,
+    "actual": 2,
+    "n": 26
+   },
+   "5": {
+    "predicted": 1.38,
+    "actual": 1,
+    "n": 26
+   },
+   "6": {
+    "predicted": 1.36,
+    "actual": 0,
+    "n": 26
+   },
+   "7": {
+    "predicted": 0.33,
+    "actual": 0,
+    "n": 12
+   }
+  },
+  "by_format": {
+   "6-seed": {
+    "intercept_slope": [
+     1.06,
+     2.23
+    ],
+    "ll": 0.2664,
+    "ll_uniform": 0.4506
+   },
+   "7-seed": {
+    "intercept_slope": [
+     -0.26,
+     0.81
+    ],
+    "ll": 0.3506,
+    "ll_uniform": 0.4101
+   }
+  },
+  "title_ll": 0.2407,
+  "title_ll_uniform": 0.2721
+ }
+}

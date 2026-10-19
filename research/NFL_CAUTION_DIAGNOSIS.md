@@ -5,8 +5,8 @@ Written for outside review. No model, setting or live output was changed by any 
 ## Question
 Earlier work said the NFL model is "too cautious" (favourites given too little chance). I proposed fixing it by reducing rating shrinkage. A review (GPT) objected that the cause had not been identified and asked for diagnosis first: single games, win totals, playoffs with the actual field, and results by stage and season. TypeSafe agreed (99-100%). This is that diagnosis.
 
-## Method (all out of sample)
-- Seasons 2013-2025 (13). Every forecast uses only information available at the time; rating weights are fitted walk-forward (season s uses 2010..s-1).
+## Method (rating weights out of sample; some simulation settings were not)
+- Seasons 2013-2025 (13). Every forecast uses only information available at the time; rating weights are fitted walk-forward (season s uses 2010..s-1). Correction (after review): the simulation settings were not chosen walk-forward. The rating scale 0.89 was fitted on 2018-2025 and v4's tau/sigma on 2022-2025 final win totals; v5's tau 4 / sigma 12 and playoff home edge 4 were chosen on a replay of 2013-2025. So the pipeline as a whole has seen these seasons; only the rating weights are strictly out of sample.
 - Two models, both without the QB layers (the replay has no weekly QB history):
   - v4wf: v4 components and simulation (rating scale 0.89, season-long uncertainty tau 5, game noise sigma 11.37, home edge 1.8), walk-forward weights.
   - v5like: v5 engine ratings (recency half-life 4 weeks, team-effect shrinkage 60) and v5 simulation (tau 4, sigma 12, playoff home edge 4).
@@ -56,6 +56,36 @@ Make-playoffs is over-confident at week 16 (0.76). The consistent, statistically
 ### 5. Seasons and 2025
 v5like beats v4 in the conference market in 11 of 13 seasons. 2025 is its worst season, and the loss is concentrated in the division and make-playoffs markets from pre-season to week 8 (pre-season -0.033 and -0.027 log loss). 2025 was a high-surprise season: pre-season win RMSE 3.4 against a typical 2.8 (New England 6.9 expected -> 14 wins, Seattle 8.5 -> 14, Jacksonville 7.8 -> 13, Arizona 9.0 -> 3). v5's narrower spread (pre-season win sd 2.76 vs 3.10) and more extreme pre-season forecasts were punished. 2024 was similarly surprising (RMSE 3.5) but v5 did not lose there, so "narrower is worse in surprise years" is a hypothesis, not a finding.
 
+## Additions after review (20 Oct 2026)
+GPT reviewed this summary. Accepted corrections: (1) the replay models are not the exact live models (no QB layers, no pressure term, reconstructed v4 weights correlating 0.66 with the frozen ones), so the findings justify targeted research, not a claim about the live probabilities; (2) see the corrected Method line on out-of-sample; (3) good win totals do not clear the simulation, because the order between teams decides the No. 1 seed and the bye; (4) "pre-season spread" mixes two things, the gaps between teams' expected wins (slope 0.84) and the uncertainty around each team, which must be tested separately; (5) several markets and checkpoints were examined, so the 90% intervals are exploratory.
+
+### 6. Conference market: intercept and favourites (research/nfl_conference_favourites.py)
+Teams ranked by their conference-title chance within their conference at each checkpoint; 26 conference champions.
+
+| Stage | Model | Intercept, slope | Top favourite: predicted / actual | 2nd | 3rd | 4th-6th | 7th-16th |
+|---|---|---|---|---|---|---|---|
+| Week 4 | v4 | 0.99, 1.46 | 6.1 / 9 | 4.0 / 3 | 3.1 / 3 | 6.2 / 7 | 6.7 / 4 |
+| Week 8 | v4 | 1.39, 1.74 | 7.1 / 11 | 4.5 / 4 | 3.4 / 4 | 6.3 / 6 | 4.7 / 1 |
+| Week 12 | v4 | 0.99, 1.59 | 8.4 / 12 | 5.2 / 6 | 3.6 / 4 | 5.7 / 4 | 3.1 / 0 |
+| Week 8 | v5like | 0.99, 1.58 | 8.3 / 8 | 4.9 / 9 | 3.7 / 5 | 5.9 / 4 | 3.2 / 0 |
+| Week 12 | v5like | 0.46, 1.31 | 9.9 / 12 | 6.0 / 7 | 3.5 / 4 | 4.7 / 3 | 1.9 / 0 |
+
+The slope above 1 comes from both ends: the leading favourite is under-rated (v4) and the long shots (7th and below in their conference) are over-rated; the middle is about right. v5 fixes much of the long-shot excess but still under-rates the leaders late in the season.
+
+### 7. Playoffs with the actual field and seeds, now 2013-2025 (6-seed format to 2019, 7-seed from 2020; research/nfl_playoff_field_report.py)
+| | v4 | v5like |
+|---|---|---|
+| Intercept, slope (conference winner) | 0.75, 1.59 | 0.31, 1.27 |
+| 2013-19 (two byes) slope / 2020-25 (one bye) slope | 2.50 / 1.05 | 2.23 / 0.81 |
+| No. 1 seeds: predicted / actual conference titles (26) | 9.5 / 16 | 11.6 / 16 |
+| No. 2 seeds | 6.8 / 6 | 7.1 / 6 |
+| Seeds 3-7 | 9.7 / 4 | 7.3 / 4 |
+
+With the field and seeds supplied, the conference error remains: No. 1 seeds won 16 of 26 conferences against 9.5 predicted by v4 and 11.6 by v5like. So most of the conference caution arises in the playoff rounds, not in qualification or seeding. It is concentrated in the No. 1 seed: No. 2 seeds also had a bye in 2013-19 and are about right, which argues against a generic bye effect (and the bracket already gives the bye). It is strongest in 2013-19 and absent in 2020-25 (12 champions), so it may not be stable.
+
+### 8. How simulated strength carries into the playoffs (code audit)
+pipeline/simulate.py draws each team's season strength once per simulation (rating + Normal(0, tau)) and uses that same draw for regular-season and playoff games; playoff games add only game noise (sigma). Strength persists fully; it is not redrawn or discarded. In the actual-field check above the field is fixed, so the strength draw is not conditioned on having earned the seed.
+
 ## Learnings
 1. "Too cautious" was not one problem. Single games and win totals are about right out of sample; the caution is in the conference winner (and late No. 1 seed).
 2. The headline "1.2" figure was a v4 artifact (the 0.89 scale), mostly in-sample. Out-of-sample checks must be on identical games and identical quantities before comparing numbers.
@@ -70,9 +100,15 @@ v5like beats v4 in the conference market in 11 of 13 seasons. 2025 is its worst 
 - The playoff-field check covers 2020-2025 only; 2013-2019 used 6 seeds and were skipped.
 - 2,000 simulations per checkpoint; slopes for rare markets are noisy.
 
-## Next (proposed, not run)
+## Next (proposed, not run; superseded by the review order below)
 Candidate targeted tests, each pre-registered, walk-forward, reported by market, stage and season, against fixed v4:
 - (a) v5 pre-season spread: how far last season carries into the pre-season forecast (expected-wins slope 0.84).
 - (b) playoff structure: bye value and conference-round home edge.
 - (c) late-season persistence of season-long uncertainty (tau fade) for No. 1 seed and conference.
 TypeSafe leaned to (a) (61%), with "no change; wait for 2026 live scoring" at 25%, (c) 11%, (b) 3%. Note that (a) does not touch the conference-market caution, which is the clearest finding; (b) and (c) target it directly.
+
+### Revised order (after review; TypeSafe 73% to adopt)
+1. Done: actual-field check extended to 2013-19 (section 7) - the error persists after qualification and seeding, concentrated in No. 1 seeds.
+2. Done: strength persistence audit (section 8) - full persistence.
+3. Next candidate: one targeted change in the playoff rounds, e.g. the conference-round home edge (v5's 4.0 already moves No. 1 seeds from 9.5 to 11.6 of 16), or whether the No. 1 seed's rating is under-stated going into the playoffs. No manual bye bonus.
+Separate (next season): v5 pre-season expected-win gaps (slope 0.84), without changing per-team uncertainty.

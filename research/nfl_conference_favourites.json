@@ -1,0 +1,532 @@
+{
+ "v4wf wk0": {
+  "intercept": 0.12,
+  "slope": 1.05,
+  "by_favourite_rank": {
+   "1st favourite": {
+    "predicted": 4.9,
+    "actual": 6,
+    "n": 26
+   },
+   "2nd": {
+    "predicted": 3.52,
+    "actual": 3,
+    "n": 26
+   },
+   "3rd": {
+    "predicted": 2.69,
+    "actual": 4,
+    "n": 26
+   },
+   "4th-6th": {
+    "predicted": 5.99,
+    "actual": 6,
+    "n": 78
+   },
+   "7th-16th": {
+    "predicted": 8.89,
+    "actual": 7,
+    "n": 260
+   }
+  },
+  "by_probability_bin": {
+   "(0.0, 0.05]": {
+    "mean_p": 0.03,
+    "actual_rate": 0.027,
+    "n": 222
+   },
+   "(0.05, 0.15]": {
+    "mean_p": 0.085,
+    "actual_rate": 0.09,
+    "n": 167
+   },
+   "(0.15, 0.3]": {
+    "mean_p": 0.184,
+    "actual_rate": 0.192,
+    "n": 26
+   },
+   "(0.3, 1.0]": {
+    "mean_p": 0.347,
+    "actual_rate": 0.0,
+    "n": 1
+   }
+  }
+ },
+ "v4wf wk4": {
+  "intercept": 0.99,
+  "slope": 1.46,
+  "by_favourite_rank": {
+   "1st favourite": {
+    "predicted": 6.12,
+    "actual": 9,
+    "n": 26
+   },
+   "2nd": {
+    "predicted": 4.0,
+    "actual": 3,
+    "n": 26
+   },
+   "3rd": {
+    "predicted": 3.06,
+    "actual": 3,
+    "n": 26
+   },
+   "4th-6th": {
+    "predicted": 6.15,
+    "actual": 7,
+    "n": 78
+   },
+   "7th-16th": {
+    "predicted": 6.68,
+    "actual": 4,
+    "n": 260
+   }
+  },
+  "by_probability_bin": {
+   "(0.0, 0.05]": {
+    "mean_p": 0.022,
+    "actual_rate": 0.013,
+    "n": 237
+   },
+   "(0.05, 0.15]": {
+    "mean_p": 0.087,
+    "actual_rate": 0.074,
+    "n": 136
+   },
+   "(0.15, 0.3]": {
+    "mean_p": 0.202,
+    "actual_rate": 0.308,
+    "n": 39
+   },
+   "(0.3, 1.0]": {
+    "mean_p": 0.357,
+    "actual_rate": 0.333,
+    "n": 3
+   }
+  }
+ },
+ "v4wf wk8": {
+  "intercept": 1.39,
+  "slope": 1.74,
+  "by_favourite_rank": {
+   "1st favourite": {
+    "predicted": 7.09,
+    "actual": 11,
+    "n": 26
+   },
+   "2nd": {
+    "predicted": 4.51,
+    "actual": 4,
+    "n": 26
+   },
+   "3rd": {
+    "predicted": 3.39,
+    "actual": 4,
+    "n": 26
+   },
+   "4th-6th": {
+    "predicted": 6.29,
+    "actual": 6,
+    "n": 78
+   },
+   "7th-16th": {
+    "predicted": 4.71,
+    "actual": 1,
+    "n": 260
+   }
+  },
+  "by_probability_bin": {
+   "(0.0, 0.05]": {
+    "mean_p": 0.017,
+    "actual_rate": 0.0,
+    "n": 229
+   },
+   "(0.05, 0.15]": {
+    "mean_p": 0.09,
+    "actual_rate": 0.096,
+    "n": 115
+   },
+   "(0.15, 0.3]": {
+    "mean_p": 0.206,
+    "actual_rate": 0.267,
+    "n": 45
+   },
+   "(0.3, 1.0]": {
+    "mean_p": 0.364,
+    "actual_rate": 0.429,
+    "n": 7
+   }
+  }
+ },
+ "v4wf wk12": {
+  "intercept": 0.99,
+  "slope": 1.59,
+  "by_favourite_rank": {
+   "1st favourite": {
+    "predicted": 8.44,
+    "actual": 12,
+    "n": 26
+   },
+   "2nd": {
+    "predicted": 5.19,
+    "actual": 6,
+    "n": 26
+   },
+   "3rd": {
+    "predicted": 3.56,
+    "actual": 4,
+    "n": 26
+   },
+   "4th-6th": {
+    "predicted": 5.71,
+    "actual": 4,
+    "n": 78
+   },
+   "7th-16th": {
+    "predicted": 3.11,
+    "actual": 0,
+    "n": 260
+   }
+  },
+  "by_probability_bin": {
+   "(0.0, 0.05]": {
+    "mean_p": 0.016,
+    "actual_rate": 0.0,
+    "n": 204
+   },
+   "(0.05, 0.15]": {
+    "mean_p": 0.092,
+    "actual_rate": 0.089,
+    "n": 90
+   },
+   "(0.15, 0.3]": {
+    "mean_p": 0.208,
+    "actual_rate": 0.189,
+    "n": 37
+   },
+   "(0.3, 1.0]": {
+    "mean_p": 0.354,
+    "actual_rate": 0.579,
+    "n": 19
+   }
+  }
+ },
+ "v4wf wk16": {
+  "intercept": 0.83,
+  "slope": 1.57,
+  "by_favourite_rank": {
+   "1st favourite": {
+    "predicted": 9.52,
+    "actual": 12,
+    "n": 26
+   },
+   "2nd": {
+    "predicted": 5.6,
+    "actual": 7,
+    "n": 26
+   },
+   "3rd": {
+    "predicted": 3.72,
+    "actual": 2,
+    "n": 26
+   },
+   "4th-6th": {
+    "predicted": 5.56,
+    "actual": 5,
+    "n": 78
+   },
+   "7th-16th": {
+    "predicted": 1.6,
+    "actual": 0,
+    "n": 260
+   }
+  },
+  "by_probability_bin": {
+   "(0.0, 0.05]": {
+    "mean_p": 0.023,
+    "actual_rate": 0.0,
+    "n": 109
+   },
+   "(0.05, 0.15]": {
+    "mean_p": 0.097,
+    "actual_rate": 0.085,
+    "n": 71
+   },
+   "(0.15, 0.3]": {
+    "mean_p": 0.213,
+    "actual_rate": 0.237,
+    "n": 38
+   },
+   "(0.3, 1.0]": {
+    "mean_p": 0.389,
+    "actual_rate": 0.5,
+    "n": 22
+   }
+  }
+ },
+ "v5like wk0": {
+  "intercept": -0.2,
+  "slope": 0.92,
+  "by_favourite_rank": {
+   "1st favourite": {
+    "predicted": 6.07,
+    "actual": 5,
+    "n": 26
+   },
+   "2nd": {
+    "predicted": 3.98,
+    "actual": 5,
+    "n": 26
+   },
+   "3rd": {
+    "predicted": 2.93,
+    "actual": 2,
+    "n": 26
+   },
+   "4th-6th": {
+    "predicted": 5.76,
+    "actual": 8,
+    "n": 78
+   },
+   "7th-16th": {
+    "predicted": 7.26,
+    "actual": 6,
+    "n": 260
+   }
+  },
+  "by_probability_bin": {
+   "(0.0, 0.05]": {
+    "mean_p": 0.025,
+    "actual_rate": 0.025,
+    "n": 242
+   },
+   "(0.05, 0.15]": {
+    "mean_p": 0.085,
+    "actual_rate": 0.098,
+    "n": 132
+   },
+   "(0.15, 0.3]": {
+    "mean_p": 0.199,
+    "actual_rate": 0.179,
+    "n": 39
+   },
+   "(0.3, 1.0]": {
+    "mean_p": 0.418,
+    "actual_rate": 0.0,
+    "n": 2
+   }
+  }
+ },
+ "v5like wk4": {
+  "intercept": 0.7,
+  "slope": 1.35,
+  "by_favourite_rank": {
+   "1st favourite": {
+    "predicted": 7.19,
+    "actual": 11,
+    "n": 26
+   },
+   "2nd": {
+    "predicted": 4.47,
+    "actual": 2,
+    "n": 26
+   },
+   "3rd": {
+    "predicted": 3.18,
+    "actual": 4,
+    "n": 26
+   },
+   "4th-6th": {
+    "predicted": 5.96,
+    "actual": 5,
+    "n": 78
+   },
+   "7th-16th": {
+    "predicted": 5.21,
+    "actual": 4,
+    "n": 260
+   }
+  },
+  "by_probability_bin": {
+   "(0.0, 0.05]": {
+    "mean_p": 0.018,
+    "actual_rate": 0.008,
+    "n": 243
+   },
+   "(0.05, 0.15]": {
+    "mean_p": 0.088,
+    "actual_rate": 0.092,
+    "n": 120
+   },
+   "(0.15, 0.3]": {
+    "mean_p": 0.218,
+    "actual_rate": 0.225,
+    "n": 40
+   },
+   "(0.3, 1.0]": {
+    "mean_p": 0.385,
+    "actual_rate": 0.667,
+    "n": 6
+   }
+  }
+ },
+ "v5like wk8": {
+  "intercept": 0.99,
+  "slope": 1.58,
+  "by_favourite_rank": {
+   "1st favourite": {
+    "predicted": 8.28,
+    "actual": 8,
+    "n": 26
+   },
+   "2nd": {
+    "predicted": 4.93,
+    "actual": 9,
+    "n": 26
+   },
+   "3rd": {
+    "predicted": 3.7,
+    "actual": 5,
+    "n": 26
+   },
+   "4th-6th": {
+    "predicted": 5.9,
+    "actual": 4,
+    "n": 78
+   },
+   "7th-16th": {
+    "predicted": 3.19,
+    "actual": 0,
+    "n": 260
+   }
+  },
+  "by_probability_bin": {
+   "(0.0, 0.05]": {
+    "mean_p": 0.015,
+    "actual_rate": 0.0,
+    "n": 237
+   },
+   "(0.05, 0.15]": {
+    "mean_p": 0.093,
+    "actual_rate": 0.095,
+    "n": 84
+   },
+   "(0.15, 0.3]": {
+    "mean_p": 0.206,
+    "actual_rate": 0.234,
+    "n": 47
+   },
+   "(0.3, 1.0]": {
+    "mean_p": 0.389,
+    "actual_rate": 0.538,
+    "n": 13
+   }
+  }
+ },
+ "v5like wk12": {
+  "intercept": 0.46,
+  "slope": 1.31,
+  "by_favourite_rank": {
+   "1st favourite": {
+    "predicted": 9.92,
+    "actual": 12,
+    "n": 26
+   },
+   "2nd": {
+    "predicted": 5.98,
+    "actual": 7,
+    "n": 26
+   },
+   "3rd": {
+    "predicted": 3.45,
+    "actual": 4,
+    "n": 26
+   },
+   "4th-6th": {
+    "predicted": 4.74,
+    "actual": 3,
+    "n": 78
+   },
+   "7th-16th": {
+    "predicted": 1.91,
+    "actual": 0,
+    "n": 260
+   }
+  },
+  "by_probability_bin": {
+   "(0.0, 0.05]": {
+    "mean_p": 0.014,
+    "actual_rate": 0.01,
+    "n": 210
+   },
+   "(0.05, 0.15]": {
+    "mean_p": 0.092,
+    "actual_rate": 0.076,
+    "n": 66
+   },
+   "(0.15, 0.3]": {
+    "mean_p": 0.212,
+    "actual_rate": 0.2,
+    "n": 30
+   },
+   "(0.3, 1.0]": {
+    "mean_p": 0.391,
+    "actual_rate": 0.481,
+    "n": 27
+   }
+  }
+ },
+ "v5like wk16": {
+  "intercept": 0.4,
+  "slope": 1.31,
+  "by_favourite_rank": {
+   "1st favourite": {
+    "predicted": 11.18,
+    "actual": 14,
+    "n": 26
+   },
+   "2nd": {
+    "predicted": 6.12,
+    "actual": 7,
+    "n": 26
+   },
+   "3rd": {
+    "predicted": 3.33,
+    "actual": 2,
+    "n": 26
+   },
+   "4th-6th": {
+    "predicted": 4.42,
+    "actual": 3,
+    "n": 78
+   },
+   "7th-16th": {
+    "predicted": 0.95,
+    "actual": 0,
+    "n": 260
+   }
+  },
+  "by_probability_bin": {
+   "(0.0, 0.05]": {
+    "mean_p": 0.018,
+    "actual_rate": 0.0,
+    "n": 121
+   },
+   "(0.05, 0.15]": {
+    "mean_p": 0.097,
+    "actual_rate": 0.113,
+    "n": 62
+   },
+   "(0.15, 0.3]": {
+    "mean_p": 0.22,
+    "actual_rate": 0.2,
+    "n": 25
+   },
+   "(0.3, 1.0]": {
+    "mean_p": 0.424,
+    "actual_rate": 0.483,
+    "n": 29
+   }
+  }
+ }
+}
