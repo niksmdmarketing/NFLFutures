@@ -91,3 +91,11 @@ slightly better, playoffs/division worse. Not added. The game-level compression 
 
 ## NHL roster continuity (17 Oct 2026) - no gain, not adopted
 research/nhl_continuity_test.py: share of last season's skater ice time in the opening lineup, interaction with the preseason prior, walk-forward 2019-2025 (281 team-seasons): RMSE 0.4922 -> 0.4918, better 2/7, interaction -1.24 (se 0.83).
+
+## Caution investigation, step 1: are the rating gaps too small? (20 Oct 2026) - no
+Prompted by a review (second assistant, adopted with TypeSafe 99%/100%): diagnose where the caution sits before changing shrinkage.
+research/nfl_caution_diagnosis.py: walk-forward game predictions 2013-2025 from the engine caches (each test season fitted on earlier seasons only); slope of actual margin on predicted margin, and win sharpness k (probit on predicted margin / residual sd).
+- v5 engine inputs (h4a60): margin slope 0.88 (se 0.04); by weeks 1-4 0.78, 5-9 0.98, 10+ 0.87; win k 0.95 (se 0.05). v4 inputs (base): 0.89, k 0.95. Same with no ridge on the final regression.
+- By season the slope is below 1 in 11 of 13 (2019 1.02, 2024 1.10); 2025 0.91, so 2025 is not unusual here.
+- So the team-rating gaps are, if anything, slightly too WIDE in game terms, not too small; v4's rating_scale 0.89 roughly cancels this. Lowering shrinkage would widen them further, so the "fix it at the source" idea is not supported as stated.
+- This does not match the earlier under-confidence findings (pre-game probability slope ~1.22 in model/match_vs_market_nfl.json; late-season k ~1.2 in research/nfl_playoff_calibration.py). Those use the live v4 path (frozen weights trained on 2010-2021, so in-sample for those years, the QB layer, scale 0.89, S = sqrt(sigma^2 + 2 tau^2)). Next: reconcile the two on identical games before any change; if the gap is real it sits in that path or in the season simulation, not in the rating shrinkage.
