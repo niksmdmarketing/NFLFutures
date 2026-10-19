@@ -26,3 +26,9 @@ Reported: per-season gains; the fitted weights of the new components.
 
 ## Decision
 TypeSafe decides. Pass: the components go into the v5 candidate (weights refitted on 2010-2025, shown in shadow beside v4); v4 stays live through 2026 by the standing rule. Fail: recorded and unused.
+
+## Outcome (20 Oct 2026) - fails all gates; not adopted
+Run: ENG_ALPHA=60 ENG_EXTRA2=1 python pipeline/nfl_engine.py x2h4a60 4 0, then research/nfl_extra_stats_test.py (results research/nfl_extra_stats_results.json).
+Log loss A 0.6368, B 0.6413 (gain -0.0045, 90% -0.0092 to -0.0007); better in 5 of 13 seasons; margin RMSE 13.32 vs 13.43; late RMSE 13.39 vs 13.54.
+Reading: once EPA and success rate are in, turnovers, explosives, havoc, conversions, red-zone TDs and QB hits add noise, not signal (turnovers and red-zone rates are known to be mostly luck week to week).
+Decision (TypeSafe 99%): recorded; NFL rating unchanged (v4 live, v5 shadow as is). TypeSafe (81%) then advised stopping the cross-sport comparisons for now.
