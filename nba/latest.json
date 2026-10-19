@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-10-18T1841Z",
-"feed_timestamp": "2026-10-18T18:41:46Z",
+"collected_utc": "2026-10-19T0447Z",
+"feed_timestamp": "2026-10-19T04:47:11Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -158,6 +158,12 @@
 "status": "Out",
 "return_date": "2026-12-01",
 "injury": "Left Knee Surgery"
+},
+{
+"athlete_id": "3975",
+"status": "Day-To-Day",
+"return_date": "2026-10-21",
+"injury": "Right Ankle Sprain"
 },
 {
 "athlete_id": "4396909",
@@ -466,6 +472,12 @@
 "injury": "Right Knee Surgery"
 },
 {
+"athlete_id": "3907387",
+"status": "Out",
+"return_date": "2027-10-01",
+"injury": "Achilles Ruptured"
+},
+{
 "athlete_id": "4433174",
 "status": "Out",
 "return_date": "2026-11-02",
@@ -723,7 +735,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-21",
 "injury": "Not Specified Knee",
-"updated": "2026-10-16T22:21Z"
+"updated": "2026-10-18T19:19Z"
 },
 {
 "athlete_id": "5148538",
@@ -750,7 +762,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-22",
 "injury": "Not Specified Hamstring",
-"updated": "2026-10-13T19:28Z"
+"updated": "2026-10-18T18:47Z"
 },
 {
 "athlete_id": "6430",
@@ -778,6 +790,15 @@
 "return_date": "2026-12-01",
 "injury": "Left Knee Surgery",
 "updated": "2026-10-16T16:14Z"
+},
+{
+"athlete_id": "3975",
+"name": "Stephen Curry",
+"team_name": "Golden State Warriors",
+"status": "Day-To-Day",
+"return_date": "2026-10-21",
+"injury": "Right Ankle Sprain",
+"updated": "2026-10-18T23:45Z"
 },
 {
 "athlete_id": "4396909",
@@ -1020,7 +1041,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-20",
 "injury": "Undisclosed",
-"updated": "2026-10-16T00:19Z"
+"updated": "2026-10-19T02:51Z"
 },
 {
 "athlete_id": "4433255",
@@ -1182,7 +1203,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-21",
 "injury": "Left Knee Strain",
-"updated": "2026-10-18T18:00Z"
+"updated": "2026-10-19T04:00Z"
 },
 {
 "athlete_id": "4701232",
@@ -1200,7 +1221,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-21",
 "injury": "Hip Soreness",
-"updated": "2026-10-17T00:33Z"
+"updated": "2026-10-18T23:33Z"
 },
 {
 "athlete_id": "4706557",
@@ -1237,6 +1258,15 @@
 "return_date": "2027-03-02",
 "injury": "Right Knee Surgery",
 "updated": "2026-08-24T20:23Z"
+},
+{
+"athlete_id": "3907387",
+"name": "Ben Simmons",
+"team_name": "Sacramento Kings",
+"status": "Out",
+"return_date": "2027-10-01",
+"injury": "Achilles Ruptured",
+"updated": "2026-10-18T23:00Z"
 },
 {
 "athlete_id": "4433174",
