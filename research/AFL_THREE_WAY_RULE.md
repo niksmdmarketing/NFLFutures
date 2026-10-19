@@ -33,3 +33,19 @@ Reported, not gated: C and D with actual lineups; finals alone; gain by round bl
 
 ## Decision
 TypeSafe decides. A challenger that passes may go into the 2027 AFL build (March) as a shadow challenger against A; if several pass, TypeSafe is asked which. Failures are recorded and stay unused. No change to the live AFL page before the 2027 season either way.
+
+## Outcome (19 Oct 2026) - combined model D passes; team stats alone and players alone fail
+Run: research/afl_three_way_test.py (a `--mechanics` plumbing run on the tuning seasons came first; test seasons untouched until the full run). Results: research/afl_three_way_results.json. 1,649 test games, 2019-2026.
+Tuning choices: B ridge penalty from leave-one-season-out; C half-life H = 20 games, n0 = 10 (n0 at the edge of its grid; not re-tuned); D weights h 6.45, current rating 0.00, team-stats model 0.81, player model 0.29.
+
+| Model | Margin MSE | Gain vs A | Seasons better | Log loss | Gates |
+|---|---|---|---|---|---|
+| A current live | 1116.7 | - | - | 0.5880 | - |
+| B team stats | 1110.1 | +0.6% | 4 of 8 | 0.5884 | fail (1, 2, 4) |
+| C players (previous-match lineup) | 1190.7 | -6.6% | 0 of 8 | 0.6138 | fail |
+| D combined (previous-match lineup) | 1087.0 | +2.7% (lower bound 10.8 points) | 7 of 8 (2019 worse) | 0.5843 | **pass all six** |
+| Best case: D with actual lineups | 1077.5 | +3.5% | 7 of 8 | 0.5852 | reported only |
+
+D: gain 36.7 early (rounds 0-8) and 25.9 later; slope 0.99; gain without 2020 30.0.
+Reading: neither the stats nor the players beat the current rating on their own, but together they do, and once they are in, the current margin rating adds nothing (weight about 0). The player model on its own is poor because Wheelo rating points measure involvement more than winning impact; it helps as a second opinion on who is on the park.
+Decision (TypeSafe 99%): D goes into the 2027 AFL build as a shadow challenger beside the current model and the expected-score shadow (research/AFL_WHEELO_XSCORE_RULE.md); B and C alone stay unused. No change to the live AFL page before the 2027 season.
