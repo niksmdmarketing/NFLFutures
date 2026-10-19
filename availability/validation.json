@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-10-19T01:20:30+00:00",
+ "checked_utc": "2026-10-19T06:18:32+00:00",
  "leagues": {
   "nfl": {
-   "records": 1663,
+   "records": 1664,
    "by_layer": {
     "official": 1577,
-    "reported": 86
+    "reported": 87
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -80,16 +80,16 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "86/86"
+   "reported_matched_to_official_list": "87/87"
   },
   "nba": {
-   "records": 165,
+   "records": 170,
    "by_layer": {
-    "official": 117,
-    "reported": 48
+    "official": 123,
+    "reported": 47
    },
    "unknown_team": 0,
-   "no_player": 0,
+   "no_player": 6,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -141,14 +141,14 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "48/48"
+   "reported_matched_to_official_list": "47/47"
   },
   "nhl": {
-   "records": 1552,
+   "records": 1555,
    "by_layer": {
     "official": 158,
-    "reported": 71,
-    "projected": 1323
+    "reported": 70,
+    "projected": 1327
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -197,7 +197,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "64/71"
+   "reported_matched_to_official_list": "63/70"
   },
   "nbl": {
    "records": 25,
@@ -271,8 +271,6 @@
    "reported_matched_to_official_list": "0/10"
   }
  },
- "sources_failed": [
-  "nba: NBA official injury report (PDF, file-name time) - RuntimeError: no official report found in the last 30 hours"
- ],
+ "sources_failed": [],
  "sources_not_expected": []
 }
