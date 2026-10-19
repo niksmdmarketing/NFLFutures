@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-10-19T13:27:03+00:00",
+ "checked_utc": "2026-10-19T19:59:14+00:00",
  "leagues": {
   "nfl": {
-   "records": 1662,
+   "records": 1653,
    "by_layer": {
     "official": 1577,
-    "reported": 85
+    "reported": 76
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -62,14 +62,6 @@
      ],
      "other": "expected to play",
      "source": "ESPN injury note"
-    },
-    {
-     "player": "Case Keenum",
-     "official": [
-      "out"
-     ],
-     "other": "expected to play",
-     "source": "ESPN injury note"
     }
    ],
    "stale_projection_dates": 0,
@@ -80,16 +72,16 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "85/85"
+   "reported_matched_to_official_list": "76/76"
   },
   "nba": {
-   "records": 170,
+   "records": 171,
    "by_layer": {
-    "official": 123,
+    "official": 124,
     "reported": 47
    },
    "unknown_team": 0,
-   "no_player": 6,
+   "no_player": 5,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -110,7 +102,6 @@
     "MIA",
     "MIL",
     "MIN",
-    "NO",
     "NY",
     "OKC",
     "ORL",
@@ -134,7 +125,9 @@
     }
    ],
    "stale_projection_dates": 0,
-   "teams_missing_official": [],
+   "teams_missing_official": [
+    "NO"
+   ],
    "season_state": {
     "state": "in_season",
     "why": "16 regular-season/playoff and 0 other games 2026-10-12..2026-10-29"
@@ -144,10 +137,10 @@
    "reported_matched_to_official_list": "47/47"
   },
   "nhl": {
-   "records": 1564,
+   "records": 1549,
    "by_layer": {
-    "official": 158,
-    "reported": 70,
+    "official": 155,
+    "reported": 58,
     "projected": 1336
    },
    "unknown_team": 0,
@@ -197,7 +190,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "63/70"
+   "reported_matched_to_official_list": "55/58"
   },
   "nbl": {
    "records": 25,
@@ -271,6 +264,9 @@
    "reported_matched_to_official_list": "0/10"
   }
  },
- "sources_failed": [],
+ "sources_failed": [
+  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 39 h old",
+  "nhl: ESPN news (headline + summary) - URLError: <urlopen error [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032)>"
+ ],
  "sources_not_expected": []
 }
