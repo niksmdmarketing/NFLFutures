@@ -131,6 +131,8 @@ def nfl_snapshots(archive):
                 s[name] = {m: [c["teams"].get(t, {}).get(f, 0.0) for t in teams] for m, f in NFL_KEYS.items()}
                 if key == "challenger":
                     s["ratings_v3"] = {t: c["teams"].get(t, {}).get("rating") for t in teams}
+                else:
+                    s["ratings_v5"] = {t: c["teams"].get(t, {}).get("rating") for t in teams}
         snaps.append(s)
     return years[-1], snaps
 
@@ -152,6 +154,8 @@ def nfl_games(snaps, season):
     C3 = RT.S.get("challenger") or {}
     tot4 = math.sqrt(S4["sigma"] ** 2 + 2 * S4["tau"] ** 2)
     tot3 = math.sqrt(C3.get("sigma", 13) ** 2 + 2 * C3.get("tau", 3.5) ** 2) if C3 else None
+    C5 = RT.S.get("challenger_v5") or {}
+    tot5 = math.sqrt(C5.get("sigma", 12.0) ** 2 + 2 * C5.get("tau", 4.0) ** 2)   # regular-season home edge = v4's
     phi = lambda z: 0.5 * (1 + math.erf(z / math.sqrt(2)))
     rows = []
     for r in g.itertuples():
@@ -175,11 +179,15 @@ def nfl_games(snaps, season):
             h3, a3 = s["ratings_v3"].get(r.home_team), s["ratings_v3"].get(r.away_team)
             if h3 is not None and a3 is not None:
                 row["v3"] = phi((h3 - a3 + (0 if neutral else C3["hfa"])) / tot3)
+        if s.get("ratings_v5"):
+            h5, a5 = s["ratings_v5"].get(r.home_team), s["ratings_v5"].get(r.away_team)
+            if h5 is not None and a5 is not None:
+                row["v5 candidate"] = phi((h5 - a5 + (0 if neutral else S4["hfa"])) / tot5)
         rows.append(row)
     if not rows:
         return {"games": 0}
     out = {"games": len(rows), "home_win_share": round(float(np.mean([r["y"] for r in rows])), 3)}
-    for mod in ("v4", "v3", "market"):
+    for mod in ("v4", "v3", "v5 candidate", "market"):
         rr = [r for r in rows if mod in r]
         if rr:
             out[mod] = {"games": len(rr), "logloss": round(float(np.mean([_ll(r[mod], r["y"]) for r in rr])), 4),
