@@ -19,3 +19,18 @@ Reported, not gated: early and later rounds; E's weights; all models' MSE on the
 
 ## Decision
 "Best model" = E if it passes all four gates against D; otherwise D (which already passed its own test). The user has said the best model should be the live AFL model; TypeSafe is asked how and when, given that the site build cannot hold Wheelo data.
+
+## Outcome (20 Oct 2026) - adding expected scores helps a little, not enough to be called better; D stays the best
+Run: research/afl_all_in_test.py, results research/afl_all_in_results.json (866 test games, 2023-2026; the three-way code was refactored into a predictions() function first, and its results were checked to be identical).
+E weights (fitted on 2021-2022): h 4.28, team stats 0.44, players 0.35, expected scores 0.39.
+
+| Model | Margin MSE 2023-26 | Log loss |
+|---|---|---|
+| A current live | 1150.5 | 0.5693 |
+| B team stats | 1143.0 | 0.5727 |
+| C players | 1218.3 | 0.5943 |
+| D combined | 1112.1 | 0.5663 |
+| E all in | 1108.3 | 0.5619 |
+
+E vs D: gain 3.8 (0.3%), 90% lower bound -5.4, better in 2 of 4 seasons; log loss and calibration pass; gates 1 and 2 fail. E vs A: passes all four (gain 3.7%).
+By the rule, D is the best model. E is effectively tied with D; it is reported, not adopted. Its weights rest on only two fitting seasons.

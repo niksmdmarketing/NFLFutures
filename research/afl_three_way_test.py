@@ -114,7 +114,8 @@ def ols(X, y, lam=0.0):
     return np.linalg.solve(X1.T @ X1 + P, X1.T @ y)
 
 
-def main(clean, outp):
+def predictions(clean):
+    """point-in-time predictions of A, B, C, D (and actual-lineup variants) for every match; returns (M, res, extras)."""
     M = pd.read_csv(f"{clean}/afl_matches.csv").sort_values(["season", "round", "match_id"]).reset_index(drop=True)
     T = pd.read_csv(f"{clean}/afl_team_stats.csv")
     P = pd.read_csv(f"{clean}/afl_player_stats.csv.gz" if __import__("os").path.exists(f"{clean}/afl_player_stats.csv.gz") else f"{clean}/afl_player_stats.csv",
@@ -177,6 +178,12 @@ def main(clean, outp):
     M["D_actual"], wDa = comb("C_actual", bCa)
     res["D"] = {"h": float(wD[0]), "wA": float(wD[1]), "wB": float(wD[2]), "wC": float(wD[3]), "actual_lineup_weights": list(map(float, wDa))}
 
+    return M, res, {"a_ha": a_ha, "bB": bB, "bC": bC, "tu": tu}
+
+
+def main(clean, outp):
+    M, res, ex = predictions(clean)
+    tu = ex["tu"]
     sd = {k: float(np.sqrt(np.mean((M.act[tu] - M[k][tu]) ** 2))) for k in ["B", "C", "D", "C_actual", "D_actual"]}
     sd["A"] = GAME_SD
     res["sd"] = sd
