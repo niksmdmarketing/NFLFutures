@@ -118,3 +118,5 @@ Full summary and learnings: research/NFL_CAUTION_DIAGNOSIS.md. Short version: si
 
 ## Jalen Hurts out for the season (20 Oct 2026)
 Confirmed 19 Oct (Eagles/agent statement; ESPN): blood clots, on IR since ~17 Oct, out for 2026; Tanner McKee starts. The live model already had McKee as PHI expected QB for every remaining game (depth chart after the IR move): v4 qb_adj -2.27, v5 the same (no one-game Out note). TypeSafe (100
+## Jalen Hurts out for the season (20 Oct 2026)
+Confirmed 19 Oct (Eagles/agent statement; ESPN): blood clots, on IR since about 17 Oct, out for 2026; Tanner McKee starts. The live model already had McKee as PHI's expected QB for every remaining game (depth chart after the IR move): v4 qb_adj -2.27; v5 the same (no one-game Out note). TypeSafe (100 percent): no manual override needed; confirmed on the live data.
