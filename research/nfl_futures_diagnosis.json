@@ -1,0 +1,703 @@
+{
+ "win_totals_by_stage": {
+  "v4wf wk0": {
+   "rmse": 2.9,
+   "slope_actual_on_expected": 0.94,
+   "z_sd (1=right, >1 too little uncertainty)": 0.96,
+   "cover80": 0.87,
+   "mean_80_width": 7.91
+  },
+  "v4wf wk4": {
+   "rmse": 2.31,
+   "slope_actual_on_expected": 1.09,
+   "z_sd (1=right, >1 too little uncertainty)": 0.96,
+   "cover80": 0.88,
+   "mean_80_width": 6.26
+  },
+  "v4wf wk8": {
+   "rmse": 1.77,
+   "slope_actual_on_expected": 1.05,
+   "z_sd (1=right, >1 too little uncertainty)": 0.96,
+   "cover80": 0.89,
+   "mean_80_width": 4.76
+  },
+  "v4wf wk12": {
+   "rmse": 1.22,
+   "slope_actual_on_expected": 1.03,
+   "z_sd (1=right, >1 too little uncertainty)": 0.95,
+   "cover80": 0.93,
+   "mean_80_width": 3.31
+  },
+  "v4wf wk16": {
+   "rmse": 0.54,
+   "slope_actual_on_expected": 1.0,
+   "z_sd (1=right, >1 too little uncertainty)": 0.99,
+   "cover80": 0.99,
+   "mean_80_width": 1.29
+  },
+  "v5like wk0": {
+   "rmse": 2.92,
+   "slope_actual_on_expected": 0.84,
+   "z_sd (1=right, >1 too little uncertainty)": 1.09,
+   "cover80": 0.82,
+   "mean_80_width": 6.96
+  },
+  "v5like wk4": {
+   "rmse": 2.3,
+   "slope_actual_on_expected": 1.09,
+   "z_sd (1=right, >1 too little uncertainty)": 1.06,
+   "cover80": 0.85,
+   "mean_80_width": 5.64
+  },
+  "v5like wk8": {
+   "rmse": 1.77,
+   "slope_actual_on_expected": 1.05,
+   "z_sd (1=right, >1 too little uncertainty)": 1.04,
+   "cover80": 0.88,
+   "mean_80_width": 4.39
+  },
+  "v5like wk12": {
+   "rmse": 1.21,
+   "slope_actual_on_expected": 1.03,
+   "z_sd (1=right, >1 too little uncertainty)": 1.0,
+   "cover80": 0.91,
+   "mean_80_width": 3.1
+  },
+  "v5like wk16": {
+   "rmse": 0.54,
+   "slope_actual_on_expected": 1.0,
+   "z_sd (1=right, >1 too little uncertainty)": 0.99,
+   "cover80": 0.99,
+   "mean_80_width": 1.26
+  }
+ },
+ "preseason_win_total_z_sd_by_season": {
+  "v4wf": {
+   "2013": 1.0,
+   "2014": 0.94,
+   "2015": 1.02,
+   "2016": 1.05,
+   "2017": 0.97,
+   "2018": 0.84,
+   "2019": 0.98,
+   "2020": 1.09,
+   "2021": 0.77,
+   "2022": 0.93,
+   "2023": 0.76,
+   "2024": 1.15,
+   "2025": 1.12
+  },
+  "v5like": {
+   "2013": 1.1,
+   "2014": 1.09,
+   "2015": 1.23,
+   "2016": 1.19,
+   "2017": 1.08,
+   "2018": 0.94,
+   "2019": 1.1,
+   "2020": 1.23,
+   "2021": 0.85,
+   "2022": 1.05,
+   "2023": 0.87,
+   "2024": 1.3,
+   "2025": 1.26
+  }
+ },
+ "preseason_win_rmse_by_season": {
+  "v4wf": {
+   "2013": 2.89,
+   "2014": 2.77,
+   "2015": 2.96,
+   "2016": 3.07,
+   "2017": 2.83,
+   "2018": 2.46,
+   "2019": 2.86,
+   "2020": 3.14,
+   "2021": 2.33,
+   "2022": 2.84,
+   "2023": 2.36,
+   "2024": 3.52,
+   "2025": 3.41
+  },
+  "v5like": {
+   "2013": 2.81,
+   "2014": 2.83,
+   "2015": 3.11,
+   "2016": 3.11,
+   "2017": 2.83,
+   "2018": 2.46,
+   "2019": 2.85,
+   "2020": 3.14,
+   "2021": 2.31,
+   "2022": 2.84,
+   "2023": 2.37,
+   "2024": 3.54,
+   "2025": 3.42
+  }
+ },
+ "playoffs_given_actual_field": {
+  "v4wf": {
+   "seasons": 6,
+   "ll_conf": 0.3517,
+   "ll_conf_uniform": 0.4101,
+   "ll_title": 0.2527,
+   "ll_title_uniform": 0.2573,
+   "slope_conf": 1.05,
+   "slope_title": 0.55,
+   "sum_p_conf_of_actual_champs": 0.244,
+   "seed1_conf_rate_actual": 0.5,
+   "seed1_conf_rate_model": 0.348,
+   "by_seed_conf_actual": {
+    "1": 0.5,
+    "2": 0.167,
+    "3": 0.083,
+    "4": 0.167,
+    "5": 0.083,
+    "6": 0.0,
+    "7": 0.0
+   },
+   "by_seed_conf_model": {
+    "1": 0.348,
+    "2": 0.232,
+    "3": 0.137,
+    "4": 0.061,
+    "5": 0.104,
+    "6": 0.075,
+    "7": 0.044
+   }
+  },
+  "v5like": {
+   "seasons": 6,
+   "ll_conf": 0.3506,
+   "ll_conf_uniform": 0.4101,
+   "ll_title": 0.2601,
+   "ll_title_uniform": 0.2573,
+   "slope_conf": 0.81,
+   "slope_title": 0.45,
+   "sum_p_conf_of_actual_champs": 0.278,
+   "seed1_conf_rate_actual": 0.5,
+   "seed1_conf_rate_model": 0.432,
+   "by_seed_conf_actual": {
+    "1": 0.5,
+    "2": 0.167,
+    "3": 0.083,
+    "4": 0.167,
+    "5": 0.083,
+    "6": 0.0,
+    "7": 0.0
+   },
+   "by_seed_conf_model": {
+    "1": 0.432,
+    "2": 0.256,
+    "3": 0.118,
+    "4": 0.046,
+    "5": 0.074,
+    "6": 0.048,
+    "7": 0.027
+   }
+  }
+ },
+ "futures_by_stage": {
+  "v4wf wk0": {
+   "div": {
+    "ll": 0.523,
+    "slope": 1.01
+   },
+   "playoff": {
+    "ll": 0.6371,
+    "slope": 0.92
+   },
+   "seed1": {
+    "ll": 0.2124,
+    "slope": 1.09
+   },
+   "conf": {
+    "ll": 0.2151,
+    "slope": 1.05
+   },
+   "title": {
+    "ll": 0.1202,
+    "slope": 1.46
+   }
+  },
+  "v4wf wk4": {
+   "div": {
+    "ll": 0.4171,
+    "slope": 1.29
+   },
+   "playoff": {
+    "ll": 0.5066,
+    "slope": 1.28
+   },
+   "seed1": {
+    "ll": 0.1782,
+    "slope": 1.05
+   },
+   "conf": {
+    "ll": 0.1869,
+    "slope": 1.46
+   },
+   "title": {
+    "ll": 0.1183,
+    "slope": 1.17
+   }
+  },
+  "v4wf wk8": {
+   "div": {
+    "ll": 0.3225,
+    "slope": 1.26
+   },
+   "playoff": {
+    "ll": 0.4008,
+    "slope": 1.18
+   },
+   "seed1": {
+    "ll": 0.1357,
+    "slope": 1.26
+   },
+   "conf": {
+    "ll": 0.1653,
+    "slope": 1.74
+   },
+   "title": {
+    "ll": 0.1091,
+    "slope": 1.31
+   }
+  },
+  "v4wf wk12": {
+   "div": {
+    "ll": 0.2618,
+    "slope": 0.97
+   },
+   "playoff": {
+    "ll": 0.3067,
+    "slope": 1.09
+   },
+   "seed1": {
+    "ll": 0.0957,
+    "slope": 1.43
+   },
+   "conf": {
+    "ll": 0.1538,
+    "slope": 1.59
+   },
+   "title": {
+    "ll": 0.1057,
+    "slope": 1.19
+   }
+  },
+  "v4wf wk16": {
+   "div": {
+    "ll": 0.1051,
+    "slope": 1.56
+   },
+   "playoff": {
+    "ll": 0.2164,
+    "slope": 0.76
+   },
+   "seed1": {
+    "ll": 0.0494,
+    "slope": 1.29
+   },
+   "conf": {
+    "ll": 0.1428,
+    "slope": 1.57
+   },
+   "title": {
+    "ll": 0.1023,
+    "slope": 1.15
+   }
+  },
+  "v5like wk0": {
+   "div": {
+    "ll": 0.5265,
+    "slope": 0.79
+   },
+   "playoff": {
+    "ll": 0.6426,
+    "slope": 0.72
+   },
+   "seed1": {
+    "ll": 0.2097,
+    "slope": 0.93
+   },
+   "conf": {
+    "ll": 0.2112,
+    "slope": 0.92
+   },
+   "title": {
+    "ll": 0.1176,
+    "slope": 1.21
+   }
+  },
+  "v5like wk4": {
+   "div": {
+    "ll": 0.4116,
+    "slope": 1.17
+   },
+   "playoff": {
+    "ll": 0.5017,
+    "slope": 1.13
+   },
+   "seed1": {
+    "ll": 0.1759,
+    "slope": 1.01
+   },
+   "conf": {
+    "ll": 0.1778,
+    "slope": 1.35
+   },
+   "title": {
+    "ll": 0.1153,
+    "slope": 1.08
+   }
+  },
+  "v5like wk8": {
+   "div": {
+    "ll": 0.3187,
+    "slope": 1.14
+   },
+   "playoff": {
+    "ll": 0.394,
+    "slope": 1.09
+   },
+   "seed1": {
+    "ll": 0.1332,
+    "slope": 1.23
+   },
+   "conf": {
+    "ll": 0.1548,
+    "slope": 1.58
+   },
+   "title": {
+    "ll": 0.1039,
+    "slope": 1.26
+   }
+  },
+  "v5like wk12": {
+   "div": {
+    "ll": 0.2637,
+    "slope": 0.91
+   },
+   "playoff": {
+    "ll": 0.3024,
+    "slope": 1.05
+   },
+   "seed1": {
+    "ll": 0.0941,
+    "slope": 1.41
+   },
+   "conf": {
+    "ll": 0.1474,
+    "slope": 1.31
+   },
+   "title": {
+    "ll": 0.1058,
+    "slope": 1.0
+   }
+  },
+  "v5like wk16": {
+   "div": {
+    "ll": 0.1049,
+    "slope": 1.47
+   },
+   "playoff": {
+    "ll": 0.2149,
+    "slope": 0.76
+   },
+   "seed1": {
+    "ll": 0.0486,
+    "slope": 1.28
+   },
+   "conf": {
+    "ll": 0.1367,
+    "slope": 1.31
+   },
+   "title": {
+    "ll": 0.1034,
+    "slope": 0.98
+   }
+  }
+ },
+ "futures_ll_by_season_all_stages": {
+  "v4wf": {
+   "2013": {
+    "div": 0.3017,
+    "playoff": 0.3915,
+    "seed1": 0.0853,
+    "conf": 0.1252,
+    "title": 0.088
+   },
+   "2014": {
+    "div": 0.317,
+    "playoff": 0.4144,
+    "seed1": 0.1474,
+    "conf": 0.1624,
+    "title": 0.1073
+   },
+   "2015": {
+    "div": 0.3539,
+    "playoff": 0.4299,
+    "seed1": 0.1884,
+    "conf": 0.2046,
+    "title": 0.1324
+   },
+   "2016": {
+    "div": 0.2973,
+    "playoff": 0.4207,
+    "seed1": 0.1149,
+    "conf": 0.1626,
+    "title": 0.0876
+   },
+   "2017": {
+    "div": 0.2721,
+    "playoff": 0.3871,
+    "seed1": 0.1076,
+    "conf": 0.1382,
+    "title": 0.0946
+   },
+   "2018": {
+    "div": 0.2677,
+    "playoff": 0.4194,
+    "seed1": 0.1157,
+    "conf": 0.1461,
+    "title": 0.1062
+   },
+   "2019": {
+    "div": 0.2742,
+    "playoff": 0.3791,
+    "seed1": 0.1551,
+    "conf": 0.1766,
+    "title": 0.0996
+   },
+   "2020": {
+    "div": 0.2816,
+    "playoff": 0.3743,
+    "seed1": 0.1232,
+    "conf": 0.1818,
+    "title": 0.1333
+   },
+   "2021": {
+    "div": 0.3097,
+    "playoff": 0.4526,
+    "seed1": 0.1828,
+    "conf": 0.2262,
+    "title": 0.1202
+   },
+   "2022": {
+    "div": 0.3408,
+    "playoff": 0.3997,
+    "seed1": 0.0934,
+    "conf": 0.1408,
+    "title": 0.0914
+   },
+   "2023": {
+    "div": 0.3871,
+    "playoff": 0.4413,
+    "seed1": 0.1287,
+    "conf": 0.1696,
+    "title": 0.1266
+   },
+   "2024": {
+    "div": 0.3037,
+    "playoff": 0.3551,
+    "seed1": 0.1083,
+    "conf": 0.1844,
+    "title": 0.131
+   },
+   "2025": {
+    "div": 0.5301,
+    "playoff": 0.5106,
+    "seed1": 0.1949,
+    "conf": 0.2278,
+    "title": 0.1263
+   }
+  },
+  "v5like": {
+   "2013": {
+    "div": 0.3113,
+    "playoff": 0.3852,
+    "seed1": 0.0906,
+    "conf": 0.1248,
+    "title": 0.0934
+   },
+   "2014": {
+    "div": 0.2999,
+    "playoff": 0.4103,
+    "seed1": 0.1383,
+    "conf": 0.1492,
+    "title": 0.0966
+   },
+   "2015": {
+    "div": 0.3615,
+    "playoff": 0.4438,
+    "seed1": 0.1803,
+    "conf": 0.1897,
+    "title": 0.1261
+   },
+   "2016": {
+    "div": 0.2886,
+    "playoff": 0.4223,
+    "seed1": 0.1098,
+    "conf": 0.1535,
+    "title": 0.0812
+   },
+   "2017": {
+    "div": 0.2693,
+    "playoff": 0.3706,
+    "seed1": 0.1039,
+    "conf": 0.1247,
+    "title": 0.0884
+   },
+   "2018": {
+    "div": 0.2644,
+    "playoff": 0.4137,
+    "seed1": 0.1206,
+    "conf": 0.1321,
+    "title": 0.1015
+   },
+   "2019": {
+    "div": 0.267,
+    "playoff": 0.3753,
+    "seed1": 0.1541,
+    "conf": 0.1783,
+    "title": 0.1028
+   },
+   "2020": {
+    "div": 0.2801,
+    "playoff": 0.3671,
+    "seed1": 0.1204,
+    "conf": 0.1787,
+    "title": 0.1415
+   },
+   "2021": {
+    "div": 0.3131,
+    "playoff": 0.4482,
+    "seed1": 0.1848,
+    "conf": 0.235,
+    "title": 0.1231
+   },
+   "2022": {
+    "div": 0.3348,
+    "playoff": 0.3928,
+    "seed1": 0.0909,
+    "conf": 0.1287,
+    "title": 0.0869
+   },
+   "2023": {
+    "div": 0.3867,
+    "playoff": 0.4409,
+    "seed1": 0.1256,
+    "conf": 0.1593,
+    "title": 0.1226
+   },
+   "2024": {
+    "div": 0.2992,
+    "playoff": 0.3522,
+    "seed1": 0.1051,
+    "conf": 0.175,
+    "title": 0.1297
+   },
+   "2025": {
+    "div": 0.5501,
+    "playoff": 0.5218,
+    "seed1": 0.1956,
+    "conf": 0.2234,
+    "title": 0.1256
+   }
+  }
+ },
+ "v5like_gain_by_season (positive = better)": {
+  "2013": {
+   "div": -0.0096,
+   "playoff": 0.0063,
+   "seed1": -0.0053,
+   "conf": 0.0004,
+   "title": -0.0054
+  },
+  "2014": {
+   "div": 0.0171,
+   "playoff": 0.0041,
+   "seed1": 0.0091,
+   "conf": 0.0132,
+   "title": 0.0107
+  },
+  "2015": {
+   "div": -0.0076,
+   "playoff": -0.0139,
+   "seed1": 0.0081,
+   "conf": 0.0149,
+   "title": 0.0063
+  },
+  "2016": {
+   "div": 0.0087,
+   "playoff": -0.0016,
+   "seed1": 0.0051,
+   "conf": 0.0091,
+   "title": 0.0064
+  },
+  "2017": {
+   "div": 0.0028,
+   "playoff": 0.0165,
+   "seed1": 0.0037,
+   "conf": 0.0135,
+   "title": 0.0062
+  },
+  "2018": {
+   "div": 0.0033,
+   "playoff": 0.0057,
+   "seed1": -0.0049,
+   "conf": 0.014,
+   "title": 0.0047
+  },
+  "2019": {
+   "div": 0.0072,
+   "playoff": 0.0038,
+   "seed1": 0.001,
+   "conf": -0.0017,
+   "title": -0.0032
+  },
+  "2020": {
+   "div": 0.0015,
+   "playoff": 0.0072,
+   "seed1": 0.0028,
+   "conf": 0.0031,
+   "title": -0.0082
+  },
+  "2021": {
+   "div": -0.0034,
+   "playoff": 0.0044,
+   "seed1": -0.002,
+   "conf": -0.0088,
+   "title": -0.0029
+  },
+  "2022": {
+   "div": 0.006,
+   "playoff": 0.0069,
+   "seed1": 0.0025,
+   "conf": 0.0121,
+   "title": 0.0045
+  },
+  "2023": {
+   "div": 0.0004,
+   "playoff": 0.0004,
+   "seed1": 0.0031,
+   "conf": 0.0103,
+   "title": 0.004
+  },
+  "2024": {
+   "div": 0.0045,
+   "playoff": 0.0029,
+   "seed1": 0.0032,
+   "conf": 0.0094,
+   "title": 0.0013
+  },
+  "2025": {
+   "div": -0.02,
+   "playoff": -0.0112,
+   "seed1": -0.0007,
+   "conf": 0.0044,
+   "title": 0.0007
+  }
+ }
+}
