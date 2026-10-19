@@ -1,0 +1,57 @@
+name: Open data collection (college basketball results, Polymarket CFB prices)
+# Collects openly published data only: Sportsdataverse college basketball releases and public Polymarket prices.
+# Writes to the open-data branch (never main), so the public website is not rebuilt. The private site reads this branch.
+on:
+  schedule:
+    - cron: "40 10 * 1-4,11-12 *"   # college basketball, daily in season (21:40 Melbourne)
+    - cron: "25 7 * * *"            # Polymarket CFB prices, daily (18:25 Melbourne)
+    - cron: "45 2 * * 6"            # Polymarket CFB prices, Saturday before the US games
+  workflow_dispatch:
+    inputs:
+      what:
+        description: "cbb, polymarket or all"
+        default: "all"
+permissions:
+  contents: write
+concurrency:
+  group: open-data
+  cancel-in-progress: false
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: pip install pandas numpy
+      - name: Prepare open-data branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git ls-remote --exit-code --heads origin open-data > /dev/null; then
+            git fetch -q origin open-data
+            git worktree add -q -B open-data ../open-data FETCH_HEAD
+          else
+            git worktree add -q --orphan -b open-data ../open-data
+          fi
+      - name: College basketball (Sportsdataverse)
+        if: ${{ github.event.schedule == '40 10 * 1-4,11-12 *' || inputs.what == 'cbb' || inputs.what == 'all' }}
+        env:
+          DATA_ROOT: ${{ github.workspace }}/../open-data
+        run: |
+          M=$(date -u +%m); Y=$(date -u +%Y | awk -v m=$M '{print ($1 + (m >= 7 ? 1 : 0))}')
+          python collectors/open_data/cbb_data.py $Y $Y || true
+          python collectors/open_data/cbb_box.py $Y $Y || true
+          python collectors/open_data/cbb_schedule_meta.py $Y $Y || true
+      - name: Polymarket college football prices
+        if: ${{ github.event.schedule != '40 10 * 1-4,11-12 *' || inputs.what == 'polymarket' || inputs.what == 'all' }}
+        env:
+          DATA_ROOT: ${{ github.workspace }}/../open-data
+        run: python collectors/open_data/polymarket_cfb_collect.py || true
+      - name: Save to open-data branch
+        run: |
+          cd ../open-data
+          git add -A
+          if ! git diff --cached --quiet; then git commit -q -m "Open data $(date -u +%Y-%m-%dT%H:%MZ)"; git push -q origin open-data; fi
