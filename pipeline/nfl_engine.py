@@ -46,11 +46,24 @@ def effects(d, y, w=None, alpha=None):
 
 COMPS = ratings.COMPS
 EXTRA_COMPS = [("early_epa", "s", lambda d: d[d.down <= 2], "epa")]
+EXTRA2 = os.environ.get("ENG_EXTRA2") == "1"   # research/NFL_EXTRA_STATS_RULE.md (default off: live v5 candidate unchanged)
+
+
+def _x2(d):
+    d = d.copy()
+    d["conv"] = ((d.first_down.fillna(0) == 1) | (d.touchdown.fillna(0) == 1)).astype(float)
+    d["rz_td"] = d.touchdown.fillna(0).astype(float)
+    return d
+
+
+EXTRA2_COMPS = [("to_rate", "s", lambda d: d, "to"), ("expl", "s", lambda d: d, "expl"), ("havoc", "s", lambda d: d, "havoc"),
+                ("conv34", "s", lambda d: _x2(d[d.down >= 3]), "conv"), ("rz_td", "s", lambda d: _x2(d[d.yardline_100 <= 20]), "rz_td"),
+                ("qb_hit", "s", lambda d: d[d.db == 1], "qb_hit")]
 
 
 def block(s, st, tag, wcol, extra):
     out = {}
-    comps = COMPS + (EXTRA_COMPS if extra else [])
+    comps = COMPS + (EXTRA_COMPS if extra else []) + (EXTRA2_COMPS if EXTRA2 else [])
     for name, frame, filt, col in comps:
         d = filt(s if frame == "s" else st)
         o, df = effects(d, col, d[wcol].values if wcol else None)
@@ -96,6 +109,14 @@ def team_features(cur, pri, g, season, week, H, WP, extra, pri2=None):
             for side, ncol in (("off", n_off), ("def", n_def)):
                 n = F[ncol]
                 kk = list(k.values())[0]
+                feats[f"c_{c}_{side}"] = n / (n + kk) * F[f"cur_{c}_{side}"]
+                feats[f"p_{c}_{side}"] = kk / (n + kk) * F[f"pri_{c}_{side}"]
+    if EXTRA2:
+        n_off, n_def = list(P["count_cols"].values())[0]
+        kk = list(k.values())[0]
+        for c, *_ in EXTRA2_COMPS:
+            for side, ncol in (("off", n_off), ("def", n_def)):
+                n = F[ncol]
                 feats[f"c_{c}_{side}"] = n / (n + kk) * F[f"cur_{c}_{side}"]
                 feats[f"p_{c}_{side}"] = kk / (n + kk) * F[f"pri_{c}_{side}"]
     n = F["n_games"]
