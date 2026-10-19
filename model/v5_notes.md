@@ -115,3 +115,6 @@ Implication: game-level caution is small out of sample; the futures-level cautio
 
 ## Caution investigation, step 3 (20 Oct 2026)
 Full summary and learnings: research/NFL_CAUTION_DIAGNOSIS.md. Short version: single games and win totals are about right out of sample; the caution is in the conference-winner market from week 4 (v4 slopes 1.5-1.7, intervals above 1; v5 1.3-1.6) and the late No. 1 seed (1.4). v5 pre-season expected wins too spread (slope 0.84); 2025 was a high-surprise season where that hurt.
+
+## Jalen Hurts out for the season (20 Oct 2026)
+Confirmed 19 Oct (Eagles/agent statement; ESPN): blood clots, on IR since ~17 Oct, out for 2026; Tanner McKee starts. The live model already had McKee as PHI expected QB for every remaining game (depth chart after the IR move): v4 qb_adj -2.27, v5 the same (no one-game Out note). TypeSafe (100
