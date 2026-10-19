@@ -317,7 +317,7 @@ def balanced_fixture(teams, rng, n_extra=6):
     return games
 
 
-def simulate(teams, table, remaining, rating, tau, n=20000, seed=7, finals8=False):
+def simulate(teams, table, remaining, rating, tau, n=20000, seed=7, finals8=False, hga=None):
     """table: current wins/draws/pf/pa by team. remaining: list of (home, away). Returns per-team probabilities."""
     rng = np.random.default_rng(seed)
     T = len(teams)
@@ -335,7 +335,7 @@ def simulate(teams, table, remaining, rating, tau, n=20000, seed=7, finals8=Fals
     for start in range(0, n, 2000):
         m = min(2000, n - start)
         Rs = R[None, :] + rng.normal(0, tau, (m, T))
-        mu = Rs[:, H] - Rs[:, A] + HGA
+        mu = Rs[:, H] - Rs[:, A] + (HGA if hga is None else hga)
         if GAME_DF:
             marg = mu + GAME_SD * np.sqrt((GAME_DF - 2) / GAME_DF) * rng.standard_t(GAME_DF, mu.shape)
         else:
@@ -464,6 +464,23 @@ def _gf_played(y):
     return any(m.get("round") == "GF" for m in (d.get("matches") or []))
 
 
+MODEL_D = os.path.join(ROOT, "pipeline", "afl_model_d_ratings.json")
+
+
+def model_d(cur, played):
+    """Live AFL model D ratings (research/AFL_THREE_WAY_RULE.md), computed off-site from Wheelo data; only derived ratings are committed.
+    Returns (ratings, home_term, doc) when the file is for this season and not behind the rounds already played, else (None, None, reason)."""
+    if not os.path.exists(MODEL_D):
+        return None, None, "model D ratings file missing"
+    doc = json.load(open(MODEL_D, encoding="utf-8"))
+    n_played = int(played.rnd.nunique()) if played is not None and len(played) else 0
+    if int(doc.get("season", 0)) != cur:
+        return None, None, f"model D ratings are for {doc.get('season')}, not {cur}"
+    if n_played > int(doc.get("rounds_played_this_season", 0)):
+        return None, None, f"model D ratings cover {doc.get('rounds_played_this_season')} rounds of {cur}; {n_played} have been played"
+    return {k: float(v) for k, v in doc["ratings"].items()}, float(doc["home_term"]), doc
+
+
 def futures(cur, hist_games, tables):
     last = max(hist_games)
     # rating: previous season's opponent-adjusted margin regressed halfway, then this season's games (if any)
@@ -475,6 +492,15 @@ def futures(cur, hist_games, tables):
     teams = sorted(NAMES)
     for t in teams:
         rating.setdefault(t, 0.0)
+    rating_current = dict(rating)
+    d_rating, d_home, d_doc = model_d(cur, played)
+    hga = HGA
+    if d_rating is not None:
+        rating, hga = {t: d_rating.get(t, 0.0) for t in teams}, d_home
+        model_status = f"Model D (team stats + players, Wheelo data through {d_doc['data_through']['round_name']} {d_doc['data_through']['season']})"
+    else:
+        model_status = f"current margin model (model D unavailable: {d_doc})"
+        S.log("AFL futures:", model_status)
     fx = fetch_fixture(cur)
     table, remaining, status = {}, [], ""
     if played is not None and len(played):
@@ -489,7 +515,7 @@ def futures(cur, hist_games, tables):
         status = f"{cur} season — fixture not released yet; using a balanced 23-round draw (every pair once plus six repeats)"
     n_played = int(np.mean([v["w"] + v["d"] for v in table.values()])) if table else 0
     tau = TAU0 * (1 - min(n_played, 23) / TAU_FADE)
-    res = simulate(teams, table, remaining, rating, tau)
+    res = simulate(teams, table, remaining, rating, tau, hga=hga)
     ctx = {t: {"left": 0, "road_left": 0, "opp": []} for t in teams}
     if fx:
         for h, a in remaining:
@@ -502,7 +528,7 @@ def futures(cur, hist_games, tables):
         r = res[t]
         tb = table.get(t, {})
         rows.append({"team": t, "name": NAMES[t], "group": "", "gp": int(tb.get("w", 0) + tb.get("d", 0) + (tables[cur].set_index("team").l.get(t, 0) if cur in tables else 0)),
-                     "record": f"{int(tb.get('w', 0))}-{int((tables[cur].set_index('team').l.get(t, 0)) if cur in tables else 0)}", "rating": rating[t],
+                     "record": f"{int(tb.get('w', 0))}-{int((tables[cur].set_index('team').l.get(t, 0)) if cur in tables else 0)}", "rating": rating[t], "rating_current": rating_current[t],
                      "w_mean": r["w_mean"], "w_p10": r["w_p10"], "w_p90": r["w_p90"], "over": r["over"],
                      "left": ctx[t]["left"] if fx else None, "road_left": ctx[t]["road_left"] if fx else None,
                      "sos_left": float(np.mean(ctx[t]["opp"])) if fx and ctx[t]["opp"] else None,
@@ -512,14 +538,20 @@ def futures(cur, hist_games, tables):
             "intro": "Ladder and finals chances from simulating the home-and-away season and the top-10 finals series (wildcard round, then the final eight).",
             "proj": {"k": "w_mean", "l": "Proj. wins", "lo": "w_p10", "hi": "w_p90", "f": "num1"},
             "rating_note": "Points per game better (+) or worse (−) than an average team on a neutral ground",
-            "extra": [{"k": "left", "l": "Games left", "f": "int"}, {"k": "road_left", "l": "Away left", "f": "int"},
-                      {"k": "sos_left", "l": "Remaining SOS", "f": "pm1", "t": "Average rating of the opponents still to play (+ = harder)"}] if fx else [],
+            "extra": ([{"k": "left", "l": "Games left", "f": "int"}, {"k": "road_left", "l": "Away left", "f": "int"},
+                       {"k": "sos_left", "l": "Remaining SOS", "f": "pm1", "t": "Average rating of the opponents still to play (+ = harder)"}] if fx else [])
+                     + [{"k": "rating_current", "l": "Old rating", "f": "pm1", "t": "The previous margin-only model's rating, kept for comparison"}],
+            "model_status": model_status,
             "cols": [{"k": "p10", "l": "Finals (top 10)"}, {"k": "p8", "l": "Top 8", "t": "Skip the wildcard round"},
                      {"k": "p4", "l": "Top 4", "t": "Double chance"}, {"k": "p1", "l": "Minor premiers"},
                      {"k": "pf", "l": "Prelim final"}, {"k": "gf", "l": "Grand Final"}, {"k": "flag", "l": "Premiers"}],
             "line": {"label": "Win total", "unit": "wins", "min": 0}, "backtest_html": bt,
             "model_page": True, "why_links": True,
-            "about": ["Rating is opponent-adjusted margin per game: last season's, pulled 45% back to average, then blended with this season's games (last season counts as 8 games).",
+            "about": (["Rating is model D: opponent-adjusted team ratings on 12 match stats (shots at goal, metres gained, inside-50s, clearances and others) "
+                       "combined with player ratings summed over each team's most recent lineup. In a test on 2019-2026 it cut margin error by 2.7% against the "
+                       "previous margin-only model and was better in 7 of 8 seasons (research/AFL_THREE_WAY_RULE.md). 'Old rating' shows the previous model."]
+                      if d_rating is not None else
+                      ["Rating is opponent-adjusted margin per game: last season's, pulled 35% back to average, then blended with this season's games (last season counts as 12 games)."]) + [
                       f"Each simulation shifts every team's rating by a random amount (typical size {tau:.1f} points) before playing the games, so long-range chances are not over-confident; single games vary by about {GAME_SD:.0f} points.",
                       "It does not know about injuries, list changes, trades or coaching changes — the main reasons to disagree with it in the pre-season.",
                       "Draws are not simulated; ties on the ladder are split by percentage."],

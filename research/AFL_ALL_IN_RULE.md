@@ -34,3 +34,8 @@ E weights (fitted on 2021-2022): h 4.28, team stats 0.44, players 0.35, expected
 
 E vs D: gain 3.8 (0.3%), 90% lower bound -5.4, better in 2 of 4 seasons; log loss and calibration pass; gates 1 and 2 fail. E vs A: passes all four (gain 3.7%).
 By the rule, D is the best model. E is effectively tied with D; it is reported, not adopted. Its weights rest on only two fitting seasons.
+
+## Going live (20 Oct 2026)
+User: the best model should be live. TypeSafe (99%) on how: now, using only a derived ratings file. research/afl_model_d_ratings.py rewrites D as one rating per team plus a home term (checked: identical to the test's D predictions on 36 past games, max difference 0.0) and writes pipeline/afl_model_d_ratings.json (team ratings only, no Wheelo data). pipeline/afl_site.py futures now use D when that file is for the current season and covers every round already played; otherwise it falls back to the previous margin model automatically and says so. The previous model's rating is shown beside D's as "Old rating".
+In season: after each round, stage the new Wheelo round file, rebuild the clean tables, run `python research/afl_model_d_ratings.py <clean_dir> --before <season> <next round>` and commit the ratings file. If that is missed, the page falls back to the old model until it is done.
+The expected-score shadow (E, and the 50/50 mix) is still scored after 2027 alongside D.
