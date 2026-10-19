@@ -99,3 +99,16 @@ research/nfl_caution_diagnosis.py: walk-forward game predictions 2013-2025 from 
 - By season the slope is below 1 in 11 of 13 (2019 1.02, 2024 1.10); 2025 0.91, so 2025 is not unusual here.
 - So the team-rating gaps are, if anything, slightly too WIDE in game terms, not too small; v4's rating_scale 0.89 roughly cancels this. Lowering shrinkage would widen them further, so the "fix it at the source" idea is not supported as stated.
 - This does not match the earlier under-confidence findings (pre-game probability slope ~1.22 in model/match_vs_market_nfl.json; late-season k ~1.2 in research/nfl_playoff_calibration.py). Those use the live v4 path (frozen weights trained on 2010-2021, so in-sample for those years, the QB layer, scale 0.89, S = sqrt(sigma^2 + 2 tau^2)). Next: reconcile the two on identical games before any change; if the gap is real it sits in that path or in the season simulation, not in the rating shrinkage.
+
+## Caution investigation, step 2: same games, both rating paths (20 Oct 2026)
+research/nfl_caution_same_games.py, results research/nfl_caution_same_games.json. Identical regular-season games 2013-2025 (3,407), identical point-in-time features (v4 components, no recency, no QB layer).
+Quantities: margin slope = actual margin on predicted margin (1 = gaps right, >1 = too small); probit k = sharpness of P(win) on gap / 13.39 with a free home term (the earlier "1.2" measure).
+
+| Rating path | margin slope all | 2022-25 (out of sample) | 2025 | probit k all | k 2022-25 | gap sd |
+|---|---|---|---|---|---|---|
+| Engine, walk-forward (before any scaling) | 0.89 (0.04) | 0.89 (0.07) | 0.91 | 0.96 | 0.98 | 5.8 |
+| v4 frozen weights, raw dR | 1.01 (0.04) | 0.95 (0.07) | 0.96 | - | - | 5.4 |
+| v4 as simulated (0.89 x dR) | 1.13 (0.05) | 1.06 (0.08) | 1.08 | 1.22 | 1.16 | 4.8 |
+
+Answers: the 0.88 of step 1 is before any scaling (engine predictions). The earlier 1.2 is a different quantity (win sharpness, not margin slope) on the v4 path after the 0.89 rating_scale; on the same games and that path it reproduces (1.22). The two are reconciled: v4's raw gaps are about right, and the 0.89 scale is what makes v4's simulated games look cautious. Most of it is in 2013-21, where v4's weights were fitted; out of sample (2022-25) v4 is 1.06 +/- 0.08, i.e. not clearly cautious at game level. The v5 candidate applies the same 0.89 to engine ratings whose gaps are about 12% too wide, so v5 lands close to 1 at game level.
+Implication: game-level caution is small out of sample; the futures-level caution (conference winner slopes 1.3-1.7) is more likely in the season simulation (season-long uncertainty tau and how long it persists, playoff setup) than in the ratings. Next: check win-total spread and title-favourite calibration in the replay outputs, by season, including why 2025 deteriorates.

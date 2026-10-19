@@ -1,0 +1,161 @@
+{
+ "S_total": 13.39,
+ "v4_r_multiplier": 0.25,
+ "rating_scale": 0.89,
+ "rows": {
+  "all weeks": {
+   "games": 3407,
+   "engine_margin_slope": [
+    0.891,
+    0.039
+   ],
+   "v4_raw_margin_slope (dR + 1.8)": [
+    1.005,
+    0.042
+   ],
+   "v4_scaled_margin_slope (0.89 dR + 1.8)": [
+    1.129,
+    0.047
+   ],
+   "engine_probit_k (gap / 13.39)": 0.962,
+   "v4_probit_k (0.89 dR / 13.39)": 1.22,
+   "sd_engine_gap": 5.81,
+   "sd_v4_scaled_gap": 4.84,
+   "corr_engine_v4": 0.964,
+   "residual_sd_engine": 13.36,
+   "residual_sd_v4": 13.24
+  },
+  "weeks 1-4": {
+   "games": 822,
+   "engine_margin_slope": [
+    0.779,
+    0.107
+   ],
+   "v4_raw_margin_slope (dR + 1.8)": [
+    1.044,
+    0.125
+   ],
+   "v4_scaled_margin_slope (0.89 dR + 1.8)": [
+    1.173,
+    0.14
+   ],
+   "engine_probit_k (gap / 13.39)": 0.913,
+   "v4_probit_k (0.89 dR / 13.39)": 1.372,
+   "sd_engine_gap": 4.46,
+   "sd_v4_scaled_gap": 3.37,
+   "corr_engine_v4": 0.931,
+   "residual_sd_engine": 13.71,
+   "residual_sd_v4": 13.56
+  },
+  "weeks 5-9": {
+   "games": 925,
+   "engine_margin_slope": [
+    0.967,
+    0.077
+   ],
+   "v4_raw_margin_slope (dR + 1.8)": [
+    1.068,
+    0.081
+   ],
+   "v4_scaled_margin_slope (0.89 dR + 1.8)": [
+    1.2,
+    0.091
+   ],
+   "engine_probit_k (gap / 13.39)": 1.061,
+   "v4_probit_k (0.89 dR / 13.39)": 1.303,
+   "sd_engine_gap": 5.54,
+   "sd_v4_scaled_gap": 4.64,
+   "corr_engine_v4": 0.962,
+   "residual_sd_engine": 12.93,
+   "residual_sd_v4": 12.87
+  },
+  "weeks 10+": {
+   "games": 1660,
+   "engine_margin_slope": [
+    0.887,
+    0.051
+   ],
+   "v4_raw_margin_slope (dR + 1.8)": [
+    0.972,
+    0.053
+   ],
+   "v4_scaled_margin_slope (0.89 dR + 1.8)": [
+    1.092,
+    0.059
+   ],
+   "engine_probit_k (gap / 13.39)": 0.934,
+   "v4_probit_k (0.89 dR / 13.39)": 1.157,
+   "sd_engine_gap": 6.51,
+   "sd_v4_scaled_gap": 5.52,
+   "corr_engine_v4": 0.972,
+   "residual_sd_engine": 13.41,
+   "residual_sd_v4": 13.29
+  },
+  "2013-21 (v4 in-sample)": {
+   "games": 2320,
+   "engine_margin_slope": [
+    0.892,
+    0.048
+   ],
+   "v4_raw_margin_slope (dR + 1.8)": [
+    1.033,
+    0.052
+   ],
+   "v4_scaled_margin_slope (0.89 dR + 1.8)": [
+    1.161,
+    0.058
+   ],
+   "engine_probit_k (gap / 13.39)": 0.953,
+   "v4_probit_k (0.89 dR / 13.39)": 1.249,
+   "sd_engine_gap": 5.82,
+   "sd_v4_scaled_gap": 4.79,
+   "corr_engine_v4": 0.956,
+   "residual_sd_engine": 13.57,
+   "residual_sd_v4": 13.43
+  },
+  "2022-25 (v4 out-of-sample)": {
+   "games": 1087,
+   "engine_margin_slope": [
+    0.894,
+    0.067
+   ],
+   "v4_raw_margin_slope (dR + 1.8)": [
+    0.947,
+    0.07
+   ],
+   "v4_scaled_margin_slope (0.89 dR + 1.8)": [
+    1.064,
+    0.079
+   ],
+   "engine_probit_k (gap / 13.39)": 0.982,
+   "v4_probit_k (0.89 dR / 13.39)": 1.163,
+   "sd_engine_gap": 5.79,
+   "sd_v4_scaled_gap": 4.95,
+   "corr_engine_v4": 0.981,
+   "residual_sd_engine": 12.87,
+   "residual_sd_v4": 12.82
+  },
+  "2025": {
+   "games": 272,
+   "engine_margin_slope": [
+    0.91,
+    0.142
+   ],
+   "v4_raw_margin_slope (dR + 1.8)": [
+    0.957,
+    0.139
+   ],
+   "v4_scaled_margin_slope (0.89 dR + 1.8)": [
+    1.075,
+    0.156
+   ],
+   "engine_probit_k (gap / 13.39)": 0.792,
+   "v4_probit_k (0.89 dR / 13.39)": 0.991,
+   "sd_engine_gap": 5.66,
+   "sd_v4_scaled_gap": 5.08,
+   "corr_engine_v4": 0.984,
+   "residual_sd_engine": 13.19,
+   "residual_sd_v4": 13.06
+  }
+ }
+}
