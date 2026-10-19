@@ -27,3 +27,12 @@ Reported, not gated: X alone vs A; gain by round block; the fitted rescale facto
 
 ## Decision
 TypeSafe decides. Pass: expected scores go into the AFL rating build planned for the 2027 season (March), as a challenger shadow against the current model first. Fail: recorded; Wheelo xScore stays unused. No change to the live AFL page either way before the 2027 season.
+
+## Amendment 1 (19 Oct 2026, written before any result): xScore only exists from 2021
+Checking the staged files showed Wheelo's xScore is present only for seasons 2021-2026 (2012-2020 files carry Score but no xScore). The 2013-2018 tuning / 2019-2026 test split cannot be run for X and M. Changes, all fixed now:
+- Ridge lambda and prior weight c are still tuned on model A only, on 2013-2018 actual scores (no xScore needed), using the same grids.
+- The rescale factor s and the per-model sd are fitted on 2021-2022 (tuning seasons for X/M).
+- Test seasons are 2023-2026 (4 seasons, about 860 games). The 2021 and 2022 seasons and 2020 are not scored. Prior for X and M in 2021 is zero (no earlier xScore season); from 2022 it is the prior-season end rating of the same model.
+- Gate 2 becomes "M better than A in at least 3 of the 4 test seasons". Gate 6 (without 2020) is dropped as moot.
+- Because 4 seasons make a season-level bootstrap meaningless, the bootstrap for gate 1 resamples whole rounds (2,000 draws) from the pooled test games.
+- The result is labelled low power whatever the outcome: a pass means "worth a 2027 shadow", never "adopt".
