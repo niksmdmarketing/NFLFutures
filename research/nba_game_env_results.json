@@ -357,6 +357,144 @@
      "win_logloss": 0.60963
     }
    }
+  },
+  "G1s": {
+   "rps_margin": 0.07896,
+   "rps_total": 0.07637,
+   "rps_margin_unclipped": 0.04394,
+   "rps_total_unclipped": 0.04117,
+   "win_logloss": 0.62444,
+   "win_calibration_slope": 1.422,
+   "pit_margin_deciles": [
+    0.061,
+    0.086,
+    0.108,
+    0.115,
+    0.128,
+    0.131,
+    0.121,
+    0.108,
+    0.085,
+    0.058
+   ],
+   "pit_total_deciles": [
+    0.078,
+    0.101,
+    0.101,
+    0.105,
+    0.107,
+    0.112,
+    0.108,
+    0.1,
+    0.098,
+    0.09
+   ],
+   "interval_coverage": {
+    "margin_50": 0.632,
+    "margin_80": 0.89,
+    "total_50": 0.546,
+    "total_80": 0.842
+   },
+   "median_abs_err_margin": 10.93,
+   "p99_abs_err_margin": 37.0,
+   "median_abs_err_total": 15.07,
+   "p99_abs_err_total": 49.0,
+   "by_season": {
+    "2022": {
+     "rps_margin": 0.08002,
+     "rps_total": 0.07713,
+     "win_logloss": 0.63829
+    },
+    "2023": {
+     "rps_margin": 0.07375,
+     "rps_total": 0.07587,
+     "win_logloss": 0.6475
+    },
+    "2024": {
+     "rps_margin": 0.07967,
+     "rps_total": 0.07581,
+     "win_logloss": 0.6156
+    },
+    "2025": {
+     "rps_margin": 0.07947,
+     "rps_total": 0.07511,
+     "win_logloss": 0.61166
+    },
+    "2026": {
+     "rps_margin": 0.08191,
+     "rps_total": 0.07796,
+     "win_logloss": 0.60929
+    }
+   }
+  },
+  "G1_6h": {
+   "rps_margin": 0.07923,
+   "rps_total": 0.07639,
+   "rps_margin_unclipped": 0.04408,
+   "rps_total_unclipped": 0.04118,
+   "win_logloss": 0.62664,
+   "win_calibration_slope": 1.385,
+   "pit_margin_deciles": [
+    0.06,
+    0.089,
+    0.104,
+    0.12,
+    0.129,
+    0.126,
+    0.12,
+    0.109,
+    0.086,
+    0.059
+   ],
+   "pit_total_deciles": [
+    0.079,
+    0.1,
+    0.102,
+    0.103,
+    0.108,
+    0.111,
+    0.108,
+    0.099,
+    0.099,
+    0.09
+   ],
+   "interval_coverage": {
+    "margin_50": 0.629,
+    "margin_80": 0.89,
+    "total_50": 0.544,
+    "total_80": 0.838
+   },
+   "median_abs_err_margin": 10.98,
+   "p99_abs_err_margin": 38.0,
+   "median_abs_err_total": 15.06,
+   "p99_abs_err_total": 49.0,
+   "by_season": {
+    "2022": {
+     "rps_margin": 0.08022,
+     "rps_total": 0.07716,
+     "win_logloss": 0.63989
+    },
+    "2023": {
+     "rps_margin": 0.07384,
+     "rps_total": 0.07567,
+     "win_logloss": 0.64818
+    },
+    "2024": {
+     "rps_margin": 0.08006,
+     "rps_total": 0.07596,
+     "win_logloss": 0.61832
+    },
+    "2025": {
+     "rps_margin": 0.07986,
+     "rps_total": 0.07517,
+     "win_logloss": 0.61517
+    },
+    "2026": {
+     "rps_margin": 0.08212,
+     "rps_total": 0.07797,
+     "win_logloss": 0.61181
+    }
+   }
   }
  },
  "actual": {
@@ -667,6 +805,320 @@
    },
    "B_pass": false
   },
+  "G1s": {
+   "simulated": {
+    "sd_total": 21.5844,
+    "sd_margin": 18.0929,
+    "corr": 0.1746,
+    "close": 0.14,
+    "ot": 0.022
+   },
+   "A": {
+    "A1_sd_total": true,
+    "A2_sd_margin": false,
+    "A3_corr": true,
+    "A4_close": true,
+    "A5_ot": false,
+    "A6_pit": false
+   },
+   "A_pass": false,
+   "sim_info": [
+    {
+     "pace_factor_sd": 0.0,
+     "poss_seasons": [
+      2020,
+      2021
+     ],
+     "pmf": [
+      0.50855,
+      0.02827,
+      0.31954,
+      0.14099,
+      0.00201,
+      0.00053,
+      9e-05,
+      1e-05
+     ],
+     "k_O": 0.6805183403356575,
+     "k_D": 0.26290697896437326,
+     "fit_rows": 11508,
+     "draws": 2000,
+     "games": 1216
+    },
+    {
+     "pace_factor_sd": 0.0,
+     "poss_seasons": [
+      2020,
+      2021,
+      2022
+     ],
+     "pmf": [
+      0.50618,
+      0.02889,
+      0.32035,
+      0.14194,
+      0.00199,
+      0.00054,
+      0.0001,
+      1e-05
+     ],
+     "k_O": 0.6576390603440735,
+     "k_D": 0.3539914126800092,
+     "fit_rows": 13940,
+     "draws": 2000,
+     "games": 1220
+    },
+    {
+     "pace_factor_sd": 0.0,
+     "poss_seasons": [
+      2021,
+      2022,
+      2023
+     ],
+     "pmf": [
+      0.49666,
+      0.03026,
+      0.32613,
+      0.14433,
+      0.00198,
+      0.00051,
+      0.00013,
+      1e-05,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "k_O": 0.692096922343315,
+     "k_D": 0.2921951825735414,
+     "fit_rows": 16380,
+     "draws": 2000,
+     "games": 1227
+    },
+    {
+     "pace_factor_sd": 0.0,
+     "poss_seasons": [
+      2022,
+      2023,
+      2024
+     ],
+     "pmf": [
+      0.49277,
+      0.0301,
+      0.32911,
+      0.14541,
+      0.00194,
+      0.00055,
+      0.00012,
+      1e-05,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "k_O": 0.6785006240054515,
+     "k_D": 0.30158745787074576,
+     "fit_rows": 18834,
+     "draws": 2000,
+     "games": 1224
+    },
+    {
+     "pace_factor_sd": 0.0,
+     "poss_seasons": [
+      2023,
+      2024,
+      2025
+     ],
+     "pmf": [
+      0.49058,
+      0.0299,
+      0.32818,
+      0.1487,
+      0.00194,
+      0.00054,
+      0.00014,
+      1e-05,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "k_O": 0.6650662905988893,
+     "k_D": 0.34402888327190784,
+     "fit_rows": 21282,
+     "draws": 2000,
+     "games": 1221
+    }
+   ],
+   "B": {
+    "B1_total_gain": 0.00033,
+    "B1_total_gain_90pct_lower": 0.000204,
+    "B1": true,
+    "B2_seasons_total_better": 5,
+    "B2": true,
+    "B3_margin_rel_change": 0.03087,
+    "B3": false,
+    "B3_reported_90pct_bound_on_deterioration": 0.03471,
+    "B4_logloss_change": 0.01561,
+    "B4": false,
+    "B4_reported_90pct_bound_on_deterioration": 0.01888
+   },
+   "B_pass": false
+  },
+  "G1_6h": {
+   "simulated": {
+    "sd_total": 21.5765,
+    "sd_margin": 18.0518,
+    "corr": 0.1765,
+    "close": 0.1404,
+    "ot": 0.022
+   },
+   "A": {
+    "A1_sd_total": true,
+    "A2_sd_margin": false,
+    "A3_corr": true,
+    "A4_close": true,
+    "A5_ot": false,
+    "A6_pit": false
+   },
+   "A_pass": false,
+   "sim_info": [
+    {
+     "pace_factor_sd": 0.0,
+     "poss_seasons": [
+      2020,
+      2021
+     ],
+     "pmf": [
+      0.50855,
+      0.02827,
+      0.31954,
+      0.14099,
+      0.00201,
+      0.00053,
+      9e-05,
+      1e-05
+     ],
+     "k_O": 0.6805183403356575,
+     "k_D": 0.26290697896437326,
+     "fit_rows": 11508,
+     "draws": 2000,
+     "games": 1216
+    },
+    {
+     "pace_factor_sd": 0.0,
+     "poss_seasons": [
+      2020,
+      2021,
+      2022
+     ],
+     "pmf": [
+      0.50618,
+      0.02889,
+      0.32035,
+      0.14194,
+      0.00199,
+      0.00054,
+      0.0001,
+      1e-05
+     ],
+     "k_O": 0.6576390603440735,
+     "k_D": 0.3539914126800092,
+     "fit_rows": 13940,
+     "draws": 2000,
+     "games": 1220
+    },
+    {
+     "pace_factor_sd": 0.0,
+     "poss_seasons": [
+      2021,
+      2022,
+      2023
+     ],
+     "pmf": [
+      0.49666,
+      0.03026,
+      0.32613,
+      0.14433,
+      0.00198,
+      0.00051,
+      0.00013,
+      1e-05,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "k_O": 0.692096922343315,
+     "k_D": 0.2921951825735414,
+     "fit_rows": 16380,
+     "draws": 2000,
+     "games": 1227
+    },
+    {
+     "pace_factor_sd": 0.0,
+     "poss_seasons": [
+      2022,
+      2023,
+      2024
+     ],
+     "pmf": [
+      0.49277,
+      0.0301,
+      0.32911,
+      0.14541,
+      0.00194,
+      0.00055,
+      0.00012,
+      1e-05,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "k_O": 0.6785006240054515,
+     "k_D": 0.30158745787074576,
+     "fit_rows": 18834,
+     "draws": 2000,
+     "games": 1224
+    },
+    {
+     "pace_factor_sd": 0.0,
+     "poss_seasons": [
+      2023,
+      2024,
+      2025
+     ],
+     "pmf": [
+      0.49058,
+      0.0299,
+      0.32818,
+      0.1487,
+      0.00194,
+      0.00054,
+      0.00014,
+      1e-05,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "k_O": 0.6650662905988893,
+     "k_D": 0.34402888327190784,
+     "fit_rows": 21282,
+     "draws": 2000,
+     "games": 1221
+    }
+   ],
+   "B": {
+    "B1_total_gain": 0.000315,
+    "B1_total_gain_90pct_lower": 0.000178,
+    "B1": true,
+    "B2_seasons_total_better": 5,
+    "B2": true,
+    "B3_margin_rel_change": 0.03428,
+    "B3": false,
+    "B3_reported_90pct_bound_on_deterioration": 0.03848,
+    "B4_logloss_change": 0.01781,
+    "B4": false,
+    "B4_reported_90pct_bound_on_deterioration": 0.02125
+   },
+   "B_pass": false
+  },
   "G1_vs_G0": {
    "margin_gain": -0.001131,
    "margin_gain_95pct_lower": -0.001466,
@@ -720,6 +1172,10 @@
    "G1": {
     "rps_margin": 0.07924,
     "rps_total": 0.07687
+   },
+   "G1s": {
+    "rps_margin": 0.07923,
+    "rps_total": 0.07694
    }
   },
   "not_rotation_player_out": {
@@ -735,6 +1191,10 @@
    "G1": {
     "rps_margin": 0.07817,
     "rps_total": 0.07486
+   },
+   "G1s": {
+    "rps_margin": 0.07828,
+    "rps_total": 0.07493
    }
   },
   "team_games_1_10": {
@@ -750,6 +1210,10 @@
    "G1": {
     "rps_margin": 0.0744,
     "rps_total": 0.07617
+   },
+   "G1s": {
+    "rps_margin": 0.0743,
+    "rps_total": 0.07605
    }
   },
   "not_team_games_1_10": {
@@ -765,6 +1229,10 @@
    "G1": {
     "rps_margin": 0.07956,
     "rps_total": 0.07633
+   },
+   "G1s": {
+    "rps_margin": 0.0796,
+    "rps_total": 0.07642
    }
   },
   "close_expected_|m|<5": {
@@ -780,6 +1248,10 @@
    "G1": {
     "rps_margin": 0.07918,
     "rps_total": 0.07626
+   },
+   "G1s": {
+    "rps_margin": 0.07925,
+    "rps_total": 0.07628
    }
   },
   "not_close_expected_|m|<5": {
@@ -795,6 +1267,10 @@
    "G1": {
     "rps_margin": 0.07868,
     "rps_total": 0.07636
+   },
+   "G1s": {
+    "rps_margin": 0.07865,
+    "rps_total": 0.07647
    }
   },
   "lopsided_expected_|m|>=10": {
@@ -810,6 +1286,10 @@
    "G1": {
     "rps_margin": 0.08053,
     "rps_total": 0.07785
+   },
+   "G1s": {
+    "rps_margin": 0.08054,
+    "rps_total": 0.07795
    }
   },
   "not_lopsided_expected_|m|>=10": {
@@ -825,6 +1305,10 @@
    "G1": {
     "rps_margin": 0.07864,
     "rps_total": 0.07602
+   },
+   "G1s": {
+    "rps_margin": 0.07867,
+    "rps_total": 0.07607
    }
   }
  },

@@ -115,3 +115,61 @@ Stage two of research/NBA_LINES_PROPS_DESIGN.md. Stage one (availability and min
    - G1 passes A, B and C: G1.
    - Otherwise, G0 passes A and B: G0. This covers G1 failing C, and G1 passing C but failing A or B.
    - Otherwise: recorded, and stage two is revised under a new rule.
+
+## Outcome (20 Oct 2026) - neither G0 nor G1 passes; recorded as a fail
+Run: research/nba_game_env_test.py (results research/nba_game_env_results.json; first scoring run kept as nba_game_env_results_firstrun.json). 6,108 test games 2022-2026 (42 without a lineup for both teams dropped from every model). 4,000 draws per game for G0 and G1; the reported-only G1s and G1_6h used 2,000.
+Mechanics note (before scoring): play-by-play before 2020 lacks free throws, so possession inputs come from 2020+ seasons only (2022 uses 2020-2021).
+
+| Model | Margin RPS | Total RPS | Win log loss |
+|---|---|---|---|
+| L live model (complete) | 0.07660 | 0.07670 | 0.6088 |
+| B simple averages (reported) | 0.07937 | 0.07631 | 0.6337 |
+| G0 team-only simulation | 0.07781 | 0.07678 | 0.6144 |
+| G1 simulation + lineup | 0.07894 | 0.07631 | 0.6245 |
+| G1s sampled lineup (reported) | 0.07896 | 0.07637 | 0.6244 |
+| G1 at 6 hours (reported) | 0.07923 | 0.07639 | 0.6266 |
+
+The realism checks compare simulated games with actual ones (pooled):
+
+| Check | Actual | G0 | G1 |
+|---|---|---|---|
+| Spread of totals (sd) | 20.2 | 21.6 (pass) | 21.6 (pass) |
+| Spread of margins (sd) | 15.4 | 18.3 (fail) | 18.1 (fail) |
+| Correlation of the two scores | 0.26 | 0.16 (fail) | 0.18 (pass) |
+| Games decided by 3 or fewer | 14.5% | 13.9% (pass) | 14.0% (pass) |
+| Overtime rate | 5.0% | 2.2% (fail) | 2.2% (fail) |
+| PIT deciles | | margin 0.058-0.134 (fail) | margin 0.060-0.130 (fail) |
+
+**Gate B, against L:**
+- G0 fails all four parts. Total gain -0.00008; margin RPS 1.6% worse; log loss 0.0056 worse.
+- G1 improves totals: gain +0.00039 (90% lower bound +0.00027), better in 5 of 5 seasons. It fails on margins (3.1% worse) and on log loss (0.0156 worse).
+
+**Gate C, G1 against G0:**
+- Totals are better: 95% lower bound +0.00033 (C1 passes).
+- Margins are worse in every season, and log loss is worse (C2 and C3 fail).
+
+**Decision by the written gates:** neither model qualifies. Stage two is to be revised under a new rule.
+
+## Diagnosis (20 Oct 2026; after the fail, per GPT's request; research/nba_game_env_diag.py, nba_game_env_diag.json). Descriptive, nothing selected
+1. **Within-game noise, not exaggerated team differences.** The variance of G0's game means is small (margin 44 against 236 for actual margins). The excess is in the simulated within-game uncertainty, compared with the actual prediction errors around the same means:
+
+| | Home score | Away score | Covariance (correlation) | Margin | Total |
+|---|---|---|---|---|---|
+| Actual prediction errors (variance) | 138 | 138 | 44 (0.32) | 188 | 365 |
+| G0 simulated within-game (variance) | 178 | 177 | 33 (0.18) | 289 | 420 |
+
+   Margin variance = home + away - 2 x covariance. The excess of about 100 comes from each team's variance being about 40 too high and the covariance about 11 too low.
+2. **Possession accounting.**
+   - The real play-by-play counts about 98.7 possessions per team per game. Box-score pace (used to calibrate the simulation) is about 102, so the simulation has about 3% more possessions.
+   - Simulated possession counts vary by 4.85 per team within a game. That is about the same as the actual spread of possession counts around expected pace across games, which also contains pace-forecast error. The extra shared pace factor was therefore fitted at 0: nothing was counted twice, but the count variation is too large.
+   - Simulated count variation is also independent of possession outcomes. Durations are drawn independently; the duration CV is 0.72, and 5.6% of play-by-play possessions have zero length.
+   - Within real games, team points given the possession count vary about as n x per-possession variance (about 140). The two teams' scores are positively correlated beyond the counts (0.05-0.25 by season). The simulation has no such link.
+3. **Overtime.** Too few overtimes follow partly from the wide margins: a normal with the actual error sd of 13.7 implies about 3% ties. End-game behaviour (fouling, last shots) is absent and likely explains the rest.
+4. **G1 audit.**
+   - Lineup deltas are in team points per 100 possessions (minutes/48 x per-100 five-man ratings). The net delta correlates 0.42 with the injury term, as expected.
+   - k_O was 0.66-0.69 and k_D 0.26-0.35 across test seasons, fitted to the team model's residuals.
+   - Mean level (MSE of the game means):
+     - margins: injury term 188.0, lineup term 194.3, both 189.7, team only 197.8. The lineup term is weaker than the injury term for margins.
+     - totals: L 366.2, G1 362.4 (offence part 363.6, defence part 366.0), simple averages B 361.9. Total bias is about +1.1 for both L and G1, so G1's gain on totals is not a level effect. It is about the same size as B's, and whether the two overlap is untested.
+   - Not adopted.
+5. **Short-minutes diagnostic.** Players expected to play 24+ minutes who played 12+ fewer: 4.2% in blowouts (final margin 20+) against 2.9% in other games. Blowouts are 19% of games and hold 26% of these short nights.
