@@ -1,0 +1,224 @@
+{
+ "G0": {
+  "actual_prediction_errors": {
+   "var_home_err": 138.48,
+   "var_away_err": 138.25,
+   "cov_err": 44.36,
+   "var_margin_err": 188.03,
+   "var_total_err": 365.42,
+   "mean_margin_err": -0.14,
+   "mean_total_err": 0.46
+  },
+  "simulated_within_game_mean": {
+   "var_home": 177.8,
+   "var_away": 176.85,
+   "cov": 32.64,
+   "var_margin": 289.36,
+   "var_total": 419.93
+  },
+  "between_games": {
+   "var_sim_mean_margin": 44.47,
+   "var_actual_margin": 236.42,
+   "var_sim_mean_total": 45.17,
+   "var_actual_total": 406.61
+  }
+ },
+ "G1": {
+  "actual_prediction_errors": {
+   "var_home_err": 138.79,
+   "var_away_err": 138.83,
+   "cov_err": 41.67,
+   "var_margin_err": 194.3,
+   "var_total_err": 360.94,
+   "mean_margin_err": -0.04,
+   "mean_total_err": 0.52
+  },
+  "simulated_within_game_mean": {
+   "var_home": 177.88,
+   "var_away": 176.87,
+   "cov": 32.61,
+   "var_margin": 289.53,
+   "var_total": 419.97
+  },
+  "between_games": {
+   "var_sim_mean_margin": 36.6,
+   "var_actual_margin": 236.42,
+   "var_sim_mean_total": 45.73,
+   "var_actual_total": 406.61
+  }
+ },
+ "possession_accounting_actual": {
+  "2022": {
+   "poss_per_team_game_mean": 98.26,
+   "poss_per_team_game_sd": 4.49,
+   "diff_home_away_poss_sd": 1.04,
+   "corr_home_away_poss": 0.973,
+   "pts_per_poss": 1.1157,
+   "var_per_poss": 1.4144,
+   "var_team_pts_given_n": 135.9,
+   "n_x_var_per_poss": 139.0,
+   "corr_home_away_regulation_pts": 0.242,
+   "corr_home_away_pts_resid_given_n": 0.152
+  },
+  "2023": {
+   "poss_per_team_game_mean": 99.18,
+   "poss_per_team_game_sd": 4.77,
+   "diff_home_away_poss_sd": 1.01,
+   "corr_home_away_poss": 0.978,
+   "pts_per_poss": 1.1443,
+   "var_per_poss": 1.4086,
+   "var_team_pts_given_n": 123.1,
+   "n_x_var_per_poss": 139.7,
+   "corr_home_away_regulation_pts": 0.327,
+   "corr_home_away_pts_resid_given_n": 0.253
+  },
+  "2024": {
+   "poss_per_team_game_mean": 98.65,
+   "poss_per_team_game_sd": 4.7,
+   "diff_home_away_poss_sd": 1.0,
+   "corr_home_away_poss": 0.977,
+   "pts_per_poss": 1.1474,
+   "var_per_poss": 1.4207,
+   "var_team_pts_given_n": 140.4,
+   "n_x_var_per_poss": 140.2,
+   "corr_home_away_regulation_pts": 0.248,
+   "corr_home_away_pts_resid_given_n": 0.14
+  },
+  "2025": {
+   "poss_per_team_game_mean": 98.87,
+   "poss_per_team_game_sd": 5.84,
+   "diff_home_away_poss_sd": 1.01,
+   "corr_home_away_poss": 0.985,
+   "pts_per_poss": 1.1397,
+   "var_per_poss": 1.4402,
+   "var_team_pts_given_n": 136.9,
+   "n_x_var_per_poss": 142.4,
+   "corr_home_away_regulation_pts": 0.263,
+   "corr_home_away_pts_resid_given_n": 0.096
+  },
+  "2026": {
+   "poss_per_team_game_mean": 99.56,
+   "poss_per_team_game_sd": 6.29,
+   "diff_home_away_poss_sd": 0.99,
+   "corr_home_away_poss": 0.988,
+   "pts_per_poss": 1.1495,
+   "var_per_poss": 1.4333,
+   "var_team_pts_given_n": 140.8,
+   "n_x_var_per_poss": 142.7,
+   "corr_home_away_regulation_pts": 0.246,
+   "corr_home_away_pts_resid_given_n": 0.054
+  }
+ },
+ "simulated_possession_sample": {
+  "season": 2024,
+  "games": 200,
+  "mean_poss_per_team": 102.33,
+  "within_game_sd_poss_per_team": 4.85,
+  "sd_home_minus_away_poss": 1.0,
+  "actual_sd_poss_resid_same_games": 4.91,
+  "mean_poss_resid": -0.06,
+  "duration_mean": 14.77,
+  "duration_sd": 10.63,
+  "duration_p99": 39.0,
+  "share_zero_duration": 0.056,
+  "pace_factor_sd": 0.0
+ },
+ "G1_audit": {
+  "lineup_delta_means": {
+   "dO": 0.118,
+   "dD": 0.351
+  },
+  "lineup_delta_sds": {
+   "dO": 1.77,
+   "dD": 1.405
+  },
+  "corr_net_lineup_delta_with_injury_term": 0.423,
+  "k_by_season": {
+   "2022": [
+    0.681,
+    0.263
+   ],
+   "2023": [
+    0.658,
+    0.354
+   ],
+   "2024": [
+    0.692,
+    0.292
+   ],
+   "2025": [
+    0.679,
+    0.302
+   ],
+   "2026": [
+    0.665,
+    0.344
+   ]
+  },
+  "mean_level": {
+   "L_team_plus_injury (G0 means)": {
+    "margin_mse": 188.01,
+    "total_mse": 366.17,
+    "total_bias": 1.06,
+    "margin_bias": -0.14
+   },
+   "team_only_no_injury": {
+    "margin_mse": 197.8,
+    "total_mse": 366.17,
+    "total_bias": 1.06,
+    "margin_bias": -0.02
+   },
+   "G1 offence+defence": {
+    "margin_mse": 194.33,
+    "total_mse": 362.35,
+    "total_bias": 1.12,
+    "margin_bias": -0.03
+   },
+   "G1 offence only": {
+    "margin_mse": 194.79,
+    "total_mse": 363.58,
+    "total_bias": 0.89,
+    "margin_bias": -0.03
+   },
+   "G1 defence only": {
+    "margin_mse": 196.55,
+    "total_mse": 365.95,
+    "total_bias": 1.28,
+    "margin_bias": -0.02
+   },
+   "G1 + injury term (both)": {
+    "margin_mse": 189.68,
+    "total_mse": 362.35,
+    "total_bias": 1.12,
+    "margin_bias": -0.15
+   },
+   "B simple averages": {
+    "total_mse": 361.91,
+    "total_bias": 0.86,
+    "margin_mse": 202.14
+   }
+  },
+  "total_bias_by_season": {
+   "2022": {
+    "L_total_bias": 1.81,
+    "B_total_bias": 3.57
+   },
+   "2023": {
+    "L_total_bias": 3.5,
+    "B_total_bias": 2.09
+   },
+   "2024": {
+    "L_total_bias": -0.79,
+    "B_total_bias": -1.24
+   },
+   "2025": {
+    "L_total_bias": 0.4,
+    "B_total_bias": 0.86
+   },
+   "2026": {
+    "L_total_bias": 0.39,
+    "B_total_bias": -0.95
+   }
+  }
+ }
+}
