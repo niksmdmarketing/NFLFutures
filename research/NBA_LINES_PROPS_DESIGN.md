@@ -89,3 +89,14 @@ Each stage has its own pre-registered rule and must beat its baseline before the
 ## 9. TypeSafe on the design
 - Version 1 (20 Oct): one joint simulator (94%); opportunity-based counts (100%); full-distribution scoring at fixed pre-game thresholds (89%); minutes and role first (93%).
 - Version 2 (20 Oct): adopt all of GPT's second-review revisions with a possession-level simulation, good-night effect off by default, availability and minutes first (100%).
+
+## 10. Implementation notes after GPT's third review (20 Oct 2026; design accepted, start stage one)
+1. Available is not appears: availability is drawn first (health/report), then the rotation decides whether an available player gets minutes. Appearance probability = P(available) x P(minutes > 0 | available); bench props depend on the second factor.
+2. One continuous game: possessions alternate on a shared clock (each possession consumes time; the clock, not two independent counts, ends quarters). Offensive rebounds extend a possession; and-ones and technical free throws keep possession; end-of-quarter heaves can end without a rebound; team rebounds and dead-ball rebounds are explicit outcomes (no player credited).
+3. The efficiency tilt changes only a stated set of rates (turnover rate, two- and three-point make probabilities, free-throw trip rate), each kept within bounds learned from history, and team and player distributions are checked together; it must not push every player's shooting to implausible levels.
+4. Fouls: deferred. Version 1 has no foul-outs; free throws come from per-possession trip rates. Foul modelling is added later only if it earns its place.
+5. Combo baseline: independent draws from the same component distributions (same marginals, no dependence), so the test isolates whether the joint dependence helps; the naive sum-of-means is reported too.
+6. Forecast times are relative to each game's tip-off (6 hours and 1 hour before), using the latest official report actually published before that time.
+7. Market prices: archiving starts now (Kalshi collector on the user's PC), not at the final stage.
+8. Stage one's first test covers appearance probability, minutes distributions, returning players and teammate absences; score-dependent minutes are added once the game environment exists.
+TypeSafe (100%): proceed on this basis.
