@@ -106,3 +106,18 @@ Run: research/nba_minutes_tail_test.py (results research/nba_minutes_tail_result
 - The subgroup weakness label stays, because the gaps remain about 4 points.
 
 **Diagnostic for the next points rule** (descriptive): in the fixed low-minute-risk group, stage one's mean minutes given appearing is 14.55 against 13.50 actual, and P(minutes < 15) is 0.509 against 0.553. A mean-minutes bias for fringe players remains, beyond the short-night tail. It likely drives the remaining over gap and part of the points low tail, together with points dispersion given minutes.
+
+## Checks after the outcome (20 Oct 2026; GPT review; research/nba_minutes_m2_checks.json). Descriptive
+Fixed low-minute-risk group (48,571 appearances, 2022-2026):
+
+| Measure | Stage one | M2 | Actual |
+|---|---|---|---|
+| Average minutes, given appearing | 14.55 | 14.48 | 13.50 |
+| P(under 15 minutes) | 0.509 | 0.477 | 0.553 |
+| P(short night) | - | 0.256 | 0.272 |
+
+Other players: average 28.42 / 28.66 / 28.37; P(under 15) 0.036 / 0.046 / 0.045.
+
+**Normal-night component.** On historical normal nights, the untruncated fitted mean is right (fringe 16.91 against actual 16.97). Removing the lower tail pushes the component's mean up to 17.93 for fringe players (other players 29.63 against 29.20).
+
+So the remaining fringe bias is largely an implementation artefact of how M2 builds its normal-night part. For fringe players, M2 is no better than stage one on average minutes and is worse on P(under 15). The next step (TypeSafe 98%) is a narrow fix under its own rule: fit the normal-night component as a truncated distribution, so that its mean after truncation matches normal nights. Everything else stays unchanged.
