@@ -22,7 +22,7 @@ Calculation checks use fitting data or mathematical identities; forecast-perform
 | NBA minutes model (props stage one) | Historical improvement over the report-aware last-10 baseline (minutes RPS); research only |
 | NBA game environment, possession simulation (stage two) | Failed against the live model; experimental |
 | NBA player props: rebounds (P+O), assists (P+T), version 2 with M2 minutes | Historical improvement overall over season, last-10, per-minute and minutes-matched baselines (RPS), with a known subgroup weakness (overs too high for players at risk of short minutes); frozen forward test 2026-27; not on site |
-| NBA player props: points | Beats every baseline but fails calibration (also with M2 minutes); experimental |
+| NBA player props: points | Version D (spread varies with expected points) passes all points gates historically (research/NBA_POINTS_DISPERSION_RULE.md); zero-night and fringe-average shortfalls remain; awaiting a forward-test decision; not on site |
 | NBA minutes M2 (short-night component) | Historical improvement over stage one (minutes RPS and calibration); used by prop version 2 |
 | NBA minutes M2b (truncation fix) and prop v3 | Promising correction; failed the original adoption gate; 2022-2026 results are development evidence; pre-specified forward test 2026-27 beside v2 (one evaluation at season end) |
 | Kalshi NBA price archive | Descriptive (benchmark only, never an input) |

@@ -71,3 +71,37 @@ The written gates decide; TypeSafe helps interpret.
 3. **Gate 4, first part:** on group A, |average predicted over probability - observed over frequency| must be smaller for D than for R. Zero-point checks stay "closer to actual".
 4. **log(μ):** μ = rate x m, with m >= 1 and the shrunk rate strictly positive (group rates are positive and m0 > 0). μ is also floored at 0.01 explicitly.
 5. **Paired comparison:** the D-minus-R unconditional RPS improvement is reported with its week-block bootstrap 90% interval (gate 2 remains the point-estimate condition).
+
+## Outcome (20 Oct 2026) - D passes all gates
+Run: research/nba_points_dispersion_test.py (results research/nba_points_dispersion_results.json).
+- **Data:** corrected rows, 2022-2026; 128,509 appearances given appearing; M2 minutes.
+- **Fitted dispersion:** log r(μ) = a + b log μ; a = -1.08 to -1.10 and b = 1.300 to 1.303 in every test season (constant r was 7.5-7.7). So r is about 0.8 at 2 expected points, about 6.7 at 10 and about 16.6 at 20: much more spread (more scoreless nights) for low expected points, less for scorers.
+
+**Gate 1, original points gates against B1, B2, B3 and B3m:**
+- every 90% bound above zero, better in 5 of 5 seasons, better given appearing;
+- PIT deciles 0.091-0.128 (R: 0.087-0.146, failing). Pass.
+
+**Gate 2, not worse than R:**
+- RPS 0.036003 against 0.036318 overall;
+- established scorers (E) 0.06769 against 0.06870. Pass.
+- Paired D-minus-R gain +0.000315 (90% interval 0.000304 to 0.000327).
+
+**Gate 3, tails (observed against predicted exceedance):**
+- overall: 95th 0.039 against 0.044; 99th 0.0076 against 0.0086;
+- E: 0.042 against 0.044 and 0.0076 against 0.0087 (R was 0.027 against 0.045);
+- groups B and C: errors smaller than R's (B 99th: 0.0091 against 0.0086; R 0.0146 against 0.0084). Pass.
+
+**Gate 4, targets:**
+- fixed confident group A (1,354): |over gap| 0.083 to 0.042 (predicted 0.811 against actual 0.769);
+- P(0 points) closer to actual: B 0.161 to 0.267 (actual 0.356); C 0.106 to 0.183 (actual 0.263). Pass.
+
+**Remaining, reported:**
+- Zero-point nights are still under-predicted: overall 0.072 against 0.110; fringe groups as above.
+- D's own confident group: 0.850 against 0.807.
+- **Average points against actual, by pre-game rate quintile and projected minutes:** over-predicted by about 0.3-0.5 points (8-13%) for projected minutes up to 25, at every rate level. Projected 25+: within about 0.3. The top-rate starters are slightly under-predicted (21.56 against 21.92).
+- That pattern runs by projected minutes rather than by scoring level, so it points mainly to the minutes side (fringe minutes too high, which M2b addresses in the forward test), not to shrinkage. A shrinkage rule is not warranted by this evidence.
+
+**Decision (written gates; TypeSafe 99%):**
+- D is the points version for a separate forward-test decision. It needs its own identifier before any live use.
+- Label: "historical improvement over the four baselines and over the previous points version (RPS, calibration); zero-night and fringe-average shortfalls remain".
+- No live or site change.
