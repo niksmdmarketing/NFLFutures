@@ -39,3 +39,19 @@ Both use the same discretised-normal form with standard deviation fitted on earl
 4. Not worse than B2r for returning players and for games with a rotation teammate unavailable.
 ## Decision
 TypeSafe decides. Pass: stage one becomes the minutes input for stage two (game environment). Fail: recorded; stage one is revised under a new rule before anything is built on it.
+
+## Outcome (20 Oct 2026) - passes all gates
+Run: research/nba_minutes_test.py build / score (rows data/research/nba_minutes_rows.csv.gz, results research/nba_minutes_results.json). 219,508 candidate player-games, 2022-2026. Mechanics fixes before scoring: tip times with mixed UTC offsets were not parsed for 2021+ (fixed with ISO8601 parsing; first build discarded before any score was computed).
+
+| Forecast | Model | Unconditional minutes RPS | Appearance log loss |
+|---|---|---|---|
+| 1 h before | M | 0.0598 | 0.311 |
+| 1 h before | B2r (last 10, report-aware) | 0.0670 | 0.374 |
+| 1 h before | B1 (season average) | 0.0902 | 0.522 |
+| 6 h before | M | 0.0709 | 0.404 |
+| 6 h before | B2r | 0.0761 | 0.457 |
+
+1 hour before: M 10.7% better than B2r (90% lower bound above zero), better in all 5 seasons (gains 0.0060-0.0079); returning players +0.0012, teammate (25+ mpg) unavailable +0.0085, starters +0.0125, bench +0.0047, team games 1-10 +0.0026, later +0.0077. All four gates pass. 6 hours before: 6.9% better, also all gates.
+Calibration of minutes given appearing (randomised PIT deciles, 0.10 = calibrated): M 0.132, 0.101, 0.096, 0.093, 0.095, 0.099, 0.100, 0.100, 0.092, 0.093. The lowest decile is too full: short-minute nights (in-game injuries, blowout cameos, foul trouble) happen more often than the normal shape allows. Known refinement for later, under its own rule.
+Not scored: about 450-560 appearances a season by players who were not candidates (mostly season debuts before a player's first game for the team).
+Decision (TypeSafe 97%): pass; stage one becomes the minutes input for stage two; the short-minutes tail is a known refinement; stage two (game environment) next.

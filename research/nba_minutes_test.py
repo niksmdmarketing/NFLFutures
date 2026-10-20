@@ -224,7 +224,7 @@ def score():
     D["y_app"] = (D.minutes > 0).astype(float)
     for c in ("st1", "st6"):
         D[c] = D[c].fillna("")
-    D["newcomer"] = D.ewm.isna()
+    D["newcomer"] = D["ewm"].isna()
     fill = {"app10": 0.5, "mpg10": 12.0, "ewm": 12.0, "season_mpg": 12.0, "season_app": 0.5}
     for c, v in fill.items():
         D[c] = D[c].fillna(v)
@@ -242,13 +242,13 @@ def score():
             # appears given available: logistic on rows not listed Out/Doubtful/Questionable
             Xc = ["app10", "mpg10", "start10", "streak", "vac_same" + tag, "vac_other" + tag, "early", "ewm", "newcomer"]
             ok = ~T["st" + tag].isin(["Out", "Doubtful", "Questionable"])
-            Xf = lambda Z: np.column_stack([Z.app10, Z.mpg10 / 48, Z.start10, np.log1p(Z.streak), Z["vac_same" + tag] / 48, Z["vac_other" + tag] / 48, Z.early, Z.ewm / 48, Z.newcomer.astype(float)])
+            Xf = lambda Z: np.column_stack([Z.app10, Z.mpg10 / 48, Z.start10, np.log1p(Z.streak), Z["vac_same" + tag] / 48, Z["vac_other" + tag] / 48, Z.early, Z["ewm"] / 48, Z.newcomer.astype(float)])
             lr = LogisticRegression(C=1.0, max_iter=500).fit(Xf(T[ok]), T[ok].y_app)
             Z = D[te]
             pa_M = (1 - pm_te) * lr.predict_proba(Xf(Z))[:, 1]
             # minutes given appearing
             P = T[T.minutes > 0]
-            Xm = lambda Z: np.column_stack([np.ones(len(Z)), Z.ewm, Z.season_mpg, Z["vac_same" + tag] * Z.ewm / 36, Z["vac_other" + tag] * Z.ewm / 36,
+            Xm = lambda Z: np.column_stack([np.ones(len(Z)), Z["ewm"], Z.season_mpg, Z["vac_same" + tag] * Z["ewm"] / 36, Z["vac_other" + tag] * Z["ewm"] / 36,
                                             ((Z.streak >= 2) & (Z["st" + tag] != "Out")).astype(float), Z.start10, Z.early, Z.newcomer.astype(float)])
             bm = np.linalg.lstsq(Xm(P), P.minutes.to_numpy(), rcond=None)[0]
             muP = np.clip(Xm(P) @ bm, 1, 48)
@@ -263,17 +263,25 @@ def score():
             q_B1 = disc_normal(Z.season_mpg.clip(1, 48).to_numpy(), sd1(Z.season_mpg.clip(1, 48).to_numpy()))
             q_B2 = disc_normal(Z.mpg10.clip(1, 48).to_numpy(), sd2(Z.mpg10.clip(1, 48).to_numpy()))
             yv = Z.minutes.to_numpy()
+            rng0 = np.random.default_rng(s)
             for name, pa, q in (("M", pa_M, q_M), ("B1", pa_B1, q_B1), ("B2r", pa_B2, q_B2)):
                 pa = np.clip(pa, 1e-3, 1 - 1e-3)
                 ya = Z.y_app.to_numpy()
+                Fq = np.cumsum(q, 1)
+                yk = np.clip(np.round(yv), 1, MAXM).astype(int)
+                hi = Fq[np.arange(len(yk)), yk - 1]
+                lo = np.where(yk > 1, Fq[np.arange(len(yk)), np.maximum(yk - 2, 0)], 0.0)
+                pit = np.where(yv > 0, lo + rng0.random(len(yk)) * (hi - lo), np.nan)   # randomised PIT of minutes given appearing
                 preds.setdefault(name, []).append(pd.DataFrame({"idx": Z.index, "rps": rps(pa, q, yv),
-                                                                "ll": -(ya * np.log(pa) + (1 - ya) * np.log(1 - pa)), "pa": pa}))
+                                                                "ll": -(ya * np.log(pa) + (1 - ya) * np.log(1 - pa)), "pa": pa, "pit": pit}))
         out = {}
         S = {k: pd.concat(v).set_index("idx").loc[D[D.season.isin(TEST)].index] for k, v in preds.items()}
         X = D.loc[S["M"].index]
         wk = (X.season.astype(str) + "_" + pd.to_datetime(X.tip).dt.isocalendar().week.astype(str)).to_numpy()
         for k in S:
-            out[k] = {"rps": round(float(S[k].rps.mean()), 5), "app_logloss": round(float(S[k].ll.mean()), 5)}
+            pit = S[k].pit.dropna().to_numpy()
+            out[k] = {"rps": round(float(S[k].rps.mean()), 5), "app_logloss": round(float(S[k].ll.mean()), 5),
+                      "pit_deciles_given_appearing (0.10 each = calibrated)": [round(float(v), 3) for v in np.histogram(pit, bins=10, range=(0, 1))[0] / len(pit)]}
         gain = (S["B2r"].rps - S["M"].rps).to_numpy()
         rng = np.random.default_rng(12)
         keys = np.unique(wk)
