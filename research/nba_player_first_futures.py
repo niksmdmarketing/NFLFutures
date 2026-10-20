@@ -33,5 +33,5 @@ out = {"seasons": R.season.tolist(), "base": round(float(R.base.mean()), 4), "pf
 worst = max(out["by_market"][k]["pf"] - out["by_market"][k]["base"] for k, _ in MK)
 out["gates"] = {"ci_above_0": out["ci90"][0] > 0, "7_of_11": out["seasons_better"] >= 7, "no_market_worse_than_0.002": worst <= 0.002}
 out["pass"] = all(out["gates"].values())
-json.dump(out, open(os.path.join(ROOT, "research", "nba_player_first_futures_results.json"), "w"), indent=1)
+json.dump(out, open(os.path.join(ROOT, "research", os.environ.get("PF_OUT", "nba_player_first_futures_results.json")), "w"), indent=1)
 print(json.dumps(out, indent=1))

@@ -78,3 +78,10 @@ Amendment 2 - one corrected comparison, then stop either way (TypeSafe 99%):
 - rating -> (b / b_A) x rating + (c / b_A) x (S - mean S), with that season's walk-forward weights b, c (combined) and b_A (team alone).
 - S from each team's usual rotation: every player's minutes over the team's last 10 games before the checkpoint (absences count as zero, players who have since appeared for another team dropped), scaled to 240.
 - Baseline, seasons, simulations and gates exactly as in Test 2 (mean log loss over five markets with season-bootstrap 90% interval above zero; at least 7 of 11 seasons; no market worse by more than 0.002).
+
+## Amendment 2 outcome (20 Oct 2026) - no longer worse, leans positive, but fails the interval gate; stop
+research/replay_nba.py BT_PF=2, scored by research/nba_player_first_futures.py (research/nba_player_first_futures2_results.json).
+Mean log loss 0.1827 -> 0.1817 (gain +0.0010, 90% -0.0031 to +0.0050); better in 7 of 11 seasons; no market worse than 0.002 (playoffs 0.3308 -> 0.3262, division 0.2430 -> 0.2419; title, conference and No. 1 seed 0.0001-0.0003 worse). 2026 still -0.020.
+Gates: interval above zero fails; 7 of 11 passes; no market worse passes. Fail.
+The audit's corrections removed the earlier damage (-0.0023 -> +0.0010), so the first Test 2 result mostly reflected the implementation (scale, stale pre-season roster, carried-forward absences), not a property of player information.
+Decision (TypeSafe 98%): recorded as a fail per the rule; futures model unchanged; stop. The corrected version is no longer worse and leans positive; the single-game result stands as promising but not proven against the full live pipeline.

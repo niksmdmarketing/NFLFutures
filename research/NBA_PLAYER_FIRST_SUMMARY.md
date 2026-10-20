@@ -59,3 +59,10 @@ Live futures replay settings, plus the player term added to every checkpoint's t
 - Is "single-game only" a legitimate separate use, given that the futures model and the game predictions would then disagree on team strength?
 - Is the double-counting explanation for the futures failure right, or is it the crude pre-season lineup (weakness 6)?
 - Should a future futures test replace parts of the existing player information rather than add a term on top?
+
+## Update after review (20 Oct 2026): audit and one corrected futures comparison
+GPT's review asked for an implementation audit before interpreting the futures failure. Findings: (1) scale - the futures term kept the team rating at full weight and added the player term, inflating gaps by about 1/b (up to ~18%) relative to the combination that passed; (2) units consistent; (3) pre-season lineup was last season's final game; (4) one next-game lineup was carried through the whole season. Leakage in the game test: inputs dated before the week (a code check, not proof).
+One corrected comparison was pre-registered (in season only; (b/b_A) x rating + (c/b_A) x player strength; usual 10-game rotation with absences as zero), then stop either way:
+- Mean log loss 0.1827 -> 0.1817 (gain +0.0010, 90% -0.0031 to +0.0050), better in 7 of 11 seasons, no market worse than 0.002 (playoffs and division better; title, conference, No. 1 seed fractionally worse). 2026 still -0.020.
+- Fails the interval gate. Recorded as a fail (TypeSafe 98%); futures unchanged; stopped.
+Revised reading: the first futures failure was mostly the implementation, not double counting proven; corrected, the player term is roughly neutral to slightly positive for futures. Defensible claim overall: player information adds a small, consistent improvement in these historical single-game comparisons; it is not established against the complete live pipeline, and not for futures.
