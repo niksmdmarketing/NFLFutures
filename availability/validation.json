@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-10-19T23:45:48+00:00",
+ "checked_utc": "2026-10-20T04:57:17+00:00",
  "leagues": {
   "nfl": {
-   "records": 1642,
+   "records": 1645,
    "by_layer": {
     "official": 1577,
-    "reported": 65
+    "reported": 68
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -77,20 +77,20 @@
    "teams_missing_official": [],
    "season_state": {
     "state": "in_season",
-    "why": "14 regular-season/playoff and 0 other games 2026-10-12..2026-10-29"
+    "why": "2 regular-season/playoff and 0 other games 2026-10-13..2026-10-30"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "65/65"
+   "reported_matched_to_official_list": "68/68"
   },
   "nba": {
-   "records": 176,
+   "records": 198,
    "by_layer": {
-    "official": 131,
+    "official": 153,
     "reported": 45
    },
    "unknown_team": 0,
-   "no_player": 0,
+   "no_player": 22,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -111,6 +111,7 @@
     "MIA",
     "MIL",
     "MIN",
+    "NO",
     "NY",
     "OKC",
     "ORL",
@@ -134,22 +135,20 @@
     }
    ],
    "stale_projection_dates": 0,
-   "teams_missing_official": [
-    "NO"
-   ],
+   "teams_missing_official": [],
    "season_state": {
     "state": "in_season",
-    "why": "16 regular-season/playoff and 0 other games 2026-10-12..2026-10-29"
+    "why": "28 regular-season/playoff and 0 other games 2026-10-13..2026-10-30"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
    "reported_matched_to_official_list": "45/45"
   },
   "nhl": {
-   "records": 1546,
+   "records": 1548,
    "by_layer": {
-    "official": 153,
-    "reported": 57,
+    "official": 156,
+    "reported": 56,
     "projected": 1336
    },
    "unknown_team": 0,
@@ -195,11 +194,11 @@
    ],
    "season_state": {
     "state": "in_season",
-    "why": "31 regular-season/playoff and 0 other games 2026-10-12..2026-10-29"
+    "why": "31 regular-season/playoff and 0 other games 2026-10-13..2026-10-30"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "54/57"
+   "reported_matched_to_official_list": "53/56"
   },
   "nbl": {
    "records": 25,
@@ -226,7 +225,7 @@
    "teams_missing_official": [],
    "season_state": {
     "state": "in_season",
-    "why": "16 NBL games 2026-10-12..2026-10-29 (NBL fixture, season 2026)"
+    "why": "18 NBL games 2026-10-13..2026-10-30 (NBL fixture, season 2026)"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
@@ -265,7 +264,7 @@
    ],
    "season_state": {
     "state": "off_season",
-    "why": "0 AFL games 2026-10-12..2026-10-29 (Squiggle fixture)"
+    "why": "0 AFL games 2026-10-13..2026-10-30 (Squiggle fixture)"
    },
    "coverage_expected": false,
    "teams_missing_official_note": "off-season: no official coverage expected",
@@ -274,7 +273,7 @@
   }
  },
  "sources_failed": [
-  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 43 h old"
+  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 48 h old"
  ],
  "sources_not_expected": []
 }
