@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-10-20T15:08:57+00:00",
+ "checked_utc": "2026-10-20T19:20:08+00:00",
  "leagues": {
   "nfl": {
-   "records": 1644,
+   "records": 1636,
    "by_layer": {
     "official": 1577,
-    "reported": 67
+    "reported": 59
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -44,35 +44,7 @@
     "TEN",
     "WAS"
    ],
-   "conflicts": [
-    {
-     "player": "Andrew Vorhees",
-     "official": [
-      "out",
-      "questionable"
-     ],
-     "other": "expected to play",
-     "source": "ESPN injury note"
-    },
-    {
-     "player": "Monroe Freeling",
-     "official": [
-      "doubtful",
-      "out"
-     ],
-     "other": "expected to play",
-     "source": "ESPN injury note"
-    },
-    {
-     "player": "Tank Dell",
-     "official": [
-      "injured reserve",
-      "out"
-     ],
-     "other": "expected to play",
-     "source": "ESPN news"
-    }
-   ],
+   "conflicts": [],
    "stale_projection_dates": 0,
    "teams_missing_official": [],
    "season_state": {
@@ -81,16 +53,16 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "67/67"
+   "reported_matched_to_official_list": "59/59"
   },
   "nba": {
-   "records": 197,
+   "records": 213,
    "by_layer": {
-    "official": 153,
-    "reported": 44
+    "official": 166,
+    "reported": 47
    },
    "unknown_team": 0,
-   "no_player": 22,
+   "no_player": 19,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -142,13 +114,13 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "44/44"
+   "reported_matched_to_official_list": "47/47"
   },
   "nhl": {
    "records": 1563,
    "by_layer": {
-    "official": 155,
-    "reported": 60,
+    "official": 152,
+    "reported": 63,
     "projected": 1348
    },
    "unknown_team": 0,
@@ -156,7 +128,6 @@
    "future_published": 0,
    "teams_covered_official": [
     "ANA",
-    "BOS",
     "BUF",
     "CAR",
     "CGY",
@@ -190,6 +161,7 @@
    "conflicts": [],
    "stale_projection_dates": 0,
    "teams_missing_official": [
+    "BOS",
     "CBJ"
    ],
    "season_state": {
@@ -198,7 +170,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "57/60"
+   "reported_matched_to_official_list": "54/63"
   },
   "nbl": {
    "records": 24,
@@ -273,7 +245,7 @@
   }
  },
  "sources_failed": [
-  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 59 h old"
+  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 63 h old"
  ],
  "sources_not_expected": []
 }
