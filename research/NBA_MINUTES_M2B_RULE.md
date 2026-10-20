@@ -112,3 +112,25 @@ Run: research/nba_minutes_m2b_test.py (research/nba_minutes_m2b_results.json).
    - Games before the archive started, or missed by it, may be replayed from archived inputs as supplementary evidence only.
    - Replays never enter the adoption result, because archived injury reports alone do not guarantee every other input was available at the claimed time.
 6. **TypeSafe.** Its percentages are decision support, not validation evidence. The written reasoning, implementation checks and archived results decide.
+
+## Forward archive implementation (20 Oct 2026, before the first valid forecast)
+**Code and parameters:**
+- research/nba_props_live.py: live forecaster.
+- research/nba_props_live_core.py: frozen fit and predict.
+- model/nba_props_live_params_2027.json: sha256 4771633e…d2d1, fitted on 2017-2026, or 2020-2026 for stage one.
+- .github/workflows/nba-props-forward.yml: every 15 minutes, 10:00-05:59 UTC.
+- Output: forecast-archive branch, nba/props_forward/<US date>/<game>_<horizon>_<run>.json.gz, run logs in .../runs/, fetched official reports in .../reports/. Manual test runs go to .../tests/ and are never scored.
+
+**Calculation checks (fitting data and identities):**
+- The frozen parameters reproduce the research fits exactly when refitted for 2026: stage one differences < 1e-14; M2 and M2b distributions < 1e-16; prop fits identical.
+- An offline replay (HOU-LAC, 10 Feb 2026, 1-hour forecast) reproduces the research candidate features exactly for the 34 research candidates (stage one within rounding).
+
+**Differences from the research pipeline, fixed now:**
+1. The expected margin input to M2's short-night probability uses the team rating fitted on games before the forecast day, without the injury term (the research used the weekly checkpoint with the injury term). Replay effect: M2/M2b minutes probabilities differ by up to 0.03 per minute value, and prop means by up to 0.05 points.
+2. Expected pace uses the same day-level rating (replay difference about 0.01 possessions).
+3. The short-night share uses the player's last 20 appearances before the game. The research carried the value forward to non-appearance rows, omitting the latest appearance; the pi model was fitted on appearance rows, which use the live definition.
+4. Only completed games enter. The research processed games in tip-off order, so a same-day trade could remove a player from his old team's candidates once his new team's game had started (a small look-ahead). The replay keeps him as a candidate.
+5. Opponent factors for the forecast game use all completed games. The research's tip-order processing could include the other team's row of the same game.
+6. In the current season, an injury-report name not yet matched to a box score this season is matched through last season's names (unique matches only), so listed players can be candidates before their first game.
+7. As in the research, candidates are players who have appeared for the team this season plus players on the report in use. On opening night only listed players are candidates; season debuts are not scored (stage-one limitation).
+8. Box scores come from the SportsDataverse release. Completed current-season games missing from it are filled from ESPN game summaries. Each record logs which games were filled or failed.
