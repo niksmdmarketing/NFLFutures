@@ -51,10 +51,10 @@ Run: research/nba_minutes_m2b_test.py (research/nba_minutes_m2b_results.json).
 - Those test-season gaps come from the forecast error of the target mean itself; M2's untruncated target is off by similar amounts there. They do not come from the truncation. The check was therefore mis-specified for test seasons. But the rule counts it, so this is recorded as an implementation failure, and M2b does not replace M2.
 
 **Disclosure.** The script computed the checks and the scores in the same run, so the scores were seen. They are reported here as unscored context only, not as a test:
-- minutes RPS M2b 0.059339 (M2 0.059558);
+- minutes RPS M2b 0.059273 (M2 0.059558, stage one 0.059701);
 - fixed fringe group: average minutes 13.80 (M2 14.48, actual 13.50), P(under 15) 0.550 (M2 0.477, actual 0.553);
 - rebounds and assists v3 would meet the replacement conditions: low-minute-risk over gap rebounds 0.039 -> 0.008, assists 0.041 -> 0.020;
-- points still fails calibration.
+- points still fails calibration (lowest decile 0.142); fixed confident points overs 0.765 predicted against 0.651 (M2 0.779).
 
 **Decision (written rule; TypeSafe 98%):**
 - M2 and rebounds/assists v2 stay frozen.
