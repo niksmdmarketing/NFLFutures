@@ -39,7 +39,7 @@ M2b replaces M2 only if all three hold.
 ## Decision
 The written gates decide; TypeSafe helps interpret. No live-model changes.
 
-## Outcome (20 Oct 2026) - fails its pre-registered implementation check; not adopted; archived as a forward shadow
+## Outcome (20 Oct 2026) - promising correction; failed the original adoption rule; not adopted
 Run: research/nba_minutes_m2b_test.py (research/nba_minutes_m2b_results.json).
 
 **Implementation check, as written: FAIL.**
@@ -56,7 +56,32 @@ Run: research/nba_minutes_m2b_test.py (research/nba_minutes_m2b_results.json).
 - rebounds and assists v3 would meet the replacement conditions: low-minute-risk over gap rebounds 0.039 -> 0.008, assists 0.041 -> 0.020;
 - points still fails calibration (lowest decile 0.142); fixed confident points overs 0.765 predicted against 0.651 (M2 0.779).
 
-**Decision (written rule; TypeSafe 98%):**
-- M2 and rebounds/assists v2 stay frozen.
-- Because these historical results are now seen, M2b can only be adopted on new evidence. M2b-based v3 (rebounds, assists) and points with M2b are archived as frozen forward shadows beside v2 for 2026-27, compared on new games only, with the fixed-group checks.
-- Any future implementation check will compare against the in-sample target, not test-season actuals.
+**Decision (written rule; TypeSafe 98%):** M2 and rebounds/assists v2 stay frozen.
+
+## Clarification after GPT's review (20 Oct 2026; TypeSafe: forward route 68%, other points adopted 84-85%)
+- **Label:** "promising correction; failed the original adoption gate". Not "proven improvement", not "disproved".
+- **What the check mixed up:** calculation correctness and forecast accuracy.
+  - The calculation fix works: truncation now preserves the fitted mean on the fitting data.
+  - The 0.3-minute test-season tolerance measured forecast accuracy and was an arbitrary gate.
+- **The seen results:** 2022-2026 results for M2b are development evidence, not an untouched confirmation. Development figures:
+  - minutes RPS 0.059273 against M2 0.059558 (against stage one: 90% bound +0.000392);
+  - rebounds v3 against v2: +0.000034 (95% bound +0.000023);
+  - assists: +0.000024 (+0.000018).
+  - An M2b-against-M2 interval was not computed in this run.
+- **Policy on checks:** calculation checks use fitting data or mathematical identities. Forecast-performance checks still use held-out or future games.
+
+## Forward test of M2b / v3 (written 20 Oct 2026, before any 2026-27 result)
+- **Period:** the 2026-27 NBA regular season, opening night to the last regular-season game. **One evaluation, after the regular season ends.** Interim numbers may be shown only as labelled "interim" and decide nothing. The stopping point is fixed now.
+- **Forecasts:**
+  - v2 (M2 minutes) and v3 (M2b minutes) are produced at the same times from the same inputs: 1 hour before tip-off (main) and 6 hours, using the official report available at that time.
+  - Both use the 2026-27 parameters fitted on 2017-2026 (model/nba_props_frozen.json).
+  - Archived before tip-off. Any game whose forecast was not archived before tip-off is excluded from both versions and counted.
+- **Minimum evidence:** 30,000 candidate player-games. If the season delivers fewer, the same rule continues into 2027-28.
+- **Adoption (all must hold):**
+  - **minutes:** M2b's unconditional RPS better than M2's, with a week-block 90% one-sided bound above zero;
+  - **per stat (rebounds, assists, judged separately):**
+    - v3's prop RPS better than v2's, with a 90% one-sided bound above zero;
+    - v3's PIT deciles given appearing within 0.07-0.13;
+    - a smaller over gap on the fixed low-minute-risk group. The group is defined from v2's minutes at forecast time, P(minutes < 15 | appear) >= 0.2.
+- **Reported:** confident overs (fixed from v2 and own), by month; points with M2b (points has its own rule).
+
