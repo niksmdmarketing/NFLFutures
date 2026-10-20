@@ -166,3 +166,8 @@ Run: research/nba_minutes_m2b_test.py (research/nba_minutes_m2b_results.json).
    - **Team-season cluster:** each player-game belongs to the team-season of the team he was forecast for. A traded player's games split across his teams, and the two teams of a game sit in different clusters even though they share the game.
    - **Week bootstrap:** resamples whole calendar weeks across the league.
    - These are two robustness checks on the same results, not independent confirmations. Both bounds must be above zero.
+6. **Research bug found during the live checks (20 Oct 2026).** The league's injury report uses team codes NYK, SAS, GSW, NOP, UTA and WAS; ESPN uses NY, SA, GS, NO, UTAH and WSH.
+   - The 2020-2025 report files carried no code, so team names mapped correctly. The 2026 file carried the league codes, so in the research's 2026 season those six teams never received report statuses (listed share 0.0 against 0.30 for the other teams).
+   - **Affected results:** every stage-one, M2, M2b and prop result for the 2026 test season, for those six teams (6 of 30 teams in 1 of 5 test seasons). Models and baselines were affected alike.
+   - **Live forecaster:** maps the codes (the fix applies to the 2026 history rows it builds as well).
+   - **Correction:** a corrected re-run of the historical tests is to be done and reported as a disclosed correction alongside the originals, which are kept.

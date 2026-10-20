@@ -444,6 +444,9 @@ def _prep_reports(R):
     R = R.copy()
     if "team_code" not in R:
         R["team_code"] = None
+    # the league's codes differ from ESPN's for six teams; without this the report never reaches them (a research bug found
+    # 20 Oct 2026: the 2026 research season used league codes, so NY, SA, GS, NO, UTAH and WSH had no report statuses)
+    R["team_code"] = R.team_code.replace({"NYK": "NY", "SAS": "SA", "GSW": "GS", "NOP": "NO", "UTA": "UTAH", "WAS": "WSH"})
     lab = R.report.astype(str)
     hm = lab.str[11:].str.replace("PM", "").str.replace("AM", "").str.split("_")
     hour = hm.str[0].astype(int)
