@@ -822,6 +822,7 @@ def AM_norm(s):
 
 PAGES = [("index", "Standings", "NBA standings", "Records, ratings, luck and splits by division, conference or league. Any season since 2002-03."),
          ("futures", "Futures", "NBA season chances", "Projected wins and chances for the playoffs, play-in, division, No. 1 seed, conference and title, plus a win-total over/under tool."),
+         ("predictions", "Game predictions", "NBA game predictions", "Win chances and projected margins for upcoming games. Once a game is played it moves to the results below, scored on the forecast we published before tip-off."),
          ("awards", "Awards", "NBA award chances", "MVP, Defensive Player, Rookie and Sixth Man chances from a model tested on every season since 2002-03, with past winners."),
          ("teams", "Team stats", "NBA team stats", "Ratings, four factors, shooting, shot profile, splits (home/road, back-to-backs, close games, vs winning teams), box score and hustle tracking (2015-16 onward). Season table or year by year."),
          ("players", "Players", "NBA player stats", "Per game, shooting, per 36, totals and NBA advanced (usage, ratings, PIE) for every player since 2002-03, regular season and playoffs. Hustle and Synergy play-type groups (isolation, pick-and-roll, spot-up and more, offense and defense) from 2015-16."),
@@ -837,6 +838,13 @@ def build_site():
     with open(os.path.join(SITE, "hustle.html"), "w", encoding="utf-8") as fh:
         fh.write(S.page_html("NBA", "Futures", nav, slug, title, intro, script="hustle.js"))
     shutil.copy(os.path.join(S.ENGINE, "hustle.js"), SITE)
+    slug, _, title, intro = next(p for p in PAGES if p[0] == "predictions")   # upcoming games + pre-tip-off record (pipeline/nba.py)
+    with open(os.path.join(SITE, "predictions.html"), "w", encoding="utf-8") as fh:
+        fh.write(S.page_html("NBA", "Futures", nav, slug, title, intro, script="predictions.js"))
+    shutil.copy(os.path.join(S.ENGINE, "predictions.js"), SITE)
+    src = os.path.join(S.ROOT, "build", "nba_predictions.json")
+    if os.path.exists(src):
+        shutil.copy(src, os.path.join(SITE, "data", "predictions.json"))
     S.log("NBA site pages written")
 
 

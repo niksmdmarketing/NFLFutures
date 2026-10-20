@@ -14,7 +14,7 @@ SITE = os.path.join(ROOT, "site")
 def _skeleton(players=(("players.html", "Player stats"),)):
     """The shared layout for a sport with season forecasts (TypeSafe, Oct 2026)."""
     return [("Standings", [("index.html", "Standings")]),
-            ("Forecast", [("futures.html", "Chances"), ("why.html", "Why, team by team"), ("awards.html", "Awards"),
+            ("Forecast", [("futures.html", "Chances"), ("predictions.html", "Games"), ("why.html", "Why, team by team"), ("awards.html", "Awards"),
                           ("outlook.html", "Schedule difficulty"), ("trends.html", "Winner trends")]),
             ("Teams", [("teams.html", "Team stats")]),
             ("Players", list(players)),

@@ -1129,6 +1129,7 @@ def _game_rows(schedule: pd.DataFrame, ratings: pd.DataFrame, avail: dict | None
         if not g.completed:
             margin -= avail.get((str(g.game_date)[:10], g.home_abbreviation, g.away_abbreviation), 0.0)
         rows.append({"date": g.game_date, "home": g.home_abbreviation, "away": g.away_abbreviation,
+                     "tip": str(g.date) if "date" in g and pd.notna(g.date) else None,   # UTC tip-off, e.g. 2026-10-21T23:30Z
                      "completed": bool(g.completed),
                      "home_score": int(g.home_score) if pd.notna(g.home_score) and g.completed else None,
                      "away_score": int(g.away_score) if pd.notna(g.away_score) and g.completed else None,
@@ -1168,6 +1169,88 @@ def _availability(players: pd.DataFrame, end_year: int, schedule: pd.DataFrame, 
         return {}, {"available": False}
 
 
+def _tip_time(tip):
+    try:
+        return dt.datetime.fromisoformat(str(tip).replace("Z", "+00:00")) if tip else None
+    except ValueError:
+        return None
+
+
+def _tipped(tip, now) -> bool:
+    """True once a game has started: nothing is archived from tip-off on (May 2026 rows had no tip time)."""
+    t = _tip_time(tip)
+    return t is not None and t <= now
+
+
+def _prediction_record(games: list[dict], store: str | None, now: dt.datetime) -> dict:
+    """Forecast > Games page. Upcoming games show the current published probability and margin. Completed games are
+    scored ONLY on the last archived forecast stamped strictly before tip-off (never a recomputed number); games with
+    no such forecast are counted as 'not recorded' and left out of the record. Margins are scored only where a
+    pre-tip margin was archived (from 21 Oct 2026)."""
+    last = {}
+    path = os.path.join(store, "nba", "predictions.jsonl") if store else None
+    tips = {(str(g["date"])[:10], g["home"], g["away"]): _tip_time(g.get("tip")) for g in games}
+    if path and os.path.exists(path):
+        for line in open(path):
+            try:
+                r = json.loads(line)
+            except ValueError:
+                continue
+            k = (str(r["date"])[:10], r["home"], r["away"])
+            tip = tips.get(k) or _tip_time(r.get("tip"))
+            t = _tip_time(r["t"])
+            if tip is None or t is None or t >= tip:
+                continue
+            if k not in last or r["t"] >= last[k]["t"]:
+                last[k] = r
+    name = lambda t: NAMES.get(t, t)
+    upcoming, live, results, missing = [], [], [], 0
+    for g in games:
+        k = (str(g["date"])[:10], g["home"], g["away"])
+        base = {"date": k[0], "tip": g.get("tip"), "home": g["home"], "away": g["away"], "home_name": name(g["home"]), "away_name": name(g["away"])}
+        tip = tips[k]
+        if not g["completed"]:
+            if tip is None or tip > now:
+                upcoming.append({**base, "p_home": round(g["home_win"], 4), "margin": g["projected_margin"]})
+            elif k in last:
+                r = last[k]
+                live.append({**base, "p_home": r["p_with"], "margin": r.get("m_with"), "t": r["t"]})
+            continue
+        if g.get("home_score") is None or g.get("away_score") is None:
+            continue
+        r = last.get(k)
+        if r is None:
+            if now.date().isoformat() >= k[0] >= (min(last)[0] if last else "9999"):
+                missing += 1
+            continue
+        hw = g["home_score"] > g["away_score"]
+        p = float(r["p_with"])
+        results.append({**base, "p_home": p, "margin": r.get("m_with"), "t": r["t"], "home_score": g["home_score"],
+                        "away_score": g["away_score"], "correct": bool((p >= 0.5) == hw)})
+    upcoming.sort(key=lambda x: (x["tip"] or x["date"]))
+    horizon = (now + dt.timedelta(days=8)).date().isoformat()
+    upcoming = [x for x in upcoming if x["date"] <= horizon]
+    results.sort(key=lambda x: (x["tip"] or x["date"]), reverse=True)
+    rec = {"games": len(results), "not_recorded": missing}
+    if results:
+        y = np.array([float(x["home_score"] > x["away_score"]) for x in results])
+        p = np.array([x["p_home"] for x in results])
+        pc = np.clip(p, 1e-6, 1 - 1e-6)
+        fav = np.maximum(p, 1 - p)
+        won = np.where(p >= 0.5, y, 1 - y)
+        rec.update({"correct": int(won.sum()), "brier": float(np.mean((p - y) ** 2)),
+                    "log_loss": float(-np.mean(y * np.log(pc) + (1 - y) * np.log(1 - pc))),
+                    "home_won": int(y.sum()), "avg_fav": float(fav.mean())})
+        bins = [(0.5, 0.6), (0.6, 0.7), (0.7, 0.8), (0.8, 1.01)]
+        rec["calibration"] = [{"lo": lo, "hi": min(hi, 1.0), "n": int(m.sum()), "pred": float(fav[m].mean()), "won": float(won[m].mean())}
+                              for lo, hi in bins for m in [(fav >= lo) & (fav < hi)] if m.any()]
+        mm = [(x["margin"], x["home_score"] - x["away_score"]) for x in results if x.get("margin") is not None]
+        if mm:
+            rec.update({"margin_games": len(mm), "margin_mae": float(np.mean([abs(a - b) for a, b in mm]))})
+    return {"updated": now.isoformat(timespec="minutes"), "since": (min(last)[0] if last else None),
+            "upcoming": upcoming, "in_progress": live, "results": results, "record": rec}
+
+
 def _avail_record(schedule: pd.DataFrame, without: list[dict], with_: list[dict]) -> dict:
     """Prospective check of the availability layer. Each refresh appends the probabilities for games in the next
     36 hours (with and without the adjustments) to the injury-monitor branch; the last stored pair before each game
@@ -1182,9 +1265,10 @@ def _avail_record(schedule: pd.DataFrame, without: list[dict], with_: list[dict]
     today = now.date().isoformat()
     with open(path, "a") as f:
         for a, b in zip(without, with_):
-            if not a["completed"] and today <= str(a["date"])[:10] <= soon:
+            if not a["completed"] and today <= str(a["date"])[:10] <= soon and not _tipped(a.get("tip"), now):
                 f.write(json.dumps({"t": now.isoformat(timespec="minutes"), "date": a["date"], "home": a["home"], "away": a["away"],
-                                    "p_without": round(a["home_win"], 4), "p_with": round(b["home_win"], 4)}) + "\n")
+                                    "p_without": round(a["home_win"], 4), "p_with": round(b["home_win"], 4),
+                                    "m_with": b["projected_margin"], "tip": a.get("tip")}) + "\n")
     last = {}
     for line in open(path):
         r = json.loads(line)
@@ -1310,6 +1394,10 @@ def build_data() -> None:
     write_json("nba_ratings.json", {"rows": rating_rows})
     write_json("nba_players.json", {"rows": player_rows})
     write_json("nba_games.json", {"rows": games_with})
+    try:
+        write_json("nba_predictions.json", _prediction_record(games_with, os.environ.get("NBA_INJ_STORE"), dt.datetime.now(dt.timezone.utc)))
+    except Exception as e:  # noqa: BLE001  the page is new; never let it block the refresh
+        log("NBA predictions page data failed", e)
     write_json("nba_team_stats.json", {"rows": team_stats})
     write_json("nba_advanced_team_stats.json", {"rows": advanced_teams})
     write_json("nba_advanced_player_stats.json", {"rows": advanced_players})
