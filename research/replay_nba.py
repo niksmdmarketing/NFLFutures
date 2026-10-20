@@ -57,7 +57,8 @@ _RAW = {}
 # BT_PF=1: player-first term (research/NBA_PLAYER_FIRST_RULE.md, amendment 1): rating + k x (S - mean S) at every checkpoint, S = player strength of
 # the team's latest lineup (RAPM refitted at the checkpoint, expected minutes = last-10-games average scaled to 240), k = c / b from the
 # walk-forward combined-model weights for that season (research/nba_player_first_results.json).
-PF = os.environ.get("BT_PF") == "1"
+PF = os.environ.get("BT_PF") in ("1", "2")
+PF2 = os.environ.get("BT_PF") == "2"   # amendment 2: in season only, scale-preserving combination, usual rotation (last 10 team games)
 
 
 def _raw(y):
@@ -276,6 +277,39 @@ def _pf_term(y, cutoff, teams):
     return teams.map(k * (S - S.mean())).fillna(0.0).to_numpy()
 
 
+_PFW2 = None
+
+
+def _pf2_rating(y, cutoff, ratings):
+    """(b / b_A) x rating + (c / b_A) x (S - mean S); S from each team's usual rotation over its last 10 games."""
+    global _PFW2
+    import json
+    if _PFW2 is None:
+        _PFW2 = json.load(open(os.path.join(ROOT, "research", "nba_player_first_results.json")))["weights_by_test_season"]
+    wc, wa = _PFW2["C"].get(str(y)), _PFW2["A"].get(str(y))
+    if wc is None or wa is None:
+        return ratings.rating.to_numpy()
+    b, c, bA = wc[1], wc[2], wa[1]
+    rating = _player_ratings(y, cutoff)
+    pb = _pbox(y)
+    pb = pb[(pb.date <= cutoff) & (pb.minutes > 0)].sort_values("date")
+    latest_team = pb.groupby("athlete_id").team_abbreviation.last()
+    S = {}
+    for t, x in pb.groupby("team_abbreviation"):
+        dates = sorted(x.date.unique())[-10:]
+        z = x[x.date.isin(dates)]
+        mins = z.groupby("athlete_id").minutes.sum() / len(dates)
+        mins = mins[[latest_team.get(a) == t for a in mins.index]]
+        if mins.sum() <= 0:
+            continue
+        mins = mins * 240.0 / mins.sum()
+        S[t] = float(sum(rating.get(int(a), -1.0) * m for a, m in mins.items()) / 48.0)
+    S = pd.Series(S).reindex(N.TEAMS)
+    S = S.fillna(S.mean())
+    Sd = ratings.team.map(S - S.mean()).fillna(0.0).to_numpy()
+    return (b / bA) * ratings.rating.to_numpy() + (c / bA) * Sd
+
+
 def run_season(boxes, y):
     global ERA_PLAYIN, ERA_GAMES
     if ERA and y == 2020:
@@ -354,8 +388,11 @@ def run_season(boxes, y):
                 ratings["rating"] -= ratings.rating.mean()
         if not FULL:
             ck_rating = None
-        if PF:
+        if PF and not PF2:
             ratings["rating"] = ratings.rating + _pf_term(y, cutoff, ratings.team)
+            ratings["rating"] -= ratings.rating.mean()
+        if PF2 and len(done):
+            ratings["rating"] = _pf2_rating(y, cutoff, ratings)
             ratings["rating"] -= ratings.rating.mean()
         if PO_K:
             cur = _pbox(y)
