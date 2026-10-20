@@ -254,7 +254,7 @@ def minutes():
             q = M.disc_normal(mu, sdM(mu))
             emin = q @ np.arange(1, M.MAXM + 1)
             res.append(pd.DataFrame(dict(tag=tag, season=s, game_id=Z.game_id.to_numpy(), team=Z.team.to_numpy(), aid=Z.aid.to_numpy().astype(int),
-                                         pa=pa, emin_app=emin)))
+                                         pa=pa, emin_app=emin, mu=mu, sd=sdM(mu))))
         print("minutes", tag, flush=True)
     R = pd.concat(res, ignore_index=True)
     R.to_csv(os.path.join(W, "proj_minutes.csv.gz"), index=False, compression="gzip")
