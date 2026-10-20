@@ -57,3 +57,15 @@ The written gates decide; TypeSafe helps interpret.
 - **M2 passes the minutes gates and points passes:** points P+T with M2 joins the frozen forward test, with the same label and a subgroup check.
 - **M2 passes, points fails:** M2 is recorded. Points' remaining production-dispersion issue gets its own rule.
 - **M2 fails:** recorded. Nothing changes.
+
+## Amendment 1 (20 Oct 2026, before any code or result): GPT's review. Where it conflicts with the text above, this governs.
+1. **Fixed comparison groups.**
+   - The low-minute-risk group is defined once, from the frozen stage-one minutes: P(minutes < 15 | appear) >= 0.2. The same player-games are used for stage one and M2.
+   - The confident-over group is also fixed once, from the current versions: stage-one minutes with P+T for points, P+O for rebounds, P+T for assists, p(over) >= 0.8 at the formula line.
+   - The replacement condition "low-minute-risk over gap smaller" uses the fixed group.
+   - Each model's own groups (defined under its own forecasts) are reported separately.
+2. **The normal-night component excludes short nights.** Its support is restricted to integer minutes k >= 0.6 x stage-one mean (and <= 53), truncated and renormalised. The short-night component's support is k < 0.6 x stage-one mean. pi is therefore exactly M2's total probability of a short night.
+   - Refitting: on earlier seasons' non-short appearances, the mean is refitted by least squares with stage one's inputs and form, and the sd by stage one's method (sd = a + b x mean, from absolute residuals).
+   - Fitting window for all of M2's parts: seasons 2017..s-1 for test season s.
+   - Short night: rounded actual minutes < 0.6 x stage-one mean.
+3. **Wording.** Points with actual minutes is a diagnostic reference, not an accuracy ceiling. Actual minutes partly reflect how well the player is performing in the game.
