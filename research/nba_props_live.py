@@ -242,6 +242,16 @@ def run(args):
     d["starter"] = d.starter.astype(str).str.lower().eq("true")
     d["grp"] = d.athlete_position_abbreviation.map(M.GROUP).fillna("W")
     d = d.sort_values(["tip", "game_id"])
+    # name -> athlete id uses the report's season (as in the research). Early in a season a listed player may have no box row yet this
+    # season; such rows are matched through last season's names instead (unique matches only) by relabelling their season.
+    keys = d.assign(k=d.athlete_display_name.map(M.name_key)).groupby(["season", "k"]).athlete_id.nunique()
+    R = R.copy()
+    rk = R.player.map(M.player_key)
+    cur_ok = np.array([keys.get((int(y), k), 0) == 1 for y, k in zip(R.season, rk)])
+    prev_ok = np.array([keys.get((int(y) - 1, k), 0) == 1 for y, k in zip(R.season, rk)])
+    fix = ~cur_ok & prev_ok & (R.season == SEASON).to_numpy()          # current season only; earlier seasons exactly as in the research
+    R.loc[fix, "season"] = SEASON - 1
+    log["report_rows_matched_via_last_season"] = int(fix.sum())
     tmp = tempfile.mkdtemp()
     M.ROWS = os.path.join(tmp, "rows.csv.gz")
     M.load_box = lambda: d
