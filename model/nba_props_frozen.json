@@ -185,5 +185,126 @@
  },
  "not_frozen": {
   "pts": "failed calibration; revised under a new rule (P+T parameters for reference: {\"version\": \"P+T\", \"m0\": 25, \"b\": 0.25, \"r\": 7.6136, \"r_P\": 7.5596, \"group_rate_per_minute\": {\"B\": 0.45986, \"G\": 0.47543, \"W\": 0.44112}})"
+ },
+ "version_history": [
+  {
+   "version": 1,
+   "frozen_on": "2026-10-20",
+   "minutes": "stage one",
+   "code_commit": "fad0650d2925c709f1315abdeea269a1ec54d6bd",
+   "status": "archived; superseded by version 2 per research/NBA_MINUTES_TAIL_RULE.md"
+  }
+ ],
+ "current_version": 2,
+ "version_2": {
+  "frozen_on": "2026-10-20",
+  "minutes": "M2 (stage one plus short-night component; research/NBA_MINUTES_TAIL_RULE.md)",
+  "rule": "research/NBA_MINUTES_TAIL_RULE.md",
+  "results": "research/nba_minutes_tail_results.json",
+  "models": {
+   "reb": "P+O with M2",
+   "ast": "P+T with M2"
+  },
+  "M2_parameters_2026_27_fitted_on_2017_2026": {
+   "pi_logistic": {
+    "inputs": [
+     "stage-one mean/48",
+     "Questionable/Out/Doubtful",
+     "Probable",
+     "Available-listed",
+     "|expected margin|/10",
+     "back-to-back",
+     "short-night share last 20 (shrunk, prior 10)",
+     "early season"
+    ],
+    "coef": [
+     -5.21572,
+     0.28041,
+     -0.02923,
+     0.07099,
+     -0.15891,
+     -0.20189,
+     2.7241,
+     -0.11113
+    ],
+    "intercept": -0.11875
+   },
+   "league_short_rate": 0.12419,
+   "normal_mean_coef": [
+    7.52362,
+    1.16035,
+    -0.46048,
+    0.03357,
+    0.01343,
+    -2.10937,
+    1.68028,
+    -0.03695,
+    -1.08669
+   ],
+   "ratio_hist_bins_0_to_0.6": [
+    0.0,
+    0.0,
+    0.00013,
+    0.00045,
+    0.00174,
+    0.00407,
+    0.00665,
+    0.0082,
+    0.00959,
+    0.01056,
+    0.01043,
+    0.01053,
+    0.01211,
+    0.01385,
+    0.01282,
+    0.01469,
+    0.01427,
+    0.0145,
+    0.01479,
+    0.01521,
+    0.01469,
+    0.01466,
+    0.01527,
+    0.01785,
+    0.01589,
+    0.01766,
+    0.01827,
+    0.01863,
+    0.01928,
+    0.0197,
+    0.01847,
+    0.01834,
+    0.01876,
+    0.01873,
+    0.01727,
+    0.01995,
+    0.01944,
+    0.02037,
+    0.01963,
+    0.02015,
+    0.01944,
+    0.01905,
+    0.01895,
+    0.01957,
+    0.01873,
+    0.01908,
+    0.02247,
+    0.01986,
+    0.02234,
+    0.02189,
+    0.02286,
+    0.02454,
+    0.02338,
+    0.02454,
+    0.02451,
+    0.02577,
+    0.0279,
+    0.02693,
+    0.02922,
+    0.03142
+   ]
+  },
+  "prop_parameters": "unchanged from version 1 (fitted with actual minutes, independent of the minutes model)",
+  "label": "Historical improvement overall over season, last-10, per-minute and minutes-matched baselines and over version 1 (RPS); known subgroup weakness remains (overs about 4 points too high for players at risk of short minutes). Forward test 2026-27; not on site; no market edge established."
  }
 }

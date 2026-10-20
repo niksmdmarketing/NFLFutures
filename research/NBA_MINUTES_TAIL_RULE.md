@@ -69,3 +69,40 @@ The written gates decide; TypeSafe helps interpret.
    - Fitting window for all of M2's parts: seasons 2017..s-1 for test season s.
    - Short night: rounded actual minutes < 0.6 x stage-one mean.
 3. **Wording.** Points with actual minutes is a diagnostic reference, not an accuracy ceiling. Actual minutes partly reflect how well the player is performing in the game.
+
+## Outcome (20 Oct 2026) - M2 passes; points still fails calibration; rebounds and assists replaced by their M2 versions
+Run: research/nba_minutes_tail_test.py (results research/nba_minutes_tail_results.json). As a check, the frozen versions with stage-one minutes reproduce the earlier scores exactly (points P+T 0.037713).
+
+**Minutes (M2 vs stage one):**
+- Unconditional RPS 0.059558 against 0.059701: gain +0.000143, 90% lower bound +0.000114, better in 5 of 5 seasons.
+- PIT given appearing 0.083-0.119 (stage one 0.092-0.131). Both gates pass.
+- Mean pi 0.127 against an actual short-night rate of 0.132.
+
+**Points (P+T with M2):**
+- Beats B1, B2, B3 and B3m-with-M2: every lower bound above zero, 5 of 5 seasons, better given appearing.
+- PIT lowest decile 0.146 (was 0.161). The calibration gate (0.13) still fails.
+
+**Rebounds P+O with M2 against the frozen version:**
+- RPS gain +0.00005 (95% bound +0.000039).
+- PIT 0.091-0.109.
+- Fixed-group low-minute-risk over gap 0.051 -> 0.039.
+- All three conditions hold: replaced.
+
+**Assists P+T with M2 against the frozen version:**
+- Gain +0.000024 (95% bound +0.000017).
+- PIT 0.095-0.105.
+- Gap 0.052 -> 0.041.
+- Replaced.
+
+**Fixed groups (amendment 1), points:**
+- Low-minute-risk overs: 0.525 -> 0.509 predicted, against 0.447 observed.
+- Confident overs (fixed group, 2,473): 0.847 -> 0.779 predicted, against 0.651 observed.
+- M2's own confident group (1,266): 0.852 against 0.763.
+
+**Decision (written gates; TypeSafe 100%):**
+- M2 recorded as passing.
+- Points recorded as failing calibration.
+- Rebounds and assists move to version 2 (M2 minutes) in model/nba_props_frozen.json; version 1 is archived.
+- The subgroup weakness label stays, because the gaps remain about 4 points.
+
+**Diagnostic for the next points rule** (descriptive): in the fixed low-minute-risk group, stage one's mean minutes given appearing is 14.55 against 13.50 actual, and P(minutes < 15) is 0.509 against 0.553. A mean-minutes bias for fringe players remains, beyond the short-night tail. It likely drives the remaining over gap and part of the points low tail, together with points dispersion given minutes.

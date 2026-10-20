@@ -21,8 +21,9 @@ Every forecast and every filter version is archived with a timestamp. The select
 | NBA player-term shadow | Experimental (single games passed against the team rating plus injury layer; futures failed); archived shadow |
 | NBA minutes model (props stage one) | Historical improvement over the report-aware last-10 baseline (minutes RPS); research only |
 | NBA game environment, possession simulation (stage two) | Failed against the live model; experimental |
-| NBA player props: rebounds (P+O), assists (P+T) | Historical improvement overall over season, last-10, per-minute and minutes-matched baselines (RPS), with a known subgroup weakness (overs too high for players at risk of short minutes); frozen forward test 2026-27; not on site |
-| NBA player props: points | Beats every baseline but fails calibration; experimental |
+| NBA player props: rebounds (P+O), assists (P+T), version 2 with M2 minutes | Historical improvement overall over season, last-10, per-minute and minutes-matched baselines (RPS), with a known subgroup weakness (overs too high for players at risk of short minutes); frozen forward test 2026-27; not on site |
+| NBA player props: points | Beats every baseline but fails calibration (also with M2 minutes); experimental |
+| NBA minutes M2 (short-night component) | Historical improvement over stage one (minutes RPS and calibration); used by prop version 2 |
 | Kalshi NBA price archive | Descriptive (benchmark only, never an input) |
 
 ## 1. Simple NBA prop challenger (highest priority; now)
