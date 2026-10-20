@@ -37,7 +37,7 @@ import nba_props_live_core as C  # noqa: E402
 SEASON = int(os.environ.get("NBA_PROPS_SEASON", "2027"))
 # parameter version: "b" = fitted on the corrected rows (team-code and misparsed-team fixes, 20 Oct 2026); the original "" version was
 # fitted on rows with the report-matching bugs and its forecasts are excluded from the primary test (research/NBA_MINUTES_M2B_RULE.md)
-PARAMS_ID = os.environ.get("NBA_PROPS_PARAMS_ID", "")   # switches to "b" once the corrected parameters are frozen
+PARAMS_ID = os.environ.get("NBA_PROPS_PARAMS_ID", "b")
 REPLAY = os.environ.get("NBA_PROPS_REPLAY_REPORTS")   # local report files for an offline replay check (never used live)
 HORIZONS = (60, 360)
 WINDOW_MIN = 45

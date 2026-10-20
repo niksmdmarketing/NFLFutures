@@ -196,3 +196,27 @@ Run: research/nba_minutes_m2b_test.py (research/nba_minutes_m2b_results.json).
    - research/nba_teams.py self-test: all 30 teams resolve from ESPN, league and full names; unknown values do not resolve; it agrees with the pipeline's team list and the official-report parser. It runs before every forward run and fails the run on any mismatch.
    - Each forecast record reports, per team: report rows used, rows matched to players, unmatched names, and an empty-team flag. An empty team is investigated, not read as "everyone healthy".
    - Unresolved team values in current-season reports are listed in each record.
+
+## Corrected re-run results and the corrected forward version (20 Oct 2026)
+Every decision is unchanged. Originals are in *_before_teamfix.json.
+
+| Result | Before fix | After fix | Decision |
+|---|---|---|---|
+| Stage one: minutes RPS, M vs B2r (pooled 2022-2026) | 0.05978 vs 0.06696 (10.7% better; 90% bound +0.00685) | 0.05659 vs 0.06458 (12.4% better; +0.00766) | passes all gates, 5/5 seasons (2026 gain 0.00682 -> 0.00789) |
+| Props P, points (unconditional RPS vs B1 / B3m) | 0.03787 vs 0.03987 / 0.03831 | 0.03658 vs 0.03861 / 0.03701 | beats every baseline; fails calibration (lowest PIT decile 0.160 -> 0.160) |
+| Props P, rebounds | 0.03703 vs 0.03815 / 0.03755 | 0.03597 vs 0.03708 / 0.03649 | passes all gates; P+O kept |
+| Props P, assists | 0.03018 vs 0.03110 / 0.03068 | 0.02936 vs 0.03030 / 0.02987 | passes all gates; P+T kept |
+| M2 vs stage one, minutes | 0.059558 vs 0.059701 (bound +0.000114) | 0.056361 vs 0.056509 (bound +0.000113) | passes; PIT 0.081-0.120, at the upper limit |
+| Rebounds / assists with M2 vs v1 | replace (gaps 0.051 -> 0.039, 0.052 -> 0.041) | replace (gaps 0.052 -> 0.041, 0.053 -> 0.043) | v2 stands |
+| Points with M2 | fails calibration (0.146) | fails (0.147) | unchanged |
+| M2b | implementation check fails as written; fringe minutes 13.80 vs actual 13.50 | same; fringe 13.81 vs actual 13.45; v3 gaps rebounds 0.041 -> 0.010, assists 0.043 -> 0.022 | label unchanged ("promising correction; failed original gate") |
+
+- All scores improve after the fix, because the models now receive more injury-report information. Models and baselines received the same inputs.
+- **Stage two's G1** uses stage-one lineups and is still to be re-run; its "neither passes" decision rested mainly on the realism gates, which do not involve stage one.
+- A breakdown for the six teams alone has not been computed. The rows listed for those teams in 2026 went from 0% to 27%.
+
+**Corrected forward version:** parameter identifier "b".
+- model/nba_props_live_params_2027b.json, sha256 5b169171ebba…3601; 2026b (1a48fe957587…) and 2025b (8604a1d15c18…) for history rows.
+- Verified to reproduce the corrected research fits (stage one < 1e-14; M2 and M2b < 2e-16).
+- Activation: the first scheduled forward run on or after the commit that sets PARAMS_ID = "b". Each record carries params_id and params_sha256.
+- Only "b" forecasts made from activation onwards enter the primary test. Earlier forecasts (params_id "") are labelled and excluded.
