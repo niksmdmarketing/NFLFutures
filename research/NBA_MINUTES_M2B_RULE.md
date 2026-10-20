@@ -171,3 +171,28 @@ Run: research/nba_minutes_m2b_test.py (research/nba_minutes_m2b_results.json).
    - **Affected results:** every stage-one, M2, M2b and prop result for the 2026 test season, for those six teams (6 of 30 teams in 1 of 5 test seasons). Models and baselines were affected alike.
    - **Live forecaster:** maps the codes (the fix applies to the 2026 history rows it builds as well).
    - **Correction:** a corrected re-run of the historical tests is to be done and reported as a disclosed correction alongside the originals, which are kept.
+
+## Correction plan after GPT's review of the bug (20 Oct 2026). All earlier historical passes are provisional until the corrected re-run confirms them
+1. **A second data bug found while fixing the first.** In the 2020-2025 parsed report files, the team cell of 25,121 rows held the injury category ("Injury/Illness", "Not With Team" and so on), so those rows were silently dropped (most were "Out").
+   - research/nba_minutes_test.build now resolves every team through research/nba_teams.py: ESPN abbreviations, league codes and full names, all 30 teams.
+   - A row with an unresolved team is recovered from its matchup:
+     1. the matchup team the player last appeared for on or before that date;
+     2. otherwise the matchup team given for him in an earlier report row;
+     3. otherwise last season's team.
+   - Result: 23,005 recovered; 2,116 still dropped, counted and printed on every build.
+   - The listed share of candidate player-games rises in every season (for example 2022 from 0.212 to 0.246; 2026 from 0.238 to 0.291).
+2. **Corrected re-run.** Inputs, forecasts and comparison groups are rebuilt consistently from the corrected rows:
+   - stage-one rows and projections;
+   - prop features;
+   - the fixed risk and confident-over groups.
+   
+   Every affected gate is re-run: stage one, the simple prop challenger (all gates and adjustments), M2 (minutes tail), M2b, the diagnostics, and stage two's G1 (which used stage-one lineups). Changes are reported for the six teams, the 2026 season and the pooled results. The originals are kept as *_before_teamfix.json.
+   - The live site's injury layer and the research availability layer match report rows by player name, not team, so neither bug affects them.
+3. **The fitted 2026-27 settings were affected.** model/nba_props_live_params_2027.json (sha256 4771633e…) was fitted on the buggy rows.
+   - Corrected settings will be frozen under a new identifier, with an activation time recorded in the archive. Forecasts made with the old settings are labelled as such and excluded from the primary forward test.
+   - The primary test counts only forecasts made with the corrected identifier from its activation time.
+4. **Archive time.** A workflow's start time proves nothing about when its forecast was saved. The archive time of a forecast file is the server-recorded time of the first push to forecast-archive whose new head contains the commit that added the file (GitHub repository activity, recorded twice daily by research/nba_props_forward_timing.py). If that cannot be established, the forecast is excluded from the primary test.
+5. **Team checks.**
+   - research/nba_teams.py self-test: all 30 teams resolve from ESPN, league and full names; unknown values do not resolve; it agrees with the pipeline's team list and the official-report parser. It runs before every forward run and fails the run on any mismatch.
+   - Each forecast record reports, per team: report rows used, rows matched to players, unmatched names, and an empty-team flag. An empty team is investigated, not read as "everyone healthy".
+   - Unresolved team values in current-season reports are listed in each record.

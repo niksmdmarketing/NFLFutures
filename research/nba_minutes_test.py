@@ -15,6 +15,7 @@ import pandas as pd
 from scipy.stats import norm
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, HERE)
 ROOT = os.path.dirname(HERE)
 ROWS = os.path.join(ROOT, "data", "research", "nba_minutes_rows.csv.gz")
 FIRST_BOX, LAST = 2016, 2026
@@ -73,13 +74,63 @@ def load_reports(src):
 def build(src):
     d = load_box()
     R = load_reports(src)
-    team_name = dict(zip(d.team_display_name, d.team_abbreviation))
-    R["team_abbr"] = R.team_code.where(R.team_code.notna(), R.team.map(team_name))
+    import nba_teams
+    # canonical ESPN abbreviation from the league code or the team name (fix 20 Oct 2026: league codes NYK, SAS, GSW, NOP, UTA, WAS
+    # were previously used as-is, so in the 2026 season those six teams never received report statuses)
+    R["team_abbr"] = [nba_teams.resolve(c) or nba_teams.resolve(t) for c, t in zip(R.team_code if "team_code" in R else [None] * len(R), R.team)]
     keymap = {}
     for (s, k), ids in d.assign(k=d.athlete_display_name.map(name_key)).groupby(["season", "k"]).athlete_id.unique().items():
         if len(ids) == 1:
             keymap[(s, k)] = int(ids[0])
     R["aid"] = [keymap.get((int(s), k)) for s, k in zip(R.season, R.pkey)]
+    # rows whose team cell was misparsed (older parsed files put the injury category there; fix 20 Oct 2026, previously ~29k rows were
+    # silently dropped): the team is the one of the two matchup teams the player last appeared for on or before that game date
+    R = R.reset_index(drop=True)
+    bad = R.team_abbr.isna()
+    if bad.any():
+        app = d[d.minutes > 0][["season", "athlete_id", "tip", "team_abbreviation"]].sort_values("tip")
+        last = {k: (np.array([t.value for t in g.tip]), g.team_abbreviation.to_numpy()) for k, g in app.groupby(["season", "athlete_id"])}
+        rec = 0
+        for i in R.index[bad & R.aid.notna()]:
+            mu = str(R.at[i, "matchup"]) if "matchup" in R else ""
+            if "@" not in mu:
+                continue
+            pair = {nba_teams.resolve(x) for x in mu.split("@")}
+            g = last.get((int(R.at[i, "season"]), int(R.at[i, "aid"])))
+            if g is None:
+                continue
+            day_end = pd.Timestamp(str(R.at[i, "game_date"])[:10], tz="America/New_York") + pd.Timedelta(days=1)
+            j = int((g[0] < day_end.value).sum())
+            if j > 0 and g[1][j - 1] in pair:
+                R.at[i, "team_abbr"] = g[1][j - 1]
+                rec += 1
+        # players with no appearance yet this season (e.g. long-term injured): the matchup team given for them in an earlier report row
+        # (or, failing that, last season's team)
+        good = R[R.team_abbr.notna() & R.aid.notna()].sort_values("rtime")
+        prior = {k: (np.array([t.value for t in g.rtime]), g.team_abbr.to_numpy()) for k, g in good.groupby(["season", "aid"])}
+        lastseason = {(int(k[0]) + 1, int(k[1])): g[1][-1] for k, g in last.items()}
+        rec2 = 0
+        for i in R.index[R.team_abbr.isna() & R.aid.notna()]:
+            mu = str(R.at[i, "matchup"]) if "matchup" in R else ""
+            if "@" not in mu:
+                continue
+            pair = {nba_teams.resolve(x) for x in mu.split("@")}
+            key = (int(R.at[i, "season"]), int(R.at[i, "aid"]))
+            g = prior.get(key)
+            t = None
+            if g is not None:
+                j = int((g[0] <= R.at[i, "rtime"].value).sum())
+                if j > 0 and g[1][j - 1] in pair:
+                    t = g[1][j - 1]
+            if t is None and lastseason.get(key) in pair:
+                t = lastseason[key]
+            if t is not None:
+                R.at[i, "team_abbr"] = t
+                rec2 += 1
+        rec += rec2
+        left = R.team_abbr.isna()
+        print("report rows with a misparsed team:", int(bad.sum()), "recovered from matchup and appearances:", rec,
+              "still dropped:", int(left.sum()), flush=True)
     R = R.dropna(subset=["aid", "team_abbr"])
     R["aid"] = R.aid.astype(int)
     rep_by_team = {t: g.sort_values("rtime") for t, g in R.groupby("team_abbr")}

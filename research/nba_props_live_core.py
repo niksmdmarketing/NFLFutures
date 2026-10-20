@@ -193,7 +193,7 @@ def prop_rate(Z, s, pp):
 
 
 # ---------------------------------------------------------------- freeze
-def freeze(season):
+def freeze(season, suffix=""):
     import nba_minutes_tail_test as T
     import nba_props_simple_test as P
     D = prep(pd.read_csv(M.ROWS, low_memory=False))
@@ -211,17 +211,17 @@ def freeze(season):
                provenance=dict(stage1="research/NBA_MINUTES_RULE.md (fit 2020..s-1)", m2="research/NBA_MINUTES_TAIL_RULE.md (fit 2017..s-1)",
                                m2b="research/NBA_MINUTES_M2B_RULE.md (same parameters as M2; normal-night part moment-matched)",
                                props="research/NBA_PROPS_SIMPLE_RULE.md (fit 2017..s-1); versions pts P+T, reb P+O, ast P+T"))
-    path = os.path.join(ROOT, "model", f"nba_props_live_params_{season}.json")
+    path = os.path.join(ROOT, "model", f"nba_props_live_params_{season}{suffix}.json")
     with open(path, "w") as fh:
         json.dump(out, fh, indent=1, default=float)
     print(path, hashlib.sha256(open(path, "rb").read()).hexdigest())
 
 
-def verify(season):
+def verify(season, suffix=""):
     """frozen-parameter predictions must equal the research functions' predictions for that season's rows."""
     import nba_minutes_tail_test as T
     import nba_minutes_m2b_test as B
-    p = json.load(open(os.path.join(ROOT, "model", f"nba_props_live_params_{season}.json")))
+    p = json.load(open(os.path.join(ROOT, "model", f"nba_props_live_params_{season}{suffix}.json")))
     # stage one vs research proj_minutes
     D = prep(pd.read_csv(M.ROWS, low_memory=False))
     D["fallback"] = D.fallback.fillna(0)
@@ -253,4 +253,5 @@ def verify(season):
 
 
 if __name__ == "__main__":
-    {"freeze": lambda: freeze(int(sys.argv[2])), "verify": lambda: verify(int(sys.argv[2]))}[sys.argv[1]]()
+    sfx = sys.argv[3] if len(sys.argv) > 3 else ""
+    {"freeze": lambda: freeze(int(sys.argv[2]), sfx), "verify": lambda: verify(int(sys.argv[2]), sfx)}[sys.argv[1]]()

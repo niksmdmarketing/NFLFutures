@@ -35,6 +35,9 @@ import nba_minutes_test as M  # noqa: E402
 import nba_props_live_core as C  # noqa: E402
 
 SEASON = int(os.environ.get("NBA_PROPS_SEASON", "2027"))
+# parameter version: "b" = fitted on the corrected rows (team-code and misparsed-team fixes, 20 Oct 2026); the original "" version was
+# fitted on rows with the report-matching bugs and its forecasts are excluded from the primary test (research/NBA_MINUTES_M2B_RULE.md)
+PARAMS_ID = os.environ.get("NBA_PROPS_PARAMS_ID", "")   # switches to "b" once the corrected parameters are frozen
 REPLAY = os.environ.get("NBA_PROPS_REPLAY_REPORTS")   # local report files for an offline replay check (never used live)
 HORIZONS = (60, 360)
 WINDOW_MIN = 45
@@ -257,8 +260,9 @@ def run(args):
     if rost_p and os.path.exists(rost_p):
         store_input(args.archive, "roster", gzip.compress(open(rost_p, "rb").read(), mtime=0), "csv.gz")
     commit = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True, cwd=ROOT).stdout.strip()
-    params = {y: json.load(open(os.path.join(ROOT, "model", f"nba_props_live_params_{y}.json"))) for y in (SEASON - 1, SEASON)}
-    phash = sha(open(os.path.join(ROOT, "model", f"nba_props_live_params_{SEASON}.json"), "rb").read())
+    params = {y: json.load(open(os.path.join(ROOT, "model", f"nba_props_live_params_{y}{PARAMS_ID}.json"))) for y in (SEASON - 1, SEASON)}
+    phash = sha(open(os.path.join(ROOT, "model", f"nba_props_live_params_{SEASON}{PARAMS_ID}.json"), "rb").read())
+    log["params_id"] = PARAMS_ID
     P, TB = boxes(s, log)
     R = reports(now, args.archive, log)
     # stage-one candidate rows: research build over 2025-2027 boxes plus one placeholder row per target team
@@ -377,7 +381,7 @@ def run(args):
         Z = F[F.game_id == gid].reset_index(drop=True)
         rec = dict(game_id=gid, horizon_min=h, cutoff_utc=cut.isoformat(), generated_utc=pd.Timestamp.now(tz="UTC").isoformat(),
                    run_utc=now.isoformat(), valid_window=bool(cut - pd.Timedelta(minutes=WINDOW_MIN) <= now <= cut), code_commit=commit,
-                   params_sha256=phash, schedule_sha256=sched_hash, report=log.get("report"), box=log.get("box"),
+                   params_sha256=phash, params_id=PARAMS_ID, schedule_sha256=sched_hash, report=log.get("report"), box=log.get("box"),
                    method="research/NBA_MINUTES_M2B_RULE.md forward-test protocol; v2 = M2 minutes, v3 = M2b minutes; pts reported only",
                    forecast_age_at_cutoff_min=round((cut - now).total_seconds() / 60, 1),
                    github=dict(run_id=os.environ.get("GITHUB_RUN_ID"), event=os.environ.get("GITHUB_EVENT_NAME"),
@@ -392,6 +396,24 @@ def run(args):
             cov[t] = dict(roster=len(ros), forecast=len(cand), forecast_on_roster=len(cand & ros), listed_on_report=len(listed),
                           excluded_roster_not_candidates=sorted(ros - cand), forecast_not_on_roster=sorted(cand - ros))
         rec["coverage"] = cov
+        # report diagnostics: rows for each team of this game in the report actually used, matched to players or not
+        import nba_teams
+        Rg = R[(R.game_date.astype(str).str[:10] == str(g.game_date)[:10])]
+        diag = {}
+        for t in (g.home_abbreviation, g.away_abbreviation):
+            Rt = Rg[[nba_teams.resolve(c) == t or nba_teams.resolve(n) == t for c, n in zip(Rg.team_code, Rg.team)]]
+            Rt = Rt[Rt.rtime == Rt.rtime.max()] if len(Rt) else Rt
+            names = rows[(rows.game_id == gid) & (rows.team == t)]
+            st_col = "st" + ("1" if h == 60 else "6")
+            diag[t] = dict(report_rows=int(len(Rt)), report_label=str(Rt.report.iloc[0]) if len(Rt) else None,
+                           matched_to_players=int((names[st_col].fillna("") != "").sum()),
+                           unmatched_names=sorted(n for n in set(Rt.player.astype(str)) if M.player_key(n) not in set(
+                               pb[pb.athlete_id.isin(names[names[st_col].fillna("") != ""].aid)].athlete_display_name.map(M.name_key))),
+                           empty_team_flag=bool(len(Rt) == 0))
+        rec["report_diagnostics"] = diag
+        Rc = R[R.season == SEASON]
+        unknown = sorted({f"{c}|{n}" for c, n in zip(Rc.team_code, Rc.team) if nba_teams.resolve(c) is None and nba_teams.resolve(n) is None})
+        rec["unknown_team_values_in_reports"] = unknown[:50]
         if len(Z) == 0:
             rec["error"] = "no candidate rows"
         else:
@@ -444,9 +466,10 @@ def _prep_reports(R):
     R = R.copy()
     if "team_code" not in R:
         R["team_code"] = None
-    # the league's codes differ from ESPN's for six teams; without this the report never reaches them (a research bug found
-    # 20 Oct 2026: the 2026 research season used league codes, so NY, SA, GS, NO, UTAH and WSH had no report statuses)
-    R["team_code"] = R.team_code.replace({"NYK": "NY", "SAS": "SA", "GSW": "GS", "NOP": "NO", "UTA": "UTAH", "WAS": "WSH"})
+    # canonical ESPN abbreviations (research/nba_teams.py; league codes NYK, SAS, GSW, NOP, UTA, WAS differ from ESPN's). The research
+    # build (research/nba_minutes_test.build) resolves codes and names again and recovers misparsed team cells from the matchup.
+    import nba_teams
+    R["team_code"] = [nba_teams.resolve(c) or c for c in R.team_code]
     lab = R.report.astype(str)
     hm = lab.str[11:].str.replace("PM", "").str.replace("AM", "").str.split("_")
     hour = hm.str[0].astype(int)

@@ -40,12 +40,21 @@ def main(archive):
         if len(runs) < 100:
             break
         page += 1
+    # server-recorded pushes to the archive branch (GitHub repository activity): the time GitHub received each push and the commit it
+    # moved the branch to. A forecast file is archived at the first push whose new head contains the commit that added the file.
+    pushes = []
+    try:
+        for a in api("activity?ref=forecast-archive&activity_type=push&per_page=100&time_period=week"):
+            pushes.append(dict(timestamp=a.get("timestamp"), before=a.get("before"), after=a.get("after"), actor=(a.get("actor") or {}).get("login")))
+    except Exception as e:  # noqa: BLE001
+        pushes.append(dict(error=repr(e)[:200]))
+    out = dict(runs=out, pushes=pushes)
     d = os.path.join(archive, "nba", "props_forward", "timing")
     os.makedirs(d, exist_ok=True)
     fn = os.path.join(d, dt.datetime.now(dt.timezone.utc).strftime("%Y%m%dT%H%MZ") + ".json")
     with open(fn, "w") as fh:
         json.dump(out, fh, indent=1)
-    print(fn, len(out))
+    print(fn, len(out["runs"]), len(out["pushes"]))
 
 
 if __name__ == "__main__":
