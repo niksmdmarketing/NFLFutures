@@ -127,10 +127,36 @@ def archive_one(sport, arch, site_dir, now=None):
     return "wrote " + name
 
 
+def archive_nba_roster(arch, now=None):
+    """Daily NBA roster snapshot (public ESPN roster file) when it changes: nba/rosters/<UTC date>.csv.gz + index.csv."""
+    src = os.path.join(ROOT, "build", "nba_roster_today.csv")
+    if not os.path.exists(src):
+        return "no roster file"
+    body = open(src, "rb").read()
+    digest = hashlib.sha256(body).hexdigest()[:16]
+    d = os.path.join(arch, "nba", "rosters")
+    os.makedirs(d, exist_ok=True)
+    idx = os.path.join(d, "index.csv")
+    rows = list(csv.DictReader(open(idx))) if os.path.exists(idx) else []
+    if rows and rows[-1]["hash"] == digest:
+        return "unchanged"
+    now = now or dt.datetime.now(dt.timezone.utc)
+    name = now.strftime("%Y-%m-%dT%H%MZ") + ".csv.gz"
+    with gzip.open(os.path.join(d, name), "wb") as f:
+        f.write(body)
+    with open(idx, "a", newline="") as f:
+        w = csv.writer(f)
+        if not rows:
+            w.writerow(["file", "observed_utc", "hash"])
+        w.writerow([name, now.isoformat(timespec="minutes"), digest])
+    return "wrote " + name
+
+
 def main(arch, site_dir=None):
     site_dir = site_dir or os.path.join(ROOT, "site")
     for sport in FIELDS:
         print("sport archive", sport, archive_one(sport, arch, site_dir))
+    print("nba roster", archive_nba_roster(arch))
 
 
 if __name__ == "__main__":

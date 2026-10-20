@@ -1230,6 +1230,11 @@ def build_data() -> None:
     end_year = season_end_year()
     log("NBA season", f"{end_year - 1}-{str(end_year)[-2:]}")
     boxes, raw_schedule, players, prior_roster, current_roster = _load_inputs(end_year)
+    try:   # dated roster history (archived by pipeline/sport_archive.py): live use can drop departed players; future tests get rosters
+        cols = [c for c in ("season", "team_abbreviation", "athlete_id", "display_name", "position_abbreviation", "status") if c in current_roster]
+        current_roster[cols].to_csv(os.path.join(ROOT, "build", "nba_roster_today.csv"), index=False)
+    except Exception as e:  # noqa: BLE001
+        log("nba roster snapshot skipped:", repr(e)[:120])
     # Earlier seasons' playoff games count as games in the team ratings (14-season futures replay with the playoff
     # rotation: +0.0010, 90% +0.0002 to +0.0018, better 9/14; with the last-playoff role below +0.0019, 10/14; TypeSafe 72%).
     fit_boxes = boxes.copy()
