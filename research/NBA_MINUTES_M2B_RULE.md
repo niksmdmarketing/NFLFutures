@@ -220,3 +220,16 @@ Every decision is unchanged. Originals are in *_before_teamfix.json.
 - Verified to reproduce the corrected research fits (stage one < 1e-14; M2 and M2b < 2e-16).
 - Activation: the first scheduled forward run on or after the commit that sets PARAMS_ID = "b". Each record carries params_id and params_sha256.
 - Only "b" forecasts made from activation onwards enter the primary test. Earlier forecasts (params_id "") are labelled and excluded.
+
+## Scheduling change (20 Oct 2026, 12:20 UTC; before any genuine forecast existed)
+**Finding:** GitHub's scheduled runs on this repository are throttled heavily. The 2-hourly site refresh ran at 04:54 and 11:41 UTC. The new 15-minute forward schedule produced no run at all between 11:15 and 12:15 UTC.
+
+**Change:** one job now loops instead.
+- Every 15 minutes (one minute past each quarter hour) it runs the forecaster and pushes.
+- It runs for 5.5 hours, then dispatches its successor if any cutoff remains in the next 24 hours.
+- Scheduled starts at 09:05, 15:05 and 21:05 UTC are backups.
+
+**Rules unchanged:**
+- timing is judged by the server-recorded push time;
+- a missed window is counted, not excused;
+- the first nights' timing review decides whether the archive is relied on.
