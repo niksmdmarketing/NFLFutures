@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-10-20T19:20:08+00:00",
+ "checked_utc": "2026-10-20T22:23:11+00:00",
  "leagues": {
   "nfl": {
-   "records": 1636,
+   "records": 1638,
    "by_layer": {
     "official": 1577,
-    "reported": 59
+    "reported": 61
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -44,7 +44,17 @@
     "TEN",
     "WAS"
    ],
-   "conflicts": [],
+   "conflicts": [
+    {
+     "player": "Jalen Hurts",
+     "official": [
+      "injured reserve",
+      "out"
+     ],
+     "other": "expected to play",
+     "source": "ESPN news"
+    }
+   ],
    "stale_projection_dates": 0,
    "teams_missing_official": [],
    "season_state": {
@@ -53,16 +63,16 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "59/59"
+   "reported_matched_to_official_list": "61/61"
   },
   "nba": {
-   "records": 213,
+   "records": 223,
    "by_layer": {
-    "official": 166,
-    "reported": 47
+    "official": 178,
+    "reported": 45
    },
    "unknown_team": 0,
-   "no_player": 19,
+   "no_player": 6,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -83,7 +93,6 @@
     "MIA",
     "MIL",
     "MIN",
-    "NO",
     "NY",
     "OKC",
     "ORL",
@@ -107,20 +116,22 @@
     }
    ],
    "stale_projection_dates": 0,
-   "teams_missing_official": [],
+   "teams_missing_official": [
+    "NO"
+   ],
    "season_state": {
     "state": "in_season",
     "why": "28 regular-season/playoff and 0 other games 2026-10-13..2026-10-30"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "47/47"
+   "reported_matched_to_official_list": "45/45"
   },
   "nhl": {
-   "records": 1563,
+   "records": 1562,
    "by_layer": {
-    "official": 152,
-    "reported": 63,
+    "official": 153,
+    "reported": 61,
     "projected": 1348
    },
    "unknown_team": 0,
@@ -170,7 +181,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "54/63"
+   "reported_matched_to_official_list": "52/61"
   },
   "nbl": {
    "records": 24,
@@ -245,7 +256,7 @@
   }
  },
  "sources_failed": [
-  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 63 h old"
+  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 66 h old"
  ],
  "sources_not_expected": []
 }
