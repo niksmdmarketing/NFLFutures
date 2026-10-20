@@ -52,3 +52,10 @@ Both 1a and 1b must pass.
 **Test 2 - futures.** research/replay_nba.py with the live settings (BT_FULL=1 BT_PO_K=1 BT_PO_GAMMA=1.5 BT_PO_LASTPO=1 BT_PO_GAMES=1; these reproduce the committed model/replay/nba_*.csv, which are the baseline) plus a new option BT_PF=1: at each checkpoint the team rating becomes rating + k x (S - mean S), S = player strength of the team's latest lineup (RAPM refitted at the checkpoint with this season's stints, expected minutes as in model B), k = c / b from Test-0's walk-forward C weights for that season (player-strength weight over team-rating weight). The playoff rotation is unchanged. Seasons 2015-2026 except 2020 (skipped by the replay): 11 seasons.
 Gates: mean log loss over title, conference, division, No. 1 seed and playoffs lower, season-bootstrap 90% interval above zero; better in at least 7 of 11 seasons; no single market worse by more than 0.002.
 **Decision:** TypeSafe decides. Both tests pass: player term goes to the site as a shadow beside the live model first (single-game and futures), then live by TypeSafe decision. Either fails: recorded.
+
+## Test 1 outcome (20 Oct 2026) - passes (research/nba_player_first_avail.py, research/nba_player_first_avail_results.json)
+| | Games | MSE without / with player term | Gain | One-sided 90% lower bound | Seasons better | Log loss without / with |
+|---|---|---|---|---|---|---|
+| 1a availability v2_base, 2015-2026 | 14,440 | 172.20 / 171.67 | +0.31% | +0.35 | 10 of 12 | 0.6077 / 0.6068 |
+| 1b official pre-game reports, 2022-2026 | 6,153 | 189.34 / 188.54 | +0.42% | +0.41 (week bootstrap) | 5 of 5 | 0.6102 / 0.6095 |
+Official-report coverage in the data actually starts in 2020 (2020-21 used for fitting); with 2021 also scored (reported only): +0.37%, 6 of 6. On top of the availability layer the player term's gain shrinks from 0.93% to 0.3-0.4% but stays positive in almost every season. Test 2 (futures) running.

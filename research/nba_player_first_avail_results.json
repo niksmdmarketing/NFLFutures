@@ -1,0 +1,86 @@
+{
+ "1a_v2_base_all_seasons": {
+  "games": 14440,
+  "seasons": 12,
+  "mse_A'": 172.199,
+  "mse_C'": 171.668,
+  "gain": 0.531,
+  "gain_pct": 0.31,
+  "lower90_one_sided": 0.354,
+  "by_season": {
+   "2015": -0.263,
+   "2016": 0.24,
+   "2017": 0.686,
+   "2018": 0.369,
+   "2019": 0.726,
+   "2020": 0.118,
+   "2021": 0.0,
+   "2022": 0.982,
+   "2023": 0.777,
+   "2024": 1.292,
+   "2025": 1.165,
+   "2026": 0.158
+  },
+  "seasons_better": 10,
+  "ll_A'": 0.6077,
+  "ll_C'": 0.6068,
+  "gates": {
+   "mse_lower_bound_above_0": true,
+   "better_in_8+_seasons": true,
+   "logloss": true
+  },
+  "pass": true
+ },
+ "1b_official_reports_2022_on": {
+  "games": 6153,
+  "seasons": 5,
+  "mse_A'": 189.339,
+  "mse_C'": 188.542,
+  "gain": 0.797,
+  "gain_pct": 0.42,
+  "lower90_one_sided": 0.411,
+  "by_season": {
+   "2022": 1.002,
+   "2023": 0.617,
+   "2024": 1.232,
+   "2025": 1.128,
+   "2026": 0.008
+  },
+  "seasons_better": 5,
+  "ll_A'": 0.6102,
+  "ll_C'": 0.6095,
+  "gates": {
+   "mse_lower_bound_above_0": true,
+   "better_in_3+_seasons": true,
+   "logloss": true
+  },
+  "pass": true
+ },
+ "reported_official_all_covered_2021_on": {
+  "games": 7233,
+  "seasons": 6,
+  "mse_A'": 190.598,
+  "mse_C'": 189.884,
+  "gain": 0.714,
+  "gain_pct": 0.37,
+  "lower90_one_sided": 0.388,
+  "by_season": {
+   "2021": 0.239,
+   "2022": 1.002,
+   "2023": 0.617,
+   "2024": 1.232,
+   "2025": 1.128,
+   "2026": 0.008
+  },
+  "seasons_better": 6,
+  "ll_A'": 0.6149,
+  "ll_C'": 0.6142,
+  "gates": {
+   "mse_lower_bound_above_0": true,
+   "better_in_4+_seasons": true,
+   "logloss": true
+  },
+  "pass": true
+ },
+ "match_rate": 1.0
+}
