@@ -107,6 +107,8 @@ def build(src):
     team_idx = collections.Counter()               # (season, team) -> games played so far
     played_games = collections.defaultdict(list)   # aid -> list of minutes in games played (any team), this season
     roster = collections.defaultdict(set)         # (season, team) -> players whose latest team this season is team
+    pl = d[d.minutes > 0].groupby(["season", "athlete_id"]).minutes.agg(["mean", "size"])
+    prev = {(int(y) + 1, int(a)): (float(m), int(n)) for (y, a), (m, n) in pl.iterrows()}   # last season: minutes per game played, games played
     out = []
     ng = 0
     for gid, G in d.groupby("game_id", sort=False):
@@ -162,9 +164,13 @@ def build(src):
             for a, f in feats.items():
                 out.append(dict(season=y, game_id=gid, tip=str(tip), team=t, aid=a, gi=gi, minutes=float(present.get(a, 0.0)),
                                 started=int(a in starters), rep1=str(rt1) if rt1 is not None else "", **f))
-            n_unexpected = sum(1 for a in present if a not in feats and present[a] > 0)
-            if n_unexpected:
-                out.append(dict(season=y, game_id=gid, tip=str(tip), team=t, aid=-1, gi=gi, minutes=float(n_unexpected), unexpected=1))
+            # fallback rows (scored separately): players listed in this game's box (a proxy for the public roster) who were not candidates;
+            # only last season's minutes and games are used as inputs, never this game's minutes
+            for a, m in present.items():
+                if a not in feats:
+                    pm_, pn_ = prev.get((y, a), (np.nan, 0))
+                    out.append(dict(season=y, game_id=gid, tip=str(tip), team=t, aid=a, gi=gi, minutes=float(m), fallback=1,
+                                    prev_mpg=pm_, prev_gp=pn_, grp=grp_of.get(a, "W")))
             # update state
             for a, m in present.items():
                 if last_team.get(a) != t or season_of.get(a) != y:
@@ -219,8 +225,12 @@ def sd_fit(mu, y):
 def score():
     from sklearn.linear_model import LogisticRegression
     D = pd.read_csv(ROWS)
-    unexpected = D[D.aid == -1].groupby("season").minutes.sum().to_dict()
-    D = D[(D.aid != -1) & (D.season >= 2020)].copy()
+    if "fallback" not in D:
+        D["fallback"] = 0
+    D["fallback"] = D.fallback.fillna(0)
+    FB = D[(D.fallback == 1) & (D.season >= 2020)].copy()
+    unexpected = FB[FB.minutes > 0].groupby("season").size().to_dict()
+    D = D[(D.fallback == 0) & (D.aid != -1) & (D.season >= 2020)].copy()
     D["y_app"] = (D.minutes > 0).astype(float)
     for c in ("st1", "st6"):
         D[c] = D[c].fillna("")
@@ -301,8 +311,48 @@ def score():
         out["gates"] = {k: bool(v) for k, v in g.items()}
         out["all_pass"] = bool(all(g.values())) if tag == "1" else None
         res["by_time"][f"{tag}h_before"] = out
+    res["fallback_unseen_players"] = score_fallback(FB)
     json.dump(res, open(os.path.join(HERE, "nba_minutes_results.json"), "w"), indent=1)
     print(json.dumps(res, indent=1))
+
+
+def score_fallback(FB):
+    """Players listed in the box who were not candidates (debuts, opening night, new arrivals). Model F: last-season minutes prior;
+    baseline FB0: training-season averages for such players. Reported only (not a stage-one gate)."""
+    from sklearn.linear_model import LogisticRegression
+    FB = FB.copy()
+    FB["has_prev"] = FB.prev_mpg.notna().astype(float)
+    FB["pm"] = FB.prev_mpg.fillna(0.0)
+    FB["early"] = (FB.gi < 3).astype(float)
+    FB["y_app"] = (FB.minutes > 0).astype(float)
+    rows = []
+    for s in TEST:
+        T, Z = FB[FB.season < s], FB[FB.season == s]
+        if len(T) < 200 or len(Z) == 0:
+            continue
+        X = lambda Q: np.column_stack([Q.has_prev, Q.pm / 48, np.log1p(Q.prev_gp), Q.early])
+        lr = LogisticRegression(max_iter=500).fit(X(T), T.y_app)
+        P = T[T.minutes > 0]
+        Xm = lambda Q: np.column_stack([np.ones(len(Q)), Q.has_prev, Q.pm, Q.early])
+        b = np.linalg.lstsq(Xm(P), P.minutes, rcond=None)[0]
+        sdf = sd_fit(np.clip(Xm(P) @ b, 1, 48), P.minutes.to_numpy())
+        mu = np.clip(Xm(Z) @ b, 1, 48)
+        pa_F = np.clip(lr.predict_proba(X(Z))[:, 1], 1e-3, 1 - 1e-3)
+        pa_0 = np.full(len(Z), np.clip(T.y_app.mean(), 1e-3, 1 - 1e-3))
+        mu0 = np.full(len(Z), float(np.clip(P.minutes.mean(), 1, 48)))
+        sd0 = float(np.std(P.minutes))
+        yv, ya = Z.minutes.to_numpy(), Z.y_app.to_numpy()
+        rows.append(dict(season=s, n=len(Z), rps_F=float(rps(pa_F, disc_normal(mu, sdf(mu)), yv).mean()),
+                         rps_0=float(rps(pa_0, disc_normal(mu0, np.full(len(Z), sd0)), yv).mean()),
+                         ll_F=float(np.mean(-(ya * np.log(pa_F) + (1 - ya) * np.log(1 - pa_F)))),
+                         ll_0=float(np.mean(-(ya * np.log(pa_0) + (1 - ya) * np.log(1 - pa_0))))))
+    R = pd.DataFrame(rows)
+    if R.empty:
+        return {}
+    w = R.n / R.n.sum()
+    return {"rows": int(R.n.sum()), "rps_fallback_model": round(float((R.rps_F * w).sum()), 5), "rps_average_baseline": round(float((R.rps_0 * w).sum()), 5),
+            "app_logloss_model": round(float((R.ll_F * w).sum()), 4), "app_logloss_baseline": round(float((R.ll_0 * w).sum()), 4),
+            "seasons_better": int((R.rps_F < R.rps_0).sum()), "by_season": R.round(5).to_dict("records")}
 
 
 if __name__ == "__main__":
