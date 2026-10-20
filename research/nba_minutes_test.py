@@ -51,7 +51,7 @@ def load_box():
     d["athlete_id"] = pd.to_numeric(d.athlete_id, errors="coerce")
     d = d.dropna(subset=["athlete_id"])
     d["athlete_id"] = d.athlete_id.astype(int)
-    d["tip"] = pd.to_datetime(d.game_date_time, utc=True, errors="coerce")
+    d["tip"] = pd.to_datetime(d.game_date_time, utc=True, errors="coerce", format="ISO8601")
     d["season"] = pd.to_numeric(d.season, errors="coerce").astype(int)
     d["starter"] = d.starter.astype(str).str.lower().eq("true")
     d["grp"] = d.athlete_position_abbreviation.map(GROUP).fillna("W")
