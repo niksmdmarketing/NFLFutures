@@ -173,3 +173,7 @@ The realism checks compare simulated games with actual ones (pooled):
      - totals: L 366.2, G1 362.4 (offence part 363.6, defence part 366.0), simple averages B 361.9. Total bias is about +1.1 for both L and G1, so G1's gain on totals is not a level effect. It is about the same size as B's, and whether the two overlap is untested.
    - Not adopted.
 5. **Short-minutes diagnostic.** Players expected to play 24+ minutes who played 12+ fewer: 4.2% in blowouts (final margin 20+) against 2.9% in other games. Blowouts are 19% of games and hold 26% of these short nights.
+6. **Quarter overrun check (GPT).**
+   - A possession that overruns the clock is completed and scored. It is also counted in the calibration that maps duration scale to possessions per team (research/nba_game_env_test.calibrate counts a possession before checking the clock). So the simulated possession count equals the box-score pace target by construction, overrun possessions included; the overrun does not add possessions beyond the target.
+   - The 3% gap is between box-score pace (2024: 101.5 per team) and the play-by-play count (98.7). That is a definitional difference between the two counts, not a clock artefact.
+   - It still matters: the simulation calibrated to the higher box count spreads the same expected points over about 3% more possessions.

@@ -79,3 +79,25 @@ These add reported items only. Gates, model and baselines are unchanged. PROPHET
    - No side preference or under bias is built in. Any selection rule found from these numbers needs fresh testing on later data.
    - The short-minutes tail (stage one) is checked specifically for inflated over probabilities: the over-side calibration for players with low-minute risk is reported.
 3. **Dependence in uncertainty:** the week-block bootstrap resamples whole weeks, so props sharing a player, game or injury news stay together. Counts of player-games are not presented as independent tests.
+
+## Amendment 2 (20 Oct 2026, before any code or result): GPT's review of the rule. Where it conflicts with the text above, this governs.
+1. **Pace (P+O).** The opponent-and-pace adjustment becomes: rate x (opponent factor)^c_s x (expected game pace / pace of the player's history). Pace of history is the weighted average box-score pace of the games behind his rate, with the same recency weights. Upcoming pace is not divided by league pace, so the historical environment is not counted twice.
+2. **Minutes-matched baseline.** New baseline B3m: B3's unshrunk season-to-date per-minute rate, mixed over the same stage-one minutes distribution as P (same P(appear) and q(m)). B3m is added to the gated baselines (B1, B2, B3, B3m). P vs B3m isolates shrinkage and recency. B3m vs B3 (reported) isolates the value of the minutes distribution.
+3. **Teammate absence, incremental (P+T).** V = expected missing teammate share now minus the missing share already reflected in the player's rate.
+   - Teammate shares are each rotation teammate's (usual minutes 12+) share of the team's expected stat production.
+   - Now: the sum of (1 - P(appear)) x share over teammates, from stage one at the forecast time.
+   - Reflected: the weighted average, over the games behind his rate (same weights), of the actual share of teammates missing in those games.
+   - Rate x (1 + b_s x V), with b_s in 0..1, fitted on earlier seasons.
+4. **Combining adjustments.**
+   - Each adjustment is adopted per stat, independently. The "not worse on the other two stats" condition is removed.
+   - If both P+T and P+O pass for a stat, only the one with the larger pooled RPS gain is kept.
+   - The combined P+T+O is reported, not adopted, under this rule.
+5. **Scores aligned with use.**
+   - New gate 4: P's RPS given appearing must be lower than each baseline's (point estimate), so any claim about void-on-non-appearance props rests on the conditional score.
+   - Essentially unclipped sensitivity scores are reported: supports points 0-100, rebounds 0-45, assists 0-35.
+6. **Fitting m0.** For each stat, m0 is chosen on the earlier seasons by maximising the negative-binomial log likelihood of each player-game's actual count.
+   - The mean is the shrunk rate computed from that player's prior games only, times his actual minutes.
+   - The dispersion is refitted for each m0.
+   - Grid: m0 = 0, 25, 50, 100, 200, 400, 800 minutes.
+   - The chosen m0 and dispersion are reported per test season.
+7. **The minutes cap.** Stage one's minutes support is 1-53. Appearances above 53 minutes (multiple overtimes) are scored at 53 in minutes. The stat outcomes are always the actual counts.

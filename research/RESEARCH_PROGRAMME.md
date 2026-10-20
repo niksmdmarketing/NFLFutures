@@ -10,16 +10,17 @@ Agreed with the user and GPT. Site predictions are unchanged by anything here. S
 
 Every forecast and every filter version is archived with a timestamp. The selections actually made at the time are what get scored. A filter found by looking at historical results is evaluated only on data after it was found.
 
-## Current status by model
+## Current status by model (each "historical improvement" names its baseline and market)
 | Model / market | Label |
 |---|---|
-| NFL v4 game and futures model (frozen for 2026) | Historical improvement; forward testing in 2026 |
+| NFL v4 game and futures model (frozen for 2026) | Historical improvement over earlier NFL versions on walk-forward game and futures scores; forward testing in 2026 |
 | NFL v5 | Experimental (shadow only) |
-| AFL model D | Historical improvement (AFL three-way rule); forward testing from 2027 |
-| NBA team model with injury layer (games, futures) | Historical improvement; forward testing |
-| NBA player-term shadow | Experimental (single-game pass; futures fail; archived shadow) |
-| NBA minutes model (props stage one) | Historical improvement (research only, not on site) |
-| NBA game environment, possession simulation (stage two) | Failed its rule; experimental |
+| AFL model D, games | Historical improvement over the stat-only and player-only versions (AFL three-way rule, game margins); forward testing from 2027 |
+| NBA injury (availability) layer, single games | Historical improvement over the team rating without it (game log loss) |
+| NBA futures (team rating, pre-season player mix, roster step, playoff rotation) | Historical improvement over earlier futures versions in the replay; the injury layer is not part of that evidence |
+| NBA player-term shadow | Experimental (single games passed against the team rating plus injury layer; futures failed); archived shadow |
+| NBA minutes model (props stage one) | Historical improvement over the report-aware last-10 baseline (minutes RPS); research only |
+| NBA game environment, possession simulation (stage two) | Failed against the live model; experimental |
 | NBA player props | Not built; see 1 |
 | Kalshi NBA price archive | Descriptive (benchmark only, never an input) |
 
