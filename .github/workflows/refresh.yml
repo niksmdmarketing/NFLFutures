@@ -6,6 +6,8 @@ on:
   workflow_dispatch:          # "Run workflow" button in the Actions tab
   push:
     branches: [main]
+    paths-ignore:            # research-only commits do not change the site (20 Oct 2026)
+      - "research/**"
 
 permissions:
   contents: write

@@ -1,0 +1,54 @@
+name: Research - NBA props forward archive
+# Forward test of the NBA prop models (research/NBA_MINUTES_M2B_RULE.md, forward-test protocol). Every 15 minutes in the US game
+# window: for each game whose 1-hour or 6-hour cutoff falls within the next 45 minutes, research/nba_props_live.py forecasts from
+# inputs retrieved now (frozen method and parameters) and the result is committed to the forecast-archive branch
+# (nba/props_forward/). Research only: nothing here feeds the site. Manual runs with a game id are written to .../tests/.
+on:
+  schedule:
+    - cron: "*/15 0-5,10-23 * * *"
+  workflow_dispatch:
+    inputs:
+      force_game:
+        description: "Test only: ESPN game id to forecast now (written to nba/props_forward/tests/)"
+        default: ""
+      horizon:
+        description: "Test only: 60 or 360"
+        default: "60"
+permissions:
+  contents: write
+concurrency:
+  group: nba-props-forward
+  cancel-in-progress: false
+jobs:
+  forecast:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Forecast
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch -q origin forecast-archive
+          git worktree add -q -B forecast-archive ../archive FETCH_HEAD
+          if [ -n "${{ inputs.force_game }}" ]; then
+            python research/nba_props_live.py ../archive --force-game "${{ inputs.force_game }}" --horizon "${{ inputs.horizon }}"
+          else
+            python research/nba_props_live.py ../archive
+          fi
+      - name: Save
+        run: |
+          cd ../archive
+          git add -A nba/props_forward || true
+          if git diff --cached --quiet; then echo "nothing to save"; exit 0; fi
+          git commit -q -m "NBA props forward archive $(date -u +%Y-%m-%dT%H:%MZ)"
+          for i in 1 2 3 4 5; do
+            git pull -q --rebase origin forecast-archive && git push -q origin HEAD:forecast-archive && exit 0
+            sleep $((RANDOM % 20 + 5))
+          done
+          exit 1
