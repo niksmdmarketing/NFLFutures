@@ -1,0 +1,8 @@
+{
+ "note": "Weights for the NBA player-term shadow (research/NBA_PLAYER_FIRST_RULE.md, amendment 2 form) for the 2026-27 season, fitted on all games 2014-2026 (walk-forward for 2027). rating -> (b / b_A) x rating + (c / b_A) x (S - mean S).",
+ "season": 2027,
+ "b_A": 1.0033,
+ "b": 0.8467,
+ "c": 0.2618,
+ "games": 15669
+}

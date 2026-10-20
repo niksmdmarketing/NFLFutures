@@ -639,6 +639,55 @@ ROSTER_COEF = (1.5, 1.0, 20.0)   # coefficient before the season, from game N on
 # games coefficient 1.0 is best (+0.037 8/13, +0.047 10/13). TypeSafe chose coefficient 1.5 + returning-player fix.
 
 
+_PT_STATE = {}
+PLAYER_TERM = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "model", "nba_player_term.json")
+
+
+def _player_term_shadow(ratings: pd.DataFrame, players: pd.DataFrame, end_year: int, schedule: pd.DataFrame, n: int = 20000) -> dict:
+    """Archived shadow (research/NBA_PLAYER_FIRST_RULE.md, amendment 2; 20 Oct 2026): in season only, the team rating becomes
+    (b / b_A) x rating + (c / b_A) x (S - mean S), S = player strength of each team's usual rotation (minutes over its last 10
+    games, absences as zero, scaled to 240) with player ratings refitted including this season's lineup stints. Not published
+    as the forecast; archived so the 2026-27 season can score it against the live model."""
+    import nba_rapm
+    if not os.path.exists(PLAYER_TERM) or not _PT_STATE.get("stints"):
+        return {}
+    W = json.load(open(PLAYER_TERM))
+    cur = players[(pd.to_numeric(players.season, errors="coerce") == end_year) & (pd.to_numeric(players.season_type, errors="coerce") == 2)
+                  & (pd.to_numeric(players.minutes, errors="coerce") > 0)].copy()
+    if cur.empty:
+        return {}
+    path = _download("espn_nba_pbp", f"play_by_play_{end_year}.parquet", 6, required=False)
+    if not path:
+        return {}
+    cols = ["game_id", "sequence_number", "type_text", "period_number", "team_id", "athlete_id_1", "athlete_id_2",
+            "athlete_id_3", "scoring_play", "score_value", "shooting_play", "home_team_id", "away_team_id", "season_type"]
+    now_stints = nba_rapm.season_stints(pd.read_parquet(path, columns=cols), cur)
+    rating = nba_rapm.fit(_PT_STATE["stints"] + [(now_stints, 1.0)], _PT_STATE["prior"])
+    rating = nba_rapm.develop(rating, _PT_STATE.get("first", {}), end_year)
+    rating = {**rating, **_rating_overrides()}
+    cur["m"] = pd.to_numeric(cur.minutes, errors="coerce")
+    cur["date"] = pd.to_datetime(cur.game_date.astype(str).str[:10])
+    cur["aid"] = [nba_rapm._id(a) for a in cur.athlete_id]
+    cur = cur.sort_values("date")
+    latest_team = cur.groupby("aid").team_abbreviation.last()
+    S = {}
+    for t, x in cur[cur.team_abbreviation.isin(TEAMS)].groupby("team_abbreviation"):
+        dates = sorted(x.date.unique())[-10:]
+        mins = x[x.date.isin(dates)].groupby("aid").m.sum() / len(dates)
+        mins = mins[[latest_team.get(a) == t for a in mins.index]]
+        if mins.sum() > 0:
+            S[t] = float(sum(rating.get(a, nba_rapm.ROOKIE) * m for a, m in (mins * 240.0 / mins.sum()).items()) / 48.0)
+    S = pd.Series(S).reindex(TEAMS)
+    S = S.fillna(S.mean())
+    r = ratings.copy()
+    r["rating"] = (W["b"] / W["b_A"]) * r.rating + (W["c"] / W["b_A"]) * r.team.map(S - S.mean()).fillna(0.0)
+    r["rating"] -= r.rating.mean()
+    sim = _simulate(schedule, r, n)
+    log("nba player-term shadow: stints this season", len(now_stints), "top S", (S - S.mean()).sort_values(ascending=False).head(3).round(2).to_dict())
+    return {t: {"rating": round(float(r.set_index("team").rating[t]), 2), "mean_wins": round(v["mean_wins"], 2),
+                **{k: round(v[k], 4) for k in ("p_playoff", "p_conf", "p_title", "p_seed1", "p_div")}} for t, v in sim.items()}
+
+
 def _player_mix(ratings: pd.DataFrame, players: pd.DataFrame, values: pd.DataFrame, values_prev, current_roster: pd.DataFrame,
                 end_year: int, games_played: float) -> pd.DataFrame:
     """Mix player ratings (RAPM, pipeline/nba_rapm.py) into the team rating: 40% before the season, fading to 0 by game 20."""
@@ -665,10 +714,12 @@ def _player_mix(ratings: pd.DataFrame, players: pd.DataFrame, values: pd.DataFra
         rv = _roster_values(values, values_prev)
         prior = {nba_rapm._id(a): nba_rapm.K_BOX * float(i) for a, i in zip(rv.athlete_id, rv.impact)}
         rating = nba_rapm.fit(stints, prior)
+        _PT_STATE.update(stints=stints, prior=prior)
         played = players[pd.to_numeric(players.minutes, errors="coerce") > 0]
         first = played.assign(aid=[nba_rapm._id(a) for a in played.athlete_id],
                               yr=pd.to_numeric(played.season, errors="coerce")).groupby("aid").yr.min()
-        rating = nba_rapm.develop(rating, {int(a): int(y) for a, y in first.items() if a is not None}, end_year)
+        _PT_STATE["first"] = {int(a): int(y) for a, y in first.items() if a is not None}
+        rating = nba_rapm.develop(rating, _PT_STATE["first"], end_year)
         global LAST_RATING
         LAST_RATING = dict(rating)
         rating = {**rating, **_rating_overrides()}
@@ -1215,6 +1266,12 @@ def build_data() -> None:
             v["no_overrides"] = no_ovr.get(t)
     except Exception as e:  # noqa: BLE001
         log("nba no-overrides version skipped:", repr(e)[:200])
+    try:   # player-term shadow (in season only), archived beside the live forecast
+        pt = _player_term_shadow(ratings, players, end_year, schedule)
+        for t, v in futures.items():
+            v["player_term"] = pt.get(t)
+    except Exception as e:  # noqa: BLE001
+        log("nba player-term shadow skipped:", repr(e)[:200])
     if avail:
         shadow = _simulate(schedule, ratings, min(n_sims, 20000), avail)
         availability["shadow"] = {t: {k: round(v[k], 4) for k in ("mean_wins", "p_playoff", "p_conf", "p_title")} for t, v in shadow.items()}

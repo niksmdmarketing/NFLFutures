@@ -566,7 +566,8 @@ def futures(cur):
                      "record": f"{int(r0.get('w', 0))}-{int(r0.get('l', 0))}", "rating": v.get("rating"),
                      "w_mean": v.get("mean_wins"), "w_p10": q(.1), "w_p90": q(.9), "over": over,
                      **{k: v.get(k) for k in ("p_playoff", "p_top6", "p_playin", "p_div", "p_seed1", "p_r2", "p_cf", "p_conf", "p_title")},
-                     **{"n_" + k: (v.get("no_overrides") or {}).get(k) for k in ("p_title", "p_conf", "p_playoff", "p_seed1", "p_div", "mean_wins")}})
+                     **{"n_" + k: (v.get("no_overrides") or {}).get(k) for k in ("p_title", "p_conf", "p_playoff", "p_seed1", "p_div", "mean_wins")},
+                     **{"pt_" + k: (v.get("player_term") or {}).get(k) for k in ("p_title", "p_conf", "p_playoff", "p_seed1", "p_div", "mean_wins")}})
     sched = schedule_context(cur, {r["team"]: r["rating"] for r in rows})
     for r in rows:
         r.update(sched.get(r["team"], {}))
@@ -590,6 +591,7 @@ def futures(cur):
                      {"k": "p_title", "l": "Title"}],
             "line": {"label": "Win total", "unit": "wins", "min": 0},
             "about": ["The model does not use bookmaker prices, so it is independent of the market, not proof of value.",
+                      "A player-based challenger (team rating combined with lineup player ratings refitted during the season) runs in the background from the first games and is archived for scoring; it does not change these chances. In a 2015-26 replay it was slightly better in 7 of 11 seasons but not clearly better.",
                       "Known absences are used for game-by-game probabilities (see Who is out), measured against what the team rating already assumes about each player's availability. They are not in these futures yet (no measurable gain in a 2013-26 replay); otherwise injuries show up only through results.",
                       "Rookies and coaching changes are only partly reflected; they matter most before the season.",
                       "The roster adjustment cannot be back-tested (no historical rosters), so it is kept small.",

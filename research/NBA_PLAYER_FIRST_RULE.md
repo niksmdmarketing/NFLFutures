@@ -85,3 +85,6 @@ Mean log loss 0.1827 -> 0.1817 (gain +0.0010, 90% -0.0031 to +0.0050); better in
 Gates: interval above zero fails; 7 of 11 passes; no market worse passes. Fail.
 The audit's corrections removed the earlier damage (-0.0023 -> +0.0010), so the first Test 2 result mostly reflected the implementation (scale, stale pre-season roster, carried-forward absences), not a property of player information.
 Decision (TypeSafe 98%): recorded as a fail per the rule; futures model unchanged; stop. The corrected version is no longer worse and leans positive; the single-game result stands as promising but not proven against the full live pipeline.
+
+## 2026-27 live shadow (20 Oct 2026; TypeSafe 100%)
+The amendment-2 version runs each refresh as an archived shadow, in season only (pipeline/nba.py _player_term_shadow; weights model/nba_player_term.json fitted on all games 2014-2026: b_A 1.003, b 0.847, c 0.262). Archived as pt_* fields in the NBA futures snapshots (pipeline/sport_archive.py); not the published forecast. Scored against the live model after the season; one season adds evidence but will not settle a difference this small.
