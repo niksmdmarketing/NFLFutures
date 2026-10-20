@@ -27,3 +27,19 @@ Reported, not gated: the actual-lineup best case; by-season gains; the fitted we
 
 ## Decision
 TypeSafe decides. A pass leads to a futures replay test (same rule style) before anything reaches the site; a fail is recorded. Nothing live changes from this test.
+
+## Outcome (20 Oct 2026) - player-first alone fails; combined passes all gates
+Run: research/nba_player_first_test.py build / score (rows data/research/nba_player_first_rows.csv, results research/nba_player_first_results.json). 14,440 test games, 2015-2026.
+
+| Model | Margin MSE | vs A | Seasons better | Log loss | Gates |
+|---|---|---|---|---|---|
+| A team rating | 179.3 | - | - | 0.6201 | - |
+| B player-first (previous-game lineup) | 192.9 | -7.6% | 0 of 12 | 0.6489 | fail |
+| C combined | 177.7 | +0.93% (lower bound +1.11) | 12 of 12 | 0.6172 | **pass all five** |
+| Best case B / C with actual lineups | 195.5 / 178.0 | -9.0% / +0.72% | - | 0.6499 / 0.6170 | reported only |
+
+C: early (first 20 team games) +1.24, later +1.81; slope 1.006. The player term's walk-forward weight rose from 0.06 (2015) to 0.26 (2026) as the stint history grew; the team-rating weight fell from 0.96 to 0.85.
+Actual lineups do worse than previous-game lineups because actual minutes include garbage time, which is shaped by the result; so the pre-game version is not leaning on hidden information.
+Reading: player ratings alone are much noisier than team results, but as a second opinion on top of the team rating they help every season, a little.
+Caveats: A is the team rating alone; the live single-game predictions also use the availability layer, which overlaps with C's lineup information. Futures not tested.
+Decision (TypeSafe 97%): before any live use, test (1) whether C still adds on top of the live availability layer for single games and (2) a futures replay with C's player term; shadow only until both pass.
