@@ -105,3 +105,25 @@ Run: research/nba_points_dispersion_test.py (results research/nba_points_dispers
 - D is the points version for a separate forward-test decision. It needs its own identifier before any live use.
 - Label: "historical improvement over the four baselines and over the previous points version (RPS, calibration); zero-night and fringe-average shortfalls remain".
 - No live or site change.
+
+## Forward test of points D (20-21 Oct 2026, GPT review; before any D forecast)
+**Labels (GPT's qualifications):**
+- "Passed the specified calibration checks", not "fully calibrated". The known weaknesses stay on the label: confident overs about 4 points too high; fringe scoreless nights under-predicted (26.7% against 35.6%).
+- The remaining average-points error is consistent with a minutes bias but not proven to come from it; per-minute production can also be biased by role.
+- The similar fits across seasons come from overlapping training windows on seasons that informed development, so they are not independent confirmation.
+
+**Versions** (same forecast times, player-games, formula lines and fixed groups as the props forward test):
+- **pts-D1/M2 (primary):** points D with M2 minutes.
+- **pts-D1/M2b (challenger):** identical except M2b minutes. This tests whether the minutes correction removes the remaining fringe-average bias.
+
+**Parameters:** model/nba_points_d_params_2027.json, sha256 009d7911ab1d…2ecf (a = -1.1048, b = 1.3008, fitted on 2017-2026 with the frozen rate). A 2026 refit reproduces the walk-forward research fit exactly. Archived in every record as pts_d_v2 and pts_d_v3, with the parameter hash. The earlier constant-dispersion points distributions (pts_v2, pts_v3) are kept alongside.
+
+**Activation:** the first forward run of a job started after the commit that adds these fields. Only records carrying points_d.params_sha256 count.
+
+**Reported:**
+- zero-point and zero-or-one frequencies;
+- confident-over errors on the fixed group (from pts-D1/M2's pre-game forecasts) and each version's own group;
+- average points by projected minutes;
+- tails.
+
+**Evaluation:** one evaluation after the regular season, under the same timing, coverage and uncertainty rules as the props forward test. Adoption of pts-D1/M2b over pts-D1/M2 needs the same conditions as v3 over v2 (RPS 90% bound above zero; PIT deciles within limits; a smaller absolute over gap on the fixed low-minute-risk group).

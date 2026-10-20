@@ -1,0 +1,11 @@
+{
+ "version": "pts-D1",
+ "season": 2027,
+ "a": -1.1047864774031027,
+ "b": 1.3007514201078196,
+ "form": "negative binomial size r(mu) = exp(a + b log max(mu, 0.01)), mu = rate x minutes",
+ "rate": "P+T as in model/nba_props_live_params_2027b.json",
+ "fit_rows": 249456,
+ "loglik": -693871.93210582,
+ "rule": "research/NBA_POINTS_DISPERSION_RULE.md"
+}

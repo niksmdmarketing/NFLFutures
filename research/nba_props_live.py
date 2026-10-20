@@ -263,6 +263,10 @@ def run(args):
     params = {y: json.load(open(os.path.join(ROOT, "model", f"nba_props_live_params_{y}{PARAMS_ID}.json"))) for y in (SEASON - 1, SEASON)}
     phash = sha(open(os.path.join(ROOT, "model", f"nba_props_live_params_{SEASON}{PARAMS_ID}.json"), "rb").read())
     log["params_id"] = PARAMS_ID
+    # points version D (research/NBA_POINTS_DISPERSION_RULE.md): forward identifiers pts-D1/M2 (primary) and pts-D1/M2b (challenger)
+    pd_path = os.path.join(ROOT, "model", f"nba_points_d_params_{SEASON}.json")
+    ptsD = json.load(open(pd_path)) if os.path.exists(pd_path) else None
+    ptsD_hash = sha(open(pd_path, "rb").read()) if ptsD else None
     P, TB = boxes(s, log)
     R = reports(now, args.archive, log)
     # stage-one candidate rows: research build over 2025-2027 boxes plus one placeholder row per target team
@@ -441,6 +445,16 @@ def run(args):
                     unc = pa[:, None] * cond
                     unc[:, 0] += 1 - pa
                     dists[(vn, st)] = unc
+                if st == "pts" and ptsD:
+                    import nba_points_dispersion_test as DT
+                    rfun = lambda mu, a_=ptsD["a"], b_=ptsD["b"]: DT.r_of(mu, a_, b_)
+                    for vn, q in (("d_v2", q2), ("d_v3", q3)):
+                        cond = DT.mix(rate, q, rfun)
+                        unc = pa[:, None] * cond
+                        unc[:, 0] += 1 - pa
+                        dists[(vn, "pts")] = unc
+            rec["points_d"] = dict(version=ptsD["version"], params_sha256=ptsD_hash, primary="pts_d_v2 (pts-D1/M2)",
+                                   challenger="pts_d_v3 (pts-D1/M2b)") if ptsD else None
             for i, row in Zt.iterrows():
                 rec["players"].append(dict(
                     aid=int(row.aid), name=names.get(int(row.aid), ""), team=row.team, status=row.st1, p_appear=round(float(pa[i]), 6),
@@ -448,7 +462,8 @@ def run(args):
                     risk_group_v2=bool(q2[i, :14].sum() >= 0.2), p_under15_stage1=round(float(q1[i, :14].sum()), 6),
                     minutes_v2=[round(float(x), 6) for x in q2[i]], minutes_v3=[round(float(x), 6) for x in q3[i]],
                     pi_short=round(float(pi2[i]), 6),
-                    **{f"{st}_{vn}": [round(float(x), 7) for x in dists[(vn, st)][i]] for vn in ("v2", "v3") for st in C.STATS}))
+                    **{f"{st}_{vn}": [round(float(x), 7) for x in dists[(vn, st)][i]] for vn in ("v2", "v3") for st in C.STATS},
+                    **{f"pts_{vn}": [round(float(x), 7) for x in dists[(vn, "pts")][i]] for vn in ("d_v2", "d_v3") if (vn, "pts") in dists}))
         day = pd.Timestamp(cut).tz_convert("America/New_York").strftime("%Y-%m-%d")
         out = os.path.join(args.archive, "nba", "props_forward", "tests" if args.force_game else day)
         os.makedirs(out, exist_ok=True)
