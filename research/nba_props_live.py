@@ -54,6 +54,31 @@ def get(url, timeout=30):
         return r.read()
 
 
+PB_COLS = ["game_id", "season", "season_type", "game_date", "game_date_time", "athlete_id", "athlete_display_name", "team_abbreviation",
+           "team_display_name", "minutes", "starter", "athlete_position_abbreviation", "points", "rebounds", "assists", "did_not_play",
+           "opponent_team_abbreviation", "home_away", "team_score"]
+TB_COLS = ["game_id", "season", "season_type", "game_date", "team_abbreviation", "opponent_team_abbreviation", "team_home_away", "team_score",
+           "opponent_team_score", "field_goals_attempted", "offensive_rebounds", "total_turnovers", "turnovers", "free_throws_attempted"]
+INPUTS = {}
+
+
+def store_input(archive, name, data, ext):
+    """immutable, content-addressed copy of an input actually used: <archive>/nba/props_forward/inputs/<sha256>.<ext>"""
+    h = sha(data)
+    d = os.path.join(archive, "nba", "props_forward", "inputs")
+    os.makedirs(d, exist_ok=True)
+    f = os.path.join(d, f"{h}.{ext}")
+    if not os.path.exists(f):
+        with open(f, "wb") as fh:
+            fh.write(data)
+    INPUTS.setdefault(name, []).append(h)
+    return h
+
+
+def frame_bytes(df):
+    return gzip.compress(df.to_csv(index=False).encode(), mtime=0)
+
+
 def now_utc(args):
     return pd.Timestamp(args.now).tz_convert("UTC") if args.now else pd.Timestamp.now(tz="UTC")
 
@@ -136,9 +161,11 @@ def boxes(s, log):
         pp = N._download("espn_nba_player_boxscores", f"player_box_{y}.csv", age, required=(y != SEASON))
         tp = N._download("espn_nba_team_boxscores", f"team_box_{y}.csv", age, required=(y != SEASON))
         if pp and os.path.exists(pp):
-            pf.append(pd.read_csv(pp, low_memory=False))
+            x = pd.read_csv(pp, low_memory=False)
+            pf.append(x[[c for c in PB_COLS if c in x]])
         if tp and os.path.exists(tp):
-            tf.append(pd.read_csv(tp, low_memory=False))
+            x = pd.read_csv(tp, low_memory=False)
+            tf.append(x[[c for c in TB_COLS if c in x]])
     P = pd.concat(pf, ignore_index=True)
     T = pd.concat(tf, ignore_index=True)
     if REPLAY:   # offline replay: only games completed before the replay time, no ESPN
@@ -159,6 +186,10 @@ def boxes(s, log):
         except Exception as e:  # noqa: BLE001
             failed.append([gid, repr(e)[:200]])
     log["box"] = dict(release_games_2027=len(have), espn_filled=filled, espn_failed=failed)
+    P = P[[c for c in PB_COLS if c in P]]
+    T = T[[c for c in TB_COLS if c in T]]
+    log["box"]["player_box_sha256"] = store_input(s.attrs["archive"], "player_box", frame_bytes(P), "csv.gz")
+    log["box"]["team_box_sha256"] = store_input(s.attrs["archive"], "team_box", frame_bytes(T), "csv.gz")
     return P, T
 
 
@@ -172,7 +203,9 @@ def reports(now, archive, log):
         return R[R.status.isin(["Out", "Doubtful", "Questionable", "Probable", "Available"]) & (R.rtime <= now)]
     for f in MD_REPORTS:
         try:
-            frames.append(pd.read_csv(io.BytesIO(get(RAW_MD + f, timeout=60)), compression="gzip"))
+            b = get(RAW_MD + f, timeout=60)
+            store_input(archive, "reports_market_data", b, "csv.gz")
+            frames.append(pd.read_csv(io.BytesIO(b), compression="gzip"))
         except Exception as e:  # noqa: BLE001
             log.setdefault("report_errors", []).append([f, repr(e)[:200]])
     store = os.path.join(archive, "nba", "props_forward", "reports")
@@ -185,10 +218,12 @@ def reports(now, archive, log):
         rows["report"] = label
         rows["season"] = SEASON
         rows.to_csv(os.path.join(store, et.strftime("%Y%m%dT%H%M") + ".csv.gz"), index=False, compression="gzip")
-        meta = dict(url=url, label=label, sha256=sha(pdf), rows=len(rows), retrieved_utc=pd.Timestamp.now(tz="UTC").isoformat())
+        meta = dict(url=url, label=label, sha256=store_input(archive, "report_pdf", pdf, "pdf"), rows=len(rows),
+                    retrieved_utc=pd.Timestamp.now(tz="UTC").isoformat())
     for f in sorted(os.listdir(store)):
         if f.endswith(".csv.gz"):
             frames.append(pd.read_csv(os.path.join(store, f)))
+            INPUTS.setdefault("reports_live_parsed", []).append(f)
     R = _prep_reports(pd.concat(frames, ignore_index=True))
     R = R[R.status.isin(["Out", "Doubtful", "Questionable", "Probable", "Available"]) & (R.rtime <= now)]    # published at or before now
     log["report"] = meta
@@ -203,6 +238,7 @@ def run(args):
     log = {"run_utc": now.isoformat(), "generated_utc": pd.Timestamp.now(tz="UTC").isoformat()}
     s, sched_hash = schedule()
     s.attrs["now"] = now
+    s.attrs["archive"] = args.archive
     if REPLAY:
         s["completed"] = s.tip < now - pd.Timedelta(hours=3)
     T = targets(s, now)
@@ -215,6 +251,11 @@ def run(args):
     if not T:
         print("no targets", now)
         return log
+    store_input(args.archive, "schedule", gzip.compress(open(N._download("espn_nba_schedules", f"nba_schedule_{SEASON}.csv", 24), "rb").read(), mtime=0), "csv.gz")
+    rost_p = N._download("espn_nba_rosters", f"rosters_{SEASON}.csv", 12, required=False)
+    roster = pd.read_csv(rost_p) if rost_p and os.path.exists(rost_p) else pd.DataFrame(columns=["team_abbreviation", "athlete_id", "display_name"])
+    if rost_p and os.path.exists(rost_p):
+        store_input(args.archive, "roster", gzip.compress(open(rost_p, "rb").read(), mtime=0), "csv.gz")
     commit = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True, cwd=ROOT).stdout.strip()
     params = {y: json.load(open(os.path.join(ROOT, "model", f"nba_props_live_params_{y}.json"))) for y in (SEASON - 1, SEASON)}
     phash = sha(open(os.path.join(ROOT, "model", f"nba_props_live_params_{SEASON}.json"), "rb").read())
@@ -338,7 +379,19 @@ def run(args):
                    run_utc=now.isoformat(), valid_window=bool(cut - pd.Timedelta(minutes=WINDOW_MIN) <= now <= cut), code_commit=commit,
                    params_sha256=phash, schedule_sha256=sched_hash, report=log.get("report"), box=log.get("box"),
                    method="research/NBA_MINUTES_M2B_RULE.md forward-test protocol; v2 = M2 minutes, v3 = M2b minutes; pts reported only",
-                   players=[])
+                   forecast_age_at_cutoff_min=round((cut - now).total_seconds() / 60, 1),
+                   github=dict(run_id=os.environ.get("GITHUB_RUN_ID"), event=os.environ.get("GITHUB_EVENT_NAME"),
+                               run_attempt=os.environ.get("GITHUB_RUN_ATTEMPT")),
+                   inputs={k: sorted(set(v)) for k, v in INPUTS.items()}, players=[])
+        g = s[s.game_id.astype(int) == gid].iloc[0]
+        cov = {}
+        for t in (g.home_abbreviation, g.away_abbreviation):
+            ros = set(pd.to_numeric(roster[roster.team_abbreviation == t].athlete_id, errors="coerce").dropna().astype(int))
+            cand = set(Z[Z.team == t].aid.astype(int))
+            listed = set(rows[(rows.game_id == gid) & (rows.team == t) & (rows["st" + ("1" if h == 60 else "6")].fillna("") != "")].aid.astype(int))
+            cov[t] = dict(roster=len(ros), forecast=len(cand), forecast_on_roster=len(cand & ros), listed_on_report=len(listed),
+                          excluded_roster_not_candidates=sorted(ros - cand), forecast_not_on_roster=sorted(cand - ros))
+        rec["coverage"] = cov
         if len(Z) == 0:
             rec["error"] = "no candidate rows"
         else:
@@ -352,6 +405,12 @@ def run(args):
             q1 = M.disc_normal(Zt.mu1.to_numpy(), Zt.sd1.to_numpy())
             q2, pi2 = C.q_m2(Zt, params[SEASON]["m2"], False)
             q3, pi3 = C.q_m2(Zt, params[SEASON]["m2"], True)
+            # paired check: both versions use the same rows, eligibility and inputs; only the normal-night part differs
+            rec["pair_check"] = dict(same_players=True, max_abs_pi_diff=float(np.abs(pi2 - pi3).max()),
+                                     inputs_sha256=sha(Zt.drop(columns=[c for c in Zt.columns if c.startswith("V_now6") or c.startswith("V_now1")], errors="ignore")
+                                                       .to_csv(index=False).encode()),
+                                     max_abs_prob_diff_below_threshold_scaled=float(np.abs(
+                                         np.where(np.arange(1, 54)[None, :] < 0.6 * Zt.mu1.to_numpy()[:, None], q2 - q3, 0)).max()))
             dists = {}
             for st in C.STATS:
                 rate, rr = C.prop_rate(Zt, st, params[SEASON]["props"])
@@ -372,6 +431,7 @@ def run(args):
         out = os.path.join(args.archive, "nba", "props_forward", "tests" if args.force_game else day)
         os.makedirs(out, exist_ok=True)
         fn = os.path.join(out, f"{gid}_{h}_{now.strftime('%Y%m%dT%H%MZ')}.json.gz")
+        rec["forecast_finished_utc"] = pd.Timestamp.now(tz="UTC").isoformat()
         with gzip.open(fn, "wt") as fh:
             json.dump(rec, fh)
         written.append(fn)

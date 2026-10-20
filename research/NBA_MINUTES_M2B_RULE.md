@@ -134,3 +134,35 @@ Run: research/nba_minutes_m2b_test.py (research/nba_minutes_m2b_results.json).
 6. In the current season, an injury-report name not yet matched to a box score this season is matched through last season's names (unique matches only), so listed players can be candidates before their first game.
 7. As in the research, candidates are players who have appeared for the team this season plus players on the report in use. On opening night only listed players are candidates; season debuts are not scored (stage-one limitation).
 8. Box scores come from the SportsDataverse release. Completed current-season games missing from it are filled from ESPN game summaries. Each record logs which games were filled or failed.
+
+## Archive requirements after GPT's review (20 Oct 2026, before the first valid forecast). Status: built and smoke-tested, not yet verified in live operation
+1. **Coverage.** Each forecast record lists, for each team:
+   - roster size (ESPN roster file);
+   - players forecast;
+   - players on the injury report;
+   - roster players excluded because they are not candidates (season debuts, unseen players);
+   - forecasts for players not on the roster.
+   
+   Early-season reports give eligible players, forecasts captured and exclusions separately. Debut and fallback players stay outside the test until they have their own validation.
+2. **Reproducibility.** Every input actually used is stored as an immutable, content-addressed copy, nba/props_forward/inputs/<sha256>.<ext>:
+   - schedule;
+   - roster;
+   - player and team box scores, with exactly the columns used and ESPN fills included;
+   - market-data report files;
+   - the official report PDF.
+   
+   Each record lists those hashes, and records its forecast-finished time and its age at the cutoff.
+   - **Archive time:** the archive time of a forecast is the completion time of its run's Save step, as recorded by GitHub's Actions API. It is captured by research/nba_props_forward_timing.py, twice daily, into nba/props_forward/timing/. It is not the run's own clock.
+   - **Qualifying:** a forecast qualifies only if that recorded time is at or before its cutoff. No self-reported or backdated timestamp can make a late capture qualify.
+3. **Paired check (in every record).** v2 and v3 are computed from the same rows (same players, same eligibility), with one input hash. The short-night probability is identical (max difference recorded; 0 in the replay). The minutes mass below the short-night threshold is identical (0 in the replay). Only the normal-night part differs, which is the intended correction. The live-versus-research differences listed above apply equally to both versions.
+4. **Schedule reliability.** GitHub's 15-minute schedule is not a guarantee. For the first nights, a review will report:
+   - actual run times against the schedule;
+   - each selected forecast's age at the cutoff;
+   - input freshness (latest completed game included per team, report time);
+   - every missed window.
+   
+   The archive is not relied on before that review.
+5. **Uncertainty definition.**
+   - **Team-season cluster:** each player-game belongs to the team-season of the team he was forecast for. A traded player's games split across his teams, and the two teams of a game sit in different clusters even though they share the game.
+   - **Week bootstrap:** resamples whole calendar weeks across the league.
+   - These are two robustness checks on the same results, not independent confirmations. Both bounds must be above zero.

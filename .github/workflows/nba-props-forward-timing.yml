@@ -1,0 +1,34 @@
+name: Research - NBA props forward timing record
+# Records GitHub's own timing of the forward-archive runs (start, Save-step completion) so that archive times never rely on the
+# run's self-reported clock (research/NBA_MINUTES_M2B_RULE.md). Twice daily; each file covers the last 48 hours.
+on:
+  schedule:
+    - cron: "37 7,19 * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+jobs:
+  timing:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Record
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch -q origin forecast-archive
+          git worktree add -q -B forecast-archive ../archive FETCH_HEAD
+          python research/nba_props_forward_timing.py ../archive
+          cd ../archive
+          git add -A nba/props_forward/timing
+          git diff --cached --quiet && exit 0
+          git commit -q -m "NBA props forward timing $(date -u +%Y-%m-%dT%H:%MZ)"
+          for i in 1 2 3 4 5; do
+            git pull -q --rebase origin forecast-archive && git push -q origin HEAD:forecast-archive && exit 0
+            sleep $((RANDOM % 20 + 5))
+          done
+          exit 1
