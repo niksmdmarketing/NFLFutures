@@ -1,0 +1,189 @@
+{
+ "frozen_on": "2026-10-20",
+ "code_commit": "fad0650d2925c709f1315abdeea269a1ec54d6bd",
+ "label": "Historical improvement overall over season, last-10, per-minute and minutes-matched baselines (RPS, 2022-2026); known subgroup weakness: over probabilities too high for players at risk of short minutes. Forward test 2026-27; not on site; no market edge established.",
+ "rule": "research/NBA_PROPS_SIMPLE_RULE.md",
+ "diagnostics": "research/nba_props_diag.json",
+ "minutes_model": "stage one exactly as frozen (research/NBA_MINUTES_RULE.md; research/nba_game_env_test.minutes, test-season branch: fitted on 2020..s-1). Any revised minutes model creates new prop versions evaluated separately; these stay unchanged.",
+ "models": {
+  "reb": {
+   "version": "P+O",
+   "forecast_time": "1 hour before tip-off (6 hours also archived)"
+  },
+  "ast": {
+   "version": "P+T",
+   "forecast_time": "1 hour before tip-off (6 hours also archived)"
+  }
+ },
+ "parameters_2026_27_fitted_on_2017_2026": {
+  "reb": {
+   "version": "P+O",
+   "m0": 50,
+   "c": 0.75,
+   "r": 67.4148,
+   "r_P": 64.1592,
+   "group_rate_per_minute": {
+    "B": 0.27309,
+    "G": 0.12915,
+    "W": 0.18456
+   }
+  },
+  "ast": {
+   "version": "P+T",
+   "m0": 25,
+   "b": 0.4,
+   "r": 37.3767,
+   "r_P": 35.4619,
+   "group_rate_per_minute": {
+    "B": 0.07874,
+    "G": 0.13242,
+    "W": 0.07862
+   }
+  }
+ },
+ "walk_forward_parameters_2022_2026": {
+  "2022": {
+   "reb": {
+    "m0": 50,
+    "r_P": 65.9403,
+    "b": 0.05,
+    "r_T": 66.0401,
+    "c": 0.7,
+    "r_O": 68.6264,
+    "r_TO": 68.7311,
+    "r_B1": 7.3159,
+    "r_B2": 7.1309,
+    "r_B3": 7.9261,
+    "r_B3m": 37.762
+   },
+   "ast": {
+    "m0": 25,
+    "r_P": 34.3716,
+    "b": 0.4,
+    "r_T": 35.448,
+    "c": 0.8,
+    "r_O": 36.9316,
+    "r_TO": 38.182,
+    "r_B1": 7.6674,
+    "r_B2": 7.3876,
+    "r_B3": 8.3156,
+    "r_B3m": 21.7021
+   }
+  },
+  "2023": {
+   "reb": {
+    "m0": 50,
+    "r_P": 68.4559,
+    "b": 0.05,
+    "r_T": 68.5306,
+    "c": 0.7,
+    "r_O": 71.5996,
+    "r_TO": 71.6676,
+    "r_B1": 7.2407,
+    "r_B2": 7.0732,
+    "r_B3": 7.8632,
+    "r_B3m": 37.8264
+   },
+   "ast": {
+    "m0": 25,
+    "r_P": 33.4284,
+    "b": 0.4,
+    "r_T": 34.9168,
+    "c": 0.8,
+    "r_O": 35.7983,
+    "r_TO": 37.5166,
+    "r_B1": 7.4723,
+    "r_B2": 7.2987,
+    "r_B3": 8.1732,
+    "r_B3m": 21.1386
+   }
+  },
+  "2024": {
+   "reb": {
+    "m0": 50,
+    "r_P": 66.7494,
+    "b": 0.05,
+    "r_T": 66.8218,
+    "c": 0.7,
+    "r_O": 69.4376,
+    "r_TO": 69.5105,
+    "r_B1": 7.1632,
+    "r_B2": 6.979,
+    "r_B3": 7.7748,
+    "r_B3m": 37.0491
+   },
+   "ast": {
+    "m0": 25,
+    "r_P": 34.8477,
+    "b": 0.4,
+    "r_T": 36.6802,
+    "c": 0.8,
+    "r_O": 37.0933,
+    "r_TO": 39.1795,
+    "r_B1": 7.5718,
+    "r_B2": 7.4168,
+    "r_B3": 8.2944,
+    "r_B3m": 21.6738
+   }
+  },
+  "2025": {
+   "reb": {
+    "m0": 50,
+    "r_P": 66.6585,
+    "b": 0.05,
+    "r_T": 66.7463,
+    "c": 0.7,
+    "r_O": 69.5617,
+    "r_TO": 69.6472,
+    "r_B1": 7.1067,
+    "r_B2": 6.963,
+    "r_B3": 7.7253,
+    "r_B3m": 36.9869
+   },
+   "ast": {
+    "m0": 25,
+    "r_P": 35.2515,
+    "b": 0.4,
+    "r_T": 37.1875,
+    "c": 0.8,
+    "r_O": 37.5473,
+    "r_TO": 39.7299,
+    "r_B1": 7.5125,
+    "r_B2": 7.4017,
+    "r_B3": 8.2634,
+    "r_B3m": 21.7766
+   }
+  },
+  "2026": {
+   "reb": {
+    "m0": 50,
+    "r_P": 65.2998,
+    "b": 0.05,
+    "r_T": 65.4095,
+    "c": 0.75,
+    "r_O": 68.1494,
+    "r_TO": 68.2618,
+    "r_B1": 7.0338,
+    "r_B2": 6.8939,
+    "r_B3": 7.6498,
+    "r_B3m": 36.5167
+   },
+   "ast": {
+    "m0": 25,
+    "r_P": 35.497,
+    "b": 0.4,
+    "r_T": 37.4004,
+    "c": 0.8,
+    "r_O": 38.008,
+    "r_TO": 40.1868,
+    "r_B1": 7.5175,
+    "r_B2": 7.3811,
+    "r_B3": 8.2763,
+    "r_B3m": 21.8765
+   }
+  }
+ },
+ "not_frozen": {
+  "pts": "failed calibration; revised under a new rule (P+T parameters for reference: {\"version\": \"P+T\", \"m0\": 25, \"b\": 0.25, \"r\": 7.6136, \"r_P\": 7.5596, \"group_rate_per_minute\": {\"B\": 0.45986, \"G\": 0.47543, \"W\": 0.44112}})"
+ }
+}

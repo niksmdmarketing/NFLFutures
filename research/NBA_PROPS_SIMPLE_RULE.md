@@ -146,3 +146,24 @@ Unconditional RPS (lower is better):
 - Rebounds (P+O) and assists (P+T) become the prop benchmarks. Labelled "historical improvement over season, last-10, per-minute and minutes-matched baselines (RPS)". Frozen as a forward test for 2026-27; not on the site.
 - Points fails and is revised under a new rule targeting the low-outcome tail: short-minutes nights and points dispersion given minutes.
 - The inflated over probabilities for low-minute-risk players are the main known weakness of all three stats.
+
+## Diagnostics after the outcome (20 Oct 2026; GPT review; research/nba_props_diag.py, nba_props_diag.json). Descriptive, nothing selected
+1. **The exact frozen versions are calibrated.**
+   - Rebounds P+O: PIT deciles 0.094-0.114, pass.
+   - Assists P+T: 0.095-0.105, pass.
+   - Points P+T: lowest decile 0.161, fail (as for P).
+2. **Points: forecast against actual minutes.** Using actual minutes in place of the forecast minutes (a diagnostic only; actual minutes are never a forecast input):
+   - the points PIT lowest decile falls from 0.161 to 0.131;
+   - over probabilities for low-minute-risk players fall from 0.525 to 0.464, against 0.447 observed;
+   - confident points overs go from 0.85 predicted against 0.65 observed, to 0.89 against 0.88.
+   
+   So minutes uncertainty, mainly short-minutes nights, is the main cause. A small production-dispersion part remains (lowest decile 0.131, top decile 0.090).
+   
+   The same holds for rebounds and assists. With actual minutes, the low-minute-risk over gap disappears: rebounds 0.437 against 0.440, assists 0.411 against 0.400.
+3. **The subgroup weakness persists every season.**
+   - Low-minute-risk overs: points predicted 0.51-0.54 against observed 0.44-0.46; rebounds 0.49 against 0.43-0.45; assists 0.44-0.47 against 0.39-0.41.
+   - Confident points overs (p >= 0.8): 0.84-0.85 predicted against 0.61-0.71 observed in every season (430-560 cases a season; correlated, and identified during this investigation).
+4. **Archive.** Rebounds P+O and assists P+T are frozen unchanged in model/nba_props_frozen.json (code commit, procedure, 2026-27 parameters fitted on 2017-2026).
+   - Label: historically better overall, with a known subgroup weakness (overs too high for players at risk of short minutes).
+   - A revised minutes model would create new versions, evaluated separately.
+5. **Statistical caveat.** The week-block bootstrap captures shared game-day effects but not all dependence across a player's season. The test seasons were also used in developing the minutes model, so 5 of 5 seasons is encouraging, not untouched-holdout evidence.
