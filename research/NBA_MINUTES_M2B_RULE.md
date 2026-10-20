@@ -85,3 +85,30 @@ Run: research/nba_minutes_m2b_test.py (research/nba_minutes_m2b_results.json).
     - a smaller over gap on the fixed low-minute-risk group. The group is defined from v2's minutes at forecast time, P(minutes < 15 | appear) >= 0.2.
 - **Reported:** confident overs (fixed from v2 and own), by month; points with M2b (points has its own rule).
 
+
+## Forward-test protocol details (20 Oct 2026, GPT review; before any 2026-27 forecast). Where it conflicts with the section above, this governs.
+1. **The cutoff is the deadline, not tip-off.**
+   - A "1-hour" forecast must be generated at or before tip-off minus 60 minutes, using only inputs retrieved by then. A "6-hour" forecast likewise, at tip-off minus 360 minutes.
+   - Generation runs every 15 minutes. Every run inside [cutoff - 45 min, cutoff] produces and archives a forecast.
+   - The forecast used for scoring is the latest one generated at or before the cutoff (pre-specified, not chosen afterwards).
+   - A game with no forecast in that window has no valid forecast at that horizon. It is excluded from both versions and counted, with the reason (no run in window, data fetch failure, report missing, code error).
+2. **Frozen, identifiable versions.** Each forecast record stores:
+   - code commit and parameter file hash (model/nba_props_live_params.json);
+   - model version (v2: M2 minutes; v3: M2b minutes; points with each, reported only);
+   - generation time, and each input's retrieval time and content hash (schedule, official report file and its published time, box-score data);
+   - the complete predicted distributions: appearance probability, minutes distribution, and the full points / rebounds / assists distributions.
+   
+   The method and parameters are frozen. Its inputs (completed games) naturally update.
+3. **Primary and secondary.**
+   - 1 hour is the primary test; 6 hours is secondary and decides nothing.
+   - The 30,000 minimum counts distinct player-games with a valid 1-hour forecast. A player-game forecast at both horizons counts once.
+4. **"Clearly better", defined now.**
+   - **Score:** unconditional RPS as in the prop rule (points 0-60, rebounds 0-25, assists 0-20; minutes 0-53 as in stage one).
+   - **Uncertainty:** paired differences, averaged per player-game. The bootstrap resamples whole calendar weeks (2,000 draws), so players sharing games and dates stay together. A second, team-season cluster bootstrap is reported; both one-sided 90% lower bounds must be above zero.
+   - **Calibration:** randomised PIT deciles given appearing, all within 0.07-0.13.
+   - **Subgroup:** the low-minute-risk group is determined game by game from the frozen v2 pre-game forecast (P(minutes < 15 | appear) >= 0.2 at that forecast) and shared by both versions. It is not a fixed list of players.
+   - **Missing forecasts:** counts and reasons are reported.
+5. **Replays.**
+   - Games before the archive started, or missed by it, may be replayed from archived inputs as supplementary evidence only.
+   - Replays never enter the adoption result, because archived injury reports alone do not guarantee every other input was available at the claimed time.
+6. **TypeSafe.** Its percentages are decision support, not validation evidence. The written reasoning, implementation checks and archived results decide.
