@@ -504,7 +504,13 @@ if __name__ == "__main__":
     ap.add_argument("--now")
     ap.add_argument("--force-game")
     ap.add_argument("--horizon", default="60")
+    ap.add_argument("--pending-hours", type=float, default=None)
     a = ap.parse_args()
+    if a.pending_hours is not None:      # exit 0 if any forecast cutoff falls within the next N hours (used to chain the loop job)
+        sch, _ = schedule()
+        nw = pd.Timestamp.now(tz="UTC")
+        cuts = [g.tip - pd.Timedelta(minutes=h) for g in sch.itertuples() if not g.completed for h in HORIZONS]
+        sys.exit(0 if any(nw - pd.Timedelta(minutes=WINDOW_MIN) <= c <= nw + pd.Timedelta(hours=a.pending_hours) for c in cuts) else 1)
     t0 = pd.Timestamp.now(tz="UTC")
     try:
         lg = run(a)
