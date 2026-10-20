@@ -101,3 +101,48 @@ These add reported items only. Gates, model and baselines are unchanged. PROPHET
    - Grid: m0 = 0, 25, 50, 100, 200, 400, 800 minutes.
    - The chosen m0 and dispersion are reported per test season.
 7. **The minutes cap.** Stage one's minutes support is 1-53. Appearances above 53 minutes (multiple overtimes) are scored at 53 in minutes. The stat outcomes are always the actual counts.
+
+## Outcome (20 Oct 2026) - rebounds and assists pass; points fails on calibration only
+Run: research/nba_props_simple_test.py build / score. Results: research/nba_props_simple_results.json; first run kept as nba_props_simple_results_firstrun.json. 219,445 candidate player-games, 2022-2026, 1 hour before tip-off.
+
+Unconditional RPS (lower is better):
+
+| Stat | P | B1 season avg | B2 last 10 | B3 per-min x exp. minutes | B3m same minutes distribution | P vs B1 | P vs B3m |
+|---|---|---|---|---|---|---|---|
+| Points | 0.03787 | 0.03987 | 0.03967 | 0.03917 | 0.03831 | 5.0% better | 1.1% better |
+| Rebounds | 0.03703 | 0.03815 | 0.03819 | 0.03776 | 0.03755 | 2.9% | 1.4% |
+| Assists | 0.03018 | 0.03110 | 0.03110 | 0.03079 | 0.03068 | 3.0% | 1.6% |
+
+- **Gates 1, 2 and 4 pass for every stat against every baseline:**
+  - 90% bootstrap lower bound above zero (smallest: points vs B3m, +0.00036);
+  - better in 5 of 5 seasons;
+  - better given appearing.
+- **Gate 3, calibration given appearing (PIT deciles 0.07-0.13):**
+  - rebounds pass (0.093-0.115);
+  - assists pass (0.096-0.104);
+  - **points fail:** the lowest decile is 0.160 (B3m 0.145). Low-scoring nights after appearing happen more often than predicted.
+- **Adjustments:** both pass the 98.33% bound for every stat. Gains on P:
+
+| Stat | P+T (teammates) | P+O (opponent and pace) | Kept by rule (larger) | P+T+O combined (reported) |
+|---|---|---|---|---|
+| Points | +0.00016 | +0.00004 | P+T | +0.00020 |
+| Rebounds | +0.00002 | +0.00004 | P+O | +0.00006 |
+| Assists | +0.00015 | +0.00006 | P+T | +0.00021 |
+
+- **Fitted values (stable across seasons):**
+  - shrinkage prior m0: 25 minutes (points, assists), 50 (rebounds);
+  - teammate coefficient b: points 0.20-0.30, rebounds 0.05, assists 0.40;
+  - opponent exponent c: 0.70-0.85.
+- **Value of the minutes distribution** (B3 minus B3m): positive for all stats. Points +0.00086, rebounds +0.00021, assists +0.00011.
+- **Six hours before tip-off:** same ordering and gate results.
+- **Unclipped scores:** same ordering.
+- **Overs and unders (amendment 1, reported):**
+  - At formula lines, given appearing, overall P(over) is slightly too high: points 0.491 against 0.479 observed, rebounds 0.482 against 0.458, assists 0.461 against 0.446.
+  - The inflation is concentrated where GPT expected it. For players with low-minute risk (P(minutes < 15 | appear) >= 0.2), predicted overs against observed: points 0.525 vs 0.447, rebounds 0.491 vs 0.440, assists 0.453 vs 0.400.
+  - Confident points overs are badly overstated: predicted 0.84 against 0.62 observed (2,179 cases).
+  - No selection rule follows from this.
+
+**Decision (written gates; TypeSafe 100% agrees):**
+- Rebounds (P+O) and assists (P+T) become the prop benchmarks. Labelled "historical improvement over season, last-10, per-minute and minutes-matched baselines (RPS)". Frozen as a forward test for 2026-27; not on the site.
+- Points fails and is revised under a new rule targeting the low-outcome tail: short-minutes nights and points dispersion given minutes.
+- The inflated over probabilities for low-minute-risk players are the main known weakness of all three stats.
