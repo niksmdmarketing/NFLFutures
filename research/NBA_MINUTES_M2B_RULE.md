@@ -38,3 +38,25 @@ M2b replaces M2 only if all three hold.
 
 ## Decision
 The written gates decide; TypeSafe helps interpret. No live-model changes.
+
+## Outcome (20 Oct 2026) - fails its pre-registered implementation check; not adopted; archived as a forward shadow
+Run: research/nba_minutes_m2b_test.py (research/nba_minutes_m2b_results.json).
+
+**Implementation check, as written: FAIL.**
+- On the fitting seasons M2b passes everywhere:
+  - fringe component mean within 0.07 minutes of actual normal nights;
+  - other players within 0.13-0.28;
+  - sd within 4%.
+- On the test seasons the 0.3-minute tolerance is exceeded in some seasons: other players 2026 (28.86 against 28.39) and 2025 (+0.32), fringe 2024 (16.89 against 16.55).
+- Those test-season gaps come from the forecast error of the target mean itself; M2's untruncated target is off by similar amounts there. They do not come from the truncation. The check was therefore mis-specified for test seasons. But the rule counts it, so this is recorded as an implementation failure, and M2b does not replace M2.
+
+**Disclosure.** The script computed the checks and the scores in the same run, so the scores were seen. They are reported here as unscored context only, not as a test:
+- minutes RPS M2b 0.059339 (M2 0.059558);
+- fixed fringe group: average minutes 13.80 (M2 14.48, actual 13.50), P(under 15) 0.550 (M2 0.477, actual 0.553);
+- rebounds and assists v3 would meet the replacement conditions: low-minute-risk over gap rebounds 0.039 -> 0.008, assists 0.041 -> 0.020;
+- points still fails calibration.
+
+**Decision (written rule; TypeSafe 98%):**
+- M2 and rebounds/assists v2 stay frozen.
+- Because these historical results are now seen, M2b can only be adopted on new evidence. M2b-based v3 (rebounds, assists) and points with M2b are archived as frozen forward shadows beside v2 for 2026-27, compared on new games only, with the fixed-group checks.
+- Any future implementation check will compare against the in-sample target, not test-season actuals.
