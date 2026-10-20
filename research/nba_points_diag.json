@@ -1,0 +1,302 @@
+{
+ "confident_group": {
+  "n": 1354,
+  "pred": 0.8515,
+  "actual": 0.7688,
+  "pred_with_actual_minutes": 0.8358,
+  "exp_min": 21.51,
+  "actual_min": 21.02,
+  "line_mean": 3.56,
+  "by_exp_minutes": {
+   "(0, 10]": {
+    "n": 152,
+    "pred": 0.8263,
+    "actual": 0.6776,
+    "pred_actual_minutes": 0.8112,
+    "exp_min": 9.0068,
+    "actual_min": 8.6974,
+    "mean_pred_pts": 3.521,
+    "actual_pts": 3.3421
+   },
+   "(10, 15]": {
+    "n": 267,
+    "pred": 0.8657,
+    "actual": 0.6629,
+    "pred_actual_minutes": 0.8286,
+    "exp_min": 12.1469,
+    "actual_min": 11.0974,
+    "mean_pred_pts": 4.1661,
+    "actual_pts": 3.6816
+   },
+   "(15, 20]": {
+    "n": 209,
+    "pred": 0.8716,
+    "actual": 0.7751,
+    "pred_actual_minutes": 0.8511,
+    "exp_min": 17.392,
+    "actual_min": 16.4593,
+    "mean_pred_pts": 5.9104,
+    "actual_pts": 5.8325
+   },
+   "(20, 25]": {
+    "n": 194,
+    "pred": 0.8527,
+    "actual": 0.7887,
+    "pred_actual_minutes": 0.85,
+    "exp_min": 22.7132,
+    "actual_min": 23.2629,
+    "mean_pred_pts": 8.3886,
+    "actual_pts": 8.5258
+   },
+   "(25, 30]": {
+    "n": 249,
+    "pred": 0.8382,
+    "actual": 0.8273,
+    "pred_actual_minutes": 0.8515,
+    "exp_min": 27.6895,
+    "actual_min": 28.5341,
+    "mean_pred_pts": 11.4807,
+    "actual_pts": 11.747
+   },
+   "(30, 48]": {
+    "n": 283,
+    "pred": 0.8478,
+    "actual": 0.8481,
+    "pred_actual_minutes": 0.8212,
+    "exp_min": 33.8402,
+    "actual_min": 32.2049,
+    "mean_pred_pts": 14.7009,
+    "actual_pts": 14.8622
+   }
+  },
+  "by_rate": {
+   "(0.0, 0.2]": {
+    "n": 11,
+    "pred": 0.8764,
+    "actual": 0.8182,
+    "pred_actual_minutes": 0.7972,
+    "exp_min": 20.1927,
+    "actual_min": 14.3636,
+    "mean_pred_pts": 3.6096,
+    "actual_pts": 3.3636
+   },
+   "(0.2, 0.3]": {
+    "n": 250,
+    "pred": 0.8514,
+    "actual": 0.728,
+    "pred_actual_minutes": 0.8308,
+    "exp_min": 19.5509,
+    "actual_min": 18.84,
+    "mean_pred_pts": 5.2329,
+    "actual_pts": 5.108
+   },
+   "(0.3, 0.4]": {
+    "n": 537,
+    "pred": 0.853,
+    "actual": 0.7374,
+    "pred_actual_minutes": 0.8241,
+    "exp_min": 19.2809,
+    "actual_min": 18.3259,
+    "mean_pred_pts": 6.7729,
+    "actual_pts": 6.3855
+   },
+   "(0.4, 0.5]": {
+    "n": 425,
+    "pred": 0.8499,
+    "actual": 0.7976,
+    "pred_actual_minutes": 0.8497,
+    "exp_min": 23.2374,
+    "actual_min": 23.4094,
+    "mean_pred_pts": 10.3079,
+    "actual_pts": 10.6259
+   },
+   "(0.5, 0.7]": {
+    "n": 126,
+    "pred": 0.8498,
+    "actual": 0.881,
+    "pred_actual_minutes": 0.8495,
+    "exp_min": 28.8195,
+    "actual_min": 28.7619,
+    "mean_pred_pts": 16.1469,
+    "actual_pts": 16.7937
+   },
+   "(0.7, 2.0]": {
+    "n": 5,
+    "pred": 0.8269,
+    "actual": 0.8,
+    "pred_actual_minutes": 0.9008,
+    "exp_min": 30.8435,
+    "actual_min": 35.0,
+    "mean_pred_pts": 25.7894,
+    "actual_pts": 24.0
+   }
+  },
+  "by_line": {
+   "(0, 2]": {
+    "n": 599,
+    "pred": 0.868,
+    "actual": 0.7145,
+    "pred_actual_minutes": 0.8409,
+    "exp_min": 13.2816,
+    "actual_min": 12.2922,
+    "mean_pred_pts": 4.4311,
+    "actual_pts": 4.0935
+   },
+   "(2, 5]": {
+    "n": 305,
+    "pred": 0.842,
+    "actual": 0.7541,
+    "pred_actual_minutes": 0.8337,
+    "exp_min": 23.6065,
+    "actual_min": 23.8656,
+    "mean_pred_pts": 8.1275,
+    "actual_pts": 8.3607
+   },
+   "(5, 10]": {
+    "n": 412,
+    "pred": 0.8351,
+    "actual": 0.8495,
+    "pred_actual_minutes": 0.8309,
+    "exp_min": 30.6285,
+    "actual_min": 30.4126,
+    "mean_pred_pts": 13.449,
+    "actual_pts": 13.7233
+   },
+   "(10, 15]": {
+    "n": 37,
+    "pred": 0.8474,
+    "actual": 0.8919,
+    "pred_actual_minutes": 0.8254,
+    "exp_min": 35.6952,
+    "actual_min": 33.8919,
+    "mean_pred_pts": 22.3573,
+    "actual_pts": 22.3784
+   },
+   "(15, 20]": {
+    "n": 1,
+    "pred": 0.8111,
+    "actual": 0.0,
+    "pred_actual_minutes": 0.8702,
+    "exp_min": 29.6603,
+    "actual_min": 31.0,
+    "mean_pred_pts": 27.9265,
+    "actual_pts": 11.0
+   }
+  }
+ },
+ "low_minute_risk": {
+  "n": 43898,
+  "pred": 0.5083,
+  "actual": 0.444,
+  "pred_with_actual_minutes": 0.462,
+  "by_exp_minutes": {
+   "(0, 10]": {
+    "n": 8985,
+    "pred": 0.4951,
+    "actual": 0.4296,
+    "pred_actual_minutes": 0.4657,
+    "exp_min": 7.7283,
+    "actual_min": 7.1751,
+    "mean_pred_pts": 2.9305,
+    "actual_pts": 2.6531
+   },
+   "(10, 15]": {
+    "n": 14573,
+    "pred": 0.4986,
+    "actual": 0.427,
+    "pred_actual_minutes": 0.4446,
+    "exp_min": 12.6469,
+    "actual_min": 11.5853,
+    "mean_pred_pts": 4.7496,
+    "actual_pts": 4.2992
+   },
+   "(15, 20]": {
+    "n": 20241,
+    "pred": 0.5211,
+    "actual": 0.4622,
+    "pred_actual_minutes": 0.4729,
+    "exp_min": 17.4802,
+    "actual_min": 16.3006,
+    "mean_pred_pts": 6.7607,
+    "actual_pts": 6.1719
+   },
+   "(20, 25]": {
+    "n": 99,
+    "pred": 0.5126,
+    "actual": 0.5455,
+    "pred_actual_minutes": 0.4781,
+    "exp_min": 20.2165,
+    "actual_min": 19.7172,
+    "mean_pred_pts": 7.7368,
+    "actual_pts": 7.6162
+   }
+  }
+ },
+ "all": {
+  "n": 128509,
+  "pred": 0.4972,
+  "actual": 0.4791,
+  "by_line": {
+   "(0, 2]": {
+    "n": 6520,
+    "pred": 0.6198,
+    "actual": 0.5337,
+    "pred_actual_minutes": 0.5979,
+    "exp_min": 8.7682,
+    "actual_min": 8.1985,
+    "mean_pred_pts": 2.7911,
+    "actual_pts": 2.5845
+   },
+   "(2, 5]": {
+    "n": 23127,
+    "pred": 0.5381,
+    "actual": 0.4733,
+    "pred_actual_minutes": 0.4898,
+    "exp_min": 14.31,
+    "actual_min": 13.3875,
+    "mean_pred_pts": 4.797,
+    "actual_pts": 4.4863
+   },
+   "(5, 10]": {
+    "n": 44414,
+    "pred": 0.5176,
+    "actual": 0.4795,
+    "pred_actual_minutes": 0.4778,
+    "exp_min": 21.9347,
+    "actual_min": 20.859,
+    "mean_pred_pts": 8.4274,
+    "actual_pts": 7.9133
+   },
+   "(10, 15]": {
+    "n": 26180,
+    "pred": 0.4704,
+    "actual": 0.4728,
+    "pred_actual_minutes": 0.4494,
+    "exp_min": 27.6758,
+    "actual_min": 27.029,
+    "mean_pred_pts": 12.724,
+    "actual_pts": 12.3469
+   },
+   "(15, 20]": {
+    "n": 14483,
+    "pred": 0.4437,
+    "actual": 0.4821,
+    "pred_actual_minutes": 0.4457,
+    "exp_min": 31.3376,
+    "actual_min": 31.4515,
+    "mean_pred_pts": 17.2724,
+    "actual_pts": 17.3291
+   },
+   "(20, 60]": {
+    "n": 13785,
+    "pred": 0.4124,
+    "actual": 0.4702,
+    "pred_actual_minutes": 0.4322,
+    "exp_min": 33.3862,
+    "actual_min": 34.1556,
+    "mean_pred_pts": 23.4379,
+    "actual_pts": 24.0118
+   }
+  }
+ }
+}
