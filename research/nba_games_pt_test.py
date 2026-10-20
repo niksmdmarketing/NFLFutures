@@ -28,9 +28,11 @@ def build(first, last):
     import replay_nba as R
     N, B = R.N, R.B
     boxes = B.load_boxes(last)
+    orig_pf2 = R._pf2_rating   # taken once: the wrappers below must never wrap each other
+    cap = {}
     for y in range(first, last + 1):
-        cap = {"L": {}, "ck": []}
-        orig_pf2 = R._pf2_rating
+        cap.clear()
+        cap.update({"L": {}, "ck": []})
 
         def pf2(yy, cutoff, ratings):
             cap["L"][str(cutoff.date())] = dict(zip(ratings.team, ratings.rating.astype(float)))
