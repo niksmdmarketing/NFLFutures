@@ -403,12 +403,12 @@ def run(args):
         for t in (g.home_abbreviation, g.away_abbreviation):
             Rt = Rg[[nba_teams.resolve(c) == t or nba_teams.resolve(n) == t for c, n in zip(Rg.team_code, Rg.team)]]
             Rt = Rt[Rt.rtime == Rt.rtime.max()] if len(Rt) else Rt
-            names = rows[(rows.game_id == gid) & (rows.team == t)]
+            trows = rows[(rows.game_id == gid) & (rows.team == t)]
             st_col = "st" + ("1" if h == 60 else "6")
             diag[t] = dict(report_rows=int(len(Rt)), report_label=str(Rt.report.iloc[0]) if len(Rt) else None,
-                           matched_to_players=int((names[st_col].fillna("") != "").sum()),
+                           matched_to_players=int((trows[st_col].fillna("") != "").sum()),
                            unmatched_names=sorted(n for n in set(Rt.player.astype(str)) if M.player_key(n) not in set(
-                               pb[pb.athlete_id.isin(names[names[st_col].fillna("") != ""].aid)].athlete_display_name.map(M.name_key))),
+                               pb[pb.athlete_id.isin(trows[trows[st_col].fillna("") != ""].aid)].athlete_display_name.map(M.name_key))),
                            empty_team_flag=bool(len(Rt) == 0))
         rec["report_diagnostics"] = diag
         Rc = R[R.season == SEASON]
