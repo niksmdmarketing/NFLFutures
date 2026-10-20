@@ -58,3 +58,16 @@ The written gates decide; TypeSafe helps interpret.
 - **D passes:** D becomes the points version for a separate forward-test decision. Its own identifier is required before any live use.
 - **D fails:** recorded and dropped. A shrinkage test, if any, starts from R, under its own rule and only if the average-points comparison shows a systematic bias.
 - No live or site change follows from this test.
+
+## Amendment 1 (20 Oct 2026, GPT review; before any code or result). Where it conflicts with the text above, this governs.
+1. **Upper tail for whole numbers.**
+   - For each forecast, take q95, the smallest score with F(q95) >= 0.95 (likewise q99), from the full points distribution (0-100, not the 60-point scoring clip).
+   - Predicted exceedance = 1 - F(q).
+   - The comparison is the observed share of outcomes above q against the average predicted exceedance.
+2. **Tail gate (replaces gate 3).**
+   - Overall and group E: |observed - predicted| <= 0.010 at the 95th and <= 0.005 at the 99th.
+   - Groups B and C: D's absolute tail error is no larger than R's + 0.005 at each level.
+   - Sample counts are reported.
+3. **Gate 4, first part:** on group A, |average predicted over probability - observed over frequency| must be smaller for D than for R. Zero-point checks stay "closer to actual".
+4. **log(μ):** μ = rate x m, with m >= 1 and the shrunk rate strictly positive (group rates are positive and m0 > 0). μ is also floored at 0.01 explicitly.
+5. **Paired comparison:** the D-minus-R unconditional RPS improvement is reported with its week-block bootstrap 90% interval (gate 2 remains the point-estimate condition).
