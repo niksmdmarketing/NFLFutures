@@ -1,5 +1,5 @@
 {
- "checked_utc": "2026-10-20T10:07:58+00:00",
+ "checked_utc": "2026-10-20T15:08:57+00:00",
  "leagues": {
   "nfl": {
    "records": 1644,
@@ -145,10 +145,10 @@
    "reported_matched_to_official_list": "44/44"
   },
   "nhl": {
-   "records": 1560,
+   "records": 1563,
    "by_layer": {
-    "official": 156,
-    "reported": 56,
+    "official": 155,
+    "reported": 60,
     "projected": 1348
    },
    "unknown_team": 0,
@@ -198,7 +198,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "53/56"
+   "reported_matched_to_official_list": "57/60"
   },
   "nbl": {
    "records": 24,
@@ -273,7 +273,7 @@
   }
  },
  "sources_failed": [
-  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 53 h old"
+  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 59 h old"
  ],
  "sources_not_expected": []
 }
