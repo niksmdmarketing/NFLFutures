@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-10-19T2349Z",
-"feed_timestamp": "2026-10-19T23:49:22Z",
+"collected_utc": "2026-10-20T1714Z",
+"feed_timestamp": "2026-10-20T17:14:46Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -64,10 +64,22 @@
 "injury": "Right Elbow"
 },
 {
+"athlete_id": "4848625",
+"status": "Out",
+"return_date": "2026-10-23",
+"injury": "Illness"
+},
+{
 "athlete_id": "4432822",
 "status": "Day-To-Day",
 "return_date": "2026-10-21",
 "injury": "Undisclosed"
+},
+{
+"athlete_id": "4683750",
+"status": "Out",
+"return_date": "2026-10-23",
+"injury": "Illness"
 },
 {
 "athlete_id": "4278067",
@@ -95,8 +107,8 @@
 },
 {
 "athlete_id": "5106268",
-"status": "Day-To-Day",
-"return_date": "2026-10-22",
+"status": "Out",
+"return_date": "2026-11-16",
 "injury": "Back"
 },
 {
@@ -143,8 +155,8 @@
 },
 {
 "athlete_id": "2990962",
-"status": "Day-To-Day",
-"return_date": "2026-10-20",
+"status": "Out",
+"return_date": "2026-10-23",
 "injury": "Personal"
 },
 {
@@ -302,6 +314,12 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-21",
 "injury": "Illness"
+},
+{
+"athlete_id": "4700818",
+"status": "Day-To-Day",
+"return_date": "2026-10-21",
+"injury": "Not Specified Ankle"
 },
 {
 "athlete_id": "4277922",
@@ -527,8 +545,8 @@
 },
 {
 "athlete_id": "5142718",
-"status": "Day-To-Day",
-"return_date": "2026-10-21",
+"status": "Out",
+"return_date": "2026-10-23",
 "injury": "Left Ankle Sprain"
 },
 {
@@ -636,6 +654,15 @@
 "updated": "2026-10-16T22:58Z"
 },
 {
+"athlete_id": "4848625",
+"name": "Dailyn Swain",
+"team_name": "Chicago Bulls",
+"status": "Out",
+"return_date": "2026-10-23",
+"injury": "Illness",
+"updated": "2026-10-20T16:17Z"
+},
+{
 "athlete_id": "4432822",
 "name": "Isaac Okoro",
 "team_name": "Chicago Bulls",
@@ -643,6 +670,15 @@
 "return_date": "2026-10-21",
 "injury": "Undisclosed",
 "updated": "2026-10-16T22:54Z"
+},
+{
+"athlete_id": "4683750",
+"name": "Jordan Hawkins",
+"team_name": "Chicago Bulls",
+"status": "Out",
+"return_date": "2026-10-23",
+"injury": "Illness",
+"updated": "2026-10-20T16:19Z"
 },
 {
 "athlete_id": "4278067",
@@ -684,10 +720,10 @@
 "athlete_id": "5106268",
 "name": "Nae'Qwan Tomlin",
 "team_name": "Cleveland Cavaliers",
-"status": "Day-To-Day",
-"return_date": "2026-10-22",
+"status": "Out",
+"return_date": "2026-11-16",
 "injury": "Back",
-"updated": "2026-10-13T22:09Z"
+"updated": "2026-10-20T15:11Z"
 },
 {
 "athlete_id": "4066757",
@@ -756,10 +792,10 @@
 "athlete_id": "2990962",
 "name": "Taurean Prince",
 "team_name": "Detroit Pistons",
-"status": "Day-To-Day",
-"return_date": "2026-10-20",
+"status": "Out",
+"return_date": "2026-10-23",
 "injury": "Personal",
-"updated": "2026-10-19T22:13Z"
+"updated": "2026-10-20T14:17Z"
 },
 {
 "athlete_id": "4709138",
@@ -996,6 +1032,15 @@
 "updated": "2026-10-19T23:15Z"
 },
 {
+"athlete_id": "4700818",
+"name": "Vladislav Goldin",
+"team_name": "Miami Heat",
+"status": "Day-To-Day",
+"return_date": "2026-10-21",
+"injury": "Not Specified Ankle",
+"updated": "2026-10-20T16:42Z"
+},
+{
 "athlete_id": "4277922",
 "name": "Jericho Sims",
 "team_name": "Milwaukee Bucks",
@@ -1065,7 +1110,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-21",
 "injury": "Right Ankle Sprain",
-"updated": "2026-10-18T17:19Z"
+"updated": "2026-10-20T16:41Z"
 },
 {
 "athlete_id": "4566434",
@@ -1074,7 +1119,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-21",
 "injury": "Right Shoulder Soreness",
-"updated": "2026-10-18T15:55Z"
+"updated": "2026-10-20T15:47Z"
 },
 {
 "athlete_id": "5107251",
@@ -1173,7 +1218,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-21",
 "injury": "Left Knee Strain",
-"updated": "2026-10-19T22:34Z"
+"updated": "2026-10-20T17:00Z"
 },
 {
 "athlete_id": "4701232",
@@ -1332,10 +1377,10 @@
 "athlete_id": "5142718",
 "name": "AJ Dybantsa",
 "team_name": "Washington Wizards",
-"status": "Day-To-Day",
-"return_date": "2026-10-21",
+"status": "Out",
+"return_date": "2026-10-23",
 "injury": "Left Ankle Sprain",
-"updated": "2026-10-19T17:20Z"
+"updated": "2026-10-20T16:21Z"
 },
 {
 "athlete_id": "4606840",
