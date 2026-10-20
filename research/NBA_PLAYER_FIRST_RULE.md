@@ -65,3 +65,16 @@ research/replay_nba.py BT_PF=1 with the live settings (baseline: committed model
 Mean log loss over five markets 0.1827 -> 0.1850 (gain -0.0023, 90% -0.0095 to +0.0037); better in 6 of 11 seasons; every market slightly worse (title 0.0762 -> 0.0765, conference 0.1583 -> 0.1605, division 0.2430 -> 0.2481, No. 1 seed 0.1052 -> 0.1082, playoffs 0.3308 -> 0.3317). All three gates fail. 2026 alone -0.041 at every stage (e.g. Lakers division 11% -> 1%, Spurs 8% -> 4%; both won it); without 2026 about +0.0016, but 2026 counts.
 Reading: the live futures model already carries player information (roster step, pre-season RAPM mix, playoff rotation); adding a second player term double counts it and amplifies the player ratings' disagreements with results. For single games, where the live model has no such term, the player term helps a little (Test 1).
 Decision (TypeSafe 99%): recorded per the rule; not used. A single-games-only version would need its own new pre-registered rule and a live season of evidence.
+
+## Implementation audit (20 Oct 2026, after GPT's review) and Amendment 2 (written before the result)
+Audit of Test 2:
+1. Scale - problem. In the game test the recalibrated team rating alone has slope b_A 0.97-0.99; the combined model gives the team rating weight b (0.96 in 2015 falling to 0.85 in 2026) plus player weight c. Test 2 used rating + (c/b) x S, keeping the team rating at full weight, so gaps were inflated by roughly 1/b relative to the combination that passed (up to about 18% in 2026).
+2. Units - fine: S = sum of RAPM (per 100 possessions) x minutes / 48 in both tests, pace treated identically.
+3. Pre-season roster - problem: early checkpoints used each team's last game of the previous season (misses trades, rookies, returning and rested players).
+4. Persistence - problem: one next-game lineup was carried through every remaining game, turning a temporary absence into a season-long weakness.
+5. Timing in the game test: RAPM uses stints dated up to the day before the week, ratings use earlier games, lineups come from earlier dates. No leak found in construction; this is a code check, not proof.
+Amendment 2 - one corrected comparison, then stop either way (TypeSafe 99%):
+- In season only: no change at the pre-season checkpoint (the live pre-season player mix already uses credible rosters).
+- rating -> (b / b_A) x rating + (c / b_A) x (S - mean S), with that season's walk-forward weights b, c (combined) and b_A (team alone).
+- S from each team's usual rotation: every player's minutes over the team's last 10 games before the checkpoint (absences count as zero, players who have since appeared for another team dropped), scaled to 240.
+- Baseline, seasons, simulations and gates exactly as in Test 2 (mean log loss over five markets with season-bootstrap 90% interval above zero; at least 7 of 11 seasons; no market worse by more than 0.002).
