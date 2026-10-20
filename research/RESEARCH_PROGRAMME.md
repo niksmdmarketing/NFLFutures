@@ -43,6 +43,18 @@ There is no player-level possession simulation to compare with: stage two failed
   - spreads, liquidity and fees.
 - Settlement rules are matched per contract, including void versus settled for players who do not play.
 - Market movement is supporting evidence only. It is not proof of accurate probabilities or of profitability.
+- Execution comparisons (after GPT's review of AND-1, 20 Oct 2026):
+  - **Kalshi at the forecast time:** at the quote actually available (ask for buying), with Kalshi's fees and the bid-ask spread.
+  - **Kalshi with friction:** the same with a delayed entry (next 30-minute snapshot) and with one cent worse, to see whether an apparent edge survives ordinary execution.
+  - **Single Australian bookmaker and best accessible Australian price:** not possible without paid historical odds. Recorded as a gap; added only if a free, timestamped source appears.
+- Closing-price movement is measured on the same contract, threshold and settlement terms:
+  - entry quote against the same market's last usable pre-game quote (mid and ask);
+  - never best entry against an average close, which would reward price shopping.
+- **Ledgers:**
+  - The forecast ledger keeps every forecast with: model version, forecast timestamp, player, game, stat, threshold, predicted probability, quote and its timestamp, settlement rule, and final result including voids and pushes.
+  - The primary performance ledger keeps one selection per player per game (the 1-hour forecast).
+  - Repeated forecasts (6 hours, 1 hour, later snapshots) are kept separately for timing analysis.
+  - The forecast ledger and any selected subset are reported separately.
 
 ## 3. Role features (after 1)
 - **NBA:** ball-handler / scorer / rebounder role, starter or bench, and teammate absences.

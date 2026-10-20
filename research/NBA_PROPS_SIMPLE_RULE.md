@@ -69,3 +69,13 @@ The written gates decide; TypeSafe helps interpret.
 - Stage one's limitations apply: traded players, scheduled-time report replay, unseen players.
 - Per-minute rates ignore within-game role changes (blowouts, foul trouble) except through the minutes distribution.
 - Opponent factors use all players, not positions. This is deliberate (no defence-versus-position averages).
+
+## Amendment 1 (20 Oct 2026, before any code or result): evaluation extension after GPT's review of the AND-1 / PROPHET thread
+These add reported items only. Gates, model and baselines are unchanged. PROPHET follows a reference market's prices, so it is outside our independent-model constraint and nothing is taken from it. AND-1's mechanics are undisclosed and nothing is copied.
+1. **Forecast time:** everything is also scored at 6 hours before tip-off (stage one's second time), side by side with 1 hour. Reported: accuracy at each time and the size of the 6h-to-1h change.
+2. **Overs and unders separately:**
+   - At the formula lines (each player's B1 mean rounded to .5), report calibration of P(over) and P(under) separately, by stat, starters vs bench, and forecast time.
+   - The scores are the mean predicted probability against the observed frequency, by probability decile for each side.
+   - No side preference or under bias is built in. Any selection rule found from these numbers needs fresh testing on later data.
+   - The short-minutes tail (stage one) is checked specifically for inflated over probabilities: the over-side calibration for players with low-minute risk is reported.
+3. **Dependence in uncertainty:** the week-block bootstrap resamples whole weeks, so props sharing a player, game or injury news stay together. Counts of player-games are not presented as independent tests.
