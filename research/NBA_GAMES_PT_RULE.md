@@ -41,3 +41,16 @@ That rule found that the player term helps single games on top of the team ratin
   - **Adoption at season end** (TypeSafe 99%): PT replaces L for the published game numbers if, on the 2026-27 forward games scored on pre-tip-off forecasts, its log loss is not worse than L's (point estimate) and its calibration slope is between 0.8 and 1.2. A 90% week-block interval of the gain lying entirely below zero blocks adoption.
   - One season cannot confirm a gain this small; the adoption rests on the historical result plus a forward check that it is not worse, and is labelled that way.
 - Futures are not affected either way (the futures test failed; research/NBA_PLAYER_FIRST_RULE.md).
+
+## Outcome (21 Oct 2026) - PT fails; the live game numbers stay
+Run: research/nba_games_pt_test.py (checkpoints data/research/nba_games_pt_ck_<y>.json; results research/nba_games_pt_results.json). One code bug was fixed before any score: a wrapper re-wrapped itself across seasons (multi-season builds crashed), so every season was rebuilt one per process.
+
+| | Games | Log loss L / PT | Gain (PT better if positive) | One-sided 90% bound | Seasons better | Margin MSE L / PT | Calibration slope L / PT |
+|---|---|---|---|---|---|---|---|
+| Primary, 2022-2026 official reports | 5,897 | 0.60752 / 0.60827 | -0.00076 | -0.00165 | 2 of 5 | 188.53 / 188.27 | 0.983 / 0.923 |
+| Robustness, 2015-2026 v2_base | 13,848 | 0.60681 / 0.60688 | -0.00007 | -0.00057 | 8 of 12 | 171.44 / 171.40 | 0.993 / 0.955 |
+
+- Primary by season: 2022 +0.0015, 2023 -0.0016, 2024 -0.0002, 2025 +0.0006, 2026 -0.0041. Early games -0.0006, later -0.0008.
+- Gates: 1 (log loss bound) fail; 2 (4 of 5 seasons) fail; 3 (margin MSE) pass; 4 (early and later) fail; 5 (calibration slope) pass; 6 (robustness) fail.
+- **Reading.** Against the complete live pipeline the player term no longer helps. Its margins are marginally more accurate, but its probabilities are slightly over-confident (slope 0.92): it widens rating gaps while the game spread stays fixed. Most of its earlier gain against the bare team rating is already carried by the live roster step, pre-season player mix and availability layer (weakness 1 of the earlier rule, now confirmed).
+- **Decision (written rule; TypeSafe was unavailable when this was recorded).** Recorded as a fail. The live game numbers are unchanged. The player term stays a futures-only archived shadow. A rescaled version would be fitted after seeing these results, so it is not tried under this rule.

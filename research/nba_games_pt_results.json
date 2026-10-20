@@ -1,0 +1,103 @@
+{
+ "primary_2022_2026_official": {
+  "games": 5897,
+  "seasons": [
+   2022,
+   2023,
+   2024,
+   2025,
+   2026
+  ],
+  "L": {
+   "log_loss": 0.60752,
+   "mse": 188.531,
+   "calibration_slope": 0.983
+  },
+  "PT": {
+   "log_loss": 0.60827,
+   "mse": 188.273,
+   "calibration_slope": 0.923
+  },
+  "gain": -0.000758,
+  "gain_lower90_one_sided": -0.001648,
+  "by_season": {
+   "2022": 0.001533,
+   "2023": -0.001589,
+   "2024": -0.000218,
+   "2025": 0.000578,
+   "2026": -0.004099
+  },
+  "seasons_better": 2,
+  "early": {
+   "games": 1281,
+   "gain": -0.000634
+  },
+  "later": {
+   "games": 4616,
+   "gain": -0.000792
+  },
+  "mse_gain": 0.258
+ },
+ "robustness_2015_2026_v2_base": {
+  "games": 13848,
+  "seasons": [
+   2015,
+   2016,
+   2017,
+   2018,
+   2019,
+   2020,
+   2021,
+   2022,
+   2023,
+   2024,
+   2025,
+   2026
+  ],
+  "L": {
+   "log_loss": 0.60681,
+   "mse": 171.443,
+   "calibration_slope": 0.993
+  },
+  "PT": {
+   "log_loss": 0.60688,
+   "mse": 171.397,
+   "calibration_slope": 0.955
+  },
+  "gain": -6.8e-05,
+  "gain_lower90_one_sided": -0.000572,
+  "by_season": {
+   "2015": 0.000522,
+   "2016": 0.000121,
+   "2017": 0.001644,
+   "2018": 0.000731,
+   "2019": -0.000932,
+   "2020": 0.001156,
+   "2021": 1e-05,
+   "2022": 0.001446,
+   "2023": -0.001483,
+   "2024": -0.000287,
+   "2025": 0.000661,
+   "2026": -0.004229
+  },
+  "seasons_better": 8,
+  "early": {
+   "games": 3086,
+   "gain": -0.000293
+  },
+  "later": {
+   "games": 10762,
+   "gain": -3e-06
+  },
+  "mse_gain": 0.047
+ },
+ "gates": {
+  "1_primary_logloss_lower_bound_above_0": false,
+  "2_better_in_4_of_5_seasons": false,
+  "3_margin_mse_not_higher": true,
+  "4_early_and_later_not_worse": false,
+  "5_calibration_slope_0.8_1.2": true,
+  "6_robustness_logloss_not_higher": false
+ },
+ "pass": false
+}

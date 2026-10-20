@@ -18,7 +18,7 @@ Calculation checks use fitting data or mathematical identities; forecast-perform
 | AFL model D, games | Historical improvement over the stat-only and player-only versions (AFL three-way rule, game margins); forward testing from 2027 |
 | NBA injury (availability) layer, single games | Historical improvement over the team rating without it (game log loss) |
 | NBA futures (team rating, pre-season player mix, roster step, playoff rotation) | Historical improvement over earlier futures versions in the replay; the injury layer is not part of that evidence |
-| NBA player-term shadow | Experimental (single games passed against the team rating plus injury layer; futures failed); archived shadow |
+| NBA player-term shadow | Experimental: single games passed against the team rating plus injury layer but failed against the complete live pipeline (research/NBA_GAMES_PT_RULE.md, 21 Oct 2026); futures failed; archived futures shadow only |
 | NBA minutes model (props stage one) | Historical improvement over the report-aware last-10 baseline (minutes RPS); research only |
 | NBA game environment, possession simulation (stage two) | Failed against the live model; experimental |
 | NBA player props: rebounds (P+O), assists (P+T), version 2 with M2 minutes | Historical improvement overall over season, last-10, per-minute and minutes-matched baselines (RPS), with a known subgroup weakness (overs too high for players at risk of short minutes); frozen forward test 2026-27; not on site |
