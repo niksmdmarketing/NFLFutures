@@ -59,3 +59,9 @@ Gates: mean log loss over title, conference, division, No. 1 seed and playoffs l
 | 1a availability v2_base, 2015-2026 | 14,440 | 172.20 / 171.67 | +0.31% | +0.35 | 10 of 12 | 0.6077 / 0.6068 |
 | 1b official pre-game reports, 2022-2026 | 6,153 | 189.34 / 188.54 | +0.42% | +0.41 (week bootstrap) | 5 of 5 | 0.6102 / 0.6095 |
 Official-report coverage in the data actually starts in 2020 (2020-21 used for fitting); with 2021 also scored (reported only): +0.37%, 6 of 6. On top of the availability layer the player term's gain shrinks from 0.93% to 0.3-0.4% but stays positive in almost every season. Test 2 (futures) running.
+
+## Test 2 outcome (20 Oct 2026) - futures fail; the player term is not used
+research/replay_nba.py BT_PF=1 with the live settings (baseline: committed model/replay/nba_*.csv, reproduced exactly for 2025), scored by research/nba_player_first_futures.py (research/nba_player_first_futures_results.json). 11 seasons (2015-2026 without 2020).
+Mean log loss over five markets 0.1827 -> 0.1850 (gain -0.0023, 90% -0.0095 to +0.0037); better in 6 of 11 seasons; every market slightly worse (title 0.0762 -> 0.0765, conference 0.1583 -> 0.1605, division 0.2430 -> 0.2481, No. 1 seed 0.1052 -> 0.1082, playoffs 0.3308 -> 0.3317). All three gates fail. 2026 alone -0.041 at every stage (e.g. Lakers division 11% -> 1%, Spurs 8% -> 4%; both won it); without 2026 about +0.0016, but 2026 counts.
+Reading: the live futures model already carries player information (roster step, pre-season RAPM mix, playoff rotation); adding a second player term double counts it and amplifies the player ratings' disagreements with results. For single games, where the live model has no such term, the player term helps a little (Test 1).
+Decision (TypeSafe 99%): recorded per the rule; not used. A single-games-only version would need its own new pre-registered rule and a live season of evidence.
