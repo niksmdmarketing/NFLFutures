@@ -93,3 +93,25 @@ Stage two of research/NBA_LINES_PROPS_DESIGN.md. Stage one (availability and min
 - Injury reports are replayed at their scheduled publication time (from the NBA file name). Actual delays and later file replacements cannot be seen.
 - Unseen players (debuts, new signings not on a report) are absent from G1's projected lineup.
 - RAPM settings were chosen earlier on overlapping seasons, so the player ratings are not fully out of sample.
+
+## Amendment 1 (20 Oct 2026, after GPT's review; written before any code or result). Where it conflicts with the text above, this governs.
+1. **Player adjustment fitted to the team model's errors.** For each team-game, the target is actual points per 100 possessions minus the team-only expected rating (base + own offence - opponent defence + home term; no injury term). Regressors: the team's offence lineup delta (O-ratings) and minus the opponent's defence lineup delta (D-ratings). k_O and k_D are estimated jointly by least squares with a ridge toward (1, 1) of strength 1,000 team-games (penalty 1,000 x mean square of each regressor), no intercept. Fitting seasons: all seasons from 2017 up to s-1 for test season s (so 2022 is fitted on 2017-2021, with no default). For 2017-2021 the projected minutes come from the stage-one model refitted on seasons 2016..s-1, using official report statuses where they exist (2020-2021) and none before; for 2022-2026 they are exactly stage one as frozen.
+2. **L is internally consistent.** L's margin distribution is the normal N(m_L, s_eff) with the live s_eff (not fitted), discretised so that a positive integer k takes the mass of (k-1, k] and a negative k the mass of [k, k+1). Its win probability is then exactly the live Phi(m_L / s_eff). L's total standard deviation has no live counterpart and is fitted on earlier seasons. The version of L with a fitted margin standard deviation is a separate reported benchmark (L_fit), not the gated baseline. The same discretisation is used for B.
+3. **Statistical thresholds.**
+   - Gate B1 uses a one-sided 90% lower bound.
+   - Gate C has a familywise one-sided error rate of 10%: each of the two scores (margin, total) is tested with a one-sided 95% lower bound (5% each), and C1 passes if either bound is above zero.
+   - The "not worse" conditions (B3, B4, C2, C3) are point-estimate conditions: they establish observed non-deterioration, not confidence that meaningful damage is excluded. For each, the one-sided 90% bound on the deterioration is reported, not gated.
+4. **What G1 tests.** G1 uses the expected lineup (unconditional expected minutes), so a questionable player contributes part of his impact in every draw rather than separate plays/sits scenarios. It tests an expected-lineup adjustment, not stage one's full uncertainty, and can miss tails. Reported only: G1s, which samples each player's appearance per draw (Bernoulli with stage one's P(appear)), gives appearing players their expected minutes given appearing, rescales to 240, and recomputes the adjustment in each draw with the same k_O and k_D.
+5. **Simulation details.**
+   - Possession points use the empirical support observed in earlier seasons' play-by-play, including 5+ point possessions (no truncation at 4).
+   - A possession starts only while the quarter clock is above zero. It is completed and scored in full even if its drawn duration runs past zero; the quarter then ends.
+   - The first quarter starts with a random tip (50/50). The tip loser starts quarters 2 and 3, the tip winner quarter 4. Each overtime starts with a new random tip. Within a period, possession alternates after every possession.
+   - Possession outcomes are independent given the team rates and the shared pace factor. No shooting-variance factor is added; the realism checks show whether that omission understates scoring variability.
+6. **Clipped scores made visible.**
+   - Reported for every model: the number of games outside the RPS ranges (margin -50..50, total 160..300).
+   - Also reported: an essentially unclipped RPS over margin -90..90 and total 100..360, and the mean absolute error and 99th-percentile absolute error of the forecast medians.
+   - The gates use the clipped RPS as written.
+7. **Decision table (the written gates determine the result; TypeSafe helps interpret, it does not override).**
+   - G1 passes A, B and C: G1.
+   - Otherwise, G0 passes A and B: G0. This covers G1 failing C, and G1 passing C but failing A or B.
+   - Otherwise: recorded, and stage two is revised under a new rule.
