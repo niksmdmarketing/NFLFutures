@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-10-21T17:17:10+00:00",
+ "checked_utc": "2026-10-21T20:40:37+00:00",
  "leagues": {
   "nfl": {
-   "records": 937,
+   "records": 936,
    "by_layer": {
     "official": 871,
-    "reported": 66
+    "reported": 65
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -44,7 +44,17 @@
     "TEN",
     "WAS"
    ],
-   "conflicts": [],
+   "conflicts": [
+    {
+     "player": "Carlton Davis III",
+     "official": [
+      "no designation",
+      "out"
+     ],
+     "other": "expected to play",
+     "source": "ESPN injury note"
+    }
+   ],
    "stale_projection_dates": 0,
    "teams_missing_official": [],
    "season_state": {
@@ -53,13 +63,13 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "66/66"
+   "reported_matched_to_official_list": "65/65"
   },
   "nba": {
-   "records": 229,
+   "records": 231,
    "by_layer": {
-    "official": 186,
-    "reported": 43
+    "official": 187,
+    "reported": 44
    },
    "unknown_team": 0,
    "no_player": 4,
@@ -124,13 +134,13 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "43/43"
+   "reported_matched_to_official_list": "44/44"
   },
   "nhl": {
-   "records": 1553,
+   "records": 1551,
    "by_layer": {
-    "official": 155,
-    "reported": 70,
+    "official": 154,
+    "reported": 69,
     "projected": 1328
    },
    "unknown_team": 0,
@@ -168,16 +178,7 @@
     "WPG",
     "WSH"
    ],
-   "conflicts": [
-    {
-     "player": "Sam Carrick",
-     "official": [
-      "out"
-     ],
-     "other": "expected to play",
-     "source": "ESPN injury note"
-    }
-   ],
+   "conflicts": [],
    "stale_projection_dates": 0,
    "teams_missing_official": [
     "BOS",
@@ -189,7 +190,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "63/70"
+   "reported_matched_to_official_list": "62/69"
   },
   "nbl": {
    "records": 24,
@@ -254,10 +255,11 @@
     "WCE"
    ],
    "season_state": {
-    "state": "unknown",
-    "why": "HTTPError: HTTP Error 521: <none>"
+    "state": "off_season",
+    "why": "0 AFL games 2026-10-14..2026-10-31 (Squiggle fixture)"
    },
-   "coverage_expected": true,
+   "coverage_expected": false,
+   "teams_missing_official_note": "off-season: no official coverage expected",
    "syndicated_headlines": 0,
    "reported_matched_to_official_list": "0/10"
   }
