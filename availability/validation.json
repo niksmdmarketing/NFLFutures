@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-10-21T00:41:47+00:00",
+ "checked_utc": "2026-10-21T06:06:08+00:00",
  "leagues": {
   "nfl": {
-   "records": 1642,
+   "records": 1288,
    "by_layer": {
-    "official": 1577,
-    "reported": 65
+    "official": 1224,
+    "reported": 64
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -48,6 +48,7 @@
     {
      "player": "Carlton Davis III",
      "official": [
+      "no designation",
       "out",
       "questionable"
      ],
@@ -72,16 +73,16 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "65/65"
+   "reported_matched_to_official_list": "64/64"
   },
   "nba": {
-   "records": 239,
+   "records": 227,
    "by_layer": {
-    "official": 195,
-    "reported": 44
+    "official": 184,
+    "reported": 43
    },
    "unknown_team": 0,
-   "no_player": 0,
+   "no_player": 4,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -143,14 +144,14 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "44/44"
+   "reported_matched_to_official_list": "43/43"
   },
   "nhl": {
-   "records": 1565,
+   "records": 1547,
    "by_layer": {
     "official": 155,
     "reported": 62,
-    "projected": 1348
+    "projected": 1330
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -274,7 +275,7 @@
   }
  },
  "sources_failed": [
-  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 68 h old"
+  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 73 h old"
  ],
  "sources_not_expected": []
 }
