@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-10-21T11:57:27+00:00",
+ "checked_utc": "2026-10-21T17:17:10+00:00",
  "leagues": {
   "nfl": {
-   "records": 935,
+   "records": 937,
    "by_layer": {
     "official": 871,
-    "reported": 64
+    "reported": 66
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -53,12 +53,12 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "64/64"
+   "reported_matched_to_official_list": "66/66"
   },
   "nba": {
-   "records": 227,
+   "records": 229,
    "by_layer": {
-    "official": 184,
+    "official": 186,
     "reported": 43
    },
    "unknown_team": 0,
@@ -127,10 +127,10 @@
    "reported_matched_to_official_list": "43/43"
   },
   "nhl": {
-   "records": 1547,
+   "records": 1553,
    "by_layer": {
-    "official": 156,
-    "reported": 63,
+    "official": 155,
+    "reported": 70,
     "projected": 1328
    },
    "unknown_team": 0,
@@ -168,7 +168,16 @@
     "WPG",
     "WSH"
    ],
-   "conflicts": [],
+   "conflicts": [
+    {
+     "player": "Sam Carrick",
+     "official": [
+      "out"
+     ],
+     "other": "expected to play",
+     "source": "ESPN injury note"
+    }
+   ],
    "stale_projection_dates": 0,
    "teams_missing_official": [
     "BOS",
@@ -180,7 +189,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "54/63"
+   "reported_matched_to_official_list": "63/70"
   },
   "nbl": {
    "records": 24,
