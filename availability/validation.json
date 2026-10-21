@@ -1,10 +1,10 @@
 {
- "checked_utc": "2026-10-21T06:06:08+00:00",
+ "checked_utc": "2026-10-21T11:57:27+00:00",
  "leagues": {
   "nfl": {
-   "records": 1288,
+   "records": 935,
    "by_layer": {
-    "official": 1224,
+    "official": 871,
     "reported": 64
    },
    "unknown_team": 0,
@@ -44,27 +44,7 @@
     "TEN",
     "WAS"
    ],
-   "conflicts": [
-    {
-     "player": "Carlton Davis III",
-     "official": [
-      "no designation",
-      "out",
-      "questionable"
-     ],
-     "other": "expected to play",
-     "source": "ESPN injury note"
-    },
-    {
-     "player": "Jalen Hurts",
-     "official": [
-      "injured reserve",
-      "out"
-     ],
-     "other": "expected to play",
-     "source": "ESPN news"
-    }
-   ],
+   "conflicts": [],
    "stale_projection_dates": 0,
    "teams_missing_official": [],
    "season_state": {
@@ -149,9 +129,9 @@
   "nhl": {
    "records": 1547,
    "by_layer": {
-    "official": 155,
-    "reported": 62,
-    "projected": 1330
+    "official": 156,
+    "reported": 63,
+    "projected": 1328
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -200,7 +180,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "53/62"
+   "reported_matched_to_official_list": "54/63"
   },
   "nbl": {
    "records": 24,
@@ -265,17 +245,14 @@
     "WCE"
    ],
    "season_state": {
-    "state": "off_season",
-    "why": "0 AFL games 2026-10-14..2026-10-31 (Squiggle fixture)"
+    "state": "unknown",
+    "why": "HTTPError: HTTP Error 521: <none>"
    },
-   "coverage_expected": false,
-   "teams_missing_official_note": "off-season: no official coverage expected",
+   "coverage_expected": true,
    "syndicated_headlines": 0,
    "reported_matched_to_official_list": "0/10"
   }
  },
- "sources_failed": [
-  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 73 h old"
- ],
+ "sources_failed": [],
  "sources_not_expected": []
 }
