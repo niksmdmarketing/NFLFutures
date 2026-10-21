@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-10-20T22:23:11+00:00",
+ "checked_utc": "2026-10-21T00:41:47+00:00",
  "leagues": {
   "nfl": {
-   "records": 1638,
+   "records": 1642,
    "by_layer": {
     "official": 1577,
-    "reported": 61
+    "reported": 65
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -46,6 +46,15 @@
    ],
    "conflicts": [
     {
+     "player": "Carlton Davis III",
+     "official": [
+      "out",
+      "questionable"
+     ],
+     "other": "expected to play",
+     "source": "ESPN injury note"
+    },
+    {
      "player": "Jalen Hurts",
      "official": [
       "injured reserve",
@@ -59,20 +68,20 @@
    "teams_missing_official": [],
    "season_state": {
     "state": "in_season",
-    "why": "2 regular-season/playoff and 0 other games 2026-10-13..2026-10-30"
+    "why": "1 regular-season/playoff and 0 other games 2026-10-14..2026-10-31"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "61/61"
+   "reported_matched_to_official_list": "65/65"
   },
   "nba": {
-   "records": 223,
+   "records": 239,
    "by_layer": {
-    "official": 178,
-    "reported": 45
+    "official": 195,
+    "reported": 44
    },
    "unknown_team": 0,
-   "no_player": 6,
+   "no_player": 0,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -107,6 +116,15 @@
    ],
    "conflicts": [
     {
+     "player": "Stephen Curry",
+     "official": [
+      "day-to-day",
+      "probable"
+     ],
+     "other": "expected out",
+     "source": "ESPN injury note"
+    },
+    {
      "player": "Moses Moody",
      "official": [
       "out"
@@ -121,17 +139,17 @@
    ],
    "season_state": {
     "state": "in_season",
-    "why": "28 regular-season/playoff and 0 other games 2026-10-13..2026-10-30"
+    "why": "36 regular-season/playoff and 0 other games 2026-10-14..2026-10-31"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "45/45"
+   "reported_matched_to_official_list": "44/44"
   },
   "nhl": {
-   "records": 1562,
+   "records": 1565,
    "by_layer": {
-    "official": 153,
-    "reported": 61,
+    "official": 155,
+    "reported": 62,
     "projected": 1348
    },
    "unknown_team": 0,
@@ -177,11 +195,11 @@
    ],
    "season_state": {
     "state": "in_season",
-    "why": "31 regular-season/playoff and 0 other games 2026-10-13..2026-10-30"
+    "why": "39 regular-season/playoff and 0 other games 2026-10-14..2026-10-31"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "52/61"
+   "reported_matched_to_official_list": "53/62"
   },
   "nbl": {
    "records": 24,
@@ -208,7 +226,7 @@
    "teams_missing_official": [],
    "season_state": {
     "state": "in_season",
-    "why": "18 NBL games 2026-10-13..2026-10-30 (NBL fixture, season 2026)"
+    "why": "20 NBL games 2026-10-14..2026-10-31 (NBL fixture, season 2026)"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
@@ -247,7 +265,7 @@
    ],
    "season_state": {
     "state": "off_season",
-    "why": "0 AFL games 2026-10-13..2026-10-30 (Squiggle fixture)"
+    "why": "0 AFL games 2026-10-14..2026-10-31 (Squiggle fixture)"
    },
    "coverage_expected": false,
    "teams_missing_official_note": "off-season: no official coverage expected",
@@ -256,7 +274,7 @@
   }
  },
  "sources_failed": [
-  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 66 h old"
+  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 68 h old"
  ],
  "sources_not_expected": []
 }
