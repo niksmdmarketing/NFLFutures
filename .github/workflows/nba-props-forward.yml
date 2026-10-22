@@ -66,12 +66,12 @@ jobs:
             exit $?
           fi
           start=$(date +%s); it=0
-          while [ $(( $(date +%s) - start )) -lt 19800 ]; do      # 5.5 hours
+          while [ $(( $(date +%s) - start )) -lt 18900 ]; do      # 5.25 hours (leaves room for the hand-over within the 350-minute job limit)
             python research/nba_props_live.py ../archive || echo "forecaster error (logged in runs/)"
             save || failed=1
             it=$((it + 1))
             if [ $((it % 4)) -eq 0 ]; then   # about hourly: server-recorded push receipts (the scheduled timing workflow is often skipped by GitHub)
-              python research/nba_props_forward_timing.py ../archive || echo "::warning::timing receipt collection failed"
+              timeout 240 python research/nba_props_forward_timing.py ../archive || echo "::warning::timing receipt collection failed"
               save || failed=1
             fi
             now=$(date +%s); next=$(( (now / 900 + 1) * 900 + 60 ))   # one minute past the next quarter hour
@@ -81,6 +81,6 @@ jobs:
           if python research/nba_props_live.py ../archive --pending-hours 24; then
             gh api -X POST repos/${{ github.repository }}/actions/workflows/nba-props-forward.yml/dispatches -f ref=main && echo "successor dispatched"
           fi
-          python research/nba_props_forward_timing.py ../archive || echo "::warning::timing receipt collection failed"
+          timeout 240 python research/nba_props_forward_timing.py ../archive || echo "::warning::timing receipt collection failed"
           save || failed=1
           exit $failed

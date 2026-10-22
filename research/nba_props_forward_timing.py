@@ -12,11 +12,38 @@ import urllib.request
 REPO = os.environ.get("GITHUB_REPOSITORY", "niksmdmarketing/NFLFutures")
 
 
-def api(path):
-    req = urllib.request.Request(f"https://api.github.com/repos/{REPO}/{path}", headers={
-        "Authorization": f"Bearer {os.environ['GH_TOKEN']}", "Accept": "application/vnd.github+json"})
+def _get(url):
+    req = urllib.request.Request(url, headers={"Authorization": f"Bearer {os.environ['GH_TOKEN']}", "Accept": "application/vnd.github+json"})
     with urllib.request.urlopen(req, timeout=60) as r:
-        return json.load(r)
+        nxt = None
+        for part in (r.headers.get("Link") or "").split(","):
+            if 'rel="next"' in part:
+                nxt = part[part.find("<") + 1:part.find(">")]
+        return json.load(r), nxt
+
+
+def api(path):
+    return _get(f"https://api.github.com/repos/{REPO}/{path}")[0]
+
+
+def activity_pushes(max_pages=20):
+    """Repository activity is cursor-paginated (Link rel="next"); a page parameter is ignored and would loop forever (22 Oct fault)."""
+    url, out, seen = f"https://api.github.com/repos/{REPO}/activity?ref=forecast-archive&activity_type=push&per_page=100&time_period=week", [], set()
+    for _ in range(max_pages):
+        page, nxt = _get(url)
+        if not isinstance(page, list):
+            raise ValueError(f"unexpected activity response: {str(page)[:120]}")
+        # keep the cursor, but always address the repository by name (numeric repository paths are refused by some proxies)
+        url = f"https://api.github.com/repos/{REPO}/activity?" + nxt.split("?", 1)[1] if nxt else None
+        for a in page:
+            key = (a.get("timestamp"), a.get("after"))
+            if key in seen:
+                continue
+            seen.add(key)
+            out.append(dict(timestamp=a.get("timestamp"), before=a.get("before"), after=a.get("after"), actor=(a.get("actor") or {}).get("login")))
+        if not url or not page:
+            break
+    return out
 
 
 def main(archive):
@@ -38,21 +65,14 @@ def main(archive):
             except Exception as e:  # noqa: BLE001
                 rec["jobs_error"] = repr(e)[:200]
             out.append(rec)
-        if len(runs) < 100:
+        if len(runs) < 100 or page >= 10:
             break
         page += 1
     # server-recorded pushes to the archive branch (GitHub repository activity): the time GitHub received each push and the commit it
     # moved the branch to. A forecast file is archived at the first push whose new head contains the commit that added the file.
     pushes = []
     try:
-        page = 1
-        while True:
-            activities = api(f"activity?ref=forecast-archive&activity_type=push&per_page=100&time_period=week&page={page}")
-            for a in activities:
-                pushes.append(dict(timestamp=a.get("timestamp"), before=a.get("before"), after=a.get("after"), actor=(a.get("actor") or {}).get("login")))
-            if len(activities) < 100:
-                break
-            page += 1
+        pushes = activity_pushes()
     except Exception as e:  # noqa: BLE001
         pushes.append(dict(error=repr(e)[:200]))
     out = dict(runs=out, pushes=pushes)
