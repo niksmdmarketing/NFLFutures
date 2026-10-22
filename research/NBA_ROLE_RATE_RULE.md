@@ -75,7 +75,9 @@ Calibration passes for all three.
   - raising the per-minute rate (the direction the per-minute diagnostic pointed) adds to that;
   - so for rebounds, the per-minute and minutes errors offset each other.
 
-**Reading:**
-- The role adjustment removes part of the fringe bias for points and assists without improving overall forecast scores. The bias it fixes is small relative to total forecast error.
-- For rebounds, correcting the rate alone is the wrong lever while the minutes bias remains.
-- Recorded and dropped under the rule. No forward challenger, no further form or tuning.
+**Reading** (wording corrected after GPT's review):
+- Established: this particular adjustment reduced part of the fringe bias for points and assists without improving overall forecast scores.
+- Plausible, not proven: that the remaining bias is too small relative to total error to move overall scores.
+- For rebounds, a rate-only correction was the wrong lever with the current minutes model (the minutes and per-minute errors partly offset). That is not a general conclusion.
+- Passing broad calibration checks does not make a version the better predictor.
+- Recorded and dropped under the rule. No forward challenger, no further form or tuning. This branch of experimentation stops here (GPT and the user, 22 Oct).
