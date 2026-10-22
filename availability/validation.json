@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-10-22T00:01:55+00:00",
+ "checked_utc": "2026-10-22T04:56:24+00:00",
  "leagues": {
   "nfl": {
-   "records": 1180,
+   "records": 1202,
    "by_layer": {
-    "official": 1115,
-    "reported": 65
+    "official": 1119,
+    "reported": 83
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -53,16 +53,16 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "65/65"
+   "reported_matched_to_official_list": "83/83"
   },
   "nba": {
-   "records": 235,
+   "records": 177,
    "by_layer": {
-    "official": 190,
+    "official": 132,
     "reported": 45
    },
    "unknown_team": 0,
-   "no_player": 0,
+   "no_player": 24,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -83,6 +83,7 @@
     "MIA",
     "MIL",
     "MIN",
+    "NO",
     "NY",
     "OKC",
     "ORL",
@@ -97,15 +98,6 @@
    ],
    "conflicts": [
     {
-     "player": "Stephen Curry",
-     "official": [
-      "day-to-day",
-      "probable"
-     ],
-     "other": "expected out",
-     "source": "ESPN injury note"
-    },
-    {
      "player": "Moses Moody",
      "official": [
       "out"
@@ -115,9 +107,7 @@
     }
    ],
    "stale_projection_dates": 0,
-   "teams_missing_official": [
-    "NO"
-   ],
+   "teams_missing_official": [],
    "season_state": {
     "state": "in_season",
     "why": "40 regular-season/playoff and 0 other games 2026-10-15..2026-11-01"
@@ -127,10 +117,10 @@
    "reported_matched_to_official_list": "45/45"
   },
   "nhl": {
-   "records": 1548,
+   "records": 1550,
    "by_layer": {
-    "official": 152,
-    "reported": 68,
+    "official": 153,
+    "reported": 69,
     "projected": 1328
    },
    "unknown_team": 0,
@@ -180,7 +170,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "61/68"
+   "reported_matched_to_official_list": "62/69"
   },
   "nbl": {
    "records": 24,
