@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-10-22T0647Z",
-"feed_timestamp": "2026-10-22T06:47:39Z",
+"collected_utc": "2026-10-22T1718Z",
+"feed_timestamp": "2026-10-22T17:18:33Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -29,13 +29,13 @@
 },
 {
 "athlete_id": "4395651",
-"status": "Out",
+"status": "Day-To-Day",
 "return_date": "2026-10-23",
 "injury": "Left Calf Strain"
 },
 {
 "athlete_id": "4066218",
-"status": "Out",
+"status": "Day-To-Day",
 "return_date": "2026-10-23",
 "injury": "Right Hamstring"
 },
@@ -54,13 +54,13 @@
 {
 "athlete_id": "4848625",
 "status": "Day-To-Day",
-"return_date": "2026-10-24",
+"return_date": "2026-10-23",
 "injury": "Illness"
 },
 {
 "athlete_id": "4683750",
 "status": "Day-To-Day",
-"return_date": "2026-10-24",
+"return_date": "2026-10-23",
 "injury": "Illness"
 },
 {
@@ -95,7 +95,7 @@
 },
 {
 "athlete_id": "4683688",
-"status": "Out",
+"status": "Day-To-Day",
 "return_date": "2026-10-23",
 "injury": "Right Foot Surgery"
 },
@@ -335,7 +335,7 @@
 },
 {
 "athlete_id": "4592435",
-"status": "Out",
+"status": "Day-To-Day",
 "return_date": "2026-10-23",
 "injury": "Concussion"
 },
@@ -413,8 +413,8 @@
 },
 {
 "athlete_id": "5142718",
-"status": "Day-To-Day",
-"return_date": "2026-10-23",
+"status": "Out",
+"return_date": "2026-10-24",
 "injury": "Left Ankle Sprain"
 },
 {
@@ -471,19 +471,19 @@
 "athlete_id": "4395651",
 "name": "Coby White",
 "team_name": "Charlotte Hornets",
-"status": "Out",
+"status": "Day-To-Day",
 "return_date": "2026-10-23",
 "injury": "Left Calf Strain",
-"updated": "2026-10-20T20:28Z"
+"updated": "2026-10-22T14:05Z"
 },
 {
 "athlete_id": "4066218",
 "name": "Grant Williams",
 "team_name": "Charlotte Hornets",
-"status": "Out",
+"status": "Day-To-Day",
 "return_date": "2026-10-23",
 "injury": "Right Hamstring",
-"updated": "2026-10-20T20:30Z"
+"updated": "2026-10-22T14:05Z"
 },
 {
 "athlete_id": "5061575",
@@ -508,7 +508,7 @@
 "name": "Dailyn Swain",
 "team_name": "Chicago Bulls",
 "status": "Day-To-Day",
-"return_date": "2026-10-24",
+"return_date": "2026-10-23",
 "injury": "Illness",
 "updated": "2026-10-22T03:41Z"
 },
@@ -517,7 +517,7 @@
 "name": "Jordan Hawkins",
 "team_name": "Chicago Bulls",
 "status": "Day-To-Day",
-"return_date": "2026-10-24",
+"return_date": "2026-10-23",
 "injury": "Illness",
 "updated": "2026-10-22T03:41Z"
 },
@@ -537,7 +537,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-22",
 "injury": "Right Knee",
-"updated": "2026-10-21T21:07Z"
+"updated": "2026-10-22T15:08Z"
 },
 {
 "athlete_id": "4997530",
@@ -570,10 +570,10 @@
 "athlete_id": "4683688",
 "name": "Dereck Lively II",
 "team_name": "Dallas Mavericks",
-"status": "Out",
+"status": "Day-To-Day",
 "return_date": "2026-10-23",
 "injury": "Right Foot Surgery",
-"updated": "2026-10-20T22:12Z"
+"updated": "2026-10-22T14:06Z"
 },
 {
 "athlete_id": "5105806",
@@ -879,7 +879,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-22",
 "injury": "Not Specified Ankle Sprain",
-"updated": "2026-10-21T21:05Z"
+"updated": "2026-10-22T15:06Z"
 },
 {
 "athlete_id": "4870562",
@@ -906,7 +906,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-24",
 "injury": "Left Knee Strain",
-"updated": "2026-10-22T06:00Z"
+"updated": "2026-10-22T17:00Z"
 },
 {
 "athlete_id": "4701232",
@@ -930,10 +930,10 @@
 "athlete_id": "4592435",
 "name": "Branden Carlson",
 "team_name": "Portland Trail Blazers",
-"status": "Out",
+"status": "Day-To-Day",
 "return_date": "2026-10-23",
 "injury": "Concussion",
-"updated": "2026-10-20T23:41Z"
+"updated": "2026-10-22T14:08Z"
 },
 {
 "athlete_id": "4706557",
@@ -1047,10 +1047,10 @@
 "athlete_id": "5142718",
 "name": "AJ Dybantsa",
 "team_name": "Washington Wizards",
-"status": "Day-To-Day",
-"return_date": "2026-10-23",
+"status": "Out",
+"return_date": "2026-10-24",
 "injury": "Left Ankle Sprain",
-"updated": "2026-10-22T03:38Z"
+"updated": "2026-10-22T16:22Z"
 },
 {
 "athlete_id": "4606840",
