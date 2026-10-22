@@ -72,3 +72,6 @@ There is no player-level possession simulation to compare with: stage two failed
 - Labels as above.
 - Version archive for forecasts and filters.
 - No retrospective selection.
+
+## Independent reproduction (22 Oct 2026)
+GPT reran the five historical NBA scoring experiments (stage-one minutes, simple props, M2 tail, M2b, points D) from the exported corrected tables (manifest export at e72100d; all five file hashes verified). Every reported score, calibration result and pass/fail decision matched; four result files match exactly and the simple-props file differs only in six fitted dispersion values by at most 0.0003. Two execution accommodations were disclosed (a memory-saving but equivalent bootstrap, and omission of an unused overtime flag). This establishes reproducibility of the scoring from those tables, not a rebuild from raw sources, prospective evidence or profitability. Known weaknesses remain (short-minutes over gap about 4.1 points for rebounds, 4.3 for assists). Forward-test rules unchanged.
