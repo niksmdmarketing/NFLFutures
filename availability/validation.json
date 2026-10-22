@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-10-22T19:16:03+00:00",
+ "checked_utc": "2026-10-22T22:23:42+00:00",
  "leagues": {
   "nfl": {
-   "records": 1460,
+   "records": 1456,
    "by_layer": {
-    "official": 1371,
-    "reported": 89
+    "official": 1372,
+    "reported": 84
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -53,16 +53,16 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "89/89"
+   "reported_matched_to_official_list": "84/84"
   },
   "nba": {
-   "records": 183,
+   "records": 226,
    "by_layer": {
-    "official": 136,
+    "official": 179,
     "reported": 47
    },
    "unknown_team": 0,
-   "no_player": 21,
+   "no_player": 7,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -103,6 +103,14 @@
      ],
      "other": "expected to play",
      "source": "ESPN injury note"
+    },
+    {
+     "player": "Tobias Harris",
+     "official": [
+      "out"
+     ],
+     "other": "expected to play",
+     "source": "ESPN injury note"
     }
    ],
    "stale_projection_dates": 0,
@@ -118,10 +126,10 @@
    "reported_matched_to_official_list": "47/47"
   },
   "nhl": {
-   "records": 1564,
+   "records": 1565,
    "by_layer": {
     "official": 151,
-    "reported": 66,
+    "reported": 67,
     "projected": 1347
    },
    "unknown_team": 0,
@@ -171,7 +179,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "57/66"
+   "reported_matched_to_official_list": "58/67"
   },
   "nbl": {
    "records": 23,
