@@ -1,10 +1,10 @@
 {
- "checked_utc": "2026-10-21T20:40:37+00:00",
+ "checked_utc": "2026-10-22T00:01:55+00:00",
  "leagues": {
   "nfl": {
-   "records": 936,
+   "records": 1180,
    "by_layer": {
-    "official": 871,
+    "official": 1115,
     "reported": 65
    },
    "unknown_team": 0,
@@ -44,35 +44,25 @@
     "TEN",
     "WAS"
    ],
-   "conflicts": [
-    {
-     "player": "Carlton Davis III",
-     "official": [
-      "no designation",
-      "out"
-     ],
-     "other": "expected to play",
-     "source": "ESPN injury note"
-    }
-   ],
+   "conflicts": [],
    "stale_projection_dates": 0,
    "teams_missing_official": [],
    "season_state": {
     "state": "in_season",
-    "why": "1 regular-season/playoff and 0 other games 2026-10-14..2026-10-31"
+    "why": "13 regular-season/playoff and 0 other games 2026-10-15..2026-11-01"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
    "reported_matched_to_official_list": "65/65"
   },
   "nba": {
-   "records": 231,
+   "records": 235,
    "by_layer": {
-    "official": 187,
-    "reported": 44
+    "official": 190,
+    "reported": 45
    },
    "unknown_team": 0,
-   "no_player": 4,
+   "no_player": 0,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -130,17 +120,17 @@
    ],
    "season_state": {
     "state": "in_season",
-    "why": "36 regular-season/playoff and 0 other games 2026-10-14..2026-10-31"
+    "why": "40 regular-season/playoff and 0 other games 2026-10-15..2026-11-01"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "44/44"
+   "reported_matched_to_official_list": "45/45"
   },
   "nhl": {
-   "records": 1551,
+   "records": 1548,
    "by_layer": {
-    "official": 154,
-    "reported": 69,
+    "official": 152,
+    "reported": 68,
     "projected": 1328
    },
    "unknown_team": 0,
@@ -186,11 +176,11 @@
    ],
    "season_state": {
     "state": "in_season",
-    "why": "39 regular-season/playoff and 0 other games 2026-10-14..2026-10-31"
+    "why": "33 regular-season/playoff and 0 other games 2026-10-15..2026-11-01"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "62/69"
+   "reported_matched_to_official_list": "61/68"
   },
   "nbl": {
    "records": 24,
@@ -217,7 +207,7 @@
    "teams_missing_official": [],
    "season_state": {
     "state": "in_season",
-    "why": "20 NBL games 2026-10-14..2026-10-31 (NBL fixture, season 2026)"
+    "why": "21 NBL games 2026-10-15..2026-11-01 (NBL fixture, season 2026)"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
@@ -256,7 +246,7 @@
    ],
    "season_state": {
     "state": "off_season",
-    "why": "0 AFL games 2026-10-14..2026-10-31 (Squiggle fixture)"
+    "why": "0 AFL games 2026-10-15..2026-11-01 (Squiggle fixture)"
    },
    "coverage_expected": false,
    "teams_missing_official_note": "off-season: no official coverage expected",
