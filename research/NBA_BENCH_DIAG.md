@@ -22,3 +22,11 @@ Actual minutes are hindsight and depend on fouls, blowouts and performance, so t
 - Per-minute rates are shrunk toward position-group rates. A plausible mechanism is that the shrinkage target is set by rotation players, which suits fringe players poorly. This is a hypothesis.
 - Decision (TypeSafe 65%, in line with GPT's advice): no change now; record and let the forward test decide.
 - If a change is ever tested, the candidate is one role-based shrinkage target for per-minute rates (position group x projected-minutes tier), under its own rule (TypeSafe 30%). A minutes change is not supported (5%).
+
+## Comparison with GPT's faster-minutes-memory candidate (22 Oct 2026)
+GPT's local test (two-appearance half-life for the normal-night mean input; rule written before results; failed one gate, the bench under-15 check) compared on its own fixed groups from its paired scores, appearing players, M2b vs candidate:
+- Bench mean over-forecast falls in all five seasons (2022 0.27 to 0.16; 2023 0.22 to 0.17; 2024 0.48 to 0.44; 2025 0.18 to 0.13; 2026 0.28 to 0.21 minutes). P(>= 20) over-forecast falls in all five seasons (by 0.1 to 0.6 points). The risk group follows the same direction, but less.
+- The share below the forecast median barely moves (mixed by season) and the upper tail is unchanged. So it removes roughly a fifth to a third of the mean bias but not the mid-distribution placement.
+- It cannot address the per-minute part (points and assists high, rebounds low for fringe players): stat rates are unchanged by construction, so its prop gains come through minutes only.
+- Established players: P(>= 30) under-forecast grows slightly in four of five seasons (about 0.1 to 0.6 points).
+- Reading: faster memory and a per-minute role adjustment target different parts of the fringe error and are not substitutes. Neither is adopted; the frozen M2/M2b forward test continues.
