@@ -71,9 +71,13 @@ def store_input(archive, name, data, ext):
     d = os.path.join(archive, "nba", "props_forward", "inputs")
     os.makedirs(d, exist_ok=True)
     f = os.path.join(d, f"{h}.{ext}")
-    if not os.path.exists(f):
-        with open(f, "wb") as fh:
+    try:
+        with open(f, "xb") as fh:
             fh.write(data)
+    except FileExistsError:
+        with open(f, "rb") as fh:
+            if sha(fh.read()) != h:
+                raise ValueError(f"Corrupt immutable input: {h}")
     INPUTS.setdefault(name, []).append(h)
     return h
 
@@ -225,8 +229,10 @@ def reports(now, archive, log):
                     retrieved_utc=pd.Timestamp.now(tz="UTC").isoformat())
     for f in sorted(os.listdir(store)):
         if f.endswith(".csv.gz"):
-            frames.append(pd.read_csv(os.path.join(store, f)))
-            INPUTS.setdefault("reports_live_parsed", []).append(f)
+            with open(os.path.join(store, f), "rb") as fh:
+                parsed_bytes = fh.read()
+            store_input(archive, "reports_live_parsed", parsed_bytes, "csv.gz")
+            frames.append(pd.read_csv(io.BytesIO(parsed_bytes), compression="gzip"))
     R = _prep_reports(pd.concat(frames, ignore_index=True))
     R = R[R.status.isin(["Out", "Doubtful", "Questionable", "Probable", "Available"]) & (R.rtime <= now)]    # published at or before now
     log["report"] = meta
@@ -235,6 +241,7 @@ def reports(now, archive, log):
 
 # ---------------------------------------------------------------- features and forecasts
 def run(args):
+    INPUTS.clear()
     now = now_utc(args)
     if REPLAY:
         N._download = lambda tag, name, age, required=True: (os.path.join(N.NBA_DATA, name) if os.path.exists(os.path.join(N.NBA_DATA, name)) else None)
@@ -262,6 +269,9 @@ def run(args):
     commit = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True, cwd=ROOT).stdout.strip()
     params = {y: json.load(open(os.path.join(ROOT, "model", f"nba_props_live_params_{y}{PARAMS_ID}.json"))) for y in (SEASON - 1, SEASON)}
     phash = sha(open(os.path.join(ROOT, "model", f"nba_props_live_params_{SEASON}{PARAMS_ID}.json"), "rb").read())
+    for year in (SEASON - 1, SEASON):
+        with open(os.path.join(ROOT, "model", f"nba_props_live_params_{year}{PARAMS_ID}.json"), "rb") as fh:
+            store_input(args.archive, f"parameters_{year}", fh.read(), "json")
     log["params_id"] = PARAMS_ID
     # points version D (research/NBA_POINTS_DISPERSION_RULE.md): forward identifiers pts-D1/M2 (primary) and pts-D1/M2b (challenger)
     pd_path = os.path.join(ROOT, "model", f"nba_points_d_params_{SEASON}.json")
@@ -467,10 +477,14 @@ def run(args):
         day = pd.Timestamp(cut).tz_convert("America/New_York").strftime("%Y-%m-%d")
         out = os.path.join(args.archive, "nba", "props_forward", "tests" if args.force_game else day)
         os.makedirs(out, exist_ok=True)
-        fn = os.path.join(out, f"{gid}_{h}_{now.strftime('%Y%m%dT%H%MZ')}.json.gz")
+        fn = os.path.join(out, f"{gid}_{h}_{now.strftime('%Y%m%dT%H%M%S%fZ')}.json.gz")
         rec["forecast_finished_utc"] = pd.Timestamp.now(tz="UTC").isoformat()
-        with gzip.open(fn, "wt") as fh:
-            json.dump(rec, fh)
+        rec["archive_schema_version"] = 2
+        rec["finished_age_at_cutoff_min"] = (cut - pd.Timestamp(rec["forecast_finished_utc"])).total_seconds() / 60
+        # Never replace an already archived forecast, even on a retried run.
+        with open(fn, "xb") as raw:
+            with gzip.GzipFile(fileobj=raw, mode="wb", mtime=0) as fh:
+                fh.write(json.dumps(rec).encode("utf-8"))
         written.append(fn)
     log["written"] = [os.path.relpath(w, args.archive) for w in written]
     return log

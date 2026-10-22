@@ -1,6 +1,6 @@
-"""GitHub-recorded timing of the NBA props forward runs (research/NBA_MINUTES_M2B_RULE.md): for every run of the forward workflow in
-the last 48 hours, the start time and the completion time of its Save step as recorded by GitHub's Actions API (not by the run itself).
-A forecast counts as archived at its run's Save-step completion; it qualifies only if that time is at or before its cutoff.
+"""GitHub-recorded timing of the NBA props forward runs (research/NBA_MINUTES_M2B_RULE.md).
+Run/step times are diagnostic only. Eligibility requires the first server-recorded push
+whose head contains the forecast's adding commit, at or before its cutoff.
 Usage (Actions, GH_TOKEN set): python research/nba_props_forward_timing.py <archive_dir>
 """
 import datetime as dt
@@ -31,9 +31,10 @@ def main(archive):
             try:
                 for j in api(f"actions/runs/{r['id']}/jobs")["jobs"]:
                     for st in j.get("steps", []):
-                        if st["name"] in ("Forecast", "Save"):
-                            rec[st["name"].lower() + "_completed_at"] = st.get("completed_at")
-                            rec[st["name"].lower() + "_conclusion"] = st.get("conclusion")
+                        if st["name"] in ("Forecast", "Save", "Forecast loop"):
+                            key = st["name"].lower().replace(" ", "_")
+                            rec[key + "_completed_at"] = st.get("completed_at")
+                            rec[key + "_conclusion"] = st.get("conclusion")
             except Exception as e:  # noqa: BLE001
                 rec["jobs_error"] = repr(e)[:200]
             out.append(rec)
@@ -44,8 +45,14 @@ def main(archive):
     # moved the branch to. A forecast file is archived at the first push whose new head contains the commit that added the file.
     pushes = []
     try:
-        for a in api("activity?ref=forecast-archive&activity_type=push&per_page=100&time_period=week"):
-            pushes.append(dict(timestamp=a.get("timestamp"), before=a.get("before"), after=a.get("after"), actor=(a.get("actor") or {}).get("login")))
+        page = 1
+        while True:
+            activities = api(f"activity?ref=forecast-archive&activity_type=push&per_page=100&time_period=week&page={page}")
+            for a in activities:
+                pushes.append(dict(timestamp=a.get("timestamp"), before=a.get("before"), after=a.get("after"), actor=(a.get("actor") or {}).get("login")))
+            if len(activities) < 100:
+                break
+            page += 1
     except Exception as e:  # noqa: BLE001
         pushes.append(dict(error=repr(e)[:200]))
     out = dict(runs=out, pushes=pushes)

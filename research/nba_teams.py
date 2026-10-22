@@ -43,7 +43,8 @@ def selftest():
         if resolve(bad) is not None:
             errors.append(f"unknown {bad!r} resolved to {resolve(bad)!r}")
     try:
-        sys.path.insert(0, __file__.rsplit("/", 2)[0] + "/pipeline")
+        from pathlib import Path
+        sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "pipeline"))
         import nba as N
         if sorted(N.TEAMS) != sorted(TEAMS):
             errors.append(f"pipeline TEAMS differ: {sorted(set(N.TEAMS) ^ set(TEAMS))}")

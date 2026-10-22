@@ -42,26 +42,38 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git fetch -q origin forecast-archive
           git worktree add -q -B forecast-archive ../archive FETCH_HEAD
+          # save(): commit anything new, then push whatever is not yet on the remote (including commits left by an earlier failed push).
+          # A failed push is reported as an error and retried at the next save; the loop keeps forecasting, and the job ends red.
           save() {
             ( cd ../archive
-              git add -A nba/props_forward || true
-              if git diff --cached --quiet; then return 0; fi
-              git commit -q -m "NBA props forward archive $(date -u +%Y-%m-%dT%H:%MZ)"
+              git add -A nba/props_forward || return 1
+              if ! git diff --cached --quiet; then
+                git commit -q -m "NBA props forward archive $(date -u +%Y-%m-%dT%H:%MZ)" || return 1
+              fi
+              git fetch -q origin forecast-archive || true
+              if [ -z "$(git rev-list FETCH_HEAD..HEAD)" ]; then return 0; fi
               for i in 1 2 3 4 5; do
                 git pull -q --rebase origin forecast-archive && git push -q origin HEAD:forecast-archive && return 0
                 sleep $((RANDOM % 20 + 5))
               done
-              echo "push failed" )
+              echo "::error::Forecast archive push failed after five attempts"
+              return 1 )
           }
+          failed=0
           if [ -n "${{ inputs.force_game }}" ]; then
             python research/nba_props_live.py ../archive --force-game "${{ inputs.force_game }}" --horizon "${{ inputs.horizon }}"
             save
-            exit 0
+            exit $?
           fi
-          start=$(date +%s)
+          start=$(date +%s); it=0
           while [ $(( $(date +%s) - start )) -lt 19800 ]; do      # 5.5 hours
             python research/nba_props_live.py ../archive || echo "forecaster error (logged in runs/)"
-            save
+            save || failed=1
+            it=$((it + 1))
+            if [ $((it % 4)) -eq 0 ]; then   # about hourly: server-recorded push receipts (the scheduled timing workflow is often skipped by GitHub)
+              python research/nba_props_forward_timing.py ../archive || echo "::warning::timing receipt collection failed"
+              save || failed=1
+            fi
             now=$(date +%s); next=$(( (now / 900 + 1) * 900 + 60 ))   # one minute past the next quarter hour
             sleep $(( next - now ))
           done
@@ -69,3 +81,6 @@ jobs:
           if python research/nba_props_live.py ../archive --pending-hours 24; then
             gh api -X POST repos/${{ github.repository }}/actions/workflows/nba-props-forward.yml/dispatches -f ref=main && echo "successor dispatched"
           fi
+          python research/nba_props_forward_timing.py ../archive || echo "::warning::timing receipt collection failed"
+          save || failed=1
+          exit $failed
