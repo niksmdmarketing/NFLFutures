@@ -1,12 +1,12 @@
 {
  "schema_version": 2,
  "source_url": "https://www.nfl.com/injuries/",
- "generated_at": "2026-10-22T11:57:48+00:00",
- "last_attempt_at": "2026-10-22T11:57:48+00:00",
+ "generated_at": "2026-10-22T17:14:15+00:00",
+ "last_attempt_at": "2026-10-22T17:14:15+00:00",
  "last_attempt_ok": true,
  "last_error": null,
- "last_success_at": "2026-10-22T11:57:48+00:00",
- "report_first_seen_at": "2026-10-22T04:53:14+00:00",
+ "last_success_at": "2026-10-22T17:14:15+00:00",
+ "report_first_seen_at": "2026-10-22T17:14:15+00:00",
  "collection_status": "ok",
  "stale_after_hours": 6,
  "report_season": 2026,
@@ -79,7 +79,7 @@
   "2026-10-26"
  ],
  "status_counts": {
-  "No game status": 258,
+  "No game status": 260,
   "Out": 7,
   "Doubtful": 1,
   "Questionable": 5
@@ -2177,6 +2177,16 @@
   },
   {
    "team": "NYJ",
+   "player_id": "demario-davis",
+   "player": "Demario Davis",
+   "position": "LB",
+   "injury": null,
+   "practice_status": "Did Not Participate In Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/demario-davis/"
+  },
+  {
+   "team": "NYJ",
    "player_id": "dylan-parham",
    "player": "Dylan Parham",
    "position": "G",
@@ -2194,6 +2204,16 @@
    "practice_status": "Did Not Participate In Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/francisco-mauigoa/"
+  },
+  {
+   "team": "NYJ",
+   "player_id": "harrison-phillips",
+   "player": "Harrison Phillips",
+   "position": "DT",
+   "injury": null,
+   "practice_status": "Did Not Participate In Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/harrison-phillips/"
   },
   {
    "team": "NYJ",
@@ -2797,6 +2817,44 @@
   }
  ],
  "recent_changes": [
+  {
+   "observed_at": "2026-10-22T17:14:15+00:00",
+   "season": 2026,
+   "week": 7,
+   "team": "NYJ",
+   "player_id": "harrison-phillips",
+   "kind": "appeared",
+   "before": null,
+   "after": {
+    "team": "NYJ",
+    "player_id": "harrison-phillips",
+    "player": "Harrison Phillips",
+    "position": "DT",
+    "injury": null,
+    "practice_status": "Did Not Participate In Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/harrison-phillips/"
+   }
+  },
+  {
+   "observed_at": "2026-10-22T17:14:15+00:00",
+   "season": 2026,
+   "week": 7,
+   "team": "NYJ",
+   "player_id": "demario-davis",
+   "kind": "appeared",
+   "before": null,
+   "after": {
+    "team": "NYJ",
+    "player_id": "demario-davis",
+    "player": "Demario Davis",
+    "position": "LB",
+    "injury": null,
+    "practice_status": "Did Not Participate In Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/demario-davis/"
+   }
+  },
   {
    "observed_at": "2026-10-22T04:53:14+00:00",
    "season": 2026,
@@ -3518,48 +3576,10 @@
     "game_status": null,
     "player_url": "https://www.nfl.com/players/deebo-samuel/"
    }
-  },
-  {
-   "observed_at": "2026-10-21T23:23:43+00:00",
-   "season": 2026,
-   "week": 7,
-   "team": "SF",
-   "player_id": "christian-kirk",
-   "kind": "appeared",
-   "before": null,
-   "after": {
-    "team": "SF",
-    "player_id": "christian-kirk",
-    "player": "Christian Kirk",
-    "position": "WR",
-    "injury": null,
-    "practice_status": "Full Participation in Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/christian-kirk/"
-   }
-  },
-  {
-   "observed_at": "2026-10-21T23:23:43+00:00",
-   "season": 2026,
-   "week": 7,
-   "team": "SF",
-   "player_id": "ashtyn-davis",
-   "kind": "appeared",
-   "before": null,
-   "after": {
-    "team": "SF",
-    "player_id": "ashtyn-davis",
-    "player": "Ashtyn Davis",
-    "position": "S",
-    "injury": null,
-    "practice_status": "Limited Participation in Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/ashtyn-davis/"
-   }
   }
  ],
- "distinct_reports": 17,
- "checks": 280,
+ "distinct_reports": 18,
+ "checks": 281,
  "failed_checks": 0,
  "warnings": [
   "2 team(s) playing this week are not on the report yet (DAL, PHI). Teams usually appear as their game approaches; absence does not mean healthy."
