@@ -12,13 +12,15 @@ import nba_props_forward_score as F  # noqa: E402
 KEYS = ["minutes", "points", "rebounds", "assists"]
 
 
-def box(teams):
-    """teams: {abbr: [(aid, minutes)]} -> ESPN-like summary document."""
+def box(teams, scores=None, gid="1"):
+    """teams: {abbr: [(aid, minutes)]} -> ESPN-like summary document (each player scores 10)."""
+    scores = scores or {t: 10 * len(r) for t, r in teams.items()}
     players = []
     for abbr, rows in teams.items():
         players.append({"team": {"abbreviation": abbr}, "statistics": [{"keys": KEYS, "athletes": [
             {"athlete": {"id": str(a)}, "stats": [str(m), "10", "5", "3"]} for a, m in rows]}]})
-    return {"header": {"competitions": [{"status": {"type": {"completed": True}}}]}, "boxscore": {"players": players}}
+    comp = {"id": gid, "status": {"type": {"completed": True}}, "competitors": [{"team": {"abbreviation": t}, "score": str(v)} for t, v in scores.items()]}
+    return {"header": {"competitions": [comp]}, "boxscore": {"players": players}}
 
 
 def full(base, n=8):
@@ -47,10 +49,10 @@ class Archive:
 
 
 class ScoreTests(unittest.TestCase):
-    def run_case(self, teams, players):
+    def run_case(self, teams, players, scores=None, gid="1"):
         d = tempfile.mkdtemp()
         (Path(d) / "outcomes").mkdir()
-        (Path(d) / "outcomes" / "1.json").write_text(json.dumps(box(teams)))
+        (Path(d) / "outcomes" / "1.json").write_text(json.dumps(box(teams, scores, gid)))
         rec = {"players": players, "coverage": {"BOS": {}, "NY": {}}}
         audit = {"source_commit": "x", "selected": [{"horizon_min": 60, "game_id": 1, "path": "p"}]}
         return F.score(Archive(rec), audit, d)
@@ -70,9 +72,18 @@ class ScoreTests(unittest.TestCase):
         r = self.run_case({"BOS": full(100), "MIA": full(200)}, [player("BOS", 999)])
         self.assertEqual(r["exclusions"].get("missing_unknown_team_mapping_mismatch"), 1)
 
+    def test_score_mismatch_leaves_missing_unknown(self):
+        r = self.run_case({"BOS": full(100), "NY": full(200)}, [player("BOS", 999)], scores={"BOS": 81, "NY": 80})
+        self.assertEqual(r["exclusions"].get("missing_unknown_team_box_incomplete"), 1)
+
+    def test_wrong_game_id_is_excluded(self):
+        r = self.run_case({"BOS": full(100), "NY": full(200)}, [player("BOS", 100)], gid="2")
+        self.assertEqual(r["exclusions"].get("game_id_mismatch"), 1)
+
     def test_overtime_box_is_complete(self):
-        self.assertTrue(F.box_complete({("BOS", i): {"appeared": True, "minutes": 265 / 8} for i in range(8)}, "BOS"))
-        self.assertFalse(F.box_complete({("BOS", i): {"appeared": True, "minutes": 250 / 8} for i in range(8)}, "BOS"))
+        ok = {("__score_ok__", "BOS"): {"appeared": False, "ok": True}}
+        self.assertTrue(F.box_complete({**ok, **{("BOS", i): {"appeared": True, "minutes": 265 / 8} for i in range(8)}}, "BOS"))
+        self.assertFalse(F.box_complete({**ok, **{("BOS", i): {"appeared": True, "minutes": 250 / 8} for i in range(8)}}, "BOS"))
 
 
 if __name__ == "__main__":

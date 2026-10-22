@@ -27,6 +27,8 @@ def minutes_value(value):
 def box_complete(actual, team):
     """A team's final box is treated as complete only when its appearing players' minutes add to 240 + 25 x overtimes (within 2)
     and at least five players appeared. Otherwise a missing candidate stays unknown (GPT, 22 Oct 2026)."""
+    if actual.get(("__score_ok__", team), {}).get("ok") is False or ("__score_ok__", team) not in actual:
+        return False
     mins = [v["minutes"] for (t, _), v in actual.items() if t == team and v["appeared"]]
     total = sum(mins)
     if len(mins) < 5 or total < 238:
@@ -34,9 +36,13 @@ def box_complete(actual, team):
     return abs((total - 240) - 25 * round((total - 240) / 25)) <= 2
 
 
-def box_players(document):
-    if not document.get("header", {}).get("competitions", [{}])[0].get("status", {}).get("type", {}).get("completed"):
+def box_players(document, game_id=None):
+    comp = document.get("header", {}).get("competitions", [{}])[0]
+    if not comp.get("status", {}).get("type", {}).get("completed"):
         raise ValueError("game_not_final")
+    if game_id is not None and str(comp.get("id", game_id)) != str(game_id):
+        raise ValueError("game_id_mismatch")
+    final = {resolve(c["team"]["abbreviation"]): int(c["score"]) for c in comp.get("competitors", []) if c.get("score") not in (None, "")}
     out = {}
     for team in document.get("boxscore", {}).get("players", []):
         code = resolve(team["team"]["abbreviation"])
@@ -52,6 +58,10 @@ def box_players(document):
                 elif all(k in stat for k in ("minutes", "points", "rebounds", "assists")):
                     out[(code, aid)] = dict(appeared=True, minutes=minutes_value(stat["minutes"]),
                                             pts=int(stat["points"]), reb=int(stat["rebounds"]), ast=int(stat["assists"]))
+    # each team's player points must add to its final score, otherwise the box is not trusted for missing players
+    for t, sc in final.items():
+        pts = sum(v.get("pts", 0) for (tt, _), v in out.items() if tt == t and v["appeared"])
+        out[("__score_ok__", t)] = dict(appeared=False, ok=pts == sc)
     return out
 
 
@@ -93,13 +103,13 @@ def score(archive, audit, output_dir, fetch=False):
                 with urllib.request.urlopen(url, timeout=45) as response:
                     data = response.read()
                 document = json.loads(data)
-                box_players(document)  # do not freeze a still-live box
+                box_players(document, gid)  # do not freeze a still-live box
                 with path.open("xb") as fh:
                     fh.write(data)
                 meta = dict(source_url=url, retrieved_utc=datetime.now(timezone.utc).isoformat(),
                             sha256=hashlib.sha256(data).hexdigest())
                 path.with_suffix(".meta.json").write_text(json.dumps(meta, indent=2), encoding="utf-8")
-            actual = box_players(json.loads(path.read_bytes()))
+            actual = box_players(json.loads(path.read_bytes()), gid)
         except (OSError, ValueError) as error:
             exclusions[str(error)[:120]] += 1
             continue
@@ -108,7 +118,7 @@ def score(archive, audit, output_dir, fetch=False):
         for player in forecast["players"]:
             key = (player["team"], player["aid"])
             game_teams = set(forecast.get("coverage", {}))
-            box_teams = {t for t, _ in actual}
+            box_teams = {t for t, _ in actual if t != "__score_ok__"}
             source = "box"
             if key not in actual:
                 # Research convention (research/nba_minutes_test.py build: box minutes, else 0): a candidate absent from the final box did not
@@ -116,7 +126,7 @@ def score(archive, audit, output_dir, fetch=False):
                 if box_teams != game_teams or key[0] not in game_teams:
                     exclusions["missing_unknown_team_mapping_mismatch"] += 1
                     continue
-                if any(a == key[1] for _, a in actual):
+                if any(a == key[1] for t, a in actual if t != "__score_ok__"):
                     exclusions["missing_unknown_player_listed_for_other_team"] += 1
                     continue
                 if not box_complete(actual, key[0]):

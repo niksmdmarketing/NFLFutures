@@ -121,11 +121,15 @@ class GitArchive:
                 errors.append("forecast_path_modified_after_creation")
             warnings = []
             for team, diag in record.get("report_diagnostics", {}).items():
-                status = diag.get("report_status")
-                if status in ("not_yet_submitted", "game_not_in_report", "no_report"):
-                    warnings.append(f"{team}:report_{status}")
+                # GPT (22 Oct): missing information is flagged prominently; a game absent from the report is investigated; a team confirmed
+                # as submitted with nobody listed is recorded without a warning. The forecast is still saved, never treated as complete.
+                status = str(diag.get("report_status") or "")
+                if status in ("not_yet_submitted", "no_report") or status.startswith("status_error"):
+                    warnings.append(f"MISSING_INFORMATION:{team}:{status.split(':')[0]}")
+                elif status == "game_not_in_report":
+                    warnings.append(f"INVESTIGATE:{team}:game_not_in_report")
                 elif diag.get("empty_team_flag") and status != "submitted_none_listed":
-                    warnings.append(f"{team}:empty_report_needs_review")   # older records carry no submission status
+                    warnings.append(f"INVESTIGATE:{team}:empty_report_no_submission_status")   # records before 22 Oct carry no status
                 if diag.get("unmatched_names"):
                     warnings.append(f"{team}:unmatched_report_players")
             parsed = record.get("inputs", {}).get("reports_live_parsed", [])
