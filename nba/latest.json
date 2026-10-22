@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-10-22T1718Z",
-"feed_timestamp": "2026-10-22T17:18:33Z",
+"collected_utc": "2026-10-22T1843Z",
+"feed_timestamp": "2026-10-22T18:43:23Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -236,6 +236,12 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-23",
 "injury": "Right Calf"
+},
+{
+"athlete_id": "4592691",
+"status": "Day-To-Day",
+"return_date": "2026-10-23",
+"injury": "Right Ankle"
 },
 {
 "athlete_id": "4432810",
@@ -783,6 +789,15 @@
 "updated": "2026-10-22T04:56Z"
 },
 {
+"athlete_id": "4592691",
+"name": "Jake LaRavia",
+"team_name": "Los Angeles Lakers",
+"status": "Day-To-Day",
+"return_date": "2026-10-23",
+"injury": "Right Ankle",
+"updated": "2026-10-22T17:23Z"
+},
+{
 "athlete_id": "4432810",
 "name": "Isaiah Stewart",
 "team_name": "Memphis Grizzlies",
@@ -906,7 +921,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-24",
 "injury": "Left Knee Strain",
-"updated": "2026-10-22T17:00Z"
+"updated": "2026-10-22T17:24Z"
 },
 {
 "athlete_id": "4701232",
