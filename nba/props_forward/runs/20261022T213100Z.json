@@ -1,0 +1,31 @@
+{
+ "run_utc": "2026-10-22T21:31:00.827797+00:00",
+ "generated_utc": "2026-10-22T21:31:00.827813+00:00",
+ "targets": [
+  [
+   401909093,
+   60,
+   "2026-10-22T22:00:00+00:00"
+  ]
+ ],
+ "params_id": "b",
+ "box": {
+  "release_games_2027": 14,
+  "espn_filled": [],
+  "espn_failed": [],
+  "player_box_sha256": "e2258018f1a6a3524257609d9a2a51fc5b92f6f0b035deed9670953c1ae1e235",
+  "team_box_sha256": "896323107754a5cbdba78ad80cc9c1ea117c7da8e5f5805821016118e3d64ea3"
+ },
+ "report": {
+  "url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-22_05_30PM.pdf",
+  "label": "2026-10-22 05_30PM",
+  "sha256": "b908db48c55dd93977500f3fcd4ae608772f07fc30f263a6c5272f16e01b583e",
+  "rows": 71,
+  "retrieved_utc": "2026-10-22T21:31:03.931948+00:00"
+ },
+ "report_rows_matched_via_last_season": 2081,
+ "written": [
+  "nba/props_forward/2026-10-22/401909093_60_20261022T213100827797Z.json.gz"
+ ],
+ "seconds": 44.433811
+}
