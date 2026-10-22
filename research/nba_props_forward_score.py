@@ -64,7 +64,7 @@ def rps(p, outcome, cap):
     return score / cap
 
 
-def score(archive, audit, output_dir, fetch=False):
+def score(archive, audit, output_dir, fetch=False, exclude_missing=False):
     output_dir = Path(output_dir)
     boxes = output_dir / "outcomes"
     boxes.mkdir(parents=True, exist_ok=True)
@@ -98,9 +98,15 @@ def score(archive, audit, output_dir, fetch=False):
         for player in forecast["players"]:
             key = (player["team"], player["aid"])
             if key not in actual:
-                exclusions["forecast_player_missing_from_final_box"] += 1
-                continue
-            result = actual[key]
+                # Research convention (research/nba_minutes_test.py build: minutes = box minutes, else 0): a candidate absent from the
+                # final box did not appear; mostly inactive players ruled Out. --exclude-missing reproduces the stricter sensitivity.
+                if exclude_missing or not any(k[0] == key[0] for k in actual):
+                    exclusions["forecast_player_missing_from_final_box"] += 1
+                    continue
+                exclusions["missing_from_final_box_scored_as_dnp"] += 1
+                result = dict(appeared=False)
+            else:
+                result = actual[key]
             pa = player["p_appear"]
             appeared = result["appeared"]
             ll = -math.log(max(1e-12, pa if appeared else 1 - pa))
@@ -136,8 +142,9 @@ if __name__ == "__main__":
     parser.add_argument("--audit", required=True)
     parser.add_argument("--output-dir", required=True)
     parser.add_argument("--fetch-outcomes", action="store_true")
+    parser.add_argument("--exclude-missing", action="store_true", help="sensitivity: exclude candidates absent from the final box")
     args = parser.parse_args()
     audit = json.loads(Path(args.audit).read_text())
-    result = score(GitArchive(args.repo, audit["source_commit"]), audit, args.output_dir, args.fetch_outcomes)
+    result = score(GitArchive(args.repo, audit["source_commit"]), audit, args.output_dir, args.fetch_outcomes, args.exclude_missing)
     Path(args.output_dir, "forward_scores_interim.json").write_text(json.dumps(result, indent=2), encoding="utf-8")
     print(json.dumps({k: v for k, v in result.items() if k not in ("player_rows", "outcome_sources")}, indent=2))

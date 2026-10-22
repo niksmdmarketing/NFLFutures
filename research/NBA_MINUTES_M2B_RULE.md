@@ -233,3 +233,6 @@ Every decision is unchanged. Originals are in *_before_teamfix.json.
 - timing is judged by the server-recorded push time;
 - a missed window is counted, not excused;
 - the first nights' timing review decides whether the archive is relied on.
+
+## Clarification (22 Oct 2026, before any forward evaluation): outcome of candidates absent from the final box
+GPT's archive audit (22 Oct) excluded forecast candidates missing from ESPN's final box rather than scoring them. The research build that every gate was set on (research/nba_minutes_test.py, build) gives each candidate the minutes in the game's box and 0 otherwise, so a candidate absent from the final box counts as not appearing; these are mostly inactive players ruled Out. The forward evaluation uses the research convention. research/nba_props_forward_score.py does so by default (a missing candidate is scored as a non-appearance when its team's box is present), counts these cases separately, and keeps GPT's exclusion as a reported sensitivity (--exclude-missing). This is a statement of the existing convention, not a change of method; no forward result had been evaluated.
