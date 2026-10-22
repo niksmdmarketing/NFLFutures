@@ -63,6 +63,7 @@ PB_COLS = ["game_id", "season", "season_type", "game_date", "game_date_time", "a
 TB_COLS = ["game_id", "season", "season_type", "game_date", "team_abbreviation", "opponent_team_abbreviation", "team_home_away", "team_score",
            "opponent_team_score", "field_goals_attempted", "offensive_rebounds", "total_turnovers", "turnovers", "free_throws_attempted"]
 INPUTS = {}
+LATEST_REPORT = {}   # the latest official report parsed in this run (diagnostics only; never a forecast input)
 
 
 def store_input(archive, name, data, ext):
@@ -222,6 +223,7 @@ def reports(now, archive, log):
     if pdf:
         label = et.strftime("%Y-%m-%d %I_%M%p")
         rows = pd.DataFrame(O.parse(pdf))
+        LATEST_REPORT.update(label=et.strftime("%Y-%m-%d %I_%M%p"), rows=rows.copy())
         rows["report"] = label
         rows["season"] = SEASON
         rows.to_csv(os.path.join(store, et.strftime("%Y%m%dT%H%M") + ".csv.gz"), index=False, compression="gzip")
@@ -239,9 +241,37 @@ def reports(now, archive, log):
     return R
 
 
+def _submission_status(team, g):
+    """Diagnostics only (GPT, 22 Oct 2026): what the latest official report in this run says about one team of this game.
+    players_listed; not_yet_submitted (printed as NOT YET SUBMITTED); submitted_none_listed (the game is in the report and the team
+    is not marked NOT YET SUBMITTED but lists nobody: the report prints non-submitting teams explicitly); game_not_in_report and
+    no_report (unknown). Forecasts are unchanged by this."""
+    import nba_teams
+    rows = LATEST_REPORT.get("rows")
+    if rows is None or not len(rows):
+        return "no_report"
+    gd = str(g.game_date)[:10]
+    r = rows[rows.game_date.astype(str).str[:10] == gd]
+    mine = []
+    for m in r.matchup.dropna().unique():
+        a, _, b = str(m).partition("@")
+        if {nba_teams.resolve(a), nba_teams.resolve(b)} == {g.home_abbreviation, g.away_abbreviation}:
+            mine.append(m)
+    if not mine:
+        return "game_not_in_report"
+    r = r[r.matchup.isin(mine)]
+    rt = r[[nba_teams.resolve(c) == team for c in r.team_code]]
+    if (rt.status == "NOT YET SUBMITTED").any():
+        return "not_yet_submitted"
+    if rt.player.notna().any():
+        return "players_listed"
+    return "submitted_none_listed"
+
+
 # ---------------------------------------------------------------- features and forecasts
 def run(args):
     INPUTS.clear()
+    LATEST_REPORT.clear()
     now = now_utc(args)
     if REPLAY:
         N._download = lambda tag, name, age, required=True: (os.path.join(N.NBA_DATA, name) if os.path.exists(os.path.join(N.NBA_DATA, name)) else None)
@@ -423,7 +453,8 @@ def run(args):
                            matched_to_players=int((trows[st_col].fillna("") != "").sum()),
                            unmatched_names=sorted(n for n in set(Rt.player.astype(str)) if M.player_key(n) not in set(
                                pb[pb.athlete_id.isin(trows[trows[st_col].fillna("") != ""].aid)].athlete_display_name.map(M.name_key))),
-                           empty_team_flag=bool(len(Rt) == 0))
+                           empty_team_flag=bool(len(Rt) == 0),
+                           report_status=_submission_status(t, g))
         rec["report_diagnostics"] = diag
         Rc = R[R.season == SEASON]
         unknown = sorted({f"{c}|{n}" for c, n in zip(Rc.team_code, Rc.team) if nba_teams.resolve(c) is None and nba_teams.resolve(n) is None})

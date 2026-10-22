@@ -121,8 +121,11 @@ class GitArchive:
                 errors.append("forecast_path_modified_after_creation")
             warnings = []
             for team, diag in record.get("report_diagnostics", {}).items():
-                if diag.get("empty_team_flag"):
-                    warnings.append(f"{team}:empty_report_needs_review")
+                status = diag.get("report_status")
+                if status in ("not_yet_submitted", "game_not_in_report", "no_report"):
+                    warnings.append(f"{team}:report_{status}")
+                elif diag.get("empty_team_flag") and status != "submitted_none_listed":
+                    warnings.append(f"{team}:empty_report_needs_review")   # older records carry no submission status
                 if diag.get("unmatched_names"):
                     warnings.append(f"{team}:unmatched_report_players")
             parsed = record.get("inputs", {}).get("reports_live_parsed", [])

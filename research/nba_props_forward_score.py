@@ -24,6 +24,16 @@ def minutes_value(value):
     return float(value)
 
 
+def box_complete(actual, team):
+    """A team's final box is treated as complete only when its appearing players' minutes add to 240 + 25 x overtimes (within 2)
+    and at least five players appeared. Otherwise a missing candidate stays unknown (GPT, 22 Oct 2026)."""
+    mins = [v["minutes"] for (t, _), v in actual.items() if t == team and v["appeared"]]
+    total = sum(mins)
+    if len(mins) < 5 or total < 238:
+        return False
+    return abs((total - 240) - 25 * round((total - 240) / 25)) <= 2
+
+
 def box_players(document):
     if not document.get("header", {}).get("competitions", [{}])[0].get("status", {}).get("type", {}).get("completed"):
         raise ValueError("game_not_final")
@@ -64,7 +74,7 @@ def rps(p, outcome, cap):
     return score / cap
 
 
-def score(archive, audit, output_dir, fetch=False, exclude_missing=False):
+def score(archive, audit, output_dir, fetch=False):
     output_dir = Path(output_dir)
     boxes = output_dir / "outcomes"
     boxes.mkdir(parents=True, exist_ok=True)
@@ -97,27 +107,39 @@ def score(archive, audit, output_dir, fetch=False, exclude_missing=False):
         forecast = archive.read(chosen["path"])
         for player in forecast["players"]:
             key = (player["team"], player["aid"])
+            game_teams = set(forecast.get("coverage", {}))
+            box_teams = {t for t, _ in actual}
+            source = "box"
             if key not in actual:
-                # Research convention (research/nba_minutes_test.py build: minutes = box minutes, else 0): a candidate absent from the
-                # final box did not appear; mostly inactive players ruled Out. --exclude-missing reproduces the stricter sensitivity.
-                if exclude_missing or not any(k[0] == key[0] for k in actual):
-                    exclusions["forecast_player_missing_from_final_box"] += 1
+                # Research convention (research/nba_minutes_test.py build: box minutes, else 0): a candidate absent from the final box did not
+                # appear (mostly inactive players ruled Out). Applied only when the mapping and the box are verified; otherwise unknown.
+                if box_teams != game_teams or key[0] not in game_teams:
+                    exclusions["missing_unknown_team_mapping_mismatch"] += 1
                     continue
-                exclusions["missing_from_final_box_scored_as_dnp"] += 1
-                result = dict(appeared=False)
+                if any(a == key[1] for _, a in actual):
+                    exclusions["missing_unknown_player_listed_for_other_team"] += 1
+                    continue
+                if not box_complete(actual, key[0]):
+                    exclusions["missing_unknown_team_box_incomplete"] += 1
+                    continue
+                exclusions["missing_from_complete_box_scored_as_dnp"] += 1
+                result, source = dict(appeared=False), "missing_dnp"
             else:
                 result = actual[key]
             pa = player["p_appear"]
             appeared = result["appeared"]
             ll = -math.log(max(1e-12, pa if appeared else 1 - pa))
-            metrics["appearance_logloss"].append(ll)
-            row = dict(game_id=gid, team=key[0], aid=key[1], appeared=appeared, appearance_logloss=ll)
+            versions = ("research_convention", "box_listed_only") if source == "box" else ("research_convention",)
+            for mv in versions:
+                metrics[mv + ":appearance_logloss"].append(ll)
+            row = dict(game_id=gid, team=key[0], aid=key[1], appeared=appeared, outcome_source=source, appearance_logloss=ll)
             if appeared:
                 for stat, cap in (("reb", 25), ("ast", 20)):
                     for version in ("v2", "v3"):
                         p = conditional_pmf(player[f"{stat}_{version}"], pa)
                         value = rps(p, result[stat], cap)
-                        metrics[f"{stat}_{version}_rps_given_appearing"].append(value)
+                        for mv in versions:
+                            metrics[f"{mv}:{stat}_{version}_rps_given_appearing"].append(value)
                         row[f"{stat}_{version}_rps"] = value
                         row[f"{stat}_{version}_mean"] = sum(i * v for i, v in enumerate(p))
                     row[stat] = result[stat]
@@ -131,6 +153,7 @@ def score(archive, audit, output_dir, fetch=False, exclude_missing=False):
                 exclusions=dict(exclusions), outcome_sources=outcomes_meta, player_rows=rows,
                 limitations=["No confidence/adoption verdict; fewer than the predeclared 30000 player-games.",
                              "Conditional scores omit DNPs; no assumption about market settlement.",
+                             "Two versions are reported: research_convention (a candidate absent from a verified complete final box = did not appear) and box_listed_only (absent candidates excluded). Absent candidates with an unverified mapping or incomplete box are unknown in both.",
                              "No market edge or profit calculated without matched executable pre-cutoff quotes and fees.",
                              "Archive timing passed; report-coverage warnings still require review.",
                              "Score is normalized clipped RPS, not percentage accuracy."])
@@ -142,9 +165,8 @@ if __name__ == "__main__":
     parser.add_argument("--audit", required=True)
     parser.add_argument("--output-dir", required=True)
     parser.add_argument("--fetch-outcomes", action="store_true")
-    parser.add_argument("--exclude-missing", action="store_true", help="sensitivity: exclude candidates absent from the final box")
     args = parser.parse_args()
     audit = json.loads(Path(args.audit).read_text())
-    result = score(GitArchive(args.repo, audit["source_commit"]), audit, args.output_dir, args.fetch_outcomes, args.exclude_missing)
+    result = score(GitArchive(args.repo, audit["source_commit"]), audit, args.output_dir, args.fetch_outcomes)
     Path(args.output_dir, "forward_scores_interim.json").write_text(json.dumps(result, indent=2), encoding="utf-8")
     print(json.dumps({k: v for k, v in result.items() if k not in ("player_rows", "outcome_sources")}, indent=2))
