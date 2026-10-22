@@ -241,6 +241,13 @@ def reports(now, archive, log):
     return R
 
 
+def _safe_status(team, g):
+    try:
+        return _submission_status(team, g)
+    except Exception as e:  # noqa: BLE001  a diagnostic must never stop a forecast
+        return "status_error: " + repr(e)[:80]
+
+
 def _submission_status(team, g):
     """Diagnostics only (GPT, 22 Oct 2026): what the latest official report in this run says about one team of this game.
     players_listed; not_yet_submitted (printed as NOT YET SUBMITTED); submitted_none_listed (the game is in the report and the team
@@ -454,7 +461,7 @@ def run(args):
                            unmatched_names=sorted(n for n in set(Rt.player.astype(str)) if M.player_key(n) not in set(
                                pb[pb.athlete_id.isin(trows[trows[st_col].fillna("") != ""].aid)].athlete_display_name.map(M.name_key))),
                            empty_team_flag=bool(len(Rt) == 0),
-                           report_status=_submission_status(t, g))
+                           report_status=_safe_status(t, g))
         rec["report_diagnostics"] = diag
         Rc = R[R.season == SEASON]
         unknown = sorted({f"{c}|{n}" for c, n in zip(Rc.team_code, Rc.team) if nba_teams.resolve(c) is None and nba_teams.resolve(n) is None})
