@@ -47,3 +47,35 @@ rate_R = rate x exp(theta_1 x (1 - start10) + theta_2 x (1 - app10))
 - **A stat that fails** is recorded and dropped.
 - No other adjustment or tuning follows from the results.
 - No minutes change is part of this test.
+
+## Outcome (23 Oct 2026). All three stats fail; nothing adopted
+Run: research/nba_props_role_rate_test.py (results research/nba_props_role_rate_results.json). Development seasons 2022-2026.
+
+**Fitted adjustments:** small and stable across seasons. For a full-bench, irregular player:
+- points about -1% to -2%;
+- assists about -1.5% to -3%;
+- rebounds about +1% to +1.5%.
+
+The prior did not bind much; the fitted effects are small.
+
+| Stat | Unconditional RPS base / role | Gain (97.5% lower bound) | Seasons better | Gates failed |
+|---|---|---|---|---|
+| Points | 0.0359739 / 0.0359755 | -0.0000016 (-0.0000044) | 1 of 5 | 1 overall; 4 established (mean error 0.026 to 0.050, worse by more than 0.02) |
+| Rebounds | 0.0358433 / 0.0358453 | -0.0000020 (-0.0000035) | 0 of 5 | 1 overall; 3 fixed-group bias (worse) |
+| Assists | 0.0291433 / 0.0291423 | +0.0000010 (-0.0000019) | 2 of 5 | 1 overall |
+
+Calibration passes for all three.
+
+**Fixed-group bias:**
+- Points and assists improve where intended:
+  - points: bench mean 7.03 to 6.96 (actual 6.85); risk over gap 1.0 to 0.5 points;
+  - assists: bench mean 1.58 to 1.56 (actual 1.55); risk over gap 2.2 to 1.6 points.
+- Rebounds get worse:
+  - the bench and risk forecasts were already slightly high, through minutes;
+  - raising the per-minute rate (the direction the per-minute diagnostic pointed) adds to that;
+  - so for rebounds, the per-minute and minutes errors offset each other.
+
+**Reading:**
+- The role adjustment removes part of the fringe bias for points and assists without improving overall forecast scores. The bias it fixes is small relative to total forecast error.
+- For rebounds, correcting the rate alone is the wrong lever while the minutes bias remains.
+- Recorded and dropped under the rule. No forward challenger, no further form or tuning.

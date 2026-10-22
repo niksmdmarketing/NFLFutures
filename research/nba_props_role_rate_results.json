@@ -1,0 +1,347 @@
+{
+ "rule": "research/NBA_ROLE_RATE_RULE.md",
+ "theta": {
+  "pts": {
+   "2022": [
+    -0.00825,
+    0.00188
+   ],
+   "2023": [
+    -0.00948,
+    -0.00057
+   ],
+   "2024": [
+    -0.01054,
+    -0.00351
+   ],
+   "2025": [
+    -0.01222,
+    -0.00604
+   ],
+   "2026": [
+    -0.01169,
+    -0.00746
+   ]
+  },
+  "reb": {
+   "2022": [
+    0.00345,
+    0.00937
+   ],
+   "2023": [
+    0.002,
+    0.00959
+   ],
+   "2024": [
+    0.00175,
+    0.00695
+   ],
+   "2025": [
+    0.00054,
+    0.01171
+   ],
+   "2026": [
+    0.00109,
+    0.01025
+   ]
+  },
+  "ast": {
+   "2022": [
+    -0.01654,
+    0.00174
+   ],
+   "2023": [
+    -0.01622,
+    -0.00624
+   ],
+   "2024": [
+    -0.0148,
+    -0.01258
+   ],
+   "2025": [
+    -0.017,
+    -0.00441
+   ],
+   "2026": [
+    -0.01796,
+    -0.00492
+   ]
+  }
+ },
+ "stats": {
+  "pts": {
+   "rps_uncond": {
+    "base": 0.0359739,
+    "role": 0.0359755
+   },
+   "gain": -1.62e-06,
+   "lower97_5": -4.36e-06,
+   "by_season": {
+    "2022": 2.6e-06,
+    "2023": -1.3e-06,
+    "2024": -4e-07,
+    "2025": -5.1e-06,
+    "2026": -4.1e-06
+   },
+   "cond_gain": 1e-05,
+   "pit_role": [
+    0.123,
+    0.096,
+    0.09,
+    0.093,
+    0.097,
+    0.097,
+    0.102,
+    0.104,
+    0.103,
+    0.096
+   ],
+   "pit_base": [
+    0.124,
+    0.096,
+    0.092,
+    0.093,
+    0.097,
+    0.097,
+    0.101,
+    0.102,
+    0.103,
+    0.095
+   ],
+   "groups": {
+    "bench": {
+     "n": 71499,
+     "actual_mean": 6.8536,
+     "base": {
+      "mean": 7.0317,
+      "rps_uncond": 0.02553,
+      "over_gap": 0.0066
+     },
+     "role": {
+      "mean": 6.9602,
+      "rps_uncond": 0.025533,
+      "over_gap": 0.0012
+     }
+    },
+    "risk": {
+     "n": 48438,
+     "actual_mean": 5.0718,
+     "base": {
+      "mean": 5.3166,
+      "rps_uncond": 0.02035,
+      "over_gap": 0.0099
+     },
+     "role": {
+      "mean": 5.2605,
+      "rps_uncond": 0.020344,
+      "over_gap": 0.0052
+     }
+    },
+    "established": {
+     "n": 57575,
+     "actual_mean": 16.0657,
+     "base": {
+      "mean": 16.0397,
+      "rps_uncond": 0.057525,
+      "over_gap": -0.0069
+     },
+     "role": {
+      "mean": 16.016,
+      "rps_uncond": 0.057531,
+      "over_gap": -0.0084
+     }
+    }
+   },
+   "gates": {
+    "1_overall": false,
+    "2_calibration": true,
+    "3_fixed_group_bias": true,
+    "4_established_no_harm": false
+   },
+   "passes": false
+  },
+  "reb": {
+   "rps_uncond": {
+    "base": 0.0358433,
+    "role": 0.0358453
+   },
+   "gain": -1.95e-06,
+   "lower97_5": -3.49e-06,
+   "by_season": {
+    "2022": -5.4e-06,
+    "2023": -1e-06,
+    "2024": -4e-07,
+    "2025": -2e-07,
+    "2026": -2.5e-06
+   },
+   "cond_gain": -9.08e-06,
+   "pit_role": [
+    0.103,
+    0.105,
+    0.104,
+    0.101,
+    0.1,
+    0.1,
+    0.098,
+    0.096,
+    0.096,
+    0.098
+   ],
+   "pit_base": [
+    0.102,
+    0.105,
+    0.102,
+    0.102,
+    0.101,
+    0.098,
+    0.097,
+    0.097,
+    0.096,
+    0.098
+   ],
+   "groups": {
+    "bench": {
+     "n": 71499,
+     "actual_mean": 2.9903,
+     "base": {
+      "mean": 3.0241,
+      "rps_uncond": 0.027053,
+      "over_gap": 0.0112
+     },
+     "role": {
+      "mean": 3.0348,
+      "rps_uncond": 0.027056,
+      "over_gap": 0.0131
+     }
+    },
+    "risk": {
+     "n": 48438,
+     "actual_mean": 2.5754,
+     "base": {
+      "mean": 2.5999,
+      "rps_uncond": 0.023652,
+      "over_gap": 0.0103
+     },
+     "role": {
+      "mean": 2.6107,
+      "rps_uncond": 0.023655,
+      "over_gap": 0.0122
+     }
+    },
+    "established": {
+     "n": 57575,
+     "actual_mean": 5.4969,
+     "base": {
+      "mean": 5.5417,
+      "rps_uncond": 0.051658,
+      "over_gap": 0.0104
+     },
+     "role": {
+      "mean": 5.5481,
+      "rps_uncond": 0.051658,
+      "over_gap": 0.0113
+     }
+    }
+   },
+   "gates": {
+    "1_overall": false,
+    "2_calibration": true,
+    "3_fixed_group_bias": false,
+    "4_established_no_harm": true
+   },
+   "passes": false
+  },
+  "ast": {
+   "rps_uncond": {
+    "base": 0.0291433,
+    "role": 0.0291423
+   },
+   "gain": 9.6e-07,
+   "lower97_5": -1.91e-06,
+   "by_season": {
+    "2022": 2.9e-06,
+    "2023": -2.5e-06,
+    "2024": -5e-07,
+    "2025": 9e-07,
+    "2026": 3.8e-06
+   },
+   "cond_gain": 1.269e-05,
+   "pit_role": [
+    0.098,
+    0.101,
+    0.103,
+    0.103,
+    0.101,
+    0.1,
+    0.098,
+    0.099,
+    0.098,
+    0.1
+   ],
+   "pit_base": [
+    0.1,
+    0.102,
+    0.105,
+    0.101,
+    0.102,
+    0.099,
+    0.098,
+    0.098,
+    0.097,
+    0.098
+   ],
+   "groups": {
+    "bench": {
+     "n": 71499,
+     "actual_mean": 1.5478,
+     "base": {
+      "mean": 1.5824,
+      "rps_uncond": 0.019674,
+      "over_gap": 0.0193
+     },
+     "role": {
+      "mean": 1.557,
+      "rps_uncond": 0.019672,
+      "over_gap": 0.0129
+     }
+    },
+    "risk": {
+     "n": 48438,
+     "actual_mean": 1.1358,
+     "base": {
+      "mean": 1.1806,
+      "rps_uncond": 0.015058,
+      "over_gap": 0.0216
+     },
+     "role": {
+      "mean": 1.1607,
+      "rps_uncond": 0.01505,
+      "over_gap": 0.0159
+     }
+    },
+    "established": {
+     "n": 57575,
+     "actual_mean": 3.7056,
+     "base": {
+      "mean": 3.6657,
+      "rps_uncond": 0.04909,
+      "over_gap": -0.0044
+     },
+     "role": {
+      "mean": 3.657,
+      "rps_uncond": 0.049096,
+      "over_gap": -0.006
+     }
+    }
+   },
+   "gates": {
+    "1_overall": false,
+    "2_calibration": true,
+    "3_fixed_group_bias": true,
+    "4_established_no_harm": true
+   },
+   "passes": false
+  }
+ },
+ "label": "Development seasons 2022-2026: a pass makes a frozen forward challenger only (separate decision); not adoption."
+}
