@@ -1,12 +1,12 @@
 {
  "schema_version": 2,
  "source_url": "https://www.nfl.com/injuries/",
- "generated_at": "2026-10-21T23:23:43+00:00",
- "last_attempt_at": "2026-10-21T23:23:43+00:00",
+ "generated_at": "2026-10-22T04:53:14+00:00",
+ "last_attempt_at": "2026-10-22T04:53:14+00:00",
  "last_attempt_ok": true,
  "last_error": null,
- "last_success_at": "2026-10-21T23:23:43+00:00",
- "report_first_seen_at": "2026-10-21T23:23:43+00:00",
+ "last_success_at": "2026-10-22T04:53:14+00:00",
+ "report_first_seen_at": "2026-10-22T04:53:14+00:00",
  "collection_status": "ok",
  "stale_after_hours": 6,
  "report_season": 2026,
@@ -25,6 +25,7 @@
   "HOU",
   "IND",
   "KC",
+  "LA",
   "LV",
   "MIA",
   "MIN",
@@ -70,7 +71,6 @@
  ],
  "missing_teams": [
   "DAL",
-  "LA",
   "PHI"
  ],
  "source_game_dates": [
@@ -79,7 +79,7 @@
   "2026-10-26"
  ],
  "status_counts": {
-  "No game status": 254,
+  "No game status": 258,
   "Out": 7,
   "Doubtful": 1,
   "Questionable": 5
@@ -1394,6 +1394,46 @@
    "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/trey-smith/"
+  },
+  {
+   "team": "LA",
+   "player_id": "colby-parkinson",
+   "player": "Colby Parkinson",
+   "position": "TE",
+   "injury": null,
+   "practice_status": "Full Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/colby-parkinson/"
+  },
+  {
+   "team": "LA",
+   "player_id": "josh-wallace",
+   "player": "Josh Wallace",
+   "position": "CB",
+   "injury": null,
+   "practice_status": "Full Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/josh-wallace/"
+  },
+  {
+   "team": "LA",
+   "player_id": "nate-landman",
+   "player": "Nate Landman",
+   "position": "LB",
+   "injury": null,
+   "practice_status": "Did Not Participate In Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/nate-landman/"
+  },
+  {
+   "team": "LA",
+   "player_id": "trent-mcduffie",
+   "player": "Trent McDuffie",
+   "position": "CB",
+   "injury": null,
+   "practice_status": "Did Not Participate In Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/trent-mcduffie/"
   },
   {
    "team": "LV",
@@ -2758,6 +2798,82 @@
  ],
  "recent_changes": [
   {
+   "observed_at": "2026-10-22T04:53:14+00:00",
+   "season": 2026,
+   "week": 7,
+   "team": "LA",
+   "player_id": "trent-mcduffie",
+   "kind": "appeared",
+   "before": null,
+   "after": {
+    "team": "LA",
+    "player_id": "trent-mcduffie",
+    "player": "Trent McDuffie",
+    "position": "CB",
+    "injury": null,
+    "practice_status": "Did Not Participate In Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/trent-mcduffie/"
+   }
+  },
+  {
+   "observed_at": "2026-10-22T04:53:14+00:00",
+   "season": 2026,
+   "week": 7,
+   "team": "LA",
+   "player_id": "nate-landman",
+   "kind": "appeared",
+   "before": null,
+   "after": {
+    "team": "LA",
+    "player_id": "nate-landman",
+    "player": "Nate Landman",
+    "position": "LB",
+    "injury": null,
+    "practice_status": "Did Not Participate In Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/nate-landman/"
+   }
+  },
+  {
+   "observed_at": "2026-10-22T04:53:14+00:00",
+   "season": 2026,
+   "week": 7,
+   "team": "LA",
+   "player_id": "josh-wallace",
+   "kind": "appeared",
+   "before": null,
+   "after": {
+    "team": "LA",
+    "player_id": "josh-wallace",
+    "player": "Josh Wallace",
+    "position": "CB",
+    "injury": null,
+    "practice_status": "Full Participation in Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/josh-wallace/"
+   }
+  },
+  {
+   "observed_at": "2026-10-22T04:53:14+00:00",
+   "season": 2026,
+   "week": 7,
+   "team": "LA",
+   "player_id": "colby-parkinson",
+   "kind": "appeared",
+   "before": null,
+   "after": {
+    "team": "LA",
+    "player_id": "colby-parkinson",
+    "player": "Colby Parkinson",
+    "position": "TE",
+    "injury": null,
+    "practice_status": "Full Participation in Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/colby-parkinson/"
+   }
+  },
+  {
    "observed_at": "2026-10-21T23:23:43+00:00",
    "season": 2026,
    "week": 7,
@@ -3440,89 +3556,13 @@
     "game_status": null,
     "player_url": "https://www.nfl.com/players/ashtyn-davis/"
    }
-  },
-  {
-   "observed_at": "2026-10-21T23:23:43+00:00",
-   "season": 2026,
-   "week": 7,
-   "team": "SEA",
-   "player_id": "zach-charbonnet",
-   "kind": "appeared",
-   "before": null,
-   "after": {
-    "team": "SEA",
-    "player_id": "zach-charbonnet",
-    "player": "Zach Charbonnet",
-    "position": "RB",
-    "injury": null,
-    "practice_status": "Full Participation in Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/zach-charbonnet/"
-   }
-  },
-  {
-   "observed_at": "2026-10-21T23:23:43+00:00",
-   "season": 2026,
-   "week": 7,
-   "team": "SEA",
-   "player_id": "tyrice-knight",
-   "kind": "appeared",
-   "before": null,
-   "after": {
-    "team": "SEA",
-    "player_id": "tyrice-knight",
-    "player": "Tyrice Knight",
-    "position": "LB",
-    "injury": null,
-    "practice_status": "Limited Participation in Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/tyrice-knight/"
-   }
-  },
-  {
-   "observed_at": "2026-10-21T23:23:43+00:00",
-   "season": 2026,
-   "week": 7,
-   "team": "SEA",
-   "player_id": "rashid-shaheed",
-   "kind": "appeared",
-   "before": null,
-   "after": {
-    "team": "SEA",
-    "player_id": "rashid-shaheed",
-    "player": "Rashid Shaheed",
-    "position": "WR",
-    "injury": null,
-    "practice_status": "Limited Participation in Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/rashid-shaheed/"
-   }
-  },
-  {
-   "observed_at": "2026-10-21T23:23:43+00:00",
-   "season": 2026,
-   "week": 7,
-   "team": "SEA",
-   "player_id": "irvin-charles",
-   "kind": "appeared",
-   "before": null,
-   "after": {
-    "team": "SEA",
-    "player_id": "irvin-charles",
-    "player": "Irvin Charles",
-    "position": "WR",
-    "injury": null,
-    "practice_status": "Full Participation in Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/irvin-charles/"
-   }
   }
  ],
- "distinct_reports": 16,
- "checks": 275,
+ "distinct_reports": 17,
+ "checks": 276,
  "failed_checks": 0,
  "warnings": [
-  "3 team(s) playing this week are not on the report yet (DAL, LA, PHI). Teams usually appear as their game approaches; absence does not mean healthy."
+  "2 team(s) playing this week are not on the report yet (DAL, PHI). Teams usually appear as their game approaches; absence does not mean healthy."
  ],
  "projection_effect": "none",
  "return_timeline_coverage": "not_collected",
