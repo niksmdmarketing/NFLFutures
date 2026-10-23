@@ -524,6 +524,16 @@ def run(args):
             with gzip.GzipFile(fileobj=raw, mode="wb", mtime=0) as fh:
                 fh.write(json.dumps(rec).encode("utf-8"))
         written.append(fn)
+        # Primary is immutable and saved first. A challenger error cannot replace
+        # or suppress it; this separately identified test never feeds the site.
+        if not args.force_game and not args.now and not REPLAY:
+            try:
+                from nba_fast_memory_live import archive_challenger
+                shadow_path = archive_challenger(args.archive, fn, rec, Zt, rows, params[SEASON]) if len(Z) else None
+                if shadow_path:
+                    log.setdefault('fast_memory_written', []).append(os.path.relpath(shadow_path, args.archive))
+            except Exception as e:
+                log.setdefault('fast_memory_errors', []).append(dict(game_id=gid,horizon_min=h,error=repr(e)))
     log["written"] = [os.path.relpath(w, args.archive) for w in written]
     return log
 
