@@ -1,0 +1,60 @@
+{
+ "run_utc": "2026-10-23T19:46:01.050399+00:00",
+ "generated_utc": "2026-10-23T19:46:01.050416+00:00",
+ "targets": [
+  [
+   401909850,
+   360,
+   "2026-10-23T20:00:00+00:00"
+  ],
+  [
+   401909851,
+   360,
+   "2026-10-23T20:00:00+00:00"
+  ],
+  [
+   401909852,
+   360,
+   "2026-10-23T20:00:00+00:00"
+  ]
+ ],
+ "params_id": "b",
+ "box": {
+  "release_games_2027": 16,
+  "espn_filled": [],
+  "espn_failed": [],
+  "player_box_sha256": "8a3eb0604ee0bcb458994f271e58d6c4a45dff844b27f21dfe3f8255469275aa",
+  "team_box_sha256": "eb6cf9e8abd267f54dc150183adcdc22c72a6b4628c516de68ba56a6abb244c5"
+ },
+ "report": {
+  "url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-23_03_45PM.pdf",
+  "label": "2026-10-23 03_45PM",
+  "sha256": "6e8f59a6cf0482c8e33f9a77bb56c8fac74c5151ebed5b050a2fe3bd7b09b208",
+  "rows": 101,
+  "retrieved_utc": "2026-10-23T19:46:04.947851+00:00"
+ },
+ "report_rows_matched_via_last_season": 3020,
+ "fast_memory_errors": [
+  {
+   "game_id": 401909850,
+   "horizon_min": 360,
+   "error": "ValueError('Invalid observed-history timing')"
+  },
+  {
+   "game_id": 401909851,
+   "horizon_min": 360,
+   "error": "ValueError('Invalid observed-history timing')"
+  },
+  {
+   "game_id": 401909852,
+   "horizon_min": 360,
+   "error": "ValueError('Invalid observed-history timing')"
+  }
+ ],
+ "written": [
+  "nba/props_forward/2026-10-23/401909850_360_20261023T194601050399Z.json.gz",
+  "nba/props_forward/2026-10-23/401909851_360_20261023T194601050399Z.json.gz",
+  "nba/props_forward/2026-10-23/401909852_360_20261023T194601050399Z.json.gz"
+ ],
+ "seconds": 52.525443
+}
