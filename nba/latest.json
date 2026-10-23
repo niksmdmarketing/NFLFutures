@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-10-23T0739Z",
-"feed_timestamp": "2026-10-23T07:39:09Z",
+"collected_utc": "2026-10-23T1828Z",
+"feed_timestamp": "2026-10-23T18:28:36Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -52,40 +52,10 @@
 "injury": "Right Knee Surgery"
 },
 {
-"athlete_id": "4848625",
-"status": "Day-To-Day",
-"return_date": "2026-10-23",
-"injury": "Not Specified Illness Not Specified"
-},
-{
-"athlete_id": "4683750",
-"status": "Day-To-Day",
-"return_date": "2026-10-23",
-"injury": "Not Specified Illness Not Specified"
-},
-{
-"athlete_id": "4871145",
-"status": "Day-To-Day",
-"return_date": "2026-10-23",
-"injury": "Wrist"
-},
-{
 "athlete_id": "4278067",
 "status": "Out",
 "return_date": "2026-11-04",
 "injury": "Not Specified Hamstring"
-},
-{
-"athlete_id": "5105555",
-"status": "Day-To-Day",
-"return_date": "2026-10-23",
-"injury": "Left Knee Sprain"
-},
-{
-"athlete_id": "4066650",
-"status": "Day-To-Day",
-"return_date": "2026-10-23",
-"injury": "Quadriceps"
 },
 {
 "athlete_id": "3138160",
@@ -134,12 +104,6 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-24",
 "injury": "Not Specified Hamstring Not Specified"
-},
-{
-"athlete_id": "2990962",
-"status": "Day-To-Day",
-"return_date": "2026-10-23",
-"injury": "Personal"
 },
 {
 "athlete_id": "4709138",
@@ -334,6 +298,12 @@
 "injury": "Not Specified Back Fracture"
 },
 {
+"athlete_id": "3059318",
+"status": "Day-To-Day",
+"return_date": "2026-10-24",
+"injury": "Rest"
+},
+{
 "athlete_id": "3904625",
 "status": "Day-To-Day",
 "return_date": "2026-10-24",
@@ -434,12 +404,6 @@
 "status": "Out",
 "return_date": "2026-11-04",
 "injury": "Right Foot Strain"
-},
-{
-"athlete_id": "4065673",
-"status": "Day-To-Day",
-"return_date": "2026-10-23",
-"injury": "Left Quadriceps Strain"
 },
 {
 "athlete_id": "4433268",
@@ -546,33 +510,6 @@
 "updated": "2026-10-20T20:55Z"
 },
 {
-"athlete_id": "4848625",
-"name": "Dailyn Swain",
-"team_name": "Chicago Bulls",
-"status": "Day-To-Day",
-"return_date": "2026-10-23",
-"injury": "Not Specified Illness Not Specified",
-"updated": "2026-10-22T20:11Z"
-},
-{
-"athlete_id": "4683750",
-"name": "Jordan Hawkins",
-"team_name": "Chicago Bulls",
-"status": "Day-To-Day",
-"return_date": "2026-10-23",
-"injury": "Not Specified Illness Not Specified",
-"updated": "2026-10-22T20:09Z"
-},
-{
-"athlete_id": "4871145",
-"name": "Josh Giddey",
-"team_name": "Chicago Bulls",
-"status": "Day-To-Day",
-"return_date": "2026-10-23",
-"injury": "Wrist",
-"updated": "2026-10-22T20:04Z"
-},
-{
 "athlete_id": "4278067",
 "name": "Nic Claxton",
 "team_name": "Chicago Bulls",
@@ -580,24 +517,6 @@
 "return_date": "2026-11-04",
 "injury": "Not Specified Hamstring",
 "updated": "2026-10-19T17:38Z"
-},
-{
-"athlete_id": "5105555",
-"name": "Tobe Awaka",
-"team_name": "Chicago Bulls",
-"status": "Day-To-Day",
-"return_date": "2026-10-23",
-"injury": "Left Knee Sprain",
-"updated": "2026-10-22T20:05Z"
-},
-{
-"athlete_id": "4066650",
-"name": "Zach Collins",
-"team_name": "Chicago Bulls",
-"status": "Day-To-Day",
-"return_date": "2026-10-23",
-"injury": "Quadriceps",
-"updated": "2026-10-22T20:07Z"
 },
 {
 "athlete_id": "3138160",
@@ -670,15 +589,6 @@
 "return_date": "2026-10-24",
 "injury": "Not Specified Hamstring Not Specified",
 "updated": "2026-10-23T05:19Z"
-},
-{
-"athlete_id": "2990962",
-"name": "Taurean Prince",
-"team_name": "Detroit Pistons",
-"status": "Day-To-Day",
-"return_date": "2026-10-23",
-"injury": "Personal",
-"updated": "2026-10-22T19:04Z"
 },
 {
 "athlete_id": "4709138",
@@ -912,7 +822,7 @@
 "status": "Out",
 "return_date": "2026-10-25",
 "injury": "Right Ankle Sprain",
-"updated": "2026-10-22T20:21Z"
+"updated": "2026-10-23T16:06Z"
 },
 {
 "athlete_id": "5107251",
@@ -969,6 +879,15 @@
 "updated": "2026-10-19T21:07Z"
 },
 {
+"athlete_id": "3059318",
+"name": "Joel Embiid",
+"team_name": "Philadelphia 76ers",
+"status": "Day-To-Day",
+"return_date": "2026-10-24",
+"injury": "Rest",
+"updated": "2026-10-23T14:03Z"
+},
+{
 "athlete_id": "3904625",
 "name": "Tacko Fall",
 "team_name": "Philadelphia 76ers",
@@ -984,7 +903,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-24",
 "injury": "Left Knee Strain",
-"updated": "2026-10-23T07:01Z"
+"updated": "2026-10-23T18:00Z"
 },
 {
 "athlete_id": "4701232",
@@ -1074,7 +993,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-23",
 "injury": "Right Wrist Sprain",
-"updated": "2026-10-22T22:11Z"
+"updated": "2026-10-23T17:37Z"
 },
 {
 "athlete_id": "5101845",
@@ -1092,7 +1011,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-23",
 "injury": "Mouth Laceration",
-"updated": "2026-10-22T22:05Z"
+"updated": "2026-10-23T17:38Z"
 },
 {
 "athlete_id": "6440",
@@ -1120,15 +1039,6 @@
 "return_date": "2026-11-04",
 "injury": "Right Foot Strain",
 "updated": "2026-10-07T23:07Z"
-},
-{
-"athlete_id": "4065673",
-"name": "Tony Bradley",
-"team_name": "Utah Jazz",
-"status": "Day-To-Day",
-"return_date": "2026-10-23",
-"injury": "Left Quadriceps Strain",
-"updated": "2026-10-22T23:02Z"
 },
 {
 "athlete_id": "4433268",
