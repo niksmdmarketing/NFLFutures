@@ -1,12 +1,12 @@
 {
  "schema_version": 2,
  "source_url": "https://www.nfl.com/injuries/",
- "generated_at": "2026-10-22T21:39:28+00:00",
- "last_attempt_at": "2026-10-22T21:39:28+00:00",
+ "generated_at": "2026-10-23T00:43:03+00:00",
+ "last_attempt_at": "2026-10-23T00:43:03+00:00",
  "last_attempt_ok": true,
  "last_error": null,
- "last_success_at": "2026-10-22T21:39:28+00:00",
- "report_first_seen_at": "2026-10-22T21:39:28+00:00",
+ "last_success_at": "2026-10-23T00:43:03+00:00",
+ "report_first_seen_at": "2026-10-23T00:43:03+00:00",
  "collection_status": "ok",
  "stale_after_hours": 6,
  "report_season": 2026,
@@ -19,6 +19,7 @@
   "CHI",
   "CIN",
   "CLE",
+  "DAL",
   "DEN",
   "DET",
   "GB",
@@ -33,6 +34,7 @@
   "NO",
   "NYG",
   "NYJ",
+  "PHI",
   "PIT",
   "SEA",
   "SF",
@@ -69,18 +71,15 @@
   "TB",
   "TEN"
  ],
- "missing_teams": [
-  "DAL",
-  "PHI"
- ],
+ "missing_teams": [],
  "source_game_dates": [
   "2026-10-22",
   "2026-10-25",
   "2026-10-26"
  ],
  "status_counts": {
-  "No game status": 261,
-  "Out": 7,
+  "No game status": 320,
+  "Out": 9,
   "Doubtful": 1,
   "Questionable": 5
  },
@@ -111,9 +110,19 @@
    "player": "Carson Beck",
    "position": "QB",
    "injury": null,
-   "practice_status": "Limited Participation in Practice",
+   "practice_status": "Did Not Participate In Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/carson-beck/"
+  },
+  {
+   "team": "ARI",
+   "player_id": "darius-robinson-2",
+   "player": "Darius Robinson",
+   "position": "DT",
+   "injury": null,
+   "practice_status": "Limited Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/darius-robinson-2/"
   },
   {
    "team": "ARI",
@@ -121,7 +130,7 @@
    "player": "Garrett Williams",
    "position": "CB",
    "injury": null,
-   "practice_status": "Did Not Participate In Practice",
+   "practice_status": "Limited Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/garrett-williams/"
   },
@@ -131,7 +140,7 @@
    "player": "Isaac Seumalo",
    "position": "G",
    "injury": null,
-   "practice_status": "Did Not Participate In Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/isaac-seumalo/"
   },
@@ -141,7 +150,7 @@
    "player": "Jedrick Wills",
    "position": "T",
    "injury": null,
-   "practice_status": "Did Not Participate In Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/jedrick-wills/"
   },
@@ -157,11 +166,21 @@
   },
   {
    "team": "ARI",
+   "player_id": "jon-gaines-ii",
+   "player": "Jon Gaines II",
+   "position": "G",
+   "injury": null,
+   "practice_status": "Limited Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/jon-gaines-ii/"
+  },
+  {
+   "team": "ARI",
    "player_id": "josh-sweat",
    "player": "Josh Sweat",
    "position": "LB",
    "injury": null,
-   "practice_status": "Did Not Participate In Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/josh-sweat/"
   },
@@ -171,7 +190,7 @@
    "player": "Max Melton",
    "position": "CB",
    "injury": null,
-   "practice_status": "Limited Participation in Practice",
+   "practice_status": "Did Not Participate In Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/max-melton/"
   },
@@ -191,7 +210,7 @@
    "player": "Wydett Williams Jr.",
    "position": "S",
    "injury": null,
-   "practice_status": "Limited Participation in Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/wydett-williams-jr/"
   },
@@ -221,7 +240,7 @@
    "player": "Beaux Collins",
    "position": "WR",
    "injury": null,
-   "practice_status": "Limited Participation in Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/beaux-collins/"
   },
@@ -241,7 +260,7 @@
    "player": "Brian Robinson",
    "position": "RB",
    "injury": null,
-   "practice_status": "Limited Participation in Practice",
+   "practice_status": "Did Not Participate In Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/brian-robinson/"
   },
@@ -257,6 +276,26 @@
   },
   {
    "team": "ATL",
+   "player_id": "cameron-thomas",
+   "player": "Cameron Thomas",
+   "position": "DE",
+   "injury": null,
+   "practice_status": "Limited Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/cameron-thomas/"
+  },
+  {
+   "team": "ATL",
+   "player_id": "cameron-williams",
+   "player": "Cameron Williams",
+   "position": "T",
+   "injury": null,
+   "practice_status": "Limited Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/cameron-williams/"
+  },
+  {
+   "team": "ATL",
    "player_id": "divine-deablo",
    "player": "Divine Deablo",
    "position": "LB",
@@ -267,11 +306,31 @@
   },
   {
    "team": "ATL",
+   "player_id": "gervon-dexter",
+   "player": "Gervon Dexter Sr.",
+   "position": "DT",
+   "injury": null,
+   "practice_status": "Limited Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/gervon-dexter/"
+  },
+  {
+   "team": "ATL",
+   "player_id": "jawaan-taylor",
+   "player": "Jawaan Taylor",
+   "position": "T",
+   "injury": null,
+   "practice_status": "Did Not Participate In Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/jawaan-taylor/"
+  },
+  {
+   "team": "ATL",
    "player_id": "kendal-daniels",
    "player": "Kendal Daniels",
    "position": "LB",
    "injury": null,
-   "practice_status": "Full Participation in Practice",
+   "practice_status": "Limited Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/kendal-daniels/"
   },
@@ -281,7 +340,7 @@
    "player": "Michael Jerrell",
    "position": "T",
    "injury": null,
-   "practice_status": "Limited Participation in Practice",
+   "practice_status": "Did Not Participate In Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/michael-jerrell/"
   },
@@ -321,7 +380,7 @@
    "player": "Andrew Vorhees",
    "position": "G",
    "injury": null,
-   "practice_status": "Limited Participation in Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/andrew-vorhees/"
   },
@@ -341,7 +400,7 @@
    "player": "Calais Campbell",
    "position": "DT",
    "injury": null,
-   "practice_status": "Did Not Participate In Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/calais-campbell/"
   },
@@ -361,7 +420,7 @@
    "player": "Jaylinn Hawkins",
    "position": "S",
    "injury": null,
-   "practice_status": "Limited Participation in Practice",
+   "practice_status": "Did Not Participate In Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/jaylinn-hawkins/"
   },
@@ -371,7 +430,7 @@
    "player": "John Simpson",
    "position": "G",
    "injury": null,
-   "practice_status": "Limited Participation in Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/john-simpson-2/"
   },
@@ -401,7 +460,7 @@
    "player": "Matthew Hibner",
    "position": "TE",
    "injury": null,
-   "practice_status": "Limited Participation in Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/matthew-hibner/"
   },
@@ -411,7 +470,7 @@
    "player": "Olaivavega Ioane",
    "position": "G",
    "injury": null,
-   "practice_status": "Limited Participation in Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/olaivavega-ioane/"
   },
@@ -421,7 +480,7 @@
    "player": "Rashod Bateman",
    "position": "WR",
    "injury": null,
-   "practice_status": "Limited Participation in Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/rashod-bateman/"
   },
@@ -431,7 +490,7 @@
    "player": "Ronnie Stanley",
    "position": "T",
    "injury": null,
-   "practice_status": "Limited Participation in Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/ronnie-stanley/"
   },
@@ -501,7 +560,7 @@
    "player": "Chuba Hubbard",
    "position": "RB",
    "injury": null,
-   "practice_status": "Did Not Participate In Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/chuba-hubbard/"
   },
@@ -511,7 +570,7 @@
    "player": "Darren Waller",
    "position": "TE",
    "injury": null,
-   "practice_status": "Did Not Participate In Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/darren-waller/"
   },
@@ -521,7 +580,7 @@
    "player": "Devin Lloyd",
    "position": "LB",
    "injury": null,
-   "practice_status": "Did Not Participate In Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/devin-lloyd/"
   },
@@ -551,7 +610,7 @@
    "player": "Taylor Moton",
    "position": "T",
    "injury": null,
-   "practice_status": "Did Not Participate In Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/taylor-moton/"
   },
@@ -627,11 +686,31 @@
   },
   {
    "team": "CIN",
+   "player_id": "b-j-hill",
+   "player": "B.J. Hill",
+   "position": "DT",
+   "injury": null,
+   "practice_status": "Limited Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/b-j-hill/"
+  },
+  {
+   "team": "CIN",
+   "player_id": "jonathan-allen",
+   "player": "Jonathan Allen",
+   "position": "DT",
+   "injury": null,
+   "practice_status": "Did Not Participate In Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/jonathan-allen/"
+  },
+  {
+   "team": "CIN",
    "player_id": "kyle-dugger",
    "player": "Kyle Dugger",
    "position": "S",
    "injury": null,
-   "practice_status": "Limited Participation in Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/kyle-dugger/"
   },
@@ -641,7 +720,7 @@
    "player": "Carson Schwesinger",
    "position": "LB",
    "injury": null,
-   "practice_status": "Did Not Participate In Practice",
+   "practice_status": "Limited Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/carson-schwesinger/"
   },
@@ -691,7 +770,7 @@
    "player": "Elgton Jenkins",
    "position": "C",
    "injury": null,
-   "practice_status": "Did Not Participate In Practice",
+   "practice_status": "Limited Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/elgton-jenkins/"
   },
@@ -701,7 +780,7 @@
    "player": "Grant Delpit",
    "position": "S",
    "injury": null,
-   "practice_status": "Did Not Participate In Practice",
+   "practice_status": "Limited Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/grant-delpit/"
   },
@@ -741,7 +820,7 @@
    "player": "Maliek Collins",
    "position": "DT",
    "injury": null,
-   "practice_status": "Limited Participation in Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/maliek-collins/"
   },
@@ -764,6 +843,16 @@
    "practice_status": "Did Not Participate In Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/michael-hall-jr/"
+  },
+  {
+   "team": "CLE",
+   "player_id": "quincy-williams",
+   "player": "Quincy Williams",
+   "position": "LB",
+   "injury": null,
+   "practice_status": "Did Not Participate In Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/quincy-williams/"
   },
   {
    "team": "CLE",
@@ -794,6 +883,126 @@
    "practice_status": "Limited Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/tytus-howard-x1979/"
+  },
+  {
+   "team": "DAL",
+   "player_id": "alijah-clark",
+   "player": "Alijah Clark",
+   "position": "S",
+   "injury": null,
+   "practice_status": "Full Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/alijah-clark/"
+  },
+  {
+   "team": "DAL",
+   "player_id": "ameer-speed",
+   "player": "Ameer Speed",
+   "position": "CB",
+   "injury": null,
+   "practice_status": "Full Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/ameer-speed/"
+  },
+  {
+   "team": "DAL",
+   "player_id": "cobie-durant",
+   "player": "Cobie Durant",
+   "position": "CB",
+   "injury": null,
+   "practice_status": "Limited Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/cobie-durant/"
+  },
+  {
+   "team": "DAL",
+   "player_id": "dee-winters",
+   "player": "Dee Winters",
+   "position": "LB",
+   "injury": null,
+   "practice_status": "Did Not Participate In Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/dee-winters/"
+  },
+  {
+   "team": "DAL",
+   "player_id": "demarvion-overshown",
+   "player": "DeMarvion Overshown",
+   "position": "LB",
+   "injury": null,
+   "practice_status": "Full Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/demarvion-overshown/"
+  },
+  {
+   "team": "DAL",
+   "player_id": "drew-shelton",
+   "player": "Drew Shelton",
+   "position": "T",
+   "injury": null,
+   "practice_status": "Did Not Participate In Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/drew-shelton/"
+  },
+  {
+   "team": "DAL",
+   "player_id": "george-pickens",
+   "player": "George Pickens",
+   "position": "WR",
+   "injury": null,
+   "practice_status": "Limited Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/george-pickens/"
+  },
+  {
+   "team": "DAL",
+   "player_id": "joey-porter-jr",
+   "player": "Joey Porter Jr.",
+   "position": "CB",
+   "injury": null,
+   "practice_status": "Full Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/joey-porter-jr/"
+  },
+  {
+   "team": "DAL",
+   "player_id": "kavontae-turpin",
+   "player": "KaVontae Turpin",
+   "position": "WR",
+   "injury": null,
+   "practice_status": "Did Not Participate In Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/kavontae-turpin/"
+  },
+  {
+   "team": "DAL",
+   "player_id": "marist-liufau",
+   "player": "Marist Liufau",
+   "position": "LB",
+   "injury": null,
+   "practice_status": "Limited Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/marist-liufau/"
+  },
+  {
+   "team": "DAL",
+   "player_id": "tyler-guyton",
+   "player": "Tyler Guyton",
+   "position": "T",
+   "injury": null,
+   "practice_status": "Limited Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/tyler-guyton/"
+  },
+  {
+   "team": "DAL",
+   "player_id": "von-miller",
+   "player": "Von Miller",
+   "position": "LB",
+   "injury": null,
+   "practice_status": "Did Not Participate In Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/von-miller/"
   },
   {
    "team": "DEN",
@@ -871,7 +1080,7 @@
    "player": "Zach Allen",
    "position": "DE",
    "injury": null,
-   "practice_status": "Limited Participation in Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/zach-allen/"
   },
@@ -971,7 +1180,7 @@
    "player": "Jordan Love",
    "position": "QB",
    "injury": null,
-   "practice_status": "Limited Participation in Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/jordan-love/"
   },
@@ -984,6 +1193,16 @@
    "practice_status": "Limited Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/jordon-riley/"
+  },
+  {
+   "team": "GB",
+   "player_id": "lukas-van-ness",
+   "player": "Lukas Van Ness",
+   "position": "LB",
+   "injury": null,
+   "practice_status": "Limited Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/lukas-van-ness/"
   },
   {
    "team": "GB",
@@ -1006,12 +1225,22 @@
    "player_url": "https://www.nfl.com/players/savion-williams/"
   },
   {
+   "team": "GB",
+   "player_id": "zaire-franklin",
+   "player": "Zaire Franklin",
+   "position": "LB",
+   "injury": null,
+   "practice_status": "Limited Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/zaire-franklin/"
+  },
+  {
    "team": "HOU",
    "player_id": "azeez-al-shaair",
    "player": "Azeez Al-Shaair",
    "position": "LB",
    "injury": null,
-   "practice_status": "Did Not Participate In Practice",
+   "practice_status": "Limited Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/azeez-al-shaair/"
   },
@@ -1027,11 +1256,21 @@
   },
   {
    "team": "HOU",
+   "player_id": "brevin-jordan",
+   "player": "Brevin Jordan",
+   "position": "TE",
+   "injury": null,
+   "practice_status": "Limited Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/brevin-jordan/"
+  },
+  {
+   "team": "HOU",
    "player_id": "dalton-schultz",
    "player": "Dalton Schultz",
    "position": "TE",
    "injury": null,
-   "practice_status": "Did Not Participate In Practice",
+   "practice_status": "Limited Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/dalton-schultz/"
   },
@@ -1044,6 +1283,16 @@
    "practice_status": "Did Not Participate In Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/david-montgomery/"
+  },
+  {
+   "team": "HOU",
+   "player_id": "ed-ingram",
+   "player": "Ed Ingram",
+   "position": "G",
+   "injury": null,
+   "practice_status": "Full Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/ed-ingram/"
   },
   {
    "team": "HOU",
@@ -1061,7 +1310,7 @@
    "player": "Jadeveon Clowney",
    "position": "DE",
    "injury": null,
-   "practice_status": "Limited Participation in Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/jadeveon-clowney/"
   },
@@ -1081,7 +1330,7 @@
    "player": "Logan Hall",
    "position": "DE",
    "injury": null,
-   "practice_status": "Limited Participation in Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/logan-hall/"
   },
@@ -1121,7 +1370,7 @@
    "player": "Trent Brown",
    "position": "T",
    "injury": null,
-   "practice_status": "Did Not Participate In Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/trent-brown/"
   },
@@ -1194,6 +1443,16 @@
    "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/charvarius-ward/"
+  },
+  {
+   "team": "IND",
+   "player_id": "cj-allen",
+   "player": "CJ Allen",
+   "position": "LB",
+   "injury": null,
+   "practice_status": "Limited Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/cj-allen/"
   },
   {
    "team": "IND",
@@ -1304,6 +1563,16 @@
    "practice_status": "Did Not Participate In Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/tyler-warren/"
+  },
+  {
+   "team": "KC",
+   "player_id": "brashard-smith",
+   "player": "Brashard Smith",
+   "position": "RB",
+   "injury": null,
+   "practice_status": "Limited Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/brashard-smith/"
   },
   {
    "team": "KC",
@@ -1437,6 +1706,16 @@
   },
   {
    "team": "LA",
+   "player_id": "puka-nacua",
+   "player": "Puka Nacua",
+   "position": "WR",
+   "injury": null,
+   "practice_status": "Limited Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/puka-nacua/"
+  },
+  {
+   "team": "LA",
    "player_id": "trent-mcduffie",
    "player": "Trent McDuffie",
    "position": "CB",
@@ -1451,7 +1730,7 @@
    "player": "Brock Bowers",
    "position": "TE",
    "injury": null,
-   "practice_status": "Limited Participation in Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/brock-bowers/"
   },
@@ -1481,7 +1760,7 @@
    "player": "Foley Fatukasi",
    "position": "DT",
    "injury": null,
-   "practice_status": "Limited Participation in Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/foley-fatukasi/"
   },
@@ -1491,7 +1770,7 @@
    "player": "Kolton Miller",
    "position": "T",
    "injury": null,
-   "practice_status": "Limited Participation in Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/kolton-miller/"
   },
@@ -1501,7 +1780,7 @@
    "player": "Mike Washington Jr.",
    "position": "RB",
    "injury": null,
-   "practice_status": "Limited Participation in Practice",
+   "practice_status": "Did Not Participate In Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/mike-washington-jr/"
   },
@@ -1541,7 +1820,7 @@
    "player": "Tonka Hemingway",
    "position": "DT",
    "injury": null,
-   "practice_status": "Did Not Participate In Practice",
+   "practice_status": "Limited Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/tonka-hemingway/"
   },
@@ -1676,12 +1955,22 @@
    "player_url": "https://www.nfl.com/players/will-kacmarek/"
   },
   {
+   "team": "MIA",
+   "player_id": "willie-gay-jr",
+   "player": "Willie Gay Jr.",
+   "position": "LB",
+   "injury": null,
+   "practice_status": "Did Not Participate In Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/willie-gay-jr/"
+  },
+  {
    "team": "MIN",
    "player_id": "brian-o-neill",
    "player": "Brian O'Neill",
    "position": "T",
    "injury": null,
-   "practice_status": "Limited Participation in Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/brian-o-neill/"
   },
@@ -1711,7 +2000,7 @@
    "player": "James Pierre",
    "position": "CB",
    "injury": null,
-   "practice_status": "Limited Participation in Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/james-pierre/"
   },
@@ -1741,7 +2030,7 @@
    "player": "Justin Jefferson",
    "position": "WR",
    "injury": null,
-   "practice_status": "Limited Participation in Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/justin-jefferson/"
   },
@@ -1961,7 +2250,7 @@
    "player": "CJ Donaldson",
    "position": "RB",
    "injury": null,
-   "practice_status": "Limited Participation in Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/cj-donaldson/"
   },
@@ -1974,6 +2263,16 @@
    "practice_status": "Did Not Participate In Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/daniel-carlson/"
+  },
+  {
+   "team": "NO",
+   "player_id": "davon-godchaux",
+   "player": "Davon Godchaux",
+   "position": "DT",
+   "injury": null,
+   "practice_status": "Did Not Participate In Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/davon-godchaux/"
   },
   {
    "team": "NO",
@@ -2007,6 +2306,16 @@
   },
   {
    "team": "NO",
+   "player_id": "spencer-rattler",
+   "player": "Spencer Rattler",
+   "position": "QB",
+   "injury": null,
+   "practice_status": "Full Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/spencer-rattler/"
+  },
+  {
+   "team": "NO",
    "player_id": "tyler-shough",
    "player": "Tyler Shough",
    "position": "QB",
@@ -2021,7 +2330,7 @@
    "player": "Andrew Thomas",
    "position": "T",
    "injury": null,
-   "practice_status": "Did Not Participate In Practice",
+   "practice_status": "Limited Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/andrew-thomas/"
   },
@@ -2037,11 +2346,21 @@
   },
   {
    "team": "NYG",
+   "player_id": "chris-manhertz",
+   "player": "Chris Manhertz",
+   "position": "TE",
+   "injury": null,
+   "practice_status": "Did Not Participate In Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/chris-manhertz/"
+  },
+  {
+   "team": "NYG",
    "player_id": "colton-hood",
    "player": "Colton Hood",
    "position": "CB",
    "injury": null,
-   "practice_status": "Limited Participation in Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/colton-hood/"
   },
@@ -2071,7 +2390,7 @@
    "player": "Jermaine Eluemunor",
    "position": "T",
    "injury": null,
-   "practice_status": "Did Not Participate In Practice",
+   "practice_status": "Limited Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/jermaine-eluemunor/"
   },
@@ -2081,7 +2400,7 @@
    "player": "Jevon Holland",
    "position": "S",
    "injury": null,
-   "practice_status": "Did Not Participate In Practice",
+   "practice_status": "Limited Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/jevon-holland/"
   },
@@ -2091,7 +2410,7 @@
    "player": "Jordan Stout",
    "position": "P",
    "injury": null,
-   "practice_status": "Limited Participation in Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/jordan-stout/"
   },
@@ -2101,7 +2420,7 @@
    "player": "Kayvon Thibodeaux",
    "position": "LB",
    "injury": null,
-   "practice_status": "Limited Participation in Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/kayvon-thibodeaux/"
   },
@@ -2111,7 +2430,7 @@
    "player": "Marcus Mbow",
    "position": "T",
    "injury": null,
-   "practice_status": "Did Not Participate In Practice",
+   "practice_status": "Limited Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/marcus-mbow/"
   },
@@ -2181,7 +2500,7 @@
    "player": "Breece Hall",
    "position": "RB",
    "injury": null,
-   "practice_status": "Did Not Participate In Practice",
+   "practice_status": "Limited Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/breece-hall/"
   },
@@ -2191,7 +2510,7 @@
    "player": "Demario Davis",
    "position": "LB",
    "injury": null,
-   "practice_status": "Did Not Participate In Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/demario-davis/"
   },
@@ -2221,7 +2540,7 @@
    "player": "Harrison Phillips",
    "position": "DT",
    "injury": null,
-   "practice_status": "Did Not Participate In Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/harrison-phillips/"
   },
@@ -2247,6 +2566,16 @@
   },
   {
    "team": "NYJ",
+   "player_id": "max-mitchell",
+   "player": "Max Mitchell",
+   "position": "T",
+   "injury": null,
+   "practice_status": "Did Not Participate In Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/max-mitchell/"
+  },
+  {
+   "team": "NYJ",
    "player_id": "t-vondre-sweat",
    "player": "T'Vondre Sweat",
    "position": "DT",
@@ -2266,6 +2595,246 @@
    "player_url": "https://www.nfl.com/players/will-mcdonald-iv/"
   },
   {
+   "team": "PHI",
+   "player_id": "a-j-epenesa",
+   "player": "A.J. Epenesa",
+   "position": "DE",
+   "injury": null,
+   "practice_status": "Limited Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/a-j-epenesa/"
+  },
+  {
+   "team": "PHI",
+   "player_id": "arnold-ebiketie",
+   "player": "Arnold Ebiketie",
+   "position": "LB",
+   "injury": null,
+   "practice_status": "Full Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/arnold-ebiketie/"
+  },
+  {
+   "team": "PHI",
+   "player_id": "britain-covey",
+   "player": "Britain Covey",
+   "position": "WR",
+   "injury": null,
+   "practice_status": "Full Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/britain-covey/"
+  },
+  {
+   "team": "PHI",
+   "player_id": "dallas-goedert",
+   "player": "Dallas Goedert",
+   "position": "TE",
+   "injury": null,
+   "practice_status": "Did Not Participate In Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/dallas-goedert/"
+  },
+  {
+   "team": "PHI",
+   "player_id": "devonta-smith",
+   "player": "DeVonta Smith",
+   "position": "WR",
+   "injury": null,
+   "practice_status": "Did Not Participate In Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/devonta-smith/"
+  },
+  {
+   "team": "PHI",
+   "player_id": "dontayvion-wicks",
+   "player": "Dontayvion Wicks",
+   "position": "WR",
+   "injury": null,
+   "practice_status": "Did Not Participate In Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/dontayvion-wicks/"
+  },
+  {
+   "team": "PHI",
+   "player_id": "drew-kendall",
+   "player": "Drew Kendall",
+   "position": "C",
+   "injury": null,
+   "practice_status": "Limited Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/drew-kendall/"
+  },
+  {
+   "team": "PHI",
+   "player_id": "eli-stowers",
+   "player": "Eli Stowers",
+   "position": "TE",
+   "injury": null,
+   "practice_status": "Full Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/eli-stowers/"
+  },
+  {
+   "team": "PHI",
+   "player_id": "grant-calcaterra",
+   "player": "Grant Calcaterra",
+   "position": "TE",
+   "injury": null,
+   "practice_status": "Full Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/grant-calcaterra/"
+  },
+  {
+   "team": "PHI",
+   "player_id": "jakorian-bennett",
+   "player": "Jakorian Bennett",
+   "position": "CB",
+   "injury": null,
+   "practice_status": "Full Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/jakorian-bennett/"
+  },
+  {
+   "team": "PHI",
+   "player_id": "jalen-carter",
+   "player": "Jalen Carter",
+   "position": "DT",
+   "injury": null,
+   "practice_status": "Full Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/jalen-carter/"
+  },
+  {
+   "team": "PHI",
+   "player_id": "jalyx-hunt",
+   "player": "Jalyx Hunt",
+   "position": "LB",
+   "injury": null,
+   "practice_status": "Limited Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/jalyx-hunt/"
+  },
+  {
+   "team": "PHI",
+   "player_id": "jihaad-campbell",
+   "player": "Jihaad Campbell",
+   "position": "LB",
+   "injury": null,
+   "practice_status": "Full Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/jihaad-campbell/"
+  },
+  {
+   "team": "PHI",
+   "player_id": "jonathan-greenard",
+   "player": "Jonathan Greenard",
+   "position": "LB",
+   "injury": null,
+   "practice_status": "Limited Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/jonathan-greenard/"
+  },
+  {
+   "team": "PHI",
+   "player_id": "jordan-davis",
+   "player": "Jordan Davis",
+   "position": "DT",
+   "injury": null,
+   "practice_status": "Full Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/jordan-davis/"
+  },
+  {
+   "team": "PHI",
+   "player_id": "landon-dickerson",
+   "player": "Landon Dickerson",
+   "position": "G",
+   "injury": null,
+   "practice_status": "Limited Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/landon-dickerson/"
+  },
+  {
+   "team": "PHI",
+   "player_id": "marquise-brown",
+   "player": "Marquise Brown",
+   "position": "WR",
+   "injury": null,
+   "practice_status": "Full Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/marquise-brown/"
+  },
+  {
+   "team": "PHI",
+   "player_id": "michael-carter-ii",
+   "player": "Michael Carter II",
+   "position": "CB",
+   "injury": null,
+   "practice_status": "Did Not Participate In Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/michael-carter-ii/"
+  },
+  {
+   "team": "PHI",
+   "player_id": "moro-ojomo",
+   "player": "Moro Ojomo",
+   "position": "DT",
+   "injury": null,
+   "practice_status": "Limited Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/moro-ojomo/"
+  },
+  {
+   "team": "PHI",
+   "player_id": "nolan-smith",
+   "player": "Nolan Smith",
+   "position": "LB",
+   "injury": null,
+   "practice_status": "Did Not Participate In Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/nolan-smith/"
+  },
+  {
+   "team": "PHI",
+   "player_id": "saquon-barkley",
+   "player": "Saquon Barkley",
+   "position": "RB",
+   "injury": null,
+   "practice_status": "Limited Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/saquon-barkley/"
+  },
+  {
+   "team": "PHI",
+   "player_id": "tyler-steen",
+   "player": "Tyler Steen",
+   "position": "G",
+   "injury": null,
+   "practice_status": "Limited Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/tyler-steen/"
+  },
+  {
+   "team": "PHI",
+   "player_id": "willie-lampkin",
+   "player": "Willie Lampkin",
+   "position": "C",
+   "injury": null,
+   "practice_status": "Did Not Participate In Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/willie-lampkin/"
+  },
+  {
+   "team": "PHI",
+   "player_id": "zack-baun",
+   "player": "Zack Baun",
+   "position": "LB",
+   "injury": null,
+   "practice_status": "Full Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/zack-baun/"
+  },
+  {
    "team": "PIT",
    "player_id": "alex-highsmith",
    "player": "Alex Highsmith",
@@ -2280,9 +2849,9 @@
    "player_id": "ben-skowronek",
    "player": "Ben Skowronek",
    "position": "WR",
-   "injury": null,
+   "injury": "Calf",
    "practice_status": "Did Not Participate In Practice",
-   "game_status": null,
+   "game_status": "Out",
    "player_url": "https://www.nfl.com/players/ben-skowronek/"
   },
   {
@@ -2290,9 +2859,9 @@
    "player_id": "brandin-echols",
    "player": "Brandin Echols",
    "position": "CB",
-   "injury": null,
+   "injury": "Hamstring",
    "practice_status": "Did Not Participate In Practice",
-   "game_status": null,
+   "game_status": "Out",
    "player_url": "https://www.nfl.com/players/brandin-echols/"
   },
   {
@@ -2321,7 +2890,7 @@
    "player": "Jalen Ramsey",
    "position": "CB",
    "injury": null,
-   "practice_status": "Did Not Participate In Practice",
+   "practice_status": "Limited Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/jalen-ramsey/"
   },
@@ -2351,7 +2920,7 @@
    "player": "T.J. Watt",
    "position": "LB",
    "injury": null,
-   "practice_status": "Did Not Participate In Practice",
+   "practice_status": "Limited Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/t-j-watt/"
   },
@@ -2361,7 +2930,7 @@
    "player": "Anthony Bradford",
    "position": "G",
    "injury": null,
-   "practice_status": "Limited Participation in Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/anthony-bradford/"
   },
@@ -2371,7 +2940,7 @@
    "player": "Beau Stephens",
    "position": "G",
    "injury": null,
-   "practice_status": "Limited Participation in Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/beau-stephens/"
   },
@@ -2401,7 +2970,7 @@
    "player": "DeMarcus Lawrence",
    "position": "LB",
    "injury": null,
-   "practice_status": "Did Not Participate In Practice",
+   "practice_status": "Limited Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/demarcus-lawrence/"
   },
@@ -2441,7 +3010,7 @@
    "player": "Rashid Shaheed",
    "position": "WR",
    "injury": null,
-   "practice_status": "Limited Participation in Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/rashid-shaheed/"
   },
@@ -2451,9 +3020,19 @@
    "player": "Tyrice Knight",
    "position": "LB",
    "injury": null,
-   "practice_status": "Limited Participation in Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/tyrice-knight/"
+  },
+  {
+   "team": "SEA",
+   "player_id": "uchenna-nwosu",
+   "player": "Uchenna Nwosu",
+   "position": "LB",
+   "injury": null,
+   "practice_status": "Limited Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/uchenna-nwosu/"
   },
   {
    "team": "SEA",
@@ -2551,7 +3130,7 @@
    "player": "Mykel Williams",
    "position": "DE",
    "injury": null,
-   "practice_status": "Did Not Participate In Practice",
+   "practice_status": "Limited Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/mykel-williams/"
   },
@@ -2591,7 +3170,7 @@
    "player": "Trent Williams",
    "position": "T",
    "injury": null,
-   "practice_status": "Did Not Participate In Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/trent-williams/"
   },
@@ -2604,6 +3183,16 @@
    "practice_status": "Did Not Participate In Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/upton-stout/"
+  },
+  {
+   "team": "TB",
+   "player_id": "a-shawn-robinson",
+   "player": "A'Shawn Robinson",
+   "position": "DT",
+   "injury": null,
+   "practice_status": "Limited Participation in Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/a-shawn-robinson/"
   },
   {
    "team": "TB",
@@ -2641,7 +3230,7 @@
    "player": "Bucky Irving",
    "position": "RB",
    "injury": null,
-   "practice_status": "Did Not Participate In Practice",
+   "practice_status": "Limited Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/bucky-irving/"
   },
@@ -2651,7 +3240,7 @@
    "player": "Calijah Kancey",
    "position": "DT",
    "injury": null,
-   "practice_status": "Limited Participation in Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/calijah-kancey/"
   },
@@ -2664,6 +3253,16 @@
    "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/chase-mclaughlin/"
+  },
+  {
+   "team": "TB",
+   "player_id": "chris-godwin",
+   "player": "Chris Godwin Jr.",
+   "position": "WR",
+   "injury": null,
+   "practice_status": "Did Not Participate In Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/chris-godwin/"
   },
   {
    "team": "TB",
@@ -2751,7 +3350,7 @@
    "player": "Vita Vea",
    "position": "DT",
    "injury": null,
-   "practice_status": "Limited Participation in Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/vita-vea/"
   },
@@ -2761,7 +3360,7 @@
    "player": "Zyon McCollum",
    "position": "CB",
    "injury": null,
-   "practice_status": "Did Not Participate In Practice",
+   "practice_status": "Limited Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/zyon-mccollum/"
   },
@@ -2771,7 +3370,7 @@
    "player": "Calvin Ridley",
    "position": "WR",
    "injury": null,
-   "practice_status": "Limited Participation in Practice",
+   "practice_status": "Did Not Participate In Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/calvin-ridley/"
   },
@@ -2791,7 +3390,7 @@
    "player": "John Franklin-Myers",
    "position": "DE",
    "injury": null,
-   "practice_status": "Did Not Participate In Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/john-franklin-myers/"
   },
@@ -2817,438 +3416,34 @@
   },
   {
    "team": "TEN",
+   "player_id": "tony-pollard",
+   "player": "Tony Pollard",
+   "position": "RB",
+   "injury": null,
+   "practice_status": "Did Not Participate In Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/tony-pollard/"
+  },
+  {
+   "team": "TEN",
    "player_id": "tyjae-spears",
    "player": "Tyjae Spears",
    "position": "RB",
    "injury": null,
-   "practice_status": "Did Not Participate In Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/tyjae-spears/"
   }
  ],
  "recent_changes": [
   {
-   "observed_at": "2026-10-22T21:39:28+00:00",
-   "season": 2026,
-   "week": 7,
-   "team": "IND",
-   "player_id": "matt-goncalves",
-   "kind": "updated",
-   "before": {
-    "team": "IND",
-    "player_id": "matt-goncalves",
-    "player": "Matt Goncalves",
-    "position": "G",
-    "injury": null,
-    "practice_status": "Did Not Participate In Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/matt-goncalves/"
-   },
-   "after": {
-    "team": "IND",
-    "player_id": "matt-goncalves",
-    "player": "Matt Goncalves",
-    "position": "G",
-    "injury": null,
-    "practice_status": "Full Participation in Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/matt-goncalves/"
-   }
-  },
-  {
-   "observed_at": "2026-10-22T21:39:28+00:00",
-   "season": 2026,
-   "week": 7,
-   "team": "IND",
-   "player_id": "keenan-allen",
-   "kind": "updated",
-   "before": {
-    "team": "IND",
-    "player_id": "keenan-allen",
-    "player": "Keenan Allen",
-    "position": "WR",
-    "injury": null,
-    "practice_status": "Did Not Participate In Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/keenan-allen/"
-   },
-   "after": {
-    "team": "IND",
-    "player_id": "keenan-allen",
-    "player": "Keenan Allen",
-    "position": "WR",
-    "injury": null,
-    "practice_status": "Full Participation in Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/keenan-allen/"
-   }
-  },
-  {
-   "observed_at": "2026-10-22T21:39:28+00:00",
-   "season": 2026,
-   "week": 7,
-   "team": "IND",
-   "player_id": "justin-walley",
-   "kind": "updated",
-   "before": {
-    "team": "IND",
-    "player_id": "justin-walley",
-    "player": "Justin Walley",
-    "position": "CB",
-    "injury": null,
-    "practice_status": "Did Not Participate In Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/justin-walley/"
-   },
-   "after": {
-    "team": "IND",
-    "player_id": "justin-walley",
-    "player": "Justin Walley",
-    "position": "CB",
-    "injury": null,
-    "practice_status": "Limited Participation in Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/justin-walley/"
-   }
-  },
-  {
-   "observed_at": "2026-10-22T21:39:28+00:00",
-   "season": 2026,
-   "week": 7,
-   "team": "IND",
-   "player_id": "jonathan-taylor",
-   "kind": "updated",
-   "before": {
-    "team": "IND",
-    "player_id": "jonathan-taylor",
-    "player": "Jonathan Taylor",
-    "position": "RB",
-    "injury": null,
-    "practice_status": "Limited Participation in Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/jonathan-taylor/"
-   },
-   "after": {
-    "team": "IND",
-    "player_id": "jonathan-taylor",
-    "player": "Jonathan Taylor",
-    "position": "RB",
-    "injury": null,
-    "practice_status": "Full Participation in Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/jonathan-taylor/"
-   }
-  },
-  {
-   "observed_at": "2026-10-22T21:39:28+00:00",
-   "season": 2026,
-   "week": 7,
-   "team": "IND",
-   "player_id": "jerry-tillery",
-   "kind": "updated",
-   "before": {
-    "team": "IND",
-    "player_id": "jerry-tillery",
-    "player": "Jerry Tillery",
-    "position": "DT",
-    "injury": null,
-    "practice_status": "Did Not Participate In Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/jerry-tillery/"
-   },
-   "after": {
-    "team": "IND",
-    "player_id": "jerry-tillery",
-    "player": "Jerry Tillery",
-    "position": "DT",
-    "injury": null,
-    "practice_status": "Full Participation in Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/jerry-tillery/"
-   }
-  },
-  {
-   "observed_at": "2026-10-22T21:39:28+00:00",
-   "season": 2026,
-   "week": 7,
-   "team": "IND",
-   "player_id": "jaylon-carlies",
-   "kind": "updated",
-   "before": {
-    "team": "IND",
-    "player_id": "jaylon-carlies",
-    "player": "Jaylon Carlies",
-    "position": "LB",
-    "injury": null,
-    "practice_status": "Limited Participation in Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/jaylon-carlies/"
-   },
-   "after": {
-    "team": "IND",
-    "player_id": "jaylon-carlies",
-    "player": "Jaylon Carlies",
-    "position": "LB",
-    "injury": null,
-    "practice_status": "Full Participation in Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/jaylon-carlies/"
-   }
-  },
-  {
-   "observed_at": "2026-10-22T21:39:28+00:00",
-   "season": 2026,
-   "week": 7,
-   "team": "IND",
-   "player_id": "jalen-travis",
-   "kind": "updated",
-   "before": {
-    "team": "IND",
-    "player_id": "jalen-travis",
-    "player": "Jalen Travis",
-    "position": "T",
-    "injury": null,
-    "practice_status": "Limited Participation in Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/jalen-travis/"
-   },
-   "after": {
-    "team": "IND",
-    "player_id": "jalen-travis",
-    "player": "Jalen Travis",
-    "position": "T",
-    "injury": null,
-    "practice_status": "Full Participation in Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/jalen-travis/"
-   }
-  },
-  {
-   "observed_at": "2026-10-22T21:39:28+00:00",
-   "season": 2026,
-   "week": 7,
-   "team": "IND",
-   "player_id": "grover-stewart",
-   "kind": "appeared",
-   "before": null,
-   "after": {
-    "team": "IND",
-    "player_id": "grover-stewart",
-    "player": "Grover Stewart",
-    "position": "DT",
-    "injury": null,
-    "practice_status": "Did Not Participate In Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/grover-stewart/"
-   }
-  },
-  {
-   "observed_at": "2026-10-22T21:39:28+00:00",
-   "season": 2026,
-   "week": 7,
-   "team": "IND",
-   "player_id": "charvarius-ward",
-   "kind": "updated",
-   "before": {
-    "team": "IND",
-    "player_id": "charvarius-ward",
-    "player": "Charvarius Ward",
-    "position": "CB",
-    "injury": null,
-    "practice_status": "Did Not Participate In Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/charvarius-ward/"
-   },
-   "after": {
-    "team": "IND",
-    "player_id": "charvarius-ward",
-    "player": "Charvarius Ward",
-    "position": "CB",
-    "injury": null,
-    "practice_status": "Full Participation in Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/charvarius-ward/"
-   }
-  },
-  {
-   "observed_at": "2026-10-22T21:39:28+00:00",
-   "season": 2026,
-   "week": 7,
-   "team": "IND",
-   "player_id": "bryce-boettcher",
-   "kind": "updated",
-   "before": {
-    "team": "IND",
-    "player_id": "bryce-boettcher",
-    "player": "Bryce Boettcher",
-    "position": "LB",
-    "injury": null,
-    "practice_status": "Did Not Participate In Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/bryce-boettcher/"
-   },
-   "after": {
-    "team": "IND",
-    "player_id": "bryce-boettcher",
-    "player": "Bryce Boettcher",
-    "position": "LB",
-    "injury": null,
-    "practice_status": "Full Participation in Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/bryce-boettcher/"
-   }
-  },
-  {
-   "observed_at": "2026-10-22T21:39:28+00:00",
-   "season": 2026,
-   "week": 7,
-   "team": "IND",
-   "player_id": "andrew-ogletree",
-   "kind": "updated",
-   "before": {
-    "team": "IND",
-    "player_id": "andrew-ogletree",
-    "player": "Andrew Ogletree",
-    "position": "TE",
-    "injury": null,
-    "practice_status": "Did Not Participate In Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/andrew-ogletree/"
-   },
-   "after": {
-    "team": "IND",
-    "player_id": "andrew-ogletree",
-    "player": "Andrew Ogletree",
-    "position": "TE",
-    "injury": null,
-    "practice_status": "Full Participation in Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/andrew-ogletree/"
-   }
-  },
-  {
-   "observed_at": "2026-10-22T17:14:15+00:00",
-   "season": 2026,
-   "week": 7,
-   "team": "NYJ",
-   "player_id": "harrison-phillips",
-   "kind": "appeared",
-   "before": null,
-   "after": {
-    "team": "NYJ",
-    "player_id": "harrison-phillips",
-    "player": "Harrison Phillips",
-    "position": "DT",
-    "injury": null,
-    "practice_status": "Did Not Participate In Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/harrison-phillips/"
-   }
-  },
-  {
-   "observed_at": "2026-10-22T17:14:15+00:00",
-   "season": 2026,
-   "week": 7,
-   "team": "NYJ",
-   "player_id": "demario-davis",
-   "kind": "appeared",
-   "before": null,
-   "after": {
-    "team": "NYJ",
-    "player_id": "demario-davis",
-    "player": "Demario Davis",
-    "position": "LB",
-    "injury": null,
-    "practice_status": "Did Not Participate In Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/demario-davis/"
-   }
-  },
-  {
-   "observed_at": "2026-10-22T04:53:14+00:00",
-   "season": 2026,
-   "week": 7,
-   "team": "LA",
-   "player_id": "trent-mcduffie",
-   "kind": "appeared",
-   "before": null,
-   "after": {
-    "team": "LA",
-    "player_id": "trent-mcduffie",
-    "player": "Trent McDuffie",
-    "position": "CB",
-    "injury": null,
-    "practice_status": "Did Not Participate In Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/trent-mcduffie/"
-   }
-  },
-  {
-   "observed_at": "2026-10-22T04:53:14+00:00",
-   "season": 2026,
-   "week": 7,
-   "team": "LA",
-   "player_id": "nate-landman",
-   "kind": "appeared",
-   "before": null,
-   "after": {
-    "team": "LA",
-    "player_id": "nate-landman",
-    "player": "Nate Landman",
-    "position": "LB",
-    "injury": null,
-    "practice_status": "Did Not Participate In Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/nate-landman/"
-   }
-  },
-  {
-   "observed_at": "2026-10-22T04:53:14+00:00",
-   "season": 2026,
-   "week": 7,
-   "team": "LA",
-   "player_id": "josh-wallace",
-   "kind": "appeared",
-   "before": null,
-   "after": {
-    "team": "LA",
-    "player_id": "josh-wallace",
-    "player": "Josh Wallace",
-    "position": "CB",
-    "injury": null,
-    "practice_status": "Full Participation in Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/josh-wallace/"
-   }
-  },
-  {
-   "observed_at": "2026-10-22T04:53:14+00:00",
-   "season": 2026,
-   "week": 7,
-   "team": "LA",
-   "player_id": "colby-parkinson",
-   "kind": "appeared",
-   "before": null,
-   "after": {
-    "team": "LA",
-    "player_id": "colby-parkinson",
-    "player": "Colby Parkinson",
-    "position": "TE",
-    "injury": null,
-    "practice_status": "Full Participation in Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/colby-parkinson/"
-   }
-  },
-  {
-   "observed_at": "2026-10-21T23:23:43+00:00",
+   "observed_at": "2026-10-23T00:43:03+00:00",
    "season": 2026,
    "week": 7,
    "team": "TEN",
    "player_id": "tyjae-spears",
-   "kind": "appeared",
-   "before": null,
-   "after": {
+   "kind": "updated",
+   "before": {
     "team": "TEN",
     "player_id": "tyjae-spears",
     "player": "Tyjae Spears",
@@ -3257,55 +3452,45 @@
     "practice_status": "Did Not Participate In Practice",
     "game_status": null,
     "player_url": "https://www.nfl.com/players/tyjae-spears/"
+   },
+   "after": {
+    "team": "TEN",
+    "player_id": "tyjae-spears",
+    "player": "Tyjae Spears",
+    "position": "RB",
+    "injury": null,
+    "practice_status": "Full Participation in Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/tyjae-spears/"
    }
   },
   {
-   "observed_at": "2026-10-21T23:23:43+00:00",
+   "observed_at": "2026-10-23T00:43:03+00:00",
    "season": 2026,
    "week": 7,
    "team": "TEN",
-   "player_id": "tony-adams-4",
+   "player_id": "tony-pollard",
    "kind": "appeared",
    "before": null,
    "after": {
     "team": "TEN",
-    "player_id": "tony-adams-4",
-    "player": "Tony Adams",
-    "position": "S",
+    "player_id": "tony-pollard",
+    "player": "Tony Pollard",
+    "position": "RB",
     "injury": null,
-    "practice_status": "Limited Participation in Practice",
+    "practice_status": "Did Not Participate In Practice",
     "game_status": null,
-    "player_url": "https://www.nfl.com/players/tony-adams-4/"
+    "player_url": "https://www.nfl.com/players/tony-pollard/"
    }
   },
   {
-   "observed_at": "2026-10-21T23:23:43+00:00",
-   "season": 2026,
-   "week": 7,
-   "team": "TEN",
-   "player_id": "kevin-winston-jr",
-   "kind": "appeared",
-   "before": null,
-   "after": {
-    "team": "TEN",
-    "player_id": "kevin-winston-jr",
-    "player": "Kevin Winston Jr.",
-    "position": "S",
-    "injury": null,
-    "practice_status": "Limited Participation in Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/kevin-winston-jr/"
-   }
-  },
-  {
-   "observed_at": "2026-10-21T23:23:43+00:00",
+   "observed_at": "2026-10-23T00:43:03+00:00",
    "season": 2026,
    "week": 7,
    "team": "TEN",
    "player_id": "john-franklin-myers",
-   "kind": "appeared",
-   "before": null,
-   "after": {
+   "kind": "updated",
+   "before": {
     "team": "TEN",
     "player_id": "john-franklin-myers",
     "player": "John Franklin-Myers",
@@ -3314,36 +3499,26 @@
     "practice_status": "Did Not Participate In Practice",
     "game_status": null,
     "player_url": "https://www.nfl.com/players/john-franklin-myers/"
-   }
-  },
-  {
-   "observed_at": "2026-10-21T23:23:43+00:00",
-   "season": 2026,
-   "week": 7,
-   "team": "TEN",
-   "player_id": "dorian-mausi",
-   "kind": "appeared",
-   "before": null,
+   },
    "after": {
     "team": "TEN",
-    "player_id": "dorian-mausi",
-    "player": "Dorian Mausi",
-    "position": "LB",
+    "player_id": "john-franklin-myers",
+    "player": "John Franklin-Myers",
+    "position": "DE",
     "injury": null,
     "practice_status": "Full Participation in Practice",
     "game_status": null,
-    "player_url": "https://www.nfl.com/players/dorian-mausi/"
+    "player_url": "https://www.nfl.com/players/john-franklin-myers/"
    }
   },
   {
-   "observed_at": "2026-10-21T23:23:43+00:00",
+   "observed_at": "2026-10-23T00:43:03+00:00",
    "season": 2026,
    "week": 7,
    "team": "TEN",
    "player_id": "calvin-ridley",
-   "kind": "appeared",
-   "before": null,
-   "after": {
+   "kind": "updated",
+   "before": {
     "team": "TEN",
     "player_id": "calvin-ridley",
     "player": "Calvin Ridley",
@@ -3352,17 +3527,26 @@
     "practice_status": "Limited Participation in Practice",
     "game_status": null,
     "player_url": "https://www.nfl.com/players/calvin-ridley/"
+   },
+   "after": {
+    "team": "TEN",
+    "player_id": "calvin-ridley",
+    "player": "Calvin Ridley",
+    "position": "WR",
+    "injury": null,
+    "practice_status": "Did Not Participate In Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/calvin-ridley/"
    }
   },
   {
-   "observed_at": "2026-10-21T23:23:43+00:00",
+   "observed_at": "2026-10-23T00:43:03+00:00",
    "season": 2026,
    "week": 7,
    "team": "TB",
    "player_id": "zyon-mccollum",
-   "kind": "appeared",
-   "before": null,
-   "after": {
+   "kind": "updated",
+   "before": {
     "team": "TB",
     "player_id": "zyon-mccollum",
     "player": "Zyon McCollum",
@@ -3371,17 +3555,26 @@
     "practice_status": "Did Not Participate In Practice",
     "game_status": null,
     "player_url": "https://www.nfl.com/players/zyon-mccollum/"
+   },
+   "after": {
+    "team": "TB",
+    "player_id": "zyon-mccollum",
+    "player": "Zyon McCollum",
+    "position": "CB",
+    "injury": null,
+    "practice_status": "Limited Participation in Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/zyon-mccollum/"
    }
   },
   {
-   "observed_at": "2026-10-21T23:23:43+00:00",
+   "observed_at": "2026-10-23T00:43:03+00:00",
    "season": 2026,
    "week": 7,
    "team": "TB",
    "player_id": "vita-vea",
-   "kind": "appeared",
-   "before": null,
-   "after": {
+   "kind": "updated",
+   "before": {
     "team": "TB",
     "player_id": "vita-vea",
     "player": "Vita Vea",
@@ -3390,188 +3583,45 @@
     "practice_status": "Limited Participation in Practice",
     "game_status": null,
     "player_url": "https://www.nfl.com/players/vita-vea/"
-   }
-  },
-  {
-   "observed_at": "2026-10-21T23:23:43+00:00",
-   "season": 2026,
-   "week": 7,
-   "team": "TB",
-   "player_id": "sean-tucker",
-   "kind": "appeared",
-   "before": null,
+   },
    "after": {
     "team": "TB",
-    "player_id": "sean-tucker",
-    "player": "Sean Tucker",
-    "position": "RB",
+    "player_id": "vita-vea",
+    "player": "Vita Vea",
+    "position": "DT",
     "injury": null,
     "practice_status": "Full Participation in Practice",
     "game_status": null,
-    "player_url": "https://www.nfl.com/players/sean-tucker/"
+    "player_url": "https://www.nfl.com/players/vita-vea/"
    }
   },
   {
-   "observed_at": "2026-10-21T23:23:43+00:00",
+   "observed_at": "2026-10-23T00:43:03+00:00",
    "season": 2026,
    "week": 7,
    "team": "TB",
-   "player_id": "riley-dixon",
+   "player_id": "chris-godwin",
    "kind": "appeared",
    "before": null,
    "after": {
     "team": "TB",
-    "player_id": "riley-dixon",
-    "player": "Riley Dixon",
-    "position": "P",
-    "injury": null,
-    "practice_status": "Full Participation in Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/riley-dixon/"
-   }
-  },
-  {
-   "observed_at": "2026-10-21T23:23:43+00:00",
-   "season": 2026,
-   "week": 7,
-   "team": "TB",
-   "player_id": "luke-goedeke",
-   "kind": "appeared",
-   "before": null,
-   "after": {
-    "team": "TB",
-    "player_id": "luke-goedeke",
-    "player": "Luke Goedeke",
-    "position": "T",
-    "injury": null,
-    "practice_status": "Did Not Participate In Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/luke-goedeke/"
-   }
-  },
-  {
-   "observed_at": "2026-10-21T23:23:43+00:00",
-   "season": 2026,
-   "week": 7,
-   "team": "TB",
-   "player_id": "josiah-trotter",
-   "kind": "appeared",
-   "before": null,
-   "after": {
-    "team": "TB",
-    "player_id": "josiah-trotter",
-    "player": "Josiah Trotter",
-    "position": "LB",
-    "injury": null,
-    "practice_status": "Full Participation in Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/josiah-trotter/"
-   }
-  },
-  {
-   "observed_at": "2026-10-21T23:23:43+00:00",
-   "season": 2026,
-   "week": 7,
-   "team": "TB",
-   "player_id": "emeka-egbuka",
-   "kind": "appeared",
-   "before": null,
-   "after": {
-    "team": "TB",
-    "player_id": "emeka-egbuka",
-    "player": "Emeka Egbuka",
+    "player_id": "chris-godwin",
+    "player": "Chris Godwin Jr.",
     "position": "WR",
     "injury": null,
     "practice_status": "Did Not Participate In Practice",
     "game_status": null,
-    "player_url": "https://www.nfl.com/players/emeka-egbuka/"
+    "player_url": "https://www.nfl.com/players/chris-godwin/"
    }
   },
   {
-   "observed_at": "2026-10-21T23:23:43+00:00",
-   "season": 2026,
-   "week": 7,
-   "team": "TB",
-   "player_id": "david-sills",
-   "kind": "appeared",
-   "before": null,
-   "after": {
-    "team": "TB",
-    "player_id": "david-sills",
-    "player": "David Sills",
-    "position": "WR",
-    "injury": null,
-    "practice_status": "Full Participation in Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/david-sills/"
-   }
-  },
-  {
-   "observed_at": "2026-10-21T23:23:43+00:00",
-   "season": 2026,
-   "week": 7,
-   "team": "TB",
-   "player_id": "cody-mauch",
-   "kind": "appeared",
-   "before": null,
-   "after": {
-    "team": "TB",
-    "player_id": "cody-mauch",
-    "player": "Cody Mauch",
-    "position": "G",
-    "injury": null,
-    "practice_status": "Full Participation in Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/cody-mauch/"
-   }
-  },
-  {
-   "observed_at": "2026-10-21T23:23:43+00:00",
-   "season": 2026,
-   "week": 7,
-   "team": "TB",
-   "player_id": "christian-rozeboom",
-   "kind": "appeared",
-   "before": null,
-   "after": {
-    "team": "TB",
-    "player_id": "christian-rozeboom",
-    "player": "Christian Rozeboom",
-    "position": "LB",
-    "injury": null,
-    "practice_status": "Did Not Participate In Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/christian-rozeboom/"
-   }
-  },
-  {
-   "observed_at": "2026-10-21T23:23:43+00:00",
-   "season": 2026,
-   "week": 7,
-   "team": "TB",
-   "player_id": "chase-mclaughlin",
-   "kind": "appeared",
-   "before": null,
-   "after": {
-    "team": "TB",
-    "player_id": "chase-mclaughlin",
-    "player": "Chase McLaughlin",
-    "position": "K",
-    "injury": null,
-    "practice_status": "Full Participation in Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/chase-mclaughlin/"
-   }
-  },
-  {
-   "observed_at": "2026-10-21T23:23:43+00:00",
+   "observed_at": "2026-10-23T00:43:03+00:00",
    "season": 2026,
    "week": 7,
    "team": "TB",
    "player_id": "calijah-kancey",
-   "kind": "appeared",
-   "before": null,
-   "after": {
+   "kind": "updated",
+   "before": {
     "team": "TB",
     "player_id": "calijah-kancey",
     "player": "Calijah Kancey",
@@ -3580,17 +3630,26 @@
     "practice_status": "Limited Participation in Practice",
     "game_status": null,
     "player_url": "https://www.nfl.com/players/calijah-kancey/"
+   },
+   "after": {
+    "team": "TB",
+    "player_id": "calijah-kancey",
+    "player": "Calijah Kancey",
+    "position": "DT",
+    "injury": null,
+    "practice_status": "Full Participation in Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/calijah-kancey/"
    }
   },
   {
-   "observed_at": "2026-10-21T23:23:43+00:00",
+   "observed_at": "2026-10-23T00:43:03+00:00",
    "season": 2026,
    "week": 7,
    "team": "TB",
    "player_id": "bucky-irving",
-   "kind": "appeared",
-   "before": null,
-   "after": {
+   "kind": "updated",
+   "before": {
     "team": "TB",
     "player_id": "bucky-irving",
     "player": "Bucky Irving",
@@ -3599,91 +3658,711 @@
     "practice_status": "Did Not Participate In Practice",
     "game_status": null,
     "player_url": "https://www.nfl.com/players/bucky-irving/"
-   }
-  },
-  {
-   "observed_at": "2026-10-21T23:23:43+00:00",
-   "season": 2026,
-   "week": 7,
-   "team": "TB",
-   "player_id": "benjamin-morrison",
-   "kind": "appeared",
-   "before": null,
+   },
    "after": {
     "team": "TB",
-    "player_id": "benjamin-morrison",
-    "player": "Benjamin Morrison",
-    "position": "CB",
-    "injury": null,
-    "practice_status": "Full Participation in Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/benjamin-morrison/"
-   }
-  },
-  {
-   "observed_at": "2026-10-21T23:23:43+00:00",
-   "season": 2026,
-   "week": 7,
-   "team": "TB",
-   "player_id": "baker-mayfield",
-   "kind": "appeared",
-   "before": null,
-   "after": {
-    "team": "TB",
-    "player_id": "baker-mayfield",
-    "player": "Baker Mayfield",
-    "position": "QB",
-    "injury": null,
-    "practice_status": "Full Participation in Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/baker-mayfield/"
-   }
-  },
-  {
-   "observed_at": "2026-10-21T23:23:43+00:00",
-   "season": 2026,
-   "week": 7,
-   "team": "TB",
-   "player_id": "antoine-winfield-jr",
-   "kind": "appeared",
-   "before": null,
-   "after": {
-    "team": "TB",
-    "player_id": "antoine-winfield-jr",
-    "player": "Antoine Winfield Jr.",
-    "position": "S",
+    "player_id": "bucky-irving",
+    "player": "Bucky Irving",
+    "position": "RB",
     "injury": null,
     "practice_status": "Limited Participation in Practice",
     "game_status": null,
-    "player_url": "https://www.nfl.com/players/antoine-winfield-jr/"
+    "player_url": "https://www.nfl.com/players/bucky-irving/"
    }
   },
   {
-   "observed_at": "2026-10-21T23:23:43+00:00",
+   "observed_at": "2026-10-23T00:43:03+00:00",
    "season": 2026,
    "week": 7,
-   "team": "SF",
-   "player_id": "upton-stout",
+   "team": "TB",
+   "player_id": "a-shawn-robinson",
    "kind": "appeared",
    "before": null,
    "after": {
+    "team": "TB",
+    "player_id": "a-shawn-robinson",
+    "player": "A'Shawn Robinson",
+    "position": "DT",
+    "injury": null,
+    "practice_status": "Limited Participation in Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/a-shawn-robinson/"
+   }
+  },
+  {
+   "observed_at": "2026-10-23T00:43:03+00:00",
+   "season": 2026,
+   "week": 7,
+   "team": "SF",
+   "player_id": "trent-williams",
+   "kind": "updated",
+   "before": {
     "team": "SF",
-    "player_id": "upton-stout",
-    "player": "Upton Stout",
+    "player_id": "trent-williams",
+    "player": "Trent Williams",
+    "position": "T",
+    "injury": null,
+    "practice_status": "Did Not Participate In Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/trent-williams/"
+   },
+   "after": {
+    "team": "SF",
+    "player_id": "trent-williams",
+    "player": "Trent Williams",
+    "position": "T",
+    "injury": null,
+    "practice_status": "Full Participation in Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/trent-williams/"
+   }
+  },
+  {
+   "observed_at": "2026-10-23T00:43:03+00:00",
+   "season": 2026,
+   "week": 7,
+   "team": "SF",
+   "player_id": "mykel-williams",
+   "kind": "updated",
+   "before": {
+    "team": "SF",
+    "player_id": "mykel-williams",
+    "player": "Mykel Williams",
+    "position": "DE",
+    "injury": null,
+    "practice_status": "Did Not Participate In Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/mykel-williams/"
+   },
+   "after": {
+    "team": "SF",
+    "player_id": "mykel-williams",
+    "player": "Mykel Williams",
+    "position": "DE",
+    "injury": null,
+    "practice_status": "Limited Participation in Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/mykel-williams/"
+   }
+  },
+  {
+   "observed_at": "2026-10-23T00:43:03+00:00",
+   "season": 2026,
+   "week": 7,
+   "team": "SEA",
+   "player_id": "uchenna-nwosu",
+   "kind": "appeared",
+   "before": null,
+   "after": {
+    "team": "SEA",
+    "player_id": "uchenna-nwosu",
+    "player": "Uchenna Nwosu",
+    "position": "LB",
+    "injury": null,
+    "practice_status": "Limited Participation in Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/uchenna-nwosu/"
+   }
+  },
+  {
+   "observed_at": "2026-10-23T00:43:03+00:00",
+   "season": 2026,
+   "week": 7,
+   "team": "SEA",
+   "player_id": "tyrice-knight",
+   "kind": "updated",
+   "before": {
+    "team": "SEA",
+    "player_id": "tyrice-knight",
+    "player": "Tyrice Knight",
+    "position": "LB",
+    "injury": null,
+    "practice_status": "Limited Participation in Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/tyrice-knight/"
+   },
+   "after": {
+    "team": "SEA",
+    "player_id": "tyrice-knight",
+    "player": "Tyrice Knight",
+    "position": "LB",
+    "injury": null,
+    "practice_status": "Full Participation in Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/tyrice-knight/"
+   }
+  },
+  {
+   "observed_at": "2026-10-23T00:43:03+00:00",
+   "season": 2026,
+   "week": 7,
+   "team": "SEA",
+   "player_id": "rashid-shaheed",
+   "kind": "updated",
+   "before": {
+    "team": "SEA",
+    "player_id": "rashid-shaheed",
+    "player": "Rashid Shaheed",
+    "position": "WR",
+    "injury": null,
+    "practice_status": "Limited Participation in Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/rashid-shaheed/"
+   },
+   "after": {
+    "team": "SEA",
+    "player_id": "rashid-shaheed",
+    "player": "Rashid Shaheed",
+    "position": "WR",
+    "injury": null,
+    "practice_status": "Full Participation in Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/rashid-shaheed/"
+   }
+  },
+  {
+   "observed_at": "2026-10-23T00:43:03+00:00",
+   "season": 2026,
+   "week": 7,
+   "team": "SEA",
+   "player_id": "demarcus-lawrence",
+   "kind": "updated",
+   "before": {
+    "team": "SEA",
+    "player_id": "demarcus-lawrence",
+    "player": "DeMarcus Lawrence",
+    "position": "LB",
+    "injury": null,
+    "practice_status": "Did Not Participate In Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/demarcus-lawrence/"
+   },
+   "after": {
+    "team": "SEA",
+    "player_id": "demarcus-lawrence",
+    "player": "DeMarcus Lawrence",
+    "position": "LB",
+    "injury": null,
+    "practice_status": "Limited Participation in Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/demarcus-lawrence/"
+   }
+  },
+  {
+   "observed_at": "2026-10-23T00:43:03+00:00",
+   "season": 2026,
+   "week": 7,
+   "team": "SEA",
+   "player_id": "beau-stephens",
+   "kind": "updated",
+   "before": {
+    "team": "SEA",
+    "player_id": "beau-stephens",
+    "player": "Beau Stephens",
+    "position": "G",
+    "injury": null,
+    "practice_status": "Limited Participation in Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/beau-stephens/"
+   },
+   "after": {
+    "team": "SEA",
+    "player_id": "beau-stephens",
+    "player": "Beau Stephens",
+    "position": "G",
+    "injury": null,
+    "practice_status": "Full Participation in Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/beau-stephens/"
+   }
+  },
+  {
+   "observed_at": "2026-10-23T00:43:03+00:00",
+   "season": 2026,
+   "week": 7,
+   "team": "SEA",
+   "player_id": "anthony-bradford",
+   "kind": "updated",
+   "before": {
+    "team": "SEA",
+    "player_id": "anthony-bradford",
+    "player": "Anthony Bradford",
+    "position": "G",
+    "injury": null,
+    "practice_status": "Limited Participation in Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/anthony-bradford/"
+   },
+   "after": {
+    "team": "SEA",
+    "player_id": "anthony-bradford",
+    "player": "Anthony Bradford",
+    "position": "G",
+    "injury": null,
+    "practice_status": "Full Participation in Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/anthony-bradford/"
+   }
+  },
+  {
+   "observed_at": "2026-10-23T00:43:03+00:00",
+   "season": 2026,
+   "week": 7,
+   "team": "PIT",
+   "player_id": "t-j-watt",
+   "kind": "updated",
+   "before": {
+    "team": "PIT",
+    "player_id": "t-j-watt",
+    "player": "T.J. Watt",
+    "position": "LB",
+    "injury": null,
+    "practice_status": "Did Not Participate In Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/t-j-watt/"
+   },
+   "after": {
+    "team": "PIT",
+    "player_id": "t-j-watt",
+    "player": "T.J. Watt",
+    "position": "LB",
+    "injury": null,
+    "practice_status": "Limited Participation in Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/t-j-watt/"
+   }
+  },
+  {
+   "observed_at": "2026-10-23T00:43:03+00:00",
+   "season": 2026,
+   "week": 7,
+   "team": "PIT",
+   "player_id": "jalen-ramsey",
+   "kind": "updated",
+   "before": {
+    "team": "PIT",
+    "player_id": "jalen-ramsey",
+    "player": "Jalen Ramsey",
     "position": "CB",
     "injury": null,
     "practice_status": "Did Not Participate In Practice",
     "game_status": null,
-    "player_url": "https://www.nfl.com/players/upton-stout/"
+    "player_url": "https://www.nfl.com/players/jalen-ramsey/"
+   },
+   "after": {
+    "team": "PIT",
+    "player_id": "jalen-ramsey",
+    "player": "Jalen Ramsey",
+    "position": "CB",
+    "injury": null,
+    "practice_status": "Limited Participation in Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/jalen-ramsey/"
+   }
+  },
+  {
+   "observed_at": "2026-10-23T00:43:03+00:00",
+   "season": 2026,
+   "week": 7,
+   "team": "PIT",
+   "player_id": "brandin-echols",
+   "kind": "updated",
+   "before": {
+    "team": "PIT",
+    "player_id": "brandin-echols",
+    "player": "Brandin Echols",
+    "position": "CB",
+    "injury": null,
+    "practice_status": "Did Not Participate In Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/brandin-echols/"
+   },
+   "after": {
+    "team": "PIT",
+    "player_id": "brandin-echols",
+    "player": "Brandin Echols",
+    "position": "CB",
+    "injury": "Hamstring",
+    "practice_status": "Did Not Participate In Practice",
+    "game_status": "Out",
+    "player_url": "https://www.nfl.com/players/brandin-echols/"
+   }
+  },
+  {
+   "observed_at": "2026-10-23T00:43:03+00:00",
+   "season": 2026,
+   "week": 7,
+   "team": "PIT",
+   "player_id": "ben-skowronek",
+   "kind": "updated",
+   "before": {
+    "team": "PIT",
+    "player_id": "ben-skowronek",
+    "player": "Ben Skowronek",
+    "position": "WR",
+    "injury": null,
+    "practice_status": "Did Not Participate In Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/ben-skowronek/"
+   },
+   "after": {
+    "team": "PIT",
+    "player_id": "ben-skowronek",
+    "player": "Ben Skowronek",
+    "position": "WR",
+    "injury": "Calf",
+    "practice_status": "Did Not Participate In Practice",
+    "game_status": "Out",
+    "player_url": "https://www.nfl.com/players/ben-skowronek/"
+   }
+  },
+  {
+   "observed_at": "2026-10-23T00:43:03+00:00",
+   "season": 2026,
+   "week": 7,
+   "team": "PHI",
+   "player_id": "zack-baun",
+   "kind": "appeared",
+   "before": null,
+   "after": {
+    "team": "PHI",
+    "player_id": "zack-baun",
+    "player": "Zack Baun",
+    "position": "LB",
+    "injury": null,
+    "practice_status": "Full Participation in Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/zack-baun/"
+   }
+  },
+  {
+   "observed_at": "2026-10-23T00:43:03+00:00",
+   "season": 2026,
+   "week": 7,
+   "team": "PHI",
+   "player_id": "willie-lampkin",
+   "kind": "appeared",
+   "before": null,
+   "after": {
+    "team": "PHI",
+    "player_id": "willie-lampkin",
+    "player": "Willie Lampkin",
+    "position": "C",
+    "injury": null,
+    "practice_status": "Did Not Participate In Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/willie-lampkin/"
+   }
+  },
+  {
+   "observed_at": "2026-10-23T00:43:03+00:00",
+   "season": 2026,
+   "week": 7,
+   "team": "PHI",
+   "player_id": "tyler-steen",
+   "kind": "appeared",
+   "before": null,
+   "after": {
+    "team": "PHI",
+    "player_id": "tyler-steen",
+    "player": "Tyler Steen",
+    "position": "G",
+    "injury": null,
+    "practice_status": "Limited Participation in Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/tyler-steen/"
+   }
+  },
+  {
+   "observed_at": "2026-10-23T00:43:03+00:00",
+   "season": 2026,
+   "week": 7,
+   "team": "PHI",
+   "player_id": "saquon-barkley",
+   "kind": "appeared",
+   "before": null,
+   "after": {
+    "team": "PHI",
+    "player_id": "saquon-barkley",
+    "player": "Saquon Barkley",
+    "position": "RB",
+    "injury": null,
+    "practice_status": "Limited Participation in Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/saquon-barkley/"
+   }
+  },
+  {
+   "observed_at": "2026-10-23T00:43:03+00:00",
+   "season": 2026,
+   "week": 7,
+   "team": "PHI",
+   "player_id": "nolan-smith",
+   "kind": "appeared",
+   "before": null,
+   "after": {
+    "team": "PHI",
+    "player_id": "nolan-smith",
+    "player": "Nolan Smith",
+    "position": "LB",
+    "injury": null,
+    "practice_status": "Did Not Participate In Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/nolan-smith/"
+   }
+  },
+  {
+   "observed_at": "2026-10-23T00:43:03+00:00",
+   "season": 2026,
+   "week": 7,
+   "team": "PHI",
+   "player_id": "moro-ojomo",
+   "kind": "appeared",
+   "before": null,
+   "after": {
+    "team": "PHI",
+    "player_id": "moro-ojomo",
+    "player": "Moro Ojomo",
+    "position": "DT",
+    "injury": null,
+    "practice_status": "Limited Participation in Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/moro-ojomo/"
+   }
+  },
+  {
+   "observed_at": "2026-10-23T00:43:03+00:00",
+   "season": 2026,
+   "week": 7,
+   "team": "PHI",
+   "player_id": "michael-carter-ii",
+   "kind": "appeared",
+   "before": null,
+   "after": {
+    "team": "PHI",
+    "player_id": "michael-carter-ii",
+    "player": "Michael Carter II",
+    "position": "CB",
+    "injury": null,
+    "practice_status": "Did Not Participate In Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/michael-carter-ii/"
+   }
+  },
+  {
+   "observed_at": "2026-10-23T00:43:03+00:00",
+   "season": 2026,
+   "week": 7,
+   "team": "PHI",
+   "player_id": "marquise-brown",
+   "kind": "appeared",
+   "before": null,
+   "after": {
+    "team": "PHI",
+    "player_id": "marquise-brown",
+    "player": "Marquise Brown",
+    "position": "WR",
+    "injury": null,
+    "practice_status": "Full Participation in Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/marquise-brown/"
+   }
+  },
+  {
+   "observed_at": "2026-10-23T00:43:03+00:00",
+   "season": 2026,
+   "week": 7,
+   "team": "PHI",
+   "player_id": "landon-dickerson",
+   "kind": "appeared",
+   "before": null,
+   "after": {
+    "team": "PHI",
+    "player_id": "landon-dickerson",
+    "player": "Landon Dickerson",
+    "position": "G",
+    "injury": null,
+    "practice_status": "Limited Participation in Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/landon-dickerson/"
+   }
+  },
+  {
+   "observed_at": "2026-10-23T00:43:03+00:00",
+   "season": 2026,
+   "week": 7,
+   "team": "PHI",
+   "player_id": "jordan-davis",
+   "kind": "appeared",
+   "before": null,
+   "after": {
+    "team": "PHI",
+    "player_id": "jordan-davis",
+    "player": "Jordan Davis",
+    "position": "DT",
+    "injury": null,
+    "practice_status": "Full Participation in Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/jordan-davis/"
+   }
+  },
+  {
+   "observed_at": "2026-10-23T00:43:03+00:00",
+   "season": 2026,
+   "week": 7,
+   "team": "PHI",
+   "player_id": "jonathan-greenard",
+   "kind": "appeared",
+   "before": null,
+   "after": {
+    "team": "PHI",
+    "player_id": "jonathan-greenard",
+    "player": "Jonathan Greenard",
+    "position": "LB",
+    "injury": null,
+    "practice_status": "Limited Participation in Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/jonathan-greenard/"
+   }
+  },
+  {
+   "observed_at": "2026-10-23T00:43:03+00:00",
+   "season": 2026,
+   "week": 7,
+   "team": "PHI",
+   "player_id": "jihaad-campbell",
+   "kind": "appeared",
+   "before": null,
+   "after": {
+    "team": "PHI",
+    "player_id": "jihaad-campbell",
+    "player": "Jihaad Campbell",
+    "position": "LB",
+    "injury": null,
+    "practice_status": "Full Participation in Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/jihaad-campbell/"
+   }
+  },
+  {
+   "observed_at": "2026-10-23T00:43:03+00:00",
+   "season": 2026,
+   "week": 7,
+   "team": "PHI",
+   "player_id": "jalyx-hunt",
+   "kind": "appeared",
+   "before": null,
+   "after": {
+    "team": "PHI",
+    "player_id": "jalyx-hunt",
+    "player": "Jalyx Hunt",
+    "position": "LB",
+    "injury": null,
+    "practice_status": "Limited Participation in Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/jalyx-hunt/"
+   }
+  },
+  {
+   "observed_at": "2026-10-23T00:43:03+00:00",
+   "season": 2026,
+   "week": 7,
+   "team": "PHI",
+   "player_id": "jalen-carter",
+   "kind": "appeared",
+   "before": null,
+   "after": {
+    "team": "PHI",
+    "player_id": "jalen-carter",
+    "player": "Jalen Carter",
+    "position": "DT",
+    "injury": null,
+    "practice_status": "Full Participation in Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/jalen-carter/"
+   }
+  },
+  {
+   "observed_at": "2026-10-23T00:43:03+00:00",
+   "season": 2026,
+   "week": 7,
+   "team": "PHI",
+   "player_id": "jakorian-bennett",
+   "kind": "appeared",
+   "before": null,
+   "after": {
+    "team": "PHI",
+    "player_id": "jakorian-bennett",
+    "player": "Jakorian Bennett",
+    "position": "CB",
+    "injury": null,
+    "practice_status": "Full Participation in Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/jakorian-bennett/"
+   }
+  },
+  {
+   "observed_at": "2026-10-23T00:43:03+00:00",
+   "season": 2026,
+   "week": 7,
+   "team": "PHI",
+   "player_id": "grant-calcaterra",
+   "kind": "appeared",
+   "before": null,
+   "after": {
+    "team": "PHI",
+    "player_id": "grant-calcaterra",
+    "player": "Grant Calcaterra",
+    "position": "TE",
+    "injury": null,
+    "practice_status": "Full Participation in Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/grant-calcaterra/"
+   }
+  },
+  {
+   "observed_at": "2026-10-23T00:43:03+00:00",
+   "season": 2026,
+   "week": 7,
+   "team": "PHI",
+   "player_id": "eli-stowers",
+   "kind": "appeared",
+   "before": null,
+   "after": {
+    "team": "PHI",
+    "player_id": "eli-stowers",
+    "player": "Eli Stowers",
+    "position": "TE",
+    "injury": null,
+    "practice_status": "Full Participation in Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/eli-stowers/"
+   }
+  },
+  {
+   "observed_at": "2026-10-23T00:43:03+00:00",
+   "season": 2026,
+   "week": 7,
+   "team": "PHI",
+   "player_id": "drew-kendall",
+   "kind": "appeared",
+   "before": null,
+   "after": {
+    "team": "PHI",
+    "player_id": "drew-kendall",
+    "player": "Drew Kendall",
+    "position": "C",
+    "injury": null,
+    "practice_status": "Limited Participation in Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/drew-kendall/"
    }
   }
  ],
- "distinct_reports": 19,
- "checks": 283,
+ "distinct_reports": 20,
+ "checks": 284,
  "failed_checks": 0,
- "warnings": [
-  "2 team(s) playing this week are not on the report yet (DAL, PHI). Teams usually appear as their game approaches; absence does not mean healthy."
- ],
+ "warnings": [],
  "projection_effect": "none",
  "return_timeline_coverage": "not_collected",
  "note": "Collection only. These records do not change any rating or probability. Check times are when this site looked at the report, not when the NFL published it. A blank game status is not an Active designation, and a player who is no longer listed has not been shown to have recovered."
