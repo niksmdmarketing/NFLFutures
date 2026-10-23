@@ -1,0 +1,38 @@
+{
+ "run_utc": "2026-10-23T18:31:00.810467+00:00",
+ "generated_utc": "2026-10-23T18:31:00.810486+00:00",
+ "targets": [
+  [
+   401909848,
+   60,
+   "2026-10-23T19:00:00+00:00"
+  ]
+ ],
+ "params_id": "b",
+ "box": {
+  "release_games_2027": 16,
+  "espn_filled": [],
+  "espn_failed": [],
+  "player_box_sha256": "8a3eb0604ee0bcb458994f271e58d6c4a45dff844b27f21dfe3f8255469275aa",
+  "team_box_sha256": "eb6cf9e8abd267f54dc150183adcdc22c72a6b4628c516de68ba56a6abb244c5"
+ },
+ "report": {
+  "url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-23_02_30PM.pdf",
+  "label": "2026-10-23 02_30PM",
+  "sha256": "808cf6497916854db8dfac867c6a5e63e78018a3f43135cadb92f2aad5ecf66d",
+  "rows": 101,
+  "retrieved_utc": "2026-10-23T18:31:04.400762+00:00"
+ },
+ "report_rows_matched_via_last_season": 2765,
+ "fast_memory_errors": [
+  {
+   "game_id": 401909848,
+   "horizon_min": 60,
+   "error": "ValueError('Invalid observed-history timing')"
+  }
+ ],
+ "written": [
+  "nba/props_forward/2026-10-23/401909848_60_20261023T183100810467Z.json.gz"
+ ],
+ "seconds": 51.460531
+}
