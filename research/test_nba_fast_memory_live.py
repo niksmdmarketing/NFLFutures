@@ -51,6 +51,39 @@ class LiveTests(unittest.TestCase):
         r,z,h,f,p=self.fixture();r['players'][0]['p_appear']=.8
         with self.assertRaisesRegex(ValueError,'appearance mismatch'):L.build_record(r,z,h,f,p,'2026-10-23T21:31:00Z')
 
+    def test_target_placeholders_are_not_history_observations(self):
+        r,z,h,f,p=self.fixture()
+        expected=L.build_record(r,z,h,f,p,'2026-10-23T21:31:00Z')
+        placeholders=pd.DataFrame(dict(season=[2027,2027],aid=[7,-1],
+            tip=['2026-10-23T23:00:00Z','2026-10-24T01:00:00Z'],minutes=[0.,0.]))
+        combined=pd.concat([h,placeholders],ignore_index=True)
+        # The old hook failed here before the fast-input code could discard zeros.
+        bad=combined.copy();bad['observed_at_utc']=r['forecast_finished_utc']
+        with self.assertRaisesRegex(ValueError,'Invalid observed-history timing'):
+            L.S.make_shadow(z,bad,f,p,r['cutoff_utc'],'2026-10-23T21:31:00Z',replay=False)
+        before=copy.deepcopy(r)
+        actual=L.build_record(r,z,combined,f,p,'2026-10-23T21:31:00Z')
+        self.assertEqual(actual['players'],expected['players'])
+        self.assertEqual(actual['history_filter'],dict(input_rows=5,positive_appearances=3,nonappearance_rows_removed=2))
+        self.assertEqual(r,before)
+
+    def test_future_positive_history_still_rejected(self):
+        r,z,h,f,p=self.fixture()
+        h=pd.concat([h,pd.DataFrame(dict(season=[2027],aid=[7],tip=['2026-10-23T23:00:00Z'],minutes=[10.]))],ignore_index=True)
+        with self.assertRaisesRegex(ValueError,'Invalid observed-history timing'):
+            L.build_record(r,z,h,f,p,'2026-10-23T21:31:00Z')
+
+    def test_missing_negative_and_nonfinite_history_rejected(self):
+        for value in (np.nan,np.inf,-1.):
+            r,z,h,f,p=self.fixture();h.loc[0,'minutes']=value
+            with self.assertRaisesRegex(ValueError,'Invalid minutes'):
+                L.build_record(r,z,h,f,p,'2026-10-23T21:31:00Z')
+
+    def test_observation_after_capture_still_rejected(self):
+        r,z,h,f,p=self.fixture();r['forecast_finished_utc']='2026-10-23T21:32:00Z'
+        with self.assertRaisesRegex(ValueError,'Invalid observed-history timing'):
+            L.build_record(r,z,h,f,p,'2026-10-23T21:31:00Z')
+
     def test_blob_create_only_and_corruption(self):
         with tempfile.TemporaryDirectory(dir=ROOT) as d:
             h=L._store_blob(d,b'original','json')

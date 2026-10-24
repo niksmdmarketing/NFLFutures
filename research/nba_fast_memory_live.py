@@ -19,6 +19,16 @@ def build_record(primary,z,history,frozen,params,captured):
     # History comes from the already retrieved primary box inputs. This is an
     # availability upper bound, not a fabricated exact per-row retrieval time.
     h=history[['season','aid','tip','minutes']].copy()
+    h['minutes']=pd.to_numeric(h['minutes'],errors='raise')
+    if not np.isfinite(h['minutes'].to_numpy(float)).all() or (h['minutes']<0).any():
+        raise ValueError('Invalid minutes in primary history')
+    input_rows=len(h)
+    # The primary feature builder also emits zero-minute target/candidate rows.
+    # They are NOT observations of future games. fast_inputs already ignores
+    # all non-appearances, so remove only these before validating provenance.
+    # Do not filter positive rows by date: the strict guard must still reject
+    # any claimed appearance that occurs after the observation/capture time.
+    h=h[h['minutes']>0].copy()
     h['observed_at_utc']=primary['forecast_finished_utc']
     shadow=S.make_shadow(z,h,frozen,params,primary['cutoff_utc'],str(now),replay=False)
     base,_=C.q_m2(z,frozen['m2'],True)
@@ -56,6 +66,8 @@ def build_record(primary,z,history,frozen,params,captured):
         coverage=copy.deepcopy(primary.get('coverage')),github=copy.deepcopy(primary.get('github')),
         activation_utc=params['activation_utc'],pair_check={'same_players':set(pmap)=={(p['team'],p['aid']) for p in shadow['players']}},
         history_provenance='Primary archived box/row history, available by primary completion; no new data request',
+        history_filter=dict(input_rows=input_rows,positive_appearances=len(h),
+                            nonappearance_rows_removed=input_rows-len(h)),
         challenger_eligibility='requires_independent_push_receipt_and_valid_primary',
         warning='Separate fast-memory test, not M2/M2b adoption population; not evidence of profit.')
     return shadow
