@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-10-24T20:54:57+00:00",
+ "checked_utc": "2026-10-24T23:19:36+00:00",
  "leagues": {
   "nfl": {
-   "records": 1629,
+   "records": 1632,
    "by_layer": {
-    "official": 1523,
-    "reported": 106
+    "official": 1524,
+    "reported": 108
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -53,16 +53,16 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "106/106"
+   "reported_matched_to_official_list": "108/108"
   },
   "nba": {
-   "records": 244,
+   "records": 259,
    "by_layer": {
-    "official": 192,
-    "reported": 52
+    "official": 206,
+    "reported": 53
    },
    "unknown_team": 0,
-   "no_player": 10,
+   "no_player": 4,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -98,6 +98,15 @@
    ],
    "conflicts": [
     {
+     "player": "Jett Howard",
+     "official": [
+      "available",
+      "out"
+     ],
+     "other": "expected out",
+     "source": "ESPN injury note"
+    },
+    {
      "player": "Moses Moody",
      "official": [
       "out"
@@ -114,13 +123,13 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "52/52"
+   "reported_matched_to_official_list": "53/53"
   },
   "nhl": {
-   "records": 1570,
+   "records": 1567,
    "by_layer": {
     "official": 156,
-    "reported": 67,
+    "reported": 64,
     "projected": 1347
    },
    "unknown_team": 0,
@@ -141,6 +150,7 @@
     "MIN",
     "MTL",
     "NJD",
+    "NSH",
     "NYI",
     "NYR",
     "OTT",
@@ -161,8 +171,7 @@
    "stale_projection_dates": 0,
    "teams_missing_official": [
     "BOS",
-    "CBJ",
-    "NSH"
+    "CBJ"
    ],
    "season_state": {
     "state": "in_season",
@@ -170,7 +179,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "58/67"
+   "reported_matched_to_official_list": "55/64"
   },
   "nbl": {
    "records": 22,
