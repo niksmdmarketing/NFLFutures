@@ -1,0 +1,16 @@
+{
+  "model_id": "fast-minutes-hl2-dev1",
+  "season": 2027,
+  "activation_utc": "2026-10-23T15:00:00Z",
+  "half_life": 2,
+  "min_appearances": 3,
+  "primary_parameter_sha256": "5b169171ebbaf2b33a711dc3903b11a3f63969d9d7c3fd140f336c2c14213601",
+  "bm": [7.110432282092476, 0.5275592385102249, 0.1863865847900614, 0.03264956961705437, 0.014620169555521173, -1.7579265254847491, 1.6030631160657403, 0.025515680847733868, -0.5986101219354006],
+  "sd": [6.8240907497328, -0.05948075887854896],
+  "group_game_mean": {
+    "reb": {"B": 6.176879371964444, "G": 3.037399605181319, "W": 4.041891984393183},
+    "ast": {"B": 1.7807679384183035, "G": 3.1144433327023444, "W": 1.7218700800876172}
+  },
+  "failed_original_gate": "bench under15 absolute calibration error increased .161 to .270 percentage points",
+  "evidence": "historical development only; not adopted"
+}
