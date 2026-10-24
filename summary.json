@@ -1,12 +1,12 @@
 {
  "schema_version": 2,
  "source_url": "https://www.nfl.com/injuries/",
- "generated_at": "2026-10-24T16:00:12+00:00",
- "last_attempt_at": "2026-10-24T16:00:12+00:00",
+ "generated_at": "2026-10-24T18:49:34+00:00",
+ "last_attempt_at": "2026-10-24T18:49:34+00:00",
  "last_attempt_ok": true,
  "last_error": null,
- "last_success_at": "2026-10-24T16:00:12+00:00",
- "report_first_seen_at": "2026-10-23T23:11:00+00:00",
+ "last_success_at": "2026-10-24T18:49:34+00:00",
+ "report_first_seen_at": "2026-10-24T18:49:34+00:00",
  "collection_status": "ok",
  "stale_after_hours": 6,
  "report_season": 2026,
@@ -79,8 +79,8 @@
  ],
  "status_counts": {
   "Out": 60,
-  "Questionable": 74,
-  "No game status": 211,
+  "Questionable": 73,
+  "No game status": 212,
   "Doubtful": 4
  },
  "rows": [
@@ -1609,9 +1609,9 @@
    "player_id": "rigoberto-sanchez",
    "player": "Rigoberto Sanchez",
    "position": "P",
-   "injury": "Foot",
+   "injury": null,
    "practice_status": "Did Not Participate In Practice",
-   "game_status": "Questionable",
+   "game_status": null,
    "player_url": "https://www.nfl.com/players/rigoberto-sanchez/"
   },
   {
@@ -3577,6 +3577,34 @@
  ],
  "recent_changes": [
   {
+   "observed_at": "2026-10-24T18:49:34+00:00",
+   "season": 2026,
+   "week": 7,
+   "team": "IND",
+   "player_id": "rigoberto-sanchez",
+   "kind": "updated",
+   "before": {
+    "team": "IND",
+    "player_id": "rigoberto-sanchez",
+    "player": "Rigoberto Sanchez",
+    "position": "P",
+    "injury": "Foot",
+    "practice_status": "Did Not Participate In Practice",
+    "game_status": "Questionable",
+    "player_url": "https://www.nfl.com/players/rigoberto-sanchez/"
+   },
+   "after": {
+    "team": "IND",
+    "player_id": "rigoberto-sanchez",
+    "player": "Rigoberto Sanchez",
+    "position": "P",
+    "injury": null,
+    "practice_status": "Did Not Participate In Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/rigoberto-sanchez/"
+   }
+  },
+  {
    "observed_at": "2026-10-23T23:11:00+00:00",
    "season": 2026,
    "week": 7,
@@ -4658,38 +4686,10 @@
     "game_status": null,
     "player_url": "https://www.nfl.com/players/cameron-heyward/"
    }
-  },
-  {
-   "observed_at": "2026-10-23T23:11:00+00:00",
-   "season": 2026,
-   "week": 7,
-   "team": "PIT",
-   "player_id": "alex-highsmith",
-   "kind": "updated",
-   "before": {
-    "team": "PIT",
-    "player_id": "alex-highsmith",
-    "player": "Alex Highsmith",
-    "position": "LB",
-    "injury": null,
-    "practice_status": "Limited Participation in Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/alex-highsmith/"
-   },
-   "after": {
-    "team": "PIT",
-    "player_id": "alex-highsmith",
-    "player": "Alex Highsmith",
-    "position": "LB",
-    "injury": null,
-    "practice_status": "Full Participation in Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/alex-highsmith/"
-   }
   }
  ],
- "distinct_reports": 21,
- "checks": 291,
+ "distinct_reports": 22,
+ "checks": 292,
  "failed_checks": 0,
  "warnings": [],
  "projection_effect": "none",
