@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-10-23T23:53:10+00:00",
+ "checked_utc": "2026-10-24T04:43:25+00:00",
  "leagues": {
   "nfl": {
-   "records": 1597,
+   "records": 1627,
    "by_layer": {
     "official": 1509,
-    "reported": 88
+    "reported": 118
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -49,20 +49,20 @@
    "teams_missing_official": [],
    "season_state": {
     "state": "in_season",
-    "why": "14 regular-season/playoff and 0 other games 2026-10-16..2026-11-02"
+    "why": "13 regular-season/playoff and 0 other games 2026-10-17..2026-11-03"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "87/88"
+   "reported_matched_to_official_list": "118/118"
   },
   "nba": {
-   "records": 241,
+   "records": 175,
    "by_layer": {
-    "official": 203,
-    "reported": 38
+    "official": 136,
+    "reported": 39
    },
    "unknown_team": 0,
-   "no_player": 12,
+   "no_player": 25,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -118,11 +118,11 @@
    "teams_missing_official": [],
    "season_state": {
     "state": "in_season",
-    "why": "38 regular-season/playoff and 0 other games 2026-10-16..2026-11-02"
+    "why": "40 regular-season/playoff and 0 other games 2026-10-17..2026-11-03"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "38/38"
+   "reported_matched_to_official_list": "39/39"
   },
   "nhl": {
    "records": 1562,
@@ -174,16 +174,16 @@
    ],
    "season_state": {
     "state": "in_season",
-    "why": "34 regular-season/playoff and 0 other games 2026-10-16..2026-11-02"
+    "why": "33 regular-season/playoff and 0 other games 2026-10-17..2026-11-03"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
    "reported_matched_to_official_list": "67/72"
   },
   "nbl": {
-   "records": 23,
+   "records": 22,
    "by_layer": {
-    "official": 23
+    "official": 22
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -194,7 +194,6 @@
     "CNS",
     "ILL",
     "MEL",
-    "NZL",
     "PER",
     "SEM",
     "SYD",
@@ -202,10 +201,12 @@
    ],
    "conflicts": [],
    "stale_projection_dates": 0,
-   "teams_missing_official": [],
+   "teams_missing_official": [
+    "NZL"
+   ],
    "season_state": {
     "state": "in_season",
-    "why": "21 NBL games 2026-10-16..2026-11-02 (NBL fixture, season 2026)"
+    "why": "20 NBL games 2026-10-17..2026-11-03 (NBL fixture, season 2026)"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
@@ -244,7 +245,7 @@
    ],
    "season_state": {
     "state": "off_season",
-    "why": "0 AFL games 2026-10-16..2026-11-02 (Squiggle fixture)"
+    "why": "0 AFL games 2026-10-17..2026-11-03 (Squiggle fixture)"
    },
    "coverage_expected": false,
    "teams_missing_official_note": "off-season: no official coverage expected",
