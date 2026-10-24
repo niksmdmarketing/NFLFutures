@@ -1,0 +1,22 @@
+/* Week-by-week history page */
+#replay .rp-controls { display: flex; flex-wrap: wrap; gap: 12px 16px; align-items: flex-end; margin-bottom: 14px; }
+#replay .rp-week { display: flex; flex-direction: column; gap: 4px; flex: 1 1 260px; min-width: 0; }
+#replay .rp-week label { font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 600; }
+#replay input[type=range] { width: 100%; min-height: 40px; accent-color: var(--accent); }
+#replay .rp-tag { display: inline-block; font-size: .68rem; text-transform: uppercase; letter-spacing: .05em; font-weight: 600; padding: 2px 8px; border-radius: 999px; background: var(--bg); border: 1px solid var(--line); color: var(--muted); }
+#replay .rp-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; margin: 6px 0 10px; }
+#replay .rp-head b { font-family: var(--font-display); font-size: 1.3rem; text-transform: uppercase; letter-spacing: .03em; }
+#replay table.rp { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+#replay table.rp th, #replay table.rp td { padding: 6px 10px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
+#replay table.rp th:first-child, #replay table.rp td:first-child { text-align: left; }
+#replay table.rp th { font-size: .72rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 600; }
+#replay .rp-bar { display: inline-block; height: 8px; background: var(--off); border-radius: 2px; vertical-align: middle; margin-right: 8px; min-width: 1px; }
+#replay .up { color: var(--off-ink); }
+#replay .down { color: var(--def-ink); }
+#replay .hit { font-weight: 700; color: var(--off-ink); }
+#replay .rp-rel { margin-top: 22px; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 14px; }
+#replay .rp-rel h3 { margin: 0 0 8px; }
+#replay .rp-rel p { margin: 6px 0; max-width: 70ch; }
+#replay .rp-cal { margin-top: 8px; font-size: .88rem; }
+#replay .rp-cal td, #replay .rp-cal th { padding: 4px 12px 4px 0; text-align: left; }
+@media (max-width: 600px) { #replay table.rp th, #replay table.rp td { padding: 6px 6px; } #replay .hide-sm { display: none; } }

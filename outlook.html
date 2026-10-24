@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>NFL schedule difficulty</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Public+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="style.css">
+<script>(function(){if(window.setStamp)return;window.setStamp=function(iso,lead,el){el=el||document.getElementById('stamp');if(!el)return;var d=new Date(String(iso).replace(' ','T').replace(/\+00:00$/,'Z'));if(isNaN(d))return;el.textContent=(lead?lead+' · ':'')+'updated '+d.toLocaleString(undefined,{weekday:'short',day:'numeric',month:'short',hour:'numeric',minute:'2-digit'});var h=(Date.now()-d)/3.6e6;if(h>26){var b=document.createElement('b');b.className='stale';b.textContent=' · last update '+(h<48?Math.round(h)+' hours':Math.round(h/24)+' days')+' ago, may be out of date';el.appendChild(b);}};document.addEventListener('DOMContentLoaded',function(){var el=document.getElementById('stamp');if(el&&el.dataset.utc)setStamp(el.dataset.utc,el.dataset.lead||'',el);});})();</script></head>
+<body>
+<div class="wrap">
+  <header class="site-head">
+    <div class="sportbar"><span>SPORT</span><a href="./" aria-current="page">NFL</a><a href="nba/">NBA</a><a href="nbl/">NBL</a><a href="nhl/">NHL</a><a href="afl/">AFL</a><a href="cfb/">CFB</a><a class="sb-shiv" href="shiv/">Shiv</a><a href="updates.html">Updates</a></div>
+    <div class="brand"><a class="brand-name" href="./">NFL<span>Futures</span></a><span class="stamp" id="stamp" data-utc="2026-10-24T16:17+00:00" data-lead="Schedule difficulty">Schedule difficulty · updated Sat 24 Oct, 16:17 UTC</span></div>
+    <nav class="nav nav-top" aria-label="NFL sections"><a href="standings.html">Standings</a><a href="./" aria-current="page">Forecast</a><a href="offense.html">Teams</a><a href="players-qb.html">Players</a><a href="matchups.html">Games</a><a href="model.html">Model</a></nav><nav class="nav nav-sub" aria-label="Forecast pages"><a href="./">Chances</a><a href="why.html">Why, team by team</a><a href="awards.html">Award chances</a><a href="award-race.html">Award race</a><a href="outlook.html" aria-current="page">Schedule difficulty</a><a href="sos.html">Strength of schedule</a><a href="trends.html">Winner trends</a></nav>
+  </header>
+<main class="page" id="main">
+  <div class="page-head"><h1>NFL schedule difficulty</h1><p>How hard each team's next 5 and next 10 games are, and what the rest of the schedule does to the season. Opponent strength uses the same ratings as the Futures page, adjusted for home advantage and short rest.</p></div>
+  <div id="sched" data-src="data/schedule.json"><p class="note">Loading…</p></div>
+</main>
+<footer class="stamp">Schedule difficulty is recalculated on every refresh. Probabilities and history only, not betting advice.</footer>
+</div>
+<link rel="stylesheet" href="schedule.css">
+<script src="schedule.js"></script>
+</body></html>

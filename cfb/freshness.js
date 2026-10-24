@@ -1,0 +1,1 @@
+getJSON('meta.json').then(m => { const note=document.createElement('p'); note.className='note'; note.textContent='Confirmed results through '+m.results_through+'. Advanced archives may lag these results. See Data coverage for file ages. Records include postseason; advanced numbers are descriptive, not forecasts.'; document.getElementById('main').prepend(note); });

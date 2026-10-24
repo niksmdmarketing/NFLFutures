@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Updates</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Public+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="style.css">
+<script>(function(){if(window.setStamp)return;window.setStamp=function(iso,lead,el){el=el||document.getElementById('stamp');if(!el)return;var d=new Date(String(iso).replace(' ','T').replace(/\+00:00$/,'Z'));if(isNaN(d))return;el.textContent=(lead?lead+' · ':'')+'updated '+d.toLocaleString(undefined,{weekday:'short',day:'numeric',month:'short',hour:'numeric',minute:'2-digit'});var h=(Date.now()-d)/3.6e6;if(h>26){var b=document.createElement('b');b.className='stale';b.textContent=' · last update '+(h<48?Math.round(h)+' hours':Math.round(h/24)+' days')+' ago, may be out of date';el.appendChild(b);}};document.addEventListener('DOMContentLoaded',function(){var el=document.getElementById('stamp');if(el&&el.dataset.utc)setStamp(el.dataset.utc,el.dataset.lead||'',el);});})();</script></head>
+<body>
+<div class="wrap">
+  <header class="site-head">
+    <div class="sportbar"><span>SPORT</span><a href="./">NFL</a><a href="nba/">NBA</a><a href="nbl/">NBL</a><a href="nhl/">NHL</a><a href="afl/">AFL</a><a href="cfb/">CFB</a><a class="sb-shiv" href="shiv/">Shiv</a><a href="updates.html" aria-current="page">Updates</a></div>
+    <div class="brand"><a class="brand-name" href="./">NFL<span>Futures</span></a><span class="stamp" id="stamp"></span></div>
+    
+  </header>
+<main class="page" id="main">
+  <div class="page-head"><h1>Updates</h1><p>New statistics and data added to the site, newest first.</p></div>
+  <div id="updates"><p class="note">Loading…</p></div>
+</main>
+<style>
+.upd{list-style:none;margin:0;padding:0;max-width:52rem}
+.upd li{display:flex;gap:.9rem;align-items:baseline;padding:.55rem 0;border-bottom:1px solid var(--line,#d9dee3)}
+.upd time{flex:0 0 6.2rem;font-variant-numeric:tabular-nums;color:var(--muted,#5b6773);font-size:.9rem}
+.upd b{flex:0 0 3.4rem;font-size:.75rem;letter-spacing:.06em;text-transform:uppercase}
+</style>
+<script>
+(function(){
+  var el=document.getElementById('updates');
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  fetch('data/updates.json').then(function(r){return r.json();}).then(function(rows){
+    rows.sort(function(a,b){return a.date<b.date?1:a.date>b.date?-1:0;});
+    el.innerHTML=rows.length?'<ul class="upd">'+rows.map(function(r){
+      return '<li><time datetime="'+esc(r.date)+'">'+esc(r.date)+'</time><b>'+esc(r.sport||'')+'</b><span>'+esc(r.text)+'</span></li>';}).join('')+'</ul>':'<p class="note">Nothing yet.</p>';
+  }).catch(function(){el.innerHTML='<p class="note">Could not load updates.</p>';});
+})();
+</script>
+</div></body></html>
