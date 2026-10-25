@@ -1,0 +1,177 @@
+{
+ "rule": "research/nfl_games_props/STATUS_CALIBRATION_RULE.md",
+ "coverage": {
+  "player_weeks": 65795,
+  "appearance_unknown": 276,
+  "with_status": {
+   "Out": 2206,
+   "Doubtful": 366,
+   "Questionable": 2907
+  }
+ },
+ "seasons": {
+  "2021": {
+   "table": {
+    "Out|QB": 0.0,
+    "Out|WR/TE": 0.0,
+    "Out|RB/FB": 0.0,
+    "Doubtful|QB": 0.02,
+    "Doubtful|WR/TE": 0.029,
+    "Doubtful|RB/FB": 0.0426,
+    "Questionable|QB": 0.9099,
+    "Questionable|WR/TE": 0.9657,
+    "Questionable|RB/FB": 0.846
+   }
+  },
+  "2022": {
+   "table": {
+    "Out|QB": 0.0002,
+    "Out|WR/TE": 0.0015,
+    "Out|RB/FB": 0.0001,
+    "Doubtful|QB": 0.011,
+    "Doubtful|WR/TE": 0.0184,
+    "Doubtful|RB/FB": 0.0324,
+    "Questionable|QB": 0.8828,
+    "Questionable|WR/TE": 0.9716,
+    "Questionable|RB/FB": 0.8934
+   }
+  },
+  "2023": {
+   "table": {
+    "Out|QB": 0.0001,
+    "Out|WR/TE": 0.0011,
+    "Out|RB/FB": 0.0,
+    "Doubtful|QB": 0.0072,
+    "Doubtful|WR/TE": 0.0147,
+    "Doubtful|RB/FB": 0.0276,
+    "Questionable|QB": 0.8654,
+    "Questionable|WR/TE": 0.9829,
+    "Questionable|RB/FB": 0.8899
+   }
+  },
+  "2024": {
+   "table": {
+    "Out|QB": 0.0001,
+    "Out|WR/TE": 0.0009,
+    "Out|RB/FB": 0.0,
+    "Doubtful|QB": 0.0069,
+    "Doubtful|WR/TE": 0.0185,
+    "Doubtful|RB/FB": 0.0239,
+    "Questionable|QB": 0.8391,
+    "Questionable|WR/TE": 0.9709,
+    "Questionable|RB/FB": 0.8916
+   }
+  },
+  "2025": {
+   "table": {
+    "Out|QB": 0.0001,
+    "Out|WR/TE": 0.0008,
+    "Out|RB/FB": 0.0,
+    "Doubtful|QB": 0.0049,
+    "Doubtful|WR/TE": 0.0151,
+    "Doubtful|RB/FB": 0.0195,
+    "Questionable|QB": 0.8069,
+    "Questionable|WR/TE": 0.9651,
+    "Questionable|RB/FB": 0.8965
+   }
+  }
+ },
+ "status_player_weeks_scored": 3457,
+ "logloss": {
+  "current": 0.38424,
+  "calibrated": 0.38971
+ },
+ "brier": {
+  "current": 0.13196,
+  "calibrated": 0.1336
+ },
+ "gain": -0.00547,
+ "lower95_one_sided": -0.01073,
+ "by_season": {
+  "2021": -0.00192,
+  "2022": 0.00173,
+  "2023": -0.01681,
+  "2024": -0.00418,
+  "2025": -0.00725
+ },
+ "cells": {
+  "Doubtful|QB": {
+   "n": 31,
+   "played": 0.0,
+   "mean_p_current": 0.1,
+   "mean_p_calibrated": 0.011,
+   "logloss_current": 0.1054,
+   "logloss_calibrated": 0.011
+  },
+  "Doubtful|RB/FB": {
+   "n": 61,
+   "played": 0.0,
+   "mean_p_current": 0.1,
+   "mean_p_calibrated": 0.0298,
+   "logloss_current": 0.1054,
+   "logloss_calibrated": 0.0302
+  },
+  "Doubtful|WR/TE": {
+   "n": 142,
+   "played": 0.007,
+   "mean_p_current": 0.1,
+   "mean_p_calibrated": 0.0206,
+   "logloss_current": 0.1208,
+   "logloss_calibrated": 0.0504
+  },
+  "Out|QB": {
+   "n": 141,
+   "played": 0.0,
+   "mean_p_current": 0.0,
+   "mean_p_calibrated": 0.0001,
+   "logloss_current": 0.001,
+   "logloss_calibrated": 0.001
+  },
+  "Out|RB/FB": {
+   "n": 323,
+   "played": 0.0,
+   "mean_p_current": 0.0,
+   "mean_p_calibrated": 0.0,
+   "logloss_current": 0.001,
+   "logloss_calibrated": 0.001
+  },
+  "Out|WR/TE": {
+   "n": 919,
+   "played": 0.0011,
+   "mean_p_current": 0.0,
+   "mean_p_calibrated": 0.0009,
+   "logloss_current": 0.0085,
+   "logloss_calibrated": 0.0087
+  },
+  "Questionable|QB": {
+   "n": 150,
+   "played": 0.4333,
+   "mean_p_current": 0.4976,
+   "mean_p_calibrated": 0.5393,
+   "logloss_current": 0.7755,
+   "logloss_calibrated": 0.8166
+  },
+  "Questionable|RB/FB": {
+   "n": 500,
+   "played": 0.65,
+   "mean_p_current": 0.565,
+   "mean_p_calibrated": 0.621,
+   "logloss_current": 0.6797,
+   "logloss_calibrated": 0.6748
+  },
+  "Questionable|WR/TE": {
+   "n": 1190,
+   "played": 0.6966,
+   "mean_p_current": 0.583,
+   "mean_p_calibrated": 0.7083,
+   "logloss_current": 0.7034,
+   "logloss_calibrated": 0.7307
+  }
+ },
+ "gates": {
+  "1_overall_bound": false,
+  "2_four_of_five_seasons": false,
+  "3_no_large_cell_worse_by_0.01": false
+ },
+ "passes": false
+}

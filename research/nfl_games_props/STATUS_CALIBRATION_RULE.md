@@ -38,3 +38,34 @@ P(play | status) per status (Out, Doubtful, Questionable) and position group (QB
 - **Pass:** the calibrated table replaces the constants under a new parameter identifier (nfl-player-props-v1.1-experimental), recorded with its hash, effective from the next refresh. The page keeps "experimental". The forward archive records which version each forecast used.
 - **Fail:** the constants stay, labelled as assumptions, and the result is recorded.
 - Either way, the reception and pass-attempt models are untouched, and no claim of a betting edge follows.
+
+## Outcome (26 Oct 2026). Fails; the current constants stay (labelled as assumptions)
+Run: research/nfl_games_props/status_calibration_test.py (code committed before results; results status_calibration_results.json).
+
+**Disclosed implementation details, fixed before scoring:**
+- the research player rows start in 2018, so fitting used 2018..s-1 rather than 2015..s-1;
+- probabilities clipped to [0.001, 0.999] in both versions;
+- the base appearance model refitted walk-forward.
+
+**Data:** 65,795 player-weeks. 3,457 with a reported status were scored in 2021-2025: Out 1,383, Doubtful 234, Questionable 1,840. 276 player-weeks with unknown appearance were excluded.
+
+**Overall:**
+- log loss: current 0.38424, calibrated 0.38971 (gain -0.00547; one-sided 95% bound -0.01073);
+- Brier: 0.13196 against 0.13360;
+- better in 1 of 5 seasons.
+
+All three gates fail.
+
+| Status and group | n | Played | Current mean p | Calibrated mean p | Log loss current / calibrated |
+|---|---|---|---|---|---|
+| Out (all groups) | 1,383 | 0.1% | 0% | about 0% | equal |
+| Doubtful QB / RB-FB / WR-TE | 31 / 61 / 142 | 0% / 0% / 0.7% | 10% | 1-3% | 0.105 / 0.011; 0.105 / 0.030; 0.121 / 0.050 |
+| Questionable QB | 150 | 43% | 50% | 54% | 0.776 / 0.817 |
+| Questionable RB-FB | 500 | 65% | 57% | 62% | 0.680 / 0.675 |
+| Questionable WR-TE | 1,190 | 70% | 58% | 71% | 0.703 / 0.731 |
+
+**Reading:**
+- Doubtful players almost never played (0.4% overall), so the 10% assumption is clearly too high.
+- For Questionable players, the calibrated multipliers (0.81-0.97) move the average closer to the observed rate. But they score worse, because the base appearance model separates which Questionable players play only weakly, so a larger multiplier mostly spreads probability onto the wrong players.
+- The single-form candidate fails as written. The constants stay, still labelled as assumptions.
+- **Out of scope here:** a Doubtful-only correction, and a different Questionable form (for example, using practice participation). Each would need its own rule. The Doubtful pattern was seen in this test, so a Doubtful rule would be data-suggested and would need forward confirmation.
