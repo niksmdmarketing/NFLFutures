@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-10-25T16:29:18+00:00",
+ "checked_utc": "2026-10-25T19:42:15+00:00",
  "leagues": {
   "nfl": {
-   "records": 1615,
+   "records": 1608,
    "by_layer": {
     "official": 1525,
-    "reported": 90
+    "reported": 83
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -46,6 +46,15 @@
    ],
    "conflicts": [
     {
+     "player": "Max Melton",
+     "official": [
+      "out",
+      "questionable"
+     ],
+     "other": "expected to play",
+     "source": "ESPN injury note"
+    },
+    {
      "player": "Tyler Badie",
      "official": [
       "injured reserve",
@@ -63,16 +72,16 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "90/90"
+   "reported_matched_to_official_list": "83/83"
   },
   "nba": {
-   "records": 223,
+   "records": 232,
    "by_layer": {
-    "official": 169,
-    "reported": 54
+    "official": 177,
+    "reported": 55
    },
    "unknown_team": 0,
-   "no_player": 20,
+   "no_player": 15,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -124,13 +133,13 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "54/54"
+   "reported_matched_to_official_list": "55/55"
   },
   "nhl": {
-   "records": 1559,
+   "records": 1555,
    "by_layer": {
-    "official": 156,
-    "reported": 70,
+    "official": 153,
+    "reported": 69,
     "projected": 1333
    },
    "unknown_team": 0,
@@ -180,7 +189,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "61/70"
+   "reported_matched_to_official_list": "60/69"
   },
   "nbl": {
    "records": 21,
