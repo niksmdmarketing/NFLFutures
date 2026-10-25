@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-10-25T1710Z",
-"feed_timestamp": "2026-10-25T17:10:07Z",
+"collected_utc": "2026-10-25T2057Z",
+"feed_timestamp": "2026-10-25T20:57:35Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -29,9 +29,9 @@
 },
 {
 "athlete_id": "5105626",
-"status": "Day-To-Day",
-"return_date": "2026-10-25",
-"injury": "Not Specified Shoulder"
+"status": "Out",
+"return_date": "2026-10-27",
+"injury": "Right Shoulder Sprain"
 },
 {
 "athlete_id": "4395651",
@@ -78,13 +78,13 @@
 {
 "athlete_id": "3138160",
 "status": "Out",
-"return_date": "2026-11-02",
+"return_date": "2026-10-26",
 "injury": "Right Thumb Sprain"
 },
 {
 "athlete_id": "5041939",
 "status": "Out",
-"return_date": "2026-11-02",
+"return_date": "2026-10-26",
 "injury": "Left Shoulder Sprain"
 },
 {
@@ -94,10 +94,10 @@
 "injury": "Right Foot Surgery"
 },
 {
-"athlete_id": "6442",
-"status": "Day-To-Day",
-"return_date": "2026-10-26",
-"injury": "Left Knee"
+"athlete_id": "4278594",
+"status": "Out",
+"return_date": "2026-10-28",
+"injury": "Illness"
 },
 {
 "athlete_id": "4593125",
@@ -286,6 +286,12 @@
 "injury": "Left Wrist Sprain"
 },
 {
+"athlete_id": "5231919",
+"status": "Day-To-Day",
+"return_date": "2026-10-25",
+"injury": "Right Knee Bruise"
+},
+{
 "athlete_id": "4600663",
 "status": "Out",
 "return_date": "2026-10-26",
@@ -371,26 +377,20 @@
 },
 {
 "athlete_id": "4432446",
-"status": "Day-To-Day",
-"return_date": "2026-10-25",
-"injury": "Right Knee"
+"status": "Out",
+"return_date": "2026-10-28",
+"injury": "Left Knee Soreness"
 },
 {
 "athlete_id": "3059318",
-"status": "Day-To-Day",
-"return_date": "2026-10-25",
-"injury": "Rest"
-},
-{
-"athlete_id": "1966",
-"status": "Day-To-Day",
-"return_date": null,
-"injury": ""
+"status": "Out",
+"return_date": "2026-10-28",
+"injury": "Right Heel"
 },
 {
 "athlete_id": "3904625",
 "status": "Out",
-"return_date": "2026-10-25",
+"return_date": "2026-10-28",
 "injury": "Left Quadriceps Strain"
 },
 {
@@ -480,7 +480,7 @@
 {
 "athlete_id": "5142718",
 "status": "Out",
-"return_date": "2026-10-26",
+"return_date": "2026-10-28",
 "injury": "Left Ankle Sprain"
 },
 {
@@ -537,10 +537,10 @@
 "athlete_id": "5105626",
 "name": "Tyler Bilodeau",
 "team_name": "Brooklyn Nets",
-"status": "Day-To-Day",
-"return_date": "2026-10-25",
-"injury": "Not Specified Shoulder",
-"updated": "2026-10-25T13:43Z"
+"status": "Out",
+"return_date": "2026-10-27",
+"injury": "Right Shoulder Sprain",
+"updated": "2026-10-25T17:19Z"
 },
 {
 "athlete_id": "4395651",
@@ -594,7 +594,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-26",
 "injury": "Head Bruise",
-"updated": "2026-10-25T13:37Z"
+"updated": "2026-10-25T17:50Z"
 },
 {
 "athlete_id": "4431687",
@@ -603,25 +603,25 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-26",
 "injury": "Right Groin Soreness",
-"updated": "2026-10-25T13:37Z"
+"updated": "2026-10-25T17:52Z"
 },
 {
 "athlete_id": "3138160",
 "name": "Caleb Martin",
 "team_name": "Dallas Mavericks",
 "status": "Out",
-"return_date": "2026-11-02",
+"return_date": "2026-10-26",
 "injury": "Right Thumb Sprain",
-"updated": "2026-10-24T18:29Z"
+"updated": "2026-10-25T20:28Z"
 },
 {
 "athlete_id": "5041939",
 "name": "Cooper Flagg",
 "team_name": "Dallas Mavericks",
 "status": "Out",
-"return_date": "2026-11-02",
+"return_date": "2026-10-26",
 "injury": "Left Shoulder Sprain",
-"updated": "2026-10-24T17:52Z"
+"updated": "2026-10-25T20:26Z"
 },
 {
 "athlete_id": "4683688",
@@ -633,13 +633,13 @@
 "updated": "2026-10-22T20:10Z"
 },
 {
-"athlete_id": "6442",
-"name": "Kyrie Irving",
+"athlete_id": "4278594",
+"name": "Naji Marshall",
 "team_name": "Dallas Mavericks",
-"status": "Day-To-Day",
-"return_date": "2026-10-26",
-"injury": "Left Knee",
-"updated": "2026-10-25T13:37Z"
+"status": "Out",
+"return_date": "2026-10-28",
+"injury": "Illness",
+"updated": "2026-10-25T20:25Z"
 },
 {
 "athlete_id": "4593125",
@@ -921,6 +921,15 @@
 "updated": "2026-10-25T00:12Z"
 },
 {
+"athlete_id": "5231919",
+"name": "Karim Lopez",
+"team_name": "Memphis Grizzlies",
+"status": "Day-To-Day",
+"return_date": "2026-10-25",
+"injury": "Right Knee Bruise",
+"updated": "2026-10-25T20:02Z"
+},
+{
 "athlete_id": "4600663",
 "name": "Zach Edey",
 "team_name": "Memphis Grizzlies",
@@ -1050,37 +1059,28 @@
 "athlete_id": "4432446",
 "name": "Jabari Walker",
 "team_name": "Philadelphia 76ers",
-"status": "Day-To-Day",
-"return_date": "2026-10-25",
-"injury": "Right Knee",
-"updated": "2026-10-25T02:11Z"
+"status": "Out",
+"return_date": "2026-10-28",
+"injury": "Left Knee Soreness",
+"updated": "2026-10-25T17:11Z"
 },
 {
 "athlete_id": "3059318",
 "name": "Joel Embiid",
 "team_name": "Philadelphia 76ers",
-"status": "Day-To-Day",
-"return_date": "2026-10-25",
-"injury": "Rest",
-"updated": "2026-10-25T02:15Z"
-},
-{
-"athlete_id": "1966",
-"name": "LeBron James",
-"team_name": "Philadelphia 76ers",
-"status": "Day-To-Day",
-"return_date": null,
-"injury": "",
-"updated": "2026-10-25T13:35Z"
+"status": "Out",
+"return_date": "2026-10-28",
+"injury": "Right Heel",
+"updated": "2026-10-25T17:08Z"
 },
 {
 "athlete_id": "3904625",
 "name": "Tacko Fall",
 "team_name": "Philadelphia 76ers",
 "status": "Out",
-"return_date": "2026-10-25",
+"return_date": "2026-10-28",
 "injury": "Left Quadriceps Strain",
-"updated": "2026-10-23T21:10Z"
+"updated": "2026-10-25T17:13Z"
 },
 {
 "athlete_id": "4701232",
@@ -1152,7 +1152,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-25",
 "injury": "Ankle",
-"updated": "2026-10-25T00:18Z"
+"updated": "2026-10-25T18:37Z"
 },
 {
 "athlete_id": "4898371",
@@ -1213,7 +1213,7 @@
 "name": "AJ Dybantsa",
 "team_name": "Washington Wizards",
 "status": "Out",
-"return_date": "2026-10-26",
+"return_date": "2026-10-28",
 "injury": "Left Ankle Sprain",
 "updated": "2026-10-24T17:54Z"
 },
