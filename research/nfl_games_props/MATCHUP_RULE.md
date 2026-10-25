@@ -45,3 +45,11 @@ Each receiver's raw target share is multiplied by an opponent matchup factor for
 - **Pass:** v1.2 candidate, archived forward beside v1.1 under its own identifier by a separate decision. It is not displayed until forward review.
 - **Fail:** recorded; stop this branch. No further forms, windows, shrinkage or caps tried in response to the result.
 - No betting edge is claimed either way.
+
+## Outcome (26 Oct 2026, Sydney): PASS, small effect
+Run: matchup_test.py, results in matchup_results.json (27,614 receiver-games, 2021-2025).
+- Baseline reproduction: 27,614 of 27,614 rows matched GPT's run-3 receiver-allocation scores (max RPS difference 3.6e-11).
+- Fitted beta per fold: 0.15, 0.19, 0.21, 0.24, 0.23. Factor 5-95% range about 0.96-1.04, so most adjustments are within ±4%.
+- RPS 0.041817 -> 0.041805 (0.03% better). Paired season lower bound +5.1e-6 (> 0). Better in 4 of 5 seasons (2025 slightly worse).
+- Gate 1 pass. Gate 2 pass (PIT deciles 0.094-0.103). Gate 3 pass (log score 1.62773 -> 1.62748). Gate 4 pass (low volume -0.04%, mean below one -0.03%). Gate 5 pass (95th-percentile gap 0.0038 -> 0.0033).
+- Reading: the opponent's positional target mix carries a real but very small signal. It is a v1.2 candidate under the Decision rule, archived forward, not displayed. No betting edge claimed.
