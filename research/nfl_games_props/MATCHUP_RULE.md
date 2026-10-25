@@ -53,3 +53,12 @@ Run: matchup_test.py, results in matchup_results.json (27,614 receiver-games, 20
 - RPS 0.041817 -> 0.041805 (0.03% better). Paired season lower bound +5.1e-6 (> 0). Better in 4 of 5 seasons (2025 slightly worse).
 - Gate 1 pass. Gate 2 pass (PIT deciles 0.094-0.103). Gate 3 pass (log score 1.62773 -> 1.62748). Gate 4 pass (low volume -0.04%, mean below one -0.03%). Gate 5 pass (95th-percentile gap 0.0038 -> 0.0033).
 - Reading: the opponent's positional target mix carries a real but very small signal. It is a v1.2 candidate under the Decision rule, archived forward, not displayed. No betting edge claimed.
+
+## Amendment (26 Oct 2026, Sydney), written before any v1.2 forward output: v1.2 forward shadow
+TypeSafe chose a forward shadow (97%; display now 0%, record only 3%).
+- **Identifier:** nfl-player-props-v1.2-matchup-shadow.
+- **Construction:** v1.1 forecast made at the same time, unchanged except receptions. Each receiver's conditional target share s is multiplied by the factor f for his depth-chart position group. The participation-weighted conditional budget and scale are then recomputed exactly as in v1, and the reception pmf is allocated from v1.1's team-attempt distribution.
+- **Frozen 2026 settings:** beta and league shares fitted once on 2018-2025, as the 2026 walk-forward fold would be, by research/nfl_games_props/matchup_freeze.py. Stored in pipeline/nfl_props_v12_params.json. Not refitted during 2026.
+- **Live defence history:** weekly nflverse player stats for the current and previous season. A game counts only once kickoff + 6 hours is before both the target's cutoff and the forecast time.
+- **Not displayed.** Archived on the nfl-props-v12-archive branch; failures don't affect v1 or v1.1.
+- **Forward review** after at least 8 completed regular-season weeks of archived 60-minute forecasts: paired RPS against v1.1 on the same player-games. Reported as is; no betting edge claimed.

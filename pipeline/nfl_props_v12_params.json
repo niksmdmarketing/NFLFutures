@@ -1,0 +1,29 @@
+{
+  "model_id": "nfl-player-props-v1.2-matchup-shadow",
+  "fitted_seasons": [
+    2018,
+    2025
+  ],
+  "beta": 0.20019441351626618,
+  "league_shares": {
+    "WR": 0.5918510993396705,
+    "TE": 0.21545606269501488,
+    "RB": 0.19269283796531456
+  },
+  "k_pseudo_targets": 100.0,
+  "beta_prior_sd": 0.5,
+  "cap": [
+    0.65,
+    1.5
+  ],
+  "groups": {
+    "WR": "WR",
+    "TE": "TE",
+    "RB": "RB",
+    "FB": "RB"
+  },
+  "window_games": 20,
+  "half_life": 5,
+  "research_concentration": 66.0423400486956,
+  "rule": "research/nfl_games_props/MATCHUP_RULE.md"
+}

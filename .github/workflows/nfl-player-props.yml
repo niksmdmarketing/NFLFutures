@@ -59,13 +59,31 @@ jobs:
           else
             git worktree add -q --orphan -b nfl-props-v11-archive ../nfl-props-v11-archive
           fi
+      - name: Check out create-only v1.2 matchup shadow archive (not displayed)
+        continue-on-error: true   # v1.2 problems must never block v1 or v1.1
+        run: |
+          if git ls-remote --exit-code --heads origin nfl-props-v12-archive > /dev/null; then
+            git fetch -q origin nfl-props-v12-archive
+            git worktree add -q -B nfl-props-v12-archive ../nfl-props-v12-archive FETCH_HEAD
+          else
+            git worktree add -q --orphan -b nfl-props-v12-archive ../nfl-props-v12-archive
+          fi
       - name: Forecast from the latest information available now
         run: python pipeline/nfl_props.py forecast --availability ../injury-monitor --archive ../nfl-props-archive --output ../nfl-props-baseline.json
       - name: Run the aligned-input challenger in shadow
         run: python pipeline/nfl_props_challenger.py --availability ../injury-monitor --baseline ../nfl-props-baseline.json --archive ../nfl-props-challenger-archive
       - name: v1.1 from the same baseline inputs and time
         continue-on-error: true   # v1.1 problems must never block the v1 baseline archive
-        run: python pipeline/nfl_props_v11.py --baseline ../nfl-props-baseline.json --archive ../nfl-props-v11-archive
+        run: python pipeline/nfl_props_v11.py --baseline ../nfl-props-baseline.json --archive ../nfl-props-v11-archive --output ../nfl-props-v11.json
+      - name: v1.2 matchup shadow from the same v1.1 forecast
+        continue-on-error: true   # v1.2 problems must never block v1 or v1.1
+        run: python pipeline/nfl_props_v12.py --v11 ../nfl-props-v11.json --archive ../nfl-props-v12-archive
+      - name: Score v1.2 forecasts independently after results arrive
+        continue-on-error: true
+        run: |
+          mkdir -p ../nfl-props-v12-archive/scores
+          python pipeline/nfl_props_score.py ../nfl-props-v12-archive --horizon 60 --output ../nfl-props-v12-archive/scores/60.json || true
+          python pipeline/nfl_props_score.py ../nfl-props-v12-archive --horizon 360 --output ../nfl-props-v12-archive/scores/360.json || true
       - name: Score v1.1 forecasts independently after results arrive
         continue-on-error: true   # v1.1 problems must never block the v1 baseline archive
         run: |
@@ -110,4 +128,15 @@ jobs:
           if git diff --cached --quiet; then exit 0; fi
           git commit -q -m "NFL player props v1.1 $(date -u +%Y-%m-%dT%H:%MZ)"
           for i in 1 2 3; do git push -q origin nfl-props-v11-archive && exit 0; git pull -q --rebase origin nfl-props-v11-archive; sleep 5; done
+          exit 1
+      - name: Save immutable v1.2 snapshot
+        continue-on-error: true   # v1.1 problems must never block v1 or v1.1
+        run: |
+          cd ../nfl-props-v12-archive
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add snapshots index.jsonl scores 2>/dev/null || git add snapshots index.jsonl
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -q -m "NFL player props v1.2 shadow $(date -u +%Y-%m-%dT%H:%MZ)"
+          for i in 1 2 3; do git push -q origin nfl-props-v12-archive && exit 0; git pull -q --rebase origin nfl-props-v12-archive; sleep 5; done
           exit 1
