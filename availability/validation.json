@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-10-24T23:19:36+00:00",
+ "checked_utc": "2026-10-25T01:15:54+00:00",
  "leagues": {
   "nfl": {
-   "records": 1632,
+   "records": 1640,
    "by_layer": {
     "official": 1524,
-    "reported": 108
+    "reported": 116
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -44,25 +44,35 @@
     "TEN",
     "WAS"
    ],
-   "conflicts": [],
+   "conflicts": [
+    {
+     "player": "Tyler Badie",
+     "official": [
+      "injured reserve",
+      "out"
+     ],
+     "other": "expected to play",
+     "source": "ESPN injury note"
+    }
+   ],
    "stale_projection_dates": 0,
    "teams_missing_official": [],
    "season_state": {
     "state": "in_season",
-    "why": "13 regular-season/playoff and 0 other games 2026-10-17..2026-11-03"
+    "why": "13 regular-season/playoff and 0 other games 2026-10-18..2026-11-04"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "108/108"
+   "reported_matched_to_official_list": "116/116"
   },
   "nba": {
-   "records": 259,
+   "records": 262,
    "by_layer": {
-    "official": 206,
-    "reported": 53
+    "official": 208,
+    "reported": 54
    },
    "unknown_team": 0,
-   "no_player": 4,
+   "no_player": 2,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -98,15 +108,6 @@
    ],
    "conflicts": [
     {
-     "player": "Jett Howard",
-     "official": [
-      "available",
-      "out"
-     ],
-     "other": "expected out",
-     "source": "ESPN injury note"
-    },
-    {
      "player": "Moses Moody",
      "official": [
       "out"
@@ -119,11 +120,11 @@
    "teams_missing_official": [],
    "season_state": {
     "state": "in_season",
-    "why": "40 regular-season/playoff and 0 other games 2026-10-17..2026-11-03"
+    "why": "40 regular-season/playoff and 0 other games 2026-10-18..2026-11-04"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "53/53"
+   "reported_matched_to_official_list": "54/54"
   },
   "nhl": {
    "records": 1567,
@@ -175,7 +176,7 @@
    ],
    "season_state": {
     "state": "in_season",
-    "why": "33 regular-season/playoff and 0 other games 2026-10-17..2026-11-03"
+    "why": "35 regular-season/playoff and 0 other games 2026-10-18..2026-11-04"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
@@ -207,7 +208,7 @@
    ],
    "season_state": {
     "state": "in_season",
-    "why": "20 NBL games 2026-10-17..2026-11-03 (NBL fixture, season 2026)"
+    "why": "19 NBL games 2026-10-18..2026-11-04 (NBL fixture, season 2026)"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
@@ -246,7 +247,7 @@
    ],
    "season_state": {
     "state": "off_season",
-    "why": "0 AFL games 2026-10-17..2026-11-03 (Squiggle fixture)"
+    "why": "0 AFL games 2026-10-18..2026-11-04 (Squiggle fixture)"
    },
    "coverage_expected": false,
    "teams_missing_official_note": "off-season: no official coverage expected",
