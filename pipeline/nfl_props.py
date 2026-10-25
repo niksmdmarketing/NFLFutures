@@ -221,7 +221,7 @@ def _availability(store):
     return records, used
 
 
-def _status(records, team, name, base, rules, season=None, week=None):
+def _matched(records, team, name, season=None, week=None):
     matched = []
     for r in records:
         if r.get("team") != team or _norm(r.get("player")) != _norm(name) or r.get("stale"):
@@ -231,6 +231,30 @@ def _status(records, team, name, base, rules, season=None, week=None):
         if m and season is not None and week is not None and (int(m.group(1)), int(m.group(2))) != (int(season), int(week)):
             continue
         matched.append(r)
+    return matched
+
+
+def _designation(records, team, name, season=None, week=None):
+    """Display category from the latest status (26 Oct 2026, page shows 'if he plays' forecasts for clear players):
+    out | doubtful | questionable | clear (no designation, probable, active or reported as playing)."""
+    m = _matched(records, team, name, season, week)
+    m.sort(key=lambda r: (str(r.get("published_utc") or r.get("collected_utc") or ""), r.get("layer") == "official"))
+    cat = "clear"
+    for r in m:
+        s = str(r.get("status") or "").lower(); k = str(r.get("kind") or "").lower()
+        if "out" in s or "injured reserve" in s or "will_not_play" in k or "injured_list" in k:
+            cat = "out"
+        elif "doubt" in s:
+            cat = "doubtful"
+        elif "question" in s:
+            cat = "questionable"
+        elif "will_play" in k or s in ("active", "probable", "no designation"):
+            cat = "clear"
+    return cat
+
+
+def _status(records, team, name, base, rules, season=None, week=None):
+    matched = _matched(records, team, name, season, week)
     p = base; labels = []; source_times = []
     # Later/current facts take precedence, while official designations override reported context at equal recency.
     matched.sort(key=lambda r: (str(r.get("published_utc") or r.get("collected_utc") or ""), r.get("layer") == "official"))
@@ -279,19 +303,19 @@ def make_forecast(now=None, availability_store=None):
             if opponent in states:
                 state["opp_plays"] = states[opponent]["own_plays"]
             mu = float(np.clip(_linear(state, params["team_attempts"]), 15, 55)); volume = _nb(mu, params["team_attempts"]["dispersion"])
-            players = []; qb_choice = None
+            players = []; qb_choice = None; qb_base = None
             for q in qbs.itertuples():
                 h = _player_history(weekly, snaps, q.gsis_id, team, season); base = _appearance(h, "QB", params)
                 avail, notes, times = _status(availability, team, q.player_name, base, params["status_rules"], season, game.week)
                 if qb_choice is None and avail >= .5:
-                    qb_choice = (q, avail, notes, times)
+                    qb_choice = (q, avail, notes, times); qb_base = base
             if qb_choice is None and len(qbs):
                 q = next(qbs.itertuples()); qb_choice = (q, 0.0, ["No listed QB cleared the availability rule"], [])
             if qb_choice:
                 q, avail, notes, times = qb_choice
                 pmf = _allocate(volume, params["starting_qb"]["share"], params["starting_qb"]["concentration"], 70)
                 players.append({"player_id": q.gsis_id, "name": q.player_name, "position": "QB", "stat": "pass_attempts",
-                    "availability_probability": avail, "role": "expected starter from latest depth chart plus dated availability reports",
+                    "availability_probability": avail, "usual_availability": qb_base, "report_status": _designation(availability, team, q.player_name, season, game.week), "role": "expected starter from latest depth chart plus dated availability reports",
                     "availability_notes": notes, "source_times": times, **_describe(pmf)})
             receivers = []
             for r in roster[roster.pos_abb.isin(POSITIONS)].itertuples() if len(roster) else []:
@@ -301,6 +325,7 @@ def make_forecast(now=None, availability_store=None):
                 share = (h["target"] + rp["target_share_prior_plays"] * target_prior) / (h["team_att"] + rp["target_share_prior_plays"])
                 catch = (h["receptions"] + rp["catch_prior_targets"] * catch_prior) / (h["target"] + rp["catch_prior_targets"])
                 receivers.append({"player_id": r.gsis_id, "name": r.player_name, "position": r.pos_abb, "availability_probability": avail,
+                                  "usual_availability": float(base), "report_status": _designation(availability, team, r.player_name, season, game.week),
                                   "availability_notes": notes, "source_times": times, "conditional_target_share": float(np.clip(share, 0, 1)),
                                   "catch_probability": float(np.clip(catch, 0, 1)), "history_games": h["history_games"]})
             expected_budget = sum(x["availability_probability"] * x["conditional_target_share"] for x in receivers)
@@ -335,7 +360,9 @@ def archive_forecast(archive, forecast):
 
 def _display(forecast):
     out = {k: forecast[k] for k in ("schema_version", "model_id", "generated_utc", "experimental", "market_edge_established")}
-    out["method_note"] = "Availability uses the latest depth chart, official NFL injury report and timestamped news context. The 60-minute forecast is primary; missing late inactive news remains a known risk."
+    out["method_note"] = ("Every number is conditional on the player playing (most sportsbooks void a player prop if he does not play; check your "
+                          "book's rules). Players are grouped by their latest injury designation from the official NFL report and dated news; "
+                          "late inactive news can still arrive after this update, so check team news before acting.")
     out["evidence"] = dict(json.loads(PARAMS.read_text())["evidence"])
     # Display-only label (26 Oct 2026; research/nfl_games_props/STATUS_CALIBRATION_RULE.md): the status probabilities are fixed
     # assumptions until calibrated. Forecast values and the parameter file are unchanged.
@@ -347,7 +374,7 @@ def _display(forecast):
         for t in g["teams"]:
             tt = {"team": t["team"], "expected_team_pass_attempts": t["expected_team_pass_attempts"], "players": []}
             for p in t["players"]:
-                tt["players"].append({k: p.get(k) for k in ("player_id", "name", "position", "stat", "availability_probability", "mean", "median", "interval80", "illustrative_line", "over_probability", "role", "availability_notes")})
+                tt["players"].append({k: p.get(k) for k in ("player_id", "name", "position", "stat", "availability_probability", "usual_availability", "report_status", "mean", "median", "interval80", "illustrative_line", "over_probability", "role", "availability_notes")})
             gg["teams"].append(tt)
         out["games"].append(gg)
     return out

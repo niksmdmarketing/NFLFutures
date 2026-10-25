@@ -1,9 +1,33 @@
-<div class="notice"><b>Experimental — forward test in progress.</b> The workload and reception equations improved historical forecasts, but automatic starter/availability selection and profitability have not been established.</div>
-<div class="filters">
-  <label>Game <select id="game"></select></label>
-  <label>Stat <select id="stat"><option value="all">All</option><option value="pass_attempts">Pass attempts</option><option value="receptions">Receptions</option></select></label>
-  <label>Team <select id="team"><option value="all">All teams</option></select></label>
-</div>
-<p class="note" id="method"></p>
-<div class="scroll"><table class="stbl"><thead><tr><th>Team</th><th>Player</th><th>Role status</th><th>Stat</th><th>Average if active</th><th>Middle 80% if active</th><th>Example line</th><th>Over chance if active</th></tr></thead><tbody id="rows"></tbody></table></div>
-<div class="card" style="margin-top:18px"><h2>How to read this</h2><p>The “example line” is generated from the model average. It is not a bookmaker price. Availability is shown separately from performance conditional on playing, so an uncertain player is not silently treated as definitely active.</p><p id="evidence" class="note"></p></div>
+    <div class="controls tab-controls">
+      <div class="field"><label for="game">Game</label><select id="game"></select></div>
+      <div class="field"><label for="stat">Stat</label>
+        <select id="stat"><option value="all">All</option><option value="pass_attempts">Pass attempts</option><option value="receptions">Receptions</option></select>
+      </div>
+      <div class="field"><label for="team">Team</label><select id="team"><option value="all">All teams</option></select></div>
+    </div>
+
+  <section>
+    <div class="table-head">
+      <h2>Available players</h2>
+      <div class="legend"><span>No injury designation · every number assumes he plays</span></div>
+    </div>
+    <div class="scroll"><table class="stbl" id="clearTable"><thead><tr><th>Player</th><th>Team</th><th>Stat</th><th>Average</th><th>Middle 80%</th><th>Example line</th><th>Over chance</th></tr></thead><tbody id="clearRows"></tbody></table></div>
+  </section>
+
+  <section>
+    <div class="table-head">
+      <h2>Questionable</h2>
+      <div class="legend"><span>Listed questionable · numbers still assume he plays, but his role may be reduced</span></div>
+    </div>
+    <div class="scroll"><table class="stbl" id="qTable"><thead><tr><th>Player</th><th>Team</th><th>Stat</th><th>Average</th><th>Middle 80%</th><th>Example line</th><th>Over chance</th></tr></thead><tbody id="qRows"></tbody></table></div>
+    <p class="note" id="hidden" style="margin-top:8px"></p>
+  </section>
+
+  <section class="proof">
+    <div class="panel">
+      <h3>How to read this</h3>
+      <p class="note" id="method"></p>
+      <p class="note">The example line is the model average rounded to a half point, not a bookmaker price. The over chance is the model's probability that the player beats that line if he plays. These are experimental, independent model probabilities, not betting advice; no betting edge has been established.</p>
+      <p class="note" id="evidence"></p>
+    </div>
+  </section>
