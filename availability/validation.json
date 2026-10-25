@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-10-25T01:15:54+00:00",
+ "checked_utc": "2026-10-25T06:12:30+00:00",
  "leagues": {
   "nfl": {
    "records": 1640,
    "by_layer": {
-    "official": 1524,
-    "reported": 116
+    "official": 1525,
+    "reported": 115
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -63,16 +63,16 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "116/116"
+   "reported_matched_to_official_list": "115/115"
   },
   "nba": {
-   "records": 262,
+   "records": 221,
    "by_layer": {
-    "official": 208,
-    "reported": 54
+    "official": 168,
+    "reported": 53
    },
    "unknown_team": 0,
-   "no_player": 2,
+   "no_player": 20,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -124,14 +124,14 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "54/54"
+   "reported_matched_to_official_list": "53/53"
   },
   "nhl": {
-   "records": 1567,
+   "records": 1553,
    "by_layer": {
     "official": 156,
     "reported": 64,
-    "projected": 1347
+    "projected": 1333
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -183,9 +183,9 @@
    "reported_matched_to_official_list": "55/64"
   },
   "nbl": {
-   "records": 22,
+   "records": 21,
    "by_layer": {
-    "official": 22
+    "official": 21
    },
    "unknown_team": 0,
    "no_player": 0,
