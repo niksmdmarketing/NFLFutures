@@ -336,7 +336,11 @@ def archive_forecast(archive, forecast):
 def _display(forecast):
     out = {k: forecast[k] for k in ("schema_version", "model_id", "generated_utc", "experimental", "market_edge_established")}
     out["method_note"] = "Availability uses the latest depth chart, official NFL injury report and timestamped news context. The 60-minute forecast is primary; missing late inactive news remains a known risk."
-    out["evidence"] = json.loads(PARAMS.read_text())["evidence"]
+    out["evidence"] = dict(json.loads(PARAMS.read_text())["evidence"])
+    # Display-only label (26 Oct 2026; research/nfl_games_props/STATUS_CALIBRATION_RULE.md): the status probabilities are fixed
+    # assumptions until calibrated. Forecast values and the parameter file are unchanged.
+    out["evidence"]["availability"] = (out["evidence"].get("availability", "") + " Injury-status adjustments (Out 0%, Doubtful 10%, "
+                                       "Questionable 80% of the normal chance to play) are assumptions, not yet calibrated from past reports.").strip()
     out["games"] = []
     for g in forecast["games"]:
         gg = {k: g[k] for k in ("game_id", "kickoff_utc", "home", "away", "minutes_to_kickoff")}; gg["teams"] = []

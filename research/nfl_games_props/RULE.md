@@ -108,3 +108,16 @@ NB dispersion on earlier seasons. Re-score this additional control without
 changing/refitting ANY candidate forecasts. Also report high-volume subgroup PIT
 and opportunity-distribution concentration bounds. No decay/shrinkage search or
 claim these already inspected years are a new clean holdout.
+
+## Amendment (26 Oct 2026): publication on the public site
+The Decision section above said outputs remain local/private. On 25-26 Oct the experimental QB pass-attempt and reception forecasts were published on the public site (NFL > Forecast > Player props; pull requests #1 and #2) without a dated record of that change; this amendment records it.
+- **Decision** (TypeSafe 74%, given that the protected site cannot change before the GitHub minutes reset): keep the page public.
+- **Labelling:**
+  - experimental;
+  - independent model probabilities, not bookmaker lines or betting advice;
+  - "market edge established: false";
+  - the historical evidence as stated on the page;
+  - the injury-status adjustments shown as uncalibrated assumptions (research/nfl_games_props/STATUS_CALIBRATION_RULE.md).
+- **Inputs:** the page publishes only this project's own forecasts, from open nflverse inputs. FiveThirtyEight Elo is credited under its MIT licence (THIRD_PARTY_NOTICES.md).
+- **Not changed:** the forecasting method, parameters and the forward archive.
+- **Promotion:** live promotion beyond "experimental" still requires the separate forward review in the Decision section.

@@ -56,3 +56,6 @@ for price evaluation. Passing score gates is not evidence of net profit.
 
 No adoption unless minutes AND that stat's gates pass. Record results for every
 attempt. No mixing this candidate with rejected role-rate adjustments.
+
+## Note (26 Oct 2026): collection failures to report
+The challenger produced no records on 23 Oct 2026 after its activation (15:00 UTC), because of the history-placeholder timing bug fixed in c8bb61c4 (24 Oct). Every primary game/horizon from activation until the first challenger record after the fix counts as a challenger collection failure in the season-end report (TypeSafe 75%). These cannot qualify and are not replayed. The fix changed input validation only, not the candidate's method or parameters.
