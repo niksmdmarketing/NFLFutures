@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-24T12:54:53+00:00",
+ "generated_utc": "2026-10-25T13:20:57+00:00",
  "season_window": [
   2016,
   2027
@@ -538,7 +538,7 @@
       2026,
       2027
      ],
-     "rows": 6263,
+     "rows": 6290,
      "columns": [
       "player_id",
       "player_name",
@@ -625,7 +625,7 @@
       2026,
       2027
      ],
-     "rows": 6263,
+     "rows": 6290,
      "columns": [
       "player_id",
       "player_name",
@@ -1019,7 +1019,7 @@
       2026,
       2027
      ],
-     "rows": 8718,
+     "rows": 8749,
      "columns": [
       "player_id",
       "player_name",
@@ -1210,7 +1210,7 @@
       2026,
       2027
      ],
-     "rows": 7810,
+     "rows": 7841,
      "columns": [
       "player_id",
       "player_name",
@@ -1329,7 +1329,7 @@
       2026,
       2027
      ],
-     "rows": 8718,
+     "rows": 8749,
      "columns": [
       "player_id",
       "player_name",
@@ -1448,7 +1448,7 @@
       2026,
       2027
      ],
-     "rows": 8718,
+     "rows": 8749,
      "columns": [
       "player_id",
       "player_name",
@@ -1587,7 +1587,7 @@
       2026,
       2027
      ],
-     "rows": 8718,
+     "rows": 8749,
      "columns": [
       "player_id",
       "player_name",
@@ -1726,7 +1726,7 @@
       2026,
       2027
      ],
-     "rows": 8718,
+     "rows": 8749,
      "columns": [
       "player_id",
       "player_name",
@@ -1795,7 +1795,7 @@
       2026,
       2027
      ],
-     "rows": 8717,
+     "rows": 8718,
      "columns": [
       "player_id",
       "player_name",
@@ -1856,7 +1856,7 @@
       2026,
       2027
      ],
-     "rows": 8717,
+     "rows": 8718,
      "columns": [
       "player_id",
       "player_name",
@@ -1939,7 +1939,7 @@
       2026,
       2027
      ],
-     "rows": 8717,
+     "rows": 8718,
      "columns": [
       "player_id",
       "player_name",
@@ -2016,7 +2016,7 @@
       2026,
       2027
      ],
-     "rows": 8717,
+     "rows": 8718,
      "columns": [
       "player_id",
       "player_name",
@@ -2101,7 +2101,7 @@
       2026,
       2027
      ],
-     "rows": 8717,
+     "rows": 8718,
      "columns": [
       "player_id",
       "player_name",
@@ -2186,7 +2186,7 @@
       2026,
       2027
      ],
-     "rows": 8717,
+     "rows": 8718,
      "columns": [
       "player_id",
       "player_name",
@@ -2255,7 +2255,7 @@
       2026,
       2027
      ],
-     "rows": 8717,
+     "rows": 8718,
      "columns": [
       "player_id",
       "player_name",
@@ -2330,7 +2330,7 @@
       2026,
       2027
      ],
-     "rows": 8717,
+     "rows": 8718,
      "columns": [
       "player_id",
       "player_name",
@@ -2415,7 +2415,7 @@
       2026,
       2027
      ],
-     "rows": 8718,
+     "rows": 8749,
      "columns": [
       "player_id",
       "player_name",
@@ -2486,7 +2486,7 @@
       2026,
       2027
      ],
-     "rows": 8467,
+     "rows": 8468,
      "columns": [
       "player_id",
       "player_name",
@@ -2589,7 +2589,7 @@
       2026,
       2027
      ],
-     "rows": 8717,
+     "rows": 8718,
      "columns": [
       "player_id",
       "player_name",
@@ -4077,7 +4077,7 @@
       2026,
       2027
      ],
-     "rows": 21295,
+     "rows": 21332,
      "columns": [
       "season_id",
       "position",
@@ -4153,7 +4153,7 @@
       2026,
       2027
      ],
-     "rows": 21295,
+     "rows": 21332,
      "columns": [
       "season_id",
       "position",
@@ -4443,8 +4443,8 @@
    "errors": []
   },
   "nba_stats_synergy": {
-   "files": 792,
-   "size_mb": 16.0,
+   "files": 808,
+   "size_mb": 16.2,
    "seasons": [
     2016,
     2017,
@@ -4456,7 +4456,8 @@
     2023,
     2024,
     2025,
-    2026
+    2026,
+    2027
    ],
    "families": {
     "playoffs_cut_offensive_pergame_YYYY.parquet": {
@@ -7992,9 +7993,10 @@
       2023,
       2024,
       2025,
-      2026
+      2026,
+      2027
      ],
-     "rows": 2941,
+     "rows": 2944,
      "columns": [
       "season_id",
       "player_id",
@@ -8055,9 +8057,7 @@
      },
      "null_share_over_5pct": {},
      "column_set_varies": false,
-     "missing_seasons_in_window": [
-      2027
-     ]
+     "missing_seasons_in_window": []
     },
     "regular-season_isolation_offensive_totals_YYYY.parquet": {
      "grain": "player-season",
@@ -8072,9 +8072,10 @@
       2023,
       2024,
       2025,
-      2026
+      2026,
+      2027
      ],
-     "rows": 2941,
+     "rows": 2944,
      "columns": [
       "season_id",
       "player_id",
@@ -8135,9 +8136,7 @@
      },
      "null_share_over_5pct": {},
      "column_set_varies": false,
-     "missing_seasons_in_window": [
-      2027
-     ]
+     "missing_seasons_in_window": []
     },
     "regular-season_misc_offensive_pergame_YYYY.parquet": {
      "grain": "player-season",
@@ -8952,9 +8951,10 @@
       2023,
       2024,
       2025,
-      2026
+      2026,
+      2027
      ],
-     "rows": 1870,
+     "rows": 1871,
      "columns": [
       "season_id",
       "player_id",
@@ -9015,9 +9015,7 @@
      },
      "null_share_over_5pct": {},
      "column_set_varies": false,
-     "missing_seasons_in_window": [
-      2027
-     ]
+     "missing_seasons_in_window": []
     },
     "regular-season_postup_offensive_totals_YYYY.parquet": {
      "grain": "player-season",
@@ -9032,9 +9030,10 @@
       2023,
       2024,
       2025,
-      2026
+      2026,
+      2027
      ],
-     "rows": 1870,
+     "rows": 1871,
      "columns": [
       "season_id",
       "player_id",
@@ -9095,9 +9094,7 @@
      },
      "null_share_over_5pct": {},
      "column_set_varies": false,
-     "missing_seasons_in_window": [
-      2027
-     ]
+     "missing_seasons_in_window": []
     },
     "regular-season_prballhandler_defensive_pergame_YYYY.parquet": {
      "grain": "player-season",
@@ -9112,9 +9109,10 @@
       2023,
       2024,
       2025,
-      2026
+      2026,
+      2027
      ],
-     "rows": 4260,
+     "rows": 4278,
      "columns": [
       "season_id",
       "player_id",
@@ -9175,9 +9173,7 @@
      },
      "null_share_over_5pct": {},
      "column_set_varies": false,
-     "missing_seasons_in_window": [
-      2027
-     ]
+     "missing_seasons_in_window": []
     },
     "regular-season_prballhandler_defensive_totals_YYYY.parquet": {
      "grain": "player-season",
@@ -9192,9 +9188,10 @@
       2023,
       2024,
       2025,
-      2026
+      2026,
+      2027
      ],
-     "rows": 4260,
+     "rows": 4278,
      "columns": [
       "season_id",
       "player_id",
@@ -9255,9 +9252,7 @@
      },
      "null_share_over_5pct": {},
      "column_set_varies": false,
-     "missing_seasons_in_window": [
-      2027
-     ]
+     "missing_seasons_in_window": []
     },
     "regular-season_prballhandler_offensive_pergame_YYYY.parquet": {
      "grain": "player-season",
@@ -9272,9 +9267,10 @@
       2023,
       2024,
       2025,
-      2026
+      2026,
+      2027
      ],
-     "rows": 3395,
+     "rows": 3405,
      "columns": [
       "season_id",
       "player_id",
@@ -9335,9 +9331,7 @@
      },
      "null_share_over_5pct": {},
      "column_set_varies": false,
-     "missing_seasons_in_window": [
-      2027
-     ]
+     "missing_seasons_in_window": []
     },
     "regular-season_prballhandler_offensive_totals_YYYY.parquet": {
      "grain": "player-season",
@@ -9352,9 +9346,10 @@
       2023,
       2024,
       2025,
-      2026
+      2026,
+      2027
      ],
-     "rows": 3395,
+     "rows": 3405,
      "columns": [
       "season_id",
       "player_id",
@@ -9415,9 +9410,7 @@
      },
      "null_share_over_5pct": {},
      "column_set_varies": false,
-     "missing_seasons_in_window": [
-      2027
-     ]
+     "missing_seasons_in_window": []
     },
     "regular-season_prrollman_defensive_pergame_YYYY.parquet": {
      "grain": "player-season",
@@ -9592,9 +9585,10 @@
       2023,
       2024,
       2025,
-      2026
+      2026,
+      2027
      ],
-     "rows": 2541,
+     "rows": 2542,
      "columns": [
       "season_id",
       "player_id",
@@ -9655,9 +9649,7 @@
      },
      "null_share_over_5pct": {},
      "column_set_varies": false,
-     "missing_seasons_in_window": [
-      2027
-     ]
+     "missing_seasons_in_window": []
     },
     "regular-season_prrollman_offensive_totals_YYYY.parquet": {
      "grain": "player-season",
@@ -9672,9 +9664,10 @@
       2023,
       2024,
       2025,
-      2026
+      2026,
+      2027
      ],
-     "rows": 2541,
+     "rows": 2542,
      "columns": [
       "season_id",
       "player_id",
@@ -9735,9 +9728,7 @@
      },
      "null_share_over_5pct": {},
      "column_set_varies": false,
-     "missing_seasons_in_window": [
-      2027
-     ]
+     "missing_seasons_in_window": []
     },
     "regular-season_spotup_defensive_pergame_YYYY.parquet": {
      "grain": "player-season",
@@ -9752,9 +9743,10 @@
       2023,
       2024,
       2025,
-      2026
+      2026,
+      2027
      ],
-     "rows": 4915,
+     "rows": 4917,
      "columns": [
       "season_id",
       "player_id",
@@ -9815,9 +9807,7 @@
      },
      "null_share_over_5pct": {},
      "column_set_varies": false,
-     "missing_seasons_in_window": [
-      2027
-     ]
+     "missing_seasons_in_window": []
     },
     "regular-season_spotup_defensive_totals_YYYY.parquet": {
      "grain": "player-season",
@@ -9832,9 +9822,10 @@
       2023,
       2024,
       2025,
-      2026
+      2026,
+      2027
      ],
-     "rows": 4915,
+     "rows": 4917,
      "columns": [
       "season_id",
       "player_id",
@@ -9895,9 +9886,7 @@
      },
      "null_share_over_5pct": {},
      "column_set_varies": false,
-     "missing_seasons_in_window": [
-      2027
-     ]
+     "missing_seasons_in_window": []
     },
     "regular-season_spotup_offensive_pergame_YYYY.parquet": {
      "grain": "player-season",
@@ -9912,9 +9901,10 @@
       2023,
       2024,
       2025,
-      2026
+      2026,
+      2027
      ],
-     "rows": 4706,
+     "rows": 4707,
      "columns": [
       "season_id",
       "player_id",
@@ -9975,9 +9965,7 @@
      },
      "null_share_over_5pct": {},
      "column_set_varies": false,
-     "missing_seasons_in_window": [
-      2027
-     ]
+     "missing_seasons_in_window": []
     },
     "regular-season_spotup_offensive_totals_YYYY.parquet": {
      "grain": "player-season",
@@ -9992,9 +9980,10 @@
       2023,
       2024,
       2025,
-      2026
+      2026,
+      2027
      ],
-     "rows": 4706,
+     "rows": 4707,
      "columns": [
       "season_id",
       "player_id",
@@ -10055,9 +10044,7 @@
      },
      "null_share_over_5pct": {},
      "column_set_varies": false,
-     "missing_seasons_in_window": [
-      2027
-     ]
+     "missing_seasons_in_window": []
     },
     "regular-season_transition_offensive_pergame_YYYY.parquet": {
      "grain": "player-season",
@@ -10072,9 +10059,10 @@
       2023,
       2024,
       2025,
-      2026
+      2026,
+      2027
      ],
-     "rows": 4658,
+     "rows": 4662,
      "columns": [
       "season_id",
       "player_id",
@@ -10135,9 +10123,7 @@
      },
      "null_share_over_5pct": {},
      "column_set_varies": false,
-     "missing_seasons_in_window": [
-      2027
-     ]
+     "missing_seasons_in_window": []
     },
     "regular-season_transition_offensive_totals_YYYY.parquet": {
      "grain": "player-season",
@@ -10152,9 +10138,10 @@
       2023,
       2024,
       2025,
-      2026
+      2026,
+      2027
      ],
-     "rows": 4658,
+     "rows": 4662,
      "columns": [
       "season_id",
       "player_id",
@@ -10215,9 +10202,7 @@
      },
      "null_share_over_5pct": {},
      "column_set_varies": false,
-     "missing_seasons_in_window": [
-      2027
-     ]
+     "missing_seasons_in_window": []
     }
    },
    "errors": []
