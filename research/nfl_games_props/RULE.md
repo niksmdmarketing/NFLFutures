@@ -121,3 +121,29 @@ The Decision section above said outputs remain local/private. On 25-26 Oct the e
 - **Inputs:** the page publishes only this project's own forecasts, from open nflverse inputs. FiveThirtyEight Elo is credited under its MIT licence (THIRD_PARTY_NOTICES.md).
 - **Not changed:** the forecasting method, parameters and the forward archive.
 - **Promotion:** live promotion beyond "experimental" still requires the separate forward review in the Decision section.
+
+## Amendment (26 Oct 2026): displayed version v1.1, with v1 kept as the background comparison
+Decision: the user, with TypeSafe at 98%. Which version the site shows does not affect the forward comparison, because every version is archived before kickoff with its own identifier, receipts and full distributions.
+
+**What v1.1 is** (pipeline/nfl_props_v11.py): v1 with all seven team-volume features computed exactly as in the historically tested model (research/nfl_games_props/build.py, team_pbp and make_game_features):
+- opponent pass attempts allowed (v1 used the team's own attempts, a join bug);
+- own dropback EPA and opponent pass-defence EPA (v1 used neutral training means);
+- the Elo gap (v1 used neutral);
+- own and opponent plays from play-by-play.
+
+**Unchanged:** parameters (model/nfl_player_props_v1.json), players, availability, target allocation and distributions. It is not a new model: it is the tested specification computed live.
+
+**Timing:** a game enters the state only after kickoff + 6 hours, and only if that is before both the target's cutoff (kickoff - 1 hour) and the forecast time.
+
+**Verification before publishing:**
+- The live feature code reproduces the research team table exactly: all seven features with zero difference for 2018-2025 (9,406 team-games in the table). The only differences are in 2026 rows, explained by newer nflverse files downloaded since the research build (games.csv and stats_player_week_2026.csv hashes differ; play-by-play identical).
+- Restricting inputs to the current and previous season, as the live code does, leaves every target-season feature unchanged (2023, 2025).
+- Capping at a forecast time of kickoff - 1 hour reproduces the research row exactly.
+- Local end-to-end run (25 games): v1.1 changes expected team pass attempts by -3.2 to +3.2 against v1 (sd 1.45).
+- Tests: tests/test_nfl_props_v11.py (timing, opponent alignment, Elo).
+
+**Operation:**
+- The site shows v1.1 (falling back to v1 with an explicit note if v1.1 cannot be built).
+- The forecast workflow archives v1 (nfl-props-archive), GPT's aligned-input shadow (nfl-props-challenger-archive) and v1.1 (nfl-props-v11-archive, non-blocking steps), all from the same baseline inputs and time, and scores each independently.
+
+**Forward review:** as in LIVE_INPUT_ALIGNMENT_FORWARD_RULE.md. After at least one full regular season and 500 identical settled rows, v1.1 is compared with v1 on conditional RPS by stat, horizon and group. No betting edge is claimed.

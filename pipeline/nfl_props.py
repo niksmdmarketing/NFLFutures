@@ -363,6 +363,11 @@ def _display(forecast):
     out["method_note"] = ("Every number is conditional on the player playing (most sportsbooks void a player prop if he does not play; check your "
                           "book's rules). Players are grouped by their latest injury designation from the official NFL report and dated news; "
                           "late inactive news can still arrive after this update, so check team news before acting.")
+    if forecast.get("model_id") == "nfl-player-props-v1.1-experimental":
+        out["method_note"] += (" Version shown: v1.1, with team pass volume using the opponent's passes allowed, both teams' passing "
+                               "efficiency and Elo strength, as in the historically tested model; the original v1 keeps running as a comparison.")
+    else:
+        out["method_note"] += " Version shown: v1 (v1.1 could not be built for this update)."
     out["evidence"] = dict(json.loads(PARAMS.read_text())["evidence"])
     # Display-only label (26 Oct 2026; research/nfl_games_props/STATUS_CALIBRATION_RULE.md): the status probabilities are fixed
     # assumptions until calibrated. Forecast values and the parameter file are unchanged.
@@ -382,7 +387,16 @@ def _display(forecast):
 
 def build_data(availability_store=None, archive=None):
     forecast = make_forecast(availability_store=availability_store or os.environ.get("NFL_AVAILABILITY_STORE"))
-    write_json("nfl_player_props.json", _display(forecast))
+    # Displayed version since 26 Oct 2026: v1.1 (team-volume inputs as in the tested model; research/nfl_games_props/RULE.md
+    # amendment). v1 keeps running unchanged in the forecast workflow as the comparison. If v1.1 cannot be built, the page says so
+    # and shows v1, never a silent mix.
+    shown = forecast
+    try:
+        import nfl_props_v11
+        shown = nfl_props_v11.make_v11(forecast)
+    except Exception as e:  # noqa: BLE001
+        print("NFL props v1.1 unavailable, showing v1:", repr(e)[:300], flush=True)
+    write_json("nfl_player_props.json", _display(shown))
     if archive: archive_forecast(archive, forecast)
     return forecast
 
