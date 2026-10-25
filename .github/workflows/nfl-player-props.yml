@@ -42,8 +42,23 @@ jobs:
           else
             git worktree add -q --orphan -b nfl-props-archive ../nfl-props-archive
           fi
+      - name: Check out separate create-only challenger archive
+        run: |
+          if git ls-remote --exit-code --heads origin nfl-props-challenger-archive > /dev/null; then
+            git fetch -q origin nfl-props-challenger-archive
+            git worktree add -q -B nfl-props-challenger-archive ../nfl-props-challenger-archive FETCH_HEAD
+          else
+            git worktree add -q --orphan -b nfl-props-challenger-archive ../nfl-props-challenger-archive
+          fi
       - name: Forecast from the latest information available now
-        run: python pipeline/nfl_props.py forecast --availability ../injury-monitor --archive ../nfl-props-archive
+        run: python pipeline/nfl_props.py forecast --availability ../injury-monitor --archive ../nfl-props-archive --output ../nfl-props-baseline.json
+      - name: Run the aligned-input challenger in shadow
+        run: python pipeline/nfl_props_challenger.py --availability ../injury-monitor --baseline ../nfl-props-baseline.json --archive ../nfl-props-challenger-archive
+      - name: Score shadow forecasts independently after results arrive
+        run: |
+          mkdir -p ../nfl-props-challenger-archive/scores
+          python pipeline/nfl_props_score.py ../nfl-props-challenger-archive --horizon 60 --output ../nfl-props-challenger-archive/scores/60.json || true
+          python pipeline/nfl_props_score.py ../nfl-props-challenger-archive --horizon 360 --output ../nfl-props-challenger-archive/scores/360.json || true
       - name: Score independently received forecasts after results arrive
         run: |
           mkdir -p ../nfl-props-archive/scores
@@ -56,4 +71,14 @@ jobs:
           if git diff --cached --quiet; then exit 0; fi
           git commit -q -m "NFL player forecast $(date -u +%Y-%m-%dT%H:%MZ)"
           for i in 1 2 3; do git push -q origin nfl-props-archive && exit 0; git pull -q --rebase origin nfl-props-archive; sleep 5; done
+          exit 1
+      - name: Save separate immutable challenger snapshot
+        run: |
+          cd ../nfl-props-challenger-archive
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add snapshots index.jsonl scores 2>/dev/null || git add snapshots index.jsonl
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -q -m "NFL player props challenger $(date -u +%Y-%m-%dT%H:%MZ)"
+          for i in 1 2 3; do git push -q origin nfl-props-challenger-archive && exit 0; git pull -q --rebase origin nfl-props-challenger-archive; sleep 5; done
           exit 1
