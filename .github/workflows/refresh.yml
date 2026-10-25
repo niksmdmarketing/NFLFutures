@@ -85,6 +85,7 @@ jobs:
         env:
           SHIV_ARCHIVE: ../shiv-archive
           NBA_INJ_STORE: ../injury-monitor
+          NFL_AVAILABILITY_STORE: ../injury-monitor
           NBL_BOXSCORE_SEASONS: "15"   # backfills NBL game box scores gradually (newest first, per-run time budget)
         run: python pipeline/run.py
 

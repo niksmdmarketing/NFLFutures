@@ -117,6 +117,18 @@ def main():
         afl.build_data()
     except Exception as e:  # noqa: BLE001
         log("afl data failed", e)
+    try:  # Experimental, market-independent NFL QB attempts and reception distributions.
+        import nfl_props
+        nfl_props.build_data(availability_store=os.environ.get("NFL_AVAILABILITY_STORE"))
+        log("NFL player forecasts done")
+    except Exception as e:  # never let an experimental player page block the established site
+        import traceback
+        traceback.print_exc()
+        log("NFL player forecasts failed", e)
+        write_json("nfl_player_props.json", {"schema_version": 1, "model_id": "nfl-player-props-v1-experimental",
+                   "generated_utc": dt.datetime.now(dt.timezone.utc).isoformat(), "experimental": True,
+                   "market_edge_established": False, "method_note": "Forecast refresh failed; no stale values substituted.",
+                   "evidence": {"qb_attempts": "", "receptions": "", "availability": ""}, "games": []})
     build_site.build()
     nba.build_site()
     nbl.build_site()

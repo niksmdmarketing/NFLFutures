@@ -29,7 +29,7 @@ LAYOUT = {
     "afl": _skeleton(),
     "nbl": _skeleton(),
     "": [("Standings", [("standings.html", "Standings")]),     # NFL (site root); the landing page stays the chances page
-         ("Forecast", [("index.html", "Chances"), ("why.html", "Why, team by team"), ("awards.html", "Award chances"),
+         ("Forecast", [("index.html", "Chances"), ("player-props.html", "Player props"), ("why.html", "Why, team by team"), ("awards.html", "Award chances"),
                        ("award-race.html", "Award race"), ("outlook.html", "Schedule difficulty"), ("sos.html", "Strength of schedule"),
                        ("trends.html", "Winner trends")]),
          ("Teams", [(None, "Offense"), ("offense.html", "Overview"), ("passing.html", "Passing"), ("rushing.html", "Rushing"),

@@ -39,6 +39,7 @@ PAGES = [
     ("sos", "Schedule", None, None, "table.js", "sos"),
     "Players",
     ("award-race", "Award race", "Award race", "Every award's current contenders, with stats to date, 17-game pace, team record and the model's chance, next to each winner since 2018 at the same week and at season's end.", "award_race.js", None),
+    ("player-props", "Player props", "NFL player forecasts", "Experimental distributions for quarterback pass attempts and receiver receptions. These are independent model probabilities, not bookmaker lines or betting advice.", "player_props.js", None),
     ("players-qb", "QBs", "Quarterbacks", "", "players.js", "qb"),
     ("players-rushing", "Rushing", "Rushing", "", "players.js", "rb"),
     ("players-receiving", "Receiving", "Receiving", "", "players.js", "wr"),

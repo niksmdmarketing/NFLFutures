@@ -1,0 +1,40 @@
+{
+  "model_id": "nfl-player-props-v1-experimental",
+  "training_last_season": 2025,
+  "team_attempts": {
+    "features": ["own_att", "opp_att", "own_plays", "opp_plays", "own_pass_off", "opp_pass_def", "elo_gap"],
+    "mean": [33.94244876102376, 33.943073022983185, 62.13879758872372, 62.13879758872372, 0.04873728100439662, 0.04871487501188945, 0.0],
+    "scale": [3.6649143312011456, 2.7616889471858492, 2.9700995761657722, 2.9700995761657727, 0.13140671447355334, 0.11063313548025963, 0.37752167992405433],
+    "coef": [0.07643894282014291, 0.02302993381907923, -0.014159914270610693, 0.009529167118373203, 0.012137594399596597, 0.004466760394674499, 0.003869537595841265],
+    "intercept": 3.5182773960854377,
+    "dispersion": 39.93711832935609
+  },
+  "starting_qb": {"share": 0.9587429775280899, "concentration": 1.6252029044046492},
+  "receiving": {
+    "concentration": 66.0423400486956,
+    "target_share_prior_plays": 20.0,
+    "catch_prior_targets": 8.0,
+    "target_share_prior": {"FB": 0.01635843585925868, "RB": 0.06843096441669144, "TE": 0.07196595159279481, "WR": 0.12144259153843043},
+    "catch_prior": {"FB": 0.7425149700598802, "RB": 0.7744164873365337, "TE": 0.6988544521751353, "WR": 0.6322968161676187}
+  },
+  "appearance": {
+    "features": ["app_rate", "last_snap_share", "mean_snap_share", "miss_streak", "is_qb"],
+    "mean": [0.7129885442172718, 0.3820465819075383, 0.3631638464749615, 0.39843404203360855, 0.11573741967978754],
+    "scale": [0.30353673257829994, 0.34556896183407443, 0.2890807505648644, 0.8350036060012092, 0.3199097831665238],
+    "coef": [0.44092842106835534, 1.1520064213504284, -0.3483593141072596, -0.690951511918622, -0.2669255379406273],
+    "intercept": 1.3288109804711454,
+    "training_rows": 65519
+  },
+  "status_rules": {
+    "out": 0.0,
+    "doubtful": 0.1,
+    "questionable_multiplier": 0.8,
+    "reported_will_play_floor": 0.95,
+    "reported_will_not_play": 0.0
+  },
+  "evidence": {
+    "qb_attempts": "Historical conditional pass: 2021-2025, better than season and last-10 controls in all five seasons.",
+    "receptions": "Participation-weighted allocation historical pass: 2.23% RPS improvement over the prior model, five of five seasons.",
+    "availability": "Experimental. Live starter and availability resolution has not yet been prospectively validated."
+  }
+}

@@ -1,0 +1,59 @@
+name: NFL player forecast archive
+
+on:
+  schedule:
+    - cron: "4,19,34,49 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: nfl-player-props
+  cancel-in-progress: false
+
+jobs:
+  forecast:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - uses: actions/cache@v4
+        with:
+          path: data
+          key: nfl-props-${{ github.run_id }}
+          restore-keys: nfl-props-
+      - name: Check out timestamped availability inputs
+        run: |
+          git fetch -q origin injury-monitor
+          git worktree add -q -B injury-monitor ../injury-monitor FETCH_HEAD
+      - name: Check out create-only forecast archive
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git ls-remote --exit-code --heads origin nfl-props-archive > /dev/null; then
+            git fetch -q origin nfl-props-archive
+            git worktree add -q -B nfl-props-archive ../nfl-props-archive FETCH_HEAD
+          else
+            git worktree add -q --orphan -b nfl-props-archive ../nfl-props-archive
+          fi
+      - name: Forecast from the latest information available now
+        run: python pipeline/nfl_props.py forecast --availability ../injury-monitor --archive ../nfl-props-archive
+      - name: Score independently received forecasts after results arrive
+        run: |
+          mkdir -p ../nfl-props-archive/scores
+          python pipeline/nfl_props_score.py ../nfl-props-archive --horizon 60 --output ../nfl-props-archive/scores/60.json || true
+          python pipeline/nfl_props_score.py ../nfl-props-archive --horizon 360 --output ../nfl-props-archive/scores/360.json || true
+      - name: Save immutable snapshot
+        run: |
+          cd ../nfl-props-archive
+          git add snapshots index.jsonl scores 2>/dev/null || git add snapshots index.jsonl
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -q -m "NFL player forecast $(date -u +%Y-%m-%dT%H:%MZ)"
+          for i in 1 2 3; do git push -q origin nfl-props-archive && exit 0; git pull -q --rebase origin nfl-props-archive; sleep 5; done
+          exit 1
