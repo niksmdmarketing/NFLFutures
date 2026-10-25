@@ -33,7 +33,7 @@ def defence_table(st, g):
     for c in ('WR', 'TE', 'RB'):
         if c not in t:
             t[c] = 0
-    gg = g[['game_id', 'season', 'tip', 'home_team', 'away_team']]
+    gg = g[['game_id', 'season', 'tip', 'home', 'away']].rename(columns={'home': 'home_team', 'away': 'away_team'})
     t = t.merge(gg, on='game_id', validate='many_to_one')
     t['defence'] = np.where(t.team == t.home_team, t.away_team, t.home_team)
     t['total'] = t.WR + t.TE + t.RB
