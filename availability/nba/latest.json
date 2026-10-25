@@ -1,5 +1,5 @@
 {
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "records": [
 {
 "league": "nba",
@@ -24,7 +24,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-19T19:38:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -50,7 +50,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-09-21T19:50:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -76,7 +76,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-09-21T19:50:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -102,7 +102,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-18T14:49:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-18T05:59:04+00:00"
 },
 {
@@ -128,34 +128,8 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-18T14:49:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-11T00:15:51+00:00"
-},
-{
-"league": "nba",
-"team": "BKN",
-"player": "Mikel Brown Jr.",
-"player_key": "mikelbrown",
-"player_id": "espn:5101761",
-"layer": "official",
-"kind": "injury_status",
-"status": "Out",
-"practice": null,
-"injury": "Rest",
-"return_low": "2026-10-27",
-"return_high": "2026-10-27",
-"return_text_class": "ESPN estimated return date",
-"reassess_date": null,
-"restriction": null,
-"replacement": null,
-"confirmation": "aggregated (ESPN, from team/league reports)",
-"affected_game": null,
-"source": "ESPN injuries feed",
-"source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
-"headline": null,
-"published_utc": "2026-10-25T02:32:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
-"first_seen_utc": "2026-10-25T06:12:30+00:00"
 },
 {
 "league": "nba",
@@ -165,7 +139,7 @@
 "player_id": "espn:5105626",
 "layer": "official",
 "kind": "injury_status",
-"status": "Out",
+"status": "Day-To-Day",
 "practice": null,
 "injury": "Shoulder",
 "return_low": "2026-10-25",
@@ -179,8 +153,8 @@
 "source": "ESPN injuries feed",
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
-"published_utc": "2026-10-23T21:08:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T13:43:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-19T19:59:14+00:00"
 },
 {
@@ -205,9 +179,35 @@
 "source": "ESPN injury note",
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
-"published_utc": "2026-10-23T21:08:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T13:43:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-19T19:59:14+00:00"
+},
+{
+"league": "nba",
+"team": "BKN",
+"player": "Mikel Brown Jr.",
+"player_key": "mikelbrown",
+"player_id": "espn:5101761",
+"layer": "official",
+"kind": "injury_status",
+"status": "Out",
+"practice": null,
+"injury": "Rest",
+"return_low": "2026-10-27",
+"return_high": "2026-10-27",
+"return_text_class": "ESPN estimated return date",
+"reassess_date": null,
+"restriction": null,
+"replacement": null,
+"confirmation": "aggregated (ESPN, from team/league reports)",
+"affected_game": null,
+"source": "ESPN injuries feed",
+"source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
+"headline": null,
+"published_utc": "2026-10-25T13:40:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
+"first_seen_utc": "2026-10-25T06:12:30+00:00"
 },
 {
 "league": "nba",
@@ -232,7 +232,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-24T17:26:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -258,7 +258,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-24T17:26:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-24T20:54:57+00:00"
 },
 {
@@ -284,7 +284,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-24T17:23:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -310,7 +310,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-24T17:23:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -336,7 +336,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-24T17:09:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -362,7 +362,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-24T17:09:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -388,7 +388,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-20T20:55:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -414,7 +414,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-20T20:55:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -425,7 +425,7 @@
 "player_id": "espn:4431687",
 "layer": "official",
 "kind": "injury_status",
-"status": "Out",
+"status": "Day-To-Day",
 "practice": null,
 "injury": "Right Groin Soreness",
 "return_low": "2026-10-26",
@@ -439,8 +439,8 @@
 "source": "ESPN injuries feed",
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
-"published_utc": "2026-10-24T22:22:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T13:37:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-24T23:19:36+00:00"
 },
 {
@@ -451,7 +451,7 @@
 "player_id": "espn:5242496",
 "layer": "official",
 "kind": "injury_status",
-"status": "Out",
+"status": "Day-To-Day",
 "practice": null,
 "injury": "Head Bruise",
 "return_low": "2026-10-26",
@@ -465,8 +465,8 @@
 "source": "ESPN injuries feed",
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
-"published_utc": "2026-10-24T22:20:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T13:37:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-24T17:29:07+00:00"
 },
 {
@@ -491,8 +491,8 @@
 "source": "ESPN injury note",
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
-"published_utc": "2026-10-24T22:20:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T13:37:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-24T23:19:36+00:00"
 },
 {
@@ -518,7 +518,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-19T17:38:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -544,7 +544,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-19T17:38:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -555,7 +555,7 @@
 "player_id": "espn:6442",
 "layer": "official",
 "kind": "injury_status",
-"status": "Out",
+"status": "Day-To-Day",
 "practice": null,
 "injury": "Left Knee",
 "return_low": "2026-10-26",
@@ -569,8 +569,8 @@
 "source": "ESPN injuries feed",
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
-"published_utc": "2026-10-24T22:20:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T13:37:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-24T17:29:07+00:00"
 },
 {
@@ -596,7 +596,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-24T18:29:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-20T22:23:11+00:00"
 },
 {
@@ -622,7 +622,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-24T18:29:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -648,7 +648,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-24T18:21:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-16T22:53:32+00:00"
 },
 {
@@ -674,7 +674,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-24T18:21:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-20T22:23:11+00:00"
 },
 {
@@ -700,7 +700,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-24T18:18:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -726,7 +726,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-24T18:18:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -752,7 +752,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-24T17:52:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-24T04:43:25+00:00"
 },
 {
@@ -778,7 +778,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-24T17:52:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-14T23:17:02+00:00"
 },
 {
@@ -804,7 +804,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-22T20:10:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -830,20 +830,20 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-22T20:10:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
 "league": "nba",
 "team": "DEN",
-"player": "Alpha Diallo",
-"player_key": "alphadiallo",
-"player_id": "espn:4065813",
+"player": "Spencer Jones",
+"player_key": "spencerjones",
+"player_id": "espn:4592427",
 "layer": "official",
 "kind": "injury_status",
-"status": "Out",
+"status": "Day-To-Day",
 "practice": null,
-"injury": "Right Wrist",
+"injury": "Hamstring",
 "return_low": "2026-10-26",
 "return_high": "2026-10-26",
 "return_text_class": "ESPN estimated return date",
@@ -855,35 +855,9 @@
 "source": "ESPN injuries feed",
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
-"published_utc": "2026-10-25T00:03:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
-"first_seen_utc": "2026-10-23T23:53:10+00:00"
-},
-{
-"league": "nba",
-"team": "DEN",
-"player": "Alpha Diallo",
-"player_key": "alphadiallo",
-"player_id": "espn:4065813",
-"layer": "reported",
-"kind": "context",
-"status": "expected out",
-"practice": null,
-"injury": null,
-"return_low": null,
-"return_high": null,
-"return_text_class": null,
-"reassess_date": null,
-"restriction": null,
-"replacement": null,
-"confirmation": "reported",
-"affected_game": null,
-"source": "ESPN injury note",
-"source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
-"headline": null,
-"published_utc": "2026-10-25T00:03:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
-"first_seen_utc": "2026-10-25T01:15:54+00:00"
+"published_utc": "2026-10-25T13:38:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
+"first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
 "league": "nba",
@@ -893,7 +867,7 @@
 "player_id": "espn:3138196",
 "layer": "official",
 "kind": "injury_status",
-"status": "Out",
+"status": "Day-To-Day",
 "practice": null,
 "injury": "Right Ankle Sprain",
 "return_low": "2026-10-26",
@@ -907,8 +881,8 @@
 "source": "ESPN injuries feed",
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
-"published_utc": "2026-10-24T23:47:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T13:38:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-23T06:04:41+00:00"
 },
 {
@@ -933,21 +907,21 @@
 "source": "ESPN injury note",
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
-"published_utc": "2026-10-24T23:47:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T13:38:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-23T23:53:10+00:00"
 },
 {
 "league": "nba",
 "team": "DEN",
-"player": "Spencer Jones",
-"player_key": "spencerjones",
-"player_id": "espn:4592427",
+"player": "Alpha Diallo",
+"player_key": "alphadiallo",
+"player_id": "espn:4065813",
 "layer": "official",
 "kind": "injury_status",
-"status": "Out",
+"status": "Day-To-Day",
 "practice": null,
-"injury": "Hamstring",
+"injury": "Right Wrist",
 "return_low": "2026-10-26",
 "return_high": "2026-10-26",
 "return_text_class": "ESPN estimated return date",
@@ -959,9 +933,35 @@
 "source": "ESPN injuries feed",
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
-"published_utc": "2026-10-23T23:09:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
-"first_seen_utc": "2026-10-10T12:05:56+00:00"
+"published_utc": "2026-10-25T13:38:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
+"first_seen_utc": "2026-10-23T23:53:10+00:00"
+},
+{
+"league": "nba",
+"team": "DEN",
+"player": "Alpha Diallo",
+"player_key": "alphadiallo",
+"player_id": "espn:4065813",
+"layer": "reported",
+"kind": "context",
+"status": "expected out",
+"practice": null,
+"injury": null,
+"return_low": null,
+"return_high": null,
+"return_text_class": null,
+"reassess_date": null,
+"restriction": null,
+"replacement": null,
+"confirmation": "reported",
+"affected_game": null,
+"source": "ESPN injury note",
+"source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
+"headline": null,
+"published_utc": "2026-10-25T13:38:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
+"first_seen_utc": "2026-10-25T01:15:54+00:00"
 },
 {
 "league": "nba",
@@ -986,7 +986,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-17T00:52:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-15T07:30:51+00:00"
 },
 {
@@ -1012,7 +1012,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-17T00:52:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-15T07:30:51+00:00"
 },
 {
@@ -1037,8 +1037,8 @@
 "source": "ESPN injuries feed",
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
-"published_utc": "2026-10-24T20:14:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T15:48:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-24T04:43:25+00:00"
 },
 {
@@ -1063,8 +1063,8 @@
 "source": "ESPN injury note",
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
-"published_utc": "2026-10-24T20:14:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T15:48:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-24T20:54:57+00:00"
 },
 {
@@ -1078,8 +1078,8 @@
 "status": "Out",
 "practice": null,
 "injury": "Right Hamstring Strain",
-"return_low": "2026-10-27",
-"return_high": "2026-10-27",
+"return_low": "2026-11-09",
+"return_high": "2026-11-09",
 "return_text_class": "ESPN estimated return date",
 "reassess_date": null,
 "restriction": null,
@@ -1089,8 +1089,8 @@
 "source": "ESPN injuries feed",
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
-"published_utc": "2026-10-24T20:08:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T14:56:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-24T04:43:25+00:00"
 },
 {
@@ -1099,6 +1099,58 @@
 "player": "Jalen Duren",
 "player_key": "jalenduren",
 "player_id": "espn:4433621",
+"layer": "reported",
+"kind": "context",
+"status": null,
+"practice": null,
+"injury": null,
+"return_low": null,
+"return_high": null,
+"return_text_class": null,
+"reassess_date": "2026-11-08",
+"restriction": null,
+"replacement": null,
+"confirmation": "reported",
+"affected_game": null,
+"source": "ESPN injury note",
+"source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
+"headline": null,
+"published_utc": "2026-10-25T14:56:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
+"first_seen_utc": "2026-10-10T12:05:56+00:00"
+},
+{
+"league": "nba",
+"team": "GS",
+"player": "Brandin Podziemski",
+"player_key": "brandinpodziemski",
+"player_id": "espn:4709138",
+"layer": "official",
+"kind": "injury_status",
+"status": "Day-To-Day",
+"practice": null,
+"injury": "Back",
+"return_low": "2026-10-26",
+"return_high": "2026-10-26",
+"return_text_class": "ESPN estimated return date",
+"reassess_date": null,
+"restriction": null,
+"replacement": null,
+"confirmation": "aggregated (ESPN, from team/league reports)",
+"affected_game": null,
+"source": "ESPN injuries feed",
+"source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
+"headline": null,
+"published_utc": "2026-10-25T13:38:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
+"first_seen_utc": "2026-10-24T14:02:11+00:00"
+},
+{
+"league": "nba",
+"team": "GS",
+"player": "Brandin Podziemski",
+"player_key": "brandinpodziemski",
+"player_id": "espn:4709138",
 "layer": "reported",
 "kind": "context",
 "status": "expected out",
@@ -1115,9 +1167,165 @@
 "source": "ESPN injury note",
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
-"published_utc": "2026-10-24T20:08:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T13:38:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
+"first_seen_utc": "2026-10-10T17:22:34+00:00"
+},
+{
+"league": "nba",
+"team": "GS",
+"player": "Al Horford",
+"player_key": "alhorford",
+"player_id": "espn:3213",
+"layer": "official",
+"kind": "injury_status",
+"status": "Day-To-Day",
+"practice": null,
+"injury": "Back",
+"return_low": "2026-10-26",
+"return_high": "2026-10-26",
+"return_text_class": "ESPN estimated return date",
+"reassess_date": null,
+"restriction": null,
+"replacement": null,
+"confirmation": "aggregated (ESPN, from team/league reports)",
+"affected_game": null,
+"source": "ESPN injuries feed",
+"source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
+"headline": null,
+"published_utc": "2026-10-25T13:38:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
+"first_seen_utc": "2026-10-24T20:54:57+00:00"
+},
+{
+"league": "nba",
+"team": "GS",
+"player": "Al Horford",
+"player_key": "alhorford",
+"player_id": "espn:3213",
+"layer": "reported",
+"kind": "context",
+"status": "expected out",
+"practice": null,
+"injury": null,
+"return_low": null,
+"return_high": null,
+"return_text_class": null,
+"reassess_date": null,
+"restriction": null,
+"replacement": null,
+"confirmation": "reported",
+"affected_game": null,
+"source": "ESPN injury note",
+"source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
+"headline": null,
+"published_utc": "2026-10-25T13:38:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
+"first_seen_utc": "2026-10-13T00:46:35+00:00"
+},
+{
+"league": "nba",
+"team": "GS",
+"player": "Draymond Green",
+"player_key": "draymondgreen",
+"player_id": "espn:6589",
+"layer": "official",
+"kind": "injury_status",
+"status": "Day-To-Day",
+"practice": null,
+"injury": "Back",
+"return_low": "2026-10-26",
+"return_high": "2026-10-26",
+"return_text_class": "ESPN estimated return date",
+"reassess_date": null,
+"restriction": null,
+"replacement": null,
+"confirmation": "aggregated (ESPN, from team/league reports)",
+"affected_game": null,
+"source": "ESPN injuries feed",
+"source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
+"headline": null,
+"published_utc": "2026-10-25T13:38:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
+"first_seen_utc": "2026-10-24T20:54:57+00:00"
+},
+{
+"league": "nba",
+"team": "GS",
+"player": "Draymond Green",
+"player_key": "draymondgreen",
+"player_id": "espn:6589",
+"layer": "reported",
+"kind": "context",
+"status": "expected out",
+"practice": null,
+"injury": null,
+"return_low": null,
+"return_high": null,
+"return_text_class": null,
+"reassess_date": null,
+"restriction": null,
+"replacement": null,
+"confirmation": "reported",
+"affected_game": null,
+"source": "ESPN injury note",
+"source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
+"headline": null,
+"published_utc": "2026-10-25T13:38:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
+},
+{
+"league": "nba",
+"team": "GS",
+"player": "Stephen Curry",
+"player_key": "stephencurry",
+"player_id": "espn:3975",
+"layer": "official",
+"kind": "injury_status",
+"status": "Day-To-Day",
+"practice": null,
+"injury": "Rest",
+"return_low": "2026-10-26",
+"return_high": "2026-10-26",
+"return_text_class": "ESPN estimated return date",
+"reassess_date": null,
+"restriction": null,
+"replacement": null,
+"confirmation": "aggregated (ESPN, from team/league reports)",
+"affected_game": null,
+"source": "ESPN injuries feed",
+"source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
+"headline": null,
+"published_utc": "2026-10-25T13:38:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
+"first_seen_utc": "2026-10-24T14:02:11+00:00"
+},
+{
+"league": "nba",
+"team": "GS",
+"player": "Stephen Curry",
+"player_key": "stephencurry",
+"player_id": "espn:3975",
+"layer": "reported",
+"kind": "context",
+"status": "expected out",
+"practice": null,
+"injury": null,
+"return_low": null,
+"return_high": null,
+"return_text_class": null,
+"reassess_date": null,
+"restriction": null,
+"replacement": null,
+"confirmation": "reported",
+"affected_game": null,
+"source": "ESPN injury note",
+"source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
+"headline": null,
+"published_utc": "2026-10-25T13:38:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
+"first_seen_utc": "2026-10-18T23:18:24+00:00"
 },
 {
 "league": "nba",
@@ -1142,216 +1350,8 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-25T04:58:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-25T06:12:30+00:00"
-},
-{
-"league": "nba",
-"team": "GS",
-"player": "Draymond Green",
-"player_key": "draymondgreen",
-"player_id": "espn:6589",
-"layer": "official",
-"kind": "injury_status",
-"status": "Out",
-"practice": null,
-"injury": "Back",
-"return_low": "2026-10-26",
-"return_high": "2026-10-26",
-"return_text_class": "ESPN estimated return date",
-"reassess_date": null,
-"restriction": null,
-"replacement": null,
-"confirmation": "aggregated (ESPN, from team/league reports)",
-"affected_game": null,
-"source": "ESPN injuries feed",
-"source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
-"headline": null,
-"published_utc": "2026-10-25T00:33:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
-"first_seen_utc": "2026-10-24T20:54:57+00:00"
-},
-{
-"league": "nba",
-"team": "GS",
-"player": "Draymond Green",
-"player_key": "draymondgreen",
-"player_id": "espn:6589",
-"layer": "reported",
-"kind": "context",
-"status": "expected out",
-"practice": null,
-"injury": null,
-"return_low": null,
-"return_high": null,
-"return_text_class": null,
-"reassess_date": null,
-"restriction": null,
-"replacement": null,
-"confirmation": "reported",
-"affected_game": null,
-"source": "ESPN injury note",
-"source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
-"headline": null,
-"published_utc": "2026-10-25T00:33:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
-"first_seen_utc": "2026-10-10T12:05:56+00:00"
-},
-{
-"league": "nba",
-"team": "GS",
-"player": "Al Horford",
-"player_key": "alhorford",
-"player_id": "espn:3213",
-"layer": "official",
-"kind": "injury_status",
-"status": "Out",
-"practice": null,
-"injury": "Back",
-"return_low": "2026-10-26",
-"return_high": "2026-10-26",
-"return_text_class": "ESPN estimated return date",
-"reassess_date": null,
-"restriction": null,
-"replacement": null,
-"confirmation": "aggregated (ESPN, from team/league reports)",
-"affected_game": null,
-"source": "ESPN injuries feed",
-"source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
-"headline": null,
-"published_utc": "2026-10-24T20:20:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
-"first_seen_utc": "2026-10-24T20:54:57+00:00"
-},
-{
-"league": "nba",
-"team": "GS",
-"player": "Al Horford",
-"player_key": "alhorford",
-"player_id": "espn:3213",
-"layer": "reported",
-"kind": "context",
-"status": "expected out",
-"practice": null,
-"injury": null,
-"return_low": null,
-"return_high": null,
-"return_text_class": null,
-"reassess_date": null,
-"restriction": null,
-"replacement": null,
-"confirmation": "reported",
-"affected_game": null,
-"source": "ESPN injury note",
-"source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
-"headline": null,
-"published_utc": "2026-10-24T20:20:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
-"first_seen_utc": "2026-10-13T00:46:35+00:00"
-},
-{
-"league": "nba",
-"team": "GS",
-"player": "Stephen Curry",
-"player_key": "stephencurry",
-"player_id": "espn:3975",
-"layer": "official",
-"kind": "injury_status",
-"status": "Out",
-"practice": null,
-"injury": "Rest",
-"return_low": "2026-10-26",
-"return_high": "2026-10-26",
-"return_text_class": "ESPN estimated return date",
-"reassess_date": null,
-"restriction": null,
-"replacement": null,
-"confirmation": "aggregated (ESPN, from team/league reports)",
-"affected_game": null,
-"source": "ESPN injuries feed",
-"source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
-"headline": null,
-"published_utc": "2026-10-24T20:08:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
-"first_seen_utc": "2026-10-24T14:02:11+00:00"
-},
-{
-"league": "nba",
-"team": "GS",
-"player": "Stephen Curry",
-"player_key": "stephencurry",
-"player_id": "espn:3975",
-"layer": "reported",
-"kind": "context",
-"status": "expected out",
-"practice": null,
-"injury": null,
-"return_low": null,
-"return_high": null,
-"return_text_class": null,
-"reassess_date": null,
-"restriction": null,
-"replacement": null,
-"confirmation": "reported",
-"affected_game": null,
-"source": "ESPN injury note",
-"source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
-"headline": null,
-"published_utc": "2026-10-24T20:08:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
-"first_seen_utc": "2026-10-18T23:18:24+00:00"
-},
-{
-"league": "nba",
-"team": "GS",
-"player": "Brandin Podziemski",
-"player_key": "brandinpodziemski",
-"player_id": "espn:4709138",
-"layer": "official",
-"kind": "injury_status",
-"status": "Out",
-"practice": null,
-"injury": "Back",
-"return_low": "2026-10-26",
-"return_high": "2026-10-26",
-"return_text_class": "ESPN estimated return date",
-"reassess_date": null,
-"restriction": null,
-"replacement": null,
-"confirmation": "aggregated (ESPN, from team/league reports)",
-"affected_game": null,
-"source": "ESPN injuries feed",
-"source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
-"headline": null,
-"published_utc": "2026-10-24T14:11:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
-"first_seen_utc": "2026-10-24T14:02:11+00:00"
-},
-{
-"league": "nba",
-"team": "GS",
-"player": "Brandin Podziemski",
-"player_key": "brandinpodziemski",
-"player_id": "espn:4709138",
-"layer": "reported",
-"kind": "context",
-"status": "expected out",
-"practice": null,
-"injury": null,
-"return_low": null,
-"return_high": null,
-"return_text_class": null,
-"reassess_date": null,
-"restriction": null,
-"replacement": null,
-"confirmation": "reported",
-"affected_game": null,
-"source": "ESPN injury note",
-"source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
-"headline": null,
-"published_utc": "2026-10-24T14:11:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
-"first_seen_utc": "2026-10-10T17:22:34+00:00"
 },
 {
 "league": "nba",
@@ -1376,7 +1376,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-21T18:27:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -1402,7 +1402,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-16T16:14:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -1428,7 +1428,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-16T16:14:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -1454,8 +1454,60 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-16T16:11:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
+},
+{
+"league": "nba",
+"team": "HOU",
+"player": "Fred VanVleet",
+"player_key": "fredvanvleet",
+"player_id": "espn:2991230",
+"layer": "official",
+"kind": "injury_status",
+"status": "Day-To-Day",
+"practice": null,
+"injury": "Right Knee",
+"return_low": "2026-10-26",
+"return_high": "2026-10-26",
+"return_text_class": "ESPN estimated return date",
+"reassess_date": null,
+"restriction": null,
+"replacement": null,
+"confirmation": "aggregated (ESPN, from team/league reports)",
+"affected_game": null,
+"source": "ESPN injuries feed",
+"source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
+"headline": null,
+"published_utc": "2026-10-25T13:36:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
+"first_seen_utc": "2026-10-24T17:29:07+00:00"
+},
+{
+"league": "nba",
+"team": "HOU",
+"player": "Fred VanVleet",
+"player_key": "fredvanvleet",
+"player_id": "espn:2991230",
+"layer": "reported",
+"kind": "context",
+"status": "expected out",
+"practice": null,
+"injury": null,
+"return_low": null,
+"return_high": null,
+"return_text_class": null,
+"reassess_date": null,
+"restriction": null,
+"replacement": null,
+"confirmation": "reported",
+"affected_game": null,
+"source": "ESPN injury note",
+"source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
+"headline": null,
+"published_utc": "2026-10-25T13:36:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
+"first_seen_utc": "2026-10-11T12:57:33+00:00"
 },
 {
 "league": "nba",
@@ -1465,7 +1517,7 @@
 "player_id": "espn:2990992",
 "layer": "official",
 "kind": "injury_status",
-"status": "Out",
+"status": "Day-To-Day",
 "practice": null,
 "injury": "Left Forearm Strain",
 "return_low": "2026-10-26",
@@ -1479,8 +1531,8 @@
 "source": "ESPN injuries feed",
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
-"published_utc": "2026-10-24T23:15:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T13:36:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-24T20:54:57+00:00"
 },
 {
@@ -1505,8 +1557,8 @@
 "source": "ESPN injury note",
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
-"published_utc": "2026-10-24T23:15:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T13:36:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-25T01:15:54+00:00"
 },
 {
@@ -1517,7 +1569,7 @@
 "player_id": "espn:2991235",
 "layer": "official",
 "kind": "injury_status",
-"status": "Out",
+"status": "Day-To-Day",
 "practice": null,
 "injury": "Left Ankle",
 "return_low": "2026-10-26",
@@ -1531,8 +1583,8 @@
 "source": "ESPN injuries feed",
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
-"published_utc": "2026-10-24T17:20:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T13:36:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-24T17:29:07+00:00"
 },
 {
@@ -1557,60 +1609,8 @@
 "source": "ESPN injury note",
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
-"published_utc": "2026-10-24T17:20:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
-"first_seen_utc": "2026-10-11T12:57:33+00:00"
-},
-{
-"league": "nba",
-"team": "HOU",
-"player": "Fred VanVleet",
-"player_key": "fredvanvleet",
-"player_id": "espn:2991230",
-"layer": "official",
-"kind": "injury_status",
-"status": "Out",
-"practice": null,
-"injury": "Right Knee",
-"return_low": "2026-10-26",
-"return_high": "2026-10-26",
-"return_text_class": "ESPN estimated return date",
-"reassess_date": null,
-"restriction": null,
-"replacement": null,
-"confirmation": "aggregated (ESPN, from team/league reports)",
-"affected_game": null,
-"source": "ESPN injuries feed",
-"source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
-"headline": null,
-"published_utc": "2026-10-24T17:16:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
-"first_seen_utc": "2026-10-24T17:29:07+00:00"
-},
-{
-"league": "nba",
-"team": "HOU",
-"player": "Fred VanVleet",
-"player_key": "fredvanvleet",
-"player_id": "espn:2991230",
-"layer": "reported",
-"kind": "context",
-"status": "expected out",
-"practice": null,
-"injury": null,
-"return_low": null,
-"return_high": null,
-"return_text_class": null,
-"reassess_date": null,
-"restriction": null,
-"replacement": null,
-"confirmation": "reported",
-"affected_game": null,
-"source": "ESPN injury note",
-"source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
-"headline": null,
-"published_utc": "2026-10-24T17:16:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T13:36:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-11T12:57:33+00:00"
 },
 {
@@ -1636,7 +1636,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-24T21:05:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-24T23:19:36+00:00"
 },
 {
@@ -1662,7 +1662,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-24T21:05:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-15T18:21:10+00:00"
 },
 {
@@ -1688,7 +1688,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-24T21:03:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -1714,7 +1714,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-23T22:53:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-22T22:23:42+00:00"
 },
 {
@@ -1740,7 +1740,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-02-09T21:43:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -1766,7 +1766,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-02-09T21:43:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -1792,7 +1792,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-15T01:03:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -1818,7 +1818,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-05T22:21:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -1844,7 +1844,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-05T22:21:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -1870,7 +1870,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-09-28T18:07:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -1896,7 +1896,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-09-28T18:01:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -1922,7 +1922,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-08-26T20:04:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -1948,7 +1948,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-24T23:20:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-14T05:03:11+00:00"
 },
 {
@@ -1974,7 +1974,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-24T23:20:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-14T05:03:11+00:00"
 },
 {
@@ -2000,7 +2000,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-24T23:07:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -2026,7 +2026,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-25T00:12:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-23T00:45:04+00:00"
 },
 {
@@ -2052,7 +2052,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-25T00:12:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-23T00:45:04+00:00"
 },
 {
@@ -2078,7 +2078,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-25T00:12:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-25T01:15:54+00:00"
 },
 {
@@ -2104,7 +2104,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-25T00:12:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-25T01:15:54+00:00"
 },
 {
@@ -2130,7 +2130,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-05T20:53:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -2156,7 +2156,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-24T22:17:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-24T04:43:25+00:00"
 },
 {
@@ -2182,7 +2182,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-24T21:34:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-24T23:19:36+00:00"
 },
 {
@@ -2208,7 +2208,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-23T18:52:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-14T05:03:11+00:00"
 },
 {
@@ -2234,7 +2234,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-21T22:13:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -2260,7 +2260,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-21T22:13:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -2286,7 +2286,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-21T22:08:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -2312,7 +2312,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-21T22:08:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -2338,7 +2338,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-24T17:29:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -2364,7 +2364,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-24T17:29:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-13T21:19:20+00:00"
 },
 {
@@ -2390,7 +2390,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-24T17:28:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -2416,7 +2416,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-24T17:28:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-14T00:20:43+00:00"
 },
 {
@@ -2442,7 +2442,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-24T16:47:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-24T04:43:25+00:00"
 },
 {
@@ -2468,7 +2468,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-24T16:47:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-24T17:29:07+00:00"
 },
 {
@@ -2494,7 +2494,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-17T22:19:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-17T01:21:09+00:00"
 },
 {
@@ -2520,8 +2520,60 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-09-28T21:33:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
+},
+{
+"league": "nba",
+"team": "PHI",
+"player": "LeBron James",
+"player_key": "lebronjames",
+"player_id": "espn:1966",
+"layer": "official",
+"kind": "injury_status",
+"status": "Day-To-Day",
+"practice": null,
+"injury": "Back",
+"return_low": "2026-10-25",
+"return_high": "2026-10-25",
+"return_text_class": "ESPN estimated return date",
+"reassess_date": null,
+"restriction": null,
+"replacement": null,
+"confirmation": "aggregated (ESPN, from team/league reports)",
+"affected_game": null,
+"source": "ESPN injuries feed",
+"source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
+"headline": null,
+"published_utc": "2026-10-25T13:35:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
+"first_seen_utc": "2026-10-23T23:53:10+00:00"
+},
+{
+"league": "nba",
+"team": "PHI",
+"player": "LeBron James",
+"player_key": "lebronjames",
+"player_id": "espn:1966",
+"layer": "reported",
+"kind": "context",
+"status": "expected out",
+"practice": null,
+"injury": null,
+"return_low": null,
+"return_high": null,
+"return_text_class": null,
+"reassess_date": null,
+"restriction": null,
+"replacement": null,
+"confirmation": "reported",
+"affected_game": null,
+"source": "ESPN injury note",
+"source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
+"headline": null,
+"published_utc": "2026-10-25T13:35:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
+"first_seen_utc": "2026-10-24T17:29:07+00:00"
 },
 {
 "league": "nba",
@@ -2546,7 +2598,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-25T02:15:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-25T06:12:30+00:00"
 },
 {
@@ -2572,60 +2624,8 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-25T02:11:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-25T06:12:30+00:00"
-},
-{
-"league": "nba",
-"team": "PHI",
-"player": "LeBron James",
-"player_key": "lebronjames",
-"player_id": "espn:1966",
-"layer": "official",
-"kind": "injury_status",
-"status": "Out",
-"practice": null,
-"injury": "Back",
-"return_low": "2026-10-25",
-"return_high": "2026-10-25",
-"return_text_class": "ESPN estimated return date",
-"reassess_date": null,
-"restriction": null,
-"replacement": null,
-"confirmation": "aggregated (ESPN, from team/league reports)",
-"affected_game": null,
-"source": "ESPN injuries feed",
-"source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
-"headline": null,
-"published_utc": "2026-10-24T17:06:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
-"first_seen_utc": "2026-10-23T23:53:10+00:00"
-},
-{
-"league": "nba",
-"team": "PHI",
-"player": "LeBron James",
-"player_key": "lebronjames",
-"player_id": "espn:1966",
-"layer": "reported",
-"kind": "context",
-"status": "expected out",
-"practice": null,
-"injury": null,
-"return_low": null,
-"return_high": null,
-"return_text_class": null,
-"reassess_date": null,
-"restriction": null,
-"replacement": null,
-"confirmation": "reported",
-"affected_game": null,
-"source": "ESPN injury note",
-"source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
-"headline": null,
-"published_utc": "2026-10-24T17:06:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
-"first_seen_utc": "2026-10-24T17:29:07+00:00"
 },
 {
 "league": "nba",
@@ -2650,7 +2650,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-23T21:10:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -2676,7 +2676,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-23T21:10:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -2702,7 +2702,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-19T21:07:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -2728,7 +2728,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-19T21:07:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -2754,7 +2754,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-06T19:17:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -2780,7 +2780,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-06T19:17:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -2791,7 +2791,7 @@
 "player_id": "espn:4601023",
 "layer": "official",
 "kind": "injury_status",
-"status": "Out",
+"status": "Day-To-Day",
 "practice": null,
 "injury": "Oblique Strain",
 "return_low": "2026-10-26",
@@ -2805,8 +2805,8 @@
 "source": "ESPN injuries feed",
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
-"published_utc": "2026-10-24T20:24:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T13:39:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-22T04:56:24+00:00"
 },
 {
@@ -2831,8 +2831,8 @@
 "source": "ESPN injury note",
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
-"published_utc": "2026-10-24T20:24:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T13:39:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-14T19:27:31+00:00"
 },
 {
@@ -2858,7 +2858,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-09-11T16:03:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -2884,7 +2884,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-24T13:46:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-13T00:46:35+00:00"
 },
 {
@@ -2910,7 +2910,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-24T13:46:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-21T00:41:47+00:00"
 },
 {
@@ -2936,7 +2936,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-24T13:46:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-21T00:41:47+00:00"
 },
 {
@@ -2962,7 +2962,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-08-24T20:23:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -2988,7 +2988,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-08-24T20:23:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -3014,7 +3014,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-25T00:18:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-25T01:15:54+00:00"
 },
 {
@@ -3040,7 +3040,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-21T04:22:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-18T23:18:24+00:00"
 },
 {
@@ -3066,7 +3066,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-15T14:40:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-11T00:15:51+00:00"
 },
 {
@@ -3092,7 +3092,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-15T14:40:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-11T00:15:51+00:00"
 },
 {
@@ -3118,7 +3118,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-15T14:36:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-11T05:53:57+00:00"
 },
 {
@@ -3144,7 +3144,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-15T14:36:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-15T18:21:10+00:00"
 },
 {
@@ -3170,7 +3170,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-24T18:32:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -3196,7 +3196,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-05T21:43:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -3222,7 +3222,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-05T21:43:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -3248,7 +3248,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-20T18:05:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-17T17:16:13+00:00"
 },
 {
@@ -3274,7 +3274,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-24T23:18:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-17T05:40:58+00:00"
 },
 {
@@ -3300,7 +3300,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-24T23:18:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-20T22:23:11+00:00"
 },
 {
@@ -3326,7 +3326,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-07T23:07:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -3352,7 +3352,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-07T23:07:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -3378,7 +3378,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-24T17:54:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-17T05:40:58+00:00"
 },
 {
@@ -3404,7 +3404,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-24T17:54:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-17T05:40:58+00:00"
 },
 {
@@ -3430,7 +3430,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-01T19:11:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -3456,7 +3456,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-10-01T19:11:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -3482,7 +3482,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "headline": null,
 "published_utc": "2026-07-30T20:11:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-10T12:05:56+00:00"
 },
 {
@@ -3508,7 +3508,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/transactions",
 "headline": null,
 "published_utc": "2026-10-23T07:00:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "digest": "47e5744f9a2d",
 "first_seen_utc": "2026-10-24T04:43:25+00:00"
 },
@@ -3535,7 +3535,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/transactions",
 "headline": null,
 "published_utc": "2026-10-23T07:00:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "digest": "b7dbcf1dfcc0",
 "first_seen_utc": "2026-10-24T04:43:25+00:00"
 },
@@ -3562,7 +3562,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/transactions",
 "headline": null,
 "published_utc": "2026-10-19T07:00:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "digest": "1e51b88ddd30",
 "first_seen_utc": "2026-10-20T04:57:17+00:00"
 },
@@ -3589,7 +3589,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/transactions",
 "headline": null,
 "published_utc": "2026-10-19T07:00:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "digest": "a3511ea2f656",
 "first_seen_utc": "2026-10-19T23:45:48+00:00"
 },
@@ -3616,7 +3616,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/transactions",
 "headline": null,
 "published_utc": "2026-10-19T07:00:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "digest": "254b7c4746e2",
 "first_seen_utc": "2026-10-20T04:57:17+00:00"
 },
@@ -3643,7 +3643,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/transactions",
 "headline": null,
 "published_utc": "2026-10-19T07:00:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "digest": "bfd7f94432e9",
 "first_seen_utc": "2026-10-20T04:57:17+00:00"
 },
@@ -3670,7 +3670,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/transactions",
 "headline": null,
 "published_utc": "2026-10-19T07:00:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "digest": "519ed1bcfdef",
 "first_seen_utc": "2026-10-20T04:57:17+00:00"
 },
@@ -3697,7 +3697,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/transactions",
 "headline": null,
 "published_utc": "2026-10-19T07:00:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "digest": "ff3d592cfea4",
 "first_seen_utc": "2026-10-19T23:45:48+00:00"
 },
@@ -3724,7 +3724,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/transactions",
 "headline": null,
 "published_utc": "2026-10-19T07:00:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "digest": "8ba426580e4d",
 "first_seen_utc": "2026-10-19T23:45:48+00:00"
 },
@@ -3751,7 +3751,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/transactions",
 "headline": null,
 "published_utc": "2026-10-19T07:00:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "digest": "c6d317f6b77f",
 "first_seen_utc": "2026-10-20T04:57:17+00:00"
 },
@@ -3778,7 +3778,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/transactions",
 "headline": null,
 "published_utc": "2026-10-19T07:00:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "digest": "0bfe07bbbb9d",
 "first_seen_utc": "2026-10-19T23:45:48+00:00"
 },
@@ -3805,7 +3805,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/transactions",
 "headline": null,
 "published_utc": "2026-10-17T07:00:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "digest": "38e134d3c768",
 "first_seen_utc": "2026-10-18T05:59:04+00:00"
 },
@@ -3832,7 +3832,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/transactions",
 "headline": null,
 "published_utc": "2026-10-17T07:00:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "digest": "dc340f43bea7",
 "first_seen_utc": "2026-10-18T01:08:11+00:00"
 },
@@ -3859,7 +3859,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/transactions",
 "headline": null,
 "published_utc": "2026-10-17T07:00:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "digest": "aa9903198f29",
 "first_seen_utc": "2026-10-18T05:59:04+00:00"
 },
@@ -3886,7 +3886,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/transactions",
 "headline": null,
 "published_utc": "2026-10-17T07:00:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "digest": "0193147a5131",
 "first_seen_utc": "2026-10-18T05:59:04+00:00"
 },
@@ -3913,7 +3913,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/transactions",
 "headline": null,
 "published_utc": "2026-10-17T07:00:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "digest": "90d61386379b",
 "first_seen_utc": "2026-10-18T05:59:04+00:00"
 },
@@ -3940,7 +3940,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/transactions",
 "headline": null,
 "published_utc": "2026-10-17T07:00:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "digest": "abaf1ab8b3dd",
 "first_seen_utc": "2026-10-18T05:59:04+00:00"
 },
@@ -3967,7 +3967,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/transactions",
 "headline": null,
 "published_utc": "2026-10-17T07:00:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "digest": "31bce96d2a5d",
 "first_seen_utc": "2026-10-18T01:08:11+00:00"
 },
@@ -3994,7 +3994,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/transactions",
 "headline": null,
 "published_utc": "2026-10-17T07:00:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "digest": "227a104a7713",
 "first_seen_utc": "2026-10-18T01:08:11+00:00"
 },
@@ -4021,7 +4021,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/transactions",
 "headline": null,
 "published_utc": "2026-10-17T07:00:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "digest": "cd4d8cc6f651",
 "first_seen_utc": "2026-10-18T05:59:04+00:00"
 },
@@ -4048,7 +4048,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/transactions",
 "headline": null,
 "published_utc": "2026-10-17T07:00:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "digest": "43b382821c90",
 "first_seen_utc": "2026-10-18T01:08:11+00:00"
 },
@@ -4075,7 +4075,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/transactions",
 "headline": null,
 "published_utc": "2026-10-17T07:00:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "digest": "4b9f8b950fb3",
 "first_seen_utc": "2026-10-18T01:08:11+00:00"
 },
@@ -4102,7 +4102,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/transactions",
 "headline": null,
 "published_utc": "2026-10-17T07:00:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "digest": "b97ab01d5c48",
 "first_seen_utc": "2026-10-18T01:08:11+00:00"
 },
@@ -4129,7 +4129,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/transactions",
 "headline": null,
 "published_utc": "2026-10-17T07:00:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "digest": "556d32213776",
 "first_seen_utc": "2026-10-18T05:59:04+00:00"
 },
@@ -4156,7 +4156,7 @@
 "source_url": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/transactions",
 "headline": null,
 "published_utc": "2026-10-17T07:00:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "digest": "04ad9e51af03",
 "first_seen_utc": "2026-10-18T05:59:04+00:00"
 },
@@ -4180,10 +4180,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-25 LAL@UTA",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-21T00:41:47+00:00"
 },
 {
@@ -4206,10 +4206,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-25 LAL@UTA",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-21T00:41:47+00:00"
 },
 {
@@ -4232,10 +4232,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-25 LAL@UTA",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-21T00:41:47+00:00"
 },
 {
@@ -4258,11 +4258,37 @@
 "confirmation": "official",
 "affected_game": "2026-10-25 LAL@UTA",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-20T22:23:11+00:00"
+},
+{
+"league": "nba",
+"team": "UTAH",
+"player": "Kobe Bufkin",
+"player_key": "kobebufkin",
+"player_id": null,
+"layer": "official",
+"kind": "injury_report",
+"status": "Out",
+"practice": null,
+"injury": "G League - Two-Way",
+"return_low": null,
+"return_high": null,
+"return_text_class": null,
+"reassess_date": null,
+"restriction": null,
+"replacement": null,
+"confirmation": "official",
+"affected_game": "2026-10-25 LAL@UTA",
+"source": "NBA official injury report (PDF)",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
+"headline": null,
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
+"first_seen_utc": "2026-10-25T16:29:18+00:00"
 },
 {
 "league": "nba",
@@ -4284,10 +4310,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-25 LAL@UTA",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-23T00:45:04+00:00"
 },
 {
@@ -4310,10 +4336,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-25 LAL@UTA",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-20T22:23:11+00:00"
 },
 {
@@ -4336,10 +4362,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-25 IND@BKN",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-20T22:23:11+00:00"
 },
 {
@@ -4362,10 +4388,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-25 IND@BKN",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-20T22:23:11+00:00"
 },
 {
@@ -4388,10 +4414,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-25 IND@BKN",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-20T22:23:11+00:00"
 },
 {
@@ -4414,10 +4440,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-25 IND@BKN",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-20T22:23:11+00:00"
 },
 {
@@ -4440,10 +4466,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-25 IND@BKN",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-22T22:23:42+00:00"
 },
 {
@@ -4466,10 +4492,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-25 IND@BKN",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-20T22:23:11+00:00"
 },
 {
@@ -4492,10 +4518,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-25 IND@BKN",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-20T22:23:11+00:00"
 },
 {
@@ -4518,10 +4544,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-25 IND@BKN",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-20T04:57:17+00:00"
 },
 {
@@ -4544,10 +4570,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-25 LAC@OKC",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-21T00:41:47+00:00"
 },
 {
@@ -4570,10 +4596,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-25 LAC@OKC",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-21T00:41:47+00:00"
 },
 {
@@ -4596,10 +4622,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-25 LAC@OKC",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-21T00:41:47+00:00"
 },
 {
@@ -4622,10 +4648,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-25 LAC@OKC",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-21T00:41:47+00:00"
 },
 {
@@ -4648,10 +4674,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-25 LAC@OKC",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-21T00:41:47+00:00"
 },
 {
@@ -4674,10 +4700,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-25 LAC@OKC",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-19T23:45:48+00:00"
 },
 {
@@ -4700,10 +4726,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-25 LAC@OKC",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-19T23:45:48+00:00"
 },
 {
@@ -4726,10 +4752,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-25 LAC@OKC",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-19T23:45:48+00:00"
 },
 {
@@ -4752,10 +4778,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-25 ORL@NYK",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-24T17:29:07+00:00"
 },
 {
@@ -4778,10 +4804,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-25 ORL@NYK",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-20T22:23:11+00:00"
 },
 {
@@ -4804,10 +4830,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-25 ORL@NYK",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-20T22:23:11+00:00"
 },
 {
@@ -4830,10 +4856,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-25 ORL@NYK",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-20T22:23:11+00:00"
 },
 {
@@ -4856,10 +4882,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-25 ORL@NYK",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-20T22:23:11+00:00"
 },
 {
@@ -4882,10 +4908,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-25 ORL@NYK",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-24T23:19:36+00:00"
 },
 {
@@ -4908,10 +4934,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-25 TOR@MIN",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-20T19:20:08+00:00"
 },
 {
@@ -4934,10 +4960,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-25 TOR@MIN",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-21T17:17:10+00:00"
 },
 {
@@ -4960,10 +4986,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-25 TOR@MIN",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-20T22:23:11+00:00"
 },
 {
@@ -4986,10 +5012,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-25 DET@PHI",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-24T20:54:57+00:00"
 },
 {
@@ -5012,10 +5038,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-25 DET@PHI",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-19T23:45:48+00:00"
 },
 {
@@ -5038,10 +5064,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-25 DET@PHI",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-19T23:45:48+00:00"
 },
 {
@@ -5064,10 +5090,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-25 DET@PHI",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-19T23:45:48+00:00"
 },
 {
@@ -5090,10 +5116,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-25 DET@PHI",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-24T20:54:57+00:00"
 },
 {
@@ -5116,10 +5142,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-25 DET@PHI",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-19T06:18:32+00:00"
 },
 {
@@ -5142,10 +5168,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-25 MEM@SAC",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-23T00:45:04+00:00"
 },
 {
@@ -5168,10 +5194,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-25 MEM@SAC",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-25T01:15:54+00:00"
 },
 {
@@ -5194,10 +5220,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-25 MEM@SAC",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-21T00:41:47+00:00"
 },
 {
@@ -5220,10 +5246,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-25 MEM@SAC",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-25T01:15:54+00:00"
 },
 {
@@ -5246,10 +5272,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-25 MEM@SAC",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-21T00:41:47+00:00"
 },
 {
@@ -5272,10 +5298,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-25 MEM@SAC",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-21T00:41:47+00:00"
 },
 {
@@ -5298,10 +5324,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-26 MIN@CLE",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-20T04:57:17+00:00"
 },
 {
@@ -5324,10 +5350,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-26 MIN@CLE",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-21T06:06:08+00:00"
 },
 {
@@ -5350,10 +5376,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-26 WAS@CHA",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-20T04:57:17+00:00"
 },
 {
@@ -5376,10 +5402,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-26 WAS@CHA",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-20T04:57:17+00:00"
 },
 {
@@ -5402,10 +5428,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-26 CHI@BOS",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-20T04:57:17+00:00"
 },
 {
@@ -5428,10 +5454,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-26 CHI@BOS",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-19T06:18:32+00:00"
 },
 {
@@ -5454,10 +5480,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-26 DAL@MIA",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-20T04:57:17+00:00"
 },
 {
@@ -5480,10 +5506,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-26 DAL@MIA",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-20T04:57:17+00:00"
 },
 {
@@ -5506,10 +5532,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-26 IND@MIL",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-20T04:57:17+00:00"
 },
 {
@@ -5532,10 +5558,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-26 IND@MIL",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-20T04:57:17+00:00"
 },
 {
@@ -5558,10 +5584,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-26 PHX@OKC",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-20T04:57:17+00:00"
 },
 {
@@ -5584,10 +5610,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-26 PHX@OKC",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-19T06:18:32+00:00"
 },
 {
@@ -5610,10 +5636,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-26 ATL@HOU",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-20T04:57:17+00:00"
 },
 {
@@ -5636,10 +5662,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-26 ATL@HOU",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-20T04:57:17+00:00"
 },
 {
@@ -5662,10 +5688,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-26 MEM@UTA",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-20T04:57:17+00:00"
 },
 {
@@ -5688,10 +5714,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-26 MEM@UTA",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-20T04:57:17+00:00"
 },
 {
@@ -5714,10 +5740,10 @@
 "confirmation": "official",
 "affected_game": "2026-10-26 GSW@DEN",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-20T04:57:17+00:00"
 },
 {
@@ -5740,11 +5766,37 @@
 "confirmation": "official",
 "affected_game": "2026-10-26 GSW@DEN",
 "source": "NBA official injury report (PDF)",
-"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_07_30AM.pdf",
+"source_url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-25_12_15PM.pdf",
 "headline": null,
-"published_utc": "2026-10-25T11:30:00+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"published_utc": "2026-10-25T16:15:00+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-21T06:06:08+00:00"
+},
+{
+"league": "nba",
+"team": null,
+"player": "Jalen Duren",
+"player_key": "jalenduren",
+"player_id": "espn:4433621",
+"layer": "reported",
+"kind": "context",
+"status": null,
+"practice": null,
+"injury": null,
+"return_low": "2026-11-08",
+"return_high": "2026-11-08",
+"return_text_class": "2-2 weeks",
+"reassess_date": null,
+"restriction": null,
+"replacement": null,
+"confirmation": "reported",
+"affected_game": null,
+"source": "ESPN news",
+"source_url": "https://www.espn.com/nba/story/_/id/50277066/pistons-jalen-duren-hamstring-strain-least-2-weeks",
+"headline": "Pistons C Jalen Duren out at least two weeks with hamstring strain",
+"published_utc": "2026-10-25T14:59:55+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
+"first_seen_utc": "2026-10-25T16:29:18+00:00"
 },
 {
 "league": "nba",
@@ -5769,7 +5821,7 @@
 "source_url": "https://www.espn.com/nba/story/_/id/50267528/mavericks-flagg-home-opener-mild-left-shoulder-sprain",
 "headline": "Mavericks' Cooper Flagg out for home opener with mild left shoulder sprain",
 "published_utc": "2026-10-24T18:44:27+00:00",
-"collected_utc": "2026-10-25T11:39:06+00:00",
+"collected_utc": "2026-10-25T16:29:18+00:00",
 "first_seen_utc": "2026-10-24T20:54:57+00:00"
 },
 {
