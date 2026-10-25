@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-10-25T19:42:15+00:00",
+ "checked_utc": "2026-10-25T22:37:09+00:00",
  "leagues": {
   "nfl": {
-   "records": 1608,
+   "records": 1610,
    "by_layer": {
     "official": 1525,
-    "reported": 83
+    "reported": 85
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -62,6 +62,15 @@
      ],
      "other": "expected to play",
      "source": "ESPN injury note"
+    },
+    {
+     "player": "Trent McDuffie",
+     "official": [
+      "out",
+      "questionable"
+     ],
+     "other": "expected to play",
+     "source": "ESPN injury note"
     }
    ],
    "stale_projection_dates": 0,
@@ -72,16 +81,16 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "83/83"
+   "reported_matched_to_official_list": "85/85"
   },
   "nba": {
-   "records": 232,
+   "records": 251,
    "by_layer": {
-    "official": 177,
-    "reported": 55
+    "official": 204,
+    "reported": 47
    },
    "unknown_team": 0,
-   "no_player": 15,
+   "no_player": 5,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -133,13 +142,13 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "55/55"
+   "reported_matched_to_official_list": "47/47"
   },
   "nhl": {
-   "records": 1555,
+   "records": 1552,
    "by_layer": {
-    "official": 153,
-    "reported": 69,
+    "official": 152,
+    "reported": 67,
     "projected": 1333
    },
    "unknown_team": 0,
@@ -177,7 +186,16 @@
     "WPG",
     "WSH"
    ],
-   "conflicts": [],
+   "conflicts": [
+    {
+     "player": "Radek Faksa",
+     "official": [
+      "out"
+     ],
+     "other": "expected to play",
+     "source": "ESPN injury note"
+    }
+   ],
    "stale_projection_dates": 0,
    "teams_missing_official": [
     "BOS",
@@ -189,7 +207,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "60/69"
+   "reported_matched_to_official_list": "58/67"
   },
   "nbl": {
    "records": 21,
