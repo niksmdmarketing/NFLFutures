@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-10-25T0448Z",
-"feed_timestamp": "2026-10-25T04:48:29Z",
+"collected_utc": "2026-10-25T0758Z",
+"feed_timestamp": "2026-10-25T07:58:27Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -164,6 +164,12 @@
 "status": "Out",
 "return_date": "2026-10-26",
 "injury": "Back"
+},
+{
+"athlete_id": "4997536",
+"status": "Day-To-Day",
+"return_date": "2026-10-26",
+"injury": "Undisclosed"
 },
 {
 "athlete_id": "6430",
@@ -733,6 +739,15 @@
 "return_date": "2026-10-26",
 "injury": "Back",
 "updated": "2026-10-25T00:33Z"
+},
+{
+"athlete_id": "4997536",
+"name": "Gui Santos",
+"team_name": "Golden State Warriors",
+"status": "Day-To-Day",
+"return_date": "2026-10-26",
+"injury": "Undisclosed",
+"updated": "2026-10-25T04:58Z"
 },
 {
 "athlete_id": "6430",
