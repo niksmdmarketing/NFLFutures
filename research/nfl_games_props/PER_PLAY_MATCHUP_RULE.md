@@ -44,3 +44,15 @@ QB pass attempts are not scored separately: the QB first-role data is not in thi
 ## Decision
 - **Pass:** a v1.3 candidate (v1.1 team volume plus these two features), archived forward as a shadow by a separate decision. It is not displayed until forward review.
 - **Fail:** recorded; this branch stops. No other forms, windows, shrinkage or feature sets are tried in response.
+
+## Outcome (26 Oct 2026, Sydney): FAIL. Branch stopped.
+Run: per_play_matchup_test.py, results in per_play_matchup_results.json (team-games 2021-2025).
+- **Baseline reproduction:** receptions from the baseline team pmf matched matchup_test.py's baseline exactly (27,614 of 27,614 rows, max difference 0).
+- **Stage 1 (2013-2020):** the additive and log5 forms are indistinguishable (log-likelihood per dropback differs by about 1e-6). The rule chose additive for sack rate and log5 for success rate.
+  - Fitted weights, descriptive only: offence about 1.17 (sack) and 1.33 (success); opposing defence about 0.37 (sack) and 0.87 (success).
+  - So sack rate is mostly the offence's own trait, and the defence's sack generation adds little.
+- **Stage 2, team attempts:**
+  - RPS 0.043306 -> 0.043304, gain +1.6e-6, season lower bound -6.4e-5, better in 3 of 5 seasons.
+  - Log score 3.45911 -> 3.45896, season lower bound -0.0013, better in 3 of 5 seasons. 2025 was worst on both.
+- **Gates:** 1 FAIL, 2 FAIL, 3 pass (PIT), 4 pass (receptions +0.008%, within 0.1%).
+- **Reading:** the per-play sack and success matchup adds nothing measurable to team pass attempts beyond the current seven features, and probably little if any value is hiding there. Additive versus multiplicative combination makes no practical difference at these rate levels. No v1.3. No further forms, windows or features are tried in response.
