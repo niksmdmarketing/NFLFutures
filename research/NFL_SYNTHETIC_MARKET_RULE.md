@@ -1,6 +1,6 @@
-# NFL in-season futures: v4 against a market-implied ("synthetic market") forecast, 2013-2025. DRAFT rule for review before any code or results (26 Oct 2026, Sydney)
+# NFL in-season futures: v4 against a market-implied ("synthetic market") forecast, 2013-2025. Rule fixed before any code or results (26 Oct 2026, Sydney)
 
-Status: **draft, sent to GPT for review.** Nothing has been run. Research only; no betting or model change follows automatically.
+Status: **final.** TypeSafe answered the five review questions and the user approved running without waiting for GPT's review. Nothing had been run when this was committed. Research only; no betting or model change follows automatically.
 
 ## Why
 - Real futures prices (Polymarket) exist only from the 2024 season. In the 2024-2025 paper-bet backfill (research/NFL_FUTURES_PAPER_BET_RULE.md), four longshot wins carry the profit.
@@ -43,9 +43,12 @@ At checkpoint w (after all week-w results) in season Y:
 - The 2013-2025 v4 replay was inspected this week (calibration work).
 - The 2024-2025 Polymarket results are known.
 
-## Questions for review
-1. Is the market-rating fit (previous season at one-third weight, no decay, ridge 1) reasonable, or should the fit be validated (e.g. its own game-margin accuracy) before use?
-2. Using the same tau and sigma for both arms isolates the ratings, but the market ratings may need a different uncertainty. Is a single shared simulator right?
-3. Is home edge 1.8 for both arms right, or should the market arm use its fitted h?
-4. Is the 8-of-13 plus lower-bound reading appropriate?
-5. Should a 50/50 blend (v4 and market) be scored as a diagnostic of added information?
+## Decisions on the review questions (TypeSafe)
+1. **Validate the market ratings first (95%).** At every checkpoint, predict week w+1 spreads as r_home - r_away + h (no h at neutral sites) and compare with their actual closing spreads.
+   - Report the RMSE and correlation by season.
+   - If the mean RMSE over all checkpoints exceeds 4.0 points, or the correlation is below 0.80, stop and report, with no tuning and no futures comparison.
+   - This check uses week w+1 lines only to validate the fit, never as input.
+2. **One shared simulator** (same tau and sigma) for both arms (85%).
+3. **Home edge 1.8 in both arms' simulations (98%).** The fitted h is used only in the validation step.
+4. **Bar kept as written (79%):** lower bound > 0 and at least 8 of 13 seasons better.
+5. **50/50 blend scored as a diagnostic only (69%).** Division: normalised geometric mean of v4 and the market. Make-playoffs: average in log-odds. Its gain against the market is reported; it is not a gate.
