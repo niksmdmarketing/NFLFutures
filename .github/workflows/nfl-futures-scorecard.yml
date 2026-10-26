@@ -1,0 +1,50 @@
+name: NFL futures scorecard (v4 vs Polymarket, paper bets)
+# research/NFL_FUTURES_PAPER_BET_RULE.md. Reads the market-data and shiv-archive branches, scores frozen v4 against
+# Polymarket at the week 4 / 9 / 13 checkpoints and keeps the flat-$100 paper-bet record on the futures-scorecard branch.
+# Nothing here feeds a projection.
+on:
+  schedule:
+    - cron: "37 12 * * 2,3"     # Tuesday and Wednesday 12:37 UTC, after each NFL week's last game
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: nfl-futures-scorecard
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Read the price and forecast archives
+        run: |
+          mkdir -p ../md ../shiv
+          git fetch -q origin market-data shiv-archive
+          git archive origin/market-data polymarket/events | tar -x -C ../md
+          git archive origin/shiv-archive records | tar -x -C ../shiv
+      - name: Score
+        run: python research/nfl_futures_scorecard.py ../md ../shiv
+      - name: Save to the futures-scorecard branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          cp research/nfl_futures_scorecard.json research/nfl_futures_paper_bets.csv ../
+          if git ls-remote --exit-code --heads origin futures-scorecard > /dev/null; then
+            git fetch -q origin futures-scorecard
+            git worktree add -q -B futures-scorecard ../fs FETCH_HEAD
+          else
+            git worktree add -q --orphan -b futures-scorecard ../fs
+          fi
+          cp ../nfl_futures_scorecard.json ../nfl_futures_paper_bets.csv ../fs/
+          cd ../fs
+          git add nfl_futures_scorecard.json nfl_futures_paper_bets.csv
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -q -m "NFL futures scorecard $(date -u +%Y-%m-%dT%H:%MZ)"
+          for i in 1 2 3; do git push -q origin futures-scorecard && exit 0; git pull -q --rebase origin futures-scorecard; sleep 5; done
+          exit 1

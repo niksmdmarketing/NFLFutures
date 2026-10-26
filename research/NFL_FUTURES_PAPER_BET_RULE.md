@@ -44,3 +44,15 @@ After weeks 4, 9 and 13, the snapshot date is the day after the last regular-sea
 - Bet counts are small: dozens per season. A season's profit or loss is mostly noise, and several seasons are needed before any conclusion.
 - No threshold or rule is changed after seeing results; any change needs a new dated rule.
 - No claim of an edge is made from the backfill: those seasons were used in earlier benchmark work.
+
+## First run (26 Oct 2026, Sydney): backfill only; no 2026 checkpoint reached yet
+- **2026:** the week-4 checkpoint (6 Oct) predates the archive (first record 10 Oct), so it is missing. Week 9 (about 10 Nov) and week 13 will be scored automatically by .github/workflows/nfl-futures-scorecard.yml (Tuesdays and Wednesdays, futures-scorecard branch).
+- **Backfill 2024-2025 paper bets (approximate prices):** 72 bets, $7,200 staked, profit +$7,867 (+109%).
+  - 2024: 29 bets, +$150 (+5%).
+  - 2025: 43 bets, +$7,717.
+- **Concentration:** most of the profit comes from four longshot division winners: CHI 2025 (cost 0.033), NE 2025 (0.042), CAR 2025 (0.051) and LA 2024 (0.067). Without those four the record is about -$600.
+- **Model probability-weighted expectation:** +$4,494.
+- **Accuracy:**
+  - division log loss: model better than the market in 5 of 6 checkpoints;
+  - make-playoffs Brier: model better in 3 of 4.
+- **Reading:** encouraging but not evidence of an edge. These seasons were already used in benchmark work; the back-test is not the archived live forecast; prices are approximate; and the result rests on a handful of longshots in a high-surprise 2025.
