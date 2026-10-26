@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-10-26T13:14:39+00:00",
+ "checked_utc": "2026-10-26T19:22:37+00:00",
  "leagues": {
   "nfl": {
-   "records": 1604,
+   "records": 1592,
    "by_layer": {
     "official": 1525,
-    "reported": 79
+    "reported": 67
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -81,16 +81,16 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "79/79"
+   "reported_matched_to_official_list": "67/67"
   },
   "nba": {
-   "records": 212,
+   "records": 228,
    "by_layer": {
-    "official": 165,
-    "reported": 47
+    "official": 184,
+    "reported": 44
    },
    "unknown_team": 0,
-   "no_player": 13,
+   "no_player": 8,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -142,13 +142,13 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "47/47"
+   "reported_matched_to_official_list": "44/44"
   },
   "nhl": {
-   "records": 1546,
+   "records": 1549,
    "by_layer": {
-    "official": 152,
-    "reported": 67,
+    "official": 153,
+    "reported": 69,
     "projected": 1327
    },
    "unknown_team": 0,
@@ -186,16 +186,7 @@
     "WPG",
     "WSH"
    ],
-   "conflicts": [
-    {
-     "player": "Radek Faksa",
-     "official": [
-      "out"
-     ],
-     "other": "expected to play",
-     "source": "ESPN injury note"
-    }
-   ],
+   "conflicts": [],
    "stale_projection_dates": 0,
    "teams_missing_official": [
     "BOS",
@@ -207,7 +198,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "58/67"
+   "reported_matched_to_official_list": "63/69"
   },
   "nbl": {
    "records": 21,
@@ -283,7 +274,7 @@
   }
  },
  "sources_failed": [
-  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 39 h old"
+  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 45 h old"
  ],
  "sources_not_expected": []
 }
