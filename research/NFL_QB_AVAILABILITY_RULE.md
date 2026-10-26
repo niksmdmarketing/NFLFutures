@@ -111,3 +111,14 @@ Gates are not relaxed because events are rare; wide intervals mean inconclusive.
 - v4's simulation settings were tuned on 2022-2025.
 - λ was set without a historical test.
 - The known-case list was written from general knowledge of those seasons.
+
+## Outcome (26 Oct 2026, Sydney): STOPPED at the data-validation gate. No performance replay was run.
+Run: research/nfl_qb_episodes.py; results in research/nfl_qb_validation.json; episodes in research/nfl_qb_episodes.csv.
+- **Check 1, starter IDs: pass.** Coverage 100%; agreement with the dropback leader 97.0% (lowest season 91.0%).
+- **Check 2, injury reports: pass.** Every week present, with a QB listing in every week.
+- **Check 3, weekly rosters: pass.** Every week present; incumbent found in 95.9% of episode-start weeks.
+- **Check 4, known cases: FAIL.** All 8 cases were found with the exact first missed week and the exact return week or censoring. But 3 of 8 were not classified as injury: 2019 PIT Roethlisberger, 2020 DAL Prescott and 2023 NYJ Rodgers, all season-ending injuries classified "ambiguous".
+  - Those players went straight to reserve status without appearing on the game-week injury report. Under the rule, a RES flag alone is not injury evidence.
+  - More than two of eight misclassified triggers the relabel clause.
+- **Check 6, counts:** 440 episodes: 240 injury, 106 benching, 18 departure, 76 ambiguous. 31% of injury episodes are censored.
+- **Reading:** the classification misses exactly the season-ending injuries, the cases that matter most for futures. Per the rule: stopped. Any continuation is a separately written "QB-role return model" rule, or an amended injury rule that defines how reserve placement right after playing is treated.

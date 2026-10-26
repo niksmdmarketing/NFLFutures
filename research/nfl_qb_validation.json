@@ -1,0 +1,235 @@
+{
+  "1_starter_ids": {
+    "coverage": 1.0,
+    "agreement_with_dropback_leader": 0.9696627335001724,
+    "min_season_agreement": 0.9099264705882353,
+    "passes": true
+  },
+  "2_injury_reports": {
+    "weeks_present": 1.0,
+    "weeks_with_qb_listing": 1.0,
+    "passes": true
+  },
+  "3_rosters": {
+    "weeks_present": 1.0,
+    "incumbent_found_share": 0.9590909090909091,
+    "passes": true
+  },
+  "4_known_cases": {
+    "cases": [
+      {
+        "case": "2017 GB Rodgers",
+        "found": true,
+        "start_week": 7,
+        "expected_start": 7,
+        "cls": "injury",
+        "return_week": 15,
+        "expected_return": 15,
+        "exact": true,
+        "within_one": false
+      },
+      {
+        "case": "2019 NO Brees",
+        "found": true,
+        "start_week": 3,
+        "expected_start": 3,
+        "cls": "injury",
+        "return_week": 8,
+        "expected_return": 8,
+        "exact": true,
+        "within_one": false
+      },
+      {
+        "case": "2019 PIT Roethlisberger",
+        "found": true,
+        "start_week": 3,
+        "expected_start": 3,
+        "cls": "ambiguous",
+        "return_week": null,
+        "expected_return": null,
+        "exact": false,
+        "within_one": false
+      },
+      {
+        "case": "2020 DAL Prescott",
+        "found": true,
+        "start_week": 6,
+        "expected_start": 6,
+        "cls": "ambiguous",
+        "return_week": null,
+        "expected_return": null,
+        "exact": false,
+        "within_one": false
+      },
+      {
+        "case": "2021 SF Garoppolo",
+        "found": true,
+        "start_week": 5,
+        "expected_start": 5,
+        "cls": "injury",
+        "return_week": 7,
+        "expected_return": 7,
+        "exact": true,
+        "within_one": false
+      },
+      {
+        "case": "2022 MIA Tagovailoa",
+        "found": true,
+        "start_week": 5,
+        "expected_start": 5,
+        "cls": "injury",
+        "return_week": 7,
+        "expected_return": 7,
+        "exact": true,
+        "within_one": false
+      },
+      {
+        "case": "2023 NYJ Rodgers",
+        "found": true,
+        "start_week": 2,
+        "expected_start": 2,
+        "cls": "ambiguous",
+        "return_week": null,
+        "expected_return": null,
+        "exact": false,
+        "within_one": false
+      },
+      {
+        "case": "2023 CIN Burrow",
+        "found": true,
+        "start_week": 12,
+        "expected_start": 12,
+        "cls": "injury",
+        "return_week": null,
+        "expected_return": null,
+        "exact": true,
+        "within_one": false
+      }
+    ],
+    "off_by_one": 0,
+    "wrong": 3,
+    "not_classified_injury": 3,
+    "passes": false,
+    "relabel_qb_role": true
+  },
+  "6_counts": {
+    "episodes_by_class": {
+      "ambiguous": 76,
+      "benching": 106,
+      "departure": 18,
+      "injury": 240
+    },
+    "injury_episodes": 240,
+    "censored_share_injury": 0.3125,
+    "by_season": {
+      "2009": {
+        "ambiguous": 2,
+        "benching": 7,
+        "departure": 1,
+        "injury": 14
+      },
+      "2010": {
+        "ambiguous": 4,
+        "benching": 7,
+        "departure": 3,
+        "injury": 19
+      },
+      "2011": {
+        "ambiguous": 2,
+        "benching": 4,
+        "departure": 1,
+        "injury": 14
+      },
+      "2012": {
+        "ambiguous": 1,
+        "benching": 2,
+        "departure": 3,
+        "injury": 10
+      },
+      "2013": {
+        "ambiguous": 1,
+        "benching": 2,
+        "departure": 2,
+        "injury": 19
+      },
+      "2014": {
+        "ambiguous": 4,
+        "benching": 7,
+        "departure": 2,
+        "injury": 10
+      },
+      "2015": {
+        "ambiguous": 4,
+        "benching": 0,
+        "departure": 3,
+        "injury": 17
+      },
+      "2016": {
+        "ambiguous": 2,
+        "benching": 9,
+        "departure": 0,
+        "injury": 13
+      },
+      "2017": {
+        "ambiguous": 5,
+        "benching": 12,
+        "departure": 0,
+        "injury": 10
+      },
+      "2018": {
+        "ambiguous": 3,
+        "benching": 9,
+        "departure": 0,
+        "injury": 8
+      },
+      "2019": {
+        "ambiguous": 4,
+        "benching": 8,
+        "departure": 0,
+        "injury": 11
+      },
+      "2020": {
+        "ambiguous": 9,
+        "benching": 7,
+        "departure": 1,
+        "injury": 10
+      },
+      "2021": {
+        "ambiguous": 11,
+        "benching": 1,
+        "departure": 0,
+        "injury": 18
+      },
+      "2022": {
+        "ambiguous": 6,
+        "benching": 8,
+        "departure": 0,
+        "injury": 19
+      },
+      "2023": {
+        "ambiguous": 8,
+        "benching": 6,
+        "departure": 1,
+        "injury": 17
+      },
+      "2024": {
+        "ambiguous": 4,
+        "benching": 11,
+        "departure": 1,
+        "injury": 14
+      },
+      "2025": {
+        "ambiguous": 6,
+        "benching": 6,
+        "departure": 0,
+        "injury": 17
+      }
+    },
+    "inconclusive_too_few": false
+  },
+  "5_timing": {
+    "note": "Uses schedules' starter fields for games already played, the injury report and weekly roster of weeks <= checkpoint; weekly labels are reconstructed/revised history, not an archived point-in-time feed.",
+    "passes": true
+  },
+  "gate_passes": false
+}
