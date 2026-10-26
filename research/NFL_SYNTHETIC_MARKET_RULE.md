@@ -52,3 +52,11 @@ At checkpoint w (after all week-w results) in season Y:
 3. **Home edge 1.8 in both arms' simulations (98%).** The fitted h is used only in the validation step.
 4. **Bar kept as written (79%):** lower bound > 0 and at least 8 of 13 seasons better.
 5. **50/50 blend scored as a diagnostic only (69%).** Division: normalised geometric mean of v4 and the market. Make-playoffs: average in log-odds. Its gain against the market is reported; it is not a gate.
+
+## Outcome (26 Oct 2026, Sydney): STOPPED at the validation step. No futures comparison was run.
+Run: research/nfl_synthetic_market_test.py; results in research/nfl_synthetic_market_results.json and research/nfl_synthetic_market_validation.csv.
+- The market ratings predicted the next week's closing spreads with mean RMSE 3.55 points (limit 4.0: pass) but mean correlation 0.771 (minimum 0.80: fail).
+- By checkpoint: 0.77 / 0.76 / 0.78 at weeks 4 / 9 / 13. By season: 0.67-0.88.
+- Likely reasons (not tested): quarterback changes and injuries move lines, and with no decay within a season, early-season games weigh as much as recent ones.
+- Per the rule: stopped, with no tuning and no lowered threshold. TypeSafe (75%) chose to stop rather than refit the market ratings under a new amendment (25%). Lowering the threshold got 0%.
+- The futures question (does v4 beat the game-line market over 2013-2025?) remains unanswered. The live 2026 Polymarket test (research/NFL_FUTURES_PAPER_BET_RULE.md) continues.

@@ -1,0 +1,14 @@
+{
+  "rule": "research/NFL_SYNTHETIC_MARKET_RULE.md",
+  "started_utc": "2026-10-26T06:09:32.636923+00:00",
+  "validation": {
+    "mean_rmse": 3.549748050647821,
+    "mean_corr": 0.7709651937179587,
+    "min_corr": 0.5514740269605864,
+    "max_rmse": 4.796437755805449,
+    "passes": false
+  },
+  "code_sha256": "33b9a83212f99aa030191943a99308363934a6a9770ce462a1e06136af06f33d",
+  "rule_sha256": "d56194eb7a50915da84fad989def31d453f6919a235ed658f1633f0ae5d5d8cf",
+  "completed_utc": "2026-10-26T06:09:34.234018+00:00"
+}
