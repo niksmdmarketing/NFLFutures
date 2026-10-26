@@ -41,14 +41,14 @@ def divq(z, b):
     """q proportional to p^b within each division; decided (0/1) unchanged automatically."""
     p = z.p_div.to_numpy()
     w = np.where(p > 0, np.power(np.where(p > 0, p, 1.), b), 0.)
-    s = pd.Series(w).groupby([z.season.to_numpy(), z["div"].to_numpy()]).transform("sum").to_numpy()
+    s = pd.Series(w).groupby([z.season.to_numpy(), z.week.to_numpy(), z["div"].to_numpy()]).transform("sum").to_numpy()
     return np.where(s > 0, w / s, p)
 
 
 def playq(z, b, qdiv):
     """logistic(b logit p + c) per conference/snapshot, summing to the spots; floor at the division probability."""
     p = z.p_playoff.to_numpy(); out = p.copy()
-    for (season, conf), idx in z.groupby(["season", "conf"]).indices.items():
+    for (season, week, conf), idx in z.groupby(["season", "week", "conf"]).indices.items():
         spots = 7 if season >= 2020 else 6
         pi, fl = p[idx], qdiv[idx]
         decided = (pi <= 0) | (pi >= 1)
