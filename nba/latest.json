@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-10-26T0030Z",
-"feed_timestamp": "2026-10-26T00:29:54Z",
+"collected_utc": "2026-10-26T0410Z",
+"feed_timestamp": "2026-10-26T04:10:49Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -144,8 +144,8 @@
 {
 "athlete_id": "4395702",
 "status": "Day-To-Day",
-"return_date": "2026-10-25",
-"injury": "Lower Body"
+"return_date": "2026-10-27",
+"injury": "Hip Bruise"
 },
 {
 "athlete_id": "4433621",
@@ -304,6 +304,18 @@
 "injury": "Left Shoulder"
 },
 {
+"athlete_id": "4593803",
+"status": "Day-To-Day",
+"return_date": "2026-11-02",
+"injury": "Left Ankle"
+},
+{
+"athlete_id": "4432823",
+"status": "Day-To-Day",
+"return_date": "2026-10-26",
+"injury": "Right Wrist Soreness"
+},
+{
 "athlete_id": "5159925",
 "status": "Out",
 "return_date": "2026-10-26",
@@ -326,6 +338,12 @@
 "status": "Out",
 "return_date": "2026-11-18",
 "injury": "Left Ankle Surgery"
+},
+{
+"athlete_id": "4432165",
+"status": "Day-To-Day",
+"return_date": "2026-10-28",
+"injury": "Right Knee"
 },
 {
 "athlete_id": "4065654",
@@ -703,9 +721,9 @@
 "name": "Isaiah Joe",
 "team_name": "Detroit Pistons",
 "status": "Day-To-Day",
-"return_date": "2026-10-25",
-"injury": "Lower Body",
-"updated": "2026-10-26T00:08Z"
+"return_date": "2026-10-27",
+"injury": "Hip Bruise",
+"updated": "2026-10-26T00:58Z"
 },
 {
 "athlete_id": "4433621",
@@ -804,7 +822,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-26",
 "injury": "Left Ankle Sprain",
-"updated": "2026-10-25T23:35Z"
+"updated": "2026-10-26T01:03Z"
 },
 {
 "athlete_id": "5157066",
@@ -894,7 +912,7 @@
 "status": "Out",
 "return_date": "2026-10-26",
 "injury": "Right Knee Bruise",
-"updated": "2026-10-26T00:16Z"
+"updated": "2026-10-26T00:15Z"
 },
 {
 "athlete_id": "4600663",
@@ -939,7 +957,25 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-26",
 "injury": "Left Shoulder",
-"updated": "2026-10-25T23:33Z"
+"updated": "2026-10-26T00:19Z"
+},
+{
+"athlete_id": "4593803",
+"name": "Jalen Williams",
+"team_name": "Oklahoma City Thunder",
+"status": "Day-To-Day",
+"return_date": "2026-11-02",
+"injury": "Left Ankle",
+"updated": "2026-10-26T01:28Z"
+},
+{
+"athlete_id": "4432823",
+"name": "Jaylin Williams",
+"team_name": "Oklahoma City Thunder",
+"status": "Day-To-Day",
+"return_date": "2026-10-26",
+"injury": "Right Wrist Soreness",
+"updated": "2026-10-26T01:06Z"
 },
 {
 "athlete_id": "5159925",
@@ -976,6 +1012,15 @@
 "return_date": "2026-11-18",
 "injury": "Left Ankle Surgery",
 "updated": "2026-09-28T21:33Z"
+},
+{
+"athlete_id": "4432165",
+"name": "Jalen Suggs",
+"team_name": "Orlando Magic",
+"status": "Day-To-Day",
+"return_date": "2026-10-28",
+"injury": "Right Knee",
+"updated": "2026-10-26T02:24Z"
 },
 {
 "athlete_id": "4065654",
