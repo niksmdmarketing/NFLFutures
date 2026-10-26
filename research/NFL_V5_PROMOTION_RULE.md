@@ -75,3 +75,19 @@ Not included in either arm: the QB layer, the pressure layer and v5's QB-prior c
 ## Disclosed exposure
 - v5's hyperparameters were selected on replays covering 2013-2025, partly with the format bug.
 - The corrected v5like calibration slopes (weeks 0/4/8/12/16) were inspected this week; no log-loss comparison had been computed.
+
+## Outcome (27 Oct 2026, Sydney): INCONCLUSIVE. No promotion; v4 stays displayed; v5 stays a shadow.
+Run: research/nfl_v5_promotion_test.py; results in research/nfl_v5_promotion_results.json; rows in research/nfl_v5_promotion_rows.csv.gz.
+- **Verdict:** seed sets A and B disagree on gate 1, so the result is inconclusive under the rule. Gate 4 fails in A, B and the average, so even with agreement the historical test would not pass.
+- **Primary (average of A and B):** gain +0.0029 log loss in v5's favour; one-sided 90% lower bound +0.00003 (A -0.0001, B +0.0002); better in 10 of 13 seasons.
+  - By season: 2013 -0.010, 2014 +0.008, 2015 +0.000, 2016 +0.006, 2017 +0.013, 2018 +0.003, 2019 +0.008, 2020 +0.009, 2021 -0.006, 2022 +0.012, 2023 +0.001, 2024 +0.007, 2025 -0.013.
+  - Leave-one-season-out: smallest +0.0020; without 2025 +0.0042.
+- **Gate 2, by market:** division +0.0014, make-playoffs +0.0044 (pass).
+- **Gate 3, 2020-25:** +0.0016 (pass).
+- **Gate 4, secondary (v5 minus v4; positive = v5 worse):** pre-season make-playoffs +0.0047 breaches the 0.003 tolerance (FAIL). Pre-season division +0.0024.
+  - Conference is better for v5 at every checkpoint (-0.003 to -0.008), No. 1 seed better throughout, and Super Bowl better except week 16 (+0.001).
+- **Calibration slopes, v4 -> v5:** division 1.31 -> 1.18 (wk4), 1.12 -> 1.02 (wk9), 0.86 -> 0.80 (wk13); make-playoffs 1.30 -> 1.15, 1.11 -> 1.02, 0.95 -> 0.91.
+- **Reconciliation:** the 3,000-simulation corrected rows point the same way (v5 better at weeks 4 and 8 in both markets and at week 12 for make-playoffs; division at week 12 slightly worse).
+- **Reading:** v5-core forecasts better in season, and its in-season gain is borderline reliable. Its pre-season make-playoffs forecasts are worse, consistent with the known narrower pre-season spread.
+  - Per the rule, there is no retuning and rerunning under this rule.
+  - "v4 pre-season, v5 in season" is a data-suggested idea; it would need its own dated rule and cannot be confirmed on these seasons.
