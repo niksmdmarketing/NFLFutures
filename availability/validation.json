@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-10-26T19:22:37+00:00",
+ "checked_utc": "2026-10-26T23:11:25+00:00",
  "leagues": {
   "nfl": {
-   "records": 1592,
+   "records": 1587,
    "by_layer": {
     "official": 1525,
-    "reported": 67
+    "reported": 62
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -46,6 +46,14 @@
    ],
    "conflicts": [
     {
+     "player": "Tip Reiman",
+     "official": [
+      "out"
+     ],
+     "other": "expected to play",
+     "source": "ESPN injury note"
+    },
+    {
      "player": "Max Melton",
      "official": [
       "out",
@@ -71,6 +79,14 @@
      ],
      "other": "expected to play",
      "source": "ESPN injury note"
+    },
+    {
+     "player": "Mike Evans",
+     "official": [
+      "out"
+     ],
+     "other": "expected to play",
+     "source": "ESPN injury note"
     }
    ],
    "stale_projection_dates": 0,
@@ -81,16 +97,16 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "67/67"
+   "reported_matched_to_official_list": "62/62"
   },
   "nba": {
-   "records": 228,
+   "records": 243,
    "by_layer": {
-    "official": 184,
+    "official": 199,
     "reported": 44
    },
    "unknown_team": 0,
-   "no_player": 8,
+   "no_player": 3,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -145,10 +161,10 @@
    "reported_matched_to_official_list": "44/44"
   },
   "nhl": {
-   "records": 1549,
+   "records": 1543,
    "by_layer": {
-    "official": 153,
-    "reported": 69,
+    "official": 151,
+    "reported": 65,
     "projected": 1327
    },
    "unknown_team": 0,
@@ -198,7 +214,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "63/69"
+   "reported_matched_to_official_list": "59/65"
   },
   "nbl": {
    "records": 21,
@@ -274,7 +290,7 @@
   }
  },
  "sources_failed": [
-  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 45 h old"
+  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 49 h old"
  ],
  "sources_not_expected": []
 }
