@@ -32,3 +32,23 @@ Asked by the user before any recalibration of the NFL in-season futures model. T
 - **Next (91%):** rerun the 13-season calibration replay with the correct format, then decide whether any recalibration is needed. Rows: research/nfl_futures_diagnosis_rows_format_fix.csv.
 
 Tests: tests/test_simulate_logic.py (format counts, 7-seed default, no home edge at neutral sites).
+
+## Corrected replay (26 Oct 2026): calibration slopes, 2013-2025, season-bootstrap 90%
+Rows in research/nfl_futures_diagnosis_rows_format_fix.csv. They include the neutral-site fix; sweep option off.
+
+| Model | Market | Pre-season | Wk 4 | Wk 8 | Wk 12 | Wk 16 |
+|---|---|---|---|---|---|---|
+| v4 | Division | 1.01 | 1.31 (0.94-1.70) | 1.25 (0.91-1.73) | 0.96 | 1.56 (1.04-3.05) |
+| v4 | Make playoffs | 0.93 | 1.28 (1.06-1.56) | 1.21 (1.00-1.47) | 1.13 | 0.98 |
+| v4 | No. 1 seed | 1.17 | 1.06 | 1.23 | 1.42 (1.08-2.04) | 1.22 |
+| v4 | Conference | 1.07 | 1.51 (1.09-2.07) | 1.73 (1.29-2.39) | 1.57 | 1.55 |
+| v4 | Title | 1.43 | 1.26 | 1.35 | 1.17 | 1.10 |
+| v5like | Division | 0.79 | 1.18 | 1.14 | 0.89 | 1.46 |
+| v5like | Make playoffs | 0.74 | 1.14 (0.94-1.39) | 1.11 | 1.08 | 0.99 |
+| v5like | Conference | 0.92 | 1.36 | 1.59 | 1.26 | 1.30 |
+
+- The week-16 make-playoffs over-confidence is gone: it was the format bug.
+- **What remains:** v4 is too cautious in-season (weeks 4-8) on division and make-playoffs, and on the conference market. v5like is closer to 1.
+- **Decisions (TypeSafe):**
+  - Next is a pre-registered structural test, team uncertainty that shrinks as games are played (tau fade), replayed 2013-2025 (80%; recalibration layer 13%; use v5 for bets 6%).
+  - No longshot exclusion in the betting rule; the 10% expected-value threshold stands (81%).
