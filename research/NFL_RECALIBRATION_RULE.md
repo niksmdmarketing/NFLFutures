@@ -72,3 +72,21 @@ Seven of ten seasons is a consistency check, not strong evidence by itself.
 - **Inconclusive:** recorded; no change.
 - The 10% expected-value threshold is an operating policy that this test does not validate. No profit claim.
 - **Scope:** a QB-free layer tested on QB-free probabilities; it does not establish that applying it to full production probabilities improves them.
+
+## Outcome (26 Oct 2026, Sydney): FAIL on all five gates. Candidate stopped.
+Run: research/nfl_recalibration_test.py; results in research/nfl_recalibration_results.json; predictions in research/nfl_recalibration_predictions.csv.
+- **Checks:** identity reproduces v4 (max difference 2e-16). No floor violations in v4. The first run stopped at the identity check because of a grouping bug (fixed before any result was produced).
+- **Primary gain** -0.0005; one-sided 90% lower bound -0.0086; 6 of 10 seasons better.
+  - By season: 2016 +0.007, 2017 +0.017, 2018 +0.005, 2019 +0.006, 2020 +0.014, 2021 -0.006, 2022 -0.004, 2023 -0.003, 2024 +0.014, 2025 -0.055.
+- **By market:** division -0.0006, make-playoffs -0.0005.
+- **By cell:**
+  - week 4 helps: division +0.0030, make-playoffs +0.0030;
+  - weeks 8 and 12 hurt: division -0.0008 / -0.0039, make-playoffs -0.0025 / -0.0019.
+- **2020-25:** -0.0066 overall (week 4 +0.0022, week 8 -0.0137, week 12 -0.0084).
+- **Pooled slopes, v4 -> recalibrated:** division 1.39 / 1.22 / 0.90 -> 1.11 / 0.89 / 0.80 (weeks 4 / 8 / 12); make-playoffs 1.26 / 1.14 / 1.06 -> 1.03 / 0.86 / 0.85. The week-12 division slope (0.797) breaches the 0.80 guardrail.
+- **Consistency check** (3,000-simulation replay): same verdict, primary gain -0.0005.
+- **Reading:**
+  - Sharpening v4's probabilities helps at week 4. At weeks 8 and 12 it over-corrects, most in recent seasons; v4's mid-season caution in older seasons doesn't carry into recent ones.
+  - 2025 is again the largest loss.
+  - No week-4-only version is tried in response; the rule forbids choosing a form after results.
+  - The betting number stays v4, with the 10% expected-value operating threshold.
