@@ -56,3 +56,26 @@ After weeks 4, 9 and 13, the snapshot date is the day after the last regular-sea
   - division log loss: model better than the market in 5 of 6 checkpoints;
   - make-playoffs Brier: model better in 3 of 4.
 - **Reading:** encouraging but not evidence of an edge. These seasons were already used in benchmark work; the back-test is not the archived live forecast; prices are approximate; and the result rests on a handful of longshots in a high-surprise 2025.
+
+## Amendment (26 Oct 2026, Sydney), written before running: retrospective 2026 week-4 checkpoint
+- Asked by the user. v4 was first built and frozen on 9 Oct 2026 (git history), after week 4 (last game 5 Oct). So no live v4 forecast exists for the 2026 week-4 checkpoint.
+- **Reconstruction:** pipeline/nfl_backtest.py's method, exactly as for the 2024-2025 backfill:
+  - frozen v4 settings;
+  - ratings rebuilt from 2026 play-by-play and results through week 4 only, with later results masked;
+  - QB and pressure layers off;
+  - 4,000 simulations.
+  Rows go to research/nfl_futures_2026_w4_retrospective.csv.
+- **Prices:** Polymarket daily price history (market-data branch) at the checkpoint date, plus the 1-cent spread allowance and fee, as in the backfill.
+- **Kalshi:** not used. Our Kalshi archive covers only some NFL divisions and only from its later start, and Kalshi's historical API is not reachable from this environment.
+- **Labelled retrospective:**
+  - the code was written after the checkpoint;
+  - v4's simulation settings were tuned on 2022-2025, not 2026;
+  - the shrinking-uncertainty and recalibration work this week inspected 2013-2025 only.
+  Scored and settled like the backfill, but reported separately from the live 2026 record.
+
+### Result of the retrospective 2026 week-4 checkpoint (26 Oct 2026)
+- Polymarket prices were found for all 64 team-market rows.
+- **Paper bets:** 23 qualify (12 division, 11 make-playoffs), $2,300 staked. Model-expected profit: +$1,526. All pending until the season resolves.
+- **Mark-to-market at 25 Oct daily prices** (descriptive only; daily price, not the bid you could sell at): +$469 on $2,300.
+  - Biggest movers up: SF, WAS, NYG, PIT division; TB, NYG, PIT make-playoffs.
+  - Biggest movers down: LV, MIA, NYJ division; LV, IND make-playoffs.

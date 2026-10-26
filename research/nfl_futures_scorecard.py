@@ -98,6 +98,33 @@ def backfill_rows(md, g):
     return rows
 
 
+RETRO_2026 = {"div": [f"pro-football-{c}-champion" for c in ("afc-east", "afc-north", "afc-south", "afc-west",
+                                                             "nfc-east", "nfc-north", "nfc-south", "nfc-west")],
+              "playoff": ["nfl-team-to-make-postseason"]}
+
+
+def retro_rows(md, g, season=2026):
+    """Retrospective v4 at the 2026 week-4 checkpoint (rule amendment of 26 Oct 2026); daily prices as in the backfill."""
+    path = os.path.join(ROOT, "research", "nfl_futures_2026_w4_retrospective.csv")
+    if not os.path.exists(path):
+        return []
+    T = pd.read_csv(path)
+    res = outcomes(g, season)
+    when = checkpoint_dates(g, season)[4]
+    rows = []
+    for market, slugs in RETRO_2026.items():
+        M = {}
+        for s_ in slugs:
+            M.update(history(md, s_))
+        for r in T.itertuples():
+            p = price_at(M.get(r.team), when)
+            rows.append(dict(season=season, week=4, market=market, team=r.team, source="2026 retrospective (daily price + 1c + fee, approximate)",
+                             snapshot=str(when), model=float(getattr(r, market)), price=p,
+                             cost=None if p is None or p <= 0 else p + SPREAD_ALLOWANCE + fee(p + SPREAD_ALLOWANCE),
+                             won=None if res is None else res[r.team][market]))
+    return rows
+
+
 def live_rows(shiv, g, season=2026):
     recs = []
     for f in sorted(glob.glob(os.path.join(shiv, "records", "*", "*.json.gz"))):
@@ -141,6 +168,7 @@ def add_bets(df):
 def accuracy(df):
     out = {}
     for (season, w, market), z in df[df.won.notna() & df.price.notna()].groupby(["season", "week", "market"]):
+        # retrospective and live rows of the same season/week are never mixed: live has no week 4 in 2026
         if market == "div":
             ll_m, ll_k = [], []
             for _, G in z.assign(division=z.team.map(DIV_OF)).groupby("division"):
@@ -164,7 +192,9 @@ def record(df):
         return dict(bets=int(len(z)), settled=int(len(s)), pending=int(z.profit.isna().sum()), staked=float(STAKE * len(s)),
                     profit=float(s.profit.sum()), return_on_stake=float(s.profit.sum() / (STAKE * len(s))) if len(s) else None,
                     expected_profit_model=float(z.expected_profit.sum()), wins=int((s.won == 1).sum()))
-    out = {"all": summ(b)}
+    out = {"all backfill and retrospective": summ(b[b.record != "2026 live"])}
+    for rec, z in b.groupby("record"):
+        out[rec] = summ(z)
     for (season, market), z in b.groupby(["season", "market"]):
         out[f"{season} {market}"] = summ(z)
     for (season, w), z in b.groupby(["season", "week"]):
@@ -176,7 +206,8 @@ def main():
     md, shiv = sys.argv[1], sys.argv[2]
     g = games()
     live, missing = live_rows(shiv, g)
-    df = add_bets(pd.DataFrame(backfill_rows(md, g) + live))
+    df = add_bets(pd.DataFrame(backfill_rows(md, g) + retro_rows(md, g) + live))
+    df["record"] = np.where(df.source.str.startswith("live"), "2026 live", np.where(df.source.str.startswith("2026 retro"), "2026 retrospective", "backfill 2024-25"))
     df.to_csv(os.path.join(ROOT, "research", "nfl_futures_paper_bets.csv"), index=False)
     out = dict(rule="research/NFL_FUTURES_PAPER_BET_RULE.md", updated_utc=dt.datetime.now(dt.timezone.utc).isoformat(),
                note="Proxy test against Polymarket executable prices; not bookmaker profit. Backfill seasons were used in earlier benchmark work.",

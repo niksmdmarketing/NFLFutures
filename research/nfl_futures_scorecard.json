@@ -1,6 +1,6 @@
 {
   "rule": "research/NFL_FUTURES_PAPER_BET_RULE.md",
-  "updated_utc": "2026-10-26T05:39:07.103277+00:00",
+  "updated_utc": "2026-10-26T05:47:18.676496+00:00",
   "note": "Proxy test against Polymarket executable prices; not bookmaker profit. Backfill seasons were used in earlier benchmark work.",
   "missing_checkpoints_2026": [
     {
@@ -71,7 +71,27 @@
     }
   },
   "paper_bets": {
-    "all": {
+    "all backfill and retrospective": {
+      "bets": 95,
+      "settled": 72,
+      "pending": 23,
+      "staked": 7200.0,
+      "profit": 7867.206662529066,
+      "return_on_stake": 1.0926675920179258,
+      "expected_profit_model": 6019.408630590222,
+      "wins": 21
+    },
+    "2026 retrospective": {
+      "bets": 23,
+      "settled": 0,
+      "pending": 23,
+      "staked": 0.0,
+      "profit": 0.0,
+      "return_on_stake": null,
+      "expected_profit_model": 1525.5878792067424,
+      "wins": 0
+    },
+    "backfill 2024-25": {
       "bets": 72,
       "settled": 72,
       "pending": 0,
@@ -120,6 +140,26 @@
       "return_on_stake": 0.1904802011994766,
       "expected_profit_model": 596.2075160632662,
       "wins": 5
+    },
+    "2026 div": {
+      "bets": 12,
+      "settled": 0,
+      "pending": 12,
+      "staked": 0.0,
+      "profit": 0.0,
+      "return_on_stake": null,
+      "expected_profit_model": 864.5476303386391,
+      "wins": 0
+    },
+    "2026 playoff": {
+      "bets": 11,
+      "settled": 0,
+      "pending": 11,
+      "staked": 0.0,
+      "profit": 0.0,
+      "return_on_stake": null,
+      "expected_profit_model": 661.040248868103,
+      "wins": 0
     },
     "2024 w4": {
       "bets": 14,
@@ -180,6 +220,16 @@
       "return_on_stake": 0.16674526660482192,
       "expected_profit_model": 199.00480921463475,
       "wins": 2
+    },
+    "2026 w4": {
+      "bets": 23,
+      "settled": 0,
+      "pending": 23,
+      "staked": 0.0,
+      "profit": 0.0,
+      "return_on_stake": null,
+      "expected_profit_model": 1525.5878792067424,
+      "wins": 0
     }
   }
 }

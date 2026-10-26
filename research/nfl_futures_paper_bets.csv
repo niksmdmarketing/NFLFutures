@@ -1,385 +1,449 @@
-season,week,market,team,source,snapshot,model,price,cost,won,edge,bet,profit,expected_profit
-2024,4,div,ARI,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.10975,0.065,0.07708125,0.0,0.42382226546663415,True,-100.0,42.38222654666342
-2024,4,div,ATL,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.18325,0.34,0.35682500000000006,0.0,-0.48644293421144824,False,,
-2024,4,div,BAL,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.434,0.54,0.5574250000000001,1.0,-0.22141992196259597,False,,
-2024,4,div,BUF,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.60925,0.64,0.656825,1.0,-0.07243177406462908,False,,
-2024,4,div,CAR,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.023,0.042,0.053478880000000006,0.0,-0.5699236782819685,False,,
-2024,4,div,CHI,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.0625,0.06,0.07195299999999999,0.0,-0.13137742693146903,False,,
-2024,4,div,CIN,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.13375,0.125,0.13850325000000002,0.0,-0.034318689272634484,False,,
-2024,4,div,CLE,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.023,0.03,0.041152,0.0,-0.4410964230171074,False,,
-2024,4,div,DAL,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.2925,0.28,0.296177,0.0,-0.012414873538458604,False,,
-2024,4,div,DEN,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.16025,0.0285,0.0396105325,0.0,3.045641143551908,True,-100.0,304.5641143551908
-2024,4,div,DET,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.26325,0.365,0.38203125,1.0,-0.31092024539877305,False,,
-2024,4,div,GB,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.1555,0.12,0.133393,0.0,0.16572833656938513,True,-100.0,16.572833656938514
-2024,4,div,HOU,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.42925,0.71,0.726048,1.0,-0.40878564502622416,False,,
-2024,4,div,IND,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.35625,0.165,0.17933125000000003,0.0,0.9865472414874705,True,-100.0,98.65472414874705
-2024,4,div,JAX,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.05975,0.07,0.082208,0.0,-0.27318509147528225,False,,
-2024,4,div,KC,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.635,0.86,0.873393,1.0,-0.27295043582900247,False,,
-2024,4,div,LA,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.07825,0.055,0.06682325,1.0,0.17099961465507896,True,1396.4851305496215,17.09996146550789
-2024,4,div,LAC,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.12425,0.075,0.08733324999999999,0.0,0.4227112812130549,True,-100.0,42.27112812130548
-2024,4,div,LV,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.0805,0.0315,0.0426933325,0.0,0.8855403241243818,True,-100.0,88.55403241243818
-2024,4,div,MIA,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.0505,0.055,0.06682325,0.0,-0.24427500907244104,False,,
-2024,4,div,MIN,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.51875,0.37,0.387068,0.0,0.3402037884816105,True,-100.0,34.020378848161045
-2024,4,div,NE,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.07125,0.018,0.02881648,0.0,1.4725434890035145,True,-100.0,147.25434890035146
-2024,4,div,NO,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.3455,0.325,0.34168325,0.0,0.011170433435059968,False,,
-2024,4,div,NYG,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.042,0.017,0.027788130000000005,0.0,0.5114367177640236,True,-100.0,51.14367177640236
-2024,4,div,NYJ,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.269,0.275,0.29111325000000005,0.0,-0.07596098769121651,False,,
-2024,4,div,PHI,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.3215,0.45,0.46745200000000003,1.0,-0.31222884916526195,False,,
-2024,4,div,PIT,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.40925,0.26,0.275913,0.0,0.48325740360186,True,-100.0,48.32574036018599
-2024,4,div,SEA,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.33,0.415,0.43233125,0.0,-0.23669639888395755,False,,
-2024,4,div,SF,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.482,0.495,0.51249925,0.0,-0.05951081879632014,False,,
-2024,4,div,TB,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.44825,0.305,0.32147325,1.0,0.3943617392737966,True,211.06787267680903,39.43617392737963
-2024,4,div,TEN,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.15475,0.0405,0.0519384925,0.0,1.9794857831116293,True,-100.0,197.94857831116292
-2024,4,div,WAS,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.344,0.2775,0.29364531250000003,0.0,0.17148132579163833,True,-100.0,17.14813257916383
-2024,9,div,ARI,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.4395,0.25,0.265772,0.0,0.6536730731604532,True,-100.0,65.36730731604533
-2024,9,div,ATL,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.69025,0.86,0.873393,0.0,-0.20969139894640776,False,,
-2024,9,div,BAL,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.59575,0.645,0.66177925,1.0,-0.09977534049307235,False,,
-2024,9,div,BUF,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.9765,0.94,0.951425,1.0,0.026355204036051294,False,,
-2024,9,div,CAR,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.002,0.011,0.021616769999999997,0.0,-0.9074792394978528,False,,
-2024,9,div,CHI,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.01925,0.035,0.046289250000000004,0.0,-0.5841367056065934,False,,
-2024,9,div,CIN,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.04525,0.09,0.10269999999999999,0.0,-0.559396299902629,False,,
-2024,9,div,CLE,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.001,0.005,0.015443249999999999,0.0,-0.9352467906690625,False,,
-2024,9,div,DAL,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.05025,0.0295,0.0406381925,0.0,0.23652153082349803,True,-100.0,23.652153082349813
-2024,9,div,DEN,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.04125,0.043,0.054505729999999995,0.0,-0.24319883432439116,False,,
-2024,9,div,DET,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.6805,0.685,0.7013592500000001,1.0,-0.029741177577682354,False,,
-2024,9,div,GB,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.0915,0.085,0.09757925,0.0,-0.062300642810843576,False,,
-2024,9,div,HOU,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.74175,0.865,0.87828125,1.0,-0.1554527664116705,False,,
-2024,9,div,IND,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.1665,0.0755,0.08784569249999999,0.0,0.8953689732709436,True,-100.0,89.53689732709438
-2024,9,div,JAX,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.04275,0.043,0.054505729999999995,0.0,-0.2156787919361871,False,,
-2024,9,div,KC,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.8855,0.89,0.9027000000000001,1.0,-0.019053949263321268,False,,
-2024,9,div,LA,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.214,0.2155,0.2307394925,1.0,-0.07254714968223308,False,,
-2024,9,div,LAC,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.073,0.0485,0.0601523325,0.0,0.21358552471759906,True,-100.0,21.35855247175992
-2024,9,div,LV,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.00025,0.0115,0.022131132499999998,0.0,-0.9887036960264008,False,,
-2024,9,div,MIA,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.00275,0.015,0.02573125,0.0,-0.8931260626669906,False,,
-2024,9,div,MIN,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.20875,0.185,0.19970925,0.0,0.045269560623756755,False,,
-2024,9,div,NE,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.0055,0.009,0.01955917,0.0,-0.7188019737033832,False,,
-2024,9,div,NO,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.01,0.013,0.023674129999999998,0.0,-0.5775979940973544,False,,
-2024,9,div,NYG,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.00025,0.0055,0.015957792499999998,0.0,-0.9843336727182034,False,,
-2024,9,div,NYJ,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.01525,0.0325,0.043720812500000004,0.0,-0.6511958692441958,False,,
-2024,9,div,PHI,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.4065,0.56,0.5773530000000001,1.0,-0.2959246769307514,False,,
-2024,9,div,PIT,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.358,0.26,0.275913,0.0,0.2975104471336978,True,-100.0,29.751044713369765
-2024,9,div,SEA,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.0795,0.075,0.08733324999999999,0.0,-0.08969378787575166,False,,
-2024,9,div,SF,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.267,0.47,0.487488,0.0,-0.45229421031902317,False,,
-2024,9,div,TB,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.29775,0.13,0.14361200000000002,1.0,1.0732947107484052,True,596.3206417291034,107.32947107484054
-2024,9,div,TEN,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.049,0.012,0.02264548,0.0,1.1637872105161828,True,-100.0,116.37872105161827
-2024,9,div,WAS,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.543,0.405,0.42228325000000005,0.0,0.28586677307233943,True,-100.0,28.58667730723394
-2024,13,div,ARI,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.4365,0.31,0.326528,0.0,0.3367919443355547,True,-100.0,33.679194433555466
-2024,13,div,ATL,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.3905,0.5,0.517497,0.0,-0.24540625356282253,False,,
-2024,13,div,BAL,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.39,0.41,0.42730799999999997,1.0,-0.08730938807604804,False,,
-2024,13,div,BUF,"backfill (daily price + 1c + fee, approximate)",2024-12-03,1.0,0.994,1.00387952,1.0,-0.0038645274883184477,False,,
-2024,13,div,CAR,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.0,0.004,0.01441412,0.0,-1.0,False,,
-2024,13,div,CHI,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.0,0.001,0.011326369999999999,0.0,-1.0,False,,
-2024,13,div,CIN,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.0,0.0005,0.010811692500000001,0.0,-1.0,False,,
-2024,13,div,CLE,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.0,0.0025,0.012870312500000002,0.0,-1.0,False,,
-2024,13,div,DAL,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.0,0.0025,0.012870312500000002,0.0,-1.0,False,,
-2024,13,div,DEN,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.012,0.0075,0.018015812500000002,0.0,-0.3339184674574073,False,,
-2024,13,div,DET,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.806,0.805,0.81952325,1.0,-0.016501362224927707,False,,
-2024,13,div,GB,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.053,0.045,0.05655925,0.0,-0.0629295826942543,False,,
-2024,13,div,HOU,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.90875,0.92,0.931953,1.0,-0.02489717829117999,False,,
-2024,13,div,IND,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.0855,0.0785,0.0909200325,0.0,-0.05961318260637438,False,,
-2024,13,div,JAX,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.0,0.0025,0.012870312500000002,0.0,-1.0,False,,
-2024,13,div,KC,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.9305,0.942,0.9533708799999999,1.0,-0.023989488749645793,False,,
-2024,13,div,LA,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.2185,0.239,0.25460997,1.0,-0.14182465046439463,False,,
-2024,13,div,LAC,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.0575,0.021,0.03190117,0.0,0.8024417286262542,True,-100.0,80.24417286262542
-2024,13,div,LV,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.0,0.0015,0.0118410325,0.0,-1.0,False,,
-2024,13,div,MIA,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.0,0.0105,0.0211023925,0.0,-1.0,False,,
-2024,13,div,MIN,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.141,0.165,0.17933125000000003,0.0,-0.2137455128428538,False,,
-2024,13,div,NE,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.0,0.002,0.01235568,0.0,-1.0,False,,
-2024,13,div,NO,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.00925,0.0165,0.027273932500000004,0.0,-0.6608483210112808,False,,
-2024,13,div,NYG,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.0,0.0025,0.012870312500000002,0.0,-1.0,False,,
-2024,13,div,NYJ,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.0,0.0005,0.010811692500000001,0.0,-1.0,False,,
-2024,13,div,PHI,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.95,0.963,0.97378813,1.0,-0.02442844523068899,False,,
-2024,13,div,PIT,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.61,0.59,0.6072,0.0,0.0046113306982873414,False,,
-2024,13,div,SEA,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.30075,0.36,0.376993,0.0,-0.20223982938675256,False,,
-2024,13,div,SF,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.04425,0.075,0.08733324999999999,0.0,-0.49332012721386176,False,,
-2024,13,div,TB,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.60025,0.43,0.447392,1.0,0.3416645805021099,True,123.51763107073884,34.16645805021099
-2024,13,div,TEN,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.00575,0.0115,0.022131132499999998,0.0,-0.7401850086072188,False,,
-2024,13,div,WAS,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.05,0.0175,0.028302312500000003,0.0,0.7666400934552609,True,-100.0,76.66400934552607
-2024,4,playoff,ARI,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.1995,,,0.0,,False,,
-2024,4,playoff,ATL,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.3875,,,0.0,,False,,
-2024,4,playoff,BAL,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.73475,,,1.0,,False,,
-2024,4,playoff,BUF,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.774,,,1.0,,False,,
-2024,4,playoff,CAR,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.068,,,0.0,,False,,
-2024,4,playoff,CHI,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.2465,,,0.0,,False,,
-2024,4,playoff,CIN,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.35075,,,0.0,,False,,
-2024,4,playoff,CLE,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.09825,,,0.0,,False,,
-2024,4,playoff,DAL,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.457,,,0.0,,False,,
-2024,4,playoff,DEN,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.427,,,1.0,,False,,
-2024,4,playoff,DET,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.60175,,,1.0,,False,,
-2024,4,playoff,GB,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.47775,,,1.0,,False,,
-2024,4,playoff,HOU,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.5825,,,1.0,,False,,
-2024,4,playoff,IND,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.54775,,,0.0,,False,,
-2024,4,playoff,JAX,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.102,,,0.0,,False,,
-2024,4,playoff,KC,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.86225,,,1.0,,False,,
-2024,4,playoff,LA,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.1645,,,1.0,,False,,
-2024,4,playoff,LAC,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.42275,,,1.0,,False,,
-2024,4,playoff,LV,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.29625,,,0.0,,False,,
-2024,4,playoff,MIA,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.1495,,,0.0,,False,,
-2024,4,playoff,MIN,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.8225,,,1.0,,False,,
-2024,4,playoff,NE,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.1825,,,0.0,,False,,
-2024,4,playoff,NO,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.591,,,0.0,,False,,
-2024,4,playoff,NYG,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.09525,,,0.0,,False,,
-2024,4,playoff,NYJ,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.49725,,,0.0,,False,,
-2024,4,playoff,PHI,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.5105,,,1.0,,False,,
-2024,4,playoff,PIT,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.715,,,1.0,,False,,
-2024,4,playoff,SEA,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.50025,,,0.0,,False,,
-2024,4,playoff,SF,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.655,,,0.0,,False,,
-2024,4,playoff,TB,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.681,,,1.0,,False,,
-2024,4,playoff,TEN,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.2575,,,0.0,,False,,
-2024,4,playoff,WAS,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.542,,,1.0,,False,,
-2024,9,playoff,ARI,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.5305,,,0.0,,False,,
-2024,9,playoff,ATL,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.7855,,,0.0,,False,,
-2024,9,playoff,BAL,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.951,,,1.0,,False,,
-2024,9,playoff,BUF,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.98525,,,1.0,,False,,
-2024,9,playoff,CAR,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.00225,,,0.0,,False,,
-2024,9,playoff,CHI,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.118,,,0.0,,False,,
-2024,9,playoff,CIN,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.343,,,0.0,,False,,
-2024,9,playoff,CLE,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.02,,,0.0,,False,,
-2024,9,playoff,DAL,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.128,,,0.0,,False,,
-2024,9,playoff,DEN,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.46175,,,1.0,,False,,
-2024,9,playoff,DET,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.94875,,,1.0,,False,,
-2024,9,playoff,GB,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.65175,,,1.0,,False,,
-2024,9,playoff,HOU,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.83925,,,1.0,,False,,
-2024,9,playoff,IND,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.42675,,,0.0,,False,,
-2024,9,playoff,JAX,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.08125,,,0.0,,False,,
-2024,9,playoff,KC,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.9945,,,1.0,,False,,
-2024,9,playoff,LA,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.32575,,,1.0,,False,,
-2024,9,playoff,LAC,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.69925,,,1.0,,False,,
-2024,9,playoff,LV,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.0195,,,0.0,,False,,
-2024,9,playoff,MIA,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.095,,,0.0,,False,,
-2024,9,playoff,MIN,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.78625,,,1.0,,False,,
-2024,9,playoff,NE,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.01325,,,0.0,,False,,
-2024,9,playoff,NO,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.02475,,,0.0,,False,,
-2024,9,playoff,NYG,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.0045,,,0.0,,False,,
-2024,9,playoff,NYJ,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.12975,,,0.0,,False,,
-2024,9,playoff,PHI,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.73625,,,1.0,,False,,
-2024,9,playoff,PIT,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.8505,,,1.0,,False,,
-2024,9,playoff,SEA,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.12475,,,0.0,,False,,
-2024,9,playoff,SF,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.4005,,,0.0,,False,,
-2024,9,playoff,TB,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.58725,,,1.0,,False,,
-2024,9,playoff,TEN,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.09,,,0.0,,False,,
-2024,9,playoff,WAS,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.84525,,,1.0,,False,,
-2024,13,playoff,ARI,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.45525,0.39,0.4072,0.0,0.11800098231827105,True,-100.0,11.800098231827107
-2024,13,playoff,ATL,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.44425,0.5435,0.5609141325,0.0,-0.20798929058896554,False,,
-2024,13,playoff,BAL,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.97375,0.953,0.9640689299999999,1.0,0.010041885697944952,False,,
-2024,13,playoff,BUF,"backfill (daily price + 1c + fee, approximate)",2024-12-03,1.0,0.992,1.00193988,1.0,-0.0019361241514809224,False,,
-2024,13,playoff,CAR,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.0,,,0.0,,False,,
-2024,13,playoff,CHI,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.00075,0.0145,0.0252169925,0.0,-0.9702581503325585,False,,
-2024,13,playoff,CIN,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.023,0.06,0.07195299999999999,0.0,-0.6803468931107806,False,,
-2024,13,playoff,CLE,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.0005,,,0.0,,False,,
-2024,13,playoff,DAL,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.0295,0.0275,0.0385828125,0.0,-0.23541084517879562,False,,
-2024,13,playoff,DEN,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.733,0.645,0.66177925,1.0,0.10762010141599321,True,51.10779009767984,10.762010141599319
-2024,13,playoff,DET,"backfill (daily price + 1c + fee, approximate)",2024-12-03,1.0,0.9905,1.0004849925,1.0,-0.0004847573962983853,False,,
-2024,13,playoff,GB,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.9615,0.9755,0.9859286925,1.0,-0.024777342099717825,False,,
-2024,13,playoff,HOU,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.93325,0.95,0.961152,1.0,-0.029029747636169945,False,,
-2024,13,playoff,IND,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.32225,0.3,0.316417,0.0,0.018434534174838868,False,,
-2024,13,playoff,JAX,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.0,,,0.0,,False,,
-2024,13,playoff,KC,"backfill (daily price + 1c + fee, approximate)",2024-12-03,1.0,0.9995,1.0092122925,1.0,-0.009128200843827927,False,,
-2024,13,playoff,LA,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.2325,,,1.0,,False,,
-2024,13,playoff,LAC,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.88075,0.915,0.9270812500000001,1.0,-0.049975393203130825,False,,
-2024,13,playoff,LV,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.0,,,0.0,,False,,
-2024,13,playoff,MIA,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.144,0.195,0.20988925000000003,0.0,-0.313923890813846,False,,
-2024,13,playoff,MIN,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.9845,0.9935,1.0033946325,1.0,-0.018830709162678372,False,,
-2024,13,playoff,NE,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.0,,,0.0,,False,,
-2024,13,playoff,NO,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.01475,,,0.0,,False,,
-2024,13,playoff,NYG,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.0,,,0.0,,False,,
-2024,13,playoff,NYJ,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.00075,0.0255,0.0365271925,0.0,-0.9794673516175655,False,,
-2024,13,playoff,PHI,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.9995,0.9935,1.0033946325,1.0,-0.0038814563820183112,False,,
-2024,13,playoff,PIT,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.98075,0.9435,0.9548301325,1.0,0.02714605102808698,False,,
-2024,13,playoff,SEA,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.351,0.44,0.457425,0.0,-0.23266109198229223,False,,
-2024,13,playoff,SF,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.06875,0.235,0.25054925,0.0,-0.7256028505373694,False,,
-2024,13,playoff,TB,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.71125,0.565,0.58233125,1.0,0.22138387730351083,True,71.72356798643384,22.13838773035107
-2024,13,playoff,TEN,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.008,,,0.0,,False,,
-2024,13,playoff,WAS,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.7465,0.762,0.77728048,1.0,-0.03960022256058715,False,,
-2025,4,div,ARI,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.13125,0.0605,0.07246589249999999,0.0,0.8111969020460215,True,-100.0,81.11969020460214
-2025,4,div,ATL,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.176,0.27,0.286048,0.0,-0.38471864861841376,False,,
-2025,4,div,BAL,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.367,0.49,0.5075,0.0,-0.27684729064039404,False,,
-2025,4,div,BUF,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.74675,0.96,0.970873,0.0,-0.23084687698597028,False,,
-2025,4,div,CAR,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.0785,0.0395,0.0509114925,1.0,0.5418915483571807,True,1864.1930552320773,54.18915483571806
-2025,4,div,CHI,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.04925,0.022,0.03292928,1.0,0.4956294215968282,True,2936.811008318433,49.56294215968282
-2025,4,div,CIN,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.142,0.04,0.051425000000000005,0.0,1.7613028682547394,True,-100.0,176.13028682547395
-2025,4,div,CLE,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.0355,0.0435,0.0550191325,0.0,-0.3547699066320248,False,,
-2025,4,div,DAL,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.08475,0.015,0.02573125,0.0,2.2936604323536556,True,-100.0,229.36604323536562
-2025,4,div,DEN,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.2095,0.31,0.326528,1.0,-0.35840111720893764,False,,
-2025,4,div,DET,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.56375,0.475,0.49249325,0.0,0.14468573934769657,True,-100.0,14.468573934769665
-2025,4,div,GB,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.2475,0.455,0.47246325,0.0,-0.47614973228076474,False,,
-2025,4,div,HOU,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.112,0.11,0.123168,0.0,-0.09067290205248113,False,,
-2025,4,div,IND,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.519,0.57,0.5873079999999999,0.0,-0.11630694627010008,False,,
-2025,4,div,JAX,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.35175,0.405,0.42228325000000005,1.0,-0.16702829202910618,False,,
-2025,4,div,KC,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.292,0.365,0.38203125,0.0,-0.23566462167689162,False,,
-2025,4,div,LA,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.268,0.405,0.42228325000000005,0.0,-0.3653548891650332,False,,
-2025,4,div,LAC,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.44925,0.32,0.336633,0.0,0.33453939453351267,True,-100.0,33.45393945335127
-2025,4,div,LV,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.04925,0.014,0.02470272,0.0,0.9937075755220477,True,-100.0,99.37075755220476
-2025,4,div,MIA,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.0475,0.0205,0.0313870925,0.0,0.5133609460640549,True,-100.0,51.33609460640548
-2025,4,div,MIN,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.1395,0.125,0.13850325000000002,0.0,0.007196582029663556,False,,
-2025,4,div,NE,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.179,0.031,0.04217957,1.0,3.243760664226781,True,2270.8160135345147,324.37606642267804
-2025,4,div,NO,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.065,0.027,0.03806893,0.0,0.7074291292137709,True,-100.0,70.7429129213771
-2025,4,div,NYG,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.026,0.01,0.020588000000000002,0.0,0.2628715756751503,True,-100.0,26.287157567515052
-2025,4,div,NYJ,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.02675,0.009,0.01955917,0.0,0.3676449460790001,True,-100.0,36.76449460790002
-2025,4,div,PHI,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.588,0.805,0.81952325,1.0,-0.2825096786454808,False,,
-2025,4,div,PIT,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.4555,0.32,0.336633,1.0,0.35310560759046195,True,197.05940891118814,35.31056075904621
-2025,4,div,SEA,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.3325,0.19,0.2048,1.0,0.62353515625,True,388.28125,62.353515625
-2025,4,div,SF,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.26825,0.22,0.23531300000000002,0.0,0.13997101732585948,True,-100.0,13.997101732585946
-2025,4,div,TB,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.6805,0.565,0.58233125,0.0,0.1685788801476824,True,-100.0,16.857888014768236
-2025,4,div,TEN,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.01725,0.009,0.01955917,0.0,-0.11806073570606523,False,,
-2025,4,div,WAS,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.30125,0.125,0.13850325000000002,0.0,1.1750392138812624,True,-100.0,117.50392138812623
-2025,9,div,ARI,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.016,0.002,0.01235568,0.0,0.2949509861051758,True,-100.0,29.4950986105176
-2025,9,div,ATL,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.02,0.05,0.061692000000000004,0.0,-0.6758088569020295,False,,
-2025,9,div,BAL,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.40375,0.55,0.567392,0.0,-0.2884108341323106,False,,
-2025,9,div,BUF,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.4925,0.555,0.5723732500000001,0.0,-0.13954748933497518,False,,
-2025,9,div,CAR,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.09175,0.1235,0.1369703325,1.0,-0.33014691338359725,False,,
-2025,9,div,CHI,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.10975,0.073,0.08528332999999999,1.0,0.2868868980608521,True,1072.5620939051043,28.688689806085222
-2025,9,div,CIN,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.071,0.057,0.06887533,0.0,0.030848055464852253,False,,
-2025,9,div,CLE,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.0125,0.011,0.021616769999999997,0.0,-0.42174524686158,False,,
-2025,9,div,DAL,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.05475,0.0625,0.07451731249999999,0.0,-0.26527140924466364,False,,
-2025,9,div,DEN,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.45275,0.385,0.40216925000000003,1.0,0.1257698096013058,True,148.6515316623536,12.576980960130584
-2025,9,div,DET,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.41375,0.4,0.41725700000000004,0.0,-0.008404891949086668,False,,
-2025,9,div,GB,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.3775,0.44,0.457425,0.0,-0.17472809750232288,False,,
-2025,9,div,HOU,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.07025,0.036,0.04731652,0.0,0.4846823054611795,True,-100.0,48.46823054611792
-2025,9,div,IND,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.7445,0.75,0.765472,0.0,-0.027397475021947226,False,,
-2025,9,div,JAX,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.18525,0.195,0.20988925000000003,1.0,-0.11739167203656231,False,,
-2025,9,div,KC,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.29375,0.385,0.40216925000000003,0.0,-0.2695861257418364,False,,
-2025,9,div,LA,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.35525,0.385,0.40216925000000003,0.0,-0.1166654337694889,False,,
-2025,9,div,LAC,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.2505,0.225,0.24039325,0.0,0.04204256983089172,False,,
-2025,9,div,LV,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.003,0.0005,0.010811692500000001,0.0,-0.7225226300137559,False,,
-2025,9,div,MIA,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.0015,0.0015,0.0118410325,0.0,-0.873321857701176,False,,
-2025,9,div,MIN,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.099,0.043,0.054505729999999995,0.0,0.8163227976214613,True,-100.0,81.63227976214614
-2025,9,div,NE,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.504,0.388,0.40518788,1.0,0.24386741281600033,True,146.7990898444445,24.386741281600024
-2025,9,div,NO,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.00275,0.0015,0.0118410325,0.0,-0.7677567391188226,False,,
-2025,9,div,NYG,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.00525,0.0105,0.0211023925,0.0,-0.751213043734259,False,,
-2025,9,div,NYJ,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.002,0.0005,0.010811692500000001,0.0,-0.8150150866758373,False,,
-2025,9,div,PHI,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.8595,0.895,0.9075792500000001,1.0,-0.052975263592683564,False,,
-2025,9,div,PIT,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.51275,0.405,0.42228325000000005,1.0,0.21423239022622842,True,136.8078771772264,21.42323902262285
-2025,9,div,SEA,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.3955,0.365,0.38203125,1.0,0.03525562372188151,False,,
-2025,9,div,SF,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.23325,0.23,0.24547200000000002,0.0,-0.0497897927258506,False,,
-2025,9,div,TB,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.8855,0.825,0.8391332499999999,0.0,0.055255527057234355,False,,
-2025,9,div,TEN,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.0,0.0015,0.0118410325,0.0,-1.0,False,,
-2025,9,div,WAS,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.0805,0.029,0.04012437,0.0,1.0062620297838945,True,-100.0,100.62620297838947
-2025,13,div,ARI,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.0,0.0015,0.0118410325,0.0,-1.0,False,,
-2025,13,div,ATL,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.00075,0.0315,0.0426933325,0.0,-0.9824328541230648,False,,
-2025,13,div,BAL,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.551,0.61,0.627068,0.0,-0.1213074180152709,False,,
-2025,13,div,BUF,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.186,0.155,0.16913325,0.0,0.09972462540629934,False,,
-2025,13,div,CAR,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.16825,0.182,0.19665408,1.0,-0.14443676937696892,False,,
-2025,13,div,CHI,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.33975,0.37,0.387068,1.0,-0.12224725371252598,False,,
-2025,13,div,CIN,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.0465,0.0895,0.10218799249999999,0.0,-0.5449563215560771,False,,
-2025,13,div,CLE,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.00025,0.0025,0.012870312500000002,0.0,-0.9805754522277528,False,,
-2025,13,div,DAL,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.147,0.1645,0.1788214925,0.0,-0.17795116266575184,False,,
-2025,13,div,DEN,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.78975,0.87,0.883168,1.0,-0.1057760244936411,False,,
-2025,13,div,DET,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.10575,0.075,0.08733324999999999,0.0,0.2108790180143303,True,-100.0,21.08790180143302
-2025,13,div,GB,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.5545,0.57,0.5873079999999999,0.0,-0.05586166032133044,False,,
-2025,13,div,HOU,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.20775,0.1995,0.21446829250000002,0.0,-0.031325341483753544,False,,
-2025,13,div,IND,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.4085,0.36,0.376993,0.0,0.08357449607817635,False,,
-2025,13,div,JAX,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.38375,0.375,0.39210325,1.0,-0.021303699982083923,False,,
-2025,13,div,KC,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.0405,0.047,0.05861253,0.0,-0.30902146691159726,False,,
-2025,13,div,LA,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.46875,0.52,0.537473,0.0,-0.12786316708002077,False,,
-2025,13,div,LAC,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.16975,0.095,0.10781924999999999,0.0,0.5743941828569576,True,-100.0,57.43941828569575
-2025,13,div,LV,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.0,0.002,0.01235568,0.0,-1.0,False,,
-2025,13,div,MIA,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.0,0.0015,0.0118410325,0.0,-1.0,False,,
-2025,13,div,MIN,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.0,0.001,0.011326369999999999,0.0,-1.0,False,,
-2025,13,div,NE,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.814,0.821,0.83521317,1.0,-0.025398509939684066,False,,
-2025,13,div,NO,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.0,0.0005,0.010811692500000001,0.0,-1.0,False,,
-2025,13,div,NYG,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.0,0.0005,0.010811692500000001,0.0,-1.0,False,,
-2025,13,div,NYJ,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.0,0.0005,0.010811692500000001,0.0,-1.0,False,,
-2025,13,div,PHI,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.85075,0.8245,0.8386432925,1.0,0.014436063113209663,False,,
-2025,13,div,PIT,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.40225,0.23,0.24547200000000002,1.0,0.6386797679572414,True,307.378438274019,63.86797679572413
-2025,13,div,SEA,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.31975,0.285,0.30123924999999996,1.0,0.061448665803012226,False,,
-2025,13,div,SF,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.2115,0.165,0.17933125000000003,0.0,0.17938173073571928,True,-100.0,17.93817307357193
-2025,13,div,TB,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.831,0.795,0.80970925,0.0,0.02629431490377554,False,,
-2025,13,div,TEN,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.0,0.001,0.011326369999999999,0.0,-1.0,False,,
-2025,13,div,WAS,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.00225,0.0015,0.0118410325,0.0,-0.8099827865517639,False,,
-2025,4,playoff,ARI,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.395,,,0.0,,False,,
-2025,4,playoff,ATL,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.3485,,,0.0,,False,,
-2025,4,playoff,BAL,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.5965,0.5,0.517497,0.0,0.15266368693924814,True,-100.0,15.266368693924804
-2025,4,playoff,BUF,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.87625,0.9545,0.9655271925000001,1.0,-0.09246471067152273,False,,
-2025,4,playoff,CAR,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.1375,0.14,0.15382500000000002,1.0,-0.10612709247521535,False,,
-2025,4,playoff,CHI,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.217,0.5,0.517497,1.0,-0.5806738976264596,False,,
-2025,4,playoff,CIN,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.3015,0.32,0.336633,0.0,-0.10436588213276776,False,,
-2025,4,playoff,CLE,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.103,0.12,0.133393,0.0,-0.2278455391212434,False,,
-2025,4,playoff,DAL,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.20075,0.5,0.517497,0.0,-0.6120750458456763,False,,
-2025,4,playoff,DEN,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.53225,0.425,0.44237325,1.0,0.20316949544304497,True,126.05345146886708,20.316949544304507
-2025,4,playoff,DET,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.79775,0.71,0.726048,0.0,0.09875655604037181,False,,
-2025,4,playoff,GB,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.59175,0.74,0.755625,1.0,-0.21687344913151363,False,,
-2025,4,playoff,HOU,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.2695,0.47,0.487488,1.0,-0.44716587895496906,False,,
-2025,4,playoff,IND,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.7185,0.695,0.71123925,0.0,0.01020859014740827,False,,
-2025,4,playoff,JAX,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.56125,0.495,0.51249925,1.0,0.09512355383934712,False,,
-2025,4,playoff,KC,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.64125,0.8,0.814617,0.0,-0.21282025786351133,False,,
-2025,4,playoff,LA,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.53225,0.745,0.76054925,1.0,-0.3001768130071787,False,,
-2025,4,playoff,LAC,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.76175,0.75,0.765472,1.0,-0.004862359433134067,False,,
-2025,4,playoff,LV,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.1875,,,0.0,,False,,
-2025,4,playoff,MIA,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.18725,0.11,0.123168,0.0,0.5202812418810081,True,-100.0,52.028124188100804
-2025,4,playoff,MIN,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.367,0.255,0.27084325000000004,0.0,0.3550273082308677,True,-100.0,35.50273082308678
-2025,4,playoff,NE,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.4125,0.535,0.55243925,1.0,-0.2533115632171321,False,,
-2025,4,playoff,NO,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.10125,0.085,0.09757925,0.0,0.0376181411519354,False,,
-2025,4,playoff,NYG,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.07575,0.3,0.316417,0.0,-0.7606007262568066,False,,
-2025,4,playoff,NYJ,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.1165,0.5,0.517497,0.0,-0.7748779219976154,False,,
-2025,4,playoff,PHI,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.767,0.795,0.80970925,1.0,-0.05274640248953566,False,,
-2025,4,playoff,PIT,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.68925,0.63,0.646912,1.0,0.06544630490700443,False,,
-2025,4,playoff,SEA,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.628,0.48,0.49749699999999997,1.0,0.26231916976383785,True,101.00623722354106,26.231916976383786
-2025,4,playoff,SF,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.5755,0.785,0.79988925,1.0,-0.28052539773474894,False,,
-2025,4,playoff,TB,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.7635,0.495,0.51249925,0.0,0.48975827769504066,True,-100.0,48.975827769504065
-2025,4,playoff,TEN,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.04525,0.5,0.517497,0.0,-0.9125598795741812,False,,
-2025,4,playoff,WAS,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.5015,0.505,0.52249325,0.0,-0.04017898795821784,False,,
-2025,9,playoff,ARI,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.1365,,,0.0,,False,,
-2025,9,playoff,ATL,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.0965,,,0.0,,False,,
-2025,9,playoff,BAL,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.46,0.695,0.71123925,0.0,-0.35324154284229947,False,,
-2025,9,playoff,BUF,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.89575,0.87,0.883168,1.0,0.01424644008840903,False,,
-2025,9,playoff,CAR,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.21725,0.48,0.49749699999999997,1.0,-0.5633139496318571,False,,
-2025,9,playoff,CHI,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.3505,0.52,0.537473,1.0,-0.34787421879796754,False,,
-2025,9,playoff,CIN,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.10275,0.12,0.133393,0.0,-0.22971970043405587,False,,
-2025,9,playoff,CLE,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.02525,0.105,0.11805324999999998,0.0,-0.7861134699807079,False,,
-2025,9,playoff,DAL,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.10925,0.465,0.48248125000000003,0.0,-0.7735663302978095,False,,
-2025,9,playoff,DEN,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.84875,0.545,0.5624092500000001,1.0,0.5091323622433306,True,77.8064638872849,50.91323622433305
-2025,9,playoff,DET,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.72925,0.875,0.88805325,0.0,-0.17882176547408624,False,,
-2025,9,playoff,GB,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.7115,0.76,0.775313,1.0,-0.08230611378888264,False,,
-2025,9,playoff,HOU,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.2735,0.14,0.15382500000000002,1.0,0.7779944742402081,True,550.0893872907524,77.7994474240208
-2025,9,playoff,IND,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.9075,0.8955,0.9080670925,0.0,-0.0006245050665130147,False,,
-2025,9,playoff,JAX,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.5065,0.62,0.636993,1.0,-0.20485782418331144,False,,
-2025,9,playoff,KC,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.722,0.855,0.86850325,0.0,-0.16868474585443405,False,,
-2025,9,playoff,LA,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.79375,0.905,0.91733325,1.0,-0.1347201248837323,False,,
-2025,9,playoff,LAC,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.71625,0.655,0.6716832500000001,1.0,0.06635084319878448,False,,
-2025,9,playoff,LV,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.0195,,,0.0,,False,,
-2025,9,playoff,MIA,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.00975,0.0815,0.0939938325,0.0,-0.8962697898290295,False,,
-2025,9,playoff,MIN,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.28225,0.12,0.133393,0.0,1.115928122165331,True,-100.0,111.5928122165331
-2025,9,playoff,NE,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.86675,0.84,0.853825,1.0,0.015137762422042123,False,,
-2025,9,playoff,NO,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.00325,0.008,0.018530280000000003,0.0,-0.8246113928121972,False,,
-2025,9,playoff,NYG,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.01675,0.102,0.11498367999999999,0.0,-0.8543271532099164,False,,
-2025,9,playoff,NYJ,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.01025,0.057,0.06887533,0.0,-0.8511803863589473,False,,
-2025,9,playoff,PHI,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.88625,0.849,0.86263357,1.0,0.027377128390679184,False,,
-2025,9,playoff,PIT,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.6355,0.62,0.636993,1.0,-0.0023438248144015406,False,,
-2025,9,playoff,SEA,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.84075,0.825,0.8391332499999999,1.0,0.001926690427295208,False,,
-2025,9,playoff,SF,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.7955,0.845,0.8587192499999999,1.0,-0.0736203945585242,False,,
-2025,9,playoff,TB,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.9255,0.49,0.5075,0.0,0.8236453201970444,True,-100.0,82.36453201970446
-2025,9,playoff,TEN,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.0,0.062,0.07400448,0.0,-1.0,False,,
-2025,9,playoff,WAS,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.10525,0.065,0.07708125,0.0,0.36544230925160126,True,-100.0,36.54423092516015
-2025,13,playoff,ARI,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.0,,,0.0,,False,,
-2025,13,playoff,ATL,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.001,,,0.0,,False,,
-2025,13,playoff,BAL,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.55225,0.64,0.656825,0.0,-0.15921288014311263,False,,
-2025,13,playoff,BUF,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.91225,0.9045,0.9168456925,1.0,-0.005012503780727595,False,,
-2025,13,playoff,CAR,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.19225,0.225,0.24039325,1.0,-0.2002687263473496,False,,
-2025,13,playoff,CHI,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.707,0.72,0.7359129999999999,1.0,-0.03928861156142094,False,,
-2025,13,playoff,CIN,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.04825,0.107,0.12009932999999999,0.0,-0.5982492158782234,False,,
-2025,13,playoff,CLE,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.00025,0.048,0.059639080000000004,0.0,-0.995808117764392,False,,
-2025,13,playoff,DAL,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.237,0.23,0.24547200000000002,0.0,-0.034513101290575054,False,,
-2025,13,playoff,DEN,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.96675,0.9345,0.9460725925,1.0,0.021856047478724605,False,,
-2025,13,playoff,DET,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.5365,0.44,0.457425,0.0,0.1728698693774935,True,-100.0,17.286986937749347
-2025,13,playoff,GB,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.86175,0.885,0.8978192500000001,1.0,-0.04017428897854447,False,,
-2025,13,playoff,HOU,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.56375,0.575,0.5922832499999999,1.0,-0.04817500748163983,False,,
-2025,13,playoff,IND,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.72175,0.7065,0.7225938325,0.0,-0.0011677825938266606,False,,
-2025,13,playoff,JAX,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.78525,0.81,0.824428,1.0,-0.04752143304206069,False,,
-2025,13,playoff,KC,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.43475,0.43,0.447392,0.0,-0.028257098919962753,False,,
-2025,13,playoff,LA,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.9165,0.9045,0.9168456925,1.0,-0.00037704545358929753,False,,
-2025,13,playoff,LAC,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.594,0.54,0.5574250000000001,1.0,0.06561420818944241,False,,
-2025,13,playoff,LV,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.0,,,0.0,,False,,
-2025,13,playoff,MIA,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.00725,0.003,0.013384930000000001,0.0,-0.4583460653137521,False,,
-2025,13,playoff,MIN,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.00025,0.0475,0.0591258125,0.0,-0.9957717282954885,False,,
-2025,13,playoff,NE,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.99875,0.9475,0.9587208125,1.0,0.04175270524858887,False,,
-2025,13,playoff,NO,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.0,0.068,0.08015748,0.0,-1.0,False,,
-2025,13,playoff,NYG,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.0,0.0025,0.012870312500000002,0.0,-1.0,False,,
-2025,13,playoff,NYJ,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.0,0.053,0.06477093,0.0,-1.0,False,,
-2025,13,playoff,PHI,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.8905,0.9145,0.9265939925,1.0,-0.038953406553626,False,,
-2025,13,playoff,PIT,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.41475,0.325,0.34168325,1.0,0.21384352320460542,True,192.66872168887414,21.38435232046055
-2025,13,playoff,SEA,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.90775,0.885,0.8978192500000001,1.0,0.011060968006644911,False,,
-2025,13,playoff,SF,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.90975,0.885,0.8978192500000001,1.0,0.013288587875566193,False,,
-2025,13,playoff,TB,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.8375,0.795,0.80970925,0.0,0.03432188776403389,False,,
-2025,13,playoff,TEN,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.0,0.0005,0.010811692500000001,0.0,-1.0,False,,
-2025,13,playoff,WAS,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.00225,0.0205,0.0313870925,0.0,-0.928314481502229,False,,
+season,week,market,team,source,snapshot,model,price,cost,won,edge,bet,profit,expected_profit,record
+2024,4,div,ARI,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.10975,0.065,0.07708125,0.0,0.42382226546663415,True,-100.0,42.38222654666342,backfill 2024-25
+2024,4,div,ATL,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.18325,0.34,0.35682500000000006,0.0,-0.48644293421144824,False,,,backfill 2024-25
+2024,4,div,BAL,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.434,0.54,0.5574250000000001,1.0,-0.22141992196259597,False,,,backfill 2024-25
+2024,4,div,BUF,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.60925,0.64,0.656825,1.0,-0.07243177406462908,False,,,backfill 2024-25
+2024,4,div,CAR,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.023,0.042,0.053478880000000006,0.0,-0.5699236782819685,False,,,backfill 2024-25
+2024,4,div,CHI,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.0625,0.06,0.07195299999999999,0.0,-0.13137742693146903,False,,,backfill 2024-25
+2024,4,div,CIN,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.13375,0.125,0.13850325000000002,0.0,-0.034318689272634484,False,,,backfill 2024-25
+2024,4,div,CLE,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.023,0.03,0.041152,0.0,-0.4410964230171074,False,,,backfill 2024-25
+2024,4,div,DAL,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.2925,0.28,0.296177,0.0,-0.012414873538458604,False,,,backfill 2024-25
+2024,4,div,DEN,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.16025,0.0285,0.0396105325,0.0,3.045641143551908,True,-100.0,304.5641143551908,backfill 2024-25
+2024,4,div,DET,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.26325,0.365,0.38203125,1.0,-0.31092024539877305,False,,,backfill 2024-25
+2024,4,div,GB,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.1555,0.12,0.133393,0.0,0.16572833656938513,True,-100.0,16.572833656938514,backfill 2024-25
+2024,4,div,HOU,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.42925,0.71,0.726048,1.0,-0.40878564502622416,False,,,backfill 2024-25
+2024,4,div,IND,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.35625,0.165,0.17933125000000003,0.0,0.9865472414874705,True,-100.0,98.65472414874705,backfill 2024-25
+2024,4,div,JAX,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.05975,0.07,0.082208,0.0,-0.27318509147528225,False,,,backfill 2024-25
+2024,4,div,KC,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.635,0.86,0.873393,1.0,-0.27295043582900247,False,,,backfill 2024-25
+2024,4,div,LA,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.07825,0.055,0.06682325,1.0,0.17099961465507896,True,1396.4851305496215,17.09996146550789,backfill 2024-25
+2024,4,div,LAC,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.12425,0.075,0.08733324999999999,0.0,0.4227112812130549,True,-100.0,42.27112812130548,backfill 2024-25
+2024,4,div,LV,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.0805,0.0315,0.0426933325,0.0,0.8855403241243818,True,-100.0,88.55403241243818,backfill 2024-25
+2024,4,div,MIA,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.0505,0.055,0.06682325,0.0,-0.24427500907244104,False,,,backfill 2024-25
+2024,4,div,MIN,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.51875,0.37,0.387068,0.0,0.3402037884816105,True,-100.0,34.020378848161045,backfill 2024-25
+2024,4,div,NE,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.07125,0.018,0.02881648,0.0,1.4725434890035145,True,-100.0,147.25434890035146,backfill 2024-25
+2024,4,div,NO,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.3455,0.325,0.34168325,0.0,0.011170433435059968,False,,,backfill 2024-25
+2024,4,div,NYG,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.042,0.017,0.027788130000000005,0.0,0.5114367177640236,True,-100.0,51.14367177640236,backfill 2024-25
+2024,4,div,NYJ,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.269,0.275,0.29111325000000005,0.0,-0.07596098769121651,False,,,backfill 2024-25
+2024,4,div,PHI,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.3215,0.45,0.46745200000000003,1.0,-0.31222884916526195,False,,,backfill 2024-25
+2024,4,div,PIT,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.40925,0.26,0.275913,0.0,0.48325740360186,True,-100.0,48.32574036018599,backfill 2024-25
+2024,4,div,SEA,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.33,0.415,0.43233125,0.0,-0.23669639888395755,False,,,backfill 2024-25
+2024,4,div,SF,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.482,0.495,0.51249925,0.0,-0.05951081879632014,False,,,backfill 2024-25
+2024,4,div,TB,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.44825,0.305,0.32147325,1.0,0.3943617392737966,True,211.06787267680903,39.43617392737963,backfill 2024-25
+2024,4,div,TEN,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.15475,0.0405,0.0519384925,0.0,1.9794857831116293,True,-100.0,197.94857831116292,backfill 2024-25
+2024,4,div,WAS,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.344,0.2775,0.29364531250000003,0.0,0.17148132579163833,True,-100.0,17.14813257916383,backfill 2024-25
+2024,9,div,ARI,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.4395,0.25,0.265772,0.0,0.6536730731604532,True,-100.0,65.36730731604533,backfill 2024-25
+2024,9,div,ATL,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.69025,0.86,0.873393,0.0,-0.20969139894640776,False,,,backfill 2024-25
+2024,9,div,BAL,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.59575,0.645,0.66177925,1.0,-0.09977534049307235,False,,,backfill 2024-25
+2024,9,div,BUF,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.9765,0.94,0.951425,1.0,0.026355204036051294,False,,,backfill 2024-25
+2024,9,div,CAR,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.002,0.011,0.021616769999999997,0.0,-0.9074792394978528,False,,,backfill 2024-25
+2024,9,div,CHI,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.01925,0.035,0.046289250000000004,0.0,-0.5841367056065934,False,,,backfill 2024-25
+2024,9,div,CIN,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.04525,0.09,0.10269999999999999,0.0,-0.559396299902629,False,,,backfill 2024-25
+2024,9,div,CLE,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.001,0.005,0.015443249999999999,0.0,-0.9352467906690625,False,,,backfill 2024-25
+2024,9,div,DAL,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.05025,0.0295,0.0406381925,0.0,0.23652153082349803,True,-100.0,23.652153082349813,backfill 2024-25
+2024,9,div,DEN,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.04125,0.043,0.054505729999999995,0.0,-0.24319883432439116,False,,,backfill 2024-25
+2024,9,div,DET,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.6805,0.685,0.7013592500000001,1.0,-0.029741177577682354,False,,,backfill 2024-25
+2024,9,div,GB,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.0915,0.085,0.09757925,0.0,-0.062300642810843576,False,,,backfill 2024-25
+2024,9,div,HOU,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.74175,0.865,0.87828125,1.0,-0.1554527664116705,False,,,backfill 2024-25
+2024,9,div,IND,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.1665,0.0755,0.08784569249999999,0.0,0.8953689732709436,True,-100.0,89.53689732709438,backfill 2024-25
+2024,9,div,JAX,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.04275,0.043,0.054505729999999995,0.0,-0.2156787919361871,False,,,backfill 2024-25
+2024,9,div,KC,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.8855,0.89,0.9027000000000001,1.0,-0.019053949263321268,False,,,backfill 2024-25
+2024,9,div,LA,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.214,0.2155,0.2307394925,1.0,-0.07254714968223308,False,,,backfill 2024-25
+2024,9,div,LAC,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.073,0.0485,0.0601523325,0.0,0.21358552471759906,True,-100.0,21.35855247175992,backfill 2024-25
+2024,9,div,LV,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.00025,0.0115,0.022131132499999998,0.0,-0.9887036960264008,False,,,backfill 2024-25
+2024,9,div,MIA,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.00275,0.015,0.02573125,0.0,-0.8931260626669906,False,,,backfill 2024-25
+2024,9,div,MIN,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.20875,0.185,0.19970925,0.0,0.045269560623756755,False,,,backfill 2024-25
+2024,9,div,NE,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.0055,0.009,0.01955917,0.0,-0.7188019737033832,False,,,backfill 2024-25
+2024,9,div,NO,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.01,0.013,0.023674129999999998,0.0,-0.5775979940973544,False,,,backfill 2024-25
+2024,9,div,NYG,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.00025,0.0055,0.015957792499999998,0.0,-0.9843336727182034,False,,,backfill 2024-25
+2024,9,div,NYJ,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.01525,0.0325,0.043720812500000004,0.0,-0.6511958692441958,False,,,backfill 2024-25
+2024,9,div,PHI,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.4065,0.56,0.5773530000000001,1.0,-0.2959246769307514,False,,,backfill 2024-25
+2024,9,div,PIT,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.358,0.26,0.275913,0.0,0.2975104471336978,True,-100.0,29.751044713369765,backfill 2024-25
+2024,9,div,SEA,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.0795,0.075,0.08733324999999999,0.0,-0.08969378787575166,False,,,backfill 2024-25
+2024,9,div,SF,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.267,0.47,0.487488,0.0,-0.45229421031902317,False,,,backfill 2024-25
+2024,9,div,TB,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.29775,0.13,0.14361200000000002,1.0,1.0732947107484052,True,596.3206417291034,107.32947107484054,backfill 2024-25
+2024,9,div,TEN,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.049,0.012,0.02264548,0.0,1.1637872105161828,True,-100.0,116.37872105161827,backfill 2024-25
+2024,9,div,WAS,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.543,0.405,0.42228325000000005,0.0,0.28586677307233943,True,-100.0,28.58667730723394,backfill 2024-25
+2024,13,div,ARI,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.4365,0.31,0.326528,0.0,0.3367919443355547,True,-100.0,33.679194433555466,backfill 2024-25
+2024,13,div,ATL,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.3905,0.5,0.517497,0.0,-0.24540625356282253,False,,,backfill 2024-25
+2024,13,div,BAL,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.39,0.41,0.42730799999999997,1.0,-0.08730938807604804,False,,,backfill 2024-25
+2024,13,div,BUF,"backfill (daily price + 1c + fee, approximate)",2024-12-03,1.0,0.994,1.00387952,1.0,-0.0038645274883184477,False,,,backfill 2024-25
+2024,13,div,CAR,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.0,0.004,0.01441412,0.0,-1.0,False,,,backfill 2024-25
+2024,13,div,CHI,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.0,0.001,0.011326369999999999,0.0,-1.0,False,,,backfill 2024-25
+2024,13,div,CIN,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.0,0.0005,0.010811692500000001,0.0,-1.0,False,,,backfill 2024-25
+2024,13,div,CLE,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.0,0.0025,0.012870312500000002,0.0,-1.0,False,,,backfill 2024-25
+2024,13,div,DAL,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.0,0.0025,0.012870312500000002,0.0,-1.0,False,,,backfill 2024-25
+2024,13,div,DEN,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.012,0.0075,0.018015812500000002,0.0,-0.3339184674574073,False,,,backfill 2024-25
+2024,13,div,DET,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.806,0.805,0.81952325,1.0,-0.016501362224927707,False,,,backfill 2024-25
+2024,13,div,GB,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.053,0.045,0.05655925,0.0,-0.0629295826942543,False,,,backfill 2024-25
+2024,13,div,HOU,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.90875,0.92,0.931953,1.0,-0.02489717829117999,False,,,backfill 2024-25
+2024,13,div,IND,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.0855,0.0785,0.0909200325,0.0,-0.05961318260637438,False,,,backfill 2024-25
+2024,13,div,JAX,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.0,0.0025,0.012870312500000002,0.0,-1.0,False,,,backfill 2024-25
+2024,13,div,KC,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.9305,0.942,0.9533708799999999,1.0,-0.023989488749645793,False,,,backfill 2024-25
+2024,13,div,LA,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.2185,0.239,0.25460997,1.0,-0.14182465046439463,False,,,backfill 2024-25
+2024,13,div,LAC,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.0575,0.021,0.03190117,0.0,0.8024417286262542,True,-100.0,80.24417286262542,backfill 2024-25
+2024,13,div,LV,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.0,0.0015,0.0118410325,0.0,-1.0,False,,,backfill 2024-25
+2024,13,div,MIA,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.0,0.0105,0.0211023925,0.0,-1.0,False,,,backfill 2024-25
+2024,13,div,MIN,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.141,0.165,0.17933125000000003,0.0,-0.2137455128428538,False,,,backfill 2024-25
+2024,13,div,NE,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.0,0.002,0.01235568,0.0,-1.0,False,,,backfill 2024-25
+2024,13,div,NO,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.00925,0.0165,0.027273932500000004,0.0,-0.6608483210112808,False,,,backfill 2024-25
+2024,13,div,NYG,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.0,0.0025,0.012870312500000002,0.0,-1.0,False,,,backfill 2024-25
+2024,13,div,NYJ,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.0,0.0005,0.010811692500000001,0.0,-1.0,False,,,backfill 2024-25
+2024,13,div,PHI,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.95,0.963,0.97378813,1.0,-0.02442844523068899,False,,,backfill 2024-25
+2024,13,div,PIT,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.61,0.59,0.6072,0.0,0.0046113306982873414,False,,,backfill 2024-25
+2024,13,div,SEA,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.30075,0.36,0.376993,0.0,-0.20223982938675256,False,,,backfill 2024-25
+2024,13,div,SF,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.04425,0.075,0.08733324999999999,0.0,-0.49332012721386176,False,,,backfill 2024-25
+2024,13,div,TB,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.60025,0.43,0.447392,1.0,0.3416645805021099,True,123.51763107073884,34.16645805021099,backfill 2024-25
+2024,13,div,TEN,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.00575,0.0115,0.022131132499999998,0.0,-0.7401850086072188,False,,,backfill 2024-25
+2024,13,div,WAS,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.05,0.0175,0.028302312500000003,0.0,0.7666400934552609,True,-100.0,76.66400934552607,backfill 2024-25
+2024,4,playoff,ARI,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.1995,,,0.0,,False,,,backfill 2024-25
+2024,4,playoff,ATL,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.3875,,,0.0,,False,,,backfill 2024-25
+2024,4,playoff,BAL,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.73475,,,1.0,,False,,,backfill 2024-25
+2024,4,playoff,BUF,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.774,,,1.0,,False,,,backfill 2024-25
+2024,4,playoff,CAR,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.068,,,0.0,,False,,,backfill 2024-25
+2024,4,playoff,CHI,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.2465,,,0.0,,False,,,backfill 2024-25
+2024,4,playoff,CIN,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.35075,,,0.0,,False,,,backfill 2024-25
+2024,4,playoff,CLE,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.09825,,,0.0,,False,,,backfill 2024-25
+2024,4,playoff,DAL,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.457,,,0.0,,False,,,backfill 2024-25
+2024,4,playoff,DEN,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.427,,,1.0,,False,,,backfill 2024-25
+2024,4,playoff,DET,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.60175,,,1.0,,False,,,backfill 2024-25
+2024,4,playoff,GB,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.47775,,,1.0,,False,,,backfill 2024-25
+2024,4,playoff,HOU,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.5825,,,1.0,,False,,,backfill 2024-25
+2024,4,playoff,IND,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.54775,,,0.0,,False,,,backfill 2024-25
+2024,4,playoff,JAX,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.102,,,0.0,,False,,,backfill 2024-25
+2024,4,playoff,KC,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.86225,,,1.0,,False,,,backfill 2024-25
+2024,4,playoff,LA,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.1645,,,1.0,,False,,,backfill 2024-25
+2024,4,playoff,LAC,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.42275,,,1.0,,False,,,backfill 2024-25
+2024,4,playoff,LV,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.29625,,,0.0,,False,,,backfill 2024-25
+2024,4,playoff,MIA,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.1495,,,0.0,,False,,,backfill 2024-25
+2024,4,playoff,MIN,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.8225,,,1.0,,False,,,backfill 2024-25
+2024,4,playoff,NE,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.1825,,,0.0,,False,,,backfill 2024-25
+2024,4,playoff,NO,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.591,,,0.0,,False,,,backfill 2024-25
+2024,4,playoff,NYG,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.09525,,,0.0,,False,,,backfill 2024-25
+2024,4,playoff,NYJ,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.49725,,,0.0,,False,,,backfill 2024-25
+2024,4,playoff,PHI,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.5105,,,1.0,,False,,,backfill 2024-25
+2024,4,playoff,PIT,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.715,,,1.0,,False,,,backfill 2024-25
+2024,4,playoff,SEA,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.50025,,,0.0,,False,,,backfill 2024-25
+2024,4,playoff,SF,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.655,,,0.0,,False,,,backfill 2024-25
+2024,4,playoff,TB,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.681,,,1.0,,False,,,backfill 2024-25
+2024,4,playoff,TEN,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.2575,,,0.0,,False,,,backfill 2024-25
+2024,4,playoff,WAS,"backfill (daily price + 1c + fee, approximate)",2024-10-01,0.542,,,1.0,,False,,,backfill 2024-25
+2024,9,playoff,ARI,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.5305,,,0.0,,False,,,backfill 2024-25
+2024,9,playoff,ATL,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.7855,,,0.0,,False,,,backfill 2024-25
+2024,9,playoff,BAL,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.951,,,1.0,,False,,,backfill 2024-25
+2024,9,playoff,BUF,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.98525,,,1.0,,False,,,backfill 2024-25
+2024,9,playoff,CAR,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.00225,,,0.0,,False,,,backfill 2024-25
+2024,9,playoff,CHI,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.118,,,0.0,,False,,,backfill 2024-25
+2024,9,playoff,CIN,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.343,,,0.0,,False,,,backfill 2024-25
+2024,9,playoff,CLE,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.02,,,0.0,,False,,,backfill 2024-25
+2024,9,playoff,DAL,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.128,,,0.0,,False,,,backfill 2024-25
+2024,9,playoff,DEN,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.46175,,,1.0,,False,,,backfill 2024-25
+2024,9,playoff,DET,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.94875,,,1.0,,False,,,backfill 2024-25
+2024,9,playoff,GB,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.65175,,,1.0,,False,,,backfill 2024-25
+2024,9,playoff,HOU,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.83925,,,1.0,,False,,,backfill 2024-25
+2024,9,playoff,IND,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.42675,,,0.0,,False,,,backfill 2024-25
+2024,9,playoff,JAX,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.08125,,,0.0,,False,,,backfill 2024-25
+2024,9,playoff,KC,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.9945,,,1.0,,False,,,backfill 2024-25
+2024,9,playoff,LA,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.32575,,,1.0,,False,,,backfill 2024-25
+2024,9,playoff,LAC,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.69925,,,1.0,,False,,,backfill 2024-25
+2024,9,playoff,LV,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.0195,,,0.0,,False,,,backfill 2024-25
+2024,9,playoff,MIA,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.095,,,0.0,,False,,,backfill 2024-25
+2024,9,playoff,MIN,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.78625,,,1.0,,False,,,backfill 2024-25
+2024,9,playoff,NE,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.01325,,,0.0,,False,,,backfill 2024-25
+2024,9,playoff,NO,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.02475,,,0.0,,False,,,backfill 2024-25
+2024,9,playoff,NYG,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.0045,,,0.0,,False,,,backfill 2024-25
+2024,9,playoff,NYJ,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.12975,,,0.0,,False,,,backfill 2024-25
+2024,9,playoff,PHI,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.73625,,,1.0,,False,,,backfill 2024-25
+2024,9,playoff,PIT,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.8505,,,1.0,,False,,,backfill 2024-25
+2024,9,playoff,SEA,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.12475,,,0.0,,False,,,backfill 2024-25
+2024,9,playoff,SF,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.4005,,,0.0,,False,,,backfill 2024-25
+2024,9,playoff,TB,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.58725,,,1.0,,False,,,backfill 2024-25
+2024,9,playoff,TEN,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.09,,,0.0,,False,,,backfill 2024-25
+2024,9,playoff,WAS,"backfill (daily price + 1c + fee, approximate)",2024-11-05,0.84525,,,1.0,,False,,,backfill 2024-25
+2024,13,playoff,ARI,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.45525,0.39,0.4072,0.0,0.11800098231827105,True,-100.0,11.800098231827107,backfill 2024-25
+2024,13,playoff,ATL,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.44425,0.5435,0.5609141325,0.0,-0.20798929058896554,False,,,backfill 2024-25
+2024,13,playoff,BAL,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.97375,0.953,0.9640689299999999,1.0,0.010041885697944952,False,,,backfill 2024-25
+2024,13,playoff,BUF,"backfill (daily price + 1c + fee, approximate)",2024-12-03,1.0,0.992,1.00193988,1.0,-0.0019361241514809224,False,,,backfill 2024-25
+2024,13,playoff,CAR,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.0,,,0.0,,False,,,backfill 2024-25
+2024,13,playoff,CHI,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.00075,0.0145,0.0252169925,0.0,-0.9702581503325585,False,,,backfill 2024-25
+2024,13,playoff,CIN,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.023,0.06,0.07195299999999999,0.0,-0.6803468931107806,False,,,backfill 2024-25
+2024,13,playoff,CLE,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.0005,,,0.0,,False,,,backfill 2024-25
+2024,13,playoff,DAL,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.0295,0.0275,0.0385828125,0.0,-0.23541084517879562,False,,,backfill 2024-25
+2024,13,playoff,DEN,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.733,0.645,0.66177925,1.0,0.10762010141599321,True,51.10779009767984,10.762010141599319,backfill 2024-25
+2024,13,playoff,DET,"backfill (daily price + 1c + fee, approximate)",2024-12-03,1.0,0.9905,1.0004849925,1.0,-0.0004847573962983853,False,,,backfill 2024-25
+2024,13,playoff,GB,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.9615,0.9755,0.9859286925,1.0,-0.024777342099717825,False,,,backfill 2024-25
+2024,13,playoff,HOU,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.93325,0.95,0.961152,1.0,-0.029029747636169945,False,,,backfill 2024-25
+2024,13,playoff,IND,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.32225,0.3,0.316417,0.0,0.018434534174838868,False,,,backfill 2024-25
+2024,13,playoff,JAX,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.0,,,0.0,,False,,,backfill 2024-25
+2024,13,playoff,KC,"backfill (daily price + 1c + fee, approximate)",2024-12-03,1.0,0.9995,1.0092122925,1.0,-0.009128200843827927,False,,,backfill 2024-25
+2024,13,playoff,LA,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.2325,,,1.0,,False,,,backfill 2024-25
+2024,13,playoff,LAC,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.88075,0.915,0.9270812500000001,1.0,-0.049975393203130825,False,,,backfill 2024-25
+2024,13,playoff,LV,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.0,,,0.0,,False,,,backfill 2024-25
+2024,13,playoff,MIA,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.144,0.195,0.20988925000000003,0.0,-0.313923890813846,False,,,backfill 2024-25
+2024,13,playoff,MIN,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.9845,0.9935,1.0033946325,1.0,-0.018830709162678372,False,,,backfill 2024-25
+2024,13,playoff,NE,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.0,,,0.0,,False,,,backfill 2024-25
+2024,13,playoff,NO,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.01475,,,0.0,,False,,,backfill 2024-25
+2024,13,playoff,NYG,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.0,,,0.0,,False,,,backfill 2024-25
+2024,13,playoff,NYJ,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.00075,0.0255,0.0365271925,0.0,-0.9794673516175655,False,,,backfill 2024-25
+2024,13,playoff,PHI,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.9995,0.9935,1.0033946325,1.0,-0.0038814563820183112,False,,,backfill 2024-25
+2024,13,playoff,PIT,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.98075,0.9435,0.9548301325,1.0,0.02714605102808698,False,,,backfill 2024-25
+2024,13,playoff,SEA,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.351,0.44,0.457425,0.0,-0.23266109198229223,False,,,backfill 2024-25
+2024,13,playoff,SF,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.06875,0.235,0.25054925,0.0,-0.7256028505373694,False,,,backfill 2024-25
+2024,13,playoff,TB,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.71125,0.565,0.58233125,1.0,0.22138387730351083,True,71.72356798643384,22.13838773035107,backfill 2024-25
+2024,13,playoff,TEN,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.008,,,0.0,,False,,,backfill 2024-25
+2024,13,playoff,WAS,"backfill (daily price + 1c + fee, approximate)",2024-12-03,0.7465,0.762,0.77728048,1.0,-0.03960022256058715,False,,,backfill 2024-25
+2025,4,div,ARI,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.13125,0.0605,0.07246589249999999,0.0,0.8111969020460215,True,-100.0,81.11969020460214,backfill 2024-25
+2025,4,div,ATL,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.176,0.27,0.286048,0.0,-0.38471864861841376,False,,,backfill 2024-25
+2025,4,div,BAL,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.367,0.49,0.5075,0.0,-0.27684729064039404,False,,,backfill 2024-25
+2025,4,div,BUF,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.74675,0.96,0.970873,0.0,-0.23084687698597028,False,,,backfill 2024-25
+2025,4,div,CAR,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.0785,0.0395,0.0509114925,1.0,0.5418915483571807,True,1864.1930552320773,54.18915483571806,backfill 2024-25
+2025,4,div,CHI,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.04925,0.022,0.03292928,1.0,0.4956294215968282,True,2936.811008318433,49.56294215968282,backfill 2024-25
+2025,4,div,CIN,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.142,0.04,0.051425000000000005,0.0,1.7613028682547394,True,-100.0,176.13028682547395,backfill 2024-25
+2025,4,div,CLE,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.0355,0.0435,0.0550191325,0.0,-0.3547699066320248,False,,,backfill 2024-25
+2025,4,div,DAL,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.08475,0.015,0.02573125,0.0,2.2936604323536556,True,-100.0,229.36604323536562,backfill 2024-25
+2025,4,div,DEN,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.2095,0.31,0.326528,1.0,-0.35840111720893764,False,,,backfill 2024-25
+2025,4,div,DET,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.56375,0.475,0.49249325,0.0,0.14468573934769657,True,-100.0,14.468573934769665,backfill 2024-25
+2025,4,div,GB,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.2475,0.455,0.47246325,0.0,-0.47614973228076474,False,,,backfill 2024-25
+2025,4,div,HOU,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.112,0.11,0.123168,0.0,-0.09067290205248113,False,,,backfill 2024-25
+2025,4,div,IND,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.519,0.57,0.5873079999999999,0.0,-0.11630694627010008,False,,,backfill 2024-25
+2025,4,div,JAX,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.35175,0.405,0.42228325000000005,1.0,-0.16702829202910618,False,,,backfill 2024-25
+2025,4,div,KC,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.292,0.365,0.38203125,0.0,-0.23566462167689162,False,,,backfill 2024-25
+2025,4,div,LA,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.268,0.405,0.42228325000000005,0.0,-0.3653548891650332,False,,,backfill 2024-25
+2025,4,div,LAC,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.44925,0.32,0.336633,0.0,0.33453939453351267,True,-100.0,33.45393945335127,backfill 2024-25
+2025,4,div,LV,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.04925,0.014,0.02470272,0.0,0.9937075755220477,True,-100.0,99.37075755220476,backfill 2024-25
+2025,4,div,MIA,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.0475,0.0205,0.0313870925,0.0,0.5133609460640549,True,-100.0,51.33609460640548,backfill 2024-25
+2025,4,div,MIN,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.1395,0.125,0.13850325000000002,0.0,0.007196582029663556,False,,,backfill 2024-25
+2025,4,div,NE,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.179,0.031,0.04217957,1.0,3.243760664226781,True,2270.8160135345147,324.37606642267804,backfill 2024-25
+2025,4,div,NO,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.065,0.027,0.03806893,0.0,0.7074291292137709,True,-100.0,70.7429129213771,backfill 2024-25
+2025,4,div,NYG,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.026,0.01,0.020588000000000002,0.0,0.2628715756751503,True,-100.0,26.287157567515052,backfill 2024-25
+2025,4,div,NYJ,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.02675,0.009,0.01955917,0.0,0.3676449460790001,True,-100.0,36.76449460790002,backfill 2024-25
+2025,4,div,PHI,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.588,0.805,0.81952325,1.0,-0.2825096786454808,False,,,backfill 2024-25
+2025,4,div,PIT,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.4555,0.32,0.336633,1.0,0.35310560759046195,True,197.05940891118814,35.31056075904621,backfill 2024-25
+2025,4,div,SEA,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.3325,0.19,0.2048,1.0,0.62353515625,True,388.28125,62.353515625,backfill 2024-25
+2025,4,div,SF,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.26825,0.22,0.23531300000000002,0.0,0.13997101732585948,True,-100.0,13.997101732585946,backfill 2024-25
+2025,4,div,TB,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.6805,0.565,0.58233125,0.0,0.1685788801476824,True,-100.0,16.857888014768236,backfill 2024-25
+2025,4,div,TEN,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.01725,0.009,0.01955917,0.0,-0.11806073570606523,False,,,backfill 2024-25
+2025,4,div,WAS,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.30125,0.125,0.13850325000000002,0.0,1.1750392138812624,True,-100.0,117.50392138812623,backfill 2024-25
+2025,9,div,ARI,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.016,0.002,0.01235568,0.0,0.2949509861051758,True,-100.0,29.4950986105176,backfill 2024-25
+2025,9,div,ATL,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.02,0.05,0.061692000000000004,0.0,-0.6758088569020295,False,,,backfill 2024-25
+2025,9,div,BAL,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.40375,0.55,0.567392,0.0,-0.2884108341323106,False,,,backfill 2024-25
+2025,9,div,BUF,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.4925,0.555,0.5723732500000001,0.0,-0.13954748933497518,False,,,backfill 2024-25
+2025,9,div,CAR,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.09175,0.1235,0.1369703325,1.0,-0.33014691338359725,False,,,backfill 2024-25
+2025,9,div,CHI,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.10975,0.073,0.08528332999999999,1.0,0.2868868980608521,True,1072.5620939051043,28.688689806085222,backfill 2024-25
+2025,9,div,CIN,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.071,0.057,0.06887533,0.0,0.030848055464852253,False,,,backfill 2024-25
+2025,9,div,CLE,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.0125,0.011,0.021616769999999997,0.0,-0.42174524686158,False,,,backfill 2024-25
+2025,9,div,DAL,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.05475,0.0625,0.07451731249999999,0.0,-0.26527140924466364,False,,,backfill 2024-25
+2025,9,div,DEN,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.45275,0.385,0.40216925000000003,1.0,0.1257698096013058,True,148.6515316623536,12.576980960130584,backfill 2024-25
+2025,9,div,DET,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.41375,0.4,0.41725700000000004,0.0,-0.008404891949086668,False,,,backfill 2024-25
+2025,9,div,GB,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.3775,0.44,0.457425,0.0,-0.17472809750232288,False,,,backfill 2024-25
+2025,9,div,HOU,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.07025,0.036,0.04731652,0.0,0.4846823054611795,True,-100.0,48.46823054611792,backfill 2024-25
+2025,9,div,IND,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.7445,0.75,0.765472,0.0,-0.027397475021947226,False,,,backfill 2024-25
+2025,9,div,JAX,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.18525,0.195,0.20988925000000003,1.0,-0.11739167203656231,False,,,backfill 2024-25
+2025,9,div,KC,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.29375,0.385,0.40216925000000003,0.0,-0.2695861257418364,False,,,backfill 2024-25
+2025,9,div,LA,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.35525,0.385,0.40216925000000003,0.0,-0.1166654337694889,False,,,backfill 2024-25
+2025,9,div,LAC,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.2505,0.225,0.24039325,0.0,0.04204256983089172,False,,,backfill 2024-25
+2025,9,div,LV,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.003,0.0005,0.010811692500000001,0.0,-0.7225226300137559,False,,,backfill 2024-25
+2025,9,div,MIA,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.0015,0.0015,0.0118410325,0.0,-0.873321857701176,False,,,backfill 2024-25
+2025,9,div,MIN,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.099,0.043,0.054505729999999995,0.0,0.8163227976214613,True,-100.0,81.63227976214614,backfill 2024-25
+2025,9,div,NE,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.504,0.388,0.40518788,1.0,0.24386741281600033,True,146.7990898444445,24.386741281600024,backfill 2024-25
+2025,9,div,NO,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.00275,0.0015,0.0118410325,0.0,-0.7677567391188226,False,,,backfill 2024-25
+2025,9,div,NYG,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.00525,0.0105,0.0211023925,0.0,-0.751213043734259,False,,,backfill 2024-25
+2025,9,div,NYJ,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.002,0.0005,0.010811692500000001,0.0,-0.8150150866758373,False,,,backfill 2024-25
+2025,9,div,PHI,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.8595,0.895,0.9075792500000001,1.0,-0.052975263592683564,False,,,backfill 2024-25
+2025,9,div,PIT,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.51275,0.405,0.42228325000000005,1.0,0.21423239022622842,True,136.8078771772264,21.42323902262285,backfill 2024-25
+2025,9,div,SEA,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.3955,0.365,0.38203125,1.0,0.03525562372188151,False,,,backfill 2024-25
+2025,9,div,SF,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.23325,0.23,0.24547200000000002,0.0,-0.0497897927258506,False,,,backfill 2024-25
+2025,9,div,TB,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.8855,0.825,0.8391332499999999,0.0,0.055255527057234355,False,,,backfill 2024-25
+2025,9,div,TEN,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.0,0.0015,0.0118410325,0.0,-1.0,False,,,backfill 2024-25
+2025,9,div,WAS,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.0805,0.029,0.04012437,0.0,1.0062620297838945,True,-100.0,100.62620297838947,backfill 2024-25
+2025,13,div,ARI,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.0,0.0015,0.0118410325,0.0,-1.0,False,,,backfill 2024-25
+2025,13,div,ATL,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.00075,0.0315,0.0426933325,0.0,-0.9824328541230648,False,,,backfill 2024-25
+2025,13,div,BAL,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.551,0.61,0.627068,0.0,-0.1213074180152709,False,,,backfill 2024-25
+2025,13,div,BUF,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.186,0.155,0.16913325,0.0,0.09972462540629934,False,,,backfill 2024-25
+2025,13,div,CAR,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.16825,0.182,0.19665408,1.0,-0.14443676937696892,False,,,backfill 2024-25
+2025,13,div,CHI,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.33975,0.37,0.387068,1.0,-0.12224725371252598,False,,,backfill 2024-25
+2025,13,div,CIN,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.0465,0.0895,0.10218799249999999,0.0,-0.5449563215560771,False,,,backfill 2024-25
+2025,13,div,CLE,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.00025,0.0025,0.012870312500000002,0.0,-0.9805754522277528,False,,,backfill 2024-25
+2025,13,div,DAL,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.147,0.1645,0.1788214925,0.0,-0.17795116266575184,False,,,backfill 2024-25
+2025,13,div,DEN,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.78975,0.87,0.883168,1.0,-0.1057760244936411,False,,,backfill 2024-25
+2025,13,div,DET,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.10575,0.075,0.08733324999999999,0.0,0.2108790180143303,True,-100.0,21.08790180143302,backfill 2024-25
+2025,13,div,GB,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.5545,0.57,0.5873079999999999,0.0,-0.05586166032133044,False,,,backfill 2024-25
+2025,13,div,HOU,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.20775,0.1995,0.21446829250000002,0.0,-0.031325341483753544,False,,,backfill 2024-25
+2025,13,div,IND,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.4085,0.36,0.376993,0.0,0.08357449607817635,False,,,backfill 2024-25
+2025,13,div,JAX,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.38375,0.375,0.39210325,1.0,-0.021303699982083923,False,,,backfill 2024-25
+2025,13,div,KC,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.0405,0.047,0.05861253,0.0,-0.30902146691159726,False,,,backfill 2024-25
+2025,13,div,LA,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.46875,0.52,0.537473,0.0,-0.12786316708002077,False,,,backfill 2024-25
+2025,13,div,LAC,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.16975,0.095,0.10781924999999999,0.0,0.5743941828569576,True,-100.0,57.43941828569575,backfill 2024-25
+2025,13,div,LV,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.0,0.002,0.01235568,0.0,-1.0,False,,,backfill 2024-25
+2025,13,div,MIA,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.0,0.0015,0.0118410325,0.0,-1.0,False,,,backfill 2024-25
+2025,13,div,MIN,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.0,0.001,0.011326369999999999,0.0,-1.0,False,,,backfill 2024-25
+2025,13,div,NE,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.814,0.821,0.83521317,1.0,-0.025398509939684066,False,,,backfill 2024-25
+2025,13,div,NO,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.0,0.0005,0.010811692500000001,0.0,-1.0,False,,,backfill 2024-25
+2025,13,div,NYG,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.0,0.0005,0.010811692500000001,0.0,-1.0,False,,,backfill 2024-25
+2025,13,div,NYJ,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.0,0.0005,0.010811692500000001,0.0,-1.0,False,,,backfill 2024-25
+2025,13,div,PHI,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.85075,0.8245,0.8386432925,1.0,0.014436063113209663,False,,,backfill 2024-25
+2025,13,div,PIT,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.40225,0.23,0.24547200000000002,1.0,0.6386797679572414,True,307.378438274019,63.86797679572413,backfill 2024-25
+2025,13,div,SEA,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.31975,0.285,0.30123924999999996,1.0,0.061448665803012226,False,,,backfill 2024-25
+2025,13,div,SF,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.2115,0.165,0.17933125000000003,0.0,0.17938173073571928,True,-100.0,17.93817307357193,backfill 2024-25
+2025,13,div,TB,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.831,0.795,0.80970925,0.0,0.02629431490377554,False,,,backfill 2024-25
+2025,13,div,TEN,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.0,0.001,0.011326369999999999,0.0,-1.0,False,,,backfill 2024-25
+2025,13,div,WAS,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.00225,0.0015,0.0118410325,0.0,-0.8099827865517639,False,,,backfill 2024-25
+2025,4,playoff,ARI,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.395,,,0.0,,False,,,backfill 2024-25
+2025,4,playoff,ATL,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.3485,,,0.0,,False,,,backfill 2024-25
+2025,4,playoff,BAL,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.5965,0.5,0.517497,0.0,0.15266368693924814,True,-100.0,15.266368693924804,backfill 2024-25
+2025,4,playoff,BUF,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.87625,0.9545,0.9655271925000001,1.0,-0.09246471067152273,False,,,backfill 2024-25
+2025,4,playoff,CAR,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.1375,0.14,0.15382500000000002,1.0,-0.10612709247521535,False,,,backfill 2024-25
+2025,4,playoff,CHI,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.217,0.5,0.517497,1.0,-0.5806738976264596,False,,,backfill 2024-25
+2025,4,playoff,CIN,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.3015,0.32,0.336633,0.0,-0.10436588213276776,False,,,backfill 2024-25
+2025,4,playoff,CLE,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.103,0.12,0.133393,0.0,-0.2278455391212434,False,,,backfill 2024-25
+2025,4,playoff,DAL,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.20075,0.5,0.517497,0.0,-0.6120750458456763,False,,,backfill 2024-25
+2025,4,playoff,DEN,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.53225,0.425,0.44237325,1.0,0.20316949544304497,True,126.05345146886708,20.316949544304507,backfill 2024-25
+2025,4,playoff,DET,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.79775,0.71,0.726048,0.0,0.09875655604037181,False,,,backfill 2024-25
+2025,4,playoff,GB,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.59175,0.74,0.755625,1.0,-0.21687344913151363,False,,,backfill 2024-25
+2025,4,playoff,HOU,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.2695,0.47,0.487488,1.0,-0.44716587895496906,False,,,backfill 2024-25
+2025,4,playoff,IND,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.7185,0.695,0.71123925,0.0,0.01020859014740827,False,,,backfill 2024-25
+2025,4,playoff,JAX,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.56125,0.495,0.51249925,1.0,0.09512355383934712,False,,,backfill 2024-25
+2025,4,playoff,KC,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.64125,0.8,0.814617,0.0,-0.21282025786351133,False,,,backfill 2024-25
+2025,4,playoff,LA,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.53225,0.745,0.76054925,1.0,-0.3001768130071787,False,,,backfill 2024-25
+2025,4,playoff,LAC,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.76175,0.75,0.765472,1.0,-0.004862359433134067,False,,,backfill 2024-25
+2025,4,playoff,LV,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.1875,,,0.0,,False,,,backfill 2024-25
+2025,4,playoff,MIA,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.18725,0.11,0.123168,0.0,0.5202812418810081,True,-100.0,52.028124188100804,backfill 2024-25
+2025,4,playoff,MIN,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.367,0.255,0.27084325000000004,0.0,0.3550273082308677,True,-100.0,35.50273082308678,backfill 2024-25
+2025,4,playoff,NE,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.4125,0.535,0.55243925,1.0,-0.2533115632171321,False,,,backfill 2024-25
+2025,4,playoff,NO,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.10125,0.085,0.09757925,0.0,0.0376181411519354,False,,,backfill 2024-25
+2025,4,playoff,NYG,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.07575,0.3,0.316417,0.0,-0.7606007262568066,False,,,backfill 2024-25
+2025,4,playoff,NYJ,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.1165,0.5,0.517497,0.0,-0.7748779219976154,False,,,backfill 2024-25
+2025,4,playoff,PHI,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.767,0.795,0.80970925,1.0,-0.05274640248953566,False,,,backfill 2024-25
+2025,4,playoff,PIT,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.68925,0.63,0.646912,1.0,0.06544630490700443,False,,,backfill 2024-25
+2025,4,playoff,SEA,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.628,0.48,0.49749699999999997,1.0,0.26231916976383785,True,101.00623722354106,26.231916976383786,backfill 2024-25
+2025,4,playoff,SF,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.5755,0.785,0.79988925,1.0,-0.28052539773474894,False,,,backfill 2024-25
+2025,4,playoff,TB,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.7635,0.495,0.51249925,0.0,0.48975827769504066,True,-100.0,48.975827769504065,backfill 2024-25
+2025,4,playoff,TEN,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.04525,0.5,0.517497,0.0,-0.9125598795741812,False,,,backfill 2024-25
+2025,4,playoff,WAS,"backfill (daily price + 1c + fee, approximate)",2025-09-30,0.5015,0.505,0.52249325,0.0,-0.04017898795821784,False,,,backfill 2024-25
+2025,9,playoff,ARI,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.1365,,,0.0,,False,,,backfill 2024-25
+2025,9,playoff,ATL,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.0965,,,0.0,,False,,,backfill 2024-25
+2025,9,playoff,BAL,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.46,0.695,0.71123925,0.0,-0.35324154284229947,False,,,backfill 2024-25
+2025,9,playoff,BUF,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.89575,0.87,0.883168,1.0,0.01424644008840903,False,,,backfill 2024-25
+2025,9,playoff,CAR,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.21725,0.48,0.49749699999999997,1.0,-0.5633139496318571,False,,,backfill 2024-25
+2025,9,playoff,CHI,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.3505,0.52,0.537473,1.0,-0.34787421879796754,False,,,backfill 2024-25
+2025,9,playoff,CIN,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.10275,0.12,0.133393,0.0,-0.22971970043405587,False,,,backfill 2024-25
+2025,9,playoff,CLE,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.02525,0.105,0.11805324999999998,0.0,-0.7861134699807079,False,,,backfill 2024-25
+2025,9,playoff,DAL,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.10925,0.465,0.48248125000000003,0.0,-0.7735663302978095,False,,,backfill 2024-25
+2025,9,playoff,DEN,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.84875,0.545,0.5624092500000001,1.0,0.5091323622433306,True,77.8064638872849,50.91323622433305,backfill 2024-25
+2025,9,playoff,DET,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.72925,0.875,0.88805325,0.0,-0.17882176547408624,False,,,backfill 2024-25
+2025,9,playoff,GB,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.7115,0.76,0.775313,1.0,-0.08230611378888264,False,,,backfill 2024-25
+2025,9,playoff,HOU,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.2735,0.14,0.15382500000000002,1.0,0.7779944742402081,True,550.0893872907524,77.7994474240208,backfill 2024-25
+2025,9,playoff,IND,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.9075,0.8955,0.9080670925,0.0,-0.0006245050665130147,False,,,backfill 2024-25
+2025,9,playoff,JAX,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.5065,0.62,0.636993,1.0,-0.20485782418331144,False,,,backfill 2024-25
+2025,9,playoff,KC,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.722,0.855,0.86850325,0.0,-0.16868474585443405,False,,,backfill 2024-25
+2025,9,playoff,LA,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.79375,0.905,0.91733325,1.0,-0.1347201248837323,False,,,backfill 2024-25
+2025,9,playoff,LAC,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.71625,0.655,0.6716832500000001,1.0,0.06635084319878448,False,,,backfill 2024-25
+2025,9,playoff,LV,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.0195,,,0.0,,False,,,backfill 2024-25
+2025,9,playoff,MIA,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.00975,0.0815,0.0939938325,0.0,-0.8962697898290295,False,,,backfill 2024-25
+2025,9,playoff,MIN,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.28225,0.12,0.133393,0.0,1.115928122165331,True,-100.0,111.5928122165331,backfill 2024-25
+2025,9,playoff,NE,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.86675,0.84,0.853825,1.0,0.015137762422042123,False,,,backfill 2024-25
+2025,9,playoff,NO,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.00325,0.008,0.018530280000000003,0.0,-0.8246113928121972,False,,,backfill 2024-25
+2025,9,playoff,NYG,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.01675,0.102,0.11498367999999999,0.0,-0.8543271532099164,False,,,backfill 2024-25
+2025,9,playoff,NYJ,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.01025,0.057,0.06887533,0.0,-0.8511803863589473,False,,,backfill 2024-25
+2025,9,playoff,PHI,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.88625,0.849,0.86263357,1.0,0.027377128390679184,False,,,backfill 2024-25
+2025,9,playoff,PIT,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.6355,0.62,0.636993,1.0,-0.0023438248144015406,False,,,backfill 2024-25
+2025,9,playoff,SEA,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.84075,0.825,0.8391332499999999,1.0,0.001926690427295208,False,,,backfill 2024-25
+2025,9,playoff,SF,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.7955,0.845,0.8587192499999999,1.0,-0.0736203945585242,False,,,backfill 2024-25
+2025,9,playoff,TB,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.9255,0.49,0.5075,0.0,0.8236453201970444,True,-100.0,82.36453201970446,backfill 2024-25
+2025,9,playoff,TEN,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.0,0.062,0.07400448,0.0,-1.0,False,,,backfill 2024-25
+2025,9,playoff,WAS,"backfill (daily price + 1c + fee, approximate)",2025-11-04,0.10525,0.065,0.07708125,0.0,0.36544230925160126,True,-100.0,36.54423092516015,backfill 2024-25
+2025,13,playoff,ARI,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.0,,,0.0,,False,,,backfill 2024-25
+2025,13,playoff,ATL,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.001,,,0.0,,False,,,backfill 2024-25
+2025,13,playoff,BAL,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.55225,0.64,0.656825,0.0,-0.15921288014311263,False,,,backfill 2024-25
+2025,13,playoff,BUF,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.91225,0.9045,0.9168456925,1.0,-0.005012503780727595,False,,,backfill 2024-25
+2025,13,playoff,CAR,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.19225,0.225,0.24039325,1.0,-0.2002687263473496,False,,,backfill 2024-25
+2025,13,playoff,CHI,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.707,0.72,0.7359129999999999,1.0,-0.03928861156142094,False,,,backfill 2024-25
+2025,13,playoff,CIN,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.04825,0.107,0.12009932999999999,0.0,-0.5982492158782234,False,,,backfill 2024-25
+2025,13,playoff,CLE,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.00025,0.048,0.059639080000000004,0.0,-0.995808117764392,False,,,backfill 2024-25
+2025,13,playoff,DAL,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.237,0.23,0.24547200000000002,0.0,-0.034513101290575054,False,,,backfill 2024-25
+2025,13,playoff,DEN,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.96675,0.9345,0.9460725925,1.0,0.021856047478724605,False,,,backfill 2024-25
+2025,13,playoff,DET,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.5365,0.44,0.457425,0.0,0.1728698693774935,True,-100.0,17.286986937749347,backfill 2024-25
+2025,13,playoff,GB,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.86175,0.885,0.8978192500000001,1.0,-0.04017428897854447,False,,,backfill 2024-25
+2025,13,playoff,HOU,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.56375,0.575,0.5922832499999999,1.0,-0.04817500748163983,False,,,backfill 2024-25
+2025,13,playoff,IND,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.72175,0.7065,0.7225938325,0.0,-0.0011677825938266606,False,,,backfill 2024-25
+2025,13,playoff,JAX,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.78525,0.81,0.824428,1.0,-0.04752143304206069,False,,,backfill 2024-25
+2025,13,playoff,KC,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.43475,0.43,0.447392,0.0,-0.028257098919962753,False,,,backfill 2024-25
+2025,13,playoff,LA,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.9165,0.9045,0.9168456925,1.0,-0.00037704545358929753,False,,,backfill 2024-25
+2025,13,playoff,LAC,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.594,0.54,0.5574250000000001,1.0,0.06561420818944241,False,,,backfill 2024-25
+2025,13,playoff,LV,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.0,,,0.0,,False,,,backfill 2024-25
+2025,13,playoff,MIA,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.00725,0.003,0.013384930000000001,0.0,-0.4583460653137521,False,,,backfill 2024-25
+2025,13,playoff,MIN,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.00025,0.0475,0.0591258125,0.0,-0.9957717282954885,False,,,backfill 2024-25
+2025,13,playoff,NE,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.99875,0.9475,0.9587208125,1.0,0.04175270524858887,False,,,backfill 2024-25
+2025,13,playoff,NO,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.0,0.068,0.08015748,0.0,-1.0,False,,,backfill 2024-25
+2025,13,playoff,NYG,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.0,0.0025,0.012870312500000002,0.0,-1.0,False,,,backfill 2024-25
+2025,13,playoff,NYJ,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.0,0.053,0.06477093,0.0,-1.0,False,,,backfill 2024-25
+2025,13,playoff,PHI,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.8905,0.9145,0.9265939925,1.0,-0.038953406553626,False,,,backfill 2024-25
+2025,13,playoff,PIT,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.41475,0.325,0.34168325,1.0,0.21384352320460542,True,192.66872168887414,21.38435232046055,backfill 2024-25
+2025,13,playoff,SEA,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.90775,0.885,0.8978192500000001,1.0,0.011060968006644911,False,,,backfill 2024-25
+2025,13,playoff,SF,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.90975,0.885,0.8978192500000001,1.0,0.013288587875566193,False,,,backfill 2024-25
+2025,13,playoff,TB,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.8375,0.795,0.80970925,0.0,0.03432188776403389,False,,,backfill 2024-25
+2025,13,playoff,TEN,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.0,0.0005,0.010811692500000001,0.0,-1.0,False,,,backfill 2024-25
+2025,13,playoff,WAS,"backfill (daily price + 1c + fee, approximate)",2025-12-02,0.00225,0.0205,0.0313870925,0.0,-0.928314481502229,False,,,backfill 2024-25
+2026,4,div,ARI,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.0125,0.0145,0.0252169925,,-0.5043025055426416,False,,,2026 retrospective
+2026,4,div,ATL,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.278,0.2275,0.2429328125,,0.14434932498054387,True,,14.43493249805438,2026 retrospective
+2026,4,div,BAL,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.40525,0.545,0.5624092500000001,,-0.27943930509677795,False,,,2026 retrospective
+2026,4,div,BUF,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.49075,0.675,0.69147325,,-0.29028346360470203,False,,,2026 retrospective
+2026,4,div,CAR,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.462,0.275,0.29111325000000005,,0.5870112404708474,True,,58.70112404708476,2026 retrospective
+2026,4,div,CHI,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.325,0.305,0.32147325,,0.010970586199629428,False,,,2026 retrospective
+2026,4,div,CIN,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.23475,0.28,0.296177,,-0.2073996292757373,False,,,2026 retrospective
+2026,4,div,CLE,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.18125,0.083,0.09553053,,0.8972992194223144,True,,89.72992194223144,2026 retrospective
+2026,4,div,DAL,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.35675,0.41,0.42730799999999997,,-0.16512211332341065,False,,,2026 retrospective
+2026,4,div,DEN,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.149,0.24,0.255625,,-0.4171149144254279,False,,,2026 retrospective
+2026,4,div,DET,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.201,0.26,0.275913,,-0.2715094975590132,False,,,2026 retrospective
+2026,4,div,GB,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.0725,0.08,0.092457,,-0.21585169321955078,False,,,2026 retrospective
+2026,4,div,HOU,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.05,0.135,0.14871925000000003,,-0.6637960452328802,False,,,2026 retrospective
+2026,4,div,IND,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.21425,0.185,0.19970925,,0.0728095969515683,False,,,2026 retrospective
+2026,4,div,JAX,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.717,0.63,0.646912,,0.1083424020577759,True,,10.834240205777604,2026 retrospective
+2026,4,div,KC,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.68225,0.665,0.68158125,,0.0009811742913996557,False,,,2026 retrospective
+2026,4,div,LA,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.141,0.275,0.29111325000000005,,-0.5156524136225336,False,,,2026 retrospective
+2026,4,div,LAC,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.0255,0.019,0.02984477,,-0.1455789406318092,False,,,2026 retrospective
+2026,4,div,LV,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.14325,0.0965,0.1093547325,,0.3099570244936587,True,,30.995702449365865,2026 retrospective
+2026,4,div,MIA,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.059,0.009,0.01955917,,2.0164879184546174,True,,201.6487918454617,2026 retrospective
+2026,4,div,MIN,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.4015,0.385,0.40216925000000003,,-0.0016641003756503459,False,,,2026 retrospective
+2026,4,div,NE,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.373,0.25,0.265772,,0.40345860361512864,True,,40.34586036151285,2026 retrospective
+2026,4,div,NO,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.1465,0.38,0.397137,,-0.6311096674447357,False,,,2026 retrospective
+2026,4,div,NYG,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.308,0.115,0.12828125,,1.4009744214372715,True,,140.09744214372714,2026 retrospective
+2026,4,div,NYJ,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.07725,0.024,0.03498532,,1.2080689843625843,True,,120.8068984362584,2026 retrospective
+2026,4,div,PHI,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.24575,0.405,0.42228325000000005,,-0.4180446418369661,False,,,2026 retrospective
+2026,4,div,PIT,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.17875,0.085,0.09757925,,0.8318443726509477,True,,83.18443726509477,2026 retrospective
+2026,4,div,SEA,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.26775,0.305,0.32147325,,-0.1671157709078438,False,,,2026 retrospective
+2026,4,div,SF,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.57875,0.38,0.397137,,0.4573056652993803,True,,45.73056652993802,2026 retrospective
+2026,4,div,TB,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.1135,0.12,0.133393,,-0.14913076398311764,False,,,2026 retrospective
+2026,4,div,TEN,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.01875,0.025,0.036013250000000004,,-0.4793582917398458,False,,,2026 retrospective
+2026,4,div,WAS,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.0895,0.058,0.06990128000000001,,0.2803771261413237,True,,28.037712614132346,2026 retrospective
+2026,4,playoff,ARI,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.12425,0.0655,0.0775939925,,0.6012837591776192,True,,60.12837591776193,2026 retrospective
+2026,4,playoff,ATL,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.38275,0.27,0.286048,,0.33806214341648944,True,,33.80621434164894,2026 retrospective
+2026,4,playoff,BAL,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.658,0.805,0.81952325,,-0.19709416419851422,False,,,2026 retrospective
+2026,4,playoff,BUF,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.708,0.865,0.87828125,,-0.19388009251022953,False,,,2026 retrospective
+2026,4,playoff,CAR,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.54325,0.37,0.387068,,0.40350016017857326,True,,40.350016017857314,2026 retrospective
+2026,4,playoff,CHI,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.676,0.62,0.636993,,0.061236151731651756,False,,,2026 retrospective
+2026,4,playoff,CIN,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.48375,0.655,0.6716832500000001,,-0.27979445668773195,False,,,2026 retrospective
+2026,4,playoff,CLE,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.40025,0.2685,0.28452813250000003,,0.4067150284339631,True,,40.671502843396325,2026 retrospective
+2026,4,playoff,DAL,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.462,0.565,0.58233125,,-0.20663711590267564,False,,,2026 retrospective
+2026,4,playoff,DEN,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.46625,0.605,0.62210325,,-0.2505263394782137,False,,,2026 retrospective
+2026,4,playoff,DET,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.469,0.505,0.52249325,,-0.1023807484594299,False,,,2026 retrospective
+2026,4,playoff,GB,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.24375,0.285,0.30123924999999996,,-0.19084249479441995,False,,,2026 retrospective
+2026,4,playoff,HOU,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.16075,0.26,0.275913,,-0.41738881459010635,False,,,2026 retrospective
+2026,4,playoff,IND,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.48225,0.355,0.37195325,,0.2965339058067109,True,,29.6533905806711,2026 retrospective
+2026,4,playoff,JAX,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.88125,0.79,0.8048000000000001,,0.09499254473161023,False,,,2026 retrospective
+2026,4,playoff,KC,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.87775,0.855,0.86850325,,0.010646764994834523,False,,,2026 retrospective
+2026,4,playoff,LA,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.58725,0.72,0.7359129999999999,,-0.20201165083372608,False,,,2026 retrospective
+2026,4,playoff,LAC,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.084,0.1,0.112937,,-0.2562224957277065,False,,,2026 retrospective
+2026,4,playoff,LV,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.45175,0.365,0.38203125,,0.1824948875255623,True,,18.249488752556232,2026 retrospective
+2026,4,playoff,MIA,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.12,0.0245,0.0354992925,,2.3803490590692755,True,,238.03490590692758,2026 retrospective
+2026,4,playoff,MIN,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.7125,0.735,0.75069925,,-0.05088489165268251,False,,,2026 retrospective
+2026,4,playoff,NE,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.59725,0.6125,0.6295498125000001,,-0.05130620621064852,False,,,2026 retrospective
+2026,4,playoff,NO,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.2035,0.435,0.45240925,,-0.550186031784275,False,,,2026 retrospective
+2026,4,playoff,NYG,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.41375,0.25,0.265772,,0.556785515404181,True,,55.678551540418084,2026 retrospective
+2026,4,playoff,NYJ,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.16475,0.105,0.11805324999999998,,0.3955566661654806,True,,39.55566661654808,2026 retrospective
+2026,4,playoff,PHI,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.307,0.515,0.53248125,,-0.423453877483949,False,,,2026 retrospective
+2026,4,playoff,PIT,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.40275,0.275,0.29111325000000005,,0.38348220151435886,True,,38.348220151435896,2026 retrospective
+2026,4,playoff,SEA,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.6785,0.73,0.745772,,-0.09020451290743015,False,,,2026 retrospective
+2026,4,playoff,SF,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.899,0.835,0.84892925,,0.05898106349851884,False,,,2026 retrospective
+2026,4,playoff,TB,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.154,0.08,0.092457,,0.6656391619888165,True,,66.56391619888166,2026 retrospective
+2026,4,playoff,TEN,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.06125,0.047,0.05861253,,0.044998398806535,False,,,2026 retrospective
+2026,4,playoff,WAS,"2026 retrospective (daily price + 1c + fee, approximate)",2026-10-06,0.1435,0.16,0.174233,,-0.1763902360632028,False,,,2026 retrospective
