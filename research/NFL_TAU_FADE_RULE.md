@@ -63,3 +63,19 @@ At each forecast snapshot, n = the average number of completed regular-season ga
 
 ## Scope
 This is a core-model experiment without the QB layer. Uncertainty shrinkage could interact with missing QB information, so the effect need not transfer to the live model; the direction of that bias is unknown.
+
+## Outcome (26 Oct 2026, Sydney): FAIL. Candidate stopped.
+Run: research/nfl_tau_fade_test.py; results in research/nfl_tau_fade_results.json; rows in research/nfl_tau_fade_rows.csv. 5,000 simulations, seed sets A and B. Both seed sets agree on every gate.
+- **Primary gain** (average of the two seed sets): +0.0022 log loss. The one-sided 90% lower bound is -0.0021, and 8 of 13 seasons were better.
+  - By season: 2013 +0.008, 2014 +0.011, 2015 -0.004, 2016 +0.009, 2017 +0.015, 2018 +0.004, 2019 +0.005, 2020 +0.011, 2021 -0.002, 2022 -0.001, 2023 -0.005, 2024 +0.011, 2025 -0.033.
+- **By market:** division +0.0015, make-playoffs +0.0028.
+- **By era:** 2013-19 +0.0068; 2020-25 -0.0032.
+- **Calibration slopes, v4 -> schedule:**
+  - division: wk4 1.31 -> 1.14; wk8 1.25 -> 1.06; wk12 0.96 -> 0.84;
+  - make-playoffs: wk4 1.29 -> 1.12; wk8 1.21 -> 1.02; wk12 1.13 -> 0.99.
+- **Gates:** 1 FAIL (lower bound below 0); 2 pass; 3 pass; 4 pass (no non-regression cell worse by more than 0.002); 5 FAIL (2020-25 negative).
+- **Reading:**
+  - The schedule corrects the in-season caution, with slopes near 1 at weeks 4-8, and helps on average.
+  - The gain is not reliable. It comes from 2013-19, and the recent seasons are worse, driven by 2025, a high-surprise season.
+  - No exclusion of 2025 or other rescue is applied.
+  - v4 is unchanged. Per the rule, the fallback (a pre-registered recalibration layer) needs its own rule and a separate decision.
