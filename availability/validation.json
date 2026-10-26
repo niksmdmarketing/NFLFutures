@@ -1,5 +1,5 @@
 {
- "checked_utc": "2026-10-26T06:19:45+00:00",
+ "checked_utc": "2026-10-26T13:14:39+00:00",
  "leagues": {
   "nfl": {
    "records": 1604,
@@ -282,6 +282,8 @@
    "reported_matched_to_official_list": "0/10"
   }
  },
- "sources_failed": [],
+ "sources_failed": [
+  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 39 h old"
+ ],
  "sources_not_expected": []
 }
