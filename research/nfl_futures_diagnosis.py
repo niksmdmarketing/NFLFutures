@@ -108,7 +108,7 @@ def run(y, g, st):
                         prow.append(dict(season=y, model=name, team=TEAMS[t], seed=sd_i + 1, rating=float(R[t]), p_conf=float(pc[t]), p_title=float(pt[t]),
                                          y_conf=float(out["conf"][t]), y_title=float(out["sb"][t])))
                 continue
-            res = simulate.simulate(greg, R, N, P["tau"], P["sigma"], P["hfa"], hfa_post=P["hfa_post"])
+            res = simulate.simulate(greg, R, N, P["tau"], P["sigma"], P["hfa"], hfa_post=P["hfa_post"], n_seeds=7 if y >= 2020 else 6)
             W = res["wins"]
             for i, t in enumerate(TEAMS):
                 rows.append(dict(season=y, week=w, model=name, team=t, exp_w=float(W[:, i].mean()), sd_w=float(W[:, i].std()),
@@ -136,5 +136,5 @@ if __name__ == "__main__":
         if os.environ.get("DIAG_FIELD_ONLY") == "1":
             pd.DataFrame(PR).to_csv(os.path.join(ROOT, "research", "nfl_futures_diagnosis_playoff_rows_2013_19.csv"), index=False)
             continue
-        pd.DataFrame(R_).to_csv(os.path.join(ROOT, "research", "nfl_futures_diagnosis_rows.csv"), index=False)
-        pd.DataFrame(PR).to_csv(os.path.join(ROOT, "research", "nfl_futures_diagnosis_playoff_rows.csv"), index=False)
+        pd.DataFrame(R_).to_csv(os.path.join(ROOT, "research", os.environ.get("DIAG_ROWS", "nfl_futures_diagnosis_rows.csv")), index=False)
+        pd.DataFrame(PR).to_csv(os.path.join(ROOT, "research", os.environ.get("DIAG_PROWS", "nfl_futures_diagnosis_playoff_rows.csv")), index=False)

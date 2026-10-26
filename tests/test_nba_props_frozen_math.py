@@ -53,18 +53,20 @@ class FrozenMathTests(unittest.TestCase):
                 L.store_input(tmp, "test", b"original", "bin")
 
     def test_receipt_pagination(self):
+        """Activity receipts follow the cursor in Link rel="next" (the page parameter is ignored by GitHub; 22 Oct fault)."""
         calls = []
-        def fake_api(path):
-            calls.append(path)
-            if path.startswith("actions/"):
-                return {"workflow_runs": []}
-            if "page=1" in path.split("per_page=100&")[-1]:
-                return [dict(timestamp="2026-10-20T17:00:00Z", after=str(i)) for i in range(100)]
-            return []
-        with tempfile.TemporaryDirectory() as tmp, patch.object(T, "api", fake_api):
+        def fake_get(url):
+            calls.append(url)
+            if "/actions/" in url:
+                return {"workflow_runs": []}, None
+            if "cursor=abc" not in url:
+                return ([dict(timestamp="2026-10-20T17:00:00Z", after=str(i)) for i in range(100)],
+                        "https://api.github.com/repositories/1/activity?per_page=100&cursor=abc")
+            return [], None
+        with tempfile.TemporaryDirectory() as tmp, patch.object(T, "_get", fake_get):
             T.main(tmp)
-        self.assertTrue(any("&page=2" in p for p in calls))
-
+        follow = [u for u in calls if "cursor=abc" in u]
+        self.assertTrue(follow and follow[0].startswith(f"https://api.github.com/repos/{T.REPO}/activity?"))
 
 if __name__ == "__main__":
     unittest.main()

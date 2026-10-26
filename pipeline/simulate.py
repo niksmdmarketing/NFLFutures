@@ -31,16 +31,22 @@ for di, (name, ts) in enumerate(DIVS.items()):
 CONF_DIVS = {0: [0, 1, 2, 3], 1: [4, 5, 6, 7]}
 
 
-def simulate(g, R, N, tau, sigma, hfa, seed=7, hfa_post=None):
+def simulate(g, R, N, tau, sigma, hfa, seed=7, hfa_post=None, n_seeds=7, sweep_fix=False):
     """g: this season's regular-season games (with result where played). Returns probabilities + wins.
-    hfa_post: home edge in the conference playoff rounds (research option; None = hfa, the frozen v4 behaviour)."""
+    hfa_post: home edge in the conference playoff rounds (research option; None = hfa, the frozen v4 behaviour).
+    n_seeds: 7 (2020 on, one bye) or 6 (to 2019, two byes); research replays of old seasons must pass 6.
+    sweep_fix: research/shadow option (26 Oct 2026). The NFL's 3+-club head-to-head sweep applies when one club beat (or lost
+    to) each of the others, even if the others did not all play each other; the frozen v4 code requires every pair to have
+    played. Off by default, so live v4 is unchanged. See research/NFL_SIMULATOR_LOGIC_CHECK.md.
+    Neutral-site games (location == "Neutral") get no home edge (bug fix, 26 Oct 2026, same note)."""
     rng = np.random.default_rng(seed)
     g = g.sort_values(["week", "gameday", "game_id"]).reset_index(drop=True)
     hi, ai = g.home_team.map(TIX).values, g.away_team.map(TIX).values
     nG = len(g)
     played = g.result.notna().values
     Rs = R[None, :] + rng.normal(0, tau, (N, NT))
-    margin = (Rs[:, hi] - Rs[:, ai] + hfa + rng.normal(0, sigma, (N, nG))).astype(np.float32)
+    edge = np.where(g.location.astype(str).str.lower().eq("neutral").values, 0.0, hfa) if "location" in g else np.full(nG, hfa)
+    margin = (Rs[:, hi] - Rs[:, ai] + edge[None, :] + rng.normal(0, sigma, (N, nG))).astype(np.float32)
     margin[:, played] = g.result.values[played][None, :]
     hwv = (margin > 0).astype(np.float32) + 0.5 * (margin == 0)  # home win value (ties = half)
     awv = 1.0 - hwv
@@ -115,8 +121,17 @@ def simulate(g, R, N, tau, sigma, hfa, seed=7, hfa_post=None):
                 if n and abs(w - (n - w)) > 1e-9:
                     return a if w > n - w else b
             else:
+                if sweep_fix:
+                    per = {t: [record_vs(t, {o}, s) for o in group if o != t] for t in group}
+                    sweep = [t for t in group if all(n > 0 and w == n for w, n in per[t])]
+                    if len(sweep) == 1:
+                        return sweep[0]
+                    swept = [t for t in group if all(n > 0 and w == 0 for w, n in per[t])]
+                    if 0 < len(swept) < len(group):
+                        group = [t for t in group if t not in swept]
+                        continue
                 allplayed = all(len(opps_of[t] & (gs - {t})) == len(group) - 1 for t in group)
-                if allplayed:
+                if allplayed and not sweep_fix:
                     rec = {t: record_vs(t, gs - {t}, s) for t in group}
                     sweep = [t for t in group if rec[t][0] == rec[t][1]]
                     if len(sweep) == 1:
@@ -164,7 +179,7 @@ def simulate(g, R, N, tau, sigma, hfa, seed=7, hfa_post=None):
 
     hpo = hfa if hfa_post is None else hfa_post
     cnt = {k: np.zeros(NT) for k in ("div", "playoff", "seed1", "conf", "sb")}
-    seeds_count = np.zeros((NT, 7))
+    seeds_count = np.zeros((NT, 7))  # column 6 stays 0 in the 6-seed format
 
     for s in range(N):
         gi = 0
@@ -178,7 +193,7 @@ def simulate(g, R, N, tau, sigma, hfa, seed=7, hfa_post=None):
                 winners.append(tied[0] if len(tied) == 1 else div_break(tied, s))
             top4 = order(winners, s, 4)
             rest = [t for d in CONF_DIVS[c] for t in DIV_TEAMS[d] if t not in winners]
-            seeds = top4 + order(rest, s, 3)
+            seeds = top4 + order(rest, s, n_seeds - 4)
             for i, t in enumerate(seeds):
                 seeds_count[t, i] += 1
             for t in winners:
@@ -187,8 +202,8 @@ def simulate(g, R, N, tau, sigma, hfa, seed=7, hfa_post=None):
                 cnt["playoff"][t] += 1
             cnt["seed1"][seeds[0]] += 1
             rank = {t: i for i, t in enumerate(seeds)}
-            alive = [seeds[0]]
-            for h, a in ((1, 6), (2, 5), (3, 4)):
+            alive = [seeds[0]] if n_seeds == 7 else [seeds[0], seeds[1]]
+            for h, a in (((1, 6), (2, 5), (3, 4)) if n_seeds == 7 else ((2, 5), (3, 4))):
                 x, y = seeds[h], seeds[a]
                 p = norm.cdf((Rs[s, x] - Rs[s, y] + hpo) / sigma)
                 alive.append(x if rnd2[s, gi] < p else y); gi += 1
