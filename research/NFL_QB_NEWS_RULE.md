@@ -130,3 +130,24 @@ How they are applied:
 8. **Found in the version-3 audit, before any gains:**
    - **Fixed:** a week-1 incumbent (the previous season's leader) now counts only if he is on that team's roster in weeks 1-2. One case it removes: 2024 Denver had been assigned Russell Wilson's Pittsburgh absence.
    - **Not modelled, disclosed:** a healthy incumbent who returns but has lost the job is still assumed to start. Examples: 2024 Pittsburgh (Fields after Wilson's return) and 2025 Tennessee (Levis against rookie Ward). This applies equally wherever durations are sampled.
+
+## Version 3b: GPT's final check (27 Oct 2026, 16:57 Sydney), applied before any gains; run approved after these
+TypeSafe: no floors with flagged reserve cases (84%), then run without another review round (86%). These replace earlier text where they differ.
+1. **No invented floors.**
+   - Hard floors would need the verified reserve subtype (IR, PUP and NFI differ) and the transaction date. Our roster data give neither reliably: the first observed RES week can follow the placement, and the subtype codes are unmapped.
+   - **So no floors are applied in any arm.** Episodes with a RES week are flagged (res).
+2. **Medical absence vs losing the job.**
+   - **When an episode ends:** only on verified availability. That means:
+     - roster ACT, or INA without an injury listing, for that week's game;
+     - or he took a dropback or started.
+   - **Missing records:** a week with neither a listing nor a roster record censors the run. Missing records do not establish recovery.
+   - **Losing the job:** a healthy benching ends the absence; it is never counted as injury duration. This applies identically to the historical survival data (research/qb_news/absence_runs.py, version 3b).
+   - **In the simulation:** the returning incumbent is assumed to start, but a known healthy backup is not assumed to reclaim the job, because a benched healthy incumbent is no episode.
+   - **Flags:** an episode running from the team's first game (preseason absence, possible job loss) is flagged role_flag.
+3. **Separate reporting:** a new arm, news_core, is the primary news arm without the flagged (res or role_flag) episodes.
+   - "flagged_contribution" = news_core - news, and core_vs_none, are reported.
+   - **The primary decision remains none - news.**
+4. **Frozen limitations, carried into the conclusion:**
+   - **Anchors:** publication-date anchoring is an approximation. None of the bounded reports in the coded file states a different reference date (surgery or injury), so none is resolved manually.
+   - **Sparse tail:** where fewer than 10 earlier-season runs (2013 to Y-1) are at risk at l missed games, from l0 on the hazard is one constant: uncensored returns among runs with L ≥ l0, divided by their total games at risk from l0 on. Draws still unresolved at the end of the season stay out.
+   - **Coverage:** the week-1 incumbent rule excludes teams whose previous-season leader left. These are listed in research/qb_news/news_v3b_week1_coverage.csv, and conclusions apply to the covered episodes.

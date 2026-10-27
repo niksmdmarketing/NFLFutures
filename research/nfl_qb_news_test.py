@@ -122,21 +122,11 @@ def episodes(y, w, cases, greg, st, vals, low, ref, prior_leader, db):
         if cur is None or cur["weeks"][-1] != int(past.week.max()):
             continue
         ep = cur
-        # eligibility floor from a reserve-list placement (hard constraint)
-        res_weeks = [k for k in sorted(ep["weeks"]) if st.get((ep["qb"], k)) == "RES"]
+        # Version 3b (GPT's final check): no hard floors - reserve subtypes and transaction dates are not verified in our data.
+        # Episodes with a reserve-list (RES) week are flagged; so are episodes running from the team's first game (possible job loss).
         ep["floor"], ep["placed_week"] = 0, None
-        if res_weeks and st.get((ep["qb"], int(past.week.max()))) == "RES":
-            p_ = res_weeks[0]
-            while (ep["qb"], p_ - 1) in st and st[(ep["qb"], p_ - 1)] == "RES":
-                p_ -= 1
-            ep["placed_week"] = p_
-            mins = LM["IR"].get(str(y))
-            if mins is None:     # 2018-19: return only by designation, eight weeks after placement
-                ref_day = pd.Timestamp(tg[tg.week >= p_].gameday.min()) - timedelta(days=6)
-                ep["floor"] = int((fut.gameday < ref_day + timedelta(days=56)).sum())
-            else:
-                served = int(((past.week >= p_)).sum())
-                ep["floor"] = max(int(mins) - served, 0)
+        ep["res"] = any(st.get((ep["qb"], k)) == "RES" for k in ep["weeks"])
+        ep["role_flag"] = ep["first_week"] == int(past.week.min())
         # timeline reports about this QB (publication date on or before the last week-w game date; US dates)
         reps = []
         for c in cases:
@@ -152,7 +142,7 @@ def episodes(y, w, cases, greg, st, vals, low, ref, prior_leader, db):
         r_id = ref.get(t)
         ep.update(team=t, v_qb=v(ep["qb"]), v_backup=v(ep["backup"]), v_ref=v(r_id), ref=r_id)
         out[t] = ep
-        audit.append(dict(season=y, week=w, team=t, qb=ep["qb"], backup=ep["backup"], ref=r_id, m=ep["m"], floor=ep["floor"],
+        audit.append(dict(season=y, week=w, team=t, qb=ep["qb"], backup=ep["backup"], ref=r_id, m=ep["m"], floor=ep["floor"], res=ep["res"], role_flag=ep["role_flag"],
                           placed_week=ep["placed_week"], n_reports=len(ep["reports"]), n_bounded=sum(r["bounded"] for r in ep["reports"]), nf=ep["nf"]))
     return out, audit
 
@@ -198,6 +188,8 @@ def draw_remaining(ep, mode, rng, y, haz):
     """Remaining absence R per simulation and its source. mode: 'empirical' (no news), 'bounded' (primary), 'mapping' (sensitivity)."""
     nf, allr = ep["nf"], ep.get("reports", [])
     R, src = None, None
+    if mode in ("core", "bounded"):
+        mode = "bounded"
     if mode != "empirical" and allr:
         last_b = [r for r in allr if (r["bounded"] if mode == "bounded" else not (r["code"] == "U" and r is not allr[0]))]
         cleared = [r for r in allr if r["code"] == "C" and (not last_b or r["date"] >= last_b[-1]["date"])]
@@ -223,6 +215,8 @@ def build_adj(eps, fut, mode, lam, scale, y, w, deterministic=False, haz=None):
     src = {}
     for t, ep in eps.items():
         rng = np.random.default_rng(20261028 + 1000 * y + 10 * w + TIX[t])
+        if mode == "core" and (ep["res"] or ep["role_flag"]):
+            continue
         cols = pos[t]
         if deterministic:      # whole-season shortcut: the current backup for every remaining game
             d = scale * lam * (ep["v_backup"] - ep["v_ref"])
@@ -268,11 +262,11 @@ def rows_for(g, cases):
                     srcs += [dict(season=y, week=w, arm=arm, team=t, source=s_) for t, s_ in src.items()]
             for core, base, P in (("v4", b4, V4), ("v5", b5, V5)):
                 R0 = P["scale"] * (base - base.mean())
-                arms = [("none", 0.0)] if IDENTITY else [("none", 0.0)] + [(a, l) for a in ("shortcut", "empirical", "news", "news_mapping") for l in LAMBDAS]
+                arms = [("none", 0.0)] if IDENTITY else [("none", 0.0)] + [(a, l) for a in ("shortcut", "empirical", "news", "news_mapping", "news_core") for l in LAMBDAS]
                 for arm, lam in arms:
                     full = None
                     if arm != "none":
-                        mode = {"news_mapping": "mapping", "news": "bounded", "empirical": "empirical"}.get(arm, "bounded")
+                        mode = {"news_mapping": "mapping", "news": "bounded", "empirical": "empirical", "news_core": "core"}.get(arm, "bounded")
                         adj, src = build_adj(eps, fut, mode, lam, P["scale"], y, w, deterministic=arm == "shortcut", haz=haz)
                         if core == "v5" and lam == 0.5:
                             srcs += [dict(season=y, week=w, arm=arm, team=t, source=s_) for t, s_ in src.items()]
@@ -304,13 +298,14 @@ def loss_table(df):
 def evaluate(D, core, lam, oracle_L):
     seasons = list(SEASONS)
     sub = lambda arm, l: D[(D.core == core) & (D.arm == arm) & (D.lam == l)]
-    L = {"none": loss_table(sub("none", 0.0)), **{a: loss_table(sub(a, lam)) for a in ("shortcut", "empirical", "news", "news_mapping")}, "oracle": oracle_L}
+    L = {"none": loss_table(sub("none", 0.0)), **{a: loss_table(sub(a, lam)) for a in ("shortcut", "empirical", "news", "news_mapping", "news_core")}, "oracle": oracle_L}
     gain = lambda a, b, cells=PRIMARY: np.array([np.mean([L[a][(s, w, m)] - L[b][(s, w, m)] for m, w in cells]) for s in seasons])
     rng = np.random.default_rng(20261028)
     idx = rng.integers(0, len(seasons), (10000, len(seasons)))
     out = {}
     for name, (a, b) in {"news_vs_none": ("none", "news"), "news_vs_shortcut": ("shortcut", "news"), "shortcut_vs_none": ("none", "shortcut"),
                          "empirical_vs_none": ("none", "empirical"), "news_vs_empirical": ("empirical", "news"),
+                         "core_vs_none": ("none", "news_core"), "flagged_contribution": ("news_core", "news"),
                          "mapping_vs_none": ("none", "news_mapping"), "oracle_vs_none": ("none", "oracle")}.items():
         g = gain(a, b)
         bt = g[idx].mean(1)
@@ -349,6 +344,15 @@ def main():
     cases = load_cases()
     unmatched = [dict(case=c["case"], name=c["name"]) for c in cases if not c["qb"]]
     print("cases", len(cases), "unmatched", unmatched, flush=True)
+    # coverage: week-1 incumbents excluded because the previous-season leader is not on the team's roster
+    import absence_runs as AR
+    cov = []
+    for y in SEASONS:
+        pdb = AR.dropbacks_by_week(y - 1)
+        lead = pdb.groupby(["posteam", "qb"]).n.sum().reset_index().sort_values("n").groupby("posteam").qb.last().to_dict()
+        kept = prior_leaders(y)
+        cov += [dict(season=y, team=t, prior_leader=q, kept=t in kept) for t, q in lead.items()]
+    pd.DataFrame(cov).to_csv(os.path.join(QN, "news_v3b_week1_coverage.csv"), index=False)
     df, audit, srcs = rows_for(g, cases)
     audit.to_csv(os.path.join(QN, "news_v2_episodes.csv"), index=False)
     if len(srcs):
@@ -371,12 +375,12 @@ def main():
             res[k]["decision"] = decide(res[k]["average"]["gates"]) if agree else "inconclusive (seed sets disagree)"
             res[k]["mc_noise_A_minus_B"] = res[k]["A"]["news_vs_none"]["mean"] - res[k]["B"]["news_vs_none"]["mean"]
     sha = lambda p: hashlib.sha256(open(p, "rb").read()).hexdigest()
-    outj = dict(rule="research/NFL_QB_NEWS_RULE.md", version=3, started_utc=started, completed_utc=datetime.now(timezone.utc).isoformat(),
+    outj = dict(rule="research/NFL_QB_NEWS_RULE.md", version="3b", started_utc=started, completed_utc=datetime.now(timezone.utc).isoformat(),
                 identity=idc, unmatched=unmatched, primary="v5_lam0.5", decision=res["v5_lam0.5"]["decision"], results=res,
                 code_sha256=sha(__file__), rule_sha256=sha(os.path.join(OUT, "NFL_QB_NEWS_RULE.md")))
     open(os.path.join(OUT, "nfl_qb_news_results.json"), "w").write(json.dumps(outj, indent=2))
     print(json.dumps({k: dict(decision=v["decision"], capture=v["average"]["capture_share_descriptive"], **{n: {x: v["average"][n][x] for x in ("mean", "lower90", "upper90",
-                      "seasons_better", "division", "playoff")} for n in ("news_vs_none", "news_vs_empirical", "empirical_vs_none", "news_vs_shortcut", "shortcut_vs_none", "mapping_vs_none", "oracle_vs_none")})
+                      "seasons_better", "division", "playoff")} for n in ("news_vs_none", "news_vs_empirical", "empirical_vs_none", "core_vs_none", "flagged_contribution", "news_vs_shortcut", "shortcut_vs_none", "mapping_vs_none", "oracle_vs_none")})
                       for k, v in res.items()}, indent=2))
 
 
