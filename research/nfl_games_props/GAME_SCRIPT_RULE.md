@@ -1,6 +1,6 @@
 # NFL props: non-linear game script in team pass-attempt volume. Rule written BEFORE code or results (27 Oct 2026, Sydney)
 
-Status: **draft for GPT review.**
+Status: **final** (27 Oct 2026, 17:18 Sydney). GPT accepted the candidate with the clarifications frozen in the section at the end, which takes precedence; TypeSafe: freeze and run now (96%). Nothing had been run when this was committed.
 - Asked by the user (improve NFL models; props game-script). TypeSafe: draft this refinement (58%; park props until props prices exist 36%).
 - One candidate; no tuning after results.
 
@@ -31,3 +31,23 @@ Status: **draft for GPT review.**
 - **Pass:** a v1.3 shadow candidate (v1.2 + elo_gap²), archived forward under its own identifier by a separate decision, not displayed.
 - **Fail:** recorded; stop this branch. No other forms (cubic, splines, interactions) are tried in response.
 - No betting edge is claimed either way. There are no props prices to test profit.
+
+## Clarifications frozen after GPT's review (before any code or score)
+1. **Form and fit.**
+   - **Curvature:** signed elo_gap plus elo_gap², the only form; |gap| is not tested or selected. The volume model is sklearn's PoissonRegressor (log link) after standardisation, so the curvature applies to log expected attempts.
+   - **Refitting:** every fold refits the coefficients on its training seasons only, with the unchanged procedure (run.model('volume'), alpha 0.1). The negative-binomial dispersion is re-estimated by the unchanged procedure (C.fit_nb on that fold's training predictions), not copied.
+   - **Range check:** predictions are clipped to [5, 70], as in the baseline. For each fold, predicted attempts are also reported over an elo_gap grid from -1.5 to 1.5 (other features at their training means), to check that the quadratic does not reverse or explode in the observed range.
+2. **Scores and gates.**
+   - **Gate 1:** positive aggregate team-attempt RPS gain (mean within season, seasons equally weighted), with a one-sided 90% paired season bootstrap lower bound above zero (10,000 draws, seed 20261027, the 5 season blocks), and improvement in at least 4 of 5 seasons. All five season gains and a leave-one-season-out summary are reported.
+   - **Log score** = negative log probability; lower is better.
+   - **PIT:** randomised count PIT with fixed random numbers shared across arms (seed 20261023).
+   - **Gate 3:** applies to the pooled out-of-sample team-attempt PIT deciles (0.07-0.13). Season, tercile and reception-group histograms are descriptive, with sample sizes, and baseline PIT is shown beside the candidate's.
+   - **Gate 4:** the relative deterioration in mean receptions RPS must be at most 0.1%, and the log score must not be worse. Eligibility, groups and weighting are frozen as in the matchup test's baseline rows (every receiver-game with an appearance and a known team attempt count, zero receptions included). Selection does not depend on realised receptions.
+   - **Gate 5:** the highest absolute-gap tercile, with boundaries from each fold's training data; team-attempt RPS must not be worse. Signed-gap terciles (favourites, middle, underdogs) are also reported.
+   - **Identity:** the baseline receptions scores must match the matchup test's baseline rows (/home/outputs/nfl_matchup_20261026/paired_scores.parquet) exactly before any candidate score is used. The scored observations are identical across arms, and the forecasts are analytic (no simulation noise).
+3. **Projected margin:** a separate future candidate, not in this test.
+4. **Downstream QB pass-attempt props (descriptive, not gated):**
+   - Expected starters are QB rows with is_qb = 1 and an appearance.
+   - Their pass-attempt pmf is a beta-binomial allocation of the team-attempt pmf, with a starting-role share and concentration fitted on that fold's training QB rows. This is the same construction for both arms.
+   - RPS and log score are reported for each arm.
+5. **Reading:** a pass supports the archived shadow; a fail rejects this candidate under these gates and does not show that linear Elo is optimal.
