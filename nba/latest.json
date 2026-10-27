@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-10-27T0105Z",
-"feed_timestamp": "2026-10-27T01:05:36Z",
+"collected_utc": "2026-10-27T0133Z",
+"feed_timestamp": "2026-10-27T01:33:11Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -96,7 +96,7 @@
 {
 "athlete_id": "5279129",
 "status": "Day-To-Day",
-"return_date": "2026-10-26",
+"return_date": "2026-10-28",
 "injury": "Right Knee Strain"
 },
 {
@@ -113,8 +113,8 @@
 },
 {
 "athlete_id": "3138196",
-"status": "Day-To-Day",
-"return_date": "2026-10-26",
+"status": "Out",
+"return_date": "2026-10-28",
 "injury": "Right Ankle Sprain"
 },
 {
@@ -266,6 +266,12 @@
 "status": "Out",
 "return_date": "2026-10-28",
 "injury": "Left Ankle Sprain"
+},
+{
+"athlete_id": "2991350",
+"status": "Day-To-Day",
+"return_date": "2026-10-26",
+"injury": "Right Ankle"
 },
 {
 "athlete_id": "4683692",
@@ -466,6 +472,12 @@
 "injury": "Right Foot Strain"
 },
 {
+"athlete_id": "4066336",
+"status": "Day-To-Day",
+"return_date": "2026-10-26",
+"injury": "Not Specified Hand Not Specified"
+},
+{
 "athlete_id": "4433268",
 "status": "Out",
 "return_date": "2026-10-28",
@@ -637,9 +649,9 @@
 "name": "Sergio de Larrea",
 "team_name": "Dallas Mavericks",
 "status": "Day-To-Day",
-"return_date": "2026-10-26",
+"return_date": "2026-10-28",
 "injury": "Right Knee Strain",
-"updated": "2026-10-27T00:22Z"
+"updated": "2026-10-27T01:25Z"
 },
 {
 "athlete_id": "5148538",
@@ -663,10 +675,10 @@
 "athlete_id": "3138196",
 "name": "Cameron Johnson",
 "team_name": "Denver Nuggets",
-"status": "Day-To-Day",
-"return_date": "2026-10-26",
+"status": "Out",
+"return_date": "2026-10-28",
 "injury": "Right Ankle Sprain",
-"updated": "2026-10-25T22:41Z"
+"updated": "2026-10-27T01:13Z"
 },
 {
 "athlete_id": "4432181",
@@ -892,6 +904,15 @@
 "return_date": "2026-10-28",
 "injury": "Left Ankle Sprain",
 "updated": "2026-10-26T20:50Z"
+},
+{
+"athlete_id": "2991350",
+"name": "Alex Caruso",
+"team_name": "Oklahoma City Thunder",
+"status": "Day-To-Day",
+"return_date": "2026-10-26",
+"injury": "Right Ankle",
+"updated": "2026-10-27T01:09Z"
 },
 {
 "athlete_id": "4683692",
@@ -1189,6 +1210,15 @@
 "return_date": "2026-11-04",
 "injury": "Right Foot Strain",
 "updated": "2026-10-07T23:07Z"
+},
+{
+"athlete_id": "4066336",
+"name": "Lauri Markkanen",
+"team_name": "Utah Jazz",
+"status": "Day-To-Day",
+"return_date": "2026-10-26",
+"injury": "Not Specified Hand Not Specified",
+"updated": "2026-10-27T01:29Z"
 },
 {
 "athlete_id": "4433268",
