@@ -152,3 +152,21 @@ TypeSafe: no floors with flagged reserve cases (84%), then run without another r
    - **Sparse tail:** where fewer than 10 earlier-season runs (2013 to Y-1) are at risk at l missed games, from l0 on the hazard is one constant: uncensored returns among runs with L ≥ l0, divided by their total games at risk from l0 on. Draws still unresolved at the end of the season stay out.
    - **Coverage:** the week-1 incumbent rule excludes teams whose previous-season leader left. These are listed in research/qb_news/news_v3b_week1_coverage.csv, and conclusions apply to the covered episodes.
 5. **Execution note (27 Oct 2026, before any gains):** the single full run was stopped at 2020 week 4, because at its pace it would hit the 2-hour job limit, and nothing from it was evaluated. It was rerun as two season parts (2018-2021 and 2022-2025) in parallel with identical code and seeds, then merged before evaluation (QB_NEWS_PART / QB_NEWS_MERGE). Rows are deterministic per season and week, so the split does not change any number.
+
+## Outcome (27 Oct 2026, Sydney): INCONCLUSIVE. No live news input is built under this rule; v4 and v5 unchanged
+Run: research/nfl_qb_news_test.py (two season parts, merged); results in research/nfl_qb_news_results.json; rows in research/qb_news/rows_part_*.csv.gz.
+- **Identity:** 3,072 of 3,072 none rows exact. Seed sets disagree on one gate (division sign), so the result is inconclusive under the rule. With agreement it would still be inconclusive: neither pass nor fail.
+- **Primary, v5-core λ = 0.5** (mean log-loss gain; 90% bounds; seasons better of 8):
+  - **news vs none:** +0.0007 [-0.0001, +0.0016], 6/8. Division +0.0001, make-playoffs +0.0014. By season: 2018 -0.003, 2019 +0.001, 2020 +0.001, 2021 +0.001, 2022 +0.004, 2023 +0.000, 2024 +0.001, 2025 -0.000.
+  - **news vs empirical** (the value of collecting bounded timelines): +0.0009 [+0.0004, +0.0013], 7/8.
+  - **empirical (survival durations alone) vs none:** -0.0001 [-0.0009, +0.0006].
+  - **shortcut** (current backup for every remaining game) **vs none:** +0.0013 [-0.0007, +0.0034]. **news vs shortcut:** -0.0006.
+  - **core** (without reserve-list or season-start episodes) **vs none:** +0.0006. The flagged episodes contribute +0.0001.
+  - **mapping sensitivity vs none:** +0.0008 [-0.0001, +0.0016].
+  - **oracle vs none** (same seasons and scoring): +0.0102 [+0.0071, +0.0132]. Capture share (descriptive) 7%.
+- **Diagnostics:** λ = 1.0 gives news vs none +0.0008 (inconclusive, seed sets agree); v4-core λ = 0.5 gives +0.0010 [+0.0003, +0.0017] (diagnostic only).
+- **Reading:**
+  - Point-in-time absence information recovers only a small part of the perfect-starter gain, about +0.0007 against +0.0102. Most of the oracle's value comes from what official status and news do not tell us in advance: planned changes, returns and short absences.
+  - Within that small gain, published bounded timelines help relative to history-based durations (news vs empirical lower bound > 0). History-based durations alone add nothing.
+  - The simple whole-season shortcut does about as well as the per-game news model on this sample. So there is no evidence here that replacing the live QB layer would improve the futures forecast.
+  - Per the rule: no retuning and rerunning under this rule. This specified mapping is not shown to help; that is not generalised to all QB inputs.
