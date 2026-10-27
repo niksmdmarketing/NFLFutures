@@ -20,7 +20,6 @@ import ratings  # noqa: E402
 import simulate  # noqa: E402
 from common import FIX, TEAMS, games, load_pbp, scrimmage  # noqa: E402
 from nfl_futures_diagnosis import WF, V4, V5, eng_weights  # noqa: E402
-from nfl_qb_backtest import starters  # noqa: E402
 from nfl_v5_promotion_test import bll, slope  # noqa: E402
 
 SEASONS = range(2013, 2026)
@@ -32,6 +31,10 @@ PRIMARY = [(m, w) for m in ("div", "playoff") for w in CHECKS]
 LAMBDAS = (0.5, 1.0)
 OUT = os.path.join(ROOT, "research")
 IDENTITY = os.environ.get("QB_ORACLE_IDENTITY") == "1"
+# Amendment 27 Oct 2026: starters are the audited labels (first-play lineup from participation 2016 on; majority of
+# first dropback / games.csv / snap leader 2013-2015), research/nfl_qb_starter_labels.csv.
+_L = pd.read_csv(os.path.join(OUT, "nfl_qb_starter_labels.csv"))
+LAB = {y: {(r.game_id, r.team): r.chosen for r in z.itertuples()} for y, z in _L.groupby("season")}
 
 
 def main_qb(cur):
@@ -44,7 +47,7 @@ def rows_for(g):
     rows, audit = [], []
     for y in SEASONS:
         cur_all, pri, pri2 = load_pbp(y), load_pbp(y - 1), load_pbp(y - 2)
-        st = starters(cur_all[cur_all.season_type == "REG"])
+        st = LAB.get(y, {})
         out = B.outcomes(g, y)
         ew = eng_weights(y)
         for w in CHECKS:
@@ -129,9 +132,11 @@ def evaluate(D, core, lam):
         out[name] = dict(mean=float(g.mean()), lower90=float(np.quantile(g[idx].mean(1), .10)), seasons_better=int((g > 0).sum()),
                          by_season={str(s): float(v) for s, v in zip(seasons, g)},
                          leave_one_out={str(s): float(np.delete(g, i).mean()) for i, s in enumerate(seasons)},
-                         gain_2020_25=float(g[recent].mean()),
+                         upper90=float(np.quantile(g[idx].mean(1), .90)), gain_2020_25=float(g[recent].mean()),
                          by_cell={f"{m}_w{w}": float(gain(a, b, [(m, w)]).mean()) for m, w in PRIMARY},
-                         secondary={f"{m}_w{w}": float(gain(a, b, [(m, w)]).mean()) for m in ("seed1", "conf", "sb") for w in CHECKS})
+                         division=float(gain(a, b, [c for c in PRIMARY if c[0] == "div"]).mean()),
+                         playoff=float(gain(a, b, [c for c in PRIMARY if c[0] == "playoff"]).mean()))
+    # conference / Super Bowl / No. 1 seed omitted: the arms treat playoff ratings differently (amendment)
     cal = {}
     for arm, l in (("none", 0.0), ("next", lam), ("pergame", lam)):
         z = sub(arm, l)
@@ -141,14 +146,19 @@ def evaluate(D, core, lam):
             cal[f"{arm}_{m}_w{w}"] = dict(intercept=float(a_), slope=float(b_))
     out["calibration"] = cal
     G1, G2 = out["G1_none_minus_pergame"], out["G2_next_minus_pergame"]
-    out["gates"] = {"G1_lower90_pos": bool(G1["lower90"] > 0), "G1_ge_0.001": bool(G1["mean"] >= 0.001), "G2_lower90_pos": bool(G2["lower90"] > 0)}
+    out["gates"] = {"G1_lower90_pos": bool(G1["lower90"] > 0), "G1_ge_0.001": bool(G1["mean"] >= 0.001),
+                    "G2_lower90_pos": bool(G2["lower90"] > 0), "G1_markets_nonneg": bool(G1["division"] >= 0 and G1["playoff"] >= 0),
+                    "G1_upper90_below_0.001": bool(G1["upper90"] < 0.001)}
     return out
 
 
 def decide(g):
-    if not (g["G1_lower90_pos"] and g["G1_ge_0.001"]):
-        return "stop QB work for futures"
-    return "build news-based per-game input" if g["G2_lower90_pos"] else "keep live whole-season logic; no per-game build"
+    if g["G1_upper90_below_0.001"]:
+        return "stop this specified adjustment as a research priority"
+    if g["G1_lower90_pos"] and g["G1_ge_0.001"] and g["G1_markets_nonneg"]:
+        return ("build and separately test the news-based per-game input" if g["G2_lower90_pos"]
+                else "per-game not shown better; the simpler next-start approach remains a candidate")
+    return "inconclusive / insufficient to justify this development step"
 
 
 def main():
@@ -174,13 +184,14 @@ def main():
             res[k]["average"] = evaluate(avg, core, lam)
             agree = all(res[k]["A"]["gates"][x] == res[k]["B"]["gates"][x] for x in res[k]["A"]["gates"])
             res[k]["seed_sets_agree"] = agree
-            res[k]["decision"] = decide(res[k]["average"]["gates"]) if agree else "inconclusive"
+            res[k]["decision"] = decide(res[k]["average"]["gates"]) if agree else "inconclusive (seed sets disagree)"
+            res[k]["mc_noise_G1_A_minus_B"] = res[k]["A"]["G1_none_minus_pergame"]["mean"] - res[k]["B"]["G1_none_minus_pergame"]["mean"]
     sha = lambda p: hashlib.sha256(open(p, "rb").read()).hexdigest()
     outj = dict(rule="research/NFL_QB_ORACLE_RULE.md", started_utc=started, completed_utc=datetime.now(timezone.utc).isoformat(),
                 identity=idc, primary="v5_lam0.5", decision=res["v5_lam0.5"]["decision"], results=res,
                 code_sha256=sha(__file__), rule_sha256=sha(os.path.join(OUT, "NFL_QB_ORACLE_RULE.md")))
     open(os.path.join(OUT, "nfl_qb_oracle_results.json"), "w").write(json.dumps(outj, indent=2))
-    print(json.dumps({k: dict(decision=v["decision"], **{n: {x: v["average"][n][x] for x in ("mean", "lower90", "seasons_better")}
+    print(json.dumps({k: dict(decision=v["decision"], **{n: {x: v["average"][n][x] for x in ("mean", "lower90", "upper90", "seasons_better", "division", "playoff")}
                       for n in ("G1_none_minus_pergame", "G2_next_minus_pergame", "G3_none_minus_next")}) for k, v in res.items()}, indent=2))
 
 

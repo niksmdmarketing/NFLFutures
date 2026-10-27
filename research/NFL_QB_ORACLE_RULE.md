@@ -89,3 +89,56 @@ Mechanics:
   - rookies taking over;
   - benchings.
 - The oracle therefore includes planned changes (rookies, benchings), not just injuries. That may overstate what injury news alone can deliver, and is to be noted in the reading.
+
+## Amendment (27 Oct 2026, 14:23 Sydney), after GPT's review and before any gains: all of GPT's changes accepted
+The first full run was stopped during 2015, before any gain was computed; its partial rows were discarded. Nothing below was chosen with sight of a QB-adjusted score.
+
+**1. Starter identity: official first-play lineup, not the first dropback.**
+- Labels are in research/nfl_qb_starter_labels.csv, built by research/nfl_qb_starters.py.
+- **2016-2025:** the QB (players.csv position QB) on the field for the team's first offensive scrimmage play, from nflverse play-by-play participation. This is the gamebook definition of a starter. If two QBs are listed on that play, the one who took the first dropback is used.
+- **2013-2015** (no participation data): the majority of three labels:
+  - first dropback;
+  - games.csv QB;
+  - the QB with most offensive snaps (PFR snap counts).
+  The first dropback breaks a three-way split.
+- **Audit:** 6,814 team-games; the chosen label is missing for none.
+  - The chosen label differs from the first dropback in 11 games: wildcat or trick plays (Cribbs, Beckham, Wilson, Taysom Hill), and Josh Allen's one-snap starts in week 18 of 2024 and 2025.
+  - It differs from games.csv in 67 games, 38 of them in 2024. The first-play lineup matches the official facts GPT cited: Tua back in week 8 of 2024; Mariota started week 4 of 2025 and Daniels returned in week 5; Newton did not return in 2019.
+  - One known residual: 2014 week 17 NE is labelled Garoppolo by majority, although Brady started and played the first half. It is left as the fixed rule produced it.
+
+**2. Interpretation.** pergame is an **oracle starter-information benchmark under this fixed QB adjustment**, not a guaranteed ceiling on news-based QB modelling.
+- It uses future injuries, rest, rookies and benchings.
+- QB values are still imperfect, λ is fixed, and the rating anchor may be imperfect.
+- A badly specified adjustment can make even perfectly observed starters hurt.
+- A negative or null result rejects this implementation, not the relevance of QB availability.
+
+**3. Frozen reference and values.**
+- The reference QB (most dropbacks through week w) and all QB values are fixed once per checkpoint, using only pre-cutoff play-by-play.
+- QBs without enough pre-cutoff data (rookies, unused backups) get the frozen low-sample value; later careers are never used.
+- The same reference and values are used in next and pergame. Future starter identities are the only oracle input.
+
+**4. Embedded QB performance.** The team rating already reflects the mixture of QBs who played before the checkpoint, so "starter minus reference" may double-count or use the wrong anchor. This approximation is common to both arms.
+
+**5. Playoffs.**
+- Division and make-playoffs are settled before the simulated playoffs.
+- The regular-season draws are identical across arms: same seed, shapes and order; the QB shift changes values, not draws.
+- Conference, Super Bowl and No. 1 seed comparisons are omitted, because the arms treat playoff ratings differently.
+
+**6. Scoring.**
+- As written: mean team-level binary log loss within each of the six cells, cells equal per season, seasons equal, whole paired seasons resampled.
+- **v5-core at λ = 0.5 is the sole primary decision.** v4-core and λ = 1.0 are diagnostics and cannot rescue a failed primary.
+- Probabilities are clipped to [0.001, 0.999].
+- **Monte Carlo noise** is reported as the A-minus-B difference in G1, to compare with 0.001. Seed-set agreement checks Monte Carlo stability, not independent replication.
+- One-sided 90% upper bounds are added.
+- Each gain is reported for division and make-playoffs separately.
+
+**7. Materiality.** 0.001 is a prespecified minimum for allocating more research effort, not a profitability threshold. It is comparable with v5's +0.0029 because the scoring, checkpoints and weighting match the v5-promotion primary.
+
+**8. Revised decision** (v5-core, λ = 0.5, average of A and B; replaces the earlier decision section):
+- **Build and separately test the news-based per-game input** if G1's lower bound > 0, G1 ≥ 0.001, G2's lower bound > 0, and neither market's G1 is negative.
+- **The simpler next-start approach remains a candidate** if G1 passes those tests but G2's lower bound ≤ 0.
+  - This does not validate today's live starter selection, because next was given oracle information. G3 is examined with it.
+- **Stop this specified adjustment as a research priority** if G1's one-sided 90% upper bound is < 0.001. This is not a claim that all QB work for futures is disproved.
+- **Inconclusive / insufficient for this development step** otherwise, including any lower bound crossing zero. Not proof of no effect.
+- **Inconclusive** if seed sets A and B disagree on any gate. No favourable seed or sensitivity is picked, and there is no rerunning under this rule.
+- Nothing here authorises a live model change.
