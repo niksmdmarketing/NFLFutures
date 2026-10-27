@@ -1,6 +1,6 @@
 {
   "rule": "research/NFL_FUTURES_PAPER_BET_RULE.md",
-  "updated_utc": "2026-10-26T05:40:26.103425+00:00",
+  "updated_utc": "2026-10-27T01:02:28.121341+00:00",
   "note": "Proxy test against Polymarket executable prices; not bookmaker profit. Backfill seasons were used in earlier benchmark work.",
   "missing_checkpoints_2026": [
     {
@@ -9,177 +9,645 @@
     }
   ],
   "accuracy": {
-    "2024 div w4": {
+    "v4 2024 div w4": {
       "metric": "log loss of winner",
       "model": 1.0562178587479794,
       "market": 0.9186429115779803,
       "divisions": 8
     },
-    "2024 div w9": {
+    "v4 2024 div w9": {
       "metric": "log loss of winner",
       "model": 0.6256170145290453,
       "market": 0.6617958756976617,
       "divisions": 8
     },
-    "2024 div w13": {
+    "v4 2024 div w13": {
       "metric": "log loss of winner",
       "model": 0.42870353211879064,
       "market": 0.4379337796168049,
       "divisions": 8
     },
-    "2024 playoff w13": {
+    "v4 2024 playoff w13": {
       "metric": "brier",
       "model": 0.03908286684782609,
       "market": 0.05293123913043478,
       "teams": 23
     },
-    "2025 div w4": {
+    "v4 2025 div w4": {
       "metric": "log loss of winner",
       "model": 1.5377801841948302,
       "market": 1.9265036865602778,
       "divisions": 8
     },
-    "2025 playoff w4": {
+    "v4 2025 playoff w4": {
       "metric": "brier",
       "model": 0.23004537499999997,
       "market": 0.21322225,
       "teams": 29
     },
-    "2025 div w9": {
+    "v4 2025 div w9": {
       "metric": "log loss of winner",
       "model": 1.1889193665846587,
       "market": 1.2687439907478864,
       "divisions": 8
     },
-    "2025 playoff w9": {
+    "v4 2025 playoff w9": {
       "metric": "brier",
       "model": 0.18399374568965515,
       "market": 0.18441377586206895,
       "teams": 29
     },
-    "2025 div w13": {
+    "v4 2025 div w13": {
       "metric": "log loss of winner",
       "model": 0.8116196001605391,
       "market": 0.8478493528506618,
       "divisions": 8
     },
-    "2025 playoff w13": {
+    "v4 2025 playoff w13": {
       "metric": "brier",
       "model": 0.12442538362068968,
+      "market": 0.12521698275862067,
+      "teams": 29
+    },
+    "v4-core 2024 div w4": {
+      "metric": "log loss of winner",
+      "model": 1.031277404321389,
+      "market": 0.9186429115779803,
+      "divisions": 8
+    },
+    "v4-core 2024 div w9": {
+      "metric": "log loss of winner",
+      "model": 0.6057516297145947,
+      "market": 0.6617958756976617,
+      "divisions": 8
+    },
+    "v4-core 2024 div w13": {
+      "metric": "log loss of winner",
+      "model": 0.4107706686438043,
+      "market": 0.4379337796168049,
+      "divisions": 8
+    },
+    "v4-core 2024 playoff w13": {
+      "metric": "brier",
+      "model": 0.03962319391304348,
+      "market": 0.05293123913043478,
+      "teams": 23
+    },
+    "v4-core 2025 div w4": {
+      "metric": "log loss of winner",
+      "model": 1.5676047033784013,
+      "market": 1.9265036865602778,
+      "divisions": 8
+    },
+    "v4-core 2025 playoff w4": {
+      "metric": "brier",
+      "model": 0.24154464896551725,
+      "market": 0.21322225,
+      "teams": 29
+    },
+    "v4-core 2025 div w9": {
+      "metric": "log loss of winner",
+      "model": 1.2050924018706275,
+      "market": 1.2687439907478864,
+      "divisions": 8
+    },
+    "v4-core 2025 playoff w9": {
+      "metric": "brier",
+      "model": 0.18777491517241374,
+      "market": 0.18441377586206895,
+      "teams": 29
+    },
+    "v4-core 2025 div w13": {
+      "metric": "log loss of winner",
+      "model": 0.833323659624722,
+      "market": 0.8478493528506618,
+      "divisions": 8
+    },
+    "v4-core 2025 playoff w13": {
+      "metric": "brier",
+      "model": 0.12703858103448276,
+      "market": 0.12521698275862067,
+      "teams": 29
+    },
+    "v5-core 2024 div w4": {
+      "metric": "log loss of winner",
+      "model": 1.004042699703117,
+      "market": 0.9186429115779803,
+      "divisions": 8
+    },
+    "v5-core 2024 div w9": {
+      "metric": "log loss of winner",
+      "model": 0.6040500608504764,
+      "market": 0.6617958756976617,
+      "divisions": 8
+    },
+    "v5-core 2024 div w13": {
+      "metric": "log loss of winner",
+      "model": 0.40553901279508714,
+      "market": 0.4379337796168049,
+      "divisions": 8
+    },
+    "v5-core 2024 playoff w13": {
+      "metric": "brier",
+      "model": 0.03819022260869566,
+      "market": 0.05293123913043478,
+      "teams": 23
+    },
+    "v5-core 2025 div w4": {
+      "metric": "log loss of winner",
+      "model": 1.64883958649436,
+      "market": 1.9265036865602778,
+      "divisions": 8
+    },
+    "v5-core 2025 playoff w4": {
+      "metric": "brier",
+      "model": 0.24733232344827588,
+      "market": 0.21322225,
+      "teams": 29
+    },
+    "v5-core 2025 div w9": {
+      "metric": "log loss of winner",
+      "model": 1.2289913548979055,
+      "market": 1.2687439907478864,
+      "divisions": 8
+    },
+    "v5-core 2025 playoff w9": {
+      "metric": "brier",
+      "model": 0.1886645393103448,
+      "market": 0.18441377586206895,
+      "teams": 29
+    },
+    "v5-core 2025 div w13": {
+      "metric": "log loss of winner",
+      "model": 0.8671141073199309,
+      "market": 0.8478493528506618,
+      "divisions": 8
+    },
+    "v5-core 2025 playoff w13": {
+      "metric": "brier",
+      "model": 0.12364385620689654,
       "market": 0.12521698275862067,
       "teams": 29
     }
   },
   "paper_bets": {
-    "all": {
-      "bets": 72,
-      "settled": 72,
-      "pending": 0,
-      "staked": 7200.0,
-      "profit": 7867.206662529066,
-      "return_on_stake": 1.0926675920179258,
-      "expected_profit_model": 4493.820751383477,
-      "wins": 21
+    "v4": {
+      "all backfill and retrospective": {
+        "bets": 95,
+        "settled": 72,
+        "pending": 23,
+        "staked": 7200.0,
+        "profit": 7867.206662529066,
+        "return_on_stake": 1.0926675920179258,
+        "expected_profit_model": 6019.408630590222,
+        "wins": 21
+      },
+      "2026 retrospective": {
+        "bets": 23,
+        "settled": 0,
+        "pending": 23,
+        "staked": 0.0,
+        "profit": 0.0,
+        "return_on_stake": null,
+        "expected_profit_model": 1525.5878792067424,
+        "wins": 0
+      },
+      "backfill 2024-25": {
+        "bets": 72,
+        "settled": 72,
+        "pending": 0,
+        "staked": 7200.0,
+        "profit": 7867.206662529066,
+        "return_on_stake": 1.0926675920179258,
+        "expected_profit_model": 4493.820751383477,
+        "wins": 21
+      },
+      "2024 div": {
+        "bets": 26,
+        "settled": 26,
+        "pending": 0,
+        "staked": 2600.0,
+        "profit": 127.39127602627286,
+        "return_on_stake": 0.04899664462548956,
+        "expected_profit_model": 1852.0907044458284,
+        "wins": 4
+      },
+      "2024 playoff": {
+        "bets": 3,
+        "settled": 3,
+        "pending": 0,
+        "staked": 300.0,
+        "profit": 22.831358084113674,
+        "return_on_stake": 0.07610452694704559,
+        "expected_profit_model": 44.700496103777496,
+        "wins": 2
+      },
+      "2025 div": {
+        "bets": 30,
+        "settled": 30,
+        "pending": 0,
+        "staked": 3000.0,
+        "profit": 7469.35976685936,
+        "return_on_stake": 2.48978658895312,
+        "expected_profit_model": 2000.8220347706053,
+        "wins": 10
+      },
+      "2025 playoff": {
+        "bets": 13,
+        "settled": 13,
+        "pending": 0,
+        "staked": 1300.0,
+        "profit": 247.62426155931956,
+        "return_on_stake": 0.1904802011994766,
+        "expected_profit_model": 596.2075160632662,
+        "wins": 5
+      },
+      "2026 div": {
+        "bets": 12,
+        "settled": 0,
+        "pending": 12,
+        "staked": 0.0,
+        "profit": 0.0,
+        "return_on_stake": null,
+        "expected_profit_model": 864.5476303386391,
+        "wins": 0
+      },
+      "2026 playoff": {
+        "bets": 11,
+        "settled": 0,
+        "pending": 11,
+        "staked": 0.0,
+        "profit": 0.0,
+        "return_on_stake": null,
+        "expected_profit_model": 661.040248868103,
+        "wins": 0
+      },
+      "2024 w4": {
+        "bets": 14,
+        "settled": 14,
+        "pending": 0,
+        "staked": 1400.0,
+        "profit": 407.5530032264305,
+        "return_on_stake": 0.2911092880188789,
+        "expected_profit_model": 1145.3760454095986,
+        "wins": 2
+      },
+      "2024 w9": {
+        "bets": 8,
+        "settled": 8,
+        "pending": 0,
+        "staked": 800.0,
+        "profit": -103.67935827089661,
+        "return_on_stake": -0.12959919783862076,
+        "expected_profit_model": 481.96082434431196,
+        "wins": 1
+      },
+      "2024 w13": {
+        "bets": 7,
+        "settled": 7,
+        "pending": 0,
+        "staked": 700.0,
+        "profit": -153.65101084514748,
+        "return_on_stake": -0.2195014440644964,
+        "expected_profit_model": 269.45433079569545,
+        "wins": 3
+      },
+      "2025 w4": {
+        "bets": 24,
+        "settled": 24,
+        "pending": 0,
+        "staked": 2400.0,
+        "profit": 6184.220424688621,
+        "return_on_stake": 2.5767585102869255,
+        "expected_profit_model": 1691.5130198418753,
+        "wins": 7
+      },
+      "2025 w9": {
+        "bets": 13,
+        "settled": 13,
+        "pending": 0,
+        "staked": 1300.0,
+        "profit": 1432.7164437671663,
+        "return_on_stake": 1.1020895721285895,
+        "expected_profit_model": 706.5117217773615,
+        "wins": 6
+      },
+      "2025 w13": {
+        "bets": 6,
+        "settled": 6,
+        "pending": 0,
+        "staked": 600.0,
+        "profit": 100.04715996289315,
+        "return_on_stake": 0.16674526660482192,
+        "expected_profit_model": 199.00480921463475,
+        "wins": 2
+      },
+      "2026 w4": {
+        "bets": 23,
+        "settled": 0,
+        "pending": 23,
+        "staked": 0.0,
+        "profit": 0.0,
+        "return_on_stake": null,
+        "expected_profit_model": 1525.5878792067424,
+        "wins": 0
+      }
     },
-    "2024 div": {
-      "bets": 26,
-      "settled": 26,
-      "pending": 0,
-      "staked": 2600.0,
-      "profit": 127.39127602627286,
-      "return_on_stake": 0.04899664462548956,
-      "expected_profit_model": 1852.0907044458284,
-      "wins": 4
+    "v4-core": {
+      "all backfill and retrospective": {
+        "bets": 71,
+        "settled": 71,
+        "pending": 0,
+        "staked": 7100.0,
+        "profit": 7915.529809448871,
+        "return_on_stake": 1.1148633534435028,
+        "expected_profit_model": 4262.451991093734,
+        "wins": 21
+      },
+      "backfill 2024-25": {
+        "bets": 71,
+        "settled": 71,
+        "pending": 0,
+        "staked": 7100.0,
+        "profit": 7915.529809448871,
+        "return_on_stake": 1.1148633534435028,
+        "expected_profit_model": 4262.451991093734,
+        "wins": 21
+      },
+      "2024 div": {
+        "bets": 23,
+        "settled": 23,
+        "pending": 0,
+        "staked": 2300.0,
+        "profit": 427.39127602627286,
+        "return_on_stake": 0.18582229392446648,
+        "expected_profit_model": 1638.8664181481972,
+        "wins": 4
+      },
+      "2024 playoff": {
+        "bets": 2,
+        "settled": 2,
+        "pending": 0,
+        "staked": 200.0,
+        "profit": 122.83135808411367,
+        "return_on_stake": 0.6141567904205684,
+        "expected_profit_model": 30.564527982787283,
+        "wins": 2
+      },
+      "2025 div": {
+        "bets": 30,
+        "settled": 30,
+        "pending": 0,
+        "staked": 3000.0,
+        "profit": 7222.560677014916,
+        "return_on_stake": 2.4075202256716386,
+        "expected_profit_model": 1955.7653912867875,
+        "wins": 9
+      },
+      "2025 playoff": {
+        "bets": 16,
+        "settled": 16,
+        "pending": 0,
+        "staked": 1600.0,
+        "profit": 142.74649832356846,
+        "return_on_stake": 0.08921656145223028,
+        "expected_profit_model": 637.2556536759616,
+        "wins": 6
+      },
+      "2024 w4": {
+        "bets": 12,
+        "settled": 12,
+        "pending": 0,
+        "staked": 1200.0,
+        "profit": 607.5530032264305,
+        "return_on_stake": 0.5062941693553588,
+        "expected_profit_model": 968.3703852200604,
+        "wins": 2
+      },
+      "2024 w9": {
+        "bets": 7,
+        "settled": 7,
+        "pending": 0,
+        "staked": 700.0,
+        "profit": -3.679358270896614,
+        "return_on_stake": -0.005256226101280877,
+        "expected_profit_model": 481.379677889578,
+        "wins": 1
+      },
+      "2024 w13": {
+        "bets": 6,
+        "settled": 6,
+        "pending": 0,
+        "staked": 600.0,
+        "profit": -53.65101084514748,
+        "return_on_stake": -0.08941835140857914,
+        "expected_profit_model": 219.68088302134638,
+        "wins": 3
+      },
+      "2025 w4": {
+        "bets": 27,
+        "settled": 27,
+        "pending": 0,
+        "staked": 2700.0,
+        "profit": 6079.34266145287,
+        "return_on_stake": 2.2516083931306925,
+        "expected_profit_model": 1691.9318528715798,
+        "wins": 8
+      },
+      "2025 w9": {
+        "bets": 11,
+        "settled": 11,
+        "pending": 0,
+        "staked": 1100.0,
+        "profit": 1385.9173539227215,
+        "return_on_stake": 1.259924867202474,
+        "expected_profit_model": 657.2611952747682,
+        "wins": 5
+      },
+      "2025 w13": {
+        "bets": 8,
+        "settled": 8,
+        "pending": 0,
+        "staked": 800.0,
+        "profit": -99.95284003710685,
+        "return_on_stake": -0.12494105004638356,
+        "expected_profit_model": 243.82799681640114,
+        "wins": 2
+      }
     },
-    "2024 playoff": {
-      "bets": 3,
-      "settled": 3,
-      "pending": 0,
-      "staked": 300.0,
-      "profit": 22.831358084113674,
-      "return_on_stake": 0.07610452694704559,
-      "expected_profit_model": 44.700496103777496,
-      "wins": 2
+    "v5": {
+      "all backfill and retrospective": {
+        "bets": 18,
+        "settled": 0,
+        "pending": 18,
+        "staked": 0.0,
+        "profit": 0.0,
+        "return_on_stake": null,
+        "expected_profit_model": 1094.5426840386979,
+        "wins": 0
+      },
+      "2026 retrospective": {
+        "bets": 18,
+        "settled": 0,
+        "pending": 18,
+        "staked": 0.0,
+        "profit": 0.0,
+        "return_on_stake": null,
+        "expected_profit_model": 1094.5426840386979,
+        "wins": 0
+      },
+      "2026 div": {
+        "bets": 10,
+        "settled": 0,
+        "pending": 10,
+        "staked": 0.0,
+        "profit": 0.0,
+        "return_on_stake": null,
+        "expected_profit_model": 705.6955103386541,
+        "wins": 0
+      },
+      "2026 playoff": {
+        "bets": 8,
+        "settled": 0,
+        "pending": 8,
+        "staked": 0.0,
+        "profit": 0.0,
+        "return_on_stake": null,
+        "expected_profit_model": 388.8471737000438,
+        "wins": 0
+      },
+      "2026 w4": {
+        "bets": 18,
+        "settled": 0,
+        "pending": 18,
+        "staked": 0.0,
+        "profit": 0.0,
+        "return_on_stake": null,
+        "expected_profit_model": 1094.5426840386979,
+        "wins": 0
+      }
     },
-    "2025 div": {
-      "bets": 30,
-      "settled": 30,
-      "pending": 0,
-      "staked": 3000.0,
-      "profit": 7469.35976685936,
-      "return_on_stake": 2.48978658895312,
-      "expected_profit_model": 2000.8220347706053,
-      "wins": 10
-    },
-    "2025 playoff": {
-      "bets": 13,
-      "settled": 13,
-      "pending": 0,
-      "staked": 1300.0,
-      "profit": 247.62426155931956,
-      "return_on_stake": 0.1904802011994766,
-      "expected_profit_model": 596.2075160632662,
-      "wins": 5
-    },
-    "2024 w4": {
-      "bets": 14,
-      "settled": 14,
-      "pending": 0,
-      "staked": 1400.0,
-      "profit": 407.5530032264305,
-      "return_on_stake": 0.2911092880188789,
-      "expected_profit_model": 1145.3760454095986,
-      "wins": 2
-    },
-    "2024 w9": {
-      "bets": 8,
-      "settled": 8,
-      "pending": 0,
-      "staked": 800.0,
-      "profit": -103.67935827089661,
-      "return_on_stake": -0.12959919783862076,
-      "expected_profit_model": 481.96082434431196,
-      "wins": 1
-    },
-    "2024 w13": {
-      "bets": 7,
-      "settled": 7,
-      "pending": 0,
-      "staked": 700.0,
-      "profit": -153.65101084514748,
-      "return_on_stake": -0.2195014440644964,
-      "expected_profit_model": 269.45433079569545,
-      "wins": 3
-    },
-    "2025 w4": {
-      "bets": 24,
-      "settled": 24,
-      "pending": 0,
-      "staked": 2400.0,
-      "profit": 6184.220424688621,
-      "return_on_stake": 2.5767585102869255,
-      "expected_profit_model": 1691.5130198418753,
-      "wins": 7
-    },
-    "2025 w9": {
-      "bets": 13,
-      "settled": 13,
-      "pending": 0,
-      "staked": 1300.0,
-      "profit": 1432.7164437671663,
-      "return_on_stake": 1.1020895721285895,
-      "expected_profit_model": 706.5117217773615,
-      "wins": 6
-    },
-    "2025 w13": {
-      "bets": 6,
-      "settled": 6,
-      "pending": 0,
-      "staked": 600.0,
-      "profit": 100.04715996289315,
-      "return_on_stake": 0.16674526660482192,
-      "expected_profit_model": 199.00480921463475,
-      "wins": 2
+    "v5-core": {
+      "all backfill and retrospective": {
+        "bets": 66,
+        "settled": 66,
+        "pending": 0,
+        "staked": 6600.0,
+        "profit": 4464.251976758108,
+        "return_on_stake": 0.6764018146603193,
+        "expected_profit_model": 3479.6508508694224,
+        "wins": 18
+      },
+      "backfill 2024-25": {
+        "bets": 66,
+        "settled": 66,
+        "pending": 0,
+        "staked": 6600.0,
+        "profit": 4464.251976758108,
+        "return_on_stake": 0.6764018146603193,
+        "expected_profit_model": 3479.6508508694224,
+        "wins": 18
+      },
+      "2024 div": {
+        "bets": 23,
+        "settled": 23,
+        "pending": 0,
+        "staked": 2300.0,
+        "profit": 427.39127602627286,
+        "return_on_stake": 0.18582229392446648,
+        "expected_profit_model": 1421.579024326282,
+        "wins": 4
+      },
+      "2024 playoff": {
+        "bets": 3,
+        "settled": 3,
+        "pending": 0,
+        "staked": 300.0,
+        "profit": 22.831358084113674,
+        "return_on_stake": 0.07610452694704559,
+        "expected_profit_model": 54.20402003174458,
+        "wins": 2
+      },
+      "2025 div": {
+        "bets": 25,
+        "settled": 25,
+        "pending": 0,
+        "staked": 2500.0,
+        "profit": 4437.098137034131,
+        "return_on_stake": 1.7748392548136522,
+        "expected_profit_model": 1436.729264160538,
+        "wins": 7
+      },
+      "2025 playoff": {
+        "bets": 15,
+        "settled": 15,
+        "pending": 0,
+        "staked": 1500.0,
+        "profit": -423.06879438640874,
+        "return_on_stake": -0.2820458629242725,
+        "expected_profit_model": 567.138542350858,
+        "wins": 5
+      },
+      "2024 w4": {
+        "bets": 12,
+        "settled": 12,
+        "pending": 0,
+        "staked": 1200.0,
+        "profit": 607.5530032264305,
+        "return_on_stake": 0.5062941693553588,
+        "expected_profit_model": 905.6884812478299,
+        "wins": 2
+      },
+      "2024 w9": {
+        "bets": 7,
+        "settled": 7,
+        "pending": 0,
+        "staked": 700.0,
+        "profit": -3.679358270896614,
+        "return_on_stake": -0.005256226101280877,
+        "expected_profit_model": 388.93121781142963,
+        "wins": 1
+      },
+      "2024 w13": {
+        "bets": 7,
+        "settled": 7,
+        "pending": 0,
+        "staked": 700.0,
+        "profit": -153.65101084514748,
+        "return_on_stake": -0.2195014440644964,
+        "expected_profit_model": 181.16334529876679,
+        "wins": 3
+      },
+      "2025 w4": {
+        "bets": 23,
+        "settled": 23,
+        "pending": 0,
+        "staked": 2300.0,
+        "profit": 3247.409416370188,
+        "return_on_stake": 1.4119171375522557,
+        "expected_profit_model": 1276.3054726650782,
+        "wins": 6
+      },
+      "2025 w9": {
+        "bets": 9,
+        "settled": 9,
+        "pending": 0,
+        "staked": 900.0,
+        "profit": 687.1764349696157,
+        "return_on_stake": 0.7635293721884618,
+        "expected_profit_model": 485.9195166148042,
+        "wins": 3
+      },
+      "2025 w13": {
+        "bets": 8,
+        "settled": 8,
+        "pending": 0,
+        "staked": 800.0,
+        "profit": 79.44349130791716,
+        "return_on_stake": 0.09930436413489645,
+        "expected_profit_model": 241.64281723151367,
+        "wins": 3
+      }
     }
   }
 }
