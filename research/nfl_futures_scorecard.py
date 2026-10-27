@@ -91,7 +91,7 @@ def backfill_rows(md, g):
             for w, when in dates.items():
                 for r in T[(T.season == season) & (T.week == w)].itertuples():
                     p = price_at(M.get(r.team), when)
-                    rows.append(dict(season=season, week=w, market=market, team=r.team, source="backfill (daily price + 1c + fee, approximate)",
+                    rows.append(dict(mdl="v4", season=season, week=w, market=market, team=r.team, source="backfill (daily price + 1c + fee, approximate)",
                                      snapshot=str(when), model=float(getattr(r, market)), price=p,
                                      cost=None if p is None or p <= 0 else p + SPREAD_ALLOWANCE + fee(p + SPREAD_ALLOWANCE),
                                      won=float(getattr(r, "y_" + market))))
@@ -103,9 +103,9 @@ RETRO_2026 = {"div": [f"pro-football-{c}-champion" for c in ("afc-east", "afc-no
               "playoff": ["nfl-team-to-make-postseason"]}
 
 
-def retro_rows(md, g, season=2026):
-    """Retrospective v4 at the 2026 week-4 checkpoint (rule amendment of 26 Oct 2026); daily prices as in the backfill."""
-    path = os.path.join(ROOT, "research", "nfl_futures_2026_w4_retrospective.csv")
+def retro_rows(md, g, season=2026, mdl="v4"):
+    """Retrospective model at the 2026 week-4 checkpoint (rule amendments of 26 and 27 Oct 2026); daily prices as in the backfill."""
+    path = os.path.join(ROOT, "research", "nfl_futures_2026_w4_retrospective.csv" if mdl == "v4" else "nfl_futures_2026_w4_retrospective_v5.csv")
     if not os.path.exists(path):
         return []
     T = pd.read_csv(path)
@@ -118,7 +118,7 @@ def retro_rows(md, g, season=2026):
             M.update(history(md, s_))
         for r in T.itertuples():
             p = price_at(M.get(r.team), when)
-            rows.append(dict(season=season, week=4, market=market, team=r.team, source="2026 retrospective (daily price + 1c + fee, approximate)",
+            rows.append(dict(mdl=mdl, season=season, week=4, market=market, team=r.team, source="2026 retrospective (daily price + 1c + fee, approximate)",
                              snapshot=str(when), model=float(getattr(r, market)), price=p,
                              cost=None if p is None or p <= 0 else p + SPREAD_ALLOWANCE + fee(p + SPREAD_ALLOWANCE),
                              won=None if res is None else res[r.team][market]))
@@ -150,10 +150,57 @@ def live_rows(shiv, g, season=2026):
             for r in m["rows"]:
                 ask = r.get("ask")
                 cost = None if not ask or ask <= 0 else ask + fee(ask, fs.get("rate", .03), fs.get("exponent", 1.))
-                rows.append(dict(season=season, week=w, market=market, team=r["team"], source="live (ask + taker fee)",
-                                 snapshot=d["taken_utc"], model=float(r["model"]), price=r.get("mid"), ask=ask, cost=cost,
+                rows.append(dict(mdl="v4", season=season, week=w, market=market, team=r["team"], source="live (ask + taker fee)",
+                                 snapshot=d["taken_utc"], checkpoint_utc=start.isoformat(), model=float(r["model"]), price=r.get("mid"), ask=ask, cost=cost,
                                  won=None if res is None else res[r["team"]][market]))
     return rows, missing
+
+
+def core_backfill_rows(md, g):
+    """v5-core and v4-core backfill 2024-25 from research/nfl_v5_promotion_rows.csv.gz (seed sets averaged); amendment of 27 Oct 2026."""
+    path = os.path.join(ROOT, "research", "nfl_v5_promotion_rows.csv.gz")
+    if not os.path.exists(path):
+        return []
+    T = pd.read_csv(path)
+    T = T[T.season.isin(list(BACKFILL)) & T.week.isin(list(CHECKS))].groupby(["season", "week", "arm", "team"], as_index=False).mean(numeric_only=True)
+    rows = []
+    for season, ev in BACKFILL.items():
+        dates = checkpoint_dates(g, season)
+        for market, slugs in ev.items():
+            M = {}
+            for s_ in slugs:
+                M.update(history(md, s_))
+            for w, when in dates.items():
+                for r in T[(T.season == season) & (T.week == w)].itertuples():
+                    p = price_at(M.get(r.team), when)
+                    rows.append(dict(mdl=f"{r.arm}-core", season=season, week=w, market=market, team=r.team,
+                                     source="backfill (daily price + 1c + fee, approximate)", snapshot=str(when), model=float(getattr(r, "p_" + market)),
+                                     price=p, cost=None if p is None or p <= 0 else p + SPREAD_ALLOWANCE + fee(p + SPREAD_ALLOWANCE),
+                                     won=float(getattr(r, "y_" + market))))
+    return rows
+
+
+def live_v5_rows(v4_live, fa):
+    """v5 live rows: same team, market, checkpoint and price as each v4 live row; v5 probability from the first forecast-archive
+    season file generated at or after the checkpoint time."""
+    if not v4_live or not fa:
+        return []
+    files = []
+    for f in sorted(glob.glob(os.path.join(fa, "2026", "*.json.gz"))):
+        d = json.load(gzip.open(f))
+        if d.get("challenger_v5"):
+            files.append((pd.Timestamp(d["generated_utc"]), d))
+    out = []
+    for r in v4_live:
+        start = pd.Timestamp(r["checkpoint_utc"])
+        after = [d for t, d in files if t >= start]
+        if not after:
+            continue
+        v = after[0]["challenger_v5"]["teams"].get(r["team"])
+        if v is None:
+            continue
+        out.append({**r, "mdl": "v5", "model": float(v["p_" + r["market"]]), "v5_file_utc": after[0]["generated_utc"]})
+    return out
 
 
 def add_bets(df):
@@ -167,7 +214,7 @@ def add_bets(df):
 
 def accuracy(df):
     out = {}
-    for (season, w, market), z in df[df.won.notna() & df.price.notna()].groupby(["season", "week", "market"]):
+    for (mdl, season, w, market), z in df[df.won.notna() & df.price.notna()].groupby(["mdl", "season", "week", "market"]):
         # retrospective and live rows of the same season/week are never mixed: live has no week 4 in 2026
         if market == "div":
             ll_m, ll_k = [], []
@@ -177,10 +224,10 @@ def accuracy(df):
                 mo = G.model.clip(lower=.002).to_numpy(); mk = G.price.clip(lower=.002).to_numpy()
                 mo, mk = mo / mo.sum(), mk / mk.sum(); win = G.won.to_numpy() == 1
                 ll_m.append(-np.log(mo[win][0])); ll_k.append(-np.log(mk[win][0]))
-            out[f"{season} div w{w}"] = dict(metric="log loss of winner", model=float(np.mean(ll_m)) if ll_m else None,
+            out[f"{mdl} {season} div w{w}"] = dict(metric="log loss of winner", model=float(np.mean(ll_m)) if ll_m else None,
                                              market=float(np.mean(ll_k)) if ll_k else None, divisions=len(ll_m))
         else:
-            out[f"{season} playoff w{w}"] = dict(metric="brier", model=float(((z.model - z.won) ** 2).mean()),
+            out[f"{mdl} {season} playoff w{w}"] = dict(metric="brier", model=float(((z.model - z.won) ** 2).mean()),
                                                  market=float(((z.price - z.won) ** 2).mean()), teams=len(z))
     return out
 
@@ -192,21 +239,26 @@ def record(df):
         return dict(bets=int(len(z)), settled=int(len(s)), pending=int(z.profit.isna().sum()), staked=float(STAKE * len(s)),
                     profit=float(s.profit.sum()), return_on_stake=float(s.profit.sum() / (STAKE * len(s))) if len(s) else None,
                     expected_profit_model=float(z.expected_profit.sum()), wins=int((s.won == 1).sum()))
-    out = {"all backfill and retrospective": summ(b[b.record != "2026 live"])}
-    for rec, z in b.groupby("record"):
-        out[rec] = summ(z)
-    for (season, market), z in b.groupby(["season", "market"]):
-        out[f"{season} {market}"] = summ(z)
-    for (season, w), z in b.groupby(["season", "week"]):
-        out[f"{season} w{w}"] = summ(z)
+    out = {}
+    for mdl, bm in b.groupby("mdl"):
+        o = {"all backfill and retrospective": summ(bm[bm.record != "2026 live"])}
+        for rec, z in bm.groupby("record"):
+            o[rec] = summ(z)
+        for (season, market), z in bm.groupby(["season", "market"]):
+            o[f"{season} {market}"] = summ(z)
+        for (season, w), z in bm.groupby(["season", "week"]):
+            o[f"{season} w{w}"] = summ(z)
+        out[mdl] = o
     return out
 
 
 def main():
     md, shiv = sys.argv[1], sys.argv[2]
+    fa = sys.argv[3] if len(sys.argv) > 3 else None          # forecast-archive checkout (for live v5)
     g = games()
     live, missing = live_rows(shiv, g)
-    df = add_bets(pd.DataFrame(backfill_rows(md, g) + retro_rows(md, g) + live))
+    rows = backfill_rows(md, g) + retro_rows(md, g) + live + core_backfill_rows(md, g) + retro_rows(md, g, mdl="v5") + live_v5_rows(live, fa)
+    df = add_bets(pd.DataFrame(rows))
     df["record"] = np.where(df.source.str.startswith("live"), "2026 live", np.where(df.source.str.startswith("2026 retro"), "2026 retrospective", "backfill 2024-25"))
     df.to_csv(os.path.join(ROOT, "research", "nfl_futures_paper_bets.csv"), index=False)
     out = dict(rule="research/NFL_FUTURES_PAPER_BET_RULE.md", updated_utc=dt.datetime.now(dt.timezone.utc).isoformat(),
