@@ -2,6 +2,7 @@
       <button type="button" role="tab" data-ftab="chances">Chances</button>
       <button type="button" role="tab" data-ftab="market">vs the market</button>
       <button type="button" role="tab" data-ftab="wins">Win totals</button>
+      <button type="button" role="tab" data-ftab="v5">v5 in-season</button>
     </div>
     <div data-fpanel="chances">
     <section>
@@ -16,6 +17,13 @@
       <div class="panel"><h3>vs bookmaker prices</h3><div class="big">Level by Week 5</div><p class="note">Replayed against 2018–2025 BetMGM futures, the model matches the market's accuracy around Weeks 5–8 and trails it early and late in the season.</p></div>
       <div class="panel"><h3>Extra information</h3><div class="big">Weeks 5–8 only</div><p class="note">In those weeks, blending this model into the market price improved forecasts on seasons it had never seen. In other weeks it added nothing.</p></div>
       <div class="panel warn"><h3>Betting edge</h3><div class="big">Not proven</div><p class="note">Backtested bets on its disagreements still lost money after bookmaker margins. Treat gaps with the market as questions, not bets.</p></div>
+    </section>
+    </div>
+    <div data-fpanel="v5" hidden>
+    <section id="v5Sec">
+      <div class="table-head"><h2>v5: in-season betting number</h2></div>
+      <p class="note" style="margin:6px 0 12px">Chances from the candidate model v5, with the live model v4 in grey. On 2013–2025, replayed with no hindsight, v5 was more accurate in season (after weeks 4, 9 and 13) for divisions and playoffs in 10 of 13 seasons, but the gain was not clear enough to pass its test, and its pre-season playoff chances were worse. Using v5 during the season is a judgement call (27 Oct 2026); v4 stays the main model for 2026. Both are saved and scored against Polymarket prices.</p>
+      <div class="scroll"><table class="ftable"><thead><tr><th scope="col">Team</th><th scope="col">Win division<small>v5 · v4</small></th><th scope="col">Make playoffs<small>v5 · v4</small></th><th scope="col">No. 1 seed<small>v5 · v4</small></th><th scope="col">Win conference<small>v5 · v4</small></th><th scope="col">Win Super Bowl<small>v5 · v4</small></th></tr></thead><tbody id="v5body"><tr><td colspan="6" class="empty">v5 chances are not available in this update.</td></tr></tbody></table></div>
     </section>
     </div>
     <div data-fpanel="wins" hidden>

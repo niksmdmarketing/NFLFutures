@@ -82,6 +82,17 @@ function renderChallenger5(C) {
   $("c5body").innerHTML = ts.map(t => '<tr><td><b>' + t + '</b> <span class="muted">' + nm(t) + '</span></td>' + pair(FT[t].p_playoff, C.teams[t].p_playoff) + pair(FT[t].p_div, C.teams[t].p_div) + pair(FT[t].p_conf, C.teams[t].p_conf) + pair(FT[t].p_sb, C.teams[t].p_sb) + '</tr>').join("");
   sortableTable($("c5body").closest("table"));
 }
+/* futures page: v5 as the in-season betting number, v4 alongside (27 Oct 2026) */
+function renderV5Tab(C) {
+  const tb = $("v5body");
+  if (!tb || !C || !C.teams) return;
+  const pair = (a, b) => '<td class="num" data-v="' + a + '"><b>' + pct(a) + '</b> <span class="muted">· ' + pct(b) + '</span></td>';
+  const ts = Object.keys(FT).filter(t => C.teams[t]).sort((a, b) => C.teams[b].p_playoff - C.teams[a].p_playoff);
+  tb.innerHTML = ts.map(t => { const v = C.teams[t], f = FT[t];
+    return '<tr><td><b>' + t + '</b> <span class="muted">' + nm(t) + '</span></td>' + pair(v.p_div, f.p_div) + pair(v.p_playoff, f.p_playoff) +
+      pair(v.p_seed1, f.p_seed1) + pair(v.p_conf, f.p_conf) + pair(v.p_sb, f.p_sb) + '</tr>'; }).join("");
+  sortableTable(tb.closest("table"));
+}
 function renderTrack(T) {
   if (!T || !T.markets || !$("trackSec")) return;
   $("trackSec").hidden = false;
@@ -134,6 +145,7 @@ boot(async meta => {
   renderQB();
   renderChallenger(F.challenger);
   renderChallenger5(F.challenger_v5);
+  renderV5Tab(F.challenger_v5);
   renderTrack(F.track_record);
   renderTrust(await getTrust());
 });
