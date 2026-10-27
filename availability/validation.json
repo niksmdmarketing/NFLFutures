@@ -1,5 +1,5 @@
 {
- "checked_utc": "2026-10-27T02:08:01+00:00",
+ "checked_utc": "2026-10-27T07:56:55+00:00",
  "leagues": {
   "nfl": {
    "records": 1587,
@@ -100,13 +100,13 @@
    "reported_matched_to_official_list": "62/62"
   },
   "nba": {
-   "records": 253,
+   "records": 205,
    "by_layer": {
-    "official": 209,
+    "official": 161,
     "reported": 44
    },
    "unknown_team": 0,
-   "no_player": 1,
+   "no_player": 25,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -161,11 +161,11 @@
    "reported_matched_to_official_list": "44/44"
   },
   "nhl": {
-   "records": 1541,
+   "records": 1560,
    "by_layer": {
-    "official": 151,
-    "reported": 63,
-    "projected": 1327
+    "official": 153,
+    "reported": 64,
+    "projected": 1343
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -214,7 +214,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "57/63"
+   "reported_matched_to_official_list": "58/64"
   },
   "nbl": {
    "records": 21,
@@ -227,18 +227,18 @@
    "teams_covered_official": [
     "ADL",
     "BRI",
-    "CNS",
     "ILL",
     "MEL",
     "PER",
-    "SEM",
     "SYD",
     "TAS"
    ],
    "conflicts": [],
    "stale_projection_dates": 0,
    "teams_missing_official": [
-    "NZL"
+    "CNS",
+    "NZL",
+    "SEM"
    ],
    "season_state": {
     "state": "in_season",
@@ -249,9 +249,9 @@
    "reported_matched_to_official_list": "0/0"
   },
   "afl": {
-   "records": 10,
+   "records": 11,
    "by_layer": {
-    "reported": 10
+    "reported": 11
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -286,11 +286,11 @@
    "coverage_expected": false,
    "teams_missing_official_note": "off-season: no official coverage expected",
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "0/10"
+   "reported_matched_to_official_list": "0/11"
   }
  },
  "sources_failed": [
-  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 52 h old"
+  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 57 h old"
  ],
  "sources_not_expected": []
 }
