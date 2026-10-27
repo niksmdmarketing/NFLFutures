@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-10-27T14:35:27+00:00",
+ "checked_utc": "2026-10-27T20:07:27+00:00",
  "leagues": {
   "nfl": {
-   "records": 1585,
+   "records": 1580,
    "by_layer": {
     "official": 1525,
-    "reported": 60
+    "reported": 55
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -80,16 +80,16 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "60/60"
+   "reported_matched_to_official_list": "55/55"
   },
   "nba": {
-   "records": 205,
+   "records": 219,
    "by_layer": {
-    "official": 161,
-    "reported": 44
+    "official": 177,
+    "reported": 42
    },
    "unknown_team": 0,
-   "no_player": 25,
+   "no_player": 20,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -136,18 +136,18 @@
    "stale_projection_dates": 0,
    "teams_missing_official": [],
    "season_state": {
-    "state": "unknown",
-    "why": "JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+    "state": "in_season",
+    "why": "38 regular-season/playoff and 0 other games 2026-10-20..2026-11-06"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "44/44"
+   "reported_matched_to_official_list": "42/42"
   },
   "nhl": {
-   "records": 1562,
+   "records": 1557,
    "by_layer": {
     "official": 152,
-    "reported": 67,
+    "reported": 62,
     "projected": 1343
    },
    "unknown_team": 0,
@@ -157,6 +157,7 @@
     "ANA",
     "BUF",
     "CAR",
+    "CBJ",
     "CGY",
     "CHI",
     "COL",
@@ -188,8 +189,7 @@
    "conflicts": [],
    "stale_projection_dates": 0,
    "teams_missing_official": [
-    "BOS",
-    "CBJ"
+    "BOS"
    ],
    "season_state": {
     "state": "in_season",
@@ -197,7 +197,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "61/67"
+   "reported_matched_to_official_list": "62/62"
   },
   "nbl": {
    "records": 21,
@@ -210,18 +210,18 @@
    "teams_covered_official": [
     "ADL",
     "BRI",
+    "CNS",
     "ILL",
     "MEL",
     "PER",
+    "SEM",
     "SYD",
     "TAS"
    ],
    "conflicts": [],
    "stale_projection_dates": 0,
    "teams_missing_official": [
-    "CNS",
-    "NZL",
-    "SEM"
+    "NZL"
    ],
    "season_state": {
     "state": "in_season",
@@ -273,7 +273,7 @@
   }
  },
  "sources_failed": [
-  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 64 h old"
+  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 70 h old"
  ],
  "sources_not_expected": []
 }
