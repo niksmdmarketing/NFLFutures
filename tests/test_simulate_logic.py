@@ -40,3 +40,19 @@ class SimulateLogic(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class MarginAdj(unittest.TestCase):
+    """Research-only per-game margin shift (research/NFL_QB_ORACLE_RULE.md, 27 Oct 2026)."""
+
+    def test_zero_column_changes_nothing(self):
+        s = schedule()
+        a = simulate.simulate(s, np.zeros(len(TEAMS)), 200, 1., 13., 1.8, seed=3)
+        b = simulate.simulate(s.assign(margin_adj=0.0), np.zeros(len(TEAMS)), 200, 1., 13., 1.8, seed=3)
+        self.assertTrue(np.array_equal(a["wins"], b["wins"]))
+
+    def test_shift_equals_home_edge(self):
+        s = schedule()
+        a = simulate.simulate(s.assign(margin_adj=5.0), np.zeros(len(TEAMS)), 200, 1., 13., 1.8, seed=3)
+        b = simulate.simulate(s, np.zeros(len(TEAMS)), 200, 1., 13., 6.8, seed=3)
+        self.assertTrue(np.allclose(a["wins"], b["wins"]))

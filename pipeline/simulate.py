@@ -46,6 +46,8 @@ def simulate(g, R, N, tau, sigma, hfa, seed=7, hfa_post=None, n_seeds=7, sweep_f
     played = g.result.notna().values
     Rs = R[None, :] + rng.normal(0, tau, (N, NT))
     edge = np.where(g.location.astype(str).str.lower().eq("neutral").values, 0.0, hfa) if "location" in g else np.full(nG, hfa)
+    if "margin_adj" in g:  # research-only per-game home-margin shift (research/NFL_QB_ORACLE_RULE.md); absent in live runs
+        edge = edge + g.margin_adj.fillna(0.0).values
     margin = (Rs[:, hi] - Rs[:, ai] + edge[None, :] + rng.normal(0, sigma, (N, nG))).astype(np.float32)
     margin[:, played] = g.result.values[played][None, :]
     hwv = (margin > 0).astype(np.float32) + 0.5 * (margin == 0)  # home win value (ties = half)
