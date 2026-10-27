@@ -1,6 +1,10 @@
 # NFL futures: does reported QB absence (news only) improve the forecast? Rule fixed before any code results (27 Oct 2026, Sydney)
 
-Status: **draft.** The injured-reserve and PUP minimums are awaiting GPT's season-by-season table, and GPT's review is pending. Nothing has been run.
+Status: **draft for GPT review.** The injured-reserve and PUP minimums now come from GPT's table (research/qb_news/list_minimums.json):
+- IR placement: rest of season in 2018-19, when a return needed a separate designation; 3 team games in 2020-21; 4 team games from 2022, counted from the placement;
+- initial-season PUP: 6 weeks to 2021, 4 games from 2022.
+
+Only the identity check has been run; no gains have been computed.
 
 ## Why
 - **The perfect-starter benchmark** (research/NFL_QB_ORACLE_RULE.md) gave v5-core +0.0063 log loss (lower bound +0.0035) when each remaining game used its actual starter.
