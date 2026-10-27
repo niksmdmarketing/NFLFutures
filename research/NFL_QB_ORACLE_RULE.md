@@ -1,6 +1,6 @@
 # NFL futures: does knowing each game's starting QB improve the forecast? A perfect-knowledge replay. Rule fixed before any code or results (27 Oct 2026, Sydney)
 
-Status: **draft for GPT review.** Nothing has been run. Asked by the user ("Start your task", 27 Oct 2026). TypeSafe chose this as the next logic improvement (75%, against props game-script 11% and game models 12%).
+Status: **final (27 Oct 2026, 14:06 Sydney).** The user asked to run it now ("Let's do it"), before GPT's review arrived. Any point GPT raises afterwards is reported beside the result; a change would need a new dated rule, with no rerunning under this one. Nothing had been run beyond the identity check (no gains computed) when this was committed. Asked by the user ("Start your task", 27 Oct 2026). TypeSafe chose this as the next logic improvement (75%, against props game-script 11% and game models 12%).
 
 ## Why
 - **The live QB layer** (pipeline/ratings.py, team_ratings):
@@ -81,3 +81,11 @@ Mechanics:
   - the v5-promotion rows (the none arm) and their results were seen;
   - no QB-adjusted futures replay has been computed;
   - the failed QB availability episode work (research/NFL_QB_AVAILABILITY_RULE.md) inspected 2013-2025 injury episodes but computed no forecast scores.
+
+## Note before the full run (27 Oct 2026)
+- **Identity check passed:** the none arm reproduced all 4,992 stored v5-promotion rows exactly (research/nfl_qb_oracle_identity.json).
+- **Gap audit** (research/nfl_qb_oracle_audit.csv): about 25% of remaining team-games have a starter other than the reference QB, at every checkpoint. A by-name check of 2025 week 4 showed genuine changes:
+  - injuries and returns;
+  - rookies taking over;
+  - benchings.
+- The oracle therefore includes planned changes (rookies, benchings), not just injuries. That may overstate what injury news alone can deliver, and is to be noted in the reading.
