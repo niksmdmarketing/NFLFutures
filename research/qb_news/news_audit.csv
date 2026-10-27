@@ -1,0 +1,406 @@
+season,week,team,case,arm,used,why,code,report_date,a,b,remaining_games,starter,backup,ref,p_out_next,active_cases
+2018,4,PHI,7,news_explicit,False,returned,,,,,,,,,,
+2018,4,SF,9,news_explicit,True,,S,2018-09-24,12.0,12.0,12.0,Jimmy Garoppolo,00-0033936,00-0031345,1.0,1.0
+2018,4,TB,10,news_explicit,True,,G,2018-06-28,0.0,0.0,12.0,Jameis Winston,00-0023682,00-0023682,0.5,1.0
+2018,4,TEN,11,news_explicit,False,returned,,,,,,,,,,
+2018,4,PHI,7,news_all,False,returned,,,,,,,,,,
+2018,4,SF,9,news_all,True,,S,2018-09-24,12.0,12.0,12.0,Jimmy Garoppolo,00-0033936,00-0031345,1.0,1.0
+2018,4,TB,10,news_all,True,,G,2018-06-28,0.0,0.0,12.0,Jameis Winston,00-0023682,00-0023682,0.5,1.0
+2018,4,TEN,11,news_all,False,returned,,,,,,,,,,
+2018,9,BAL,0,news_explicit,False,no usable report,,,,,,,,,,
+2018,9,BUF,1,news_explicit,True,,G,2018-10-16,0.0,1.0,7.0,Josh Allen,00-0023645,00-0034857,0.5,1.0
+2018,9,MIA,5,news_explicit,False,no usable report,,,,,,,,,,
+2018,9,NYJ,6,news_explicit,False,no usable report,,,,,,,,,,
+2018,9,PHI,7,news_explicit,False,returned,,,,,,,,,,
+2018,9,SF,9,news_explicit,True,,S,2018-09-24,7.0,7.0,7.0,Jimmy Garoppolo,00-0033936,00-0033936,1.0,1.0
+2018,9,TB,10,news_explicit,False,returned,,,,,,,,,,
+2018,9,TEN,11,news_explicit,False,returned,,,,,,,,,,
+2018,9,BAL,0,news_all,False,no usable report,,,,,,,,,,
+2018,9,BUF,1,news_all,True,,G,2018-10-16,0.0,1.0,7.0,Josh Allen,00-0023645,00-0034857,0.5,1.0
+2018,9,MIA,5,news_all,True,,D,2018-10-15,0.0,0.0,7.0,Ryan Tannehill,00-0029682,00-0029682,0.5,1.0
+2018,9,NYJ,6,news_all,False,no usable report,,,,,,,,,,
+2018,9,PHI,7,news_all,False,returned,,,,,,,,,,
+2018,9,SF,9,news_all,True,,S,2018-09-24,7.0,7.0,7.0,Jimmy Garoppolo,00-0033936,00-0033936,1.0,1.0
+2018,9,TB,10,news_all,False,returned,,,,,,,,,,
+2018,9,TEN,11,news_all,False,returned,,,,,,,,,,
+2018,13,BAL,0,news_explicit,False,no usable report,,,,,,,,,,
+2018,13,BUF,1,news_explicit,False,returned,,,,,,,,,,
+2018,13,CHI,3,news_explicit,False,no usable report,,,,,,,,,,
+2018,13,CIN,4,news_explicit,True,,IR,2018-11-26,4.0,4.0,4.0,Andy Dalton,00-0032436,00-0027973,1.0,1.0
+2018,13,MIA,5,news_explicit,False,returned,,,,,,,,,,
+2018,13,NYJ,6,news_explicit,False,no usable report,,,,,,,,,,
+2018,13,PHI,7,news_explicit,False,returned,,,,,,,,,,
+2018,13,SF,9,news_explicit,True,,S,2018-09-24,4.0,4.0,4.0,Jimmy Garoppolo,00-0033936,00-0033936,1.0,1.0
+2018,13,TB,10,news_explicit,False,returned,,,,,,,,,,
+2018,13,TEN,11,news_explicit,False,returned,,,,,,,,,,
+2018,13,WAS,13,news_explicit,True,,W,2018-12-04,4.0,4.0,4.0,Colt McCoy,00-0026898,00-0023436,1.0,2.0
+2018,13,BAL,0,news_all,True,,D,2018-11-09,0.0,0.0,4.0,Joe Flacco,00-0034796,00-0026158,0.5,1.0
+2018,13,BUF,1,news_all,False,returned,,,,,,,,,,
+2018,13,CHI,3,news_all,True,,D,2018-11-20,0.0,0.0,4.0,Mitchell Trubisky,00-0026544,00-0033869,0.5,1.0
+2018,13,CIN,4,news_all,True,,IR,2018-11-26,4.0,4.0,4.0,Andy Dalton,00-0032436,00-0027973,1.0,1.0
+2018,13,MIA,5,news_all,False,returned,,,,,,,,,,
+2018,13,NYJ,6,news_all,True,,D,2018-11-07,0.0,0.0,4.0,Sam Darnold,00-0021206,00-0034869,0.5,1.0
+2018,13,PHI,7,news_all,False,returned,,,,,,,,,,
+2018,13,SF,9,news_all,True,,S,2018-09-24,4.0,4.0,4.0,Jimmy Garoppolo,00-0033936,00-0033936,1.0,1.0
+2018,13,TB,10,news_all,False,returned,,,,,,,,,,
+2018,13,TEN,11,news_all,False,returned,,,,,,,,,,
+2018,13,WAS,13,news_all,True,,W,2018-12-04,4.0,4.0,4.0,Colt McCoy,00-0026898,00-0023436,1.0,2.0
+2019,4,CAR,14,news_explicit,False,returned,,,,,,,,,,
+2019,4,JAX,18,news_explicit,False,no usable report,,,,,,,,,,
+2019,4,NO,20,news_explicit,True,,W,2019-09-16,4.0,7.0,12.0,Drew Brees,00-0031237,00-0031237,1.0,1.0
+2019,4,PIT,22,news_explicit,True,,S,2019-09-16,12.0,12.0,12.0,Ben Roethlisberger,00-0034771,00-0034771,1.0,1.0
+2019,4,CAR,14,news_all,False,returned,,,,,,,,,,
+2019,4,JAX,18,news_all,True,,U,2019-09-08,0.0,0.0,12.0,Nick Foles,00-0035289,00-0035289,0.5,1.0
+2019,4,NO,20,news_all,True,,W,2019-09-16,4.0,7.0,12.0,Drew Brees,00-0031237,00-0031237,1.0,1.0
+2019,4,PIT,22,news_all,True,,S,2019-09-16,12.0,12.0,12.0,Ben Roethlisberger,00-0034771,00-0034771,1.0,1.0
+2019,9,CAR,14,news_explicit,False,returned,,,,,,,,,,
+2019,9,DEN,15,news_explicit,True,,W,2019-11-01,4.0,4.0,7.0,Joe Flacco,00-0032434,00-0026158,1.0,1.0
+2019,9,DET,16,news_explicit,False,no usable report,,,,,,,,,,
+2019,9,JAX,18,news_explicit,False,no usable report,,,,,,,,,,
+2019,9,KC,19,news_explicit,True,,W,2019-10-18,0.0,2.0,7.0,Patrick Mahomes,00-0025708,00-0033873,0.6666666666666666,1.0
+2019,9,NO,20,news_explicit,False,returned,,,,,,,,,,
+2019,9,PIT,22,news_explicit,True,,S,2019-09-16,8.0,8.0,8.0,Ben Roethlisberger,00-0034771,00-0034771,1.0,1.0
+2019,9,CAR,14,news_all,False,returned,,,,,,,,,,
+2019,9,DEN,15,news_all,True,,W,2019-11-01,4.0,4.0,7.0,Joe Flacco,00-0032434,00-0026158,1.0,1.0
+2019,9,DET,16,news_all,False,no usable report,,,,,,,,,,
+2019,9,JAX,18,news_all,True,,U,2019-09-08,0.0,0.0,7.0,Nick Foles,00-0035289,00-0035289,0.5,1.0
+2019,9,KC,19,news_all,True,,W,2019-10-18,0.0,2.0,7.0,Patrick Mahomes,00-0025708,00-0033873,0.6666666666666666,1.0
+2019,9,NO,20,news_all,False,returned,,,,,,,,,,
+2019,9,PIT,22,news_all,True,,S,2019-09-16,8.0,8.0,8.0,Ben Roethlisberger,00-0034771,00-0034771,1.0,1.0
+2019,13,CAR,14,news_explicit,False,returned,,,,,,,,,,
+2019,13,DEN,15,news_explicit,True,,W,2019-11-01,1.0,1.0,4.0,Joe Flacco,00-0032434,00-0026158,1.0,1.0
+2019,13,DET,17,news_explicit,False,no usable report,,,,,,,,,,
+2019,13,DET,16,news_explicit,True,,W,2019-11-17,4.0,4.0,4.0,Matthew Stafford,00-0032436,00-0026498,1.0,1.0
+2019,13,JAX,18,news_explicit,False,returned,,,,,,,,,,
+2019,13,KC,19,news_explicit,False,returned,,,,,,,,,,
+2019,13,NO,20,news_explicit,False,returned,,,,,,,,,,
+2019,13,NYG,21,news_explicit,False,no usable report,,,,,,,,,,
+2019,13,PIT,22,news_explicit,True,,S,2019-09-16,4.0,4.0,4.0,Ben Roethlisberger,00-0034771,00-0034771,1.0,1.0
+2019,13,CAR,14,news_all,False,returned,,,,,,,,,,
+2019,13,DEN,15,news_all,True,,W,2019-11-01,1.0,1.0,4.0,Joe Flacco,00-0032434,00-0026158,1.0,1.0
+2019,13,DET,17,news_all,True,,U,2019-11-25,0.0,1.0,4.0,Jeff Driskel,00-0035040,00-0026498,0.5,2.0
+2019,13,JAX,18,news_all,False,returned,,,,,,,,,,
+2019,13,KC,19,news_all,False,returned,,,,,,,,,,
+2019,13,NO,20,news_all,False,returned,,,,,,,,,,
+2019,13,NYG,21,news_all,False,no usable report,,,,,,,,,,
+2019,13,PIT,22,news_all,True,,S,2019-09-16,4.0,4.0,4.0,Ben Roethlisberger,00-0034771,00-0034771,1.0,1.0
+2020,4,DEN,25,news_explicit,True,,G,2020-09-21,0.0,2.0,12.0,Drew Lock,00-0034955,00-0032436,0.6666666666666666,1.0
+2020,4,LAC,27,news_explicit,False,no usable report,,,,,,,,,,
+2020,4,NYJ,29,news_explicit,False,no usable report,,,,,,,,,,
+2020,4,SF,31,news_explicit,False,no usable report,,,,,,,,,,
+2020,4,DEN,25,news_all,True,,G,2020-09-21,0.0,2.0,12.0,Drew Lock,00-0034955,00-0032436,0.6666666666666666,1.0
+2020,4,LAC,27,news_all,True,,U,2020-09-23,0.0,0.0,12.0,Tyrod Taylor,00-0036355,00-0036355,0.5,1.0
+2020,4,NYJ,29,news_all,True,,U,2020-10-02,1.0,2.0,12.0,Sam Darnold,00-0026158,00-0034869,1.0,1.0
+2020,4,SF,31,news_all,True,,U,2020-09-20,0.0,0.0,12.0,Jimmy Garoppolo,00-0033319,00-0033319,0.5,1.0
+2020,9,DAL,24,news_explicit,True,,M,2020-10-12,7.0,7.0,7.0,Dak Prescott,00-0027973,00-0033077,1.0,1.0
+2020,9,DEN,25,news_explicit,False,returned,,,,,,,,,,
+2020,9,JAX,26,news_explicit,False,returned,,,,,,,,,,
+2020,9,LAC,27,news_explicit,False,no usable report,,,,,,,,,,
+2020,9,NYJ,29,news_explicit,False,returned,,,,,,,,,,
+2020,9,NYJ,30,news_explicit,False,no usable report,,,,,,,,,,
+2020,9,SF,31,news_explicit,False,returned,,,,,,,,,,
+2020,9,SF,32,news_explicit,True,,W,2020-11-02,4.0,6.0,7.0,Jimmy Garoppolo,00-0033319,00-0031345,1.0,1.0
+2020,9,WAS,34,news_explicit,True,,S,2020-11-08,8.0,8.0,8.0,Kyle Allen,00-0023436,00-0035232,1.0,1.0
+2020,9,DAL,24,news_all,True,,M,2020-10-12,7.0,7.0,7.0,Dak Prescott,00-0027973,00-0033077,1.0,1.0
+2020,9,DEN,25,news_all,False,returned,,,,,,,,,,
+2020,9,JAX,26,news_all,False,returned,,,,,,,,,,
+2020,9,LAC,27,news_all,True,,U,2020-09-23,0.0,0.0,8.0,Tyrod Taylor,00-0036355,00-0036355,0.5,1.0
+2020,9,NYJ,29,news_all,False,returned,,,,,,,,,,
+2020,9,NYJ,30,news_all,False,no usable report,,,,,,,,,,
+2020,9,SF,31,news_all,False,returned,,,,,,,,,,
+2020,9,SF,32,news_all,True,,W,2020-11-02,4.0,6.0,7.0,Jimmy Garoppolo,00-0033319,00-0031345,1.0,1.0
+2020,9,WAS,34,news_all,True,,S,2020-11-08,8.0,8.0,8.0,Kyle Allen,00-0023436,00-0035232,1.0,1.0
+2020,13,CIN,23,news_explicit,True,,IR,2020-11-23,1.0,3.0,4.0,Joe Burrow,00-0032434,00-0036442,1.0,1.0
+2020,13,DAL,24,news_explicit,True,,M,2020-10-12,4.0,4.0,4.0,Dak Prescott,00-0027973,00-0033077,1.0,1.0
+2020,13,DEN,25,news_explicit,False,returned,,,,,,,,,,
+2020,13,JAX,26,news_explicit,False,returned,,,,,,,,,,
+2020,13,LAC,27,news_explicit,False,no usable report,,,,,,,,,,
+2020,13,NO,28,news_explicit,True,,G,2020-11-20,0.0,2.0,4.0,Drew Brees,00-0033357,00-0020531,0.6666666666666666,1.0
+2020,13,NYJ,29,news_explicit,False,returned,,,,,,,,,,
+2020,13,NYJ,30,news_explicit,False,returned,,,,,,,,,,
+2020,13,SF,31,news_explicit,False,returned,,,,,,,,,,
+2020,13,SF,32,news_explicit,True,,W,2020-11-02,1.0,3.0,4.0,Jimmy Garoppolo,00-0033319,00-0033319,1.0,1.0
+2020,13,WAS,34,news_explicit,True,,S,2020-11-08,4.0,4.0,4.0,Kyle Allen,00-0023436,00-0023436,1.0,1.0
+2020,13,CIN,23,news_all,True,,IR,2020-11-23,1.0,3.0,4.0,Joe Burrow,00-0032434,00-0036442,1.0,1.0
+2020,13,DAL,24,news_all,True,,M,2020-10-12,4.0,4.0,4.0,Dak Prescott,00-0027973,00-0033077,1.0,1.0
+2020,13,DEN,25,news_all,False,returned,,,,,,,,,,
+2020,13,JAX,26,news_all,False,returned,,,,,,,,,,
+2020,13,LAC,27,news_all,True,,U,2020-09-23,0.0,0.0,4.0,Tyrod Taylor,00-0036355,00-0036355,0.5,1.0
+2020,13,NO,28,news_all,True,,G,2020-11-20,0.0,2.0,4.0,Drew Brees,00-0033357,00-0020531,0.6666666666666666,1.0
+2020,13,NYJ,29,news_all,False,returned,,,,,,,,,,
+2020,13,NYJ,30,news_all,False,returned,,,,,,,,,,
+2020,13,SF,31,news_all,False,returned,,,,,,,,,,
+2020,13,SF,32,news_all,True,,W,2020-11-02,1.0,3.0,4.0,Jimmy Garoppolo,00-0033319,00-0033319,1.0,1.0
+2020,13,WAS,34,news_all,True,,S,2020-11-08,4.0,4.0,4.0,Kyle Allen,00-0023436,00-0023436,1.0,1.0
+2021,4,CHI,39,news_explicit,False,no usable report,,,,,,,,,,
+2021,4,HOU,43,news_explicit,True,,IR,2021-09-21,1.0,3.0,13.0,Tyrod Taylor,00-0036898,00-0036898,1.0,1.0
+2021,4,MIA,44,news_explicit,True,,G,2021-09-22,0.0,2.0,13.0,Tua Tagovailoa,00-0033119,00-0033119,0.6666666666666666,1.0
+2021,4,WAS,50,news_explicit,True,,W,2021-09-13,3.0,4.0,13.0,Ryan Fitzpatrick,00-0031800,00-0031800,1.0,1.0
+2021,4,CHI,39,news_all,True,,U,2021-09-20,0.0,0.0,13.0,Andy Dalton,00-0036945,00-0036945,0.5,1.0
+2021,4,HOU,43,news_all,True,,IR,2021-09-21,1.0,3.0,13.0,Tyrod Taylor,00-0036898,00-0036898,1.0,1.0
+2021,4,MIA,44,news_all,True,,G,2021-09-22,0.0,2.0,13.0,Tua Tagovailoa,00-0033119,00-0033119,0.6666666666666666,1.0
+2021,4,WAS,50,news_all,True,,W,2021-09-13,3.0,4.0,13.0,Ryan Fitzpatrick,00-0031800,00-0031800,1.0,1.0
+2021,9,ARI,36,news_explicit,True,,W,2021-10-31,0.0,2.0,8.0,Kyler Murray,00-0027688,00-0035228,0.6666666666666666,1.0
+2021,9,CAR,38,news_explicit,True,,G,2021-11-09,2.0,4.0,8.0,Sam Darnold,00-0033275,00-0034869,1.0,1.0
+2021,9,CHI,39,news_explicit,False,no usable report,,,,,,,,,,
+2021,9,HOU,43,news_explicit,False,returned,,,,,,,,,,
+2021,9,MIA,44,news_explicit,False,returned,,,,,,,,,,
+2021,9,MIA,45,news_explicit,False,no usable report,,,,,,,,,,
+2021,9,NO,46,news_explicit,True,,S,2021-11-01,9.0,9.0,9.0,Jameis Winston,00-0032156,00-0031503,1.0,1.0
+2021,9,NYJ,48,news_explicit,True,,W,2021-10-25,0.0,2.0,9.0,Zach Wilson,00-0034401,00-0037013,0.6666666666666666,1.0
+2021,9,SEA,49,news_explicit,True,,W,2021-10-08,0.0,3.0,9.0,Russell Wilson,00-0030565,00-0029263,0.75,1.0
+2021,9,WAS,50,news_explicit,True,,W,2021-09-13,0.0,0.0,9.0,Ryan Fitzpatrick,00-0031800,00-0031800,0.5,1.0
+2021,9,ARI,36,news_all,True,,D,2021-11-01,0.0,1.0,8.0,Kyler Murray,00-0027688,00-0035228,0.5,1.0
+2021,9,CAR,38,news_all,True,,G,2021-11-09,2.0,4.0,8.0,Sam Darnold,00-0033275,00-0034869,1.0,1.0
+2021,9,CHI,39,news_all,True,,U,2021-09-20,0.0,0.0,8.0,Andy Dalton,00-0036945,00-0036945,0.5,1.0
+2021,9,HOU,43,news_all,False,returned,,,,,,,,,,
+2021,9,MIA,44,news_all,False,returned,,,,,,,,,,
+2021,9,MIA,45,news_all,True,,D,2021-11-07,1.0,2.0,8.0,Tua Tagovailoa,00-0033119,00-0033119,1.0,1.0
+2021,9,NO,46,news_all,True,,S,2021-11-01,9.0,9.0,9.0,Jameis Winston,00-0032156,00-0031503,1.0,1.0
+2021,9,NYJ,48,news_all,True,,W,2021-10-25,0.0,2.0,9.0,Zach Wilson,00-0034401,00-0037013,0.6666666666666666,1.0
+2021,9,SEA,49,news_all,True,,W,2021-10-08,0.0,3.0,9.0,Russell Wilson,00-0030565,00-0029263,0.75,1.0
+2021,9,WAS,50,news_all,True,,W,2021-09-13,0.0,0.0,9.0,Ryan Fitzpatrick,00-0031800,00-0031800,0.5,1.0
+2021,13,ARI,36,news_explicit,False,returned,,,,,,,,,,
+2021,13,CAR,38,news_explicit,True,,W,2021-11-10,0.0,2.0,5.0,Sam Darnold,00-0027939,00-0034869,0.6666666666666666,1.0
+2021,13,CHI,39,news_explicit,False,returned,,,,,,,,,,
+2021,13,CHI,40,news_explicit,False,no usable report,,,,,,,,,,
+2021,13,HOU,43,news_explicit,False,returned,,,,,,,,,,
+2021,13,MIA,44,news_explicit,False,returned,,,,,,,,,,
+2021,13,MIA,45,news_explicit,False,returned,,,,,,,,,,
+2021,13,NO,46,news_explicit,True,,S,2021-11-01,5.0,5.0,5.0,Jameis Winston,00-0032156,00-0031503,1.0,1.0
+2021,13,NYG,47,news_explicit,False,no usable report,,,,,,,,,,
+2021,13,NYJ,48,news_explicit,False,returned,,,,,,,,,,
+2021,13,SEA,49,news_explicit,False,returned,,,,,,,,,,
+2021,13,WAS,50,news_explicit,True,,S,2021-12-07,5.0,5.0,5.0,Ryan Fitzpatrick,00-0031800,00-0031800,1.0,1.0
+2021,13,ARI,36,news_all,False,returned,,,,,,,,,,
+2021,13,CAR,38,news_all,True,,W,2021-11-10,0.0,2.0,5.0,Sam Darnold,00-0027939,00-0034869,0.6666666666666666,1.0
+2021,13,CHI,39,news_all,False,returned,,,,,,,,,,
+2021,13,CHI,40,news_all,True,,U,2021-11-22,0.0,0.0,5.0,Justin Fields,00-0027973,00-0036945,0.5,1.0
+2021,13,HOU,43,news_all,False,returned,,,,,,,,,,
+2021,13,MIA,44,news_all,False,returned,,,,,,,,,,
+2021,13,MIA,45,news_all,False,returned,,,,,,,,,,
+2021,13,NO,46,news_all,True,,S,2021-11-01,5.0,5.0,5.0,Jameis Winston,00-0032156,00-0031503,1.0,1.0
+2021,13,NYG,47,news_all,True,,U,2021-11-30,0.0,1.0,5.0,Daniel Jones,00-0030520,00-0035710,0.5,1.0
+2021,13,NYJ,48,news_all,False,returned,,,,,,,,,,
+2021,13,SEA,49,news_all,False,returned,,,,,,,,,,
+2021,13,WAS,50,news_all,True,,S,2021-12-07,5.0,5.0,5.0,Ryan Fitzpatrick,00-0031800,00-0031800,1.0,1.0
+2022,4,CLE,57,news_explicit,True,,G,2022-08-18,7.0,7.0,13.0,Deshaun Watson,00-0033119,00-0033119,1.0,1.0
+2022,4,DAL,58,news_explicit,True,,G,2022-09-11,0.0,1.0,13.0,Dak Prescott,00-0033662,00-0033662,0.5,1.0
+2022,4,MIA,60,news_explicit,False,no usable report,,,,,,,,,,
+2022,4,NE,62,news_explicit,False,no usable report,,,,,,,,,,
+2022,4,NO,63,news_explicit,False,returned,,,,,,,,,,
+2022,4,NYJ,64,news_explicit,False,returned,,,,,,,,,,
+2022,4,SF,67,news_explicit,True,,S,2022-09-19,13.0,13.0,13.0,Trey Lance,00-0031345,00-0031345,1.0,1.0
+2022,4,CLE,57,news_all,True,,G,2022-08-18,7.0,7.0,13.0,Deshaun Watson,00-0033119,00-0033119,1.0,1.0
+2022,4,DAL,58,news_all,True,,G,2022-09-11,0.0,1.0,13.0,Dak Prescott,00-0033662,00-0033662,0.5,1.0
+2022,4,MIA,60,news_all,True,,U,2022-09-30,1.0,2.0,13.0,Tua Tagovailoa,00-0031237,00-0036212,1.0,1.0
+2022,4,NE,62,news_all,True,,D,2022-09-26,0.0,1.0,13.0,Mac Jones,00-0038108,00-0036972,0.5,1.0
+2022,4,NO,63,news_all,False,returned,,,,,,,,,,
+2022,4,NYJ,64,news_all,False,returned,,,,,,,,,,
+2022,4,SF,67,news_all,True,,S,2022-09-19,13.0,13.0,13.0,Trey Lance,00-0031345,00-0031345,1.0,1.0
+2022,9,ARI,51,news_explicit,False,no usable report,,,,,,,,,,
+2022,9,CAR,55,news_explicit,False,no usable report,,,,,,,,,,
+2022,9,CLE,57,news_explicit,True,,G,2022-08-18,3.0,3.0,9.0,Deshaun Watson,00-0033119,00-0033119,1.0,1.0
+2022,9,DAL,58,news_explicit,False,returned,,,,,,,,,,
+2022,9,MIA,60,news_explicit,False,returned,,,,,,,,,,
+2022,9,NE,62,news_explicit,False,returned,,,,,,,,,,
+2022,9,NO,63,news_explicit,False,returned,,,,,,,,,,
+2022,9,NYJ,64,news_explicit,False,returned,,,,,,,,,,
+2022,9,SF,67,news_explicit,True,,S,2022-09-19,9.0,9.0,9.0,Trey Lance,00-0031345,00-0031345,1.0,1.0
+2022,9,TEN,69,news_explicit,False,no usable report,,,,,,,,,,
+2022,9,WAS,71,news_explicit,True,,IR,2022-10-22,1.0,3.0,8.0,Carson Wentz,00-0031800,00-0032950,1.0,1.0
+2022,9,ARI,51,news_all,False,no usable report,,,,,,,,,,
+2022,9,CAR,55,news_all,True,,U,2022-10-09,0.0,0.0,8.0,Baker Mayfield,00-0033275,00-0034855,0.5,1.0
+2022,9,CLE,57,news_all,True,,G,2022-08-18,3.0,3.0,9.0,Deshaun Watson,00-0033119,00-0033119,1.0,1.0
+2022,9,DAL,58,news_all,False,returned,,,,,,,,,,
+2022,9,MIA,60,news_all,False,returned,,,,,,,,,,
+2022,9,NE,62,news_all,False,returned,,,,,,,,,,
+2022,9,NO,63,news_all,False,returned,,,,,,,,,,
+2022,9,NYJ,64,news_all,False,returned,,,,,,,,,,
+2022,9,SF,67,news_all,True,,S,2022-09-19,9.0,9.0,9.0,Trey Lance,00-0031345,00-0031345,1.0,1.0
+2022,9,TEN,69,news_all,True,,D,2022-10-29,0.0,0.0,9.0,Ryan Tannehill,00-0038128,00-0029701,0.5,1.0
+2022,9,WAS,71,news_all,True,,IR,2022-10-22,1.0,3.0,8.0,Carson Wentz,00-0031800,00-0032950,1.0,1.0
+2022,13,ARI,51,news_explicit,False,returned,,,,,,,,,,
+2022,13,BAL,54,news_explicit,True,,G,2022-12-05,2.0,4.0,5.0,Lamar Jackson,00-0035993,00-0034796,1.0,1.0
+2022,13,CAR,55,news_explicit,False,returned,,,,,,,,,,
+2022,13,CLE,57,news_explicit,False,returned,,,,,,,,,,
+2022,13,DAL,58,news_explicit,False,returned,,,,,,,,,,
+2022,13,LA,59,news_explicit,False,no usable report,,,,,,,,,,
+2022,13,MIA,60,news_explicit,False,returned,,,,,,,,,,
+2022,13,NE,62,news_explicit,False,returned,,,,,,,,,,
+2022,13,NO,63,news_explicit,False,returned,,,,,,,,,,
+2022,13,NYJ,64,news_explicit,False,returned,,,,,,,,,,
+2022,13,SF,68,news_explicit,True,,W,2022-12-06,5.0,5.0,5.0,Jimmy Garoppolo,00-0037834,00-0031345,1.0,2.0
+2022,13,TEN,69,news_explicit,False,returned,,,,,,,,,,
+2022,13,WAS,71,news_explicit,True,,IR,2022-10-22,0.0,0.0,4.0,Carson Wentz,00-0031800,00-0032950,0.5,1.0
+2022,13,ARI,51,news_all,False,returned,,,,,,,,,,
+2022,13,BAL,54,news_all,True,,G,2022-12-05,2.0,4.0,5.0,Lamar Jackson,00-0035993,00-0034796,1.0,1.0
+2022,13,CAR,55,news_all,False,returned,,,,,,,,,,
+2022,13,CLE,57,news_all,False,returned,,,,,,,,,,
+2022,13,DAL,58,news_all,False,returned,,,,,,,,,,
+2022,13,LA,59,news_all,True,,D,2022-11-23,0.0,0.0,5.0,Matthew Stafford,00-0034899,00-0026498,0.5,1.0
+2022,13,MIA,60,news_all,False,returned,,,,,,,,,,
+2022,13,NE,62,news_all,False,returned,,,,,,,,,,
+2022,13,NO,63,news_all,False,returned,,,,,,,,,,
+2022,13,NYJ,64,news_all,False,returned,,,,,,,,,,
+2022,13,SF,68,news_all,True,,W,2022-12-06,5.0,5.0,5.0,Jimmy Garoppolo,00-0037834,00-0031345,1.0,2.0
+2022,13,TEN,69,news_all,False,returned,,,,,,,,,,
+2022,13,WAS,71,news_all,True,,IR,2022-10-22,0.0,0.0,4.0,Carson Wentz,00-0031800,00-0032950,0.5,1.0
+2023,4,ARI,72,news_explicit,True,,PUP,2023-08-28,0.0,2.0,13.0,Kyler Murray,00-0033949,00-0033949,0.6666666666666666,1.0
+2023,4,CLE,75,news_explicit,False,no usable report,,,,,,,,,,
+2023,4,NYJ,84,news_explicit,True,,S,2023-09-12,13.0,13.0,13.0,Aaron Rodgers,00-0037013,00-0037013,1.0,1.0
+2023,4,ARI,72,news_all,True,,PUP,2023-08-28,0.0,2.0,13.0,Kyler Murray,00-0033949,00-0033949,0.6666666666666666,1.0
+2023,4,CLE,75,news_all,True,,D,2023-09-29,0.0,1.0,13.0,Deshaun Watson,00-0038583,00-0033537,0.5,1.0
+2023,4,NYJ,84,news_all,True,,S,2023-09-12,13.0,13.0,13.0,Aaron Rodgers,00-0037013,00-0037013,1.0,1.0
+2023,9,ARI,72,news_explicit,True,,PUP,2023-08-28,0.0,0.0,8.0,Kyler Murray,00-0033949,00-0033949,0.5,1.0
+2023,9,CHI,73,news_explicit,False,no usable report,,,,,,,,,,
+2023,9,CLE,75,news_explicit,False,returned,,,,,,,,,,
+2023,9,IND,78,news_explicit,True,,S,2023-10-18,8.0,8.0,8.0,Anthony Richardson,00-0035289,00-0035289,1.0,1.0
+2023,9,MIN,80,news_explicit,True,,S,2023-10-30,8.0,8.0,8.0,Kirk Cousins,00-0033949,00-0029604,1.0,1.0
+2023,9,NYG,81,news_explicit,False,returned,,,,,,,,,,
+2023,9,NYG,83,news_explicit,True,,S,2023-11-06,8.0,8.0,8.0,Daniel Jones,00-0038476,00-0035710,1.0,2.0
+2023,9,NYJ,84,news_explicit,True,,S,2023-09-12,9.0,9.0,9.0,Aaron Rodgers,00-0037013,00-0037013,1.0,1.0
+2023,9,TEN,87,news_explicit,False,no usable report,,,,,,,,,,
+2023,9,ARI,72,news_all,True,,PUP,2023-08-28,0.0,0.0,8.0,Kyler Murray,00-0033949,00-0033949,0.5,1.0
+2023,9,CHI,73,news_all,True,,U,2023-10-16,0.0,0.0,8.0,Justin Fields,00-0038416,00-0036945,0.5,1.0
+2023,9,CLE,75,news_all,False,returned,,,,,,,,,,
+2023,9,IND,78,news_all,True,,S,2023-10-18,8.0,8.0,8.0,Anthony Richardson,00-0035289,00-0035289,1.0,1.0
+2023,9,MIN,80,news_all,True,,S,2023-10-30,8.0,8.0,8.0,Kirk Cousins,00-0033949,00-0029604,1.0,1.0
+2023,9,NYG,81,news_all,False,returned,,,,,,,,,,
+2023,9,NYG,83,news_all,True,,S,2023-11-06,8.0,8.0,8.0,Daniel Jones,00-0038476,00-0035710,1.0,2.0
+2023,9,NYJ,84,news_all,True,,S,2023-09-12,9.0,9.0,9.0,Aaron Rodgers,00-0037013,00-0037013,1.0,1.0
+2023,9,TEN,87,news_all,True,,U,2023-10-16,0.0,0.0,9.0,Ryan Tannehill,00-0039152,00-0029701,0.5,1.0
+2023,13,ARI,72,news_explicit,False,returned,,,,,,,,,,
+2023,13,CHI,73,news_explicit,False,returned,,,,,,,,,,
+2023,13,CIN,74,news_explicit,True,,S,2023-11-17,5.0,5.0,5.0,Joe Burrow,00-0035100,00-0036442,1.0,1.0
+2023,13,CLE,75,news_explicit,False,returned,,,,,,,,,,
+2023,13,CLE,76,news_explicit,True,,S,2023-11-15,5.0,5.0,5.0,Deshaun Watson,00-0038583,00-0033537,1.0,1.0
+2023,13,IND,78,news_explicit,True,,S,2023-10-18,5.0,5.0,5.0,Anthony Richardson,00-0035289,00-0035289,1.0,1.0
+2023,13,MIN,80,news_explicit,True,,S,2023-10-30,5.0,5.0,5.0,Kirk Cousins,00-0033949,00-0029604,1.0,1.0
+2023,13,NYG,81,news_explicit,False,returned,,,,,,,,,,
+2023,13,NYG,83,news_explicit,True,,S,2023-11-06,5.0,5.0,5.0,Daniel Jones,00-0038476,00-0035710,1.0,2.0
+2023,13,NYJ,84,news_explicit,True,,S,2023-09-12,5.0,5.0,5.0,Aaron Rodgers,00-0037013,00-0037013,1.0,1.0
+2023,13,PIT,85,news_explicit,True,,W,2023-12-03,2.0,4.0,5.0,Kenny Pickett,00-0033869,00-0038102,1.0,1.0
+2023,13,TEN,87,news_explicit,False,no usable report,,,,,,,,,,
+2023,13,ARI,72,news_all,False,returned,,,,,,,,,,
+2023,13,CHI,73,news_all,False,returned,,,,,,,,,,
+2023,13,CIN,74,news_all,True,,S,2023-11-17,5.0,5.0,5.0,Joe Burrow,00-0035100,00-0036442,1.0,1.0
+2023,13,CLE,75,news_all,False,returned,,,,,,,,,,
+2023,13,CLE,76,news_all,True,,S,2023-11-15,5.0,5.0,5.0,Deshaun Watson,00-0038583,00-0033537,1.0,1.0
+2023,13,IND,78,news_all,True,,S,2023-10-18,5.0,5.0,5.0,Anthony Richardson,00-0035289,00-0035289,1.0,1.0
+2023,13,MIN,80,news_all,True,,S,2023-10-30,5.0,5.0,5.0,Kirk Cousins,00-0033949,00-0029604,1.0,1.0
+2023,13,NYG,81,news_all,False,returned,,,,,,,,,,
+2023,13,NYG,83,news_all,True,,S,2023-11-06,5.0,5.0,5.0,Daniel Jones,00-0038476,00-0035710,1.0,2.0
+2023,13,NYJ,84,news_all,True,,S,2023-09-12,5.0,5.0,5.0,Aaron Rodgers,00-0037013,00-0037013,1.0,1.0
+2023,13,PIT,85,news_all,True,,W,2023-12-03,2.0,4.0,5.0,Kenny Pickett,00-0033869,00-0038102,1.0,1.0
+2023,13,TEN,87,news_all,True,,U,2023-10-16,0.0,0.0,5.0,Ryan Tannehill,00-0039152,00-0039152,0.5,1.0
+2024,4,GB,90,news_explicit,False,returned,,,,,,,,,,
+2024,4,IND,91,news_explicit,False,no usable report,,,,,,,,,,
+2024,4,MIA,97,news_explicit,True,,G,2024-09-18,2.0,4.0,13.0,Tua Tagovailoa,00-0035993,00-0036212,1.0,1.0
+2024,4,PIT,102,news_explicit,False,no usable report,,,,,,,,,,
+2024,4,TEN,103,news_explicit,False,no usable report,,,,,,,,,,
+2024,4,GB,90,news_all,False,returned,,,,,,,,,,
+2024,4,IND,91,news_all,False,no usable report,,,,,,,,,,
+2024,4,MIA,97,news_all,True,,G,2024-09-18,2.0,4.0,13.0,Tua Tagovailoa,00-0035993,00-0036212,1.0,1.0
+2024,4,PIT,102,news_all,True,,D,2024-09-06,0.0,0.0,13.0,Russell Wilson,00-0036945,00-0036945,0.5,1.0
+2024,4,TEN,103,news_all,False,no usable report,,,,,,,,,,
+2024,9,CLE,88,news_explicit,True,,S,2024-10-21,8.0,8.0,8.0,Deshaun Watson,00-0031503,00-0033537,1.0,1.0
+2024,9,DAL,89,news_explicit,True,,G,2024-11-04,2.0,4.0,9.0,Dak Prescott,00-0033662,00-0033077,1.0,1.0
+2024,9,GB,90,news_explicit,False,returned,,,,,,,,,,
+2024,9,IND,91,news_explicit,False,returned,,,,,,,,,,
+2024,9,JAX,93,news_explicit,False,no usable report,,,,,,,,,,
+2024,9,LV,95,news_explicit,True,,W,2024-10-21,1.0,3.0,8.0,Aidan O'Connell,00-0035289,00-0035289,1.0,1.0
+2024,9,MIA,97,news_explicit,False,returned,,,,,,,,,,
+2024,9,NO,99,news_explicit,False,returned,,,,,,,,,,
+2024,9,PIT,102,news_explicit,False,returned,,,,,,,,,,
+2024,9,TEN,103,news_explicit,False,returned,,,,,,,,,,
+2024,9,CLE,88,news_all,True,,S,2024-10-21,8.0,8.0,8.0,Deshaun Watson,00-0031503,00-0033537,1.0,1.0
+2024,9,DAL,89,news_all,True,,G,2024-11-04,2.0,4.0,9.0,Dak Prescott,00-0033662,00-0033077,1.0,1.0
+2024,9,GB,90,news_all,False,returned,,,,,,,,,,
+2024,9,IND,91,news_all,False,returned,,,,,,,,,,
+2024,9,JAX,93,news_all,False,no usable report,,,,,,,,,,
+2024,9,LV,95,news_all,True,,W,2024-10-21,1.0,3.0,8.0,Aidan O'Connell,00-0035289,00-0035289,1.0,1.0
+2024,9,MIA,97,news_all,False,returned,,,,,,,,,,
+2024,9,NO,99,news_all,False,returned,,,,,,,,,,
+2024,9,PIT,102,news_all,False,returned,,,,,,,,,,
+2024,9,TEN,103,news_all,False,returned,,,,,,,,,,
+2024,13,CLE,88,news_explicit,True,,S,2024-10-21,5.0,5.0,5.0,Deshaun Watson,00-0031503,00-0033537,1.0,1.0
+2024,13,DAL,89,news_explicit,True,,S,2024-11-12,5.0,5.0,5.0,Dak Prescott,00-0033662,00-0033077,1.0,1.0
+2024,13,GB,90,news_explicit,False,returned,,,,,,,,,,
+2024,13,IND,91,news_explicit,False,returned,,,,,,,,,,
+2024,13,JAX,93,news_explicit,False,returned,,,,,,,,,,
+2024,13,JAX,94,news_explicit,False,no usable report,,,,,,,,,,
+2024,13,LV,95,news_explicit,False,returned,,,,,,,,,,
+2024,13,LV,96,news_explicit,True,,S,2024-11-24,5.0,5.0,5.0,Gardner Minshew,00-0038579,00-0035289,1.0,1.0
+2024,13,MIA,97,news_explicit,False,returned,,,,,,,,,,
+2024,13,NO,99,news_explicit,False,returned,,,,,,,,,,
+2024,13,PIT,102,news_explicit,False,returned,,,,,,,,,,
+2024,13,TEN,103,news_explicit,False,returned,,,,,,,,,,
+2024,13,CLE,88,news_all,True,,S,2024-10-21,5.0,5.0,5.0,Deshaun Watson,00-0031503,00-0033537,1.0,1.0
+2024,13,DAL,89,news_all,True,,S,2024-11-12,5.0,5.0,5.0,Dak Prescott,00-0033662,00-0033077,1.0,1.0
+2024,13,GB,90,news_all,False,returned,,,,,,,,,,
+2024,13,IND,91,news_all,False,returned,,,,,,,,,,
+2024,13,JAX,93,news_all,False,returned,,,,,,,,,,
+2024,13,JAX,94,news_all,True,,U,2024-12-01,1.0,2.0,5.0,Trevor Lawrence,00-0036972,00-0036971,1.0,1.0
+2024,13,LV,95,news_all,False,returned,,,,,,,,,,
+2024,13,LV,96,news_all,True,,S,2024-11-24,5.0,5.0,5.0,Gardner Minshew,00-0038579,00-0035289,1.0,1.0
+2024,13,MIA,97,news_all,False,returned,,,,,,,,,,
+2024,13,NO,99,news_all,False,returned,,,,,,,,,,
+2024,13,PIT,102,news_all,False,returned,,,,,,,,,,
+2024,13,TEN,103,news_all,False,returned,,,,,,,,,,
+2025,4,BAL,106,news_explicit,True,,G,2025-09-29,2.0,4.0,13.0,Lamar Jackson,00-0033662,00-0034796,1.0,1.0
+2025,4,CIN,107,news_explicit,True,,M,2025-09-15,10.0,13.0,13.0,Joe Burrow,00-0035100,00-0035100,1.0,1.0
+2025,4,MIN,111,news_explicit,False,no usable report,,,,,,,,,,
+2025,4,SF,114,news_explicit,False,returned,,,,,,,,,,
+2025,4,SF,115,news_explicit,False,no usable report,,,,,,,,,,
+2025,4,WAS,116,news_explicit,False,no usable report,,,,,,,,,,
+2025,4,BAL,106,news_all,True,,G,2025-09-29,2.0,4.0,13.0,Lamar Jackson,00-0033662,00-0034796,1.0,1.0
+2025,4,CIN,107,news_all,True,,M,2025-09-15,10.0,13.0,13.0,Joe Burrow,00-0035100,00-0035100,1.0,1.0
+2025,4,MIN,111,news_all,True,,D,2025-09-15,0.0,0.0,13.0,J.J. McCarthy,00-0032950,00-0032950,0.5,1.0
+2025,4,SF,114,news_all,False,returned,,,,,,,,,,
+2025,4,SF,115,news_all,False,no usable report,,,,,,,,,,
+2025,4,WAS,116,news_all,True,,D,2025-09-15,0.0,0.0,13.0,Jayden Daniels,00-0032268,00-0039910,0.5,1.0
+2025,9,ARI,104,news_explicit,False,no usable report,,,,,,,,,,
+2025,9,BAL,106,news_explicit,False,returned,,,,,,,,,,
+2025,9,CIN,107,news_explicit,True,,M,2025-09-15,5.0,8.0,8.0,Joe Burrow,00-0026158,00-0026158,1.0,1.0
+2025,9,HOU,108,news_explicit,False,no usable report,,,,,,,,,,
+2025,9,MIN,111,news_explicit,False,returned,,,,,,,,,,
+2025,9,MIN,112,news_explicit,False,returned,,,,,,,,,,
+2025,9,SF,114,news_explicit,False,returned,,,,,,,,,,
+2025,9,SF,115,news_explicit,False,no usable report,,,,,,,,,,
+2025,9,WAS,116,news_explicit,False,returned,,,,,,,,,,
+2025,9,WAS,117,news_explicit,True,,G,2025-11-03,2.0,4.0,8.0,Jayden Daniels,00-0032268,00-0039910,1.0,1.0
+2025,9,ARI,104,news_all,True,,U,2025-10-08,0.0,0.0,9.0,Kyler Murray,00-0033119,00-0035228,0.5,1.0
+2025,9,BAL,106,news_all,False,returned,,,,,,,,,,
+2025,9,CIN,107,news_all,True,,M,2025-09-15,5.0,8.0,8.0,Joe Burrow,00-0026158,00-0026158,1.0,1.0
+2025,9,HOU,108,news_all,True,,U,2025-11-02,1.0,2.0,9.0,C.J. Stroud,00-0036898,00-0039163,1.0,1.0
+2025,9,MIN,111,news_all,False,returned,,,,,,,,,,
+2025,9,MIN,112,news_all,False,returned,,,,,,,,,,
+2025,9,SF,114,news_all,False,returned,,,,,,,,,,
+2025,9,SF,115,news_all,True,,D,2025-10-01,0.0,0.0,8.0,Brock Purdy,00-0036972,00-0036972,0.5,1.0
+2025,9,WAS,116,news_all,False,returned,,,,,,,,,,
+2025,9,WAS,117,news_all,True,,G,2025-11-03,2.0,4.0,8.0,Jayden Daniels,00-0032268,00-0039910,1.0,1.0
+2025,13,ARI,104,news_explicit,True,,IR,2025-11-05,0.0,2.0,5.0,Kyler Murray,00-0033119,00-0033119,0.6666666666666666,1.0
+2025,13,ATL,105,news_explicit,True,,S,2025-11-19,5.0,5.0,5.0,Michael Penix Jr.,00-0029604,00-0039917,1.0,1.0
+2025,13,BAL,106,news_explicit,False,returned,,,,,,,,,,
+2025,13,CIN,107,news_explicit,False,returned,,,,,,,,,,
+2025,13,HOU,108,news_explicit,False,returned,,,,,,,,,,
+2025,13,MIN,111,news_explicit,False,returned,,,,,,,,,,
+2025,13,MIN,112,news_explicit,False,returned,,,,,,,,,,
+2025,13,NYG,113,news_explicit,False,returned,,,,,,,,,,
+2025,13,SF,114,news_explicit,False,returned,,,,,,,,,,
+2025,13,SF,115,news_explicit,False,returned,,,,,,,,,,
+2025,13,WAS,116,news_explicit,False,returned,,,,,,,,,,
+2025,13,WAS,117,news_explicit,True,,G,2025-11-03,0.0,1.0,5.0,Jayden Daniels,00-0032268,00-0039910,0.5,1.0
+2025,13,ARI,104,news_all,True,,IR,2025-11-05,0.0,2.0,5.0,Kyler Murray,00-0033119,00-0033119,0.6666666666666666,1.0
+2025,13,ATL,105,news_all,True,,S,2025-11-19,5.0,5.0,5.0,Michael Penix Jr.,00-0029604,00-0039917,1.0,1.0
+2025,13,BAL,106,news_all,False,returned,,,,,,,,,,
+2025,13,CIN,107,news_all,False,returned,,,,,,,,,,
+2025,13,HOU,108,news_all,False,returned,,,,,,,,,,
+2025,13,MIN,111,news_all,False,returned,,,,,,,,,,
+2025,13,MIN,112,news_all,False,returned,,,,,,,,,,
+2025,13,NYG,113,news_all,False,returned,,,,,,,,,,
+2025,13,SF,114,news_all,False,returned,,,,,,,,,,
+2025,13,SF,115,news_all,False,returned,,,,,,,,,,
+2025,13,WAS,116,news_all,False,returned,,,,,,,,,,
+2025,13,WAS,117,news_all,True,,G,2025-11-03,0.0,1.0,5.0,Jayden Daniels,00-0032268,00-0039910,0.5,1.0
