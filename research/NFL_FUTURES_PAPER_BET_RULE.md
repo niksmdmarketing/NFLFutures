@@ -91,3 +91,11 @@ After weeks 4, 9 and 13, the snapshot date is the day after the last regular-sea
   - **Backfill 2024-2025:** v5-core rows from research/nfl_v5_promotion_rows.csv.gz (the two seed sets averaged) at weeks 4, 9 and 13. Prices: as in the v4 backfill.
     - The v4 backfill uses the v4 back-test file, a different construction from the v4-core rows, so the backfill comparison is between constructions, not just models. A v4-core backfill from the same rows is reported beside it for a like-for-like comparison.
 - **Reported separately per model:** bets, profit, return and expected profit, and accuracy against the market. No combined record.
+
+### First v5 run (27 Oct 2026)
+- **Backfill 2024-25 like-for-like** (core rows, approximate prices):
+  - v4-core: 71 bets, +$7,916; without its four largest wins, -$553.
+  - v5-core: 66 bets, +$4,464; without its four largest wins, -$2,140.
+- v5's sharper probabilities skipped the 2025 week-4 Chicago division bet (v5 3% against cost 3.3%), which won $2,937 for v4. Both records rest on a few 2025 longshots.
+- **2026 week-4 retrospective:** v5-core 18 bets (v4 23), all pending.
+- **Live v5** from week 9 on, automatically.

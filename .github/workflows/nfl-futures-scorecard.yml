@@ -24,12 +24,13 @@ jobs:
       - run: pip install -r requirements.txt
       - name: Read the price and forecast archives
         run: |
-          mkdir -p ../md ../shiv
-          git fetch -q origin market-data shiv-archive
+          mkdir -p ../md ../shiv ../fa
+          git fetch -q origin market-data shiv-archive forecast-archive
           git archive origin/market-data polymarket/events | tar -x -C ../md
           git archive origin/shiv-archive records | tar -x -C ../shiv
+          git archive origin/forecast-archive 2026 | tar -x -C ../fa
       - name: Score
-        run: python research/nfl_futures_scorecard.py ../md ../shiv
+        run: python research/nfl_futures_scorecard.py ../md ../shiv ../fa
       - name: Save to the futures-scorecard branch
         run: |
           git config user.name "github-actions[bot]"
