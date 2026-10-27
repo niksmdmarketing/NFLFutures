@@ -51,3 +51,21 @@ Status: **final** (27 Oct 2026, 17:18 Sydney). GPT accepted the candidate with t
    - Their pass-attempt pmf is a beta-binomial allocation of the team-attempt pmf, with a starting-role share and concentration fitted on that fold's training QB rows. This is the same construction for both arms.
    - RPS and log score are reported for each arm.
 5. **Reading:** a pass supports the archived shadow; a fail rejects this candidate under these gates and does not show that linear Elo is optimal.
+
+## Outcome (27 Oct 2026, Sydney): FAIL. Stop this branch; linear Elo stays.
+Run: game_script_test.py; results in game_script_results.json; scores in /home/outputs/nfl_game_script_20261027.
+- **Identity:** 27,614 of 27,614 baseline receptions rows matched the matchup test's baseline exactly (max difference 0).
+- **Team pass-attempt RPS:** 0.043306 → 0.043291, an aggregate gain of +0.0000153 (about 0.04%).
+  - One-sided 90% lower bound -0.0000105; better in 3 of 5 seasons (2021 -0.00002, 2022 +0.000004, 2023 +0.00005, 2024 -0.00004, 2025 +0.00008).
+  - **Gate 1 FAIL.**
+- **Gate 2 (team log score):** pass, 3.4591 → 3.4588.
+- **Gate 3 (pooled PIT):** pass.
+- **Gate 5 (largest |gap| tercile):** pass, 0.04266 → 0.04257.
+- **Gate 4 (receptions):** RPS +0.003% (within 0.1%), but log score slightly worse (1.627731 → 1.627758). **FAIL.**
+- **Shape:** the fitted curve is an inverted U on log attempts. Predicted attempts peak near a small favourite and fall at both extremes; for example, the 2025 fold gives about 32.5 at a gap of ±1.5 against about 34.1 near 0. The baseline is a slight upward line.
+  - Underdog tercile RPS improved slightly; the middle got worse.
+- **QB pass attempts** (descriptive): RPS 0.06973 → 0.06968.
+- **Reading:**
+  - Curvature in game script carries at most a tiny signal for team pass volume; it is not reliable across seasons and does not help receptions.
+  - The candidate is rejected under these gates. This does not show that linear Elo is optimal.
+  - No other forms are tried. Projected-margin replacement stays a separate future idea.
