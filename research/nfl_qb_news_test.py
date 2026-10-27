@@ -29,6 +29,8 @@ from nfl_qb_oracle_test import main_qb  # noqa: E402
 from absence_runs import statuses, dropbacks_by_week, prior_leaders  # noqa: E402
 
 SEASONS = range(2018, 2026)
+_PART = os.environ.get("QB_NEWS_PART")          # e.g. "2018-2021": compute only these seasons' rows and save them (no evaluation)
+RUN_SEASONS = range(int(_PART.split("-")[0]), int(_PART.split("-")[1]) + 1) if _PART else SEASONS
 CHECKS = (4, 9, 13)
 N = 5000
 SEEDS = {"A": lambda y, w: 1000 * y + w, "B": lambda y, w: 7000 * y + w}
@@ -233,7 +235,7 @@ def build_adj(eps, fut, mode, lam, scale, y, w, deterministic=False, haz=None):
 def rows_for(g, cases):
     rows, audit, srcs = [], [], []
     gd = dict(zip(g.game_id, pd.to_datetime(g.gameday)))
-    for y in SEASONS:
+    for y in RUN_SEASONS:
         cur_all, pri, pri2 = load_pbp(y), load_pbp(y - 1), load_pbp(y - 2)
         out = B.outcomes(g, y)
         ew = eng_weights(y)
@@ -353,7 +355,19 @@ def main():
         kept = prior_leaders(y)
         cov += [dict(season=y, team=t, prior_leader=q, kept=t in kept) for t, q in lead.items()]
     pd.DataFrame(cov).to_csv(os.path.join(QN, "news_v3b_week1_coverage.csv"), index=False)
-    df, audit, srcs = rows_for(g, cases)
+    if os.environ.get("QB_NEWS_MERGE"):         # evaluation from saved parts
+        parts = [pd.read_csv(os.path.join(QN, f"rows_part_{p_}.csv.gz")) for p_ in os.environ["QB_NEWS_MERGE"].split(",")]
+        df = pd.concat(parts, ignore_index=True)
+        audit = pd.concat([pd.read_csv(os.path.join(QN, f"episodes_part_{p_}.csv")) for p_ in os.environ["QB_NEWS_MERGE"].split(",")])
+        srcs = pd.concat([pd.read_csv(os.path.join(QN, f"sources_part_{p_}.csv")) for p_ in os.environ["QB_NEWS_MERGE"].split(",")])
+    else:
+        df, audit, srcs = rows_for(g, cases)
+        if _PART:
+            df.to_csv(os.path.join(QN, f"rows_part_{_PART}.csv.gz"), index=False)
+            audit.to_csv(os.path.join(QN, f"episodes_part_{_PART}.csv"), index=False)
+            srcs.to_csv(os.path.join(QN, f"sources_part_{_PART}.csv"), index=False)
+            print("part saved", _PART, len(df), flush=True)
+            return
     audit.to_csv(os.path.join(QN, "news_v2_episodes.csv"), index=False)
     if len(srcs):
         srcs.to_csv(os.path.join(QN, "news_v2_duration_sources.csv"), index=False)
