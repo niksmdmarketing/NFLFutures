@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-10-27T07:56:55+00:00",
+ "checked_utc": "2026-10-27T14:35:27+00:00",
  "leagues": {
   "nfl": {
-   "records": 1587,
+   "records": 1585,
    "by_layer": {
     "official": 1525,
-    "reported": 62
+    "reported": 60
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -54,15 +54,6 @@
      "source": "ESPN injury note"
     },
     {
-     "player": "Max Melton",
-     "official": [
-      "out",
-      "questionable"
-     ],
-     "other": "expected to play",
-     "source": "ESPN injury note"
-    },
-    {
      "player": "Tyler Badie",
      "official": [
       "injured reserve",
@@ -72,18 +63,10 @@
      "source": "ESPN injury note"
     },
     {
-     "player": "Trent McDuffie",
+     "player": "Mike Evans",
      "official": [
       "out",
       "questionable"
-     ],
-     "other": "expected to play",
-     "source": "ESPN injury note"
-    },
-    {
-     "player": "Mike Evans",
-     "official": [
-      "out"
      ],
      "other": "expected to play",
      "source": "ESPN injury note"
@@ -97,7 +80,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "62/62"
+   "reported_matched_to_official_list": "60/60"
   },
   "nba": {
    "records": 205,
@@ -153,18 +136,18 @@
    "stale_projection_dates": 0,
    "teams_missing_official": [],
    "season_state": {
-    "state": "in_season",
-    "why": "38 regular-season/playoff and 0 other games 2026-10-20..2026-11-06"
+    "state": "unknown",
+    "why": "JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
    "reported_matched_to_official_list": "44/44"
   },
   "nhl": {
-   "records": 1560,
+   "records": 1562,
    "by_layer": {
-    "official": 153,
-    "reported": 64,
+    "official": 152,
+    "reported": 67,
     "projected": 1343
    },
    "unknown_team": 0,
@@ -214,7 +197,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "58/64"
+   "reported_matched_to_official_list": "61/67"
   },
   "nbl": {
    "records": 21,
@@ -290,7 +273,7 @@
   }
  },
  "sources_failed": [
-  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 57 h old"
+  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 64 h old"
  ],
  "sources_not_expected": []
 }
