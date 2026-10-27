@@ -117,3 +117,14 @@ After weeks 4, 9 and 13, the snapshot date is the day after the last regular-sea
 - **Settlement:** profit = C × payout - total cost, with payout $1 per winning contract. Unresolved markets stay pending.
 - **Team names:** Kalshi city names map to teams ("Los Angeles C/R", "New York G/J" by the letter). Unmatched names are excluded and listed.
 - **Output:** private (research/nfl_kalshi_paper_bets.json in the private repo), refreshed by the daily private build. Nothing here feeds a model, and no threshold changes after results.
+
+## Amendment (27 Oct 2026, Sydney), written before any such bet: Australian bookmaker prices, Super Bowl winner
+- **Why:** asked by the user. The Odds API (the user's key, private repo) snapshots the Australian bookmakers' NFL Super Bowl outright once a day at 15:13 UTC. Division and make-playoffs markets are not offered by that source.
+- **Scope:** checkpoints after weeks 9 and 13 of 2026, the Super Bowl winner market, v4 and v5, reported separately from each other and from the exchange records.
+- **Price:** the first Australian snapshot taken at or after 12:00 UTC on the checkpoint date.
+  - **Primary price:** the best decimal price for each team across the Australian bookmakers in the snapshot, excluding the Betfair exchange.
+  - **Also reported** (descriptive): Sportsbet only and TAB only.
+- **Model:** the latest forecast-archive season file generated before the snapshot (p_sb).
+- **Bet:** model × price - 1 ≥ 0.10. Flat $100. Won: 100 × (price - 1); lost: -100.
+- **Settlement:** at the Super Bowl.
+- **Output:** private, next to the Kalshi record. Nothing feeds a model, and no threshold changes after results.
