@@ -142,3 +142,31 @@ The first full run was stopped during 2015, before any gain was computed; its pa
 - **Inconclusive / insufficient for this development step** otherwise, including any lower bound crossing zero. Not proof of no effect.
 - **Inconclusive** if seed sets A and B disagree on any gate. No favourable seed or sensitivity is picked, and there is no rerunning under this rule.
 - Nothing here authorises a live model change.
+
+## Outcome (27 Oct 2026, Sydney): build and separately test the news-based per-game input
+Run: research/nfl_qb_oracle_test.py; results in research/nfl_qb_oracle_results.json; rows in research/nfl_qb_oracle_rows.csv.gz; labels in research/nfl_qb_starter_labels.csv.
+
+- **Identity check:** the none arm reproduced all 4,992 stored rows exactly.
+- **Seed sets:** A and B agree on every gate. Monte Carlo noise in G1 (A minus B) was 0.00007, far below 0.001.
+
+**Primary result** (v5-core, λ = 0.5, average of A and B; mean log-loss gain, one-sided 90% bounds):
+
+| Gain | Mean | Bounds | Seasons better | Division | Make-playoffs | 2020-25 |
+|---|---|---|---|---|---|---|
+| G1 (none - pergame, the oracle benchmark) | +0.0063 | +0.0035 to +0.0092 | 11/13 | +0.0055 | +0.0071 | +0.0128 |
+| G2 (next - pergame) | +0.0058 | +0.0037 to +0.0081 | 10/13 | +0.0046 | +0.0071 | +0.0114 |
+| G3 (none - next, the live whole-season logic with oracle next-start knowledge) | +0.0005 | -0.0016 to +0.0025 | 8/13 | | | |
+
+- **G1 by cell:** division wk4 +0.0078, wk9 +0.0052, wk13 +0.0037; make-playoffs wk4 +0.0104, wk9 +0.0079, wk13 +0.0032.
+- **G1 by season:** 2013 -0.011, 2014 +0.005, 2015 +0.006, 2016 +0.000, 2017 +0.001, 2018 -0.004, 2019 +0.008, 2020 +0.012, 2021 +0.021, 2022 +0.013, 2023 +0.006, 2024 +0.011, 2025 +0.015.
+- **Diagnostics** (cannot change the decision):
+  - λ = 1.0: G1 +0.0103 (lower bound +0.0047), G2 +0.0106.
+  - v4-core, λ = 0.5: G1 +0.0059 (lower bound +0.0033), G2 +0.0051.
+  - v4-core, λ = 1.0: G1 +0.0099.
+
+**Reading:**
+- Knowing each game's starter and applying the gap only to those games improves in-season division and make-playoffs forecasts by about twice v5's whole-model gain over v4 (+0.0029).
+- The gain is largest after week 4 and in recent seasons, 2025 included.
+- The live whole-season shortcut captures almost none of it (G3 ≈ 0), so per-game handling is where the value is.
+- **Caveat** (from the rule): the oracle includes planned changes (rookies taking over, benchings) and returns from injury, not just injuries. News on expected absences will capture only part of G1. The news-based input therefore needs its own rule and test (GPT's 2018-2025 reported-absence list is the planned input).
+- Nothing live changes from this result.
