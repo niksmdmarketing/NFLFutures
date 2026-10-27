@@ -1,5 +1,5 @@
 {
- "checked_utc": "2026-10-27T20:07:27+00:00",
+ "checked_utc": "2026-10-27T23:48:59+00:00",
  "leagues": {
   "nfl": {
    "records": 1580,
@@ -54,6 +54,15 @@
      "source": "ESPN injury note"
     },
     {
+     "player": "Lamar Jackson",
+     "official": [
+      "out",
+      "questionable"
+     ],
+     "other": "expected to play",
+     "source": "ESPN injury note"
+    },
+    {
      "player": "Tyler Badie",
      "official": [
       "injured reserve",
@@ -83,13 +92,13 @@
    "reported_matched_to_official_list": "55/55"
   },
   "nba": {
-   "records": 219,
+   "records": 287,
    "by_layer": {
-    "official": 177,
-    "reported": 42
+    "official": 242,
+    "reported": 45
    },
    "unknown_team": 0,
-   "no_player": 20,
+   "no_player": 5,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -141,13 +150,13 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "42/42"
+   "reported_matched_to_official_list": "45/45"
   },
   "nhl": {
-   "records": 1557,
+   "records": 1556,
    "by_layer": {
     "official": 152,
-    "reported": 62,
+    "reported": 61,
     "projected": 1343
    },
    "unknown_team": 0,
@@ -197,7 +206,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "62/62"
+   "reported_matched_to_official_list": "61/61"
   },
   "nbl": {
    "records": 21,
@@ -210,18 +219,18 @@
    "teams_covered_official": [
     "ADL",
     "BRI",
-    "CNS",
     "ILL",
     "MEL",
     "PER",
-    "SEM",
     "SYD",
     "TAS"
    ],
    "conflicts": [],
    "stale_projection_dates": 0,
    "teams_missing_official": [
-    "NZL"
+    "CNS",
+    "NZL",
+    "SEM"
    ],
    "season_state": {
     "state": "in_season",
@@ -273,7 +282,7 @@
   }
  },
  "sources_failed": [
-  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 70 h old"
+  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 73 h old"
  ],
  "sources_not_expected": []
 }
