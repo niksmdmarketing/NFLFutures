@@ -1,7 +1,9 @@
 """Historical absence runs of a team's incumbent QB (research/NFL_QB_NEWS_RULE.md, version 2), from official weekly data only.
 Incumbent at week k = the team's QB with most dropbacks in its regular-season games before week k (the reference-QB definition).
 A run starts at a team game where the incumbent did not start (audited starter labels) AND was, for that week, listed Out or Doubtful
-on the official injury report or held roster status RES (reserve: IR, PUP, NFI) or SUS (suspended). It continues while the same
+on the official injury report, held roster status RES (reserve: IR, PUP, NFI) or SUS (suspended), or was listed Questionable and inactive.
+The incumbent is fixed when the run starts and kept until it ends (he starts again or is no longer listed = medical return).
+Week 1: the incumbent is the team's previous-season dropback leader. It continues while the same
 QB keeps missing starts with such a status; its length L = consecutive team games missed. Runs reaching the season's last
 regular-season game are flagged censored. Outcome-independent: every listed absence counts, whatever its length.
 Output: research/qb_news/absence_runs.csv (season, team, qb, first_week, L, censored).
@@ -20,13 +22,19 @@ SEASONS = range(2013, 2026)
 
 
 def statuses(y):
+    """(gsis_id, week) -> status for injury-related absences known after that week's game (version 3, after GPT's review):
+    Out or Doubtful on the official injury report; roster RES (reserve lists) or SUS; or listed Questionable AND roster INA (inactive)
+    for that week, i.e. a confirmed injury absence from a completed game. INA without an injury listing (healthy scratch) is excluded."""
     inj = pd.read_csv(os.path.join(DATA, f"injuries_{y}.csv"), low_memory=False)
-    inj = inj[(inj.game_type == "REG") & inj.report_status.isin(["Out", "Doubtful"])]
-    s = {(r.gsis_id, int(r.week)): r.report_status for r in inj.itertuples()}
+    inj = inj[inj.game_type == "REG"]
+    q = {(r.gsis_id, int(r.week)) for r in inj[inj.report_status == "Questionable"].itertuples()}
+    s = {(r.gsis_id, int(r.week)): r.report_status for r in inj[inj.report_status.isin(["Out", "Doubtful"])].itertuples()}
     ros = pd.read_csv(os.path.join(DATA, f"roster_weekly_{y}.csv"), low_memory=False)
-    ros = ros[ros.status.isin(["RES", "SUS"])]
-    for r in ros.itertuples():
+    for r in ros[ros.status.isin(["RES", "SUS"])].itertuples():
         s.setdefault((r.gsis_id, int(r.week)), r.status)
+    for r in ros[ros.status == "INA"].itertuples():
+        if (r.gsis_id, int(r.week)) in q:
+            s.setdefault((r.gsis_id, int(r.week)), "Q-INA")
     return s
 
 
@@ -39,6 +47,8 @@ def dropbacks_by_week(y):
 def runs(y, g):
     st = statuses(y)
     db = dropbacks_by_week(y)
+    pdb = dropbacks_by_week(y - 1)
+    prior_leader = pdb.groupby(["posteam", "qb"]).n.sum().reset_index().sort_values("n").groupby("posteam").qb.last().to_dict()
     lab = LAB[LAB.season == y]
     reg = g[(g.season == y) & (g.game_type == "REG") & g.result.notna()]
     out = []
@@ -56,7 +66,7 @@ def runs(y, g):
                 out.append(cur)
                 cur = None
             prev = db[(db.posteam == t) & (db.week < k)]
-            inc = prev.groupby("qb").n.sum().idxmax() if len(prev) else None
+            inc = prev.groupby("qb").n.sum().idxmax() if len(prev) else prior_leader.get(t)
             if inc is not None and starter != inc and (inc, int(k)) in st:
                 cur = dict(season=y, team=t, qb=inc, first_week=int(k), L=1)
         if cur:

@@ -1,4 +1,4 @@
-"""News-based QB absence futures replay, version 2 (research/NFL_QB_NEWS_RULE.md, after GPT's review). Research only; nothing deployed.
+"""News-based QB absence futures replay, version 3 (research/NFL_QB_NEWS_RULE.md, after GPT's review). Research only; nothing deployed.
 Episodes come from official weekly status (outcome-independent); duration from bounded contemporaneous reports where available,
 otherwise from earlier seasons' absence runs; one return draw per QB per simulated season.
 Usage: python research/nfl_qb_news_test.py                (full run)
@@ -26,7 +26,7 @@ from common import DATA, FIX, TEAMS, games, load_pbp, scrimmage  # noqa: E402
 from nfl_futures_diagnosis import WF, V4, V5, eng_weights  # noqa: E402
 from nfl_v5_promotion_test import bll  # noqa: E402
 from nfl_qb_oracle_test import main_qb  # noqa: E402
-from absence_runs import statuses  # noqa: E402
+from absence_runs import statuses, dropbacks_by_week  # noqa: E402
 
 SEASONS = range(2018, 2026)
 CHECKS = (4, 9, 13)
@@ -94,102 +94,126 @@ def report_range(rep, ep, season):
     return (max(a, 0), min(b, nf)) if b > 0 else None
 
 
-def episodes(y, w, cases, greg, cur, st, vals, low, ref, gd):
-    """Active episodes at the week-w cutoff. Returns {team: dict} and an audit list."""
+def episodes(y, w, cases, greg, st, vals, low, ref, prior_leader, db):
+    """Active absences at the week-w cutoff, from official status only (version 3): a run in progress at week w of the frozen
+    pre-absence incumbent (absence_runs logic). News never adds an episode; it only supplies a timeline for one."""
     last_day = pd.Timestamp(greg[greg.week == w].gameday.max())
     lab = LAB[LAB.season == y]
     st_of = {(r.game_id, r.team): r.chosen for r in lab.itertuples()}
-    s = scrimmage(cur)
-    s = s[s.qb_dropback == 1].assign(qb=lambda x: x.passer_player_id.fillna(x.rusher_player_id)).dropna(subset=["qb"])
     out, audit = {}, []
     for t in TEAMS:
-        tg = greg[(greg.home_team == t) | (greg.away_team == t)].assign(gameday=lambda x: pd.to_datetime(x.gameday)).sort_values("week")
+        tg = greg[((greg.home_team == t) | (greg.away_team == t))].assign(gameday=lambda x: pd.to_datetime(x.gameday)).sort_values("week")
         past, fut = tg[tg.week <= w], tg[tg.week > w]
-        r_id = ref.get(t)
-        if not len(past) or not r_id:
+        cur = None
+        for g_ in past.itertuples():
+            starter = st_of.get((g_.game_id, t))
+            k = int(g_.week)
+            if cur:
+                if starter != cur["qb"] and (cur["qb"], k) in st:
+                    cur["m"] += 1
+                    cur["backup"] = starter
+                    cur["weeks"].append(k)
+                    continue
+                cur = None
+            prev = db[(db.posteam == t) & (db.week < k)]
+            inc = prev.groupby("qb").n.sum().idxmax() if len(prev) else prior_leader.get(t)
+            if inc is not None and starter != inc and (inc, k) in st:
+                cur = dict(qb=inc, m=1, backup=starter, weeks=[k], first_week=k)
+        if cur is None or cur["weeks"][-1] != int(past.week.max()):
             continue
-        # T1: incumbent missed the latest game with an official status
-        m, backup = 0, None
-        for g_ in past.sort_values("week", ascending=False).itertuples():
-            stt = st_of.get((g_.game_id, t))
-            if stt != r_id and (r_id, int(g_.week)) in st:
-                m += 1
-                backup = backup or stt
+        ep = cur
+        # eligibility floor from a reserve-list placement (hard constraint)
+        res_weeks = [k for k in sorted(ep["weeks"]) if st.get((ep["qb"], k)) == "RES"]
+        ep["floor"], ep["placed_week"] = 0, None
+        if res_weeks and st.get((ep["qb"], int(past.week.max()))) == "RES":
+            p_ = res_weeks[0]
+            while (ep["qb"], p_ - 1) in st and st[(ep["qb"], p_ - 1)] == "RES":
+                p_ -= 1
+            ep["placed_week"] = p_
+            mins = LM["IR"].get(str(y))
+            if mins is None:     # 2018-19: return only by designation, eight weeks after placement
+                ref_day = pd.Timestamp(tg[tg.week >= p_].gameday.min()) - timedelta(days=6)
+                ep["floor"] = int((fut.gameday < ref_day + timedelta(days=56)).sum())
             else:
-                break
-        ep = None
-        if m:
-            ep = dict(trigger="T1", qb=r_id, m=m, backup=backup)
-        # T2: a case with a report published before the cutoff date whose QB has not started since the absence began
+                served = int(((past.week >= p_)).sum())
+                ep["floor"] = max(int(mins) - served, 0)
+        # timeline reports about this QB (publication date on or before the last week-w game date; US dates)
+        reps = []
         for c in cases:
-            if c["season"] != y or c["team"] != t or not c["qb"] or c["start"] is None or c["start"] > last_day:
-                continue
-            if any(st_of.get((g_.game_id, t)) == c["qb"] for g_ in past.itertuples() if g_.gameday > c["start"]):
-                continue
-            reps = [r for r in c["reports"] if r["date"] <= last_day and r["code"] != "NONE"]
-            if not reps:
-                continue
-            if ep and ep["qb"] != c["qb"] and ep["trigger"] == "T1":
-                continue
-            if ep is None or ep["qb"] == c["qb"]:
-                mm = int(((past.gameday > c["start"])).sum())
-                bk = (ep or {}).get("backup")
-                if bk is None:
-                    later = past[past.gameday > c["start"]]
-                    bk = st_of.get((later.game_id.iloc[-1], t)) if len(later) else None
-                if bk is None or bk == c["qb"]:
-                    inj = s[(s.posteam == t) & (s.game_id.map(gd) == c["start"]) & (s.qb != c["qb"])].qb.value_counts()
-                    sea = s[(s.posteam == t) & (s.qb != c["qb"])].qb.value_counts()
-                    bk = inj.index[0] if len(inj) else (sea.index[0] if len(sea) else None)
-                ep = dict(trigger="T2" if not ep else "T1+T2", qb=c["qb"], m=mm, backup=bk, case=c["case"], reports=reps)
-        if ep is None:
-            continue
-        if ep["backup"] is None:
-            sea = s[(s.posteam == t) & (s.qb != ep["qb"])].qb.value_counts()
-            ep["backup"] = sea.index[0] if len(sea) else None
+            if c["season"] == y and c["team"] == t and c["qb"] == ep["qb"] and c["start"] is not None and c["start"] <= last_day:
+                reps += [r for r in c["reports"] if r["date"] <= last_day and r["code"] != "NONE"]
+        ep["reports"] = sorted(reps, key=lambda r: r["date"])
         ep["last_day"] = last_day
         ep["fut_days"] = (fut.gameday - last_day).dt.days.to_numpy()
         ep["fut_weeks"] = fut.week.to_numpy()
         ep["nf"] = len(fut)
-        ep["elapsed_since"] = {}
-        for r in ep.get("reports", []):
-            ep["elapsed_since"][str(r["date"].date())] = int(((past.gameday > r["date"]) & (past.gameday <= last_day)).sum())
+        ep["elapsed_since"] = {str(r["date"].date()): int(((past.gameday > r["date"]) & (past.gameday <= last_day)).sum()) for r in ep["reports"]}
         v = lambda q_: float(vals.get(q_, low)) if q_ else float(low)
+        r_id = ref.get(t)
         ep.update(team=t, v_qb=v(ep["qb"]), v_backup=v(ep["backup"]), v_ref=v(r_id), ref=r_id)
         out[t] = ep
-        audit.append({k: ep.get(k) for k in ("team", "trigger", "qb", "backup", "ref", "m", "case", "nf")} | dict(season=y, week=w))
+        audit.append(dict(season=y, week=w, team=t, qb=ep["qb"], backup=ep["backup"], ref=r_id, m=ep["m"], floor=ep["floor"],
+                          placed_week=ep["placed_week"], n_reports=len(ep["reports"]), n_bounded=sum(r["bounded"] for r in ep["reports"]), nf=ep["nf"]))
     return out, audit
 
 
-WITHDRAW = {"G", "IR", "PUP", "UNTILWEEK", "W", "M"}   # a later unbounded statement of these kinds withdraws an earlier bounded estimate
+def km_hazard(y):
+    """Discrete survival (Kaplan-Meier) hazards of returning after exactly l missed games, from earlier seasons' runs; runs that reach
+    season end are right-censored. Sparse tail (fewer than 10 at risk): one pooled constant hazard for all l from there on."""
+    r = RUNS[RUNS.season < y]
+    L, cens = r.L.to_numpy(), r.censored.to_numpy().astype(bool)
+    lmax = int(L.max()) if len(L) else 0
+    haz, l0 = {}, None
+    for l in range(1, lmax + 1):
+        n = int((L >= l).sum())
+        if n < 10:
+            l0 = l
+            break
+        haz[l] = float(((L == l) & ~cens).sum()) / n
+    if l0 is not None:
+        exp_ = sum(int((L >= l).sum()) for l in range(l0, lmax + 1))
+        ev = int(((L >= l0) & ~cens).sum())
+        haz["tail"] = ev / exp_ if exp_ else 0.0
+        haz["l0"] = l0
+    return haz
 
 
-def draw_remaining(ep, mode, rng, y):
-    """Remaining absence R per simulation (N ints) and its source. mode 'bounded' (primary) or 'mapping' (sensitivity)."""
-    nf = ep["nf"]
-    allr = ep.get("reports", [])
-    if allr and allr[-1]["code"] == "C":
-        return np.zeros(N, int), "report:C"
-    if mode == "bounded":
-        reps = [r for r in allr if r["bounded"]]
-        if reps and any((not r["bounded"]) and r["code"] in WITHDRAW and r["date"] >= reps[-1]["date"] and r is not reps[-1] for r in allr[allr.index(reps[-1]) + 1:]):
-            reps = []
-    else:
-        reps = [r for r in allr if not (r["code"] == "U" and r is not allr[0])]
-    if reps:
-        rr = report_range(reps[-1], ep, y)
-        if rr is not None:
-            a, b = rr
-            return rng.integers(a, b + 1, N), f"report:{reps[-1]['code']}"
-    # missing or exhausted duration: earlier seasons' absence runs, conditioned on the games already missed
-    pool = RUNS[(RUNS.season < y) & (RUNS.L >= max(ep["m"], 1))]
-    if not len(pool):
-        return np.full(N, nf), "empirical:none->season"
-    R = rng.choice(pool.L.to_numpy(), N) - ep["m"]
-    return np.clip(R, 0, nf), "empirical"
+def sample_km(haz, m, nf, rng):
+    """Further games missed R (N draws), given m already missed: at each step the QB returns with hazard h(l) (l = total missed)."""
+    R = np.zeros(N, int)
+    alive = np.ones(N, bool)
+    l = m
+    for j in range(nf + 1):
+        h = haz["tail"] if ("l0" in haz and l >= haz["l0"]) else haz.get(l, haz.get("tail", 0.0))
+        ret = alive & (rng.random(N) < h)
+        alive &= ~ret
+        if j == nf or not alive.any():
+            break
+        R[alive] += 1
+        l += 1
+    return R      # unresolved draws stay out through the horizon
 
 
-def build_adj(eps, fut, mode, lam, scale, y, w, deterministic=False):
+def draw_remaining(ep, mode, rng, y, haz):
+    """Remaining absence R per simulation and its source. mode: 'empirical' (no news), 'bounded' (primary), 'mapping' (sensitivity)."""
+    nf, allr = ep["nf"], ep.get("reports", [])
+    R, src = None, None
+    if mode != "empirical" and allr:
+        last_b = [r for r in allr if (r["bounded"] if mode == "bounded" else not (r["code"] == "U" and r is not allr[0]))]
+        cleared = [r for r in allr if r["code"] == "C" and (not last_b or r["date"] >= last_b[-1]["date"])]
+        if cleared:
+            R, src = np.zeros(N, int), "report:C"
+        elif last_b:
+            rr = report_range(last_b[-1], ep, y)
+            if rr is not None:
+                R, src = rng.integers(rr[0], rr[1] + 1, N), f"report:{last_b[-1]['code']}"
+    if R is None:
+        R, src = sample_km(haz, ep["m"], nf, rng), "survival"
+    R = np.clip(np.maximum(R, ep["floor"]), 0, nf)
+    return R, src + (f"+floor{ep['floor']}" if ep["floor"] else "")
+
+
+def build_adj(eps, fut, mode, lam, scale, y, w, deterministic=False, haz=None):
     nG = len(fut)
     adj = np.zeros((N, nG), dtype=np.float32)
     pos = {t: [] for t in TEAMS}
@@ -205,7 +229,7 @@ def build_adj(eps, fut, mode, lam, scale, y, w, deterministic=False):
             for k, sg in cols:
                 adj[:, k] += sg * d
             continue
-        R, src[t] = draw_remaining(ep, mode, rng, y)
+        R, src[t] = draw_remaining(ep, mode, rng, y, haz)
         for j, (k, sg) in enumerate(cols, start=1):
             qv = np.where(j <= R, ep["v_backup"], ep["v_qb"])
             adj[:, k] += sg * scale * lam * (qv - ep["v_ref"])
@@ -220,6 +244,10 @@ def rows_for(g, cases):
         out = B.outcomes(g, y)
         ew = eng_weights(y)
         st = statuses(y)
+        dbw = dropbacks_by_week(y)
+        pdb = dropbacks_by_week(y - 1)
+        prior_leader = pdb.groupby(["posteam", "qb"]).n.sum().reset_index().sort_values("n").groupby("posteam").qb.last().to_dict()
+        haz = km_hazard(y)
         for w in CHECKS:
             gg = g.copy()
             gg.loc[(gg.season == y) & (gg.game_type == "REG") & (gg.week > w), "result"] = np.nan
@@ -232,20 +260,21 @@ def rows_for(g, cases):
             greg = gg[(gg.season == y) & (gg.game_type == "REG")].sort_values(["week", "gameday", "game_id"]).reset_index(drop=True)
             vals, low, _ = ratings.qb_values(cur, pri, pri2)
             ref = main_qb(cur)
-            eps, au = episodes(y, w, cases, greg, cur, st_w, vals, low, ref, gd)
+            eps, au = episodes(y, w, cases, greg, st_w, vals, low, ref, prior_leader, dbw[dbw.week <= w])
             audit += au
             fut = greg[greg.week > w]
             if IDENTITY:      # duration sources only (no simulation with adjustments)
-                for mode, arm in (("bounded", "news"), ("mapping", "news_mapping")):
-                    _, src = build_adj(eps, fut, mode, 0.5, V5["scale"], y, w)
+                for mode, arm in (("empirical", "empirical"), ("bounded", "news"), ("mapping", "news_mapping")):
+                    _, src = build_adj(eps, fut, mode, 0.5, V5["scale"], y, w, haz=haz)
                     srcs += [dict(season=y, week=w, arm=arm, team=t, source=s_) for t, s_ in src.items()]
             for core, base, P in (("v4", b4, V4), ("v5", b5, V5)):
                 R0 = P["scale"] * (base - base.mean())
-                arms = [("none", 0.0)] if IDENTITY else [("none", 0.0)] + [(a, l) for a in ("shortcut", "news", "news_mapping") for l in LAMBDAS]
+                arms = [("none", 0.0)] if IDENTITY else [("none", 0.0)] + [(a, l) for a in ("shortcut", "empirical", "news", "news_mapping") for l in LAMBDAS]
                 for arm, lam in arms:
                     full = None
                     if arm != "none":
-                        adj, src = build_adj(eps, fut, "mapping" if arm == "news_mapping" else "bounded", lam, P["scale"], y, w, deterministic=arm == "shortcut")
+                        mode = {"news_mapping": "mapping", "news": "bounded", "empirical": "empirical"}.get(arm, "bounded")
+                        adj, src = build_adj(eps, fut, mode, lam, P["scale"], y, w, deterministic=arm == "shortcut", haz=haz)
                         if core == "v5" and lam == 0.5:
                             srcs += [dict(season=y, week=w, arm=arm, team=t, source=s_) for t, s_ in src.items()]
                         full = np.zeros((N, len(greg)), dtype=np.float32)
@@ -276,12 +305,13 @@ def loss_table(df):
 def evaluate(D, core, lam, oracle_L):
     seasons = list(SEASONS)
     sub = lambda arm, l: D[(D.core == core) & (D.arm == arm) & (D.lam == l)]
-    L = {"none": loss_table(sub("none", 0.0)), **{a: loss_table(sub(a, lam)) for a in ("shortcut", "news", "news_mapping")}, "oracle": oracle_L}
+    L = {"none": loss_table(sub("none", 0.0)), **{a: loss_table(sub(a, lam)) for a in ("shortcut", "empirical", "news", "news_mapping")}, "oracle": oracle_L}
     gain = lambda a, b, cells=PRIMARY: np.array([np.mean([L[a][(s, w, m)] - L[b][(s, w, m)] for m, w in cells]) for s in seasons])
     rng = np.random.default_rng(20261028)
     idx = rng.integers(0, len(seasons), (10000, len(seasons)))
     out = {}
     for name, (a, b) in {"news_vs_none": ("none", "news"), "news_vs_shortcut": ("shortcut", "news"), "shortcut_vs_none": ("none", "shortcut"),
+                         "empirical_vs_none": ("none", "empirical"), "news_vs_empirical": ("empirical", "news"),
                          "mapping_vs_none": ("none", "news_mapping"), "oracle_vs_none": ("none", "oracle")}.items():
         g = gain(a, b)
         bt = g[idx].mean(1)
@@ -290,7 +320,7 @@ def evaluate(D, core, lam, oracle_L):
                          division=float(gain(a, b, [c for c in PRIMARY if c[0] == "div"]).mean()),
                          playoff=float(gain(a, b, [c for c in PRIMARY if c[0] == "playoff"]).mean()))
     o = out["oracle_vs_none"]["mean"]
-    out["capture_share"] = out["news_vs_none"]["mean"] / o if o else None
+    out["capture_share_descriptive"] = out["news_vs_none"]["mean"] / o if o else None
     P = out["news_vs_none"]
     out["gates"] = {"lower90_pos": bool(P["lower90"] > 0), "ge_0.001": bool(P["mean"] >= 0.001),
                     "markets_nonneg": bool(P["division"] >= 0 and P["playoff"] >= 0), "upper90_below_0.001": bool(P["upper90"] < 0.001)}
@@ -342,12 +372,12 @@ def main():
             res[k]["decision"] = decide(res[k]["average"]["gates"]) if agree else "inconclusive (seed sets disagree)"
             res[k]["mc_noise_A_minus_B"] = res[k]["A"]["news_vs_none"]["mean"] - res[k]["B"]["news_vs_none"]["mean"]
     sha = lambda p: hashlib.sha256(open(p, "rb").read()).hexdigest()
-    outj = dict(rule="research/NFL_QB_NEWS_RULE.md", version=2, started_utc=started, completed_utc=datetime.now(timezone.utc).isoformat(),
+    outj = dict(rule="research/NFL_QB_NEWS_RULE.md", version=3, started_utc=started, completed_utc=datetime.now(timezone.utc).isoformat(),
                 identity=idc, unmatched=unmatched, primary="v5_lam0.5", decision=res["v5_lam0.5"]["decision"], results=res,
                 code_sha256=sha(__file__), rule_sha256=sha(os.path.join(OUT, "NFL_QB_NEWS_RULE.md")))
     open(os.path.join(OUT, "nfl_qb_news_results.json"), "w").write(json.dumps(outj, indent=2))
-    print(json.dumps({k: dict(decision=v["decision"], capture=v["average"]["capture_share"], **{n: {x: v["average"][n][x] for x in ("mean", "lower90", "upper90",
-                      "seasons_better", "division", "playoff")} for n in ("news_vs_none", "news_vs_shortcut", "shortcut_vs_none", "mapping_vs_none", "oracle_vs_none")})
+    print(json.dumps({k: dict(decision=v["decision"], capture=v["average"]["capture_share_descriptive"], **{n: {x: v["average"][n][x] for x in ("mean", "lower90", "upper90",
+                      "seasons_better", "division", "playoff")} for n in ("news_vs_none", "news_vs_empirical", "empirical_vs_none", "news_vs_shortcut", "shortcut_vs_none", "mapping_vs_none", "oracle_vs_none")})
                       for k, v in res.items()}, indent=2))
 
 

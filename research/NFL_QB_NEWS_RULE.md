@@ -1,6 +1,6 @@
-# NFL futures: does point-in-time QB absence information improve the forecast? Rule, version 2, fixed before any gains (27 Oct 2026, Sydney)
+# NFL futures: does point-in-time QB absence information improve the forecast? Rule, version 3, fixed before any gains (27 Oct 2026, Sydney)
 
-Status: **draft for GPT review.**
+Status: **version 3, draft for GPT's final check.** GPT's second review was applied in full (TypeSafe: apply all fixes, then a final GPT check, 99%). Version 3 replaces the version 2 text wherever they differ; see the section at the end.
 - **Version 1** (git history) used only GPT's selected list of absences. GPT's review rejected it as primary: the list was selected partly on outcome, and some ranges were invented. TypeSafe chose to rebuild with outcome-independent coverage (95%) rather than run v1 as exploratory.
 - Nothing has been run beyond identity checks. No gains have been computed for v1 or v2.
 
@@ -91,3 +91,39 @@ How they are applied:
   - the anchor is the publication date, not the surgery or placement date.
 - **Status data:** official status data only reach into the week of the cutoff.
 - **Exposure:** version 1's coding and the oracle results were seen before this version.
+
+## Version 3 changes (27 Oct 2026, after GPT's second review; these replace version 2 where they differ)
+1. **Coverage, from official status only.** News never adds an episode.
+   - **Incumbent:** fixed when the absence begins, as the team's dropback leader before that game (week 1: the previous season's leader), and kept until the run ends. A run ends when he starts again or is no longer listed; the latter is a medical return.
+   - **Listed** now also includes Questionable together with roster INA (inactive) for that week: a confirmed injury absence from a completed game. INA alone (a healthy scratch) does not count.
+   - **Dropped:** the version-2 news triggers (T2).
+     - An injury in the week-w game enters at the next checkpoint, once it shows up in official status.
+     - A long-injured starter whose backup now leads in dropbacks stays the episode's QB through the fixed incumbent.
+2. **Censoring:**
+   - **Survival model:** missing durations come from a discrete survival (Kaplan-Meier) model of earlier seasons' runs (2013 to Y-1). Runs reaching season end are right-censored.
+   - **Sampling:** given m games already missed, each further game is a return with hazard h(l), where l = total missed; otherwise he misses it.
+   - **Sparse tail:** where fewer than 10 runs are at risk, one pooled constant hazard applies from there on.
+   - **Unresolved draws** stay out through the forecast horizon.
+3. **Eligibility floors (hard constraints, every arm and every draw):**
+   - **Placement:** a QB on roster RES at the latest week was placed at the start of that RES streak.
+   - **Floors:**
+     - 2020-21: at least 3 team games from placement;
+     - 2022-25: at least 4;
+     - 2018-19: no return within 8 weeks of placement (designation).
+   - Every sampled return respects the floor: R = max(R, remaining floor).
+   - **Not separated:** reserve sub-types (IR, PUP, NFI) are not distinguished, so the IR minimum applies to all RES. Earlier seasons' runs pool different IR regimes; the floor is applied at sampling, and this is disclosed.
+4. **Timing:**
+   - **News deadline:** reports whose US publication date is on or before the date of the last week-w game. This is a conservative, reproducible deadline before the 12:00 UTC cutoff.
+   - **Anchor:** the timeline's reference point is not in the data, so the publication date is used as the disclosed fallback. Weeks and months stay calendar intervals before being mapped onto scheduled games.
+5. **Revisions:**
+   - A later bounded report replaces an earlier bounded one.
+   - Unbounded later statements (week to week, IR, ruled out…) update status or eligibility and do not replace the bounded timeline. IR acts through the floor.
+   - **Cleared to play** (the latest relevant report) means no further medical absence. It does not mean he starts; the replay assumes a healthy incumbent starts, which is disclosed.
+   - Revisions flagged as ambiguous before results: none beyond those listed in the coded file.
+6. **New arm "empirical":** the survival model plus floors, with no news. The comparisons:
+   - empirical vs none: the duration model alone;
+   - news vs empirical: the extra value of collecting bounded timelines;
+   - news vs none: the primary.
+
+   The capture share against the oracle is descriptive only.
+7. **Decision unchanged:** primary v5-core, λ = 0.5, none - news; pass = live shadow input only; seed-set disagreement = inconclusive.
