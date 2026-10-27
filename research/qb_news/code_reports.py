@@ -106,5 +106,9 @@ def reports(df):
 if __name__ == "__main__":
     d = pd.read_csv(os.path.join(HERE, "gpt_qb_reports_2018_2025.csv"), encoding="utf-8-sig")
     R = reports(d)
+    # version 2 (27 Oct 2026, GPT review): primary uses only bounded statements - season-ending, a stated range or single figure in weeks or
+    # months (not "at least" or "minimum"), a fixed suspension or "sit for the remaining N games". Everything else is a sensitivity input.
+    lowb = R.wording.str.contains(r"at least|minimum", case=False, regex=True)
+    R["bounded"] = (R.code == "S") | (R.code.isin(["W", "M"]) & ~lowb) | ((R.code == "G") & R.wording.str.contains(r"suspended|sit for the remaining", case=False, regex=True))
     R.to_csv(os.path.join(HERE, "qb_reports_coded.csv"), index=False)
     print(R.code.value_counts().to_dict(), len(R))

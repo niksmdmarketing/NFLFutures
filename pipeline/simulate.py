@@ -31,14 +31,16 @@ for di, (name, ts) in enumerate(DIVS.items()):
 CONF_DIVS = {0: [0, 1, 2, 3], 1: [4, 5, 6, 7]}
 
 
-def simulate(g, R, N, tau, sigma, hfa, seed=7, hfa_post=None, n_seeds=7, sweep_fix=False):
+def simulate(g, R, N, tau, sigma, hfa, seed=7, hfa_post=None, n_seeds=7, sweep_fix=False, adj_sims=None):
     """g: this season's regular-season games (with result where played). Returns probabilities + wins.
     hfa_post: home edge in the conference playoff rounds (research option; None = hfa, the frozen v4 behaviour).
     n_seeds: 7 (2020 on, one bye) or 6 (to 2019, two byes); research replays of old seasons must pass 6.
     sweep_fix: research/shadow option (26 Oct 2026). The NFL's 3+-club head-to-head sweep applies when one club beat (or lost
     to) each of the others, even if the others did not all play each other; the frozen v4 code requires every pair to have
     played. Off by default, so live v4 is unchanged. See research/NFL_SIMULATOR_LOGIC_CHECK.md.
-    Neutral-site games (location == "Neutral") get no home edge (bug fix, 26 Oct 2026, same note)."""
+    Neutral-site games (location == "Neutral") get no home edge (bug fix, 26 Oct 2026, same note).
+    adj_sims: research-only (N, games) array of home-margin shifts per simulated season, in g's sorted order (research/NFL_QB_NEWS_RULE.md);
+    None in live runs. It does not consume random draws, so all other draws are unchanged."""
     rng = np.random.default_rng(seed)
     g = g.sort_values(["week", "gameday", "game_id"]).reset_index(drop=True)
     hi, ai = g.home_team.map(TIX).values, g.away_team.map(TIX).values
@@ -49,6 +51,8 @@ def simulate(g, R, N, tau, sigma, hfa, seed=7, hfa_post=None, n_seeds=7, sweep_f
     if "margin_adj" in g:  # research-only per-game home-margin shift (research/NFL_QB_ORACLE_RULE.md); absent in live runs
         edge = edge + g.margin_adj.fillna(0.0).values
     margin = (Rs[:, hi] - Rs[:, ai] + edge[None, :] + rng.normal(0, sigma, (N, nG))).astype(np.float32)
+    if adj_sims is not None:
+        margin = margin + np.asarray(adj_sims, dtype=np.float32)
     margin[:, played] = g.result.values[played][None, :]
     hwv = (margin > 0).astype(np.float32) + 0.5 * (margin == 0)  # home win value (ties = half)
     awv = 1.0 - hwv

@@ -56,3 +56,14 @@ class MarginAdj(unittest.TestCase):
         a = simulate.simulate(s.assign(margin_adj=5.0), np.zeros(len(TEAMS)), 200, 1., 13., 1.8, seed=3)
         b = simulate.simulate(s, np.zeros(len(TEAMS)), 200, 1., 13., 6.8, seed=3)
         self.assertTrue(np.allclose(a["wins"], b["wins"]))
+
+
+class AdjSims(unittest.TestCase):
+    def test_zero_matrix_changes_nothing_and_constant_matches_column(self):
+        s = schedule()
+        a = simulate.simulate(s, np.zeros(len(TEAMS)), 100, 1., 13., 1.8, seed=4)
+        b = simulate.simulate(s, np.zeros(len(TEAMS)), 100, 1., 13., 1.8, seed=4, adj_sims=np.zeros((100, len(s))))
+        c = simulate.simulate(s.assign(margin_adj=2.0), np.zeros(len(TEAMS)), 100, 1., 13., 1.8, seed=4)
+        d = simulate.simulate(s, np.zeros(len(TEAMS)), 100, 1., 13., 1.8, seed=4, adj_sims=np.full((100, len(s)), 2.0))
+        self.assertTrue(np.array_equal(a["wins"], b["wins"]))
+        self.assertTrue(np.allclose(c["wins"], d["wins"]))
