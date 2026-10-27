@@ -79,3 +79,15 @@ After weeks 4, 9 and 13, the snapshot date is the day after the last regular-sea
 - **Mark-to-market at 25 Oct daily prices** (descriptive only; daily price, not the bid you could sell at): +$469 on $2,300.
   - Biggest movers up: SF, WAS, NYG, PIT division; TB, NYG, PIT make-playoffs.
   - Biggest movers down: LV, MIA, NYJ division; LV, IND make-playoffs.
+
+## Amendment (27 Oct 2026, Sydney), written before any v5 paper-bet results: a v5 record beside v4
+- **Why:** the v5-core vs v4-core replay was inconclusive overall (research/NFL_V5_PROMOTION_RULE.md), but v5 was better in season in 10 of 13 seasons. The user bets in season.
+  - TypeSafe: track v5 beside v4 and let the user use v5 as his 2026 in-season betting number, labelled as a judgement call on inconclusive evidence (78%; keep v4 22%).
+  - TypeSafe also judged v5's 2025 loss mostly variance (87%): a sharper model is punished in a high-surprise season.
+  - v4 stays the displayed model; nothing about the v4 record changes.
+- **v5 rows**, same markets, checkpoints, price rule, threshold and stake as v4:
+  - **2026 live:** v5 probabilities (challenger_v5) from the first forecast-archive season file generated at or after the checkpoint time (12:00 UTC on the day after the week's last game). Prices: the ask plus fee from the same shiv-archive record used for the v4 row of that team, market and checkpoint.
+  - **2026 week 4, retrospective:** v5-core (v5like, walk-forward weights, 10,000 simulations), built as in research/nfl_v5_promotion_test.py. Prices: Polymarket daily price as for v4.
+  - **Backfill 2024-2025:** v5-core rows from research/nfl_v5_promotion_rows.csv.gz (the two seed sets averaged) at weeks 4, 9 and 13. Prices: as in the v4 backfill.
+    - The v4 backfill uses the v4 back-test file, a different construction from the v4-core rows, so the backfill comparison is between constructions, not just models. A v4-core backfill from the same rows is reported beside it for a like-for-like comparison.
+- **Reported separately per model:** bets, profit, return and expected profit, and accuracy against the market. No combined record.
