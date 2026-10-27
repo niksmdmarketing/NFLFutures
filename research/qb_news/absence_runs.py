@@ -3,7 +3,7 @@ Incumbent at week k = the team's QB with most dropbacks in its regular-season ga
 A run starts at a team game where the incumbent did not start (audited starter labels) AND was, for that week, listed Out or Doubtful
 on the official injury report, held roster status RES (reserve: IR, PUP, NFI) or SUS (suspended), or was listed Questionable and inactive.
 The incumbent is fixed when the run starts and kept until it ends (he starts again or is no longer listed = medical return).
-Week 1: the incumbent is the team's previous-season dropback leader. It continues while the same
+Week 1: the incumbent is the team's previous-season dropback leader if he is on its roster in weeks 1-2. It continues while the same
 QB keeps missing starts with such a status; its length L = consecutive team games missed. Runs reaching the season's last
 regular-season game are flagged censored. Outcome-independent: every listed absence counts, whatever its length.
 Output: research/qb_news/absence_runs.csv (season, team, qb, first_week, L, censored).
@@ -38,6 +38,16 @@ def statuses(y):
     return s
 
 
+def prior_leaders(y):
+    """Week-1 incumbents: each team's previous-season dropback leader, only if he is on that team's roster in weeks 1-2 of season y."""
+    pdb = dropbacks_by_week(y - 1)
+    lead = pdb.groupby(["posteam", "qb"]).n.sum().reset_index().sort_values("n").groupby("posteam").qb.last().to_dict()
+    ros = pd.read_csv(os.path.join(DATA, f"roster_weekly_{y}.csv"), low_memory=False)
+    ros = ros[ros.week <= 2].assign(team=lambda x: x.team.replace(FIX))
+    on = set(zip(ros.team, ros.gsis_id))
+    return {t: q for t, q in lead.items() if (t, q) in on}
+
+
 def dropbacks_by_week(y):
     s = scrimmage(load_pbp(y))
     s = s[(s.season_type == "REG") & (s.qb_dropback == 1)].assign(qb=lambda x: x.passer_player_id.fillna(x.rusher_player_id)).dropna(subset=["qb"])
@@ -47,8 +57,7 @@ def dropbacks_by_week(y):
 def runs(y, g):
     st = statuses(y)
     db = dropbacks_by_week(y)
-    pdb = dropbacks_by_week(y - 1)
-    prior_leader = pdb.groupby(["posteam", "qb"]).n.sum().reset_index().sort_values("n").groupby("posteam").qb.last().to_dict()
+    prior_leader = prior_leaders(y)
     lab = LAB[LAB.season == y]
     reg = g[(g.season == y) & (g.game_type == "REG") & g.result.notna()]
     out = []

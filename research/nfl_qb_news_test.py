@@ -26,7 +26,7 @@ from common import DATA, FIX, TEAMS, games, load_pbp, scrimmage  # noqa: E402
 from nfl_futures_diagnosis import WF, V4, V5, eng_weights  # noqa: E402
 from nfl_v5_promotion_test import bll  # noqa: E402
 from nfl_qb_oracle_test import main_qb  # noqa: E402
-from absence_runs import statuses, dropbacks_by_week  # noqa: E402
+from absence_runs import statuses, dropbacks_by_week, prior_leaders  # noqa: E402
 
 SEASONS = range(2018, 2026)
 CHECKS = (4, 9, 13)
@@ -245,8 +245,7 @@ def rows_for(g, cases):
         ew = eng_weights(y)
         st = statuses(y)
         dbw = dropbacks_by_week(y)
-        pdb = dropbacks_by_week(y - 1)
-        prior_leader = pdb.groupby(["posteam", "qb"]).n.sum().reset_index().sort_values("n").groupby("posteam").qb.last().to_dict()
+        prior_leader = prior_leaders(y)
         haz = km_hazard(y)
         for w in CHECKS:
             gg = g.copy()

@@ -127,3 +127,6 @@ How they are applied:
 
    The capture share against the oracle is descriptive only.
 7. **Decision unchanged:** primary v5-core, λ = 0.5, none - news; pass = live shadow input only; seed-set disagreement = inconclusive.
+8. **Found in the version-3 audit, before any gains:**
+   - **Fixed:** a week-1 incumbent (the previous season's leader) now counts only if he is on that team's roster in weeks 1-2. One case it removes: 2024 Denver had been assigned Russell Wilson's Pittsburgh absence.
+   - **Not modelled, disclosed:** a healthy incumbent who returns but has lost the job is still assumed to start. Examples: 2024 Pittsburgh (Fields after Wilson's return) and 2025 Tennessee (Levis against rookie Ward). This applies equally wherever durations are sampled.
