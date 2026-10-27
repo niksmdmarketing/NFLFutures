@@ -99,3 +99,21 @@ After weeks 4, 9 and 13, the snapshot date is the day after the last regular-sea
 - v5's sharper probabilities skipped the 2025 week-4 Chicago division bet (v5 3% against cost 3.3%), which won $2,937 for v4. Both records rest on a few 2025 longshots.
 - **2026 week-4 retrospective:** v5-core 18 bets (v4 23), all pending.
 - **Live v5** from week 9 on, automatically.
+
+## Amendment (27 Oct 2026, Sydney), written before any Kalshi paper bet: Kalshi as a second price source, 2026 live only
+- **Why:** asked by the user ("we'll just use Polymarket and Kalshi"). TypeSafe chose this as the next task (33%). Kalshi NFL prices have been kept daily since 27 Oct 2026 (private repo, collected_data/market_history/nfl), with top-of-book sizes.
+- **Scope:** checkpoints after weeks 9 and 13 of 2026; division winner and make-playoffs; v4 and v5, reported separately from each other and from the Polymarket record. No backfill exists.
+- **Price:** the first daily Kalshi record taken at or after 12:00 UTC on the checkpoint date.
+- **Model:** the latest forecast-archive season file generated before that record's fetch time.
+  - v4 is the file's teams table; v5 is challenger_v5.
+  - Model age (fetch time minus file time) is reported.
+- **Bet sizing:**
+  - **Fills:** buy YES only, at the ask.
+  - **Stake:** $100 is the maximum total outlay including the taker fee. That fee is 0.07 × multiplier × C × P × (1 - P), rounded up to the cent per order; the multiplier is 1 per the July 2026 schedule.
+  - **Size:** C = the largest whole number of contracts within the budget and within the displayed ask size.
+  - **Edge:** the bet qualifies when model / (total cost / C) - 1 ≥ 0.10.
+  - **No bet** without a two-sided quote, with an ask ≤ 0 or ≥ 1, or with C = 0.
+  - Whether the quote's spread is ≤ 0.05 is recorded.
+- **Settlement:** profit = C × payout - total cost, with payout $1 per winning contract. Unresolved markets stay pending.
+- **Team names:** Kalshi city names map to teams ("Los Angeles C/R", "New York G/J" by the letter). Unmatched names are excluded and listed.
+- **Output:** private (research/nfl_kalshi_paper_bets.json in the private repo), refreshed by the daily private build. Nothing here feeds a model, and no threshold changes after results.
