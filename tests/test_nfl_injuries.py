@@ -184,6 +184,7 @@ class Collect(unittest.TestCase):
         self.assertEqual(db.execute("select count(*) from reports").fetchone()[0], 2)
         self.assertEqual(db.execute("select count(*) from checks").fetchone()[0], 2)
         self.assertGreater(db.execute("select count(*) from changes").fetchone()[0], 0)
+        db.close()  # release the test file before TemporaryDirectory cleanup on Windows
 
     def test_monitor_is_not_used_by_projections(self):
         root = Path(M.__file__).resolve().parent

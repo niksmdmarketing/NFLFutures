@@ -18,20 +18,29 @@ import pandas as pd
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "pipeline"))
 import award_model as AM  # noqa: E402
-from nba_site import AM_norm  # noqa: E402
+from nba_site import AM_norm, cup_finals  # noqa: E402
 from nba_award_sim import *  # noqa: E402,F401,F403
 import nba_award_sim as SIM  # noqa: E402
 from trends_awards import NBA_AW  # noqa: E402
+from nba_award_early_tools import CHECKPOINT_DAYS, scheduled_games, validate_distribution, blend
+
+EARLY = os.environ.get("AW_EARLY") == "1"
 
 def final_tables(years):
     """End-of-season candidate pools with the winner flagged, for fitting the logit."""
     out = {}
     seen = set()
     for y in years:
-        b = boxes(y)
+        b = boxes(y, replay=EARLY)
         if b is None:
             continue
-        a = season_lines(b)
+        final_b = b
+        if EARLY and y >= 2024:
+            # Completed prior/training seasons may identify their Cup final. The checkpoint
+            # input b remains untouched; every registered early checkpoint precedes that final.
+            t = b.drop_duplicates(["game_id", "team"]).rename(columns={"team":"team_abbreviation", "date":"game_date"}).assign(season_type=2)
+            final_b = b[~b.game_id.isin(cup_finals(t))]
+        a = season_lines(final_b)
         ids = set(a.index)
         a["rookie"] = [i not in seen for i in a.index]
         seen |= ids
@@ -70,19 +79,26 @@ PRE_CACHE = {}
 
 
 def replay(first, last):
-    years = list(range(first - 1, last + 1))
+    if EARLY:
+        required = {"AW_TEMPS":"1", "AW_RETURN":"0", "AW_CURTEAM":"0", "AW_LATE_ONLY":"0", "AW_PRE_ONLY":"0", "AW_RULE65":"1", "AW_SIMS":"300"}
+        for key,value in required.items():
+            if os.environ.get(key,value) != value:
+                raise ValueError(f"Frozen early test requires {key}={value}")
+    PRE_CACHE.clear()
     FT = final_tables(list(range(2003, last + 1)))
     rows = []
     for y in range(first, last + 1):
         if y not in FT or (y - 1) not in FT:
             continue
         b, Dfin, L = FT[y]
+        if EARLY:L = float(scheduled_games(y))
         prev = FT[y - 1][1]
         start, end = b.date.min(), b.date.max()
         cuts = list(pd.date_range(start + pd.Timedelta(days=21), end - pd.Timedelta(days=3), freq="14D"))
-        if os.environ.get("AW_EARLY") == "1":   # research/NBA_AWARD_EARLY_SHRINK_RULE.md: early checkpoints only
-            cuts = [start + pd.Timedelta(days=d) for d in (3, 7, 14, 21, 28)]
+        if EARLY:   # research/NBA_AWARD_EARLY_SHRINK_RULE.md: early checkpoints only
+            cuts = [start + pd.Timedelta(days=d) for d in CHECKPOINT_DAYS]
         rookies = set(Dfin.index[Dfin.rookie])
+        seen_before = set().union(*(set(FT[z][1].index) for z in FT if z < y)) if EARLY else set()
         for award in SPECS:
             if y not in NBA_AW[award]:
                 continue
@@ -101,14 +117,14 @@ def replay(first, last):
                     bb = b.sort_values("date")
                     ct = {str(k): v for k, v in bb.groupby("athlete_id").team.first().items()}
                 prev2 = FT[y - 2][1] if (y - 2) in FT else None
-                p_sim = SIM.preseason_probs(prev, award, feats, beta, L, y, prev2=prev2, cur_team=ct)
+                p_sim = SIM.preseason_probs(prev, award, feats, beta, L, y, prev2=prev2, cur_team=ct, replay=EARLY)
                 for meth, pm in (("live", p_live), ("sim", p_sim)):
                     pw = pm.get(win, 0.0)
                     rows.append(dict(season=y, award=award, ck=-1, frac=0.0, method=meth, p_winner=pw, fav=max(pm.values()) if pm else 0.0,
                                      fav_won=int(bool(pm) and max(pm, key=pm.get) == win), nll=-np.log(max(pw, 0.002))))
             for ci, cut in enumerate([] if os.environ.get("AW_PRE_ONLY") == "1" else cuts):
                 a = season_lines(b, cut)
-                a["rookie"] = a.index.isin(rookies)
+                a["rookie"] = ~a.index.isin(seen_before) if EARLY else a.index.isin(rookies)
                 a["wp"] = a.tw / a.tg.clip(lower=1)
                 Lc = float(a.tg.max())
                 frac = Lc / L
@@ -122,28 +138,23 @@ def replay(first, last):
                 if frac < LATE_ONLY:
                     continue
                 # ---- candidate: forward simulation (TEMPS: logit temperatures, 1 = live)
-                sims = [(("sim" if T == 1.0 else f"simT{T}"), simulate(a, prev, D, award, feats, beta / T, L, y)) for T in TEMPS]
+                diagnostics = {}
+                sims = [(("sim" if T == 1.0 else f"simT{T}"), simulate(a, prev, D, award, feats, beta / T, L, y, replay=EARLY, diagnostics=diagnostics)) for T in TEMPS]
                 extra = []
-                if os.environ.get("AW_EARLY") == "1":   # early-shrink candidate (rule above)
-                    w = min(1.0, Lc / 20.0)
+                if EARLY:
                     ps = sims[0][1]
                     pp = None
                     if award != "ROY":
                         if (y, award) not in PRE_CACHE:
-                            prev2 = FT[y - 2][1] if (y - 2) in FT else None
-                            PRE_CACHE[(y, award)] = SIM.preseason_probs(prev, award, feats, beta, L, y, prev2=prev2)
+                            PRE_CACHE[(y, award)] = SIM.preseason_probs(prev, award, feats, beta, L, y, replay=True)
                         pp = PRE_CACHE[(y, award)]
-                    if not pp:   # Rookie, or no pre-season pool: flatten toward equal chances
-                        z = {k: v ** w for k, v in ps.items() if v > 0}
-                        tot = sum(z.values()) or 1.0
-                        pb = {k: v / tot for k, v in z.items()}
-                    else:
-                        pb = {k: w * ps.get(k, 0.0) + (1 - w) * pp.get(k, 0.0) for k in set(ps) | set(pp)}
+                    pb = blend(ps, pp, Lc)
                     extra = [("shrink", pb)]
                 for meth, pm in [("live", p_live)] + sims + extra:
+                    if EARLY:validate_distribution(pm)
                     pw = pm.get(win, 0.0)
                     fav = max(pm.values()) if pm else 0.0
-                    rows.append(dict(season=y, award=award, ck=ci, frac=round(frac, 3), method=meth, p_winner=pw, fav=fav,
+                    rows.append(dict(season=y, award=award, ck=ci, frac=frac if EARLY else round(frac, 3), L=L, team_games=Lc, checkpoint_days=(cut-start).days, cutoff=cut.isoformat(), invalid_draws=diagnostics.get("invalid_draws",0), probability_mass=sum(pm.values()), support=len(pm), winner_in_support=win in pm and pm.get(win,0)>0, method=meth, p_winner=pw, fav=fav,
                                      fav_won=int(bool(pm) and max(pm, key=pm.get) == win), nll=-np.log(max(pw, 0.002))))
             print(y, award, flush=True)
     return pd.DataFrame(rows)
@@ -154,6 +165,7 @@ if __name__ == "__main__":
     last = int(sys.argv[2]) if len(sys.argv) > 2 else 2026
     R = replay(first, last)
     out = os.environ.get("AW_OUT") or os.path.join(ROOT, "model", "replay", "nba_awards_replay.csv")
+    os.makedirs(os.path.dirname(os.path.abspath(out)), exist_ok=True)
     R.to_csv(out, index=False)
     R["stage"] = pd.cut(R.frac, [0, .25, .5, .75, 1.01], labels=["Q1", "Q2", "Q3", "Q4"])
     print(R.groupby(["award", "method"]).nll.mean().unstack().round(3).to_string())

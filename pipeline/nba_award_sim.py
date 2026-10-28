@@ -13,7 +13,7 @@ import os
 import numpy as np
 import pandas as pd
 
-from nba_site import CANON, CUP
+from nba_site import CANON, CUP, TEAMS
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "data", "nba")
@@ -33,7 +33,7 @@ SPECS = {   # same pools and features as nba_site.awards
 }
 
 
-def boxes(y):
+def boxes(y, replay=False):
     p = os.path.join(DATA, f"player_box_{y}.csv")
     if not os.path.exists(p):
         return None
@@ -53,8 +53,11 @@ def boxes(y):
     b["m15"] = (b.mins >= 15).astype(float)   # the rule counts 20-minute games plus up to two of 15-20 minutes; box minutes are rounded
     b["win"] = b.team_winner.astype(str).str.lower().eq("true").astype(float)
     b["date"] = pd.to_datetime(b.game_date)
-    games_per_team = b.groupby("team").game_id.nunique()
-    b = b[b.team.isin(games_per_team[games_per_team >= 40].index)]
+    if replay:
+        b = b[b.team.isin(TEAMS)]  # explicit franchises, never eventual games-played coverage
+    if not replay:  # preserve the displayed model; research must not select teams using future coverage
+        games_per_team = b.groupby("team").game_id.nunique()
+        b = b[b.team.isin(games_per_team[games_per_team >= 40].index)]
     return b[["game_id", "date", "athlete_id", "athlete_display_name", "team", "win"] + STATS]
 
 
@@ -87,7 +90,7 @@ def features(A, L):
     return f
 
 
-def simulate(a, prev, D, award, feats, beta, L, y, rng=None, pre=False):
+def simulate(a, prev, D, award, feats, beta, L, y, rng=None, pre=False, replay=False, diagnostics=None):
     """Average award probabilities over SIMS simulated finishes of the season (pre=True: D is a ready preseason pool)."""
     rng = rng or np.random.default_rng(y * 7 + len(award))
     poolf, rank, n, _ = SPECS[award]
@@ -133,11 +136,13 @@ def simulate(a, prev, D, award, feats, beta, L, y, rng=None, pre=False):
     rook = C.rookie.values
     bench = (tot["start"] / np.maximum(G, 1)) < .5
     elig = np.ones((S, m), bool)
-    if RULE65 and y >= 2024:
-        elig = tot["m15"] >= 65 - 0.5          # 65-game rule (2023-24 on), counted generously: games of 15+ minutes
+    if RULE65 and y >= 2024 and (not replay or award in ("MVP", "DPOY")):
+        counted = tot["m20"] + np.minimum(2, np.maximum(0, tot["m15"] - tot["m20"])) if replay else tot["m15"]
+        elig = counted >= 65 - 0.5  # legacy counts all 15+; replay caps sub-20 games at two
     from nba_site import AM_norm
     names = C.name.map(AM_norm).values
     acc = np.zeros(m)
+    valid_draws = 0
     rank_v = f[rank]
     for s in range(S):
         Ds = pd.DataFrame({k: np.asarray(v[s], float) for k, v in f.items()})
@@ -154,6 +159,17 @@ def simulate(a, prev, D, award, feats, beta, L, y, rng=None, pre=False):
         if w.sum() <= 0:
             continue
         acc[idx] += w / w.sum()
+        valid_draws += 1
+    if diagnostics is not None:
+        diagnostics.update(draws=S, valid_draws=valid_draws, invalid_draws=S-valid_draws)
+    if replay:
+        if not valid_draws:
+            return {}
+        acc /= valid_draws  # condition both research arms on a valid award winner
+        result = {}
+        for name, probability in zip(names, acc):
+            result[name] = result.get(name, 0.0) + float(probability)
+        return result
     acc /= S
     return dict(zip(names, acc))
 
@@ -219,8 +235,8 @@ def preseason_pool(prev, award, team_wp=None, prev2=None, cur_team=None, avail0=
     return C0
 
 
-def preseason_probs(prev, award, feats, beta, L, y, team_wp=None, prev2=None, cur_team=None, avail0=None):
+def preseason_probs(prev, award, feats, beta, L, y, team_wp=None, prev2=None, cur_team=None, avail0=None, replay=False, diagnostics=None):
     C0 = preseason_pool(prev, award, team_wp, prev2, cur_team, avail0)
     if C0 is None or C0.empty:
         return {}
-    return simulate(C0, prev, C0, award, feats, np.asarray(beta, float), float(L), y, pre=True)
+    return simulate(C0, prev, C0, award, feats, np.asarray(beta, float), float(L), y, pre=True, replay=replay, diagnostics=diagnostics)
