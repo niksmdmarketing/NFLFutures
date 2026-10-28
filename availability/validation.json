@@ -1,10 +1,10 @@
 {
- "checked_utc": "2026-10-28T05:49:29+00:00",
+ "checked_utc": "2026-10-28T13:02:39+00:00",
  "leagues": {
   "nfl": {
-   "records": 1579,
+   "records": 911,
    "by_layer": {
-    "official": 1525,
+    "official": 857,
     "reported": 54
    },
    "unknown_team": 0,
@@ -49,33 +49,6 @@
      "player": "Tip Reiman",
      "official": [
       "out"
-     ],
-     "other": "expected to play",
-     "source": "ESPN injury note"
-    },
-    {
-     "player": "Lamar Jackson",
-     "official": [
-      "out",
-      "questionable"
-     ],
-     "other": "expected to play",
-     "source": "ESPN injury note"
-    },
-    {
-     "player": "Tyler Badie",
-     "official": [
-      "injured reserve",
-      "out"
-     ],
-     "other": "expected to play",
-     "source": "ESPN injury note"
-    },
-    {
-     "player": "Mike Evans",
-     "official": [
-      "out",
-      "questionable"
      ],
      "other": "expected to play",
      "source": "ESPN injury note"
@@ -153,11 +126,11 @@
    "reported_matched_to_official_list": "48/48"
   },
   "nhl": {
-   "records": 1564,
+   "records": 1550,
    "by_layer": {
     "official": 157,
     "reported": 62,
-    "projected": 1345
+    "projected": 1331
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -281,8 +254,6 @@
    "reported_matched_to_official_list": "0/11"
   }
  },
- "sources_failed": [
-  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 79 h old"
- ],
+ "sources_failed": [],
  "sources_not_expected": []
 }
