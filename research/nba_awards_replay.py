@@ -66,6 +66,9 @@ TEMPS = [float(t) for t in os.environ.get("AW_TEMPS", "1").split(",")]
 LATE_ONLY = float(os.environ.get("AW_LATE_ONLY", "0"))   # research: skip checkpoints before this share of the season
 
 
+PRE_CACHE = {}
+
+
 def replay(first, last):
     years = list(range(first - 1, last + 1))
     FT = final_tables(list(range(2003, last + 1)))
@@ -77,6 +80,8 @@ def replay(first, last):
         prev = FT[y - 1][1]
         start, end = b.date.min(), b.date.max()
         cuts = list(pd.date_range(start + pd.Timedelta(days=21), end - pd.Timedelta(days=3), freq="14D"))
+        if os.environ.get("AW_EARLY") == "1":   # research/NBA_AWARD_EARLY_SHRINK_RULE.md: early checkpoints only
+            cuts = [start + pd.Timedelta(days=d) for d in (3, 7, 14, 21, 28)]
         rookies = set(Dfin.index[Dfin.rookie])
         for award in SPECS:
             if y not in NBA_AW[award]:
@@ -118,7 +123,24 @@ def replay(first, last):
                     continue
                 # ---- candidate: forward simulation (TEMPS: logit temperatures, 1 = live)
                 sims = [(("sim" if T == 1.0 else f"simT{T}"), simulate(a, prev, D, award, feats, beta / T, L, y)) for T in TEMPS]
-                for meth, pm in [("live", p_live)] + sims:
+                extra = []
+                if os.environ.get("AW_EARLY") == "1":   # early-shrink candidate (rule above)
+                    w = min(1.0, Lc / 20.0)
+                    ps = sims[0][1]
+                    pp = None
+                    if award != "ROY":
+                        if (y, award) not in PRE_CACHE:
+                            prev2 = FT[y - 2][1] if (y - 2) in FT else None
+                            PRE_CACHE[(y, award)] = SIM.preseason_probs(prev, award, feats, beta, L, y, prev2=prev2)
+                        pp = PRE_CACHE[(y, award)]
+                    if not pp:   # Rookie, or no pre-season pool: flatten toward equal chances
+                        z = {k: v ** w for k, v in ps.items() if v > 0}
+                        tot = sum(z.values()) or 1.0
+                        pb = {k: v / tot for k, v in z.items()}
+                    else:
+                        pb = {k: w * ps.get(k, 0.0) + (1 - w) * pp.get(k, 0.0) for k in set(ps) | set(pp)}
+                    extra = [("shrink", pb)]
+                for meth, pm in [("live", p_live)] + sims + extra:
                     pw = pm.get(win, 0.0)
                     fav = max(pm.values()) if pm else 0.0
                     rows.append(dict(season=y, award=award, ck=ci, frac=round(frac, 3), method=meth, p_winner=pw, fav=fav,
