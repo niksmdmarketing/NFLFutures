@@ -1,0 +1,62 @@
+{
+ "run_utc": "2026-10-28T21:46:01.322618+00:00",
+ "generated_utc": "2026-10-28T21:46:01.322636+00:00",
+ "targets": [
+  [
+   401909885,
+   60,
+   "2026-10-28T22:30:00+00:00"
+  ],
+  [
+   401909881,
+   60,
+   "2026-10-28T22:00:00+00:00"
+  ],
+  [
+   401909882,
+   60,
+   "2026-10-28T22:00:00+00:00"
+  ],
+  [
+   401909883,
+   60,
+   "2026-10-28T22:00:00+00:00"
+  ],
+  [
+   401909884,
+   60,
+   "2026-10-28T22:00:00+00:00"
+  ]
+ ],
+ "params_id": "b",
+ "box": {
+  "release_games_2027": 56,
+  "espn_filled": [],
+  "espn_failed": [],
+  "player_box_sha256": "6461a047cda1acaca6dc5fd1312175861e38a9fe23acb0698206f145b5a984e2",
+  "team_box_sha256": "793b3af7a53e1492832abaa660f5a2837abe0b7361df05bccb84e771bff2101f"
+ },
+ "report": {
+  "url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-28_05_45PM.pdf",
+  "label": "2026-10-28 05_45PM",
+  "sha256": "a87babeb2d3218768fe4661da670605bba2db9e1cade89c01833f4775d35637b",
+  "rows": 118,
+  "retrieved_utc": "2026-10-28T21:46:04.513228+00:00"
+ },
+ "report_rows_matched_via_last_season": 6097,
+ "fast_memory_written": [
+  "nba/props_forward/challengers/fast-minutes-hl2-dev1/2026-10-28/401909885_60_20261028T214601322618Z.json.gz",
+  "nba/props_forward/challengers/fast-minutes-hl2-dev1/2026-10-28/401909881_60_20261028T214601322618Z.json.gz",
+  "nba/props_forward/challengers/fast-minutes-hl2-dev1/2026-10-28/401909882_60_20261028T214601322618Z.json.gz",
+  "nba/props_forward/challengers/fast-minutes-hl2-dev1/2026-10-28/401909883_60_20261028T214601322618Z.json.gz",
+  "nba/props_forward/challengers/fast-minutes-hl2-dev1/2026-10-28/401909884_60_20261028T214601322618Z.json.gz"
+ ],
+ "written": [
+  "nba/props_forward/2026-10-28/401909885_60_20261028T214601322618Z.json.gz",
+  "nba/props_forward/2026-10-28/401909881_60_20261028T214601322618Z.json.gz",
+  "nba/props_forward/2026-10-28/401909882_60_20261028T214601322618Z.json.gz",
+  "nba/props_forward/2026-10-28/401909883_60_20261028T214601322618Z.json.gz",
+  "nba/props_forward/2026-10-28/401909884_60_20261028T214601322618Z.json.gz"
+ ],
+ "seconds": 49.697997
+}
