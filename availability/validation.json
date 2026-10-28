@@ -1,10 +1,10 @@
 {
- "checked_utc": "2026-10-28T18:53:55+00:00",
+ "checked_utc": "2026-10-28T23:16:03+00:00",
  "leagues": {
   "nfl": {
-   "records": 909,
+   "records": 1092,
    "by_layer": {
-    "official": 857,
+    "official": 1040,
     "reported": 52
    },
    "unknown_team": 0,
@@ -65,13 +65,13 @@
    "reported_matched_to_official_list": "52/52"
   },
   "nba": {
-   "records": 274,
+   "records": 287,
    "by_layer": {
-    "official": 228,
-    "reported": 46
+    "official": 237,
+    "reported": 50
    },
    "unknown_team": 0,
-   "no_player": 7,
+   "no_player": 5,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -113,23 +113,31 @@
      ],
      "other": "expected to play",
      "source": "ESPN injury note"
+    },
+    {
+     "player": "T.J. McConnell",
+     "official": [
+      "out"
+     ],
+     "other": "expected to play",
+     "source": "ESPN injury note"
     }
    ],
    "stale_projection_dates": 0,
    "teams_missing_official": [],
    "season_state": {
-    "state": "in_season",
-    "why": "36 regular-season/playoff and 0 other games 2026-10-21..2026-11-07"
+    "state": "unknown",
+    "why": "JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "46/46"
+   "reported_matched_to_official_list": "50/50"
   },
   "nhl": {
-   "records": 1549,
+   "records": 1544,
    "by_layer": {
-    "official": 156,
-    "reported": 62,
+    "official": 154,
+    "reported": 59,
     "projected": 1331
    },
    "unknown_team": 0,
@@ -151,7 +159,6 @@
     "MIN",
     "MTL",
     "NJD",
-    "NSH",
     "NYI",
     "NYR",
     "OTT",
@@ -171,7 +178,8 @@
    "conflicts": [],
    "stale_projection_dates": 0,
    "teams_missing_official": [
-    "BOS"
+    "BOS",
+    "NSH"
    ],
    "season_state": {
     "state": "in_season",
@@ -179,7 +187,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "62/62"
+   "reported_matched_to_official_list": "59/59"
   },
   "nbl": {
    "records": 21,
