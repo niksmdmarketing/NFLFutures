@@ -22,6 +22,13 @@ class AwardBugfixTests(unittest.TestCase):
    for award in ('ROY','6MOY'):
     self.assertAlmostEqual(sum(S.simulate(a,a,D,award,S.SPECS[award][3],np.zeros(len(S.SPECS[award][3])),82,2024).values()),1)
    self.assertEqual(S.simulate(a,a,D,'MVP',S.SPECS['MVP'][3],np.zeros(6),82,2024),{})
+ def test_only_two_under_twenty_minute_games_can_count(self):
+  a=self.lines();a['m20']=60;a['m15']=70;D=a.assign(**S.features(a,82));D['bench']=True
+  args=(a,a,D,'MVP',S.SPECS['MVP'][3],np.zeros(6),82,2024)
+  with patch.object(S,'SIMS',3):
+   self.assertEqual(S.simulate(*args,replay=True),{})
+   self.assertAlmostEqual(sum(S.simulate(*args,replay=False).values()),1)
+   a['m20']=63;D['m20']=63;self.assertAlmostEqual(sum(S.simulate(*args,replay=True).values()),1)
  def test_known_published_comparison_rejects_wrong_rank_or_probability(self):
   x={'awards':{a:{'current':[{'name':'A','prob':.6}]} for a in ('MVP','DPOY','ROY','6MOY')}}
   self.assertTrue(published_identity(x,x)['top15_names_identical'])

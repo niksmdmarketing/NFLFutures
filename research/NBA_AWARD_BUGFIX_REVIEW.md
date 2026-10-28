@@ -22,4 +22,4 @@ Changes are substantial: MVP's leader changes from Shai Gilgeous-Alexander 40.7%
 
 ## Verification
 
-`python -m unittest discover`: **89 tests pass, one existing skip**. New checks cover opt-in/legacy behavior, valid probability mass, award-specific eligibility, published-output identity and absence of the rejected shrink layer. The existing test-only SQLite connection is closed before Windows cleanup, and tests are discoverable with the requested command. No forecasts, decision logs, thresholds or live settings were changed.
+`python -m unittest discover`: **90 tests pass, one existing skip**. New checks cover opt-in/legacy behavior, valid probability mass, award-specific eligibility and the two-game under-20-minute allowance, published-output identity and absence of the rejected shrink layer. The existing test-only SQLite connection is closed before Windows cleanup, and tests are discoverable with the requested command. No forecasts, decision logs, thresholds or live settings were changed.
