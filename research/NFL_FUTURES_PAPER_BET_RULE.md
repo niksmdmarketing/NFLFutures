@@ -128,3 +128,9 @@ After weeks 4, 9 and 13, the snapshot date is the day after the last regular-sea
 - **Bet:** model × price - 1 ≥ 0.10. Flat $100. Won: 100 × (price - 1); lost: -100.
 - **Settlement:** at the Super Bowl.
 - **Output:** private, next to the Kalshi record. Nothing feeds a model, and no threshold changes after results.
+
+
+## Amendment (28 Oct 2026, Sydney), before any futures decision: longshot floor (TypeSafe 64%)
+- **Rule:** a futures selection counts as a paper bet only if the model chance is at least 5%, in addition to every other condition. Selections that meet the 10% value rule below 5% are recorded with status `below_floor` and reported separately (count, and what their profit would have been), never in the main record.
+- **Why:** the project's point-in-time replays show the model's longshot tail is too high in every sport checked. For teams the model put under 2% early in the season: NBA said 0.6%, won 0.3% (667 team-weeks); NHL said 0.8%, won 0% (418); NFL said 1.2%, won 0% (149). That tail is where most of the huge value percentages come from. The 2-35% range was well calibrated, and the model's 35%+ favourites won more often than predicted (NBA, small sample).
+- **Scope:** futures only (title, conference, Final Four, Sweet 16, conference tournaments). Games are unchanged.
