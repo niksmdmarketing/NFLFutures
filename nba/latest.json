@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-10-28T0839Z",
-"feed_timestamp": "2026-10-28T08:39:42Z",
+"collected_utc": "2026-10-28T1645Z",
+"feed_timestamp": "2026-10-28T16:45:04Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -298,15 +298,9 @@
 "injury": "Right Oblique Strain"
 },
 {
-"athlete_id": "4601025",
-"status": "Day-To-Day",
-"return_date": "2026-10-28",
-"injury": "Right Ankle Sprain"
-},
-{
 "athlete_id": "3899664",
-"status": "Day-To-Day",
-"return_date": "2026-10-28",
+"status": "Out",
+"return_date": "2026-10-30",
 "injury": "Illness"
 },
 {
@@ -388,6 +382,12 @@
 "injury": "Knee"
 },
 {
+"athlete_id": "4712849",
+"status": "Day-To-Day",
+"return_date": "2026-10-28",
+"injury": "Personal"
+},
+{
 "athlete_id": "5107251",
 "status": "Out",
 "return_date": "2026-11-18",
@@ -426,7 +426,7 @@
 {
 "athlete_id": "4870562",
 "status": "Out",
-"return_date": "2026-11-02",
+"return_date": "2026-11-04",
 "injury": "Not Specified Back Fracture"
 },
 {
@@ -544,12 +544,6 @@
 "injury": "Left Knee Bruise"
 },
 {
-"athlete_id": "5142718",
-"status": "Out",
-"return_date": "2026-10-28",
-"injury": "Left Ankle Sprain"
-},
-{
 "athlete_id": "4606840",
 "status": "Out",
 "return_date": "2027-04-02",
@@ -576,7 +570,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-28",
 "injury": "Left Knee Bruise",
-"updated": "2026-10-27T21:07Z"
+"updated": "2026-10-28T16:25Z"
 },
 {
 "athlete_id": "5105571",
@@ -819,7 +813,7 @@
 "status": "Out",
 "return_date": "2026-12-01",
 "injury": "Illness",
-"updated": "2026-10-21T18:27Z"
+"updated": "2026-10-28T14:25Z"
 },
 {
 "athlete_id": "4432171",
@@ -1011,22 +1005,13 @@
 "updated": "2026-10-27T23:42Z"
 },
 {
-"athlete_id": "4601025",
-"name": "Pelle Larsson",
-"team_name": "Miami Heat",
-"status": "Day-To-Day",
-"return_date": "2026-10-28",
-"injury": "Right Ankle Sprain",
-"updated": "2026-10-27T20:04Z"
-},
-{
 "athlete_id": "3899664",
 "name": "Simone Fontecchio",
 "team_name": "Miami Heat",
-"status": "Day-To-Day",
-"return_date": "2026-10-28",
+"status": "Out",
+"return_date": "2026-10-30",
 "injury": "Illness",
-"updated": "2026-10-27T20:03Z"
+"updated": "2026-10-28T15:04Z"
 },
 {
 "athlete_id": "4594268",
@@ -1146,6 +1131,15 @@
 "updated": "2026-10-27T21:43Z"
 },
 {
+"athlete_id": "4712849",
+"name": "Anthony Black",
+"team_name": "Orlando Magic",
+"status": "Day-To-Day",
+"return_date": "2026-10-28",
+"injury": "Personal",
+"updated": "2026-10-28T14:41Z"
+},
+{
 "athlete_id": "5107251",
 "name": "Izaiyah Nelson",
 "team_name": "Orlando Magic",
@@ -1204,7 +1198,7 @@
 "name": "Dominick Barlow",
 "team_name": "Philadelphia 76ers",
 "status": "Out",
-"return_date": "2026-11-02",
+"return_date": "2026-11-04",
 "injury": "Not Specified Back Fracture",
 "updated": "2026-10-19T21:07Z"
 },
@@ -1378,15 +1372,6 @@
 "return_date": "2026-11-06",
 "injury": "Left Knee Bruise",
 "updated": "2026-10-24T23:18Z"
-},
-{
-"athlete_id": "5142718",
-"name": "AJ Dybantsa",
-"team_name": "Washington Wizards",
-"status": "Out",
-"return_date": "2026-10-28",
-"injury": "Left Ankle Sprain",
-"updated": "2026-10-27T20:48Z"
 },
 {
 "athlete_id": "4606840",
