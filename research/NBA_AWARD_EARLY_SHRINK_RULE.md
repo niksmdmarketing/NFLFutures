@@ -88,3 +88,22 @@ The user has now asked GPT to solve the pre-run blockers and complete Task 1. Th
 Synthetic validation covers future-box invariance, legacy/default identity, award eligibility, unit mass, empty/all-zero preseason fallback, missing-side-zero union, exact 20-game identity, exact scoring boundaries, pairing, ties and deterministic bootstrap behavior. The eight new tests pass before the run; the full suite is also run before committing the experiment specification. Any substantive new validation defect stops scoring and is reported, rather than tuned against results.
 
 Pre-run verification: `python -m unittest discover` ran 93 tests successfully (one existing skip). The test directory is now discoverable with that exact command; a test-only SQLite handle is closed before Windows cleanup. All 24 raw input files are hashed in `nba_award_early_shrink_inputs.json`. No historical result file exists at this freeze.
+
+
+## Results (2026-10-28)
+
+**FAIL — all three registered gates fail. No adoption and no parameter/shape changes.** Run from pre-result specification commit `904b13e`; scored by the scorer frozen in that commit. This compares shrink with the repaired research sim, not the unchanged live display.
+
+- Sample: 340 paired award/checkpoint cells, 17 seasons. Mean NLL: sim 2.603239; shrink 2.545207. Gain (sim minus shrink) +0.058033.
+- **Gate 1: FAIL.** Mean gain +0.058033, but central 90% whole-season bootstrap interval is [-0.066546, +0.191866], so its lower endpoint is not above zero. Seed 20261028; 10,000 draws.
+- **Gate 2: FAIL.** Sixth Man gain is -0.381157 (a loss of 0.381157), exceeding the allowed 0.05 loss.
+- **Gate 3: FAIL.** 7 of 17 seasons are better or equal (41.18%), below 60%.
+
+| Award | Sim NLL | Shrink NLL | Gain |
+|---|---:|---:|---:|
+| 6MOY | 2.955224 | 3.336381 | -0.381157 |
+| DPOY | 3.378274 | 2.969280 | +0.408994 |
+| MVP | 2.018474 | 2.005373 | +0.013100 |
+| ROY | 2.060986 | 1.869794 | +0.191193 |
+
+Full per-season gains, favourite said/won at every award/checkpoint, floor-hit counts and diagnostics: `research/nba_award_early_shrink_results.json`. Paired rows: `model/replay/nba_awards_early_shrink.csv`. These are the only registered run and settings; no exploratory alternative was tried after inspecting the result. The user decides any live changes separately.

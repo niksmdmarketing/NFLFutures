@@ -1,0 +1,548 @@
+{
+  "verdict": "fail",
+  "gates": {
+    "G1": {
+      "pass": false,
+      "gain": 0.05803254034856399,
+      "central_90_ci": [
+        -0.06654621378079842,
+        0.19186596786595286
+      ]
+    },
+    "G2": {
+      "pass": false,
+      "minimum_award_gain": -0.38115700185118523,
+      "maximum_allowed_loss": 0.05
+    },
+    "G3": {
+      "pass": false,
+      "better_or_equal_seasons": 7,
+      "seasons": 17,
+      "share": 0.4117647058823529,
+      "required_share": 0.6
+    }
+  },
+  "mean_nll": {
+    "sim": 2.6032394976387248,
+    "shrink": 2.545206957290161
+  },
+  "gain": 0.05803254034856399,
+  "paired_cells": 340,
+  "seasons": 17,
+  "bootstrap": {
+    "seed": 20261028,
+    "draws": 10000,
+    "unit": "whole season",
+    "interval": "central 90% (5th, 95th percentiles)"
+  },
+  "floor": 0.002,
+  "per_award": [
+    {
+      "award": "6MOY",
+      "sim": 2.955223941045403,
+      "shrink": 3.3363809428965885,
+      "gain": -0.38115700185118523
+    },
+    {
+      "award": "DPOY",
+      "sim": 3.37827416168594,
+      "shrink": 2.9692800981751875,
+      "gain": 0.4089940635107525
+    },
+    {
+      "award": "MVP",
+      "sim": 2.0184736435035364,
+      "shrink": 2.005373220923169,
+      "gain": 0.013100422580367047
+    },
+    {
+      "award": "ROY",
+      "sim": 2.060986244320021,
+      "shrink": 1.869793567165699,
+      "gain": 0.19119267715432173
+    }
+  ],
+  "per_season": [
+    {
+      "season": "2010",
+      "sim": 2.3987542811888707,
+      "shrink": 2.0009866030879,
+      "gain": 0.39776767810097036
+    },
+    {
+      "season": "2011",
+      "sim": 3.830400483688468,
+      "shrink": 3.66688971573394,
+      "gain": 0.16351076795452765
+    },
+    {
+      "season": "2012",
+      "sim": 2.2153696241188294,
+      "shrink": 2.6050879496659642,
+      "gain": -0.3897183255471347
+    },
+    {
+      "season": "2013",
+      "sim": 2.027926649856521,
+      "shrink": 2.1313600910269477,
+      "gain": -0.10343344117042638
+    },
+    {
+      "season": "2014",
+      "sim": 1.5035267933992675,
+      "shrink": 1.5540480490741915,
+      "gain": -0.05052125567492392
+    },
+    {
+      "season": "2015",
+      "sim": 3.7844333232241736,
+      "shrink": 3.3661721537519966,
+      "gain": 0.4182611694721777
+    },
+    {
+      "season": "2016",
+      "sim": 1.3673861931712035,
+      "shrink": 1.5527100505904305,
+      "gain": -0.1853238574192272
+    },
+    {
+      "season": "2017",
+      "sim": 3.9768980746068463,
+      "shrink": 3.644437133144848,
+      "gain": 0.33246094146199834
+    },
+    {
+      "season": "2018",
+      "sim": 1.7036496623846151,
+      "shrink": 1.8554256014029036,
+      "gain": -0.15177593901828862
+    },
+    {
+      "season": "2019",
+      "sim": 1.9277913880615927,
+      "shrink": 2.0059383592156164,
+      "gain": -0.07814697115402354
+    },
+    {
+      "season": "2020",
+      "sim": 2.1674149551042863,
+      "shrink": 1.8195497451272966,
+      "gain": 0.34786520997698944
+    },
+    {
+      "season": "2021",
+      "sim": 2.75123766728358,
+      "shrink": 2.830384004027758,
+      "gain": -0.0791463367441779
+    },
+    {
+      "season": "2022",
+      "sim": 2.579493608132373,
+      "shrink": 2.962093244118896,
+      "gain": -0.382599635986523
+    },
+    {
+      "season": "2023",
+      "sim": 3.869506920461459,
+      "shrink": 3.011961019347825,
+      "gain": 0.8575459011136342
+    },
+    {
+      "season": "2024",
+      "sim": 2.5556702819681316,
+      "shrink": 2.867265375308731,
+      "gain": -0.3115950933405993
+    },
+    {
+      "season": "2025",
+      "sim": 2.909283970313372,
+      "shrink": 2.9503172772173287,
+      "gain": -0.041033306903956214
+    },
+    {
+      "season": "2026",
+      "sim": 2.6863275828947346,
+      "shrink": 2.4438919020901637,
+      "gain": 0.24243568080457084
+    }
+  ],
+  "favourite_said_won": [
+    {
+      "award": "6MOY",
+      "ck": 0,
+      "day": 3,
+      "method": "shrink",
+      "n": 17,
+      "favourite_said": 0.3975673638337902,
+      "favourite_won": 0.058823529411764705
+    },
+    {
+      "award": "6MOY",
+      "ck": 0,
+      "day": 3,
+      "method": "sim",
+      "n": 17,
+      "favourite_said": 0.40758599060545747,
+      "favourite_won": 0.17647058823529413
+    },
+    {
+      "award": "6MOY",
+      "ck": 1,
+      "day": 7,
+      "method": "shrink",
+      "n": 17,
+      "favourite_said": 0.38246832597368674,
+      "favourite_won": 0.11764705882352941
+    },
+    {
+      "award": "6MOY",
+      "ck": 1,
+      "day": 7,
+      "method": "sim",
+      "n": 17,
+      "favourite_said": 0.42901208862742063,
+      "favourite_won": 0.23529411764705882
+    },
+    {
+      "award": "6MOY",
+      "ck": 2,
+      "day": 14,
+      "method": "shrink",
+      "n": 17,
+      "favourite_said": 0.3488764329122992,
+      "favourite_won": 0.058823529411764705
+    },
+    {
+      "award": "6MOY",
+      "ck": 2,
+      "day": 14,
+      "method": "sim",
+      "n": 17,
+      "favourite_said": 0.4382473322016026,
+      "favourite_won": 0.29411764705882354
+    },
+    {
+      "award": "6MOY",
+      "ck": 3,
+      "day": 21,
+      "method": "shrink",
+      "n": 17,
+      "favourite_said": 0.34072631085074495,
+      "favourite_won": 0.23529411764705882
+    },
+    {
+      "award": "6MOY",
+      "ck": 3,
+      "day": 21,
+      "method": "sim",
+      "n": 17,
+      "favourite_said": 0.41223209022774815,
+      "favourite_won": 0.29411764705882354
+    },
+    {
+      "award": "6MOY",
+      "ck": 4,
+      "day": 28,
+      "method": "shrink",
+      "n": 17,
+      "favourite_said": 0.34064967000372365,
+      "favourite_won": 0.35294117647058826
+    },
+    {
+      "award": "6MOY",
+      "ck": 4,
+      "day": 28,
+      "method": "sim",
+      "n": 17,
+      "favourite_said": 0.39485307878421183,
+      "favourite_won": 0.35294117647058826
+    },
+    {
+      "award": "DPOY",
+      "ck": 0,
+      "day": 3,
+      "method": "shrink",
+      "n": 17,
+      "favourite_said": 0.28508712449489676,
+      "favourite_won": 0.23529411764705882
+    },
+    {
+      "award": "DPOY",
+      "ck": 0,
+      "day": 3,
+      "method": "sim",
+      "n": 17,
+      "favourite_said": 0.31799082195385997,
+      "favourite_won": 0.11764705882352941
+    },
+    {
+      "award": "DPOY",
+      "ck": 1,
+      "day": 7,
+      "method": "shrink",
+      "n": 17,
+      "favourite_said": 0.28733604120451905,
+      "favourite_won": 0.23529411764705882
+    },
+    {
+      "award": "DPOY",
+      "ck": 1,
+      "day": 7,
+      "method": "sim",
+      "n": 17,
+      "favourite_said": 0.35144214970692544,
+      "favourite_won": 0.11764705882352941
+    },
+    {
+      "award": "DPOY",
+      "ck": 2,
+      "day": 14,
+      "method": "shrink",
+      "n": 17,
+      "favourite_said": 0.27915121215802285,
+      "favourite_won": 0.23529411764705882
+    },
+    {
+      "award": "DPOY",
+      "ck": 2,
+      "day": 14,
+      "method": "sim",
+      "n": 17,
+      "favourite_said": 0.3343837527144961,
+      "favourite_won": 0.23529411764705882
+    },
+    {
+      "award": "DPOY",
+      "ck": 3,
+      "day": 21,
+      "method": "shrink",
+      "n": 17,
+      "favourite_said": 0.29221411628474836,
+      "favourite_won": 0.23529411764705882
+    },
+    {
+      "award": "DPOY",
+      "ck": 3,
+      "day": 21,
+      "method": "sim",
+      "n": 17,
+      "favourite_said": 0.3462333343830477,
+      "favourite_won": 0.17647058823529413
+    },
+    {
+      "award": "DPOY",
+      "ck": 4,
+      "day": 28,
+      "method": "shrink",
+      "n": 17,
+      "favourite_said": 0.31888541699806217,
+      "favourite_won": 0.17647058823529413
+    },
+    {
+      "award": "DPOY",
+      "ck": 4,
+      "day": 28,
+      "method": "sim",
+      "n": 17,
+      "favourite_said": 0.3583955527712386,
+      "favourite_won": 0.17647058823529413
+    },
+    {
+      "award": "MVP",
+      "ck": 0,
+      "day": 3,
+      "method": "shrink",
+      "n": 17,
+      "favourite_said": 0.366718937954705,
+      "favourite_won": 0.4117647058823529
+    },
+    {
+      "award": "MVP",
+      "ck": 0,
+      "day": 3,
+      "method": "sim",
+      "n": 17,
+      "favourite_said": 0.2687911343644568,
+      "favourite_won": 0.35294117647058826
+    },
+    {
+      "award": "MVP",
+      "ck": 1,
+      "day": 7,
+      "method": "shrink",
+      "n": 17,
+      "favourite_said": 0.36240404276260246,
+      "favourite_won": 0.4117647058823529
+    },
+    {
+      "award": "MVP",
+      "ck": 1,
+      "day": 7,
+      "method": "sim",
+      "n": 17,
+      "favourite_said": 0.32880162796792767,
+      "favourite_won": 0.47058823529411764
+    },
+    {
+      "award": "MVP",
+      "ck": 2,
+      "day": 14,
+      "method": "shrink",
+      "n": 17,
+      "favourite_said": 0.35419288239102054,
+      "favourite_won": 0.47058823529411764
+    },
+    {
+      "award": "MVP",
+      "ck": 2,
+      "day": 14,
+      "method": "sim",
+      "n": 17,
+      "favourite_said": 0.3852890798436523,
+      "favourite_won": 0.5294117647058824
+    },
+    {
+      "award": "MVP",
+      "ck": 3,
+      "day": 21,
+      "method": "shrink",
+      "n": 17,
+      "favourite_said": 0.38099551991203473,
+      "favourite_won": 0.4117647058823529
+    },
+    {
+      "award": "MVP",
+      "ck": 3,
+      "day": 21,
+      "method": "sim",
+      "n": 17,
+      "favourite_said": 0.4135895008523871,
+      "favourite_won": 0.4117647058823529
+    },
+    {
+      "award": "MVP",
+      "ck": 4,
+      "day": 28,
+      "method": "shrink",
+      "n": 17,
+      "favourite_said": 0.3840534830468166,
+      "favourite_won": 0.35294117647058826
+    },
+    {
+      "award": "MVP",
+      "ck": 4,
+      "day": 28,
+      "method": "sim",
+      "n": 17,
+      "favourite_said": 0.4244169539398649,
+      "favourite_won": 0.35294117647058826
+    },
+    {
+      "award": "ROY",
+      "ck": 0,
+      "day": 3,
+      "method": "shrink",
+      "n": 17,
+      "favourite_said": 0.12028848031084645,
+      "favourite_won": 0.35294117647058826
+    },
+    {
+      "award": "ROY",
+      "ck": 0,
+      "day": 3,
+      "method": "sim",
+      "n": 17,
+      "favourite_said": 0.6601974081728388,
+      "favourite_won": 0.35294117647058826
+    },
+    {
+      "award": "ROY",
+      "ck": 1,
+      "day": 7,
+      "method": "shrink",
+      "n": 17,
+      "favourite_said": 0.20004159603058613,
+      "favourite_won": 0.35294117647058826
+    },
+    {
+      "award": "ROY",
+      "ck": 1,
+      "day": 7,
+      "method": "sim",
+      "n": 17,
+      "favourite_said": 0.6678713682963431,
+      "favourite_won": 0.35294117647058826
+    },
+    {
+      "award": "ROY",
+      "ck": 2,
+      "day": 14,
+      "method": "shrink",
+      "n": 17,
+      "favourite_said": 0.3464535206562183,
+      "favourite_won": 0.5294117647058824
+    },
+    {
+      "award": "ROY",
+      "ck": 2,
+      "day": 14,
+      "method": "sim",
+      "n": 17,
+      "favourite_said": 0.6445811541323799,
+      "favourite_won": 0.5294117647058824
+    },
+    {
+      "award": "ROY",
+      "ck": 3,
+      "day": 21,
+      "method": "shrink",
+      "n": 17,
+      "favourite_said": 0.5215796090615041,
+      "favourite_won": 0.47058823529411764
+    },
+    {
+      "award": "ROY",
+      "ck": 3,
+      "day": 21,
+      "method": "sim",
+      "n": 17,
+      "favourite_said": 0.6915143440006861,
+      "favourite_won": 0.47058823529411764
+    },
+    {
+      "award": "ROY",
+      "ck": 4,
+      "day": 28,
+      "method": "shrink",
+      "n": 17,
+      "favourite_said": 0.6151037918876393,
+      "favourite_won": 0.4117647058823529
+    },
+    {
+      "award": "ROY",
+      "ck": 4,
+      "day": 28,
+      "method": "sim",
+      "n": 17,
+      "favourite_said": 0.6985874879627131,
+      "favourite_won": 0.4117647058823529
+    }
+  ],
+  "floor_hits": {
+    "sim": 49,
+    "shrink": 34
+  },
+  "diagnostics": {
+    "invalid_simulation_draws": 0,
+    "validation": "paired cells; exact raw counts; finite probabilities; unit mass"
+  },
+  "interpretation": "Retrospective LOSO on repaired research sim; not a live-site adoption or profitability result.",
+  "input_sha256": "b04b5f377508b9f969f1574a8504cffc20ea86dacc148c4fa214250b3b0c1158",
+  "preregistered_commit": "904b13ede11da252c0d36faf088ae9d5432f997f",
+  "run": "AW_EARLY=1 AW_OUT=model/replay/nba_awards_early_shrink.csv python research/nba_awards_replay.py 2010 2026",
+  "validation_tests": {
+    "run": 93,
+    "skipped": 1,
+    "status": "pass"
+  }
+}
