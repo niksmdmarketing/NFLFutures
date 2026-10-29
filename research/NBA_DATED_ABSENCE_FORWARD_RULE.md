@@ -1,7 +1,40 @@
 # Dated long-absence comparison — prospective rule, 29 October 2026
 
-Status: protocol only. No collector or schedule is installed by this branch.
-No model promotion, website change, merge, or deployment is authorised here.
+Status updated 29 October: private collector installed after explicit user
+approval of the collector-only workflow on private main. Complete GitHub smoke
+bundle and independent receipt verified. First genuine cutoff remains 30 October;
+no smoke forecast counts. Research/model branch stays unmerged; no website change.
+
+## Operational collector amendment before the first genuine forecast
+
+Primary archive is now **private** `niksmdmarketing/NFLFutures-private-data`,
+branch `nba-forward-archive`. It stores `runs/YYYY-MM-DD/manifest.json`,
+content-addressed `objects/<SHA256>` (parts up to 32MiB), and
+`receipts/YYYY-MM-DD.json`. Each manifest links the actual input bytes, injury
+snapshot, original PDF, ratings, availability plan, model sources, parameters,
+installed dependency versions, all seed-specific full futures and input identity.
+Both variants use the exact same prepared live ratings; B adds the frozen injury
+plan. All 30 teams and all five future markets are retained.
+
+Production model pinned to 5708ccf7d3112ace7b054efe1c7c8688573ab4ca. Collector code
+pinned to 3b2ad6e644a85d7dbbbf39cd49b0be2ec261e1b9. Changes require a new recorded
+version, never silent replacement. The workflow is `.github/workflows/nba-futures-forward.yml`
+on private main, commit f55f6f04; no production build/deploy paths are changed.
+
+Retries at 11:15/11:35/11:50 UTC; watchdog at 12:05 UTC checks every due cutoff
+and fails on missing or unqualified records. Existing captures are create-only.
+GitHub schedule delay/skipping is still possible; missed cutoffs never backfill.
+The single bundle commit is followed by a separate receipt commit, because a
+commit cannot contain proof of its own later arrival at GitHub. Receipt verifies
+GitHub repository activity and exact commit ancestry, never job start/local time.
+
+Verify actual Git object bytes without Windows line-ending conversion
+(`git -c core.autocrlf=false archive` or `git cat-file blob`). A normal Windows
+export may convert text while the stored Git objects remain correct.
+
+The public legacy sources listed below remain context, not the primary new test
+archive. The legacy checker cannot assess the new private schema; use the
+collector's `--receipts` and `--check` modes plus actual-byte verification.
 
 ## Scope and frozen alternatives
 
@@ -50,9 +83,8 @@ identity, seed-specific forecasts, or linked independent push receipts for this 
 Existing game-props timing receipts may anchor a branch commit, but qualify
 for futures only after verifying the exact snapshot bytes in that commit tree. Neither
 file co-existence nor a Git author/committer date proves pre-cutoff receipt.
-The archive-coverage checker fails closed on these omissions. A future collector
-must add that evidence before any cutoff is eligible; this branch does not
-install or enable one. The existing shadow lacks division/seed-1 forecasts,
+The legacy archive-coverage checker fails closed on these omissions. The new
+private collector supplies the missing evidence. The existing public shadow lacks division/seed-1 forecasts,
 so those markets remain unavailable for B until explicitly collected.
 
 Audit command (private output, create-only):
