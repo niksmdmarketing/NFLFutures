@@ -59,3 +59,11 @@ sets; committed weekly CSVs are weight 8 and do not preserve the counterfactual.
 This second experiment is not run as part of the availability-only comparison.
 Its historical seasons are development evidence because the earlier grid and
 deployment already used them. Preserve the existing live setting meanwhile.
+
+## Implementation correction before accepting results
+
+The first execution found an ID join defect: float-form IDs in synthetic_report
+were not normalized like nba_avail.player_values, leaving six seasons with zero
+matched episodes. That run is invalid and retained privately, not used to relax
+any gate. Normalize IDs and rerun all seasons with the identical inputs/settings,
+seeds and gates. Season-level parallel execution changes runtime only.

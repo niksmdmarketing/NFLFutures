@@ -5,7 +5,7 @@ later results hidden), run twice: without availability, and with the live layer 
 recovery draws). Historical injury reports with return dates are not available, so the 'report' at each checkpoint is
 built from box scores before it: a rotation player who missed his team's last 5 games is listed Out with no return date
 (the live default: median 14 days, wide spread), or as a long-term absence (median 90 days) if he has missed 15+.
-That is cruder than the live feed, so this is a lower bound on what the layer can do for futures, not its live accuracy.
+This is a synthetic undated-absence test, not a lower bound on live performance.
 Usage: python research/nba_avail_futures_test.py [first_end_year]
 Writes model/availability_nba_futures.json.
 """
@@ -42,7 +42,7 @@ def players_for(y):
 def synthetic_report(P, cutoff, y):
     """Rotation players who missed their team's last 5+ games before the cutoff."""
     d = P[(P.date <= cutoff) & (pd.to_numeric(P.season, errors="coerce") == y) & (pd.to_numeric(P.season_type, errors="coerce") == 2)].copy()
-    d["athlete_id"] = d.athlete_id.astype(str)
+    d["athlete_id"] = d.athlete_id.astype(str).str.replace(r"\.0$", "", regex=True)
     d["played"] = pd.to_numeric(d.minutes, errors="coerce").fillna(0) > 0
     games = d.drop_duplicates(["game_id", "team_abbreviation"]).sort_values("date")
     last_played = d[d.played].groupby("athlete_id").date.max()

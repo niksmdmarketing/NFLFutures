@@ -2,7 +2,7 @@
 Raw inputs and row-level outcomes MUST stay in the private output directory.
 """
 import argparse
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
 import hashlib
 import json
 from pathlib import Path
@@ -51,13 +51,13 @@ def inputs(folder, reuse):
     return manifest
 
 
-def run(folder, output):
+def run(folder, output, years=None):
     N.OVERRIDES_ON = False
     boxes = pd.concat([pd.read_csv(folder / f"team_box_{y}.csv", low_memory=False) for y in range(2009, 2027)])
     player_cache = {}
     rows = []
     default_rng = np.random.default_rng
-    for y in YEARS:
+    for y in (YEARS if years is None else years):
         needed = set(range(y - 4, y + 1))
         for s in list(player_cache):
             if s not in needed:
@@ -102,6 +102,11 @@ def run(folder, output):
     return pd.DataFrame(rows)
 
 
+def worker(folder, output, years):
+    output.mkdir(parents=True, exist_ok=False)
+    return run(folder, output, years)
+
+
 def score(data):
     markets = ("title", "conf", "playoff")
     avg = data.groupby(["season", "check", "weight", "team"], as_index=False).mean(numeric_only=True)
@@ -136,12 +141,24 @@ if __name__ == "__main__":
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--output", required=True)
     p.add_argument("--reuse", required=True)
+    p.add_argument("--cached-inputs", help="Reuse and verify an existing private input manifest without copying it")
     a = p.parse_args()
     out = Path(a.output)
     out.mkdir(parents=True, exist_ok=False)
     try:
-        inputs(out / "inputs", Path(a.reuse))
-        d = run(out / "inputs", out)
+        folder = Path(a.cached_inputs) if a.cached_inputs else out / "inputs"
+        if a.cached_inputs:
+            manifest = json.loads((folder / "manifest.json").read_text())
+            for item in manifest:
+                if hashlib.sha256((folder / item["name"]).read_bytes()).hexdigest() != item["sha256"]:
+                    raise ValueError("Input hash mismatch: " + item["name"])
+        else:
+            inputs(folder, Path(a.reuse))
+        with ProcessPoolExecutor(max_workers=2) as pool:
+            tasks = [pool.submit(worker, folder, out / "part1", YEARS[:7]),
+                     pool.submit(worker, folder, out / "part2", YEARS[7:])]
+            d = pd.concat([t.result() for t in tasks], ignore_index=True)
+        d.to_csv(out / "paired_predictions.csv.gz", index=False)
         result = score(d)
     except Exception as exc:
         (out / "results.json").write_text(json.dumps(dict(status="incomplete", error=repr(exc)), indent=2))
