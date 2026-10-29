@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-10-29T0557Z",
-"feed_timestamp": "2026-10-29T05:57:13Z",
+"collected_utc": "2026-10-29T1944Z",
+"feed_timestamp": "2026-10-29T19:44:41Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -23,8 +23,8 @@
 },
 {
 "athlete_id": "5175643",
-"status": "Day-To-Day",
-"return_date": "2026-10-30",
+"status": "Out",
+"return_date": "2026-11-07",
 "injury": "Right Leg Bruise"
 },
 {
@@ -58,6 +58,12 @@
 "injury": "Right Knee Surgery"
 },
 {
+"athlete_id": "4397189",
+"status": "Day-To-Day",
+"return_date": "2026-10-30",
+"injury": "Left Finger"
+},
+{
 "athlete_id": "4278067",
 "status": "Out",
 "return_date": "2026-11-04",
@@ -74,6 +80,18 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-30",
 "injury": "Ankle"
+},
+{
+"athlete_id": "4683747",
+"status": "Day-To-Day",
+"return_date": "2026-10-29",
+"injury": "Neck"
+},
+{
+"athlete_id": "5041951",
+"status": "Day-To-Day",
+"return_date": "2026-10-29",
+"injury": "Foot"
 },
 {
 "athlete_id": "4683688",
@@ -360,7 +378,7 @@
 {
 "athlete_id": "4065654",
 "status": "Out",
-"return_date": "2026-10-30",
+"return_date": "2026-11-10",
 "injury": "Left Knee Not Specified"
 },
 {
@@ -416,6 +434,12 @@
 "status": "Out",
 "return_date": "2026-10-29",
 "injury": "Left Ankle Soreness"
+},
+{
+"athlete_id": "4066211",
+"status": "Day-To-Day",
+"return_date": "2026-10-29",
+"injury": "Left Knee"
 },
 {
 "athlete_id": "4914336",
@@ -552,10 +576,10 @@
 "athlete_id": "5175643",
 "name": "Egor Demin",
 "team_name": "Brooklyn Nets",
-"status": "Day-To-Day",
-"return_date": "2026-10-30",
+"status": "Out",
+"return_date": "2026-11-07",
 "injury": "Right Leg Bruise",
-"updated": "2026-10-28T03:46Z"
+"updated": "2026-10-29T17:09Z"
 },
 {
 "athlete_id": "5105626",
@@ -591,7 +615,7 @@
 "status": "Out",
 "return_date": "2026-11-02",
 "injury": "Left Hamstring",
-"updated": "2026-10-26T22:35Z"
+"updated": "2026-10-29T18:26Z"
 },
 {
 "athlete_id": "4684269",
@@ -601,6 +625,15 @@
 "return_date": "2026-11-02",
 "injury": "Right Knee Surgery",
 "updated": "2026-10-20T20:55Z"
+},
+{
+"athlete_id": "4397189",
+"name": "Jalen Smith",
+"team_name": "Chicago Bulls",
+"status": "Day-To-Day",
+"return_date": "2026-10-30",
+"injury": "Left Finger",
+"updated": "2026-10-29T18:55Z"
 },
 {
 "athlete_id": "4278067",
@@ -618,7 +651,7 @@
 "status": "Out",
 "return_date": "2026-10-30",
 "injury": "Right Groin Soreness",
-"updated": "2026-10-28T22:20Z"
+"updated": "2026-10-29T18:55Z"
 },
 {
 "athlete_id": "5105555",
@@ -627,7 +660,25 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-30",
 "injury": "Ankle",
-"updated": "2026-10-29T04:36Z"
+"updated": "2026-10-29T18:53Z"
+},
+{
+"athlete_id": "4683747",
+"name": "Jaylon Tyson",
+"team_name": "Cleveland Cavaliers",
+"status": "Day-To-Day",
+"return_date": "2026-10-29",
+"injury": "Neck",
+"updated": "2026-10-29T17:05Z"
+},
+{
+"athlete_id": "5041951",
+"name": "Meleek Thomas",
+"team_name": "Cleveland Cavaliers",
+"status": "Day-To-Day",
+"return_date": "2026-10-29",
+"injury": "Foot",
+"updated": "2026-10-29T17:06Z"
 },
 {
 "athlete_id": "4683688",
@@ -888,7 +939,7 @@
 "status": "Out",
 "return_date": "2026-11-08",
 "injury": "Right Foot Surgery",
-"updated": "2026-10-29T01:15Z"
+"updated": "2026-10-29T18:44Z"
 },
 {
 "athlete_id": "5060631",
@@ -942,7 +993,7 @@
 "status": "Out",
 "return_date": "2026-12-21",
 "injury": "Right Knee Surgery",
-"updated": "2026-10-27T22:52Z"
+"updated": "2026-10-29T18:33Z"
 },
 {
 "athlete_id": "3934673",
@@ -960,7 +1011,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-29",
 "injury": "Left Ankle",
-"updated": "2026-10-29T01:33Z"
+"updated": "2026-10-29T16:49Z"
 },
 {
 "athlete_id": "5061589",
@@ -1057,9 +1108,9 @@
 "name": "Jonathan Isaac",
 "team_name": "Orlando Magic",
 "status": "Out",
-"return_date": "2026-10-30",
+"return_date": "2026-11-10",
 "injury": "Left Knee Not Specified",
-"updated": "2026-10-27T18:48Z"
+"updated": "2026-10-29T18:29Z"
 },
 {
 "athlete_id": "5214637",
@@ -1143,6 +1194,15 @@
 "updated": "2026-10-27T04:58Z"
 },
 {
+"athlete_id": "4066211",
+"name": "Robert Williams III",
+"team_name": "Portland Trail Blazers",
+"status": "Day-To-Day",
+"return_date": "2026-10-29",
+"injury": "Left Knee",
+"updated": "2026-10-29T18:57Z"
+},
+{
 "athlete_id": "4914336",
 "name": "Shaedon Sharpe",
 "team_name": "Portland Trail Blazers",
@@ -1212,7 +1272,7 @@
 "status": "Out",
 "return_date": "2026-11-23",
 "injury": "Left Knee Inflammation",
-"updated": "2026-10-27T15:31Z"
+"updated": "2026-10-29T15:39Z"
 },
 {
 "athlete_id": "4432586",
