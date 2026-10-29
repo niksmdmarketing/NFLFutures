@@ -6,6 +6,7 @@ import argparse
 import datetime as dt
 import hashlib
 import importlib
+import importlib.metadata
 import json
 import os
 import shutil
@@ -150,6 +151,7 @@ def collect(model_root, cache, injury_root, archive, smoke=False):
             raise ValueError("Missing required settings/report bytes: " + str(p))
         files["settings-or-report/" + p.name] = pack_bytes(archive, p.read_bytes())
     files["official.pdf"] = pack_bytes(archive, audit["official_pdf"])
+    files["requirements.txt"] = pack_bytes(archive, (model_root / "requirements.txt").read_bytes())
     files["injury-monitor-snapshot.json"] = pack_bytes(archive, original_injury_bytes)
     files["availability.json"] = pack_bytes(archive, json.dumps(availability, allow_nan=False).encode())
     files["ratings.csv"] = pack_bytes(archive, ratings.to_csv(index=False).encode())
@@ -158,7 +160,8 @@ def collect(model_root, cache, injury_root, archive, smoke=False):
                     constants={k: getattr(N, k) for k in ("HFA", "GAME_SIGMA", "TEAM_TAU", "TAU_PRE", "TAU_PRE_GAMES", "ROSTER_PM_W", "ROSTER_LAST_W", "ROSTER_FADE", "ROSTER_COEF")},
                     availability_baseline_weights=A.RATING_W, availability_beta=A.BETA,
                     playoff_delta=N.PO_DELTA.tolist() if N.PO_DELTA is not None else None,
-                    python=sys.version, numpy=np.__version__, pandas=pd.__version__, official_url=audit["official_url"])
+                    python=sys.version, numpy=np.__version__, pandas=pd.__version__, official_url=audit["official_url"],
+                    installed_packages={d.metadata["Name"]: d.version for d in importlib.metadata.distributions() if d.metadata["Name"]})
     files["settings.json"] = pack_bytes(archive, json.dumps(settings, allow_nan=False).encode())
     inputs_saved = now().isoformat()
     predictions = {}
