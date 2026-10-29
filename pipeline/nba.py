@@ -689,13 +689,15 @@ def _player_term_shadow(ratings: pd.DataFrame, players: pd.DataFrame, end_year: 
 
 
 def _player_mix(ratings: pd.DataFrame, players: pd.DataFrame, values: pd.DataFrame, values_prev, current_roster: pd.DataFrame,
-                end_year: int, games_played: float) -> pd.DataFrame:
+                end_year: int, games_played: float, audit: dict | None = None) -> pd.DataFrame:
     """Mix player ratings (RAPM, pipeline/nba_rapm.py) into the team rating: 40% before the season, fading to 0 by game 20."""
     import nba_rapm
     global PO_DELTA
     share = nba_rapm.MIX * max(0.0, 1.0 - games_played / nba_rapm.MIX_GAMES)
     ratings = ratings.copy()
     ratings["player_strength"] = np.nan
+    if audit is not None:
+        audit.update(status="started", share=share, before=ratings.set_index("team").rating.to_dict())
     PO_DELTA = None
     try:
         cols = ["game_id", "sequence_number", "type_text", "period_number", "team_id", "athlete_id_1", "athlete_id_2",
@@ -709,6 +711,8 @@ def _player_mix(ratings: pd.DataFrame, players: pd.DataFrame, values: pd.DataFra
             season_players = players[pd.to_numeric(players.season, errors="coerce") == y]
             stints.append((nba_rapm.season_stints(pd.read_parquet(path, columns=cols), season_players), w))
         if not stints or not len(stints[0][0]):
+            if audit is not None:
+                audit["status"] = "skipped_no_stints"
             log("nba player ratings: no play-by-play, skipped")
             return ratings
         rv = _roster_values(values, values_prev)
@@ -745,10 +749,16 @@ def _player_mix(ratings: pd.DataFrame, players: pd.DataFrame, values: pd.DataFra
         delta = nba_rapm.playoff_delta(mins, rating, TEAMS, reg_minutes=mins.m / np.array([ratio.get(nba_rapm._id(a), 1.0) for a in mins.athlete_id]))
         PO_DELTA = delta.reindex(TEAMS).fillna(0).to_numpy(float)
         ratings["playoff_adj"] = ratings.team.map(delta)
+        if audit is not None:
+            audit.update(status="applied", strength=strength.to_dict(),
+                         after=ratings.set_index("team").rating.to_dict(), playoff_delta=delta.to_dict(),
+                         player_ratings={str(a): float(v) for a, v in rating.items()})
         log("nba player ratings: share", round(share, 2), "stints", sum(len(f) for f, _ in stints),
             "top", strength.sort_values(ascending=False).head(3).round(2).to_dict(),
             "playoff adj top", delta.sort_values(ascending=False).head(3).round(2).to_dict())
     except Exception as e:  # never block the refresh
+        if audit is not None:
+            audit.update(status="error", error=repr(e), after=ratings.set_index("team").rating.to_dict())
         log("nba player ratings failed:", repr(e)[:200])
     return ratings
 
@@ -885,7 +895,7 @@ def depth_minutes(mins: np.ndarray, rating: np.ndarray, budget: float = 82 * 240
 
 def _roster_adjustment(ratings: pd.DataFrame, values: pd.DataFrame, prior_roster: pd.DataFrame,
                        current_roster: pd.DataFrame, values_prev: pd.DataFrame | None = None,
-                       games_played: float = 0.0) -> tuple[pd.DataFrame, list[dict]]:
+                       games_played: float = 0.0, audit: dict | None = None) -> tuple[pd.DataFrame, list[dict]]:
     for roster in (prior_roster, current_roster):
         roster["athlete_id"] = roster.athlete_id.astype(str).str.replace(r"\.0$", "", regex=True)
     val = _roster_values(values, values_prev)
@@ -918,6 +928,10 @@ def _roster_adjustment(ratings: pd.DataFrame, values: pd.DataFrame, prior_roster
     ratings["roster_adj"] = ratings.team.map(adj).fillna(0)
     ratings["rating"] = ratings.raw_net + ratings.roster_adj
     ratings["rating"] -= ratings.rating.mean()
+    if audit is not None:
+        audit.update(coefficient=coef, old_strength=old.to_dict(), new_strength=new.to_dict(),
+                     capped_uncentred_adjustment=((new - old) * coef).clip(-6, 6).to_dict(),
+                     centred_adjustment=adj.to_dict(), after=ratings.set_index("team").rating.to_dict())
 
     current = current_roster[current_roster.team_abbreviation.isin(TEAMS)].copy()
     current = current.drop_duplicates(["team_abbreviation", "athlete_id"])
