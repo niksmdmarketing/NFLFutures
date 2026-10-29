@@ -23,6 +23,44 @@ the complete blended rating. Do not silently change B to repair that mismatch.
 
 ## Cutoffs and evidence
 
+First prospective cutoff: **2026-10-30T12:00:00Z**. Last regular-season
+cutoff: **2027-04-15T12:00:00Z**, daily inclusive (168 UTC dates).
+No date before 30 October counts toward adoption. If collection is not ready,
+record the cutoff as missing; do not silently move the start or backfill it.
+
+Exact existing sources, repository `niksmdmarketing/NFLFutures`:
+
+- Branch `injury-monitor`, `nba/history.jsonl`: captured ESPN reports, with
+  `collected_utc`, source update time, player ID, status and return estimate.
+- Same branch, `availability/nba/changes.jsonl` and `availability/nba/latest.json`:
+  the separate availability collector's dated updates/current view. Preserve
+  its schema/source identity; do not interchange it with nba/history.jsonl.
+- Same branch, `nba/futures_shadow.jsonl`: paired `without`/`with` futures,
+  currently only mean wins, playoffs, conference and title.
+- Same branch, `nba/official.jsonl`: official report context. This alone is
+  not a saved PDF, proof of submission, or an independently timed push.
+- Branch `forecast-archive`, `nba/2027/index.csv` and its listed
+  `nba/2027/YYYYMMDDTHHMMZ.json.gz` snapshots: published futures.
+- `forecast-archive/nba/rosters/index.csv` and its listed dated CSV.GZ files:
+  roster snapshots, when changed. An unchanged roster needs an explicit hash
+  link to its last saved version rather than a fabricated daily copy.
+
+Current schemas do **not** save sufficient actual input hashes, parameter
+identity, seed-specific forecasts, or independent push receipts for this rule.
+The game-props timing receipts are not receipts for NBA team futures. Neither
+file co-existence nor a Git author/committer date proves pre-cutoff receipt.
+The archive-coverage checker fails closed on these omissions. A future collector
+must add that evidence before any cutoff is eligible; this branch does not
+install or enable one. The existing shadow lacks division/seed-1 forecasts,
+so those markets remain unavailable for B until explicitly collected.
+
+Audit command (private output, create-only):
+`python research/nba_dated_absence_coverage.py --repo . --start YYYY-MM-DD --end YYYY-MM-DD --output PRIVATE/new-audit.json`.
+Refresh the exact remote refs first. The script reads immutable resolved Git
+SHAs and checks every requested UTC date, both forecast files, preceding report
+capture times, and missing provenance. October 10–28 is a retrospective coverage
+diagnostic only, not a prospective prediction test.
+
 Primary futures cutoff: 12:00 UTC daily. Take one paired snapshot completed and
 independently received by the archive in the preceding 45 minutes. Archive
 receipt, immutable actual input bytes, retrieval/publication timestamps, roster
