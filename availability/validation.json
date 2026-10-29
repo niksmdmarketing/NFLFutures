@@ -1,10 +1,10 @@
 {
- "checked_utc": "2026-10-29T02:29:20+00:00",
+ "checked_utc": "2026-10-29T10:04:56+00:00",
  "leagues": {
   "nfl": {
-   "records": 1113,
+   "records": 1338,
    "by_layer": {
-    "official": 1040,
+    "official": 1265,
     "reported": 73
    },
    "unknown_team": 0,
@@ -65,13 +65,13 @@
    "reported_matched_to_official_list": "73/73"
   },
   "nba": {
-   "records": 287,
+   "records": 194,
    "by_layer": {
-    "official": 237,
+    "official": 144,
     "reported": 50
    },
    "unknown_team": 0,
-   "no_player": 3,
+   "no_player": 23,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -131,15 +131,6 @@
      "source": "ESPN injury note"
     },
     {
-     "player": "Jordan Poole",
-     "official": [
-      "available",
-      "day-to-day"
-     ],
-     "other": "expected out",
-     "source": "ESPN injury note"
-    },
-    {
      "player": "Jalen Williams",
      "official": [
       "out"
@@ -159,11 +150,11 @@
    "reported_matched_to_official_list": "50/50"
   },
   "nhl": {
-   "records": 1544,
+   "records": 1558,
    "by_layer": {
-    "official": 156,
-    "reported": 61,
-    "projected": 1327
+    "official": 157,
+    "reported": 60,
+    "projected": 1341
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -212,7 +203,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "61/61"
+   "reported_matched_to_official_list": "60/60"
   },
   "nbl": {
    "records": 21,
