@@ -53,8 +53,9 @@ def evaluate(cutoff, reports, pairs, forecasts):
         issues.extend(["frozen_settings_identity_not_archived", "seed_specific_outputs_not_archived"])
     if pair is not None and forecast is not None:
         issues.append("cross_archive_same_build_linkage_not_archived")
-    # Current schemas have no independent push event or immutable input bundle.
-    issues.append("independent_pre_cutoff_push_receipts_missing")
+    # The legacy futures schema has no linked receipt/input bundle. Branch-level
+    # props receipts may exist, but this checker has not verified their exact tree/file links.
+    issues.append("independent_pre_cutoff_push_receipts_not_verified")
     return dict(cutoff=cutoff.isoformat(), eligible=not issues, issues=sorted(set(issues)),
                 pair_time=pair.get("t") if pair else None,
                 forecast_time=forecast.get("generated_utc") if forecast else None,

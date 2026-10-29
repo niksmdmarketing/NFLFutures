@@ -27,7 +27,7 @@ class Coverage(unittest.TestCase):
                      [dict(generated_utc="2026-10-29T11:55Z")])
         self.assertFalse(x["eligible"])
         self.assertIn("actual_input_hash_linkage_not_archived", x["issues"])
-        self.assertIn("independent_pre_cutoff_push_receipts_missing", x["issues"])
+        self.assertIn("independent_pre_cutoff_push_receipts_not_verified", x["issues"])
 
     def test_late_forecast_is_rejected(self):
         x = evaluate(self.cutoff, [], [], [dict(generated_utc="2026-10-29T12:01Z")])

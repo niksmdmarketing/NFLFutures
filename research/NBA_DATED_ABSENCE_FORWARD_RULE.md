@@ -46,8 +46,9 @@ Exact existing sources, repository `niksmdmarketing/NFLFutures`:
   link to its last saved version rather than a fabricated daily copy.
 
 Current schemas do **not** save sufficient actual input hashes, parameter
-identity, seed-specific forecasts, or independent push receipts for this rule.
-The game-props timing receipts are not receipts for NBA team futures. Neither
+identity, seed-specific forecasts, or linked independent push receipts for this rule.
+Existing game-props timing receipts may anchor a branch commit, but qualify
+for futures only after verifying the exact snapshot bytes in that commit tree. Neither
 file co-existence nor a Git author/committer date proves pre-cutoff receipt.
 The archive-coverage checker fails closed on these omissions. A future collector
 must add that evidence before any cutoff is eligible; this branch does not

@@ -130,11 +130,27 @@ def score(data):
     gates = dict(positive_ci=interval[0] > 0, seasons_better=int((combined > 0).sum()) >= 8,
                  no_market_worse=bool((primary.mean() >= 0).all()), both_seeds_positive=all(x > 0 for x in seeds.values()),
                  sensitivity_positive=float(delta.mean(axis=1).mean()) > 0, complete_seasons=len(primary) == 12)
+    diagnostic = avg[avg.season != 2021].copy()
+    brier, calibration, checkpoints = {}, {}, {}
+    for m in markets:
+        diagnostic["loss"] = -(diagnostic["y_" + m] * np.log(diagnostic["p_" + m].clip(.002, .998))
+                                + (1-diagnostic["y_" + m]) * np.log(1-diagnostic["p_" + m].clip(.002, .998)))
+        by = diagnostic.groupby(["check", "weight"]).loss.mean().unstack("weight")
+        checkpoints[m] = {str(k): float(v) for k, v in (by[4] - by[8]).items()}
+        diagnostic["brier"] = (diagnostic["p_" + m] - diagnostic["y_" + m]) ** 2
+        by_b = diagnostic.groupby("weight").brier.mean()
+        brier[m] = float(by_b[4] - by_b[8])
+        diagnostic["bin"] = np.minimum(9, (diagnostic["p_" + m] * 10).astype(int))
+        calibration[m] = [dict(weight=int(w), decile=int(b), n=int(len(g)),
+                               predicted=float(g["p_" + m].mean()), actual=float(g["y_" + m].mean()))
+                          for (w, b), g in diagnostic.groupby(["weight", "bin"])]
     return dict(label="synthetic undated-absence engine-only development comparison", adopted=False,
                 pass_gates=all(gates.values()), gates=gates, gain=float(combined.mean()), ci95=interval,
                 seasons_better=int((combined > 0).sum()), seasons=len(primary), per_market_gain=primary.mean().to_dict(),
                 per_season_gain=combined.to_dict(), sensitivity_gain=float(delta.mean(axis=1).mean()),
-                seed_gains=seeds, season_2021_gain=float(delta.loc[2021].mean()))
+                seed_gains=seeds, season_2021_gain=float(delta.loc[2021].mean()),
+                brier_gain=brier, checkpoint_log_loss_gain=checkpoints,
+                calibration_deciles_descriptive=calibration)
 
 
 if __name__ == "__main__":

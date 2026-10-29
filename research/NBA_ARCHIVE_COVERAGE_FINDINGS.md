@@ -12,18 +12,20 @@ It audited all 19 retrospective daily cutoffs, 10–28 October inclusive:
 - 9 have a paired injury/base futures row in the 45-minute window.
 - 0 have the published NBA futures archive snapshot in that same window.
 - 0 are eligible: actual input linkage, frozen settings identity, seed-specific
-  outputs and independent pre-cutoff push receipts are not saved by the current
-  NBA futures archive schema. Earlier report capture is not proof of use.
+  outputs are not saved by the current NBA futures archive schema; independent
+  pre-cutoff push receipt links are not verified. Earlier report capture is not proof of use.
 
 The archives are updating. This result does not mean that collection stopped.
 It means those existing collectors do not satisfy this new prospective rule.
-The NBA props collector's push receipts cannot establish NBA futures receipt.
+The props collector has branch-level receipts. These are not automatically
+valid futures proofs: exact commit-tree/file linkage must be verified. This
+legacy-schema checker does not perform that additional receipt-tree audit.
 Old data will not be backfilled or retrospectively called prospective evidence.
 
 Four tests pass: empty coverage, late forecasts, future injury inputs, and files
 present without provenance. The script fails closed; script correctness is not
 a claim that archive coverage passed. Private result:
-`outputs/nba_all_team_ledger_20261029/cutoff_coverage.json`.
+`outputs/nba_all_team_ledger_20261029/cutoff_coverage_v2.json`.
 
 The paired collection/provenance additions still need implementation and live
 verification before claiming an operating test. No schedule, workflow, model,
