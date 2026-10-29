@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-10-29T16:57:20+00:00",
+ "checked_utc": "2026-10-29T21:50:44+00:00",
  "leagues": {
   "nfl": {
-   "records": 1369,
+   "records": 1392,
    "by_layer": {
-    "official": 1294,
-    "reported": 75
+    "official": 1323,
+    "reported": 69
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -62,16 +62,16 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "75/75"
+   "reported_matched_to_official_list": "69/69"
   },
   "nba": {
-   "records": 203,
+   "records": 256,
    "by_layer": {
-    "official": 152,
-    "reported": 51
+    "official": 208,
+    "reported": 48
    },
    "unknown_team": 0,
-   "no_player": 21,
+   "no_player": 8,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -123,14 +123,6 @@
      "source": "ESPN injury note"
     },
     {
-     "player": "Yanic Konan Niederhauser",
-     "official": [
-      "out"
-     ],
-     "other": "expected to play",
-     "source": "ESPN injury note"
-    },
-    {
      "player": "Jalen Williams",
      "official": [
       "out"
@@ -147,12 +139,12 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "51/51"
+   "reported_matched_to_official_list": "48/48"
   },
   "nhl": {
-   "records": 1545,
+   "records": 1540,
    "by_layer": {
-    "official": 152,
+    "official": 147,
     "reported": 52,
     "projected": 1341
    },
