@@ -203,24 +203,6 @@
    "minutes": 450,
    "note": "Two-way contract, mostly G League. GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)"
   },
-  "4291678": {
-   "name": "Haywood Highsmith",
-   "team": "PHX",
-   "minutes": 475,
-   "note": "Waived and re-signed as a marginal option. GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)"
-  },
-  "4610139": {
-   "name": "Jeremy Sochan",
-   "team": "POR",
-   "minutes": 725,
-   "note": "Bench role after injury-hit season. GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)"
-  },
-  "4065670": {
-   "name": "Bruce Brown",
-   "team": "NY",
-   "minutes": 0,
-   "note": "Non-guaranteed deal, fighting for the last roster spot. GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)"
-  },
   "3975": {
    "name": "Stephen Curry",
    "team": "GS",
@@ -270,7 +252,7 @@
    "note": "Traded mid-season: the model counted only his longest stint; minutes set to his current role. GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)"
   },
   "3032979": {
-   "name": "Dennis Schröder",
+   "name": "Dennis SchrÃ¶der",
    "team": "CHA",
    "minutes": 1700,
    "note": "Traded mid-season: the model counted only his longest stint; minutes set to his current role. GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)"
@@ -292,6 +274,38 @@
    "team": "DET",
    "minutes": 1525,
    "note": "Traded mid-season: the model counted only his longest stint; minutes set to his current role. GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)"
+  }
+ },
+ "retired_minutes": {
+  "4291678": {
+   "name": "Haywood Highsmith",
+   "team": "PHX",
+   "minutes": 475,
+   "note": "Waived and re-signed as a marginal option. GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)",
+   "retired_on": "2026-10-29",
+   "transaction_date": "2026-10-17",
+   "reason": "Waiver reported; absent from current roster export. Historical judgement retained here; do not assign a new team without verified membership.",
+   "source_url": "https://cdn-uat.nba.com/player/1629312/haywood-highsmith"
+  },
+  "4610139": {
+   "name": "Jeremy Sochan",
+   "team": "POR",
+   "minutes": 725,
+   "note": "Bench role after injury-hit season. GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)",
+   "retired_on": "2026-10-29",
+   "transaction_date": "2026-10-17",
+   "reason": "Waiver reported; absent from current roster export. Historical judgement retained here; do not assign a new team without verified membership.",
+   "source_url": "https://www.nba.com/blazers/news/trail-blazerswaivejeremy-sochan"
+  },
+  "4065670": {
+   "name": "Bruce Brown",
+   "team": "NY",
+   "minutes": 0,
+   "note": "Non-guaranteed deal, fighting for the last roster spot. GPT review forwarded by the owner (16 Oct 2026), TypeSafe: clear errors only (57%)",
+   "retired_on": "2026-10-29",
+   "transaction_date": "2026-10-17",
+   "reason": "Waiver reported; absent from current roster export. Historical judgement retained here; do not assign a new team without verified membership.",
+   "source_url": "https://www.nba.com/nets/player/1628971/bruce-brown"
   }
  }
 }
