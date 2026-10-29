@@ -1,0 +1,41 @@
+{
+ "run_utc": "2026-10-29T17:16:01.625230+00:00",
+ "generated_utc": "2026-10-29T17:16:01.625250+00:00",
+ "targets": [
+  [
+   401909893,
+   360,
+   "2026-10-29T18:00:00+00:00"
+  ],
+  [
+   401909894,
+   360,
+   "2026-10-29T18:00:00+00:00"
+  ]
+ ],
+ "params_id": "b",
+ "box": {
+  "release_games_2027": 68,
+  "espn_filled": [],
+  "espn_failed": [],
+  "player_box_sha256": "708a126f82fcdf0f39d79652d69ee7079677babfe4b7c1e20f08bfb031af727a",
+  "team_box_sha256": "a55ade0d5104c2277be2a6c4d5c32fb76f78ad1b1096b63acb42ac786c7374a7"
+ },
+ "report": {
+  "url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-10-29_01_15PM.pdf",
+  "label": "2026-10-29 01_15PM",
+  "sha256": "b1df113da6177d7d87cc11a9e826e1ae7ef23d905f0d6362dad26612002c41ea",
+  "rows": 50,
+  "retrieved_utc": "2026-10-29T17:16:07.295277+00:00"
+ },
+ "report_rows_matched_via_last_season": 6447,
+ "fast_memory_written": [
+  "nba/props_forward/challengers/fast-minutes-hl2-dev1/2026-10-29/401909893_360_20261029T171601625230Z.json.gz",
+  "nba/props_forward/challengers/fast-minutes-hl2-dev1/2026-10-29/401909894_360_20261029T171601625230Z.json.gz"
+ ],
+ "written": [
+  "nba/props_forward/2026-10-29/401909893_360_20261029T171601625230Z.json.gz",
+  "nba/props_forward/2026-10-29/401909894_360_20261029T171601625230Z.json.gz"
+ ],
+ "seconds": 84.816302
+}
