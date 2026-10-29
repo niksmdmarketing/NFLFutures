@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-10-28T23:16:03+00:00",
+ "checked_utc": "2026-10-29T02:29:20+00:00",
  "leagues": {
   "nfl": {
-   "records": 1092,
+   "records": 1113,
    "by_layer": {
     "official": 1040,
-    "reported": 52
+    "reported": 73
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -58,11 +58,11 @@
    "teams_missing_official": [],
    "season_state": {
     "state": "in_season",
-    "why": "1 regular-season/playoff and 0 other games 2026-10-21..2026-11-07"
+    "why": "13 regular-season/playoff and 0 other games 2026-10-22..2026-11-08"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "52/52"
+   "reported_matched_to_official_list": "73/73"
   },
   "nba": {
    "records": 287,
@@ -71,7 +71,7 @@
     "reported": 50
    },
    "unknown_team": 0,
-   "no_player": 5,
+   "no_player": 3,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -121,13 +121,38 @@
      ],
      "other": "expected to play",
      "source": "ESPN injury note"
+    },
+    {
+     "player": "Yanic Konan Niederhauser",
+     "official": [
+      "out"
+     ],
+     "other": "expected to play",
+     "source": "ESPN injury note"
+    },
+    {
+     "player": "Jordan Poole",
+     "official": [
+      "available",
+      "day-to-day"
+     ],
+     "other": "expected out",
+     "source": "ESPN injury note"
+    },
+    {
+     "player": "Jalen Williams",
+     "official": [
+      "out"
+     ],
+     "other": "expected to play",
+     "source": "ESPN injury note"
     }
    ],
    "stale_projection_dates": 0,
    "teams_missing_official": [],
    "season_state": {
-    "state": "unknown",
-    "why": "JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+    "state": "in_season",
+    "why": "36 regular-season/playoff and 0 other games 2026-10-22..2026-11-08"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
@@ -136,9 +161,9 @@
   "nhl": {
    "records": 1544,
    "by_layer": {
-    "official": 154,
-    "reported": 59,
-    "projected": 1331
+    "official": 156,
+    "reported": 61,
+    "projected": 1327
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -183,11 +208,11 @@
    ],
    "season_state": {
     "state": "in_season",
-    "why": "39 regular-season/playoff and 0 other games 2026-10-21..2026-11-07"
+    "why": "33 regular-season/playoff and 0 other games 2026-10-22..2026-11-08"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "59/59"
+   "reported_matched_to_official_list": "61/61"
   },
   "nbl": {
    "records": 21,
@@ -215,7 +240,7 @@
    ],
    "season_state": {
     "state": "in_season",
-    "why": "21 NBL games 2026-10-21..2026-11-07 (NBL fixture, season 2026)"
+    "why": "22 NBL games 2026-10-22..2026-11-08 (NBL fixture, season 2026)"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
@@ -254,7 +279,7 @@
    ],
    "season_state": {
     "state": "off_season",
-    "why": "0 AFL games 2026-10-21..2026-11-07 (Squiggle fixture)"
+    "why": "0 AFL games 2026-10-22..2026-11-08 (Squiggle fixture)"
    },
    "coverage_expected": false,
    "teams_missing_official_note": "off-season: no official coverage expected",
