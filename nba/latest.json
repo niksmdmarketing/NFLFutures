@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-10-30T0558Z",
-"feed_timestamp": "2026-10-30T05:57:59Z",
+"collected_utc": "2026-10-30T1929Z",
+"feed_timestamp": "2026-10-30T19:29:21Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -26,6 +26,12 @@
 "status": "Out",
 "return_date": "2026-11-07",
 "injury": "Right Leg Bruise"
+},
+{
+"athlete_id": "4712896",
+"status": "Day-To-Day",
+"return_date": "2026-10-30",
+"injury": "Illness"
 },
 {
 "athlete_id": "5105626",
@@ -74,12 +80,6 @@
 "status": "Out",
 "return_date": "2026-11-04",
 "injury": "Not Specified Hamstring"
-},
-{
-"athlete_id": "4431687",
-"status": "Out",
-"return_date": "2026-10-30",
-"injury": "Right Groin Soreness"
 },
 {
 "athlete_id": "5105555",
@@ -292,12 +292,6 @@
 "injury": "Left Knee Inflammation"
 },
 {
-"athlete_id": "5113969",
-"status": "Out",
-"return_date": "2026-11-01",
-"injury": "Right Oblique Strain"
-},
-{
 "athlete_id": "4433137",
 "status": "Day-To-Day",
 "return_date": "2026-10-30",
@@ -467,8 +461,8 @@
 },
 {
 "athlete_id": "4279888",
-"status": "Day-To-Day",
-"return_date": "2026-10-31",
+"status": "Out",
+"return_date": "2026-12-01",
 "injury": "Left Hamstring Not Specified"
 },
 {
@@ -618,6 +612,15 @@
 "updated": "2026-10-29T17:09Z"
 },
 {
+"athlete_id": "4712896",
+"name": "Noah Clowney",
+"team_name": "Brooklyn Nets",
+"status": "Day-To-Day",
+"return_date": "2026-10-30",
+"injury": "Illness",
+"updated": "2026-10-30T14:16Z"
+},
+{
 "athlete_id": "5105626",
 "name": "Tyler Bilodeau",
 "team_name": "Brooklyn Nets",
@@ -642,7 +645,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-30",
 "injury": "Foot",
-"updated": "2026-10-29T21:37Z"
+"updated": "2026-10-30T15:34Z"
 },
 {
 "athlete_id": "4066218",
@@ -660,7 +663,7 @@
 "status": "Out",
 "return_date": "2026-11-02",
 "injury": "Left Hamstring",
-"updated": "2026-10-29T18:26Z"
+"updated": "2026-10-30T15:12Z"
 },
 {
 "athlete_id": "4684269",
@@ -688,15 +691,6 @@
 "return_date": "2026-11-04",
 "injury": "Not Specified Hamstring",
 "updated": "2026-10-26T22:20Z"
-},
-{
-"athlete_id": "4431687",
-"name": "Patrick Williams",
-"team_name": "Chicago Bulls",
-"status": "Out",
-"return_date": "2026-10-30",
-"injury": "Right Groin Soreness",
-"updated": "2026-10-29T18:55Z"
 },
 {
 "athlete_id": "5105555",
@@ -777,7 +771,7 @@
 "status": "Out",
 "return_date": "2026-10-30",
 "injury": "Right Ankle Sprain",
-"updated": "2026-10-29T23:49Z"
+"updated": "2026-10-30T18:41Z"
 },
 {
 "athlete_id": "4432181",
@@ -930,7 +924,7 @@
 "status": "Out",
 "return_date": "2027-01-02",
 "injury": "Right Knee Surgery",
-"updated": "2026-02-09T21:43Z"
+"updated": "2026-10-30T19:06Z"
 },
 {
 "athlete_id": "2530530",
@@ -939,7 +933,7 @@
 "status": "Out",
 "return_date": "2026-11-02",
 "injury": "Right Hamstring Strain",
-"updated": "2026-10-28T21:43Z"
+"updated": "2026-10-30T19:09Z"
 },
 {
 "athlete_id": "4396993",
@@ -993,7 +987,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-30",
 "injury": "Left Quadriceps Soreness",
-"updated": "2026-10-29T22:13Z"
+"updated": "2026-10-30T18:00Z"
 },
 {
 "athlete_id": "5108024",
@@ -1012,15 +1006,6 @@
 "return_date": "2026-11-01",
 "injury": "Left Knee Inflammation",
 "updated": "2026-10-30T00:05Z"
-},
-{
-"athlete_id": "5113969",
-"name": "Cameron Carr",
-"team_name": "Los Angeles Lakers",
-"status": "Out",
-"return_date": "2026-11-01",
-"injury": "Right Oblique Strain",
-"updated": "2026-10-30T00:07Z"
 },
 {
 "athlete_id": "4433137",
@@ -1278,10 +1263,10 @@
 "athlete_id": "4279888",
 "name": "Ja Morant",
 "team_name": "Portland Trail Blazers",
-"status": "Day-To-Day",
-"return_date": "2026-10-31",
+"status": "Out",
+"return_date": "2026-12-01",
 "injury": "Left Hamstring Not Specified",
-"updated": "2026-10-30T04:17Z"
+"updated": "2026-10-30T18:45Z"
 },
 {
 "athlete_id": "4066211",
