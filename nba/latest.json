@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-10-30T0001Z",
-"feed_timestamp": "2026-10-30T00:01:34Z",
+"collected_utc": "2026-10-30T0558Z",
+"feed_timestamp": "2026-10-30T05:57:59Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -89,7 +89,7 @@
 },
 {
 "athlete_id": "5041951",
-"status": "Out",
+"status": "Day-To-Day",
 "return_date": "2026-10-31",
 "injury": "Foot"
 },
@@ -288,26 +288,26 @@
 {
 "athlete_id": "5060631",
 "status": "Out",
-"return_date": "2026-10-30",
+"return_date": "2026-11-01",
 "injury": "Left Knee Inflammation"
 },
 {
 "athlete_id": "5113969",
 "status": "Out",
-"return_date": "2026-10-30",
+"return_date": "2026-11-01",
 "injury": "Right Oblique Strain"
-},
-{
-"athlete_id": "3945274",
-"status": "Day-To-Day",
-"return_date": "2026-10-30",
-"injury": "Back"
 },
 {
 "athlete_id": "4433137",
 "status": "Day-To-Day",
 "return_date": "2026-10-30",
 "injury": "Foot"
+},
+{
+"athlete_id": "4593016",
+"status": "Day-To-Day",
+"return_date": "2026-10-31",
+"injury": "Right Ankle Not Specified"
 },
 {
 "athlete_id": "3899664",
@@ -329,13 +329,13 @@
 },
 {
 "athlete_id": "3907497",
-"status": "Out",
+"status": "Day-To-Day",
 "return_date": "2026-10-31",
 "injury": "Personal"
 },
 {
 "athlete_id": "4277956",
-"status": "Out",
+"status": "Day-To-Day",
 "return_date": "2026-10-31",
 "injury": "Left Ankle"
 },
@@ -462,13 +462,19 @@
 {
 "athlete_id": "4706557",
 "status": "Out",
-"return_date": "2026-10-29",
+"return_date": "2026-10-31",
 "injury": "Left Ankle Soreness"
+},
+{
+"athlete_id": "4279888",
+"status": "Day-To-Day",
+"return_date": "2026-10-31",
+"injury": "Left Hamstring Not Specified"
 },
 {
 "athlete_id": "4066211",
 "status": "Day-To-Day",
-"return_date": "2026-10-29",
+"return_date": "2026-10-31",
 "injury": "Left Knee"
 },
 {
@@ -705,10 +711,10 @@
 "athlete_id": "5041951",
 "name": "Meleek Thomas",
 "team_name": "Cleveland Cavaliers",
-"status": "Out",
+"status": "Day-To-Day",
 "return_date": "2026-10-31",
 "injury": "Foot",
-"updated": "2026-10-29T23:21Z"
+"updated": "2026-10-30T02:39Z"
 },
 {
 "athlete_id": "4683688",
@@ -762,7 +768,7 @@
 "status": "Out",
 "return_date": "2026-10-30",
 "injury": "Right Personal",
-"updated": "2026-10-27T22:34Z"
+"updated": "2026-10-29T23:50Z"
 },
 {
 "athlete_id": "3138196",
@@ -771,7 +777,7 @@
 "status": "Out",
 "return_date": "2026-10-30",
 "injury": "Right Ankle Sprain",
-"updated": "2026-10-28T23:08Z"
+"updated": "2026-10-29T23:49Z"
 },
 {
 "athlete_id": "4432181",
@@ -816,7 +822,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-30",
 "injury": "Left Knee Tendinitis",
-"updated": "2026-10-29T04:38Z"
+"updated": "2026-10-30T00:06Z"
 },
 {
 "athlete_id": "6430",
@@ -1003,27 +1009,18 @@
 "name": "Adou Thiero",
 "team_name": "Los Angeles Lakers",
 "status": "Out",
-"return_date": "2026-10-30",
+"return_date": "2026-11-01",
 "injury": "Left Knee Inflammation",
-"updated": "2026-10-28T20:10Z"
+"updated": "2026-10-30T00:05Z"
 },
 {
 "athlete_id": "5113969",
 "name": "Cameron Carr",
 "team_name": "Los Angeles Lakers",
 "status": "Out",
-"return_date": "2026-10-30",
+"return_date": "2026-11-01",
 "injury": "Right Oblique Strain",
-"updated": "2026-10-28T20:12Z"
-},
-{
-"athlete_id": "3945274",
-"name": "Luka Doncic",
-"team_name": "Los Angeles Lakers",
-"status": "Day-To-Day",
-"return_date": "2026-10-30",
-"injury": "Back",
-"updated": "2026-10-29T05:05Z"
+"updated": "2026-10-30T00:07Z"
 },
 {
 "athlete_id": "4433137",
@@ -1032,7 +1029,16 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-30",
 "injury": "Foot",
-"updated": "2026-10-29T05:05Z"
+"updated": "2026-10-30T00:02Z"
+},
+{
+"athlete_id": "4593016",
+"name": "Quinten Post",
+"team_name": "Memphis Grizzlies",
+"status": "Day-To-Day",
+"return_date": "2026-10-31",
+"injury": "Right Ankle Not Specified",
+"updated": "2026-10-30T04:28Z"
 },
 {
 "athlete_id": "3899664",
@@ -1065,19 +1071,19 @@
 "athlete_id": "3907497",
 "name": "Dejounte Murray",
 "team_name": "New Orleans Pelicans",
-"status": "Out",
+"status": "Day-To-Day",
 "return_date": "2026-10-31",
 "injury": "Personal",
-"updated": "2026-10-29T22:22Z"
+"updated": "2026-10-30T02:39Z"
 },
 {
 "athlete_id": "4277956",
 "name": "Jordan Poole",
 "team_name": "New Orleans Pelicans",
-"status": "Out",
+"status": "Day-To-Day",
 "return_date": "2026-10-31",
 "injury": "Left Ankle",
-"updated": "2026-10-29T22:19Z"
+"updated": "2026-10-30T02:40Z"
 },
 {
 "athlete_id": "5061589",
@@ -1257,25 +1263,34 @@
 "status": "Day-To-Day",
 "return_date": "2026-10-30",
 "injury": "Not Specified Oblique Strain",
-"updated": "2026-10-28T00:23Z"
+"updated": "2026-10-30T00:20Z"
 },
 {
 "athlete_id": "4706557",
 "name": "Chris Youngblood",
 "team_name": "Portland Trail Blazers",
 "status": "Out",
-"return_date": "2026-10-29",
+"return_date": "2026-10-31",
 "injury": "Left Ankle Soreness",
 "updated": "2026-10-27T04:58Z"
+},
+{
+"athlete_id": "4279888",
+"name": "Ja Morant",
+"team_name": "Portland Trail Blazers",
+"status": "Day-To-Day",
+"return_date": "2026-10-31",
+"injury": "Left Hamstring Not Specified",
+"updated": "2026-10-30T04:17Z"
 },
 {
 "athlete_id": "4066211",
 "name": "Robert Williams III",
 "team_name": "Portland Trail Blazers",
 "status": "Day-To-Day",
-"return_date": "2026-10-29",
+"return_date": "2026-10-31",
 "injury": "Left Knee",
-"updated": "2026-10-29T18:57Z"
+"updated": "2026-10-30T04:23Z"
 },
 {
 "athlete_id": "4914336",
