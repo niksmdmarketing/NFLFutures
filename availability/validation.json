@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-10-30T01:59:18+00:00",
+ "checked_utc": "2026-10-30T08:42:48+00:00",
  "leagues": {
   "nfl": {
-   "records": 1415,
+   "records": 1443,
    "by_layer": {
-    "official": 1352,
-    "reported": 63
+    "official": 1381,
+    "reported": 62
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -72,16 +72,16 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "63/63"
+   "reported_matched_to_official_list": "62/62"
   },
   "nba": {
-   "records": 287,
+   "records": 272,
    "by_layer": {
-    "official": 235,
-    "reported": 52
+    "official": 218,
+    "reported": 54
    },
    "unknown_team": 0,
-   "no_player": 0,
+   "no_player": 14,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -133,14 +133,6 @@
      "source": "ESPN injury note"
     },
     {
-     "player": "Dejounte Murray",
-     "official": [
-      "out"
-     ],
-     "other": "expected to play",
-     "source": "ESPN injury note"
-    },
-    {
      "player": "Jalen Williams",
      "official": [
       "out"
@@ -157,14 +149,14 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "52/52"
+   "reported_matched_to_official_list": "54/54"
   },
   "nhl": {
-   "records": 1536,
+   "records": 1524,
    "by_layer": {
-    "official": 148,
-    "reported": 51,
-    "projected": 1337
+    "official": 150,
+    "reported": 53,
+    "projected": 1321
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -213,12 +205,12 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "51/51"
+   "reported_matched_to_official_list": "53/53"
   },
   "nbl": {
-   "records": 21,
+   "records": 19,
    "by_layer": {
-    "official": 21
+    "official": 19
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -228,7 +220,6 @@
     "BRI",
     "CNS",
     "ILL",
-    "MEL",
     "PER",
     "SEM",
     "SYD",
@@ -237,6 +228,7 @@
    "conflicts": [],
    "stale_projection_dates": 0,
    "teams_missing_official": [
+    "MEL",
     "NZL"
    ],
    "season_state": {
