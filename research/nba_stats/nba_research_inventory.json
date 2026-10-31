@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-30T15:19:27+00:00",
+ "generated_utc": "2026-10-31T14:43:57+00:00",
  "season_window": [
   2016,
   2027
@@ -182,8 +182,8 @@
    "errors": []
   },
   "nba_stats_game_matchups": {
-   "files": 9,
-   "size_mb": 528.9,
+   "files": 10,
+   "size_mb": 529.5,
    "seasons": [
     2018,
     2019,
@@ -193,7 +193,8 @@
     2023,
     2024,
     2025,
-    2026
+    2026,
+    2027
    ],
    "families": {
     "game_matchups_YYYY.csv": {
@@ -207,9 +208,10 @@
       2023,
       2024,
       2025,
-      2026
+      2026,
+      2027
      ],
-     "rows": 2167502,
+     "rows": 2169957,
      "columns": [
       "off_team_id",
       "off_team_city",
@@ -321,8 +323,7 @@
      "column_set_varies": false,
      "missing_seasons_in_window": [
       2016,
-      2017,
-      2027
+      2017
      ]
     }
    },
@@ -538,7 +539,7 @@
       2026,
       2027
      ],
-     "rows": 6342,
+     "rows": 6351,
      "columns": [
       "player_id",
       "player_name",
@@ -625,7 +626,7 @@
       2026,
       2027
      ],
-     "rows": 6342,
+     "rows": 6351,
      "columns": [
       "player_id",
       "player_name",
@@ -1019,7 +1020,7 @@
       2026,
       2027
      ],
-     "rows": 8798,
+     "rows": 8805,
      "columns": [
       "player_id",
       "player_name",
@@ -1210,7 +1211,7 @@
       2026,
       2027
      ],
-     "rows": 7890,
+     "rows": 7897,
      "columns": [
       "player_id",
       "player_name",
@@ -1329,7 +1330,7 @@
       2026,
       2027
      ],
-     "rows": 8798,
+     "rows": 8805,
      "columns": [
       "player_id",
       "player_name",
@@ -1448,7 +1449,7 @@
       2026,
       2027
      ],
-     "rows": 8798,
+     "rows": 8805,
      "columns": [
       "player_id",
       "player_name",
@@ -1587,7 +1588,7 @@
       2026,
       2027
      ],
-     "rows": 8798,
+     "rows": 8805,
      "columns": [
       "player_id",
       "player_name",
@@ -1726,7 +1727,7 @@
       2026,
       2027
      ],
-     "rows": 8798,
+     "rows": 8805,
      "columns": [
       "player_id",
       "player_name",
@@ -1795,7 +1796,7 @@
       2026,
       2027
      ],
-     "rows": 8798,
+     "rows": 8805,
      "columns": [
       "player_id",
       "player_name",
@@ -1856,7 +1857,7 @@
       2026,
       2027
      ],
-     "rows": 8798,
+     "rows": 8805,
      "columns": [
       "player_id",
       "player_name",
@@ -1939,7 +1940,7 @@
       2026,
       2027
      ],
-     "rows": 8798,
+     "rows": 8805,
      "columns": [
       "player_id",
       "player_name",
@@ -2016,7 +2017,7 @@
       2026,
       2027
      ],
-     "rows": 8798,
+     "rows": 8805,
      "columns": [
       "player_id",
       "player_name",
@@ -2101,7 +2102,7 @@
       2026,
       2027
      ],
-     "rows": 8798,
+     "rows": 8805,
      "columns": [
       "player_id",
       "player_name",
@@ -2186,7 +2187,7 @@
       2026,
       2027
      ],
-     "rows": 8798,
+     "rows": 8805,
      "columns": [
       "player_id",
       "player_name",
@@ -2255,7 +2256,7 @@
       2026,
       2027
      ],
-     "rows": 8798,
+     "rows": 8805,
      "columns": [
       "player_id",
       "player_name",
@@ -2330,7 +2331,7 @@
       2026,
       2027
      ],
-     "rows": 8798,
+     "rows": 8805,
      "columns": [
       "player_id",
       "player_name",
@@ -2415,7 +2416,7 @@
       2026,
       2027
      ],
-     "rows": 8798,
+     "rows": 8805,
      "columns": [
       "player_id",
       "player_name",
@@ -2486,7 +2487,7 @@
       2026,
       2027
      ],
-     "rows": 8549,
+     "rows": 8556,
      "columns": [
       "player_id",
       "player_name",
@@ -2589,7 +2590,7 @@
       2026,
       2027
      ],
-     "rows": 8798,
+     "rows": 8805,
      "columns": [
       "player_id",
       "player_name",
@@ -3153,8 +3154,8 @@
    "errors": []
   },
   "nba_stats_lineups": {
-   "files": 11,
-   "size_mb": 230.1,
+   "files": 12,
+   "size_mb": 244.7,
    "seasons": [
     2016,
     2017,
@@ -3166,7 +3167,8 @@
     2023,
     2024,
     2025,
-    2026
+    2026,
+    2027
    ],
    "families": {
     "lineups_YYYY.csv": {
@@ -3182,9 +3184,10 @@
       2023,
       2024,
       2025,
-      2026
+      2026,
+      2027
      ],
-     "rows": 495754,
+     "rows": 527754,
      "columns": [
       "group_set",
       "group_id",
@@ -3717,10 +3720,8 @@
       "pct_ast_fgm_rank": 0.874,
       "pct_uast_fgm_rank": 0.874
      },
-     "column_set_varies": false,
-     "missing_seasons_in_window": [
-      2027
-     ]
+     "column_set_varies": true,
+     "missing_seasons_in_window": []
     }
    },
    "errors": []
@@ -4077,7 +4078,7 @@
       2026,
       2027
      ],
-     "rows": 21672,
+     "rows": 21698,
      "columns": [
       "season_id",
       "position",
@@ -4153,7 +4154,7 @@
       2026,
       2027
      ],
-     "rows": 21672,
+     "rows": 21698,
      "columns": [
       "season_id",
       "position",
@@ -4219,7 +4220,7 @@
    "errors": []
   },
   "nba_stats_player_game_logs": {
-   "files": 11,
+   "files": 12,
    "size_mb": 4.4,
    "seasons": [
     2016,
@@ -4232,7 +4233,8 @@
     2023,
     2024,
     2025,
-    2026
+    2026,
+    2027
    ],
    "families": {
     "player_game_logs_YYYY.csv": {
@@ -4248,9 +4250,10 @@
       2023,
       2024,
       2025,
-      2026
+      2026,
+      2027
      ],
-     "rows": 28256,
+     "rows": 28418,
      "columns": [
       "season_id",
       "team_id",
@@ -4319,9 +4322,7 @@
      },
      "null_share_over_5pct": {},
      "column_set_varies": false,
-     "missing_seasons_in_window": [
-      2027
-     ]
+     "missing_seasons_in_window": []
     }
    },
    "errors": []
@@ -4443,7 +4444,7 @@
    "errors": []
   },
   "nba_stats_synergy": {
-   "files": 826,
+   "files": 828,
    "size_mb": 16.5,
    "seasons": [
     2016,
@@ -7356,7 +7357,7 @@
       2026,
       2027
      ],
-     "rows": 3744,
+     "rows": 3755,
      "columns": [
       "season_id",
       "player_id",
@@ -7435,7 +7436,7 @@
       2026,
       2027
      ],
-     "rows": 3744,
+     "rows": 3755,
      "columns": [
       "season_id",
       "player_id",
@@ -7514,7 +7515,7 @@
       2026,
       2027
      ],
-     "rows": 3466,
+     "rows": 3470,
      "columns": [
       "season_id",
       "player_id",
@@ -7593,7 +7594,7 @@
       2026,
       2027
      ],
-     "rows": 3466,
+     "rows": 3470,
      "columns": [
       "season_id",
       "player_id",
@@ -7672,7 +7673,7 @@
       2026,
       2027
      ],
-     "rows": 2957,
+     "rows": 2961,
      "columns": [
       "season_id",
       "player_id",
@@ -7751,7 +7752,7 @@
       2026,
       2027
      ],
-     "rows": 2957,
+     "rows": 2961,
      "columns": [
       "season_id",
       "player_id",
@@ -7830,7 +7831,7 @@
       2026,
       2027
      ],
-     "rows": 4313,
+     "rows": 4318,
      "columns": [
       "season_id",
       "player_id",
@@ -7909,7 +7910,7 @@
       2026,
       2027
      ],
-     "rows": 4313,
+     "rows": 4318,
      "columns": [
       "season_id",
       "player_id",
@@ -7988,7 +7989,7 @@
       2026,
       2027
      ],
-     "rows": 2965,
+     "rows": 2979,
      "columns": [
       "season_id",
       "player_id",
@@ -8067,7 +8068,7 @@
       2026,
       2027
      ],
-     "rows": 2965,
+     "rows": 2979,
      "columns": [
       "season_id",
       "player_id",
@@ -8146,7 +8147,7 @@
       2026,
       2027
      ],
-     "rows": 4060,
+     "rows": 4062,
      "columns": [
       "season_id",
       "player_id",
@@ -8225,7 +8226,7 @@
       2026,
       2027
      ],
-     "rows": 4060,
+     "rows": 4062,
      "columns": [
       "season_id",
       "player_id",
@@ -8304,7 +8305,7 @@
       2026,
       2027
      ],
-     "rows": 3304,
+     "rows": 3309,
      "columns": [
       "season_id",
       "player_id",
@@ -8383,7 +8384,7 @@
       2026,
       2027
      ],
-     "rows": 3304,
+     "rows": 3309,
      "columns": [
       "season_id",
       "player_id",
@@ -8459,9 +8460,10 @@
       2023,
       2024,
       2025,
-      2026
+      2026,
+      2027
      ],
-     "rows": 3549,
+     "rows": 3550,
      "columns": [
       "season_id",
       "player_id",
@@ -8522,9 +8524,7 @@
      },
      "null_share_over_5pct": {},
      "column_set_varies": false,
-     "missing_seasons_in_window": [
-      2027
-     ]
+     "missing_seasons_in_window": []
     },
     "regular-season_offscreen_defensive_totals_YYYY.parquet": {
      "grain": "player-season",
@@ -8539,9 +8539,10 @@
       2023,
       2024,
       2025,
-      2026
+      2026,
+      2027
      ],
-     "rows": 3549,
+     "rows": 3550,
      "columns": [
       "season_id",
       "player_id",
@@ -8602,9 +8603,7 @@
      },
      "null_share_over_5pct": {},
      "column_set_varies": false,
-     "missing_seasons_in_window": [
-      2027
-     ]
+     "missing_seasons_in_window": []
     },
     "regular-season_offscreen_offensive_pergame_YYYY.parquet": {
      "grain": "player-season",
@@ -8622,7 +8621,7 @@
       2026,
       2027
      ],
-     "rows": 2474,
+     "rows": 2479,
      "columns": [
       "season_id",
       "player_id",
@@ -8701,7 +8700,7 @@
       2026,
       2027
      ],
-     "rows": 2474,
+     "rows": 2479,
      "columns": [
       "season_id",
       "player_id",
@@ -8938,7 +8937,7 @@
       2026,
       2027
      ],
-     "rows": 1882,
+     "rows": 1885,
      "columns": [
       "season_id",
       "player_id",
@@ -9017,7 +9016,7 @@
       2026,
       2027
      ],
-     "rows": 1882,
+     "rows": 1885,
      "columns": [
       "season_id",
       "player_id",
@@ -9096,7 +9095,7 @@
       2026,
       2027
      ],
-     "rows": 4482,
+     "rows": 4506,
      "columns": [
       "season_id",
       "player_id",
@@ -9175,7 +9174,7 @@
       2026,
       2027
      ],
-     "rows": 4482,
+     "rows": 4506,
      "columns": [
       "season_id",
       "player_id",
@@ -9254,7 +9253,7 @@
       2026,
       2027
      ],
-     "rows": 3483,
+     "rows": 3493,
      "columns": [
       "season_id",
       "player_id",
@@ -9333,7 +9332,7 @@
       2026,
       2027
      ],
-     "rows": 3483,
+     "rows": 3493,
      "columns": [
       "season_id",
       "player_id",
@@ -9412,7 +9411,7 @@
       2026,
       2027
      ],
-     "rows": 3204,
+     "rows": 3217,
      "columns": [
       "season_id",
       "player_id",
@@ -9491,7 +9490,7 @@
       2026,
       2027
      ],
-     "rows": 3204,
+     "rows": 3217,
      "columns": [
       "season_id",
       "player_id",
@@ -9570,7 +9569,7 @@
       2026,
       2027
      ],
-     "rows": 2563,
+     "rows": 2569,
      "columns": [
       "season_id",
       "player_id",
@@ -9649,7 +9648,7 @@
       2026,
       2027
      ],
-     "rows": 2563,
+     "rows": 2569,
      "columns": [
       "season_id",
       "player_id",
@@ -9728,7 +9727,7 @@
       2026,
       2027
      ],
-     "rows": 5090,
+     "rows": 5135,
      "columns": [
       "season_id",
       "player_id",
@@ -9807,7 +9806,7 @@
       2026,
       2027
      ],
-     "rows": 5090,
+     "rows": 5135,
      "columns": [
       "season_id",
       "player_id",
@@ -9886,7 +9885,7 @@
       2026,
       2027
      ],
-     "rows": 4878,
+     "rows": 4908,
      "columns": [
       "season_id",
       "player_id",
@@ -9965,7 +9964,7 @@
       2026,
       2027
      ],
-     "rows": 4878,
+     "rows": 4908,
      "columns": [
       "season_id",
       "player_id",
@@ -10044,7 +10043,7 @@
       2026,
       2027
      ],
-     "rows": 4778,
+     "rows": 4811,
      "columns": [
       "season_id",
       "player_id",
@@ -10123,7 +10122,7 @@
       2026,
       2027
      ],
-     "rows": 4778,
+     "rows": 4811,
      "columns": [
       "season_id",
       "player_id",
