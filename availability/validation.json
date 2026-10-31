@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-10-31T18:36:52+00:00",
+ "checked_utc": "2026-10-31T22:31:47+00:00",
  "leagues": {
   "nfl": {
-   "records": 1566,
+   "records": 1568,
    "by_layer": {
     "official": 1465,
-    "reported": 101
+    "reported": 103
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -52,6 +52,15 @@
      ],
      "other": "expected to play",
      "source": "ESPN injury note"
+    },
+    {
+     "player": "Divine Deablo",
+     "official": [
+      "out",
+      "questionable"
+     ],
+     "other": "expected to play",
+     "source": "ESPN injury note"
     }
    ],
    "stale_projection_dates": 0,
@@ -62,16 +71,16 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "101/101"
+   "reported_matched_to_official_list": "103/103"
   },
   "nba": {
-   "records": 244,
+   "records": 267,
    "by_layer": {
-    "official": 186,
-    "reported": 58
+    "official": 212,
+    "reported": 55
    },
    "unknown_team": 0,
-   "no_player": 7,
+   "no_player": 2,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -129,24 +138,6 @@
      ],
      "other": "expected to play",
      "source": "ESPN injury note"
-    },
-    {
-     "player": "Jabari Walker",
-     "official": [
-      "out",
-      "questionable"
-     ],
-     "other": "expected to play",
-     "source": "ESPN injury note"
-    },
-    {
-     "player": "Tacko Fall",
-     "official": [
-      "out",
-      "questionable"
-     ],
-     "other": "expected to play",
-     "source": "ESPN injury note"
     }
    ],
    "stale_projection_dates": 0,
@@ -159,14 +150,14 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "58/58"
+   "reported_matched_to_official_list": "55/55"
   },
   "nhl": {
-   "records": 1562,
+   "records": 1561,
    "by_layer": {
     "official": 157,
-    "reported": 66,
-    "projected": 1339
+    "reported": 64,
+    "projected": 1340
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -215,7 +206,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "57/66"
+   "reported_matched_to_official_list": "55/64"
   },
   "nbl": {
    "records": 23,
