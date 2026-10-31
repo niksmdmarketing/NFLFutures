@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-10-31T00:51:01+00:00",
+ "checked_utc": "2026-10-31T07:02:08+00:00",
  "leagues": {
   "nfl": {
-   "records": 1508,
+   "records": 1565,
    "by_layer": {
-    "official": 1423,
-    "reported": 85
+    "official": 1465,
+    "reported": 100
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -62,16 +62,16 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "85/85"
+   "reported_matched_to_official_list": "100/100"
   },
   "nba": {
-   "records": 305,
+   "records": 221,
    "by_layer": {
-    "official": 249,
+    "official": 165,
     "reported": 56
    },
    "unknown_team": 0,
-   "no_player": 4,
+   "no_player": 12,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -89,7 +89,6 @@
     "LAC",
     "LAL",
     "MEM",
-    "MIA",
     "MIL",
     "MIN",
     "NO",
@@ -107,17 +106,17 @@
    ],
    "conflicts": [
     {
-     "player": "Cameron Johnson",
+     "player": "Moses Moody",
      "official": [
-      "out",
-      "questionable"
+      "out"
      ],
      "other": "expected to play",
      "source": "ESPN injury note"
     },
     {
-     "player": "Moses Moody",
+     "player": "Cason Wallace",
      "official": [
+      "",
       "out"
      ],
      "other": "expected to play",
@@ -133,7 +132,9 @@
     }
    ],
    "stale_projection_dates": 0,
-   "teams_missing_official": [],
+   "teams_missing_official": [
+    "MIA"
+   ],
    "season_state": {
     "state": "in_season",
     "why": "36 regular-season/playoff and 0 other games 2026-10-24..2026-11-10"
@@ -143,11 +144,11 @@
    "reported_matched_to_official_list": "56/56"
   },
   "nhl": {
-   "records": 1546,
+   "records": 1560,
    "by_layer": {
-    "official": 156,
-    "reported": 65,
-    "projected": 1325
+    "official": 157,
+    "reported": 64,
+    "projected": 1339
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -196,12 +197,12 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "59/65"
+   "reported_matched_to_official_list": "58/64"
   },
   "nbl": {
-   "records": 19,
+   "records": 23,
    "by_layer": {
-    "official": 19
+    "official": 23
    },
    "unknown_team": 0,
    "no_player": 0,
