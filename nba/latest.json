@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-10-31T1841Z",
-"feed_timestamp": "2026-10-31T18:40:54Z",
+"collected_utc": "2026-10-31T2330Z",
+"feed_timestamp": "2026-10-31T23:30:08Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -22,10 +22,22 @@
 "injury": "Illness"
 },
 {
+"athlete_id": "4351852",
+"status": "Day-To-Day",
+"return_date": "2026-11-01",
+"injury": "Rest"
+},
+{
 "athlete_id": "5175643",
 "status": "Out",
 "return_date": "2026-11-07",
 "injury": "Right Leg Bruise"
+},
+{
+"athlete_id": "5101761",
+"status": "Out",
+"return_date": "2026-11-02",
+"injury": "Rest"
 },
 {
 "athlete_id": "5105626",
@@ -136,6 +148,18 @@
 "injury": "Right Hamstring Strain"
 },
 {
+"athlete_id": "6589",
+"status": "Out",
+"return_date": "2026-11-02",
+"injury": "Rest"
+},
+{
+"athlete_id": "4997536",
+"status": "Day-To-Day",
+"return_date": "2026-11-01",
+"injury": "Left Knee"
+},
+{
 "athlete_id": "6430",
 "status": "Out",
 "return_date": "2027-01-02",
@@ -152,6 +176,12 @@
 "status": "Out",
 "return_date": "2026-12-01",
 "injury": "Left Knee Surgery"
+},
+{
+"athlete_id": "3975",
+"status": "Out",
+"return_date": "2026-11-02",
+"injury": "Rest"
 },
 {
 "athlete_id": "2991230",
@@ -172,6 +202,12 @@
 "injury": "Right Calf Strain"
 },
 {
+"athlete_id": "4396909",
+"status": "Day-To-Day",
+"return_date": "2026-11-01",
+"injury": "Left Hamstring Strain"
+},
+{
 "athlete_id": "4433076",
 "status": "Out",
 "return_date": "2027-01-02",
@@ -180,7 +216,7 @@
 {
 "athlete_id": "4017837",
 "status": "Out",
-"return_date": "2026-11-01",
+"return_date": "2026-11-02",
 "injury": "Left Ankle Sprain"
 },
 {
@@ -252,13 +288,13 @@
 {
 "athlete_id": "4593016",
 "status": "Day-To-Day",
-"return_date": "2026-10-31",
+"return_date": "2026-11-02",
 "injury": "Right Ankle Not Specified"
 },
 {
 "athlete_id": "4431785",
 "status": "Day-To-Day",
-"return_date": "2026-10-31",
+"return_date": "2026-11-02",
 "injury": "Back Soreness"
 },
 {
@@ -281,9 +317,15 @@
 },
 {
 "athlete_id": "3032976",
-"status": "Day-To-Day",
-"return_date": "2026-10-31",
+"status": "Out",
+"return_date": "2026-11-02",
 "injury": "Back Spasms"
+},
+{
+"athlete_id": "3907497",
+"status": "Out",
+"return_date": "2026-11-02",
+"injury": "Personal"
 },
 {
 "athlete_id": "4277956",
@@ -382,18 +424,6 @@
 "injury": "Not Specified Back Fracture"
 },
 {
-"athlete_id": "4432446",
-"status": "Out",
-"return_date": "2026-10-31",
-"injury": "Left Knee Soreness"
-},
-{
-"athlete_id": "3917376",
-"status": "Day-To-Day",
-"return_date": "2026-10-31",
-"injury": "Left Knee"
-},
-{
 "athlete_id": "3059318",
 "status": "Out",
 "return_date": "2026-11-02",
@@ -404,12 +434,6 @@
 "status": "Out",
 "return_date": "2026-11-02",
 "injury": "Back"
-},
-{
-"athlete_id": "3904625",
-"status": "Out",
-"return_date": "2026-10-31",
-"injury": "Left Quadriceps Strain"
 },
 {
 "athlete_id": "4701232",
@@ -543,6 +567,15 @@
 "updated": "2026-10-18T14:49Z"
 },
 {
+"athlete_id": "4351852",
+"name": "Mitchell Robinson",
+"team_name": "Boston Celtics",
+"status": "Day-To-Day",
+"return_date": "2026-11-01",
+"injury": "Rest",
+"updated": "2026-10-31T20:32Z"
+},
+{
 "athlete_id": "5175643",
 "name": "Egor Demin",
 "team_name": "Brooklyn Nets",
@@ -550,6 +583,15 @@
 "return_date": "2026-11-07",
 "injury": "Right Leg Bruise",
 "updated": "2026-10-29T17:09Z"
+},
+{
+"athlete_id": "5101761",
+"name": "Mikel Brown Jr.",
+"team_name": "Brooklyn Nets",
+"status": "Out",
+"return_date": "2026-11-02",
+"injury": "Rest",
+"updated": "2026-10-31T20:58Z"
 },
 {
 "athlete_id": "5105626",
@@ -714,6 +756,24 @@
 "updated": "2026-10-25T14:56Z"
 },
 {
+"athlete_id": "6589",
+"name": "Draymond Green",
+"team_name": "Golden State Warriors",
+"status": "Out",
+"return_date": "2026-11-02",
+"injury": "Rest",
+"updated": "2026-10-31T19:51Z"
+},
+{
+"athlete_id": "4997536",
+"name": "Gui Santos",
+"team_name": "Golden State Warriors",
+"status": "Day-To-Day",
+"return_date": "2026-11-01",
+"injury": "Left Knee",
+"updated": "2026-10-31T19:54Z"
+},
+{
 "athlete_id": "6430",
 "name": "Jimmy Butler III",
 "team_name": "Golden State Warriors",
@@ -739,6 +799,15 @@
 "return_date": "2026-12-01",
 "injury": "Left Knee Surgery",
 "updated": "2026-10-16T16:14Z"
+},
+{
+"athlete_id": "3975",
+"name": "Stephen Curry",
+"team_name": "Golden State Warriors",
+"status": "Out",
+"return_date": "2026-11-02",
+"injury": "Rest",
+"updated": "2026-10-31T19:48Z"
 },
 {
 "athlete_id": "2991230",
@@ -768,6 +837,15 @@
 "updated": "2026-10-26T22:52Z"
 },
 {
+"athlete_id": "4396909",
+"name": "Aaron Nesmith",
+"team_name": "Indiana Pacers",
+"status": "Day-To-Day",
+"return_date": "2026-11-01",
+"injury": "Left Hamstring Strain",
+"updated": "2026-10-31T21:13Z"
+},
+{
 "athlete_id": "4433076",
 "name": "Ben Sheppard",
 "team_name": "Indiana Pacers",
@@ -781,9 +859,9 @@
 "name": "Ivica Zubac",
 "team_name": "Indiana Pacers",
 "status": "Out",
-"return_date": "2026-11-01",
+"return_date": "2026-11-02",
 "injury": "Left Ankle Sprain",
-"updated": "2026-10-29T21:04Z"
+"updated": "2026-10-31T21:14Z"
 },
 {
 "athlete_id": "5157066",
@@ -801,7 +879,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-11-01",
 "injury": "Back Soreness",
-"updated": "2026-10-31T05:01Z"
+"updated": "2026-10-31T21:10Z"
 },
 {
 "athlete_id": "2530530",
@@ -889,7 +967,7 @@
 "name": "Quinten Post",
 "team_name": "Memphis Grizzlies",
 "status": "Day-To-Day",
-"return_date": "2026-10-31",
+"return_date": "2026-11-02",
 "injury": "Right Ankle Not Specified",
 "updated": "2026-10-30T22:23Z"
 },
@@ -898,7 +976,7 @@
 "name": "Scotty Pippen Jr.",
 "team_name": "Memphis Grizzlies",
 "status": "Day-To-Day",
-"return_date": "2026-10-31",
+"return_date": "2026-11-02",
 "injury": "Back Soreness",
 "updated": "2026-10-30T22:35Z"
 },
@@ -933,10 +1011,19 @@
 "athlete_id": "3032976",
 "name": "Rudy Gobert",
 "team_name": "Minnesota Timberwolves",
-"status": "Day-To-Day",
-"return_date": "2026-10-31",
+"status": "Out",
+"return_date": "2026-11-02",
 "injury": "Back Spasms",
-"updated": "2026-10-31T18:03Z"
+"updated": "2026-10-31T22:18Z"
+},
+{
+"athlete_id": "3907497",
+"name": "Dejounte Murray",
+"team_name": "New Orleans Pelicans",
+"status": "Out",
+"return_date": "2026-11-02",
+"injury": "Personal",
+"updated": "2026-10-31T21:24Z"
 },
 {
 "athlete_id": "4277956",
@@ -1083,24 +1170,6 @@
 "updated": "2026-10-19T21:07Z"
 },
 {
-"athlete_id": "4432446",
-"name": "Jabari Walker",
-"team_name": "Philadelphia 76ers",
-"status": "Out",
-"return_date": "2026-10-31",
-"injury": "Left Knee Soreness",
-"updated": "2026-10-31T17:25Z"
-},
-{
-"athlete_id": "3917376",
-"name": "Jaylen Brown",
-"team_name": "Philadelphia 76ers",
-"status": "Day-To-Day",
-"return_date": "2026-10-31",
-"injury": "Left Knee",
-"updated": "2026-10-31T17:08Z"
-},
-{
 "athlete_id": "3059318",
 "name": "Joel Embiid",
 "team_name": "Philadelphia 76ers",
@@ -1117,15 +1186,6 @@
 "return_date": "2026-11-02",
 "injury": "Back",
 "updated": "2026-10-31T17:16Z"
-},
-{
-"athlete_id": "3904625",
-"name": "Tacko Fall",
-"team_name": "Philadelphia 76ers",
-"status": "Out",
-"return_date": "2026-10-31",
-"injury": "Left Quadriceps Strain",
-"updated": "2026-10-31T17:14Z"
 },
 {
 "athlete_id": "4701232",
