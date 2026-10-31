@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-10-30T20:50:54+00:00",
+ "checked_utc": "2026-10-31T00:51:01+00:00",
  "leagues": {
   "nfl": {
-   "records": 1459,
+   "records": 1508,
    "by_layer": {
-    "official": 1399,
-    "reported": 60
+    "official": 1423,
+    "reported": 85
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -52,45 +52,26 @@
      ],
      "other": "expected to play",
      "source": "ESPN injury note"
-    },
-    {
-     "player": "Kerby Joseph",
-     "official": [
-      "",
-      "no designation",
-      "out"
-     ],
-     "other": "expected to play",
-     "source": "ESPN injury note"
-    },
-    {
-     "player": "Brenen Thompson",
-     "official": [
-      "no designation",
-      "out"
-     ],
-     "other": "expected to play",
-     "source": "ESPN injury note"
     }
    ],
    "stale_projection_dates": 0,
    "teams_missing_official": [],
    "season_state": {
     "state": "in_season",
-    "why": "14 regular-season/playoff and 0 other games 2026-10-23..2026-11-09"
+    "why": "13 regular-season/playoff and 0 other games 2026-10-24..2026-11-10"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "60/60"
+   "reported_matched_to_official_list": "85/85"
   },
   "nba": {
-   "records": 288,
+   "records": 305,
    "by_layer": {
-    "official": 231,
-    "reported": 57
+    "official": 249,
+    "reported": 56
    },
    "unknown_team": 0,
-   "no_player": 12,
+   "no_player": 4,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -155,18 +136,18 @@
    "teams_missing_official": [],
    "season_state": {
     "state": "in_season",
-    "why": "39 regular-season/playoff and 0 other games 2026-10-23..2026-11-09"
+    "why": "36 regular-season/playoff and 0 other games 2026-10-24..2026-11-10"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "57/57"
+   "reported_matched_to_official_list": "56/56"
   },
   "nhl": {
-   "records": 1539,
+   "records": 1546,
    "by_layer": {
     "official": 156,
-    "reported": 62,
-    "projected": 1321
+    "reported": 65,
+    "projected": 1325
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -211,11 +192,11 @@
    ],
    "season_state": {
     "state": "in_season",
-    "why": "33 regular-season/playoff and 0 other games 2026-10-23..2026-11-09"
+    "why": "33 regular-season/playoff and 0 other games 2026-10-24..2026-11-10"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "58/62"
+   "reported_matched_to_official_list": "59/65"
   },
   "nbl": {
    "records": 19,
@@ -243,7 +224,7 @@
    ],
    "season_state": {
     "state": "in_season",
-    "why": "21 NBL games 2026-10-23..2026-11-09 (NBL fixture, season 2026)"
+    "why": "20 NBL games 2026-10-24..2026-11-10 (NBL fixture, season 2026)"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
@@ -282,7 +263,7 @@
    ],
    "season_state": {
     "state": "off_season",
-    "why": "0 AFL games 2026-10-23..2026-11-09 (Squiggle fixture)"
+    "why": "0 AFL games 2026-10-24..2026-11-10 (Squiggle fixture)"
    },
    "coverage_expected": false,
    "teams_missing_official_note": "off-season: no official coverage expected",
