@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-10-31T13:41:37+00:00",
+ "checked_utc": "2026-10-31T18:36:52+00:00",
  "leagues": {
   "nfl": {
-   "records": 1565,
+   "records": 1566,
    "by_layer": {
     "official": 1465,
-    "reported": 100
+    "reported": 101
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -62,16 +62,16 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "100/100"
+   "reported_matched_to_official_list": "101/101"
   },
   "nba": {
-   "records": 222,
+   "records": 244,
    "by_layer": {
-    "official": 165,
-    "reported": 57
+    "official": 186,
+    "reported": 58
    },
    "unknown_team": 0,
-   "no_player": 12,
+   "no_player": 7,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -129,6 +129,24 @@
      ],
      "other": "expected to play",
      "source": "ESPN injury note"
+    },
+    {
+     "player": "Jabari Walker",
+     "official": [
+      "out",
+      "questionable"
+     ],
+     "other": "expected to play",
+     "source": "ESPN injury note"
+    },
+    {
+     "player": "Tacko Fall",
+     "official": [
+      "out",
+      "questionable"
+     ],
+     "other": "expected to play",
+     "source": "ESPN injury note"
     }
    ],
    "stale_projection_dates": 0,
@@ -141,13 +159,13 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "57/57"
+   "reported_matched_to_official_list": "58/58"
   },
   "nhl": {
-   "records": 1561,
+   "records": 1562,
    "by_layer": {
     "official": 157,
-    "reported": 65,
+    "reported": 66,
     "projected": 1339
    },
    "unknown_team": 0,
@@ -197,7 +215,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "59/65"
+   "reported_matched_to_official_list": "57/66"
   },
   "nbl": {
    "records": 23,
@@ -232,9 +250,9 @@
    "reported_matched_to_official_list": "0/0"
   },
   "afl": {
-   "records": 13,
+   "records": 12,
    "by_layer": {
-    "reported": 13
+    "reported": 12
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -269,7 +287,7 @@
    "coverage_expected": false,
    "teams_missing_official_note": "off-season: no official coverage expected",
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "0/13"
+   "reported_matched_to_official_list": "0/12"
   }
  },
  "sources_failed": [],
