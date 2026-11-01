@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-11-01T0613Z",
-"feed_timestamp": "2026-11-01T06:13:38Z",
+"collected_utc": "2026-11-01T1901Z",
+"feed_timestamp": "2026-11-01T19:01:02Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -35,9 +35,9 @@
 },
 {
 "athlete_id": "4351852",
-"status": "Day-To-Day",
-"return_date": "2026-11-01",
-"injury": "Rest"
+"status": "Out",
+"return_date": "2026-11-02",
+"injury": "Not Specified Rest Not Specified"
 },
 {
 "athlete_id": "5175643",
@@ -204,7 +204,7 @@
 {
 "athlete_id": "2991235",
 "status": "Out",
-"return_date": "2026-11-02",
+"return_date": "2026-11-09",
 "injury": "Right Calf Strain"
 },
 {
@@ -256,12 +256,6 @@
 "injury": "Right Knee Inflammation"
 },
 {
-"athlete_id": "3913176",
-"status": "Out",
-"return_date": "2026-11-08",
-"injury": "Right Achilles Surgery"
-},
-{
 "athlete_id": "4396818",
 "status": "Out",
 "return_date": "2027-03-02",
@@ -274,15 +268,9 @@
 "injury": "Right Foot Plantar Fasciitis"
 },
 {
-"athlete_id": "5108024",
-"status": "Out",
-"return_date": "2026-11-08",
-"injury": "Right Foot Surgery"
-},
-{
 "athlete_id": "5060631",
 "status": "Out",
-"return_date": "2026-11-01",
+"return_date": "2026-11-09",
 "injury": "Left Knee Inflammation"
 },
 {
@@ -594,10 +582,10 @@
 "athlete_id": "4351852",
 "name": "Mitchell Robinson",
 "team_name": "Boston Celtics",
-"status": "Day-To-Day",
-"return_date": "2026-11-01",
-"injury": "Rest",
-"updated": "2026-10-31T20:32Z"
+"status": "Out",
+"return_date": "2026-11-02",
+"injury": "Not Specified Rest Not Specified",
+"updated": "2026-11-01T15:05Z"
 },
 {
 "athlete_id": "5175643",
@@ -678,7 +666,7 @@
 "status": "Out",
 "return_date": "2026-11-04",
 "injury": "Not Specified Hamstring",
-"updated": "2026-10-26T22:20Z"
+"updated": "2026-11-01T17:15Z"
 },
 {
 "athlete_id": "4683747",
@@ -847,7 +835,7 @@
 "name": "Steven Adams",
 "team_name": "Houston Rockets",
 "status": "Out",
-"return_date": "2026-11-02",
+"return_date": "2026-11-09",
 "injury": "Right Calf Strain",
 "updated": "2026-10-26T22:52Z"
 },
@@ -903,7 +891,7 @@
 "status": "Out",
 "return_date": "2026-11-02",
 "injury": "Right Hamstring Strain",
-"updated": "2026-10-30T19:09Z"
+"updated": "2026-11-01T16:26Z"
 },
 {
 "athlete_id": "4396993",
@@ -924,15 +912,6 @@
 "updated": "2026-10-15T01:03Z"
 },
 {
-"athlete_id": "3913176",
-"name": "Brandon Ingram",
-"team_name": "LA Clippers",
-"status": "Out",
-"return_date": "2026-11-08",
-"injury": "Right Achilles Surgery",
-"updated": "2026-10-29T01:00Z"
-},
-{
 "athlete_id": "4396818",
 "name": "Jordan Miller",
 "team_name": "LA Clippers",
@@ -951,22 +930,13 @@
 "updated": "2026-10-29T01:03Z"
 },
 {
-"athlete_id": "5108024",
-"name": "Yanic Konan Niederhauser",
-"team_name": "LA Clippers",
-"status": "Out",
-"return_date": "2026-11-08",
-"injury": "Right Foot Surgery",
-"updated": "2026-10-29T18:44Z"
-},
-{
 "athlete_id": "5060631",
 "name": "Adou Thiero",
 "team_name": "Los Angeles Lakers",
 "status": "Out",
-"return_date": "2026-11-01",
+"return_date": "2026-11-09",
 "injury": "Left Knee Inflammation",
-"updated": "2026-10-30T00:05Z"
+"updated": "2026-11-01T15:04Z"
 },
 {
 "athlete_id": "4433137",
