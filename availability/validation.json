@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-11-01T02:17:12+00:00",
+ "checked_utc": "2026-11-01T09:20:03+00:00",
  "leagues": {
   "nfl": {
-   "records": 1572,
+   "records": 1578,
    "by_layer": {
     "official": 1465,
-    "reported": 107
+    "reported": 113
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -62,16 +62,16 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "107/107"
+   "reported_matched_to_official_list": "113/113"
   },
   "nba": {
-   "records": 275,
+   "records": 238,
    "by_layer": {
-    "official": 218,
-    "reported": 57
+    "official": 182,
+    "reported": 56
    },
    "unknown_team": 0,
-   "no_player": 0,
+   "no_player": 30,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -89,6 +89,7 @@
     "LAC",
     "LAL",
     "MEM",
+    "MIA",
     "MIL",
     "MIN",
     "NO",
@@ -105,15 +106,6 @@
     "WSH"
    ],
    "conflicts": [
-    {
-     "player": "Jock Landale",
-     "official": [
-      "available",
-      "out"
-     ],
-     "other": "expected out",
-     "source": "ESPN injury note"
-    },
     {
      "player": "Moses Moody",
      "official": [
@@ -141,23 +133,21 @@
     }
    ],
    "stale_projection_dates": 0,
-   "teams_missing_official": [
-    "MIA"
-   ],
+   "teams_missing_official": [],
    "season_state": {
     "state": "in_season",
     "why": "40 regular-season/playoff and 0 other games 2026-10-25..2026-11-11"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "57/57"
+   "reported_matched_to_official_list": "56/56"
   },
   "nhl": {
-   "records": 1562,
+   "records": 1552,
    "by_layer": {
     "official": 158,
     "reported": 64,
-    "projected": 1340
+    "projected": 1330
    },
    "unknown_team": 0,
    "no_player": 0,
