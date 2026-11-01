@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-11-01T16:07:03+00:00",
+ "checked_utc": "2026-11-01T20:32:53+00:00",
  "leagues": {
   "nfl": {
-   "records": 1576,
+   "records": 1547,
    "by_layer": {
     "official": 1465,
-    "reported": 111
+    "reported": 82
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -52,6 +52,31 @@
      ],
      "other": "expected to play",
      "source": "ESPN injury note"
+    },
+    {
+     "player": "Joe Fagnano",
+     "official": [
+      "out"
+     ],
+     "other": "expected to play",
+     "source": "ESPN injury note"
+    },
+    {
+     "player": "Malik Benson",
+     "official": [
+      "out"
+     ],
+     "other": "expected to play",
+     "source": "ESPN injury note"
+    },
+    {
+     "player": "Breece Hall",
+     "official": [
+      "out",
+      "questionable"
+     ],
+     "other": "expected to play",
+     "source": "ESPN injury note"
     }
    ],
    "stale_projection_dates": 0,
@@ -62,16 +87,16 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "111/111"
+   "reported_matched_to_official_list": "82/82"
   },
   "nba": {
-   "records": 238,
+   "records": 248,
    "by_layer": {
-    "official": 181,
-    "reported": 57
+    "official": 192,
+    "reported": 56
    },
    "unknown_team": 0,
-   "no_player": 30,
+   "no_player": 28,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -140,14 +165,14 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "57/57"
+   "reported_matched_to_official_list": "56/56"
   },
   "nhl": {
-   "records": 1560,
+   "records": 1551,
    "by_layer": {
-    "official": 157,
-    "reported": 73,
-    "projected": 1330
+    "official": 155,
+    "reported": 67,
+    "projected": 1329
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -196,7 +221,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "64/73"
+   "reported_matched_to_official_list": "59/67"
   },
   "nbl": {
    "records": 23,
