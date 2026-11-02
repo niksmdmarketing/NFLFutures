@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-11-01T2341Z",
-"feed_timestamp": "2026-11-01T23:41:34Z",
+"collected_utc": "2026-11-02T0613Z",
+"feed_timestamp": "2026-11-02T06:13:49Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -20,6 +20,12 @@
 "status": "Out",
 "return_date": "2026-11-04",
 "injury": "Left Hip"
+},
+{
+"athlete_id": "5149077",
+"status": "Suspension",
+"return_date": "2026-11-04",
+"injury": "Suspension"
 },
 {
 "athlete_id": "4712863",
@@ -47,7 +53,7 @@
 },
 {
 "athlete_id": "5101761",
-"status": "Out",
+"status": "Day-To-Day",
 "return_date": "2026-11-02",
 "injury": "Rest"
 },
@@ -139,7 +145,7 @@
 "athlete_id": "4065813",
 "status": "Out",
 "return_date": "2026-11-02",
-"injury": "Right Personal"
+"injury": "Right Wrist Sprain"
 },
 {
 "athlete_id": "4432181",
@@ -150,7 +156,7 @@
 {
 "athlete_id": "4592427",
 "status": "Out",
-"return_date": "2026-11-02",
+"return_date": "2026-11-04",
 "injury": "Not Specified Hamstring Not Specified"
 },
 {
@@ -174,8 +180,8 @@
 {
 "athlete_id": "4997536",
 "status": "Day-To-Day",
-"return_date": "2026-11-01",
-"injury": "Left Knee"
+"return_date": "2026-11-05",
+"injury": "Knee"
 },
 {
 "athlete_id": "6430",
@@ -239,7 +245,7 @@
 },
 {
 "athlete_id": "4278355",
-"status": "Out",
+"status": "Day-To-Day",
 "return_date": "2026-11-02",
 "injury": "Back Soreness"
 },
@@ -266,6 +272,12 @@
 "status": "Out",
 "return_date": "2026-11-08",
 "injury": "Right Achilles Surgery"
+},
+{
+"athlete_id": "3936099",
+"status": "Day-To-Day",
+"return_date": "2026-11-02",
+"injury": "Right Knee"
 },
 {
 "athlete_id": "4396818",
@@ -308,6 +320,12 @@
 "status": "Day-To-Day",
 "return_date": "2026-11-02",
 "injury": "Back Soreness"
+},
+{
+"athlete_id": "2528210",
+"status": "Day-To-Day",
+"return_date": "2026-11-02",
+"injury": "Personal"
 },
 {
 "athlete_id": "4594268",
@@ -490,6 +508,12 @@
 "injury": "Left Calf Strain"
 },
 {
+"athlete_id": "3134908",
+"status": "Day-To-Day",
+"return_date": "2026-11-02",
+"injury": "Left Shoulder Inflammation"
+},
+{
 "athlete_id": "6450",
 "status": "Out",
 "return_date": "2026-11-23",
@@ -579,6 +603,15 @@
 "updated": "2026-11-01T22:22Z"
 },
 {
+"athlete_id": "5149077",
+"name": "Kingston Flemings",
+"team_name": "Atlanta Hawks",
+"status": "Suspension",
+"return_date": "2026-11-04",
+"injury": "Suspension",
+"updated": "2026-11-02T02:02Z"
+},
+{
 "athlete_id": "4712863",
 "name": "Mouhamed Gueye",
 "team_name": "Atlanta Hawks",
@@ -618,10 +651,10 @@
 "athlete_id": "5101761",
 "name": "Mikel Brown Jr.",
 "team_name": "Brooklyn Nets",
-"status": "Out",
+"status": "Day-To-Day",
 "return_date": "2026-11-02",
 "injury": "Rest",
-"updated": "2026-10-31T20:58Z"
+"updated": "2026-11-02T01:51Z"
 },
 {
 "athlete_id": "5105626",
@@ -755,8 +788,8 @@
 "team_name": "Denver Nuggets",
 "status": "Out",
 "return_date": "2026-11-02",
-"injury": "Right Personal",
-"updated": "2026-10-31T00:42Z"
+"injury": "Right Wrist Sprain",
+"updated": "2026-11-01T23:52Z"
 },
 {
 "athlete_id": "4432181",
@@ -772,9 +805,9 @@
 "name": "Spencer Jones",
 "team_name": "Denver Nuggets",
 "status": "Out",
-"return_date": "2026-11-02",
+"return_date": "2026-11-04",
 "injury": "Not Specified Hamstring Not Specified",
-"updated": "2026-10-27T22:35Z"
+"updated": "2026-11-01T23:56Z"
 },
 {
 "athlete_id": "4395702",
@@ -808,9 +841,9 @@
 "name": "Gui Santos",
 "team_name": "Golden State Warriors",
 "status": "Day-To-Day",
-"return_date": "2026-11-01",
-"injury": "Left Knee",
-"updated": "2026-10-31T19:54Z"
+"return_date": "2026-11-05",
+"injury": "Knee",
+"updated": "2026-11-02T04:49Z"
 },
 {
 "athlete_id": "6430",
@@ -906,10 +939,10 @@
 "athlete_id": "4278355",
 "name": "Obi Toppin",
 "team_name": "Indiana Pacers",
-"status": "Out",
+"status": "Day-To-Day",
 "return_date": "2026-11-02",
 "injury": "Back Soreness",
-"updated": "2026-11-01T20:29Z"
+"updated": "2026-11-02T01:51Z"
 },
 {
 "athlete_id": "2530530",
@@ -945,7 +978,16 @@
 "status": "Out",
 "return_date": "2026-11-08",
 "injury": "Right Achilles Surgery",
-"updated": "2026-11-01T20:17Z"
+"updated": "2026-11-01T16:04Z"
+},
+{
+"athlete_id": "3936099",
+"name": "Derrick Jones Jr.",
+"team_name": "LA Clippers",
+"status": "Day-To-Day",
+"return_date": "2026-11-02",
+"injury": "Right Knee",
+"updated": "2026-11-02T03:47Z"
 },
 {
 "athlete_id": "4396818",
@@ -963,7 +1005,7 @@
 "status": "Out",
 "return_date": "2026-11-08",
 "injury": "Right Foot Plantar Fasciitis",
-"updated": "2026-11-01T15:42Z"
+"updated": "2026-11-02T00:45Z"
 },
 {
 "athlete_id": "5108024",
@@ -1009,6 +1051,15 @@
 "return_date": "2026-11-02",
 "injury": "Back Soreness",
 "updated": "2026-11-01T23:15Z"
+},
+{
+"athlete_id": "2528210",
+"name": "Tim Hardaway Jr.",
+"team_name": "Miami Heat",
+"status": "Day-To-Day",
+"return_date": "2026-11-02",
+"injury": "Personal",
+"updated": "2026-11-02T00:24Z"
 },
 {
 "athlete_id": "4594268",
@@ -1116,7 +1167,7 @@
 "status": "Out",
 "return_date": "2026-11-04",
 "injury": "Knee",
-"updated": "2026-10-27T21:43Z"
+"updated": "2026-11-02T00:54Z"
 },
 {
 "athlete_id": "5107251",
@@ -1279,6 +1330,15 @@
 "return_date": "2026-11-06",
 "injury": "Left Calf Strain",
 "updated": "2026-10-30T21:44Z"
+},
+{
+"athlete_id": "3134908",
+"name": "Jakob Poeltl",
+"team_name": "Toronto Raptors",
+"status": "Day-To-Day",
+"return_date": "2026-11-02",
+"injury": "Left Shoulder Inflammation",
+"updated": "2026-11-02T04:47Z"
 },
 {
 "athlete_id": "6450",
