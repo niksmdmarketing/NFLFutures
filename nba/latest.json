@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-11-02T0613Z",
-"feed_timestamp": "2026-11-02T06:13:49Z",
+"collected_utc": "2026-11-02T1605Z",
+"feed_timestamp": "2026-11-02T16:05:13Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -41,7 +41,7 @@
 },
 {
 "athlete_id": "4351852",
-"status": "Out",
+"status": "Day-To-Day",
 "return_date": "2026-11-02",
 "injury": "Not Specified Rest Not Specified"
 },
@@ -76,12 +76,6 @@
 "injury": "Left Hamstring"
 },
 {
-"athlete_id": "4848625",
-"status": "Day-To-Day",
-"return_date": "2026-11-02",
-"injury": "Back Soreness"
-},
-{
 "athlete_id": "4397189",
 "status": "Day-To-Day",
 "return_date": "2026-11-02",
@@ -90,7 +84,7 @@
 {
 "athlete_id": "4278067",
 "status": "Out",
-"return_date": "2026-11-04",
+"return_date": "2026-11-02",
 "injury": "Not Specified Hamstring"
 },
 {
@@ -126,7 +120,7 @@
 {
 "athlete_id": "4593125",
 "status": "Out",
-"return_date": "2026-11-04",
+"return_date": "2026-11-02",
 "injury": "Right Knee Surgery"
 },
 {
@@ -173,13 +167,13 @@
 },
 {
 "athlete_id": "6589",
-"status": "Out",
+"status": "Day-To-Day",
 "return_date": "2026-11-02",
 "injury": "Rest"
 },
 {
 "athlete_id": "4997536",
-"status": "Day-To-Day",
+"status": "Out",
 "return_date": "2026-11-05",
 "injury": "Knee"
 },
@@ -203,7 +197,7 @@
 },
 {
 "athlete_id": "3975",
-"status": "Out",
+"status": "Day-To-Day",
 "return_date": "2026-11-02",
 "injury": "Rest"
 },
@@ -633,10 +627,10 @@
 "athlete_id": "4351852",
 "name": "Mitchell Robinson",
 "team_name": "Boston Celtics",
-"status": "Out",
+"status": "Day-To-Day",
 "return_date": "2026-11-02",
 "injury": "Not Specified Rest Not Specified",
-"updated": "2026-11-01T15:05Z"
+"updated": "2026-11-02T14:19Z"
 },
 {
 "athlete_id": "5175643",
@@ -684,15 +678,6 @@
 "updated": "2026-11-01T22:08Z"
 },
 {
-"athlete_id": "4848625",
-"name": "Dailyn Swain",
-"team_name": "Chicago Bulls",
-"status": "Day-To-Day",
-"return_date": "2026-11-02",
-"injury": "Back Soreness",
-"updated": "2026-10-31T04:59Z"
-},
-{
 "athlete_id": "4397189",
 "name": "Jalen Smith",
 "team_name": "Chicago Bulls",
@@ -706,7 +691,7 @@
 "name": "Nic Claxton",
 "team_name": "Chicago Bulls",
 "status": "Out",
-"return_date": "2026-11-04",
+"return_date": "2026-11-02",
 "injury": "Not Specified Hamstring",
 "updated": "2026-11-01T21:08Z"
 },
@@ -760,7 +745,7 @@
 "name": "Santi Aldama",
 "team_name": "Dallas Mavericks",
 "status": "Out",
-"return_date": "2026-11-04",
+"return_date": "2026-11-02",
 "injury": "Right Knee Surgery",
 "updated": "2026-11-01T22:51Z"
 },
@@ -831,19 +816,19 @@
 "athlete_id": "6589",
 "name": "Draymond Green",
 "team_name": "Golden State Warriors",
-"status": "Out",
+"status": "Day-To-Day",
 "return_date": "2026-11-02",
 "injury": "Rest",
-"updated": "2026-10-31T19:51Z"
+"updated": "2026-11-02T14:20Z"
 },
 {
 "athlete_id": "4997536",
 "name": "Gui Santos",
 "team_name": "Golden State Warriors",
-"status": "Day-To-Day",
+"status": "Out",
 "return_date": "2026-11-05",
 "injury": "Knee",
-"updated": "2026-11-02T04:49Z"
+"updated": "2026-11-02T14:20Z"
 },
 {
 "athlete_id": "6430",
@@ -876,10 +861,10 @@
 "athlete_id": "3975",
 "name": "Stephen Curry",
 "team_name": "Golden State Warriors",
-"status": "Out",
+"status": "Day-To-Day",
 "return_date": "2026-11-02",
 "injury": "Rest",
-"updated": "2026-10-31T19:48Z"
+"updated": "2026-11-02T14:20Z"
 },
 {
 "athlete_id": "3102529",
@@ -1005,7 +990,7 @@
 "status": "Out",
 "return_date": "2026-11-08",
 "injury": "Right Foot Plantar Fasciitis",
-"updated": "2026-11-02T00:45Z"
+"updated": "2026-11-02T15:47Z"
 },
 {
 "athlete_id": "5108024",
@@ -1194,7 +1179,7 @@
 "status": "Out",
 "return_date": "2026-11-10",
 "injury": "Left Knee Not Specified",
-"updated": "2026-10-29T18:29Z"
+"updated": "2026-11-02T15:22Z"
 },
 {
 "athlete_id": "5214637",
