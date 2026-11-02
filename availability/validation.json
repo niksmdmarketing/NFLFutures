@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-11-02T00:48:36+00:00",
+ "checked_utc": "2026-11-02T07:43:32+00:00",
  "leagues": {
   "nfl": {
-   "records": 1550,
+   "records": 1548,
    "by_layer": {
     "official": 1465,
-    "reported": 85
+    "reported": 83
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -71,16 +71,16 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "85/85"
+   "reported_matched_to_official_list": "83/83"
   },
   "nba": {
-   "records": 293,
+   "records": 267,
    "by_layer": {
-    "official": 242,
-    "reported": 51
+    "official": 211,
+    "reported": 56
    },
    "unknown_team": 0,
-   "no_player": 9,
+   "no_player": 8,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -173,14 +173,14 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "51/51"
+   "reported_matched_to_official_list": "56/56"
   },
   "nhl": {
-   "records": 1547,
+   "records": 1545,
    "by_layer": {
     "official": 154,
     "reported": 64,
-    "projected": 1329
+    "projected": 1327
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -201,6 +201,7 @@
     "MIN",
     "MTL",
     "NJD",
+    "NSH",
     "NYI",
     "NYR",
     "OTT",
@@ -220,8 +221,7 @@
    "conflicts": [],
    "stale_projection_dates": 0,
    "teams_missing_official": [
-    "BOS",
-    "NSH"
+    "BOS"
    ],
    "season_state": {
     "state": "in_season",
@@ -242,18 +242,18 @@
    "teams_covered_official": [
     "ADL",
     "BRI",
-    "CNS",
     "ILL",
     "PER",
-    "SEM",
     "SYD",
     "TAS"
    ],
    "conflicts": [],
    "stale_projection_dates": 0,
    "teams_missing_official": [
+    "CNS",
     "MEL",
-    "NZL"
+    "NZL",
+    "SEM"
    ],
    "season_state": {
     "state": "in_season",
