@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-11-03T01:37:58+00:00",
+ "checked_utc": "2026-11-03T09:38:17+00:00",
  "leagues": {
   "nfl": {
-   "records": 1540,
+   "records": 1538,
    "by_layer": {
     "official": 1465,
-    "reported": 75
+    "reported": 73
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -63,16 +63,16 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "75/75"
+   "reported_matched_to_official_list": "73/73"
   },
   "nba": {
-   "records": 308,
+   "records": 209,
    "by_layer": {
-    "official": 248,
-    "reported": 60
+    "official": 146,
+    "reported": 63
    },
    "unknown_team": 0,
-   "no_player": 0,
+   "no_player": 28,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -132,14 +132,6 @@
      "source": "ESPN injury note"
     },
     {
-     "player": "Al Horford",
-     "official": [
-      "out"
-     ],
-     "other": "expected to play",
-     "source": "ESPN injury note"
-    },
-    {
      "player": "Moses Moody",
      "official": [
       "out"
@@ -173,20 +165,21 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "60/60"
+   "reported_matched_to_official_list": "63/63"
   },
   "nhl": {
-   "records": 1543,
+   "records": 1559,
    "by_layer": {
-    "official": 153,
+    "official": 155,
     "reported": 64,
-    "projected": 1326
+    "projected": 1340
    },
    "unknown_team": 0,
    "no_player": 0,
    "future_published": 0,
    "teams_covered_official": [
     "ANA",
+    "BOS",
     "BUF",
     "CAR",
     "CBJ",
@@ -220,9 +213,7 @@
    ],
    "conflicts": [],
    "stale_projection_dates": 0,
-   "teams_missing_official": [
-    "BOS"
-   ],
+   "teams_missing_official": [],
    "season_state": {
     "state": "in_season",
     "why": "33 regular-season/playoff and 0 other games 2026-10-27..2026-11-13"
@@ -305,7 +296,7 @@
   }
  },
  "sources_failed": [
-  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 50 h old"
+  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 58 h old"
  ],
  "sources_not_expected": []
 }
