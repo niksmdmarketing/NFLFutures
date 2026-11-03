@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-11-03T1621Z",
-"feed_timestamp": "2026-11-03T16:20:48Z",
+"collected_utc": "2026-11-03T2153Z",
+"feed_timestamp": "2026-11-03T21:53:48Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -34,10 +34,16 @@
 "injury": "Illness"
 },
 {
-"athlete_id": "4251",
+"athlete_id": "4065648",
 "status": "Day-To-Day",
 "return_date": "2026-11-04",
 "injury": "Rest"
+},
+{
+"athlete_id": "4066354",
+"status": "Day-To-Day",
+"return_date": "2026-11-04",
+"injury": "Right Shoulder"
 },
 {
 "athlete_id": "5175643",
@@ -62,6 +68,12 @@
 "status": "Out",
 "return_date": "2026-11-09",
 "injury": "Left Hamstring"
+},
+{
+"athlete_id": "4397189",
+"status": "Day-To-Day",
+"return_date": "2026-11-04",
+"injury": "Finger"
 },
 {
 "athlete_id": "4278067",
@@ -132,7 +144,7 @@
 {
 "athlete_id": "4395702",
 "status": "Out",
-"return_date": "2026-11-04",
+"return_date": "2026-11-08",
 "injury": "Right Hip Bruise"
 },
 {
@@ -609,13 +621,22 @@
 "updated": "2026-10-18T14:49Z"
 },
 {
-"athlete_id": "4251",
-"name": "Paul George",
+"athlete_id": "4065648",
+"name": "Jayson Tatum",
 "team_name": "Boston Celtics",
 "status": "Day-To-Day",
 "return_date": "2026-11-04",
 "injury": "Rest",
-"updated": "2026-11-03T06:08Z"
+"updated": "2026-11-03T21:10Z"
+},
+{
+"athlete_id": "4066354",
+"name": "Payton Pritchard",
+"team_name": "Boston Celtics",
+"status": "Day-To-Day",
+"return_date": "2026-11-04",
+"injury": "Right Shoulder",
+"updated": "2026-11-03T21:12Z"
 },
 {
 "athlete_id": "5175643",
@@ -654,13 +675,22 @@
 "updated": "2026-11-01T22:08Z"
 },
 {
+"athlete_id": "4397189",
+"name": "Jalen Smith",
+"team_name": "Chicago Bulls",
+"status": "Day-To-Day",
+"return_date": "2026-11-04",
+"injury": "Finger",
+"updated": "2026-11-03T21:03Z"
+},
+{
 "athlete_id": "4278067",
 "name": "Nic Claxton",
 "team_name": "Chicago Bulls",
 "status": "Out",
 "return_date": "2026-11-04",
 "injury": "Not Specified Hamstring",
-"updated": "2026-11-02T22:47Z"
+"updated": "2026-11-03T21:04Z"
 },
 {
 "athlete_id": "4683747",
@@ -757,9 +787,9 @@
 "name": "Isaiah Joe",
 "team_name": "Detroit Pistons",
 "status": "Out",
-"return_date": "2026-11-04",
+"return_date": "2026-11-08",
 "injury": "Right Hip Bruise",
-"updated": "2026-11-02T17:35Z"
+"updated": "2026-11-03T21:18Z"
 },
 {
 "athlete_id": "4433621",
