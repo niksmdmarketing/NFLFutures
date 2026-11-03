@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-11-03T09:38:17+00:00",
+ "checked_utc": "2026-11-03T17:54:10+00:00",
  "leagues": {
   "nfl": {
-   "records": 1538,
+   "records": 1531,
    "by_layer": {
     "official": 1465,
-    "reported": 73
+    "reported": 66
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -44,17 +44,7 @@
     "TEN",
     "WAS"
    ],
-   "conflicts": [
-    {
-     "player": "Breece Hall",
-     "official": [
-      "out",
-      "questionable"
-     ],
-     "other": "expected to play",
-     "source": "ESPN injury note"
-    }
-   ],
+   "conflicts": [],
    "stale_projection_dates": 0,
    "teams_missing_official": [],
    "season_state": {
@@ -63,7 +53,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "73/73"
+   "reported_matched_to_official_list": "66/66"
   },
   "nba": {
    "records": 209,
@@ -168,10 +158,10 @@
    "reported_matched_to_official_list": "63/63"
   },
   "nhl": {
-   "records": 1559,
+   "records": 1548,
    "by_layer": {
-    "official": 155,
-    "reported": 64,
+    "official": 152,
+    "reported": 56,
     "projected": 1340
    },
    "unknown_team": 0,
@@ -220,7 +210,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "60/64"
+   "reported_matched_to_official_list": "56/56"
   },
   "nbl": {
    "records": 23,
@@ -296,7 +286,7 @@
   }
  },
  "sources_failed": [
-  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 58 h old"
+  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 66 h old"
  ],
  "sources_not_expected": []
 }
