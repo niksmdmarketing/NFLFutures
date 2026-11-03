@@ -1,5 +1,5 @@
 {
- "checked_utc": "2026-11-03T17:54:10+00:00",
+ "checked_utc": "2026-11-03T23:27:53+00:00",
  "leagues": {
   "nfl": {
    "records": 1531,
@@ -56,13 +56,13 @@
    "reported_matched_to_official_list": "66/66"
   },
   "nba": {
-   "records": 209,
+   "records": 271,
    "by_layer": {
-    "official": 146,
-    "reported": 63
+    "official": 211,
+    "reported": 60
    },
    "unknown_team": 0,
-   "no_player": 28,
+   "no_player": 9,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -130,6 +130,15 @@
      "source": "ESPN injury note"
     },
     {
+     "player": "Jordan Poole",
+     "official": [
+      "out",
+      "probable"
+     ],
+     "other": "expected to play",
+     "source": "ESPN injury note"
+    },
+    {
      "player": "Cason Wallace",
      "official": [
       "",
@@ -155,13 +164,13 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "63/63"
+   "reported_matched_to_official_list": "60/60"
   },
   "nhl": {
-   "records": 1548,
+   "records": 1545,
    "by_layer": {
-    "official": 152,
-    "reported": 56,
+    "official": 150,
+    "reported": 55,
     "projected": 1340
    },
    "unknown_team": 0,
@@ -172,7 +181,6 @@
     "BOS",
     "BUF",
     "CAR",
-    "CBJ",
     "CGY",
     "CHI",
     "COL",
@@ -203,23 +211,25 @@
    ],
    "conflicts": [],
    "stale_projection_dates": 0,
-   "teams_missing_official": [],
+   "teams_missing_official": [
+    "CBJ"
+   ],
    "season_state": {
     "state": "in_season",
     "why": "33 regular-season/playoff and 0 other games 2026-10-27..2026-11-13"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "56/56"
+   "reported_matched_to_official_list": "55/55"
   },
   "nbl": {
-   "records": 23,
+   "records": 24,
    "by_layer": {
-    "official": 23
+    "official": 24
    },
    "unknown_team": 0,
    "no_player": 0,
-   "future_published": 0,
+   "future_published": 24,
    "teams_covered_official": [
     "ADL",
     "BRI",
@@ -245,9 +255,9 @@
    "reported_matched_to_official_list": "0/0"
   },
   "afl": {
-   "records": 11,
+   "records": 13,
    "by_layer": {
-    "reported": 11
+    "reported": 13
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -282,11 +292,11 @@
    "coverage_expected": false,
    "teams_missing_official_note": "off-season: no official coverage expected",
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "0/11"
+   "reported_matched_to_official_list": "0/13"
   }
  },
  "sources_failed": [
-  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 66 h old"
+  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 72 h old"
  ],
  "sources_not_expected": []
 }
