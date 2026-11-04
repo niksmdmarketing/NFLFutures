@@ -72,8 +72,30 @@ The collection windows were missed; there is currently no qualified daily forwar
 sample. Do not call the collector operational based on the successful smoke.
 
 Misses must remain misses. A dependable in-window trigger is needed; simply
-rerunning after cutoff or moving the old cutoff would not fix the test. No frozen
-parameters, cutoff, seed, workflow or scheduler was changed by this recheck.
+rerunning after cutoff or moving the old cutoff would not fix the test.
+
+### Same-day recovery, without changing the forecasting protocol
+
+An authorized in-window attempt (`41819729359`) generated forecasts successfully
+but GitHub rejected the archive upload with an Internal Server Error. Added bounded
+retries to the two upload steps and one-day private failure-bundle retention, private
+workflow commit `39c1b524ef5620bb43b834c105c48214fb487b0f`. Schedules, permissions,
+pinned model/collector code, seeds, parameters and cutoff are unchanged. No extra
+website build or overlay run was triggered.
+
+The following in-window run (`41821095137`) successfully archived the **first
+genuine eligible bundle**, dated 4 November. Generation ran 11:29:03–11:30:33 UTC;
+GitHub's independent push event records receipt at **11:30:35 UTC**, before 12:00.
+Verified actual immutable Git bytes for all 108 input/output files (107 storage
+parts), the input identity, actual official PDF and fresh-report flags, pinned
+model `5708ccf`, three seeds with 20,000 simulations each, and 180 paired
+seed/team/variant records covering all 30 teams.
+
+The run remains red because the cumulative watchdog correctly flags the five
+missing 30 October–3 November cutoffs. Those gaps were not backfilled, moved or
+hidden. Today's verified bundle is eligible despite the historical-coverage failure.
+One successful **manual** recovery does not prove future scheduled collection will
+arrive on time; automatic timing remains an operational concern, not a model result.
 
 ## Award-simulator repair status
 
@@ -83,8 +105,11 @@ eligibility test is incorrectly applied to ROY and Sixth Man (`6MOY`). The older
 `d9933f1` roster/override change did not repair those issues. The award replay
 imports this same simulator, so its ROY/Sixth Man results used the incorrect gate.
 The full-season historical loader can mask the early-season loader failure.
-Fixes and a paired 2010–2026 award replay are being handled on a separate branch;
-do not mark them deployed or complete based on this injury report.
+The two corrections were applied separately to public main in `3c264b45`, following
+successful Linux CI. The paired 2010–2026 replay is complete on
+`codex/nba-award-bugfixes-20261104`; ROY/Sixth Man scores worsen slightly after the
+rule correction, MVP/DPOY are unchanged. See `NBA_AWARD_BUGFIX_FINDINGS.md` there.
+No extra refresh was dispatched; the normal site update picks up the corrected code.
 
 ## TypeSafe
 
