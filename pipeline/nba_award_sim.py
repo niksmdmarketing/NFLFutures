@@ -4,7 +4,8 @@ Each candidate's season is simulated to the end from his numbers to date: per-ga
 (K_RATE games), games played drawn from his share of team games (shrunk toward 85%, with health noise), talent noise on
 the remaining games, and team win% from the record to date. Every simulated finish is scored by the conditional logit
 (award_model weights fitted on final season lines) within that simulation's top-N pool, and from 2023-24 the 65-game rule
-zeroes players short of 65 games of 15+ minutes. Probabilities are averaged over the simulations.
+zeroes MVP/DPOY candidates short of the model's qualifying-games count. ROY and
+Sixth Man are not subject to the CBA's 65-game minimum. Probabilities are averaged over the simulations.
 Replay 2010-2026 (every 14 days, weights leave-one-season-out): -log p(winner) 0.09 better than scoring stats to date
 (90% interval 0.03 to 0.15), all four awards better on average; adopted 14 Oct 2026 (TypeSafe 67%).
 """
@@ -14,6 +15,7 @@ import numpy as np
 import pandas as pd
 
 from nba_site import CANON, CUP
+from nba import TEAMS
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "data", "nba")
@@ -53,8 +55,9 @@ def boxes(y):
     b["m15"] = (b.mins >= 15).astype(float)   # the rule counts 20-minute games plus up to two of 15-20 minutes; box minutes are rounded
     b["win"] = b.team_winner.astype(str).str.lower().eq("true").astype(float)
     b["date"] = pd.to_datetime(b.game_date)
-    games_per_team = b.groupby("team").game_id.nunique()
-    b = b[b.team.isin(games_per_team[games_per_team >= 40].index)]
+    # Filter exhibition/all-star teams by identity, not end-of-season coverage.
+    # A legitimate NBA team must remain in scope after its first game.
+    b = b[b.team.isin(TEAMS)]
     return b[["game_id", "date", "athlete_id", "athlete_display_name", "team", "win"] + STATS]
 
 
@@ -133,7 +136,7 @@ def simulate(a, prev, D, award, feats, beta, L, y, rng=None, pre=False):
     rook = C.rookie.values
     bench = (tot["start"] / np.maximum(G, 1)) < .5
     elig = np.ones((S, m), bool)
-    if RULE65 and y >= 2024:
+    if RULE65 and y >= 2024 and award not in ("ROY", "6MOY"):
         elig = tot["m15"] >= 65 - 0.5          # 65-game rule (2023-24 on), counted generously: games of 15+ minutes
     from nba_site import AM_norm
     names = C.name.map(AM_norm).values
