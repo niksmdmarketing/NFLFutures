@@ -152,6 +152,18 @@ def ratings_file(y):
     return pd.read_csv(p).set_index("player_id")[["off", "def"]]
 
 
+GOALIE_GS = 0.438   # starter goalie scale for the goalie shadow (research/NHL_GOALIE_ROSTER_RULE.md; GPT's paired replay passed 5 Nov 2026)
+
+
+def goalie_ratings_file(y):
+    """Goalie ratings for season y (model/nhl_goalie_ratings_<y>.csv: player_id, n, gsax_shot), from seasons before y
+    (research/nhl_rapm.goalie_ratings, the same values the replay uses)."""
+    p = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "model", f"nhl_goalie_ratings_{y}.csv")
+    if not os.path.exists(p):
+        return None
+    return pd.read_csv(p).set_index("player_id")[["n", "gsax_shot"]]
+
+
 def _research_season(y):
     """This season's lineups from the research collection (data/research/nhl_lineups, refreshed by nhl-lineups.yml)."""
     root = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "research", "nhl_lineups")
@@ -175,7 +187,7 @@ def best_season(y, today=None):
     return (R, RG) if n_res > n_live else (S, G)
 
 
-def live_term(y, teams, k, absences=None, n=LINEUP_N, today=None):
+def live_term(y, teams, k, absences=None, n=LINEUP_N, today=None, goalie=False):
     """Live roster term (pre=False). Players on the injury list are counted back into the current lineup for the recent
     games they missed, because the injury adjustment already charges their absence game by game."""
     import datetime as dt
@@ -183,8 +195,11 @@ def live_term(y, teams, k, absences=None, n=LINEUP_N, today=None):
     if S is None or not len(S):
         return pd.Series(0.0, index=teams), None
     rp = ratings_file(y)
+    gk = goalie_ratings_file(y) if goalie else None
+    if goalie and (gk is None or rp is None or G is None or "player_id" not in G):
+        return None, None          # shadow only: never fall back to a different model
     if rp is not None and "player_id" in S:
-        lv = game_values_ratings(S, rp)
+        lv = game_values_ratings(S, rp, gk, GOALIE_GS if goalie else 0.0, G if goalie else None)
     else:
         lv = game_values(S, G, A.values(y))
     cut = pd.Timestamp(today or dt.date.today()) + pd.Timedelta(days=1)

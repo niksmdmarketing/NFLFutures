@@ -21,7 +21,8 @@ FIELDS = {
     "nba": {"title": "p_title", "finals": "p_conf", "div": "p_div", "seed1": "p_seed1", "playoff": "p_playoff",
             "n_title": "n_p_title", "n_finals": "n_p_conf", "n_playoff": "n_p_playoff",   # n_: without the owner's overrides
             "pt_title": "pt_p_title", "pt_finals": "pt_p_conf", "pt_div": "pt_p_div", "pt_seed1": "pt_p_seed1", "pt_playoff": "pt_p_playoff"},   # pt_: player-term shadow (in season)
-    "nhl": {"title": "p_cup", "finals": "p_final", "div": "p_div", "playoff": "p_playoffs", "c_title": "c_cup", "c_finals": "c_final", "s_title": "s_cup", "s_finals": "s_final"},
+    "nhl": {"title": "p_cup", "finals": "p_final", "div": "p_div", "playoff": "p_playoffs", "c_title": "c_cup", "c_finals": "c_final", "s_title": "s_cup", "s_finals": "s_final",
+            "g_title": "g_cup", "g_finals": "g_final", "g_div": "g_div", "g_playoff": "g_playoffs"},   # g_: starting-goalie roster shadow (5 Nov 2026)
     "nbl": {"title": "champ", "finals": "gf", "div": "p2", "seed1": "p1", "playoff": "p6"},
     "nfl": {"title": "p_sb", "finals": "p_conf", "div": "p_div", "seed1": "p_seed1", "playoff": "p_playoff"},
     "afl": {"title": "flag", "finals": "gf", "pf": "pf", "div": "p4", "seed1": "p1", "top8": "p8", "playoff": "p10"},

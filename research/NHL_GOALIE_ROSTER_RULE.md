@@ -48,4 +48,17 @@ research/nhl_holdout.py, live first. Gain, 90% bootstrap over seasons:
 **Decision under this rule: FAIL** (the combined lower bound is not above 0). Live stays as it is. The starter helps the playoff-round markets but costs the division market about as much.
 
 ## Amendments
-(none)
+**5 Nov 2026 (Sydney): the result above is superseded.** GPT re-ran this rule on branch codex/nhl-goalie-roster-check-20261105 (5afbbb5; findings in research/NHL_GOALIE_ROSTER_FINDINGS.md there) and found two flaws in the run recorded above:
+1. **2014 used the old model.** No earlier RAPM data exists for 2014, so that season silently fell back to the old points/GSAx values in both arms.
+2. **The arms were unpaired.** The baseline used freshly fitted skater ratings and the variant read them back from the CSV cache, so the inputs differed by float serialisation.
+
+GPT's corrected run excluded 2014 by a coverage amendment committed before any replay, and used one frozen, byte-identical RAPM cache for both arms. Over 9 seasons:
+- combined +0.000317, 90% season bootstrap [+0.000136, +0.000501], better in 7/9;
+- all seven market mean gains positive.
+
+That is a **PASS** under this rule.
+
+TypeSafe (96%, confidence 0.94): treat the paired run as the valid result, and build the goalie part as a shadow next to live NHL futures, as the Decision section says.
+- **Live from 5 Nov 2026 as a shadow only:** nhl_model publishes g_playoffs / g_div / g_final / g_cup / g_roster, and pipeline/sport_archive.py archives them as g_*.
+- **Goalie ratings:** model/nhl_goalie_ratings_2026.csv, from research/nhl_rapm.goalie_ratings(2026), seasons 2023-2025, built 5 Nov 2026.
+- **Displayed NHL probabilities are unchanged.** A live switch needs its own forward-scored decision.
