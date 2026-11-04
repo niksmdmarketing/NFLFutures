@@ -1,0 +1,33 @@
+{
+  "kind": "Known-data development reanalysis, not independent validation",
+  "all_gates_pass": false,
+  "gates": {
+    "positive_mean_and_ci90": false,
+    "no_market_worse_by_more_than_0_002": true,
+    "at_least_60_percent_seasons": false
+  },
+  "combined_gain": 0.0007978569295907476,
+  "ci90": [
+    -0.00011144344069113923,
+    0.0017987404016874139
+  ],
+  "better_or_equal_seasons": 8,
+  "required_seasons": 9,
+  "seasons": 14,
+  "per_market_gain": {
+    "conf": 0.0004884893897937258,
+    "playoff": 0.001738548439237066,
+    "title": 0.00016653295974145148
+  },
+  "zero_market_deterioration": true,
+  "original_integrity_check": {
+    "ci95": [
+      -0.0002732072673209056,
+      0.0020238387631598175
+    ],
+    "better_seasons": 8,
+    "original_gates_pass": false
+  },
+  "live_futures_changed": false,
+  "saved_rows_sha256": "f8945ef1e3391233454b3d0b2a8f05eee1314641866331b47720421c593c0ecd"
+}
