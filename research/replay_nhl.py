@@ -104,6 +104,42 @@ def ps_prior(TT, GG, fit_years, done, y, prior):
 
 
 LINEUP_DIR = os.path.join(ROOT, "data", "research", "nhl_lineups")
+G_UPD = float(os.environ.get("NHL_G_UPD", "0"))   # in-season goalie values, prior weight in hours (research/NHL_GOALIE_INSEASON_RULE.md)
+
+
+def goalie_games(G):
+    """Per-game goalie rows with goals saved above expected (team MoneyPuck xGA x his share of goalie ice time - goals allowed)."""
+    mp = pd.read_csv(os.path.join(ROOT, "data", "research", "mp", "team_games.csv.gz"))
+    mp = mp[mp.situation == "all"].copy()
+    mp["team"] = mp.team.replace(MP_ALIAS)
+    xga = mp.set_index(["gameId", "team"]).xGoalsAgainst
+    xga = xga[~xga.index.duplicated()]
+    g = G.copy()
+    g["toi"] = pd.to_numeric(g.toi, errors="coerce").fillna(0.0)
+    tot = g.groupby(["game_id", "team"]).toi.transform("sum")
+    g["xga"] = [xga.get((gid, t), np.nan) for gid, t in zip(g.game_id, g.team)]
+    g["xga"] = g.xga * g.toi / tot.where(tot > 0, 1.0)
+    g["gsax"] = g.xga - pd.to_numeric(g.ga, errors="coerce")
+    g["h"] = g.toi / 3600.0
+    g["key"] = g.name.astype(str).str.strip().str.lower() + "|G"
+    g["date"] = pd.to_datetime(g.date)
+    return g.dropna(subset=["gsax"])
+
+
+def goalie_values_at(val, gg, cut):
+    """Start-of-season values with every goalie updated by this season's games before `cut`."""
+    pl = gg[gg.date < cut]
+    if not len(pl):
+        return val
+    a = pl.groupby("key").agg(h=("h", "sum"), gs=("gsax", "sum"))
+    a = a[a.h > 0]
+    r = a.gs / a.h
+    v0 = val.reindex(a.index).fillna(0.0)
+    new = (G_UPD * v0 + a.h * r) / (G_UPD + a.h)
+    out = val.copy()
+    out = out.reindex(out.index.union(new.index)).fillna(0.0)
+    out.loc[new.index] = new
+    return out
 OUT = os.environ.get("BT_OUTDIR") or os.path.join(ROOT, "model", "replay")
 
 
@@ -189,6 +225,9 @@ def run_season(TT, GG, fit_years, done, y):
         elif S is not None:
             cur_lv = nhl_lineup.game_values(S, G, val)
             opening = cur_lv.groupby("team").lv.first()
+            gg_upd = goalie_games(G) if G_UPD else None
+            if G_UPD:
+                print(y, "goalie GSAx coverage", round(len(gg_upd) / max(len(G), 1), 3), flush=True)
         if S1 is not None:
             last_lv = nhl_lineup.game_values(S1, G1, val)
     po_prev = pd.Series(0.0, index=teams)
@@ -234,6 +273,8 @@ def run_season(TT, GG, fit_years, done, y):
             recent = cur_lv[cur_lv.date < cut].groupby("team").lv.apply(lambda v: v.iloc[-5:].mean()).reindex(teams).fillna(0)
             recent = (recent - recent.mean()) * PS_B
             rating = (1 - UPD_MIX) * rating + UPD_MIX * recent
+        if G_UPD and LINEUP_C and S is not None and os.environ.get("NHL_LINEUP_VAL") != "rapm" and wk > 0:
+            cur_lv = nhl_lineup.game_values(S, G, goalie_values_at(val, gg_upd, cut))
         if LINEUP_C and cur_lv is not None:
             adj = LINEUP_C * nhl_lineup.roster_term(cur_lv, last_lv, teams, cut, k, LINEUP_N, opening, LINEUP_PRE, LINEUP_MIN)
             rating = rating + adj.reindex(teams).fillna(0)

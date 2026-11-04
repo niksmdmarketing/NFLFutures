@@ -611,3 +611,11 @@ TypeSafe 87%: give every chances column a track record. Same replays, same live 
   Clippers -2.3, Atlanta -1.8 (below-average rookies now take minutes that were implicitly average).
 - NHL: model/nhl_overrides.json (Hellebuyck out for the season), merged into the injury list by nhl_absence._with_overrides.
 - NFL: v5 candidate keeps the majority starter when the next-game starter is listed Out/Doubtful (run.py, qb_note); v4 unchanged.
+
+## 2026-11-04 NHL: in-season goalie values (research/NHL_GOALIE_INSEASON_RULE.md) - NOT deployed
+Owner request after the Hellebuyck trade (NJD roster term only +0.005, because the frozen values rate Jake Allen 0.16 vs
+Hellebuyck 0.19 goals saved per 60). Variant NHL_G_UPD=30 shrinks each goalie's goals saved above expected this season
+(team MoneyPuck xGA x ice-time share - goals allowed) toward his start-of-season value with 30 hours of prior weight and
+recomputes the lineup values each week. Baseline: the 15 Oct live reproduction with GSAx/points values.
+Combined +0.0002 (90% -0.0002 to +0.0006, 5/10); H0 15 +0.0003 (-0.0000 to +0.0006), 60 +0.0001. Fails the rule.
+The team rating already carries this season's goals against, so goalie form is mostly counted already.
