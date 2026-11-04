@@ -26,6 +26,7 @@ SIMS = int(os.environ.get("BT_SIMS", "4000"))
 # BT_SCALE (rating_scale), BT_TAU, BT_SIGMA, BT_TAUFADE (share of tau removed by the end of the regular season).
 OVR = {k: float(os.environ[e]) for k, e in (("rating_scale", "BT_SCALE"), ("tau", "BT_TAU"), ("sigma", "BT_SIGMA")) if os.environ.get(e)}
 TAUFADE = float(os.environ.get("BT_TAUFADE", "0"))
+REST = 17.891 if os.environ.get("BT_REST") == "1" else 0.0   # research/NFL_WEEK18_REST_RULE.md (Stage 1 penalty)
 HFA_POST = float(os.environ["BT_HFA_POST"]) if os.environ.get("BT_HFA_POST") else None
 # BT_COEF=wf: rating weights re-trained walk-forward (research/nfl_walkforward_weights.py), so each season is out of sample.
 WF = None
@@ -95,7 +96,7 @@ def run_season(g, y):
     rows = []
     reg_all = g[(g.season == y) & (g.game_type == "REG")]
     last_week = int(reg_all.week.max())
-    for w in range(0, min(last_week - 1, 18)):
+    for w in range(int(os.environ.get("BT_WMIN", "0")), min(last_week - 1, 18)):   # BT_WMIN: first checkpoint (research speed-up)
         gg = g.copy()
         m = (gg.season == y) & (gg.game_type == "REG") & (gg.week > w)
         gg.loc[m, "result"] = np.nan
@@ -139,7 +140,8 @@ def run_season(g, y):
         if EARLY and w > 0:
             R = R * (1 + EARLY * max(0.0, 1 - gp.mean() / EARLY_N))
         R = R - R.mean()
-        res = simulate.simulate(greg, R, SIMS, P["tau"] * (1 - TAUFADE * min(gp.mean() / 17.0, 1.0)), P["sigma"], P["hfa"], hfa_post=HFA_POST)
+        res = simulate.simulate(greg, R, SIMS, P["tau"] * (1 - TAUFADE * min(gp.mean() / 17.0, 1.0)), P["sigma"], P["hfa"], hfa_post=HFA_POST,
+                                rest_pen=REST)
         date = str(pd.to_datetime(played.gameday).max().date()) if len(played) else str(pd.to_datetime(reg_all.gameday).min().date())
         for i, t in enumerate(TEAMS):
             rows.append(dict(season=y, week=w, date=date, gp_avg=round(float(gp.mean()), 1), team=t, p_div=float(res["div"][i]), p_playoff=float(res["playoff"][i]),

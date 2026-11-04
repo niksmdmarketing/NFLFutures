@@ -27,5 +27,11 @@ So its place among division winners, seeds 1-4, cannot change. This is conservat
 - **Pass:** combined log-loss mean gain (division, playoff, No. 1 seed, conference, Super Bowl) at least −0.0002, and no market below −0.0005. It is a correctness fix (like the neutral-site fix), so it then goes live in v4 as a dated bug-fix exception to the 2026 freeze.
 - **Fail:** recorded; live unchanged.
 
+## Stage 1 result (5 Nov 2026): PASS
+research/nfl_week18_rest.py -> research/nfl_week18_rest_results.json and nfl_week18_rest_rows.csv.
+- **Locked clubs' final-week games:** 19 (2004-2024). Mean residual −17.9 points, 90% season bootstrap −22.7 to −12.3. Control games (365): +0.9.
+- **Penalty P = 17.891.**
+- **Caveat:** locked clubs are the season's best, and their season-to-date SRS also regresses, so part of the 17.9 is regression to the mean. The rule fixes P as measured; Stage 2 checks it does no harm.
+
 ## Amendments
 (none)

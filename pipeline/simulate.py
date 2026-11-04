@@ -31,7 +31,7 @@ for di, (name, ts) in enumerate(DIVS.items()):
 CONF_DIVS = {0: [0, 1, 2, 3], 1: [4, 5, 6, 7]}
 
 
-def simulate(g, R, N, tau, sigma, hfa, seed=7, hfa_post=None, n_seeds=7, sweep_fix=False, adj_sims=None):
+def simulate(g, R, N, tau, sigma, hfa, seed=7, hfa_post=None, n_seeds=7, sweep_fix=False, adj_sims=None, rest_pen=0.0):
     """g: this season's regular-season games (with result where played). Returns probabilities + wins.
     hfa_post: home edge in the conference playoff rounds (research option; None = hfa, the frozen v4 behaviour).
     n_seeds: 7 (2020 on, one bye) or 6 (to 2019, two byes); research replays of old seasons must pass 6.
@@ -40,7 +40,9 @@ def simulate(g, R, N, tau, sigma, hfa, seed=7, hfa_post=None, n_seeds=7, sweep_f
     played. Off by default, so live v4 is unchanged. See research/NFL_SIMULATOR_LOGIC_CHECK.md.
     Neutral-site games (location == "Neutral") get no home edge (bug fix, 26 Oct 2026, same note).
     adj_sims: research-only (N, games) array of home-margin shifts per simulated season, in g's sorted order (research/NFL_QB_NEWS_RULE.md);
-    None in live runs. It does not consume random draws, so all other draws are unchanged."""
+    None in live runs. It does not consume random draws, so all other draws are unchanged.
+    rest_pen: points taken off a club's margin in the final regular-season week when its seed is locked in that simulation
+    (research/NFL_WEEK18_REST_RULE.md); 0 = previous behaviour. It does not consume random draws."""
     rng = np.random.default_rng(seed)
     g = g.sort_values(["week", "gameday", "game_id"]).reset_index(drop=True)
     hi, ai = g.home_team.map(TIX).values, g.away_team.map(TIX).values
@@ -54,6 +56,8 @@ def simulate(g, R, N, tau, sigma, hfa, seed=7, hfa_post=None, n_seeds=7, sweep_f
     if adj_sims is not None:
         margin = margin + np.asarray(adj_sims, dtype=np.float32)
     margin[:, played] = g.result.values[played][None, :]
+    if rest_pen and nG:
+        margin = _rest_adjust(g, margin, hi, ai, rest_pen)
     hwv = (margin > 0).astype(np.float32) + 0.5 * (margin == 0)  # home win value (ties = half)
     awv = 1.0 - hwv
     Ho = np.zeros((nG, NT), np.float32); Ho[np.arange(nG), hi] = 1
@@ -233,6 +237,44 @@ def simulate(g, R, N, tau, sigma, hfa, seed=7, hfa_post=None, n_seeds=7, sweep_f
     out["wins"] = W
     out["games_per_team"] = n_games.astype(int)
     return out
+
+
+def _rest_adjust(g, margin, hi, ai, pen):
+    """Lower the final-week margin of clubs whose division title and place among division winners are locked after the earlier
+    weeks of that simulation (rule definition: division lead > 1 win, and > 1 win apart from every other conference club within
+    1 win of its division lead). Played games are left as they are; a game between two locked clubs is unchanged."""
+    wk = g.week.values
+    last = wk.max()
+    pre, fin = wk < last, (wk == last) & g.result.isna().values
+    if not fin.any():
+        return margin
+    N = margin.shape[0]
+    hw = (margin[:, pre] > 0) + 0.5 * (margin[:, pre] == 0)
+    Wp = np.zeros((N, NT), np.float32)
+    np.add.at(Wp.T, hi[pre], hw.T)
+    np.add.at(Wp.T, ai[pre], (1.0 - hw).T)
+    div_t = {d: [TIX[t] for t in ts] for d, ts in DIVS.items()}
+    lead = {d: Wp[:, ix].max(1) for d, ix in div_t.items()}
+    cont = np.zeros((N, NT), bool)
+    for d, ix in div_t.items():
+        cont[:, ix] = Wp[:, ix] >= lead[d][:, None] - 1.0
+    lock = np.zeros((N, NT), bool)
+    for d, ix in div_t.items():
+        conf = d.split()[0]
+        other = [j for dd, jx in div_t.items() if dd.split()[0] == conf and dd != d for j in jx]
+        for t in ix:
+            ok = np.ones(N, bool)
+            for u in ix:
+                if u != t:
+                    ok &= (Wp[:, t] - Wp[:, u]) > 1.0
+            for u in other:
+                ok &= ~cont[:, u] | (np.abs(Wp[:, t] - Wp[:, u]) > 1.0)
+            lock[:, t] = ok
+    k = np.where(fin)[0]
+    lh, la = lock[:, hi[k]], lock[:, ai[k]]
+    margin = margin.copy()
+    margin[:, k] += (-pen * (lh & ~la) + pen * (la & ~lh)).astype(np.float32)
+    return margin
 
 
 def futures_table(res, R, ratings_df):
