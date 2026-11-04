@@ -706,7 +706,8 @@ def build():
     if bt is None:
         bt = backtest(TT, GG, fit_years, done, [y for y in done if y >= 2021])
         json.dump({"key": key, "bt": bt}, open(cache, "w"))
-    out = {"season": cur, "updated_utc": dt.datetime.now(dt.timezone.utc).isoformat(timespec="minutes"), "games_played": n_avg, "sims": SIMS,
+    out = {"season": cur, "model_version": "nhl-ot-20261104",   # overtime fix live 4 Nov 2026 (research/NHL_OT_RATE_RULE.md)
+           "updated_utc": dt.datetime.now(dt.timezone.utc).isoformat(timespec="minutes"), "games_played": n_avg, "sims": SIMS,
            "params": {"k": k, "tau_now": tau_now, "tau": tau, "total_goals": total, "hfa": hfa, "beta": [float(b) for b in beta], "prior_r2": r2, "prior_rmse": rmse},
            "backtest": bt, "teams": rows, "pts_axis": [30, 140], "roster_diag": dict(ROSTER_DIAG),
            "challenger": {"name": "previous model (goal-based playoff strength)", "fields": ["c_final", "c_cup"]},

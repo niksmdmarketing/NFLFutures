@@ -53,3 +53,6 @@ GPT noted the 17.891 penalty was fitted on 2002-2025, overlapping the 2020-2025 
 - **Fail:** the penalty is switched off live and runs as a shadow instead.
 - **Version label:** displayed NFL futures are labelled `v4+rest-20261105` (meta model field) from now on, so frozen v4 and rest-adjusted v4 are never mixed.
 - This is a behavioural assumption, not a correctness fix; that wording in the decision above is withdrawn.
+- **Result (5 Nov 2026): PASS.** Leave-season-out penalties, weeks 12+ of 2020-2025: combined +0.0005 (90% +0.0002 to +0.0009, 6/6); make playoffs +0.0026 (6/6); division, No. 1 seed and conference 0.0000; Super Bowl −0.0001 (within the −0.0005 gate). The rest penalty stays live.
+    - The gain is in the make-playoffs market. It does not by itself support claims about the division or conference markets.
+    - Displayed NFL futures now carry the version `v4+rest-20261105`.
