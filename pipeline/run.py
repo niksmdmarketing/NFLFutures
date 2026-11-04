@@ -109,9 +109,9 @@ def main():
     now = dt.datetime.now(dt.timezone.utc)
     meta = {"season": season, "through_week": through, "next_week": next_week, "next_week_played": played_next, "updated_utc": now.isoformat(timespec="minutes"),
             "injury_week": int(injuries.week.max()) if injuries is not None and len(injuries) else None,
-            "model": ratings.S["version"], "n_sims": n_sims}
+            "model": ratings.S["version"] + "+rest-20261105", "n_sims": n_sims}   # v4 + final-week rest (research/NFL_WEEK18_REST_RULE.md)
     write_json("meta.json", meta)
-    write_json("futures.json", {"season": season, "through_week": through,
+    write_json("futures.json", {"season": season, "through_week": through, "model_version": ratings.S["version"] + "+rest-20261105",
                                 "teams": simulate.futures_table(res, Rv, R),
                                 "track_record": _track_record(), "challenger": challenger, "challenger_v5": challenger_v5,
                                 "shadow_qb_dated": shadow_qb})
