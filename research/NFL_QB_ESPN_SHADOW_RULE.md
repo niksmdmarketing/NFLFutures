@@ -63,3 +63,15 @@ Original wording above is retained. This amendment distinguishes checked behavio
 
 ### 5 November 2026 — duration-table review addendum
 The historical table contains 237 absence runs, of which 88 are marked censored (the observation ends before a return). draw_missed currently samples their L as if it were a completed duration. L > m and L-m are implemented correctly for a fully observed duration, but censored L is only a lower bound, so that arithmetic does not establish a valid conditional survival model for this pool. No censored runs are dropped or durations invented in this review: that would change the registered duration model and needs a separately specified amendment. Together with the playoff gap, this is a reason to keep the result exploratory rather than claim adoption readiness.
+
+### 5 November 2026 — fixes amendment (v2-fixes-20261105), written before the code
+TypeSafe chose to fix both review gaps now (49%, low confidence). Version tag `2-fixes-20261105` separates these snapshots from v1 cohorts.
+
+1. **Playoffs.** In each simulated season, an episode's QB also misses that team's playoff games when his absence outlasts the regular season:
+    - season-ending: always;
+    - ESPN date: the drawn return day is after the last regular-season game day;
+    - no date: the drawn remaining absence is greater than the regular-season games left.
+
+    He is then out for every playoff game, applied as the same per-game shift (rating_scale × lambda × (replacement − reference)) on both sides of each playoff matchup through `simulate(po_adj_sims=...)`. There are no partial playoff returns and no playoff calendar is assumed; this approximation is disclosed.
+2. **Censored runs.** No-date durations are drawn from the Kaplan-Meier (product-limit) estimate of the run-length distribution, treating the 88 censored runs as lower bounds, conditioned on L > games already missed (and L ≥ 4 for IR/PUP). Probability mass beyond the longest observed run means he misses every remaining game, and the playoffs under fix 1.
+3. Nothing else changes: the ESPN-date lognormal (sigma 0.45), matching and the replacement rule stay as in v1-review. The forward scoring in this rule applies to v2 snapshots from their first archived run; v1 and v2 cohorts are scored separately.
