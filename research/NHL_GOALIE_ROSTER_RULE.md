@@ -38,5 +38,14 @@ The same settings plus `NHL_LINEUP_GS=0.438`. Each game's lineup value adds 0.43
 - **Pass:** the combined 90% lower bound is above 0, and no market's mean gain is below −0.0005. Then the live roster term gets the goalie part, first as a shadow next to live NHL futures. Its goalie ratings are built the same way as model/nhl_player_ratings_2026.csv, from seasons before 2026.
 - **Fail:** anything else. Live stays as it is.
 
+## Result (4 Nov 2026; 2,000 sims, 10 seasons; inputs rebuilt from nhl-shifts-data with research/nhl_xg.py)
+research/nhl_holdout.py, live first. Gain, 90% bootstrap over seasons:
+- **NHL_LINEUP_GS = 0.438 (primary):** combined +0.0001 (-0.0000 to +0.0003), better in 7/10 seasons.
+  - Round 3 +0.0007 (+0.0003 to +0.0011) and final +0.0006 (+0.0003 to +0.0008).
+  - Division -0.0005 (-0.0012 to +0.0001).
+- NHL_LINEUP_GS = 1.0 (sensitivity): combined +0.0002 (-0.0001 to +0.0006), 6/10; playoff +0.0006, division -0.0005.
+
+**Decision under this rule: FAIL** (the combined lower bound is not above 0). Live stays as it is. The starter helps the playoff-round markets but costs the division market about as much.
+
 ## Amendments
 (none)

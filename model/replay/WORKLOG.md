@@ -619,3 +619,8 @@ Hellebuyck 0.19 goals saved per 60). Variant NHL_G_UPD=30 shrinks each goalie's 
 recomputes the lineup values each week. Baseline: the 15 Oct live reproduction with GSAx/points values.
 Combined +0.0002 (90% -0.0002 to +0.0006, 5/10); H0 15 +0.0003 (-0.0000 to +0.0006), 60 +0.0001. Fails the rule.
 The team rating already carries this season's goals against, so goalie form is mostly counted already.
+
+## 2026-11-04 NHL: starting goalie back in the live (RAPM) roster term (research/NHL_GOALIE_ROSTER_RULE.md) - NOT deployed
+Since 15 Oct live_term uses RAPM skaters only, so goalies count only through the injury list. Replay of live roster
+settings vs + NHL_LINEUP_GS=0.438: combined +0.0001 (90% -0.0000 to +0.0003, 7/10); round 3 +0.0007 and final +0.0006
+(both intervals above 0) but division -0.0005. GS 1.0: +0.0002 (-0.0001 to +0.0006). Fails the rule; live unchanged.
