@@ -44,3 +44,12 @@ Replay of checkpoints after week 12 onwards, 2020-2025 (4,000 sims, frozen v4), 
 
 ## Amendments
 (none)
+
+### Amendment, 5 Nov 2026: leave-season-out check (GPT review; TypeSafe 62% keep live and check now), written before the run
+GPT noted the 17.891 penalty was fitted on 2002-2025, overlapping the 2020-2025 replay that validated it. The check:
+- **Penalty per test season y** = the mean residual of locked clubs in every season except y: 2020 17.169, 2021 17.891, 2022 17.891, 2023 17.607, 2024 16.404, 2025 17.891. Seasons with no locked clubs are unaffected, so their rows are reused.
+- **Replay and scoring** exactly as in Stage 2: weeks 12+, 4,000 sims, the same baseline.
+- **Gates** exactly as in Stage 2: combined mean gain ≥ −0.0002, and no market below −0.0005.
+- **Fail:** the penalty is switched off live and runs as a shadow instead.
+- **Version label:** displayed NFL futures are labelled `v4+rest-20261105` (meta model field) from now on, so frozen v4 and rest-adjusted v4 are never mixed.
+- This is a behavioural assumption, not a correctness fix; that wording in the decision above is withdrawn.

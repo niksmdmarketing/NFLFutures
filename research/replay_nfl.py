@@ -26,7 +26,7 @@ SIMS = int(os.environ.get("BT_SIMS", "4000"))
 # BT_SCALE (rating_scale), BT_TAU, BT_SIGMA, BT_TAUFADE (share of tau removed by the end of the regular season).
 OVR = {k: float(os.environ[e]) for k, e in (("rating_scale", "BT_SCALE"), ("tau", "BT_TAU"), ("sigma", "BT_SIGMA")) if os.environ.get(e)}
 TAUFADE = float(os.environ.get("BT_TAUFADE", "0"))
-REST = 17.891 if os.environ.get("BT_REST") == "1" else 0.0   # research/NFL_WEEK18_REST_RULE.md (Stage 1 penalty)
+REST = (float(os.environ["BT_REST_PEN"]) if os.environ.get("BT_REST_PEN") else 17.891) if os.environ.get("BT_REST") == "1" else 0.0   # research/NFL_WEEK18_REST_RULE.md (Stage 1 penalty; BT_REST_PEN = leave-season-out value)
 HFA_POST = float(os.environ["BT_HFA_POST"]) if os.environ.get("BT_HFA_POST") else None
 # BT_COEF=wf: rating weights re-trained walk-forward (research/nfl_walkforward_weights.py), so each season is out of sample.
 WF = None
