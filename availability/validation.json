@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-11-04T15:28:58+00:00",
+ "checked_utc": "2026-11-04T21:55:49+00:00",
  "leagues": {
   "nfl": {
-   "records": 952,
+   "records": 955,
    "by_layer": {
     "official": 881,
-    "reported": 71
+    "reported": 74
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -53,16 +53,16 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "71/71"
+   "reported_matched_to_official_list": "74/74"
   },
   "nba": {
-   "records": 296,
+   "records": 301,
    "by_layer": {
-    "official": 244,
-    "reported": 52
+    "official": 250,
+    "reported": 51
    },
    "unknown_team": 0,
-   "no_player": 4,
+   "no_player": 3,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -97,14 +97,6 @@
     "WSH"
    ],
    "conflicts": [
-    {
-     "player": "Grant Williams",
-     "official": [
-      "out"
-     ],
-     "other": "expected to play",
-     "source": "ESPN injury note"
-    },
     {
      "player": "Tarik Biberovic",
      "official": [
@@ -164,13 +156,13 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "52/52"
+   "reported_matched_to_official_list": "51/51"
   },
   "nhl": {
-   "records": 1541,
+   "records": 1550,
    "by_layer": {
-    "official": 153,
-    "reported": 61,
+    "official": 152,
+    "reported": 71,
     "projected": 1327
    },
    "unknown_team": 0,
@@ -181,6 +173,7 @@
     "BOS",
     "BUF",
     "CAR",
+    "CBJ",
     "CGY",
     "CHI",
     "COL",
@@ -211,16 +204,14 @@
    ],
    "conflicts": [],
    "stale_projection_dates": 0,
-   "teams_missing_official": [
-    "CBJ"
-   ],
+   "teams_missing_official": [],
    "season_state": {
     "state": "in_season",
     "why": "41 regular-season/playoff and 0 other games 2026-10-28..2026-11-14"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "61/61"
+   "reported_matched_to_official_list": "67/71"
   },
   "nbl": {
    "records": 26,
