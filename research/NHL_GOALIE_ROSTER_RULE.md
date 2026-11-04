@@ -1,0 +1,42 @@
+# NHL futures: put the starting goalie back into the live roster term. Rule, version 1
+
+Written 4 Nov 2026 (Sydney), before any replay of this variant was run. Amendments are added below with dates; nothing above them is edited.
+
+## Why
+- On 15 Oct the roster term switched from points/GSAx values to RAPM skater ratings (model/nhl_player_ratings_2026.csv). The comparison scored +0.0003 (5/10, not significant).
+- `nhl_lineup.live_term` calls `game_values_ratings(S, rp)` with no goalie part. The old values included the starting goalie (SCALE_G × his value). So **since 15 Oct the starting goalie is not in the live roster term**, and goalies reach live NHL futures only through the injury list.
+- Dropping the goalie was a side effect of the switch. It was never tested on its own.
+- Game-level evidence says the starter matters: tonight's starter vs the team's usual goalie, scale 0.438 (se 0.176), t about 2.6 (research/nhl_absence_test.py).
+- **Example:** the Hellebuyck trade (23 Oct) adds nothing to New Jersey's roster term.
+- TypeSafe was split (leave it 49%, test it 36%, low confidence); the owner asked for the test.
+- The in-season goalie value test (research/NHL_GOALIE_INSEASON_RULE.md) failed, but it ran on the older points/GSAx setup, so it does not answer this question.
+
+## Baseline (live)
+research/replay_nhl.py with:
+
+`NHL_SHOT_W=1 NHL_SHOT_PO=1 NHL_PO_FADE=3 NHL_LINEUP_C=1 NHL_LINEUP_N=5 NHL_LINEUP_PRE=0 NHL_LINEUP_VAL=rapm RAPM_LAM=300000 RAPM_KBOX=1`
+
+This is the live roster setup. The 20% regular-season xG share is left out on both sides (measured +0.0001).
+
+## Variant
+The same settings plus `NHL_LINEUP_GS=0.438`. Each game's lineup value adds 0.438 × the starting goalie's goals saved above expected per unblocked shot × 40 shots (`game_values_ratings`, goalie ratings from research/nhl_rapm.py: seasons before y, shrunk by 2,500 shots).
+- 0.438 is the starter scale already fitted at game level (nhl_absence.SCALE_G), fixed here before results.
+- Nothing else changes.
+
+**Sensitivity, reported only:** `NHL_LINEUP_GS=1.0`. It cannot rescue a fail.
+
+## Inputs
+- Shift data from branch nhl-shifts-data (stints, shots, players 2014-2026), with xG from research/nhl_xg.py (leave one season out).
+- Lineups: data/research/nhl_lineups.
+- Seasons: those the replay supports (2014-2018, 2021-2025), 2,000 simulations.
+
+## Scoring
+- research/nhl_holdout.py, baseline first.
+- Gain per market (playoff, division, best record, round 2, round 3, final, title) and combined (mean), with a 90% bootstrap over seasons.
+
+## Decision
+- **Pass:** the combined 90% lower bound is above 0, and no market's mean gain is below −0.0005. Then the live roster term gets the goalie part, first as a shadow next to live NHL futures. Its goalie ratings are built the same way as model/nhl_player_ratings_2026.csv, from seasons before 2026.
+- **Fail:** anything else. Live stays as it is.
+
+## Amendments
+(none)
