@@ -51,7 +51,7 @@ Seasons are those the replay supports (2014-2018, 2021-2025), with 2,000 simulat
 - **Fail:** anything else. Goalie values stay frozen.
 - No re-tuning of H0 under this version. H0 = 15 and 60 are run and reported as sensitivity only; they cannot rescue a fail.
 
-## Result (4 Nov 2026, run after this rule was committed to the working tree; 2,000 sims, 10 seasons)
+## Result (4 Nov 2026, run after this rule was written (rule and result committed together); 2,000 sims, 10 seasons)
 research/nhl_holdout.py, baseline first. Gain over baseline, 90% bootstrap over seasons:
 - **H0 = 30 (primary):** combined +0.0002 (-0.0002 to +0.0006), better in 5/10 seasons. Best record -0.0003, the worst market.
 - H0 = 15 (sensitivity): combined +0.0003 (-0.0000 to +0.0006), 5/10.
