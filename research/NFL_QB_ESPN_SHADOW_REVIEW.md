@@ -12,6 +12,9 @@ The shadow removes v4's whole-season QB adjustment and applies replacements via 
 
 Other cautions: the lognormal allows earlier-than-median returns, contrary to the original disclosure; the reference QB may cease to be the intended starter after a long absence; the backup selected by the rule may himself be unavailable; incomplete PBP can corrupt absence counts. Checkpoint bootstraps reuse season outcomes and are not independent season-level evidence.
 
+## Additional duration-table issue
+The source table contains 237 runs, including 88 censored runs. The implementation ignores the censored flag and treats their observed lengths as complete durations. Thus the requested conditional arithmetic is correct given the supplied pool, but that pool is not a correctly censored duration model. A censored run only establishes a minimum length. Simply deleting these rows also changes and can bias the model, so no duration rule is changed after the fact. A new specified duration treatment is needed before adoption, alongside the playoff repair.
+
 ## Changes and verification
 Original rule preserved above its amendment section; appended 5 November review amendment. Shadow version 1-review-20261105 is identifiable; historical snapshots stay unchanged. No changes to the live rating calculation or simulator. Twelve QB-shadow unit tests and six simulator logic tests pass; the paired no-episode simulation passes.
 
