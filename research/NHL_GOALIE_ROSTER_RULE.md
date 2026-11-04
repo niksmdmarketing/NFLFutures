@@ -62,3 +62,10 @@ TypeSafe (96%, confidence 0.94): treat the paired run as the valid result, and b
 - **Live from 5 Nov 2026 as a shadow only:** nhl_model publishes g_playoffs / g_div / g_final / g_cup / g_roster, and pipeline/sport_archive.py archives them as g_*.
 - **Goalie ratings:** model/nhl_goalie_ratings_2026.csv, from research/nhl_rapm.goalie_ratings(2026), seasons 2023-2025, built 5 Nov 2026.
 - **Displayed NHL probabilities are unchanged.** A live switch needs its own forward-scored decision.
+
+### 5 November 2026 — research-branch merge clarification
+The original rule, original result and adoption note above are preserved. GPT's separate original rule is retained verbatim as NHL_GOALIE_ROSTER_GPT_RULE_20261105.md; its findings, result JSON and strict replay/scoring helpers are merged as research records only.
+
+The adoption note needs qualification: the +0.000317 result passes the registered GPT configuration, but it is not a matched rerun of the original configuration or the current complete live model. GPT used nine seasons, NHL_RS_SHOT_W=0.2 and NHL_XG=adj; enabling NHL_XG=adj also changes the replay playoff rating input, whereas the live playoff calculation uses shot differential. Claude's original configuration omitted the 20% regular-season xG share. Neither test included the subsequently adopted overtime fix. Do not attribute the difference in verdicts solely to 2014 or float serialization. The float-cache mismatch was demonstrated in GPT's own initial unscored arms; Claude's original raw arms were not independently checked for it.
+
+Thus the existing goalie implementation remains a research shadow, not a validated live replacement. Exact production-equivalent paired evaluation is still outstanding. No existing g_* archive or displayed probabilities are changed by this documentation merge. Preserve both results rather than erase or relabel a failed experiment as the same experiment passing.

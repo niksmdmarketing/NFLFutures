@@ -1,0 +1,5 @@
+# NHL research merge review — 5 November 2026
+
+Merged the 5afbbb5 research branch into d5496ff, retaining main's full rule, original failed result and dated adoption note unchanged as a prefix. Preserved the branch rule verbatim under NHL_GOALIE_ROSTER_GPT_RULE_20261105.md. Added dated qualifications about distinct configurations and the limited attribution of serialization differences. Findings, aggregate JSON and helpers remain research evidence; current production g_* shadow and displayed forecasts are untouched.
+
+Verification: no staged paths outside research/. Both original rule texts verified against their Git blobs. Complete unittest discovery ran 103 tests: 100 passed, 2 skipped, 1 error. The error is the pre-existing Windows-only SQLite cleanup failure in test_nfl_injuries. The failing test and all production code are byte-identical to pre-merge main. Log: outputs/shadow_v2_review_20261105/full_suite_nhl_merge.log (private). No new simulation was run or adoption threshold changed.
