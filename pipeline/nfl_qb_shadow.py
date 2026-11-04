@@ -227,7 +227,7 @@ def draw_absence(ep, team_days, N, rng, runs, last_day=None):
     if not len(lens):
         return np.full(N, n), np.ones(N, bool)
     u = rng.random(N)
-    cum = np.cumsum(probs) * (1 - tail)
+    cum = np.cumsum(probs)  # finite probabilities already sum to 1 - tail
     pick = np.searchsorted(cum, u, side="right")
     rem = np.where(pick < len(lens), lens[np.minimum(pick, len(lens) - 1)] - ep["m"], np.inf)
     return np.clip(rem, 1, n).astype(int), rem > n
@@ -262,9 +262,7 @@ def build(season, greg, cur_pbp, pri_pbp, pri2_pbp, R, injuries, N):
     for ep in eps:
         t = ep["team"]
         idx = [i for i in range(len(g)) if left[i] and t in (g.home_team[i], g.away_team[i])]
-        if not idx:
-            continue
-        qb[TIX[t]] = 0.0  # only teams with a regular-season game actually adjusted
+        qb[TIX[t]] = 0.0  # episode may now affect only the playoffs
         miss, beyond = draw_absence(ep, [gday[i] for i in idx], N, rng, runs, last_day)
         delta = scale * lam * (vals.get(ep["repl"], low_val) - vals.get(ep["ref"], low_val))
         po[:, TIX[t]] += np.where(beyond, delta, 0.0).astype(np.float32)          # still out after the regular season
