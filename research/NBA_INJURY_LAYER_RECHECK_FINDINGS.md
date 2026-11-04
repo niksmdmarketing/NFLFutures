@@ -77,11 +77,14 @@ parameters, cutoff, seed, workflow or scheduler was changed by this recheck.
 
 ## Award-simulator repair status
 
-Last change to `pipeline/nba_award_sim.py` on inspected main was `d9933f1`, covering
-current-team/owner-override handling. The later `3c37de5` adds the draft early-season
-shrink rule/replay option. These do not identify or verify an unspecified additional
-"award sim bug fix". Asked the user for the specific bug/commit; mark that item
-unverified until its regression and result can be checked.
+The user supplied the two exact bugs during this audit, and both are present at
+inspected main `332f1a7`: the loader drops teams below 40 games, and the 65-game
+eligibility test is incorrectly applied to ROY and Sixth Man (`6MOY`). The older
+`d9933f1` roster/override change did not repair those issues. The award replay
+imports this same simulator, so its ROY/Sixth Man results used the incorrect gate.
+The full-season historical loader can mask the early-season loader failure.
+Fixes and a paired 2010–2026 award replay are being handled on a separate branch;
+do not mark them deployed or complete based on this injury report.
 
 ## TypeSafe
 
