@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-11-04T06:33:07+00:00",
+ "checked_utc": "2026-11-04T15:28:58+00:00",
  "leagues": {
   "nfl": {
-   "records": 1535,
+   "records": 952,
    "by_layer": {
-    "official": 1465,
-    "reported": 70
+    "official": 881,
+    "reported": 71
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -53,7 +53,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "70/70"
+   "reported_matched_to_official_list": "71/71"
   },
   "nba": {
    "records": 296,
@@ -167,11 +167,11 @@
    "reported_matched_to_official_list": "52/52"
   },
   "nhl": {
-   "records": 1536,
+   "records": 1541,
    "by_layer": {
     "official": 153,
-    "reported": 57,
-    "projected": 1326
+    "reported": 61,
+    "projected": 1327
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -220,12 +220,12 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "57/57"
+   "reported_matched_to_official_list": "61/61"
   },
   "nbl": {
-   "records": 24,
+   "records": 26,
    "by_layer": {
-    "official": 24
+    "official": 26
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -295,8 +295,6 @@
    "reported_matched_to_official_list": "0/11"
   }
  },
- "sources_failed": [
-  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 79 h old"
- ],
+ "sources_failed": [],
  "sources_not_expected": []
 }
