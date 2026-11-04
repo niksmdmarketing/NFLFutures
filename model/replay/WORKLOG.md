@@ -640,3 +640,10 @@ of 2020-25: combined +0.0005 (+0.0002 to +0.0009, 6/6), make-playoffs +0.0027 (6
 Claude's 4 Nov run had two flaws (2014 old-model fallback; unpaired RAPM inputs between arms). GPT's paired rerun
 (branch codex/nhl-goalie-roster-check-20261105, 5afbbb5): +0.000317 [+0.000136, +0.000501], 7/9, every market positive.
 TypeSafe 96%: shadow. nhl_model g_* fields + archive; model/nhl_goalie_ratings_2026.csv. Live probabilities unchanged.
+
+## 2026-11-05 GPT review follow-ups (TypeSafe agreed)
+- NFL rest: leave-season-out penalties (16.4-17.9) pass the same gates (+0.0005, 6/6). Live; displayed NFL futures labelled
+  model "v4+rest-20261105". Behavioural assumption, not a correctness fix; gain is in make-playoffs only.
+- NHL goalie: GPT's passing run used NHL_XG=adj (not production-equivalent); Claude's failing run omitted the 20% xG share.
+  Unresolved: rerun from one canonical baseline. The g_* shadow keeps collecting as evidence only.
+- NHL futures carry model_version "nhl-ot-20261104".
