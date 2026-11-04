@@ -48,3 +48,18 @@ Matching ESPN rows to QBs is by normalised name within team.
 
 ## Amendments
 (none)
+
+
+### 5 November 2026 — review amendment (v1-review-20261105)
+Original wording above is retained. This amendment distinguishes checked behavior from claims not implemented.
+
+- Name matching remains exact within team, with suffixes, punctuation/initial spacing and accents normalized. Missing/invalid GSIS IDs are excluded; collisions are rejected instead of silently choosing the final row. Official and ESPN lookups are keyed by team plus GSIS ID. Depth ranks are numeric. No fuzzy/nickname match is introduced.
+- With no episodes (or no episode with remaining regular-season games), return the exact live ratings vector and no game adjustments. Do not clear a whole-season QB term for a team with no remaining regular-season games.
+- No-date draws condition on L > games already missed and subtract those games once. The IR/PUP restriction is total-run L >= 4, not four additional games and not knowledge of the reserve-placement date. Games are counted from available play-by-play, so incomplete feeds remain a limitation.
+- Correction to the disclosure: a lognormal centered on an ESPN date DOES allow returns earlier than that date. It is a median, not a lower bound.
+- Important implementation gap: adj_sims applies only to regular-season games. Playoff rounds currently use restored reference-QB ratings without a dated QB adjustment. Thus “season-ending means every remaining game” is NOT fulfilled for playoff games. No playoff extension or new date assumption is silently added in this review. The output explicitly marks playoff_injury_adjustments=false. Conference/Super Bowl results must not be described as a complete dated-injury model. A separately versioned, tested amendment is needed before that claim or adoption.
+- Weekly checkpoints share outcomes and episodes: the original checkpoint bootstrap is descriptive development evidence, not independent repeated seasons. Three episodes alone cannot establish live adoption. Keep this a shadow; a future adoption protocol needs dependence-aware evaluation over new seasons and the playoff gap resolved. No live v4 change is authorized by this review.
+- Version identifier is saved in shadow output so pre-review and post-review cohorts can be separated. Historical snapshots stay intact.
+
+### 5 November 2026 — duration-table review addendum
+The historical table contains 237 absence runs, of which 88 are marked censored (the observation ends before a return). draw_missed currently samples their L as if it were a completed duration. L > m and L-m are implemented correctly for a fully observed duration, but censored L is only a lower bound, so that arithmetic does not establish a valid conditional survival model for this pool. No censored runs are dropped or durations invented in this review: that would change the registered duration model and needs a separately specified amendment. Together with the playoff gap, this is a reason to keep the result exploratory rather than claim adoption readiness.

@@ -14,6 +14,7 @@ import json
 import os
 import re
 import urllib.request
+import unicodedata
 
 import numpy as np
 import pandas as pd
@@ -39,8 +40,29 @@ NAMES = {"Arizona Cardinals": "ARI", "Atlanta Falcons": "ATL", "Baltimore Ravens
 
 
 def norm(s):
-    s = re.sub(r"[^a-z ]", "", str(s).lower().replace("-", " "))
+    s = unicodedata.normalize("NFKD", str(s)).encode("ascii", "ignore").decode().lower()
+    s = re.sub(r"[^a-z ]", "", s.replace("-", " "))
     return " ".join(w for w in s.split() if w not in ("jr", "sr", "ii", "iii", "iv", "v"))
+
+
+
+def match_key(name):
+    """Exact letters after suffix/punctuation normalization; no fuzzy or nickname match."""
+    return norm(name).replace(" ", "")
+
+
+def register_name(known, team, name, gsis_id):
+    """Keep all valid candidates: an ambiguous name must never silently pick a player."""
+    if pd.isna(gsis_id) or not re.fullmatch(r"00-\d+", str(gsis_id)):
+        return
+    key = match_key(name)
+    if key:
+        known.setdefault((team, key), set()).add(str(gsis_id))
+
+
+def resolve_name(known, team, name):
+    candidates = known.get((team, match_key(name)), set())
+    return next(iter(candidates)) if len(candidates) == 1 else None
 
 
 def espn_rows(j):
@@ -112,33 +134,36 @@ def episodes(season, cur_pbp, ref, injuries, espn):
         d = depth[depth.pos_abb == "QB"].copy()
         d["team"] = d.team.replace({"LAR": "LA", "JAC": "JAX", "OAK": "LV", "SD": "LAC"})
         latest = d.groupby("team").dt.transform("max")
-        d = d[d.dt == latest].sort_values(["team", "pos_rank"]).drop_duplicates(["team", "gsis_id"])
+        d["pos_rank"] = pd.to_numeric(d.pos_rank, errors="coerce")
+        d = d[d.dt == latest].dropna(subset=["gsis_id", "pos_rank"])
+        d = d[d.gsis_id.astype(str).str.fullmatch(r"00-\d+")].sort_values(["team", "pos_rank"]).drop_duplicates(["team", "gsis_id"])
         for t, g in d.groupby("team"):
             qb_depth[t] = list(g.gsis_id)
-            known.update({(t, norm(n)): i for n, i in zip(g.player_name, g.gsis_id)})
+            for n, i in zip(g.player_name, g.gsis_id):
+                register_name(known, t, n, i)
     off = {}
     if injuries is not None and len(injuries):
         wk = injuries.week.max()
         cur = injuries[injuries.week == wk].copy()
         cur["team"] = cur.team.replace({"LAR": "LA", "JAC": "JAX", "OAK": "LV", "SD": "LAC"})
         for t, n, i, st in zip(cur.team, cur.full_name, cur.gsis_id, cur.report_status.fillna("")):
-            known.setdefault((t, norm(n)), i)
+            register_name(known, t, n, i)
             if st in ("Out", "Doubtful"):
-                off[i] = st
+                off[(t, i)] = st
     esp = {}
     for r in espn:
         if not r["team"] or (r["pos"] and r["pos"] != "QB"):
             continue
-        i = known.get((r["team"], norm(r["name"])))
+        i = resolve_name(known, r["team"], r["name"])
         if i and OUT_STATUS.search(r["status"].strip()):
-            esp[i] = r
+            esp[(r["team"], i)] = r
     m_now = missed_so_far(cur_pbp, ref)
     eps = []
     for t in TEAMS:
         q = ref.get(t)
-        if not q or (q not in esp and q not in off):
+        if not q or ((t, q) not in esp and (t, q) not in off):
             continue
-        r = esp.get(q)
+        r = esp.get((t, q))
         repl = next((x for x in qb_depth.get(t, []) if x != q), None)
         if repl is None:
             continue
@@ -187,6 +212,9 @@ def build(season, greg, cur_pbp, pri_pbp, pri2_pbp, R, injuries, N):
     scale, lam = ratings.S["sim"].get("rating_scale", 1.0), ratings.S["qb"]["lambda"]
     espn, ok = fetch_espn()
     eps = episodes(season, cur_pbp, reference(cur_pbp, pri_pbp), injuries, espn)
+    if not eps:
+        # Return the actual frozen live vector, not a reconstructed approximation.
+        return R.rating.reindex(TEAMS).to_numpy(copy=True), None, [], ok
     g = greg.sort_values(["week", "gameday", "game_id"]).reset_index(drop=True)
     left = g.result.isna().values
     gday = pd.to_datetime(g.gameday).dt.date.values
@@ -198,10 +226,10 @@ def build(season, greg, cur_pbp, pri_pbp, pri2_pbp, R, injuries, N):
     summ = []
     for ep in eps:
         t = ep["team"]
-        qb[TIX[t]] = 0.0                                            # no whole-season replacement for this team
         idx = [i for i in range(len(g)) if left[i] and t in (g.home_team[i], g.away_team[i])]
         if not idx:
             continue
+        qb[TIX[t]] = 0.0  # only teams with a regular-season game actually adjusted
         miss = draw_missed(ep, [gday[i] for i in idx], N, rng, runs)
         delta = scale * lam * (vals.get(ep["repl"], low_val) - vals.get(ep["ref"], low_val))
         for j, i in enumerate(idx):
@@ -210,6 +238,8 @@ def build(season, greg, cur_pbp, pri_pbp, pri2_pbp, R, injuries, N):
         summ.append({"team": t, "qb_out": names.get(ep["ref"], ep["ref"]), "replacement": names.get(ep["repl"], ep["repl"]), "basis": ep["kind"], "source": ep["source"],
                      "already_missed": ep["m"], "median_games_missed": float(np.median(miss)),
                      "games_left": len(idx), "points_per_game": round(float(delta), 2)})
+    if not summ:
+        return R.rating.reindex(TEAMS).to_numpy(copy=True), None, [], ok
     rating = scale * (base + qb) + R.press_adj.reindex(TEAMS).fillna(0).values
     rating = rating - rating.mean()
     log("[qb shadow] feed ok" if ok else "[qb shadow] feed missing", "episodes", len(summ),
