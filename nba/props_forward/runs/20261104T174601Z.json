@@ -1,0 +1,62 @@
+{
+ "run_utc": "2026-11-04T17:46:01.409811+00:00",
+ "generated_utc": "2026-11-04T17:46:01.409837+00:00",
+ "targets": [
+  [
+   401909924,
+   360,
+   "2026-11-04T18:30:00+00:00"
+  ],
+  [
+   401909925,
+   360,
+   "2026-11-04T18:30:00+00:00"
+  ],
+  [
+   401909926,
+   360,
+   "2026-11-04T18:30:00+00:00"
+  ],
+  [
+   401909922,
+   360,
+   "2026-11-04T18:00:00+00:00"
+  ],
+  [
+   401909923,
+   360,
+   "2026-11-04T18:00:00+00:00"
+  ]
+ ],
+ "params_id": "b",
+ "box": {
+  "release_games_2027": 107,
+  "espn_filled": [],
+  "espn_failed": [],
+  "player_box_sha256": "c9b42f80c0702fffd5ad0f243a0737a8c0f3aa9ed3886969b5a82532c0d6de16",
+  "team_box_sha256": "c040081015c9ccac947490a2e94cb2e17961655f2938b6a1501e59919d27d980"
+ },
+ "report": {
+  "url": "https://ak-static.cms.nba.com/referee/injury/Injury-Report_2026-11-04_12_45PM.pdf",
+  "label": "2026-11-04 12_45PM",
+  "sha256": "cb69f1679b2a3d7ef9c9354e5bb6971c7dc3673f6b49876007cff232db4a296c",
+  "rows": 125,
+  "retrieved_utc": "2026-11-04T17:46:08.958171+00:00"
+ },
+ "report_rows_matched_via_last_season": 8460,
+ "fast_memory_written": [
+  "nba/props_forward/challengers/fast-minutes-hl2-dev1/2026-11-04/401909924_360_20261104T174601409811Z.json.gz",
+  "nba/props_forward/challengers/fast-minutes-hl2-dev1/2026-11-04/401909925_360_20261104T174601409811Z.json.gz",
+  "nba/props_forward/challengers/fast-minutes-hl2-dev1/2026-11-04/401909926_360_20261104T174601409811Z.json.gz",
+  "nba/props_forward/challengers/fast-minutes-hl2-dev1/2026-11-04/401909922_360_20261104T174601409811Z.json.gz",
+  "nba/props_forward/challengers/fast-minutes-hl2-dev1/2026-11-04/401909923_360_20261104T174601409811Z.json.gz"
+ ],
+ "written": [
+  "nba/props_forward/2026-11-04/401909924_360_20261104T174601409811Z.json.gz",
+  "nba/props_forward/2026-11-04/401909925_360_20261104T174601409811Z.json.gz",
+  "nba/props_forward/2026-11-04/401909926_360_20261104T174601409811Z.json.gz",
+  "nba/props_forward/2026-11-04/401909922_360_20261104T174601409811Z.json.gz",
+  "nba/props_forward/2026-11-04/401909923_360_20261104T174601409811Z.json.gz"
+ ],
+ "seconds": 86.903003
+}
