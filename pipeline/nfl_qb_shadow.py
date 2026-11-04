@@ -187,26 +187,59 @@ def episodes(season, cur_pbp, ref, injuries, espn):
     return eps
 
 
-def draw_missed(ep, team_days, N, rng, runs):
-    """(N,) number of the team's remaining games missed in each simulated season."""
+def km_pmf(runs, lo):
+    """Kaplan-Meier run-length distribution (censored runs are lower bounds), conditioned on L >= lo.
+    Returns (lengths, probabilities, tail): tail = probability of lasting beyond the longest observed run."""
+    L = runs.L.to_numpy(int)
+    cens = runs["censored"].astype(str).str.lower().isin(["true", "1"]).to_numpy() if "censored" in runs else np.zeros(len(L), bool)
+    S, lens, probs = 1.0, [], []
+    for l in range(1, int(L.max()) + 1 if len(L) else 1):
+        at_risk = int((L >= l).sum())
+        if at_risk == 0:
+            break
+        d = int(((L == l) & ~cens).sum())
+        p_l = S * d / at_risk
+        S -= p_l
+        lens.append(l); probs.append(p_l)
+    lens, probs = np.array(lens, int), np.array(probs, float)
+    keep = lens >= lo
+    surv = probs[keep].sum() + S
+    if surv <= 1e-12:
+        return np.array([], int), np.array([]), 1.0
+    return lens[keep], probs[keep] / surv, S / surv
+
+
+def draw_absence(ep, team_days, N, rng, runs, last_day=None):
+    """(missed, beyond): remaining regular-season games missed in each simulated season (N,), and whether the absence
+    outlasts the regular season (N, bool) - used for the playoffs (fixes amendment, v2)."""
     n = len(team_days)
+    today = dt.date.today()
     if ep["kind"] == "season":
-        return np.full(N, n)
+        return np.full(N, n), np.ones(N, bool)
     if ep["kind"] == "date":
-        today = dt.date.today()
         k = max(1, (ep["date"] - today).days)
         days = np.exp(np.log(k) + RETURN_SIGMA * rng.standard_normal(N))       # return day, days from today
         gd = np.array([(d - today).days for d in team_days], float)           # kickoff day of each remaining game
-        return (gd[None, :] < days[:, None]).sum(1)
+        last = (last_day - today).days if last_day is not None else (gd.max() if len(gd) else 0.0)
+        return (gd[None, :] < days[:, None]).sum(1), days > last
     lo = max(ep["m"] + 1, 4 if ep["res"] else 1)
-    pool = runs[runs.L >= lo].L.to_numpy()
-    if not len(pool):
-        return np.full(N, n)
-    return np.clip(rng.choice(pool, N) - ep["m"], 1, n)
+    lens, probs, tail = km_pmf(runs, lo)
+    if not len(lens):
+        return np.full(N, n), np.ones(N, bool)
+    u = rng.random(N)
+    cum = np.cumsum(probs) * (1 - tail)
+    pick = np.searchsorted(cum, u, side="right")
+    rem = np.where(pick < len(lens), lens[np.minimum(pick, len(lens) - 1)] - ep["m"], np.inf)
+    return np.clip(rem, 1, n).astype(int), rem > n
+
+
+def draw_missed(ep, team_days, N, rng, runs):
+    """(N,) number of the team's remaining games missed in each simulated season."""
+    return draw_absence(ep, team_days, N, rng, runs)[0]
 
 
 def build(season, greg, cur_pbp, pri_pbp, pri2_pbp, R, injuries, N):
-    """Returns (ratings vector, adj_sims (N, games) or None, summary list, feed ok)."""
+    """Returns (ratings vector, adj_sims (N, games) or None, summary list, feed ok, po_adj_sims (N, teams) or None)."""
     import ratings
     vals, low_val, names = ratings.qb_values(cur_pbp, pri_pbp, pri2_pbp)
     scale, lam = ratings.S["sim"].get("rating_scale", 1.0), ratings.S["qb"]["lambda"]
@@ -214,13 +247,15 @@ def build(season, greg, cur_pbp, pri_pbp, pri2_pbp, R, injuries, N):
     eps = episodes(season, cur_pbp, reference(cur_pbp, pri_pbp), injuries, espn)
     if not eps:
         # Return the actual frozen live vector, not a reconstructed approximation.
-        return R.rating.reindex(TEAMS).to_numpy(copy=True), None, [], ok
+        return R.rating.reindex(TEAMS).to_numpy(copy=True), None, [], ok, None
     g = greg.sort_values(["week", "gameday", "game_id"]).reset_index(drop=True)
     left = g.result.isna().values
     gday = pd.to_datetime(g.gameday).dt.date.values
     base = R.base.reindex(TEAMS).values.copy()
     qb = R.qb_adj.reindex(TEAMS).fillna(0).values.copy()
     adj = np.zeros((N, len(g)), np.float32)
+    po = np.zeros((N, NT), np.float32)
+    last_day = max(gday) if len(gday) else None
     rng = np.random.default_rng(SEED)
     runs = pd.read_csv(RUNS)
     summ = []
@@ -230,18 +265,20 @@ def build(season, greg, cur_pbp, pri_pbp, pri2_pbp, R, injuries, N):
         if not idx:
             continue
         qb[TIX[t]] = 0.0  # only teams with a regular-season game actually adjusted
-        miss = draw_missed(ep, [gday[i] for i in idx], N, rng, runs)
+        miss, beyond = draw_absence(ep, [gday[i] for i in idx], N, rng, runs, last_day)
         delta = scale * lam * (vals.get(ep["repl"], low_val) - vals.get(ep["ref"], low_val))
+        po[:, TIX[t]] += np.where(beyond, delta, 0.0).astype(np.float32)          # still out after the regular season
         for j, i in enumerate(idx):
             sign = 1.0 if g.home_team[i] == t else -1.0
             adj[:, i] += np.where(miss > j, sign * delta, 0.0)
         summ.append({"team": t, "qb_out": names.get(ep["ref"], ep["ref"]), "replacement": names.get(ep["repl"], ep["repl"]), "basis": ep["kind"], "source": ep["source"],
                      "already_missed": ep["m"], "median_games_missed": float(np.median(miss)),
-                     "games_left": len(idx), "points_per_game": round(float(delta), 2)})
+                     "games_left": len(idx), "points_per_game": round(float(delta), 2),
+                     "playoffs_out_share": round(float(beyond.mean()), 3)})
     if not summ:
-        return R.rating.reindex(TEAMS).to_numpy(copy=True), None, [], ok
+        return R.rating.reindex(TEAMS).to_numpy(copy=True), None, [], ok, None
     rating = scale * (base + qb) + R.press_adj.reindex(TEAMS).fillna(0).values
     rating = rating - rating.mean()
     log("[qb shadow] feed ok" if ok else "[qb shadow] feed missing", "episodes", len(summ),
         "with ESPN date", sum(s["basis"] == "date" for s in summ))
-    return rating, (adj if summ else None), summ, ok
+    return rating, (adj if summ else None), summ, ok, (po if po.any() else None)

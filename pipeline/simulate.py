@@ -32,7 +32,8 @@ CONF_DIVS = {0: [0, 1, 2, 3], 1: [4, 5, 6, 7]}
 REST_PEN = 17.891   # live final-week penalty for locked-seed clubs (research/NFL_WEEK18_REST_RULE.md, 5 Nov 2026)
 
 
-def simulate(g, R, N, tau, sigma, hfa, seed=7, hfa_post=None, n_seeds=7, sweep_fix=False, adj_sims=None, rest_pen=0.0):
+def simulate(g, R, N, tau, sigma, hfa, seed=7, hfa_post=None, n_seeds=7, sweep_fix=False, adj_sims=None, rest_pen=0.0,
+             po_adj_sims=None):
     """g: this season's regular-season games (with result where played). Returns probabilities + wins.
     hfa_post: home edge in the conference playoff rounds (research option; None = hfa, the frozen v4 behaviour).
     n_seeds: 7 (2020 on, one bye) or 6 (to 2019, two byes); research replays of old seasons must pass 6.
@@ -43,7 +44,9 @@ def simulate(g, R, N, tau, sigma, hfa, seed=7, hfa_post=None, n_seeds=7, sweep_f
     adj_sims: research-only (N, games) array of home-margin shifts per simulated season, in g's sorted order (research/NFL_QB_NEWS_RULE.md);
     None in live runs. It does not consume random draws, so all other draws are unchanged.
     rest_pen: points taken off a club's margin in the final regular-season week when its seed is locked in that simulation
-    (research/NFL_WEEK18_REST_RULE.md); 0 = previous behaviour. It does not consume random draws."""
+    (research/NFL_WEEK18_REST_RULE.md); 0 = previous behaviour. It does not consume random draws.
+    po_adj_sims: research/shadow-only (N, teams) rating shifts applied in playoff games only (QB shadow v2,
+    research/NFL_QB_ESPN_SHADOW_RULE.md); None = previous behaviour. It does not consume random draws."""
     rng = np.random.default_rng(seed)
     g = g.sort_values(["week", "gameday", "game_id"]).reset_index(drop=True)
     hi, ai = g.home_team.map(TIX).values, g.away_team.map(TIX).values
@@ -189,6 +192,7 @@ def simulate(g, R, N, tau, sigma, hfa, seed=7, hfa_post=None, n_seeds=7, sweep_f
         return out
 
     hpo = hfa if hfa_post is None else hfa_post
+    PA = np.zeros((N, NT), np.float32) if po_adj_sims is None else np.asarray(po_adj_sims, dtype=np.float32)
     cnt = {k: np.zeros(NT) for k in ("div", "playoff", "seed1", "conf", "sb")}
     seeds_count = np.zeros((NT, 7))  # column 6 stays 0 in the 6-seed format
 
@@ -216,22 +220,22 @@ def simulate(g, R, N, tau, sigma, hfa, seed=7, hfa_post=None, n_seeds=7, sweep_f
             alive = [seeds[0]] if n_seeds == 7 else [seeds[0], seeds[1]]
             for h, a in (((1, 6), (2, 5), (3, 4)) if n_seeds == 7 else ((2, 5), (3, 4))):
                 x, y = seeds[h], seeds[a]
-                p = norm.cdf((Rs[s, x] - Rs[s, y] + hpo) / sigma)
+                p = norm.cdf((Rs[s, x] - Rs[s, y] + PA[s, x] - PA[s, y] + hpo) / sigma)
                 alive.append(x if rnd2[s, gi] < p else y); gi += 1
             alive.sort(key=lambda t: rank[t])
             r2 = []
             while alive:
                 x, y = alive.pop(0), alive.pop(-1)
-                p = norm.cdf((Rs[s, x] - Rs[s, y] + hpo) / sigma)
+                p = norm.cdf((Rs[s, x] - Rs[s, y] + PA[s, x] - PA[s, y] + hpo) / sigma)
                 r2.append(x if rnd2[s, gi] < p else y); gi += 1
             r2.sort(key=lambda t: rank[t])
             x, y = r2
-            p = norm.cdf((Rs[s, x] - Rs[s, y] + hpo) / sigma)
+            p = norm.cdf((Rs[s, x] - Rs[s, y] + PA[s, x] - PA[s, y] + hpo) / sigma)
             champ = x if rnd2[s, gi] < p else y; gi += 1
             cnt["conf"][champ] += 1
             champs.append(champ)
         x, y = champs
-        p = norm.cdf((Rs[s, x] - Rs[s, y]) / sigma)
+        p = norm.cdf((Rs[s, x] - Rs[s, y] + PA[s, x] - PA[s, y]) / sigma)
         cnt["sb"][x if rnd2[s, gi] < p else y] += 1
     out = {k: v / N for k, v in cnt.items()}
     out["seed_dist"] = seeds_count / N

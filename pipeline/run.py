@@ -53,10 +53,11 @@ def main():
     shadow_qb = None
     try:   # shadow (research/NFL_QB_ESPN_SHADOW_RULE.md): injured starting QB replaced only for games he is expected to miss
         import nfl_qb_shadow
-        Rq, adj_q, eps_q, feed_q = nfl_qb_shadow.build(season, greg, cur, pri, pri2, R, injuries, n_sims)
-        rq = simulate.simulate(greg, Rq, n_sims, S["tau"], S["sigma"], S["hfa"], adj_sims=adj_q, rest_pen=simulate.REST_PEN)
-        shadow_qb = {"name": "QB out only until expected return (shadow)", "version": "1-review-20261105",
-                     "playoff_injury_adjustments": False, "rule": "research/NFL_QB_ESPN_SHADOW_RULE.md",
+        Rq, adj_q, eps_q, feed_q, po_q = nfl_qb_shadow.build(season, greg, cur, pri, pri2, R, injuries, n_sims)
+        rq = simulate.simulate(greg, Rq, n_sims, S["tau"], S["sigma"], S["hfa"], adj_sims=adj_q, rest_pen=simulate.REST_PEN,
+                               po_adj_sims=po_q)
+        shadow_qb = {"name": "QB out only until expected return (shadow)", "version": "2-fixes-20261105",
+                     "playoff_injury_adjustments": True, "rule": "research/NFL_QB_ESPN_SHADOW_RULE.md",
                      "feed_ok": feed_q, "episodes": eps_q,
                      "teams": {t: {**{k: round(float(rq[k.replace("p_", "")][i]), 4) for k in ("p_div", "p_playoff", "p_seed1", "p_conf", "p_sb")},
                                    "rating": round(float(Rq[i]), 2)} for i, t in enumerate(TEAMS)}}

@@ -97,7 +97,7 @@ class Review(unittest.TestCase):
              patch.object(Q, "reference", return_value={}), \
              patch.object(Q, "episodes", return_value=[]), \
              patch.object(Q.pd, "read_csv", side_effect=AssertionError("no run table needed")):
-            r, adj, eps, ok = Q.build(2026, pd.DataFrame(), None, None, None, R, None, 10)
+            r, adj, eps, ok, po = Q.build(2026, pd.DataFrame(), None, None, None, R, None, 10)
         np.testing.assert_array_equal(r, R.rating.to_numpy())
         self.assertIsNone(adj)
         self.assertEqual(eps, [])
@@ -129,10 +129,50 @@ class Review(unittest.TestCase):
              patch.object(Q, "reference", return_value={}), \
              patch.object(Q, "episodes", return_value=[episode]), \
              patch.object(Q.pd, "read_csv", return_value=RUNS):
-            r, adj, eps, _ = Q.build(2026, g, None, None, None, R, None, 10)
+            r, adj, eps, _, po = Q.build(2026, g, None, None, None, R, None, 10)
         np.testing.assert_array_equal(r, R.rating.to_numpy())
         self.assertIsNone(adj)
         self.assertEqual(eps, [])
+
+
+class FixesV2(unittest.TestCase):
+    def test_km_treats_censored_runs_as_lower_bounds(self):
+        runs = pd.DataFrame({"L": [1, 2, 3, 3], "censored": [False, False, True, True]})
+        lens, probs, tail = Q.km_pmf(runs, 1)
+        self.assertAlmostEqual(probs.sum() + tail, 1.0)
+        self.assertAlmostEqual(probs[lens == 3].sum(), 0.0)      # nobody observed returning at 3
+        self.assertAlmostEqual(tail, 0.5)                         # two of four still out at the end of the record
+        no_cens = pd.DataFrame({"L": [1, 2, 3, 3], "censored": [False] * 4})
+        self.assertAlmostEqual(Q.km_pmf(no_cens, 1)[2], 0.0)
+
+    def test_absence_beyond_season_flags(self):
+        rng = np.random.default_rng(1)
+        miss, beyond = Q.draw_absence(ep("season"), DAYS, 50, rng, RUNS)
+        self.assertTrue(beyond.all() and (miss == 8).all())
+        cens = pd.DataFrame({"L": [20, 20], "censored": [True, True]})
+        miss, beyond = Q.draw_absence(ep("nodate", m=0), DAYS, 50, rng, cens)
+        self.assertTrue(beyond.all())                             # only lower bounds beyond 8 games: out past the season
+        miss, beyond = Q.draw_absence(ep("date", TODAY + dt.timedelta(days=10)), DAYS, 2000, rng, RUNS, DAYS[-1])
+        self.assertLess(beyond.mean(), 0.01)                      # return in 10 days, season lasts 52 more
+
+    def test_simulator_playoff_shift_is_identity_when_zero(self):
+        import simulate
+        from common import games
+        try:
+            g = games()
+        except Exception:  # noqa: BLE001  (no network in some test environments)
+            self.skipTest("schedule not available")
+        g = g[(g.season == 2024) & (g.game_type == "REG")].copy()
+        g.loc[g.week >= 17, "result"] = np.nan
+        R = np.linspace(-6, 6, Q.NT)
+        a = simulate.simulate(g, R, 400, 5.0, 11.37, 1.8)
+        b = simulate.simulate(g, R, 400, 5.0, 11.37, 1.8, po_adj_sims=np.zeros((400, Q.NT)))
+        for k in ("div", "playoff", "seed1", "conf", "sb"):
+            np.testing.assert_array_equal(a[k], b[k])
+        pa = np.zeros((400, Q.NT)); pa[:, -1] = -20.0             # best team crippled in the playoffs only
+        c = simulate.simulate(g, R, 400, 5.0, 11.37, 1.8, po_adj_sims=pa)
+        np.testing.assert_array_equal(a["playoff"], c["playoff"])
+        self.assertLess(c["sb"][-1], a["sb"][-1])
 
 
 if __name__ == "__main__":
