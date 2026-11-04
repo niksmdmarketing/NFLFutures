@@ -29,6 +29,7 @@ for di, (name, ts) in enumerate(DIVS.items()):
         DIV_OF[TIX[t]] = di
         CONF_OF[TIX[t]] = 0 if name.startswith("AFC") else 1
 CONF_DIVS = {0: [0, 1, 2, 3], 1: [4, 5, 6, 7]}
+REST_PEN = 17.891   # live final-week penalty for locked-seed clubs (research/NFL_WEEK18_REST_RULE.md, 5 Nov 2026)
 
 
 def simulate(g, R, N, tau, sigma, hfa, seed=7, hfa_post=None, n_seeds=7, sweep_fix=False, adj_sims=None, rest_pen=0.0):

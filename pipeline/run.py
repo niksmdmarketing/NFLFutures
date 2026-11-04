@@ -46,13 +46,15 @@ def main():
     greg = g[(g.season == season) & (g.game_type == "REG")]
     Rv = R.rating.reindex(TEAMS).values
     n_sims = int(os.environ.get("N_SIMS", S["n_sims"]))
-    res = simulate.simulate(greg, Rv, n_sims, S["tau"], S["sigma"], S["hfa"])
+    # Locked-seed clubs rest in the final week (research/NFL_WEEK18_REST_RULE.md, passed 5 Nov 2026): dated bug-fix exception to the
+    # 2026 v4 freeze, like the neutral-site fix.
+    res = simulate.simulate(greg, Rv, n_sims, S["tau"], S["sigma"], S["hfa"], rest_pen=simulate.REST_PEN)
     log("simulation done")
     shadow_qb = None
     try:   # shadow (research/NFL_QB_ESPN_SHADOW_RULE.md): injured starting QB replaced only for games he is expected to miss
         import nfl_qb_shadow
         Rq, adj_q, eps_q, feed_q = nfl_qb_shadow.build(season, greg, cur, pri, pri2, R, injuries, n_sims)
-        rq = simulate.simulate(greg, Rq, n_sims, S["tau"], S["sigma"], S["hfa"], adj_sims=adj_q)
+        rq = simulate.simulate(greg, Rq, n_sims, S["tau"], S["sigma"], S["hfa"], adj_sims=adj_q, rest_pen=simulate.REST_PEN)
         shadow_qb = {"name": "QB out only until expected return (shadow)", "rule": "research/NFL_QB_ESPN_SHADOW_RULE.md",
                      "feed_ok": feed_q, "episodes": eps_q,
                      "teams": {t: {**{k: round(float(rq[k.replace("p_", "")][i]), 4) for k in ("p_div", "p_playoff", "p_seed1", "p_conf", "p_sb")},

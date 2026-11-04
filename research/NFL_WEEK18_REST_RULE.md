@@ -33,5 +33,14 @@ research/nfl_week18_rest.py -> research/nfl_week18_rest_results.json and nfl_wee
 - **Penalty P = 17.891.**
 - **Caveat:** locked clubs are the season's best, and their season-to-date SRS also regresses, so part of the 17.9 is regression to the mean. The rule fixes P as measured; Stage 2 checks it does no harm.
 
+## Stage 2 result (5 Nov 2026): PASS
+Replay of checkpoints after week 12 onwards, 2020-2025 (4,000 sims, frozen v4), baseline vs BT_REST=1. Gain, 90% bootstrap over seasons:
+- **Combined:** +0.0005 (+0.0002 to +0.0009), better in 6/6 seasons.
+- **Make playoffs:** +0.0027 (+0.0011 to +0.0045), 6/6.
+- **Other markets:** division 0.0000, No. 1 seed 0.0000, conference 0.0000, Super Bowl −0.0001 (the worst market, within −0.0005).
+- **Largest single change:** 14 percentage points in a team's playoff chance.
+
+**Live from 5 Nov 2026:** run.py passes simulate.REST_PEN (17.891) to the displayed v4 simulation and to the QB shadow, so the shadow still differs from v4 only by QB timing. This is a dated bug-fix exception to the 2026 v4 freeze. The v5 challenger is unchanged.
+
 ## Amendments
 (none)

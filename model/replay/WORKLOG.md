@@ -630,3 +630,8 @@ Independent review (TypeSafe 72% "sound with fixable issues"; OT fix first, 66%)
 games to OT vs 21-25% real, and the OT winner got the full regulation edge. Fix: per-game tie inflation to the training
 seasons' OT share (separate random stream) and OT edge x0.5. Points bias -1.31 -> +0.28, RMSE 8.45 -> 8.32; combined
 log loss +0.0005 (90% +0.0003 to +0.0007, 8/10), playoff +0.0013 (9/10). Live: target 0.230, edge 0.5.
+
+## 2026-11-05 NFL: locked-seed clubs rest in the final week (research/NFL_WEEK18_REST_RULE.md) - DEPLOYED (bug-fix exception)
+Independent NFL review (TypeSafe "sound with fixable issues" 59%; this fix next, 39%). Stage 1, 2002-2025: 19 locked clubs
+were -17.9 points vs season-to-date SRS in the final week (90% -22.7 to -12.3; control +0.9). Stage 2 replay, weeks 12+
+of 2020-25: combined +0.0005 (+0.0002 to +0.0009, 6/6), make-playoffs +0.0027 (6/6). Live: simulate.REST_PEN = 17.891.
