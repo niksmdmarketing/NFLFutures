@@ -624,3 +624,9 @@ The team rating already carries this season's goals against, so goalie form is m
 Since 15 Oct live_term uses RAPM skaters only, so goalies count only through the injury list. Replay of live roster
 settings vs + NHL_LINEUP_GS=0.438: combined +0.0001 (90% -0.0000 to +0.0003, 7/10); round 3 +0.0007 and final +0.0006
 (both intervals above 0) but division -0.0005. GS 1.0: +0.0002 (-0.0001 to +0.0006). Fails the rule; live unchanged.
+
+## 2026-11-04 NHL: overtime frequency + OT winner edge (research/NHL_OT_RATE_RULE.md) - DEPLOYED
+Independent review (TypeSafe 72% "sound with fixable issues"; OT fix first, 66%): independent Poisson sent ~16.5% of
+games to OT vs 21-25% real, and the OT winner got the full regulation edge. Fix: per-game tie inflation to the training
+seasons' OT share (separate random stream) and OT edge x0.5. Points bias -1.31 -> +0.28, RMSE 8.45 -> 8.32; combined
+log loss +0.0005 (90% +0.0003 to +0.0007, 8/10), playoff +0.0013 (9/10). Live: target 0.230, edge 0.5.

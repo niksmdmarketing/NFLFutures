@@ -43,5 +43,22 @@ TypeSafe split evenly between "points only" and "points plus no harm on probabil
 - **Fail:** anything else. Live stays as it is.
 - No re-tuning of 0.5 under this version.
 
+## Result (4 Nov 2026; 2,000 sims, 10 seasons; walk-forward OT targets 0.229-0.243)
+**Points totals (projected mean − final, all team-checkpoints):**
+
+| | Bias | RMSE | Note |
+|---|---|---|---|
+| Baseline | −1.31 | 8.45 | too low in every season, −0.9 to −1.8 |
+| Fix (edge 0.5) | +0.28 | 8.32 | |
+
+**Probabilities** (research/nhl_holdout.py, baseline first, 90% bootstrap over seasons):
+- **Edge 0.5 (primary):** combined +0.0005 (+0.0003 to +0.0007), better in 8/10 seasons.
+  - Playoff +0.0013 (+0.0005 to +0.0021), 9/10; round 2 +0.0008; division +0.0007.
+  - Final −0.0001, the worst market.
+- Sensitivity, edge 1.0 (frequency fix only): +0.0003 (+0.0002 to +0.0003), 9/10.
+- Sensitivity, edge 0.25: +0.0005 (+0.0002 to +0.0008), 8/10. Leave-one-out picks 0.25 every season, but this version does not re-tune.
+
+**Decision under this rule: PASS** (bias smaller, RMSE better, combined above −0.0002, no market below −0.0005). It also clears the strict interval gate. Live from 4 Nov 2026: nhl_model.build passes ot_target (all completed seasons, 0.230) and OT_EDGE 0.5 to every simulation.
+
 ## Amendments
 (none)

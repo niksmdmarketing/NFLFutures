@@ -221,6 +221,7 @@ PO_FADE_SHADOW = 1.0   # shadow run of the previous live fade (2x preseason stre
 # Share of expected goals in the in-season rate (rest = goals). Was 0.4 by judgement; 10-season weekly replay with
 # MoneyPuck game xG (15 Oct 2026): 20% vs 0% +0.0001, 40% vs 20% -0.0004; TypeSafe chose 20%.
 XG_SHARE = 0.2
+OT_EDGE = 0.5        # OT/shootout winner edge as a share of the regulation edge (research/NHL_OT_RATE_RULE.md, live 4 Nov 2026)
 ROSTER_DIAG = {}   # published with the futures so a dead roster term is visible (16 Oct 2026)
 LINEUP = os.environ.get("NHL_LINEUP", "1") == "1"       # roster term from recent lineups (nhl_lineup), live from 15 Oct 2026
 INJURIES = os.environ.get("NHL_INJURIES", "1") == "1"   # injured-player adjustment (nhl_absence), live from 15 Oct 2026
@@ -558,6 +559,11 @@ def build():
     if cur not in TT or len(done) < 6:
         log("nhl model: not enough data")
         return
+    # Overtime frequency and OT winner edge (research/NHL_OT_RATE_RULE.md, passed 4 Nov 2026): ties in regulation raised to
+    # the share of games that went to OT/shootout in all completed seasons, OT winner gets half the regulation edge.
+    n_g = sum(len(GG[z]) / 2 for z in done)
+    OTKW = dict(ot_target=sum(int((GG[z].res == "OTL").sum()) for z in done) / n_g, ot_edge=OT_EDGE) if n_g else {}
+    log("nhl model: OT target", round(OTKW.get("ot_target", float("nan")), 3))
     fit_years = [y for y in done if y - 1 in TT]
     betas_by_year = {y: fit_prior(TT, [z for z in fit_years if z != y])[0] for y in fit_years}
     beta, r2, rmse = fit_prior(TT, fit_years)
@@ -623,28 +629,28 @@ def build():
             log("nhl model: roster term failed:", e)
             lineup_term = pd.Series(0.0, index=teams)
     rating = rating + lineup_term
-    sim = simulate(teams, state, games, rating.to_dict(), tau_now, total, hfa, SIMS, po_scale=po_scale, po_delta=po_delta, game_adj=game_adj)
+    sim = simulate(teams, state, games, rating.to_dict(), tau_now, total, hfa, SIMS, po_scale=po_scale, po_delta=po_delta, game_adj=game_adj, **OTKW)
     # same model without the injury adjustment, to show what the absences are worth
     sim_n = None
     if absences is not None:
         po_delta_n = po_delta - np.array([po_inj.get(t, 0.0) for t in teams])
-        sim_n = simulate(teams, state, games, rating.to_dict(), tau_now, total, hfa, max(SIMS // 2, 1000), po_scale=po_scale, po_delta=po_delta_n)
+        sim_n = simulate(teams, state, games, rating.to_dict(), tau_now, total, hfa, max(SIMS // 2, 1000), po_scale=po_scale, po_delta=po_delta_n, **OTKW)
     # shadow (15 Oct 2026): the same model with the previous playoff fade (1.0), archived for prospective scoring vs 3.0
     share_left = max(0.0, 1 - n_avg / (n_avg + float(remaining_ct.mean())))
     sim_s = simulate(teams, state, games, rating.to_dict(), tau_now, total, hfa, SIMS, po_scale=1 + PO_FADE_SHADOW * share_left,   # same draws as live
-                     po_delta=po_delta, game_adj=game_adj)
+                     po_delta=po_delta, game_adj=game_adj, **OTKW)
     # previous model (goal-based playoff rating, no multiplier), kept as the comparison column
-    sim_c = simulate(teams, state, games, rating.to_dict(), tau_now, total, hfa, max(SIMS // 2, 1000))
+    sim_c = simulate(teams, state, games, rating.to_dict(), tau_now, total, hfa, max(SIMS // 2, 1000), **OTKW)
     # diagnostic (15 Oct 2026, GPT/TypeSafe): each team's playoff and Cup chance with its own rating moved -/+ SENS_D goals
     # per game (same draws), so a market price can be turned into a market-implied rating gap. Never feeds the forecast.
     sens, sens0 = {}, None
     try:
-        sens0 = simulate(teams, state, games, rating.to_dict(), tau_now, total, hfa, SENS_SIMS, po_scale=po_scale, po_delta=po_delta, game_adj=game_adj)
+        sens0 = simulate(teams, state, games, rating.to_dict(), tau_now, total, hfa, SENS_SIMS, po_scale=po_scale, po_delta=po_delta, game_adj=game_adj, **OTKW)
         for t in teams:
             pr = []
             for dlt in (-SENS_D, SENS_D):
                 rr = rating.to_dict(); rr[t] = rr[t] + dlt
-                ss = simulate(teams, state, games, rr, tau_now, total, hfa, SENS_SIMS, po_scale=po_scale, po_delta=po_delta, game_adj=game_adj)
+                ss = simulate(teams, state, games, rr, tau_now, total, hfa, SENS_SIMS, po_scale=po_scale, po_delta=po_delta, game_adj=game_adj, **OTKW)
                 i = teams.index(t)
                 pr.append((float(ss["playoffs"][i]), float(ss["cup"][i])))
             sens[t] = pr
