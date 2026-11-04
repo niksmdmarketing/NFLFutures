@@ -42,7 +42,9 @@ def players_for(y):
 def synthetic_report(P, cutoff, y):
     """Rotation players who missed their team's last 5+ games before the cutoff."""
     d = P[(P.date <= cutoff) & (pd.to_numeric(P.season, errors="coerce") == y) & (pd.to_numeric(P.season_type, errors="coerce") == 2)].copy()
-    d["athlete_id"] = d.athlete_id.astype(str)
+    # Match nba_avail.player_values: pandas numeric IDs can become "1234.0".
+    # Otherwise a complete season's synthetic injuries may silently fail to join.
+    d["athlete_id"] = d.athlete_id.astype(str).str.replace(r"\.0$", "", regex=True)
     d["played"] = pd.to_numeric(d.minutes, errors="coerce").fillna(0) > 0
     games = d.drop_duplicates(["game_id", "team_abbreviation"]).sort_values("date")
     last_played = d[d.played].groupby("athlete_id").date.max()
