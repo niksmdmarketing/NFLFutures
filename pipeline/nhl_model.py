@@ -272,11 +272,15 @@ def league_scoring(GG, years):
 
 # ---------------------------------------------------------------- simulation
 
-def simulate(teams, state, games, ratings, tau, total, hfa, n_sims, seed=7, div_map=ALIGN, po_scale=1.0, po_delta=None, game_adj=None):
+def simulate(teams, state, games, ratings, tau, total, hfa, n_sims, seed=7, div_map=ALIGN, po_scale=1.0, po_delta=None, game_adj=None,
+             ot_target=None, ot_edge=1.0):
     """state: DataFrame by team (points, rw, row, gd). games: list of (home, away) still to play. Returns dict of arrays.
     po_scale: multiplier on rating gaps in playoff series (research option; 1.0 = live behaviour).
-    game_adj: per-game addition to the home-minus-away margin (injured players, nhl_absence)."""
+    game_adj: per-game addition to the home-minus-away margin (injured players, nhl_absence).
+    ot_target: share of games going to OT/shootout to match (research/NHL_OT_RATE_RULE.md); None = independent Poisson only.
+    ot_edge: multiplier on the regulation edge when a tie is decided in OT/shootout (1.0 = previous behaviour)."""
     rng = np.random.default_rng(seed)
+    rng_ot = np.random.default_rng(seed + 1000)   # separate stream: the OT fix leaves every other draw unchanged
     T = len(teams)
     idx = {t: i for i, t in enumerate(teams)}
     h = np.array([idx[g[0]] for g in games], int)
@@ -303,7 +307,18 @@ def simulate(teams, state, games, ratings, tau, total, hfa, n_sims, seed=7, div_
         lam_h = np.clip((total + m) / 2, 0.4, None); lam_a = np.clip((total - m) / 2, 0.4, None)
         gh = rng.poisson(lam_h); ga = rng.poisson(lam_a)
         tie = gh == ga
-        p_ot_h = ndtr(m / GAME_SD)
+        if ot_target is not None and G:
+            ph_k, pa_k = np.exp(-lam_h), np.exp(-lam_a)                          # Poisson tie probability per game
+            b = ph_k * pa_k
+            for kk in range(1, 16):
+                ph_k = ph_k * lam_h / kk; pa_k = pa_k * lam_a / kk
+                b = b + ph_k * pa_k
+            c = ot_target / max(float(b.mean()), 1e-9)
+            p_add = np.clip((c - 1.0) * b / np.clip(1.0 - b, 1e-9, None), 0.0, 1.0)
+            add = (~tie) & (rng_ot.random((S, G)) < p_add)
+            gh = np.where(add, ga, gh)
+            tie = tie | add
+        p_ot_h = ndtr(ot_edge * m / GAME_SD)
         ot_home = rng.random((S, G)) < p_ot_h
         ot_ends = rng.random((S, G)) < 0.62                       # OT decides it; otherwise shootout
         home_win = np.where(tie, ot_home, gh > ga)

@@ -104,6 +104,22 @@ def ps_prior(TT, GG, fit_years, done, y, prior):
 
 
 LINEUP_DIR = os.path.join(ROOT, "data", "research", "nhl_lineups")
+OT_FIX = os.environ.get("NHL_OT_FIX") == "1"            # research/NHL_OT_RATE_RULE.md
+OT_EDGE = float(os.environ.get("NHL_OT_EDGE", "0.5"))   # OT winner edge with the fix (sensitivity: 1.0, 0.25)
+
+
+def ot_share(GG, years):
+    """Share of games that went to OT/shootout in the given seasons (OTL results / games)."""
+    n = o = 0
+    for z in years:
+        g = GG.get(z)
+        if g is None or g.empty:
+            continue
+        n += len(g) / 2
+        o += int((g.res == "OTL").sum())
+    return o / n if n else None
+
+
 G_UPD = float(os.environ.get("NHL_G_UPD", "0"))   # in-season goalie values, prior weight in hours (research/NHL_GOALIE_INSEASON_RULE.md)
 
 
@@ -239,6 +255,9 @@ def run_season(TT, GG, fit_years, done, y):
             P = pd.DataFrame(d_["rows"], columns=["team", "name"] + [c["k"] for c in d_["cols"]]).set_index("team")
             gdp = M.numcol(P, "goalsFor") - M.numcol(P, "goalsAgainst")
             po_prev = (gdp / (M.numcol(P, "gamesPlayed") + PO_PRIOR_K)).reindex(teams).fillna(0.0)   # n games x mean / (n + K)
+    ot_tgt = ot_share(GG, [z for z in done if z < y]) if OT_FIX else None
+    if OT_FIX:
+        print(y, "OT target", round(ot_tgt, 3), flush=True)
     cuts = [first]
     d = first + pd.Timedelta(days=7)
     while d < last - pd.Timedelta(days=6):
@@ -286,13 +305,15 @@ def run_season(TT, GG, fit_years, done, y):
         n_avg = float(gp.mean())
         if PO_PRIOR_K and po_delta is not None:   # playoff-only: last season's playoff goal difference, shrunk, faded like the prior
             po_delta = po_delta + (po_prev * (k / (gp + k))).reindex(teams).fillna(0).to_numpy(float)
-        sim = M.simulate(teams, state, list(zip(rm.team, rm.opp)), rating.to_dict(), M.tau_at(tau, n_avg), total, hfa, SIMS, seed=3, div_map=align, po_scale=PO_SCALE + PO_FADE * max(0.0, 1 - n_avg / 82), po_delta=po_delta)
+        ot_kw = dict(ot_target=ot_tgt, ot_edge=OT_EDGE) if OT_FIX else {}
+        sim = M.simulate(teams, state, list(zip(rm.team, rm.opp)), rating.to_dict(), M.tau_at(tau, n_avg), total, hfa, SIMS, seed=3, div_map=align, po_scale=PO_SCALE + PO_FADE * max(0.0, 1 - n_avg / 82), po_delta=po_delta, **ot_kw)
         for i, t in enumerate(teams):
             rows.append(dict(season=y, week=wk, date=str(cut.date()), gp_avg=round(n_avg, 1), team=t, p_playoff=sim["playoffs"][i],
                              p_div=sim["div"][i], p_pres=sim["pres"][i], p_r2=sim["r2"][i], p_r3=sim["r3"][i], p_conf=sim["final"][i],
                              p_title=sim["cup"][i], y_playoff=int(t in out["po"]), y_div=int(divwin[align[t]] == t), y_pres=int(t == pres),
                              y_finals=int(t in out["finalists"]), y_title=int(t == out["champ"]),
-                             y_r2=int(t in out["r2"]), y_r3=int(t in out["r3"])))
+                             y_r2=int(t in out["r2"]), y_r3=int(t in out["r3"]),
+                             pts_mean=round(float(sim["pts_mean"][i]), 2), y_pts=float(fin.pts[t])))
     return pd.DataFrame(rows)
 
 
