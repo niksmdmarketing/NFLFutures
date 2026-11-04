@@ -48,6 +48,18 @@ def main():
     n_sims = int(os.environ.get("N_SIMS", S["n_sims"]))
     res = simulate.simulate(greg, Rv, n_sims, S["tau"], S["sigma"], S["hfa"])
     log("simulation done")
+    shadow_qb = None
+    try:   # shadow (research/NFL_QB_ESPN_SHADOW_RULE.md): injured starting QB replaced only for games he is expected to miss
+        import nfl_qb_shadow
+        Rq, adj_q, eps_q, feed_q = nfl_qb_shadow.build(season, greg, cur, pri, pri2, R, injuries, n_sims)
+        rq = simulate.simulate(greg, Rq, n_sims, S["tau"], S["sigma"], S["hfa"], adj_sims=adj_q)
+        shadow_qb = {"name": "QB out only until expected return (shadow)", "rule": "research/NFL_QB_ESPN_SHADOW_RULE.md",
+                     "feed_ok": feed_q, "episodes": eps_q,
+                     "teams": {t: {**{k: round(float(rq[k.replace("p_", "")][i]), 4) for k in ("p_div", "p_playoff", "p_seed1", "p_conf", "p_sb")},
+                                   "rating": round(float(Rq[i]), 2)} for i, t in enumerate(TEAMS)}}
+        log("QB shadow simulation done")
+    except Exception as e:  # noqa: BLE001  never block the refresh
+        log("QB shadow failed:", repr(e)[:200])
     C = ratings.S.get("challenger")
     challenger = None
     if C:
@@ -97,7 +109,8 @@ def main():
     write_json("meta.json", meta)
     write_json("futures.json", {"season": season, "through_week": through,
                                 "teams": simulate.futures_table(res, Rv, R),
-                                "track_record": _track_record(), "challenger": challenger, "challenger_v5": challenger_v5})
+                                "track_record": _track_record(), "challenger": challenger, "challenger_v5": challenger_v5,
+                                "shadow_qb_dated": shadow_qb})
     write_json("awards.json", awards.build(season, g, res, injuries))
     log("awards done")
     import award_race, players  # noqa: E401
