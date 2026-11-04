@@ -1,0 +1,806 @@
+{
+  "seasons": [
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+  ],
+  "simulations": 300,
+  "live_deployed": false,
+  "metrics": {
+    "6MOY": {
+      "variants": {
+        "baseline": {
+          "mean_winner_log_loss": 1.6411408140480193,
+          "field_brier": 0.6608638985233107,
+          "mean_probability_mass": 1.0,
+          "mass_deficit_forecasts": 0,
+          "favourite_confidence": 0.5333688818266513,
+          "favourite_win_frequency": 0.5392670157068062,
+          "zero_probability_winners": 10,
+          "checkpoints": 191
+        },
+        "fixed": {
+          "mean_winner_log_loss": 1.6722418699695842,
+          "field_brier": 0.6658038302768109,
+          "mean_probability_mass": 1.0,
+          "mass_deficit_forecasts": 0,
+          "favourite_confidence": 0.5260613343986015,
+          "favourite_win_frequency": 0.5340314136125655,
+          "zero_probability_winners": 10,
+          "checkpoints": 191
+        }
+      },
+      "equal_season_log_loss_gain": -0.031766319149834084,
+      "gain_ci90_season_bootstrap": [
+        -0.06675719587215743,
+        -0.0009357922969295796
+      ],
+      "seasons_better": 0,
+      "seasons_equal": 14,
+      "season_gains": {
+        "2010": 0.0,
+        "2011": 0.0,
+        "2012": 0.0,
+        "2013": 0.0,
+        "2014": 0.0,
+        "2015": 0.0,
+        "2016": 0.0,
+        "2017": 0.0,
+        "2018": 0.0,
+        "2019": 0.0,
+        "2020": 0.0,
+        "2021": 0.0,
+        "2022": 0.0,
+        "2023": 0.0,
+        "2024": -0.015908469047802853,
+        "2025": -0.22669650435962818,
+        "2026": -0.2974224521397484
+      }
+    },
+    "DPOY": {
+      "variants": {
+        "baseline": {
+          "mean_winner_log_loss": 2.86742566150124,
+          "field_brier": 0.8826109137981043,
+          "mean_probability_mass": 1.0,
+          "mass_deficit_forecasts": 0,
+          "favourite_confidence": 0.3574002899707293,
+          "favourite_win_frequency": 0.2617801047120419,
+          "zero_probability_winners": 12,
+          "checkpoints": 191
+        },
+        "fixed": {
+          "mean_winner_log_loss": 2.86742566150124,
+          "field_brier": 0.8826109137981043,
+          "mean_probability_mass": 1.0,
+          "mass_deficit_forecasts": 0,
+          "favourite_confidence": 0.3574002899707293,
+          "favourite_win_frequency": 0.2617801047120419,
+          "zero_probability_winners": 12,
+          "checkpoints": 191
+        }
+      },
+      "equal_season_log_loss_gain": 0.0,
+      "gain_ci90_season_bootstrap": [
+        0.0,
+        0.0
+      ],
+      "seasons_better": 0,
+      "seasons_equal": 17,
+      "season_gains": {
+        "2010": 0.0,
+        "2011": 0.0,
+        "2012": 0.0,
+        "2013": 0.0,
+        "2014": 0.0,
+        "2015": 0.0,
+        "2016": 0.0,
+        "2017": 0.0,
+        "2018": 0.0,
+        "2019": 0.0,
+        "2020": 0.0,
+        "2021": 0.0,
+        "2022": 0.0,
+        "2023": 0.0,
+        "2024": 0.0,
+        "2025": 0.0,
+        "2026": 0.0
+      }
+    },
+    "MVP": {
+      "variants": {
+        "baseline": {
+          "mean_winner_log_loss": 1.3346205518062895,
+          "field_brier": 0.5340147868404954,
+          "mean_probability_mass": 1.0,
+          "mass_deficit_forecasts": 0,
+          "favourite_confidence": 0.5757951594977232,
+          "favourite_win_frequency": 0.6596858638743456,
+          "zero_probability_winners": 0,
+          "checkpoints": 191
+        },
+        "fixed": {
+          "mean_winner_log_loss": 1.3346205518062895,
+          "field_brier": 0.5340147868404954,
+          "mean_probability_mass": 1.0,
+          "mass_deficit_forecasts": 0,
+          "favourite_confidence": 0.5757951594977232,
+          "favourite_win_frequency": 0.6596858638743456,
+          "zero_probability_winners": 0,
+          "checkpoints": 191
+        }
+      },
+      "equal_season_log_loss_gain": 0.0,
+      "gain_ci90_season_bootstrap": [
+        0.0,
+        0.0
+      ],
+      "seasons_better": 0,
+      "seasons_equal": 17,
+      "season_gains": {
+        "2010": 0.0,
+        "2011": 0.0,
+        "2012": 0.0,
+        "2013": 0.0,
+        "2014": 0.0,
+        "2015": 0.0,
+        "2016": 0.0,
+        "2017": 0.0,
+        "2018": 0.0,
+        "2019": 0.0,
+        "2020": 0.0,
+        "2021": 0.0,
+        "2022": 0.0,
+        "2023": 0.0,
+        "2024": 0.0,
+        "2025": 0.0,
+        "2026": 0.0
+      }
+    },
+    "ROY": {
+      "variants": {
+        "baseline": {
+          "mean_winner_log_loss": 0.9500159442858043,
+          "field_brier": 0.45188857954072986,
+          "mean_probability_mass": 1.0,
+          "mass_deficit_forecasts": 0,
+          "favourite_confidence": 0.7176255536830075,
+          "favourite_win_frequency": 0.7225130890052356,
+          "zero_probability_winners": 0,
+          "checkpoints": 191
+        },
+        "fixed": {
+          "mean_winner_log_loss": 0.9694348628545226,
+          "field_brier": 0.4599768877564559,
+          "mean_probability_mass": 1.0,
+          "mass_deficit_forecasts": 0,
+          "favourite_confidence": 0.7174727261475595,
+          "favourite_win_frequency": 0.6963350785340314,
+          "zero_probability_winners": 0,
+          "checkpoints": 191
+        }
+      },
+      "equal_season_log_loss_gain": -0.01983429650601724,
+      "gain_ci90_season_bootstrap": [
+        -0.056487884183621016,
+        0.00016964786075950443
+      ],
+      "seasons_better": 1,
+      "seasons_equal": 14,
+      "season_gains": {
+        "2010": 0.0,
+        "2011": 0.0,
+        "2012": 0.0,
+        "2013": 0.0,
+        "2014": 0.0,
+        "2015": 0.0,
+        "2016": 0.0,
+        "2017": 0.0,
+        "2018": 0.0,
+        "2019": 0.0,
+        "2020": 0.0,
+        "2021": 0.0,
+        "2022": 0.0,
+        "2023": 0.0,
+        "2024": 0.002884013632911575,
+        "2025": -0.32009801037385244,
+        "2026": -0.01996904386135223
+      }
+    }
+  },
+  "post_2024": {
+    "6MOY": {
+      "variants": {
+        "baseline": {
+          "mean_winner_log_loss": 2.6911252867247057,
+          "field_brier": 0.8891010253594333,
+          "mean_probability_mass": 1.0,
+          "mass_deficit_forecasts": 0,
+          "favourite_confidence": 0.36719254931135364,
+          "favourite_win_frequency": 0.2727272727272727,
+          "zero_probability_winners": 0,
+          "checkpoints": 33
+        },
+        "fixed": {
+          "mean_winner_log_loss": 2.871134428573766,
+          "field_brier": 0.9176927515690859,
+          "mean_probability_mass": 1.0,
+          "mass_deficit_forecasts": 0,
+          "favourite_confidence": 0.32489735056112634,
+          "favourite_win_frequency": 0.24242424242424243,
+          "zero_probability_winners": 0,
+          "checkpoints": 33
+        }
+      },
+      "equal_season_log_loss_gain": -0.1800091418490598,
+      "gain_ci90_season_bootstrap": [
+        -0.27384713621304163,
+        -0.08617114748507797
+      ],
+      "seasons_better": 0,
+      "seasons_equal": 0,
+      "season_gains": {
+        "2024": -0.015908469047802853,
+        "2025": -0.22669650435962818,
+        "2026": -0.2974224521397484
+      }
+    },
+    "DPOY": {
+      "variants": {
+        "baseline": {
+          "mean_winner_log_loss": 1.9322419559537816,
+          "field_brier": 0.7684425149394245,
+          "mean_probability_mass": 1.0,
+          "mass_deficit_forecasts": 0,
+          "favourite_confidence": 0.28257727792603166,
+          "favourite_win_frequency": 0.30303030303030304,
+          "zero_probability_winners": 0,
+          "checkpoints": 33
+        },
+        "fixed": {
+          "mean_winner_log_loss": 1.9322419559537816,
+          "field_brier": 0.7684425149394245,
+          "mean_probability_mass": 1.0,
+          "mass_deficit_forecasts": 0,
+          "favourite_confidence": 0.28257727792603166,
+          "favourite_win_frequency": 0.30303030303030304,
+          "zero_probability_winners": 0,
+          "checkpoints": 33
+        }
+      },
+      "equal_season_log_loss_gain": 0.0,
+      "gain_ci90_season_bootstrap": [
+        0.0,
+        0.0
+      ],
+      "seasons_better": 0,
+      "seasons_equal": 3,
+      "season_gains": {
+        "2024": 0.0,
+        "2025": 0.0,
+        "2026": 0.0
+      }
+    },
+    "MVP": {
+      "variants": {
+        "baseline": {
+          "mean_winner_log_loss": 0.8681119496232776,
+          "field_brier": 0.4459669641220101,
+          "mean_probability_mass": 1.0,
+          "mass_deficit_forecasts": 0,
+          "favourite_confidence": 0.5211294283916639,
+          "favourite_win_frequency": 0.696969696969697,
+          "zero_probability_winners": 0,
+          "checkpoints": 33
+        },
+        "fixed": {
+          "mean_winner_log_loss": 0.8681119496232776,
+          "field_brier": 0.4459669641220101,
+          "mean_probability_mass": 1.0,
+          "mass_deficit_forecasts": 0,
+          "favourite_confidence": 0.5211294283916639,
+          "favourite_win_frequency": 0.696969696969697,
+          "zero_probability_winners": 0,
+          "checkpoints": 33
+        }
+      },
+      "equal_season_log_loss_gain": 0.0,
+      "gain_ci90_season_bootstrap": [
+        0.0,
+        0.0
+      ],
+      "seasons_better": 0,
+      "seasons_equal": 3,
+      "season_gains": {
+        "2024": 0.0,
+        "2025": 0.0,
+        "2026": 0.0
+      }
+    },
+    "ROY": {
+      "variants": {
+        "baseline": {
+          "mean_winner_log_loss": 1.4162479272609838,
+          "field_brier": 0.8101285973002528,
+          "mean_probability_mass": 1.0,
+          "mass_deficit_forecasts": 0,
+          "favourite_confidence": 0.5410513626628534,
+          "favourite_win_frequency": 0.42424242424242425,
+          "zero_probability_winners": 0,
+          "checkpoints": 33
+        },
+        "fixed": {
+          "mean_winner_log_loss": 1.5286422741284147,
+          "field_brier": 0.8569427448518797,
+          "mean_probability_mass": 1.0,
+          "mass_deficit_forecasts": 0,
+          "favourite_confidence": 0.5401668154122296,
+          "favourite_win_frequency": 0.2727272727272727,
+          "zero_probability_winners": 0,
+          "checkpoints": 33
+        }
+      },
+      "equal_season_log_loss_gain": -0.11239434686743104,
+      "gain_ci90_season_bootstrap": [
+        -0.22005502153635237,
+        -0.0047336721985096935
+      ],
+      "seasons_better": 1,
+      "seasons_equal": 0,
+      "season_gains": {
+        "2024": 0.002884013632911575,
+        "2025": -0.32009801037385244,
+        "2026": -0.01996904386135223
+      }
+    }
+  },
+  "interpretation": "Paired bug correction, not an untouched holdout or a profitability test",
+  "descriptive_candidate_reliability": [
+    {
+      "award": "6MOY",
+      "variant": "baseline",
+      "bin": 0,
+      "n": 8617,
+      "predicted": 0.002653988720377369,
+      "actual": 0.005222235116629918
+    },
+    {
+      "award": "6MOY",
+      "variant": "baseline",
+      "bin": 1,
+      "n": 241,
+      "predicted": 0.07124956609686535,
+      "actual": 0.04979253112033195
+    },
+    {
+      "award": "6MOY",
+      "variant": "baseline",
+      "bin": 2,
+      "n": 193,
+      "predicted": 0.1408524499362308,
+      "actual": 0.12435233160621761
+    },
+    {
+      "award": "6MOY",
+      "variant": "baseline",
+      "bin": 3,
+      "n": 173,
+      "predicted": 0.29005484893621303,
+      "actual": 0.23121387283236994
+    },
+    {
+      "award": "6MOY",
+      "variant": "baseline",
+      "bin": 4,
+      "n": 89,
+      "predicted": 0.48355850579944964,
+      "actual": 0.5617977528089888
+    },
+    {
+      "award": "6MOY",
+      "variant": "baseline",
+      "bin": 5,
+      "n": 27,
+      "predicted": 0.704936568991082,
+      "actual": 0.5925925925925926
+    },
+    {
+      "award": "6MOY",
+      "variant": "baseline",
+      "bin": 6,
+      "n": 32,
+      "predicted": 0.8914196151436261,
+      "actual": 0.65625
+    },
+    {
+      "award": "6MOY",
+      "variant": "fixed",
+      "bin": 0,
+      "n": 8599,
+      "predicted": 0.0026992105902734096,
+      "actual": 0.005465751831608327
+    },
+    {
+      "award": "6MOY",
+      "variant": "fixed",
+      "bin": 1,
+      "n": 254,
+      "predicted": 0.07042714859995512,
+      "actual": 0.04330708661417323
+    },
+    {
+      "award": "6MOY",
+      "variant": "fixed",
+      "bin": 2,
+      "n": 196,
+      "predicted": 0.1393960060726395,
+      "actual": 0.12244897959183673
+    },
+    {
+      "award": "6MOY",
+      "variant": "fixed",
+      "bin": 3,
+      "n": 180,
+      "predicted": 0.2887600794610547,
+      "actual": 0.2388888888888889
+    },
+    {
+      "award": "6MOY",
+      "variant": "fixed",
+      "bin": 4,
+      "n": 85,
+      "predicted": 0.4786138044817288,
+      "actual": 0.5411764705882353
+    },
+    {
+      "award": "6MOY",
+      "variant": "fixed",
+      "bin": 5,
+      "n": 26,
+      "predicted": 0.7074984550415458,
+      "actual": 0.6153846153846154
+    },
+    {
+      "award": "6MOY",
+      "variant": "fixed",
+      "bin": 6,
+      "n": 32,
+      "predicted": 0.8914196151436261,
+      "actual": 0.65625
+    },
+    {
+      "award": "DPOY",
+      "variant": "baseline",
+      "bin": 0,
+      "n": 11432,
+      "predicted": 0.0042067503930304315,
+      "actual": 0.007610216934919524
+    },
+    {
+      "award": "DPOY",
+      "variant": "baseline",
+      "bin": 1,
+      "n": 495,
+      "predicted": 0.07148419268708928,
+      "actual": 0.03838383838383838
+    },
+    {
+      "award": "DPOY",
+      "variant": "baseline",
+      "bin": 2,
+      "n": 348,
+      "predicted": 0.13890261722796401,
+      "actual": 0.14367816091954022
+    },
+    {
+      "award": "DPOY",
+      "variant": "baseline",
+      "bin": 3,
+      "n": 144,
+      "predicted": 0.28107648385941375,
+      "actual": 0.1597222222222222
+    },
+    {
+      "award": "DPOY",
+      "variant": "baseline",
+      "bin": 4,
+      "n": 63,
+      "predicted": 0.4961163655125497,
+      "actual": 0.3492063492063492
+    },
+    {
+      "award": "DPOY",
+      "variant": "baseline",
+      "bin": 5,
+      "n": 7,
+      "predicted": 0.6364712326270301,
+      "actual": 1.0
+    },
+    {
+      "award": "DPOY",
+      "variant": "fixed",
+      "bin": 0,
+      "n": 11432,
+      "predicted": 0.0042067503930304315,
+      "actual": 0.007610216934919524
+    },
+    {
+      "award": "DPOY",
+      "variant": "fixed",
+      "bin": 1,
+      "n": 495,
+      "predicted": 0.07148419268708928,
+      "actual": 0.03838383838383838
+    },
+    {
+      "award": "DPOY",
+      "variant": "fixed",
+      "bin": 2,
+      "n": 348,
+      "predicted": 0.13890261722796401,
+      "actual": 0.14367816091954022
+    },
+    {
+      "award": "DPOY",
+      "variant": "fixed",
+      "bin": 3,
+      "n": 144,
+      "predicted": 0.28107648385941375,
+      "actual": 0.1597222222222222
+    },
+    {
+      "award": "DPOY",
+      "variant": "fixed",
+      "bin": 4,
+      "n": 63,
+      "predicted": 0.4961163655125497,
+      "actual": 0.3492063492063492
+    },
+    {
+      "award": "DPOY",
+      "variant": "fixed",
+      "bin": 5,
+      "n": 7,
+      "predicted": 0.6364712326270301,
+      "actual": 1.0
+    },
+    {
+      "award": "MVP",
+      "variant": "baseline",
+      "bin": 0,
+      "n": 14900,
+      "predicted": 0.001583150169132418,
+      "actual": 0.0022147651006711407
+    },
+    {
+      "award": "MVP",
+      "variant": "baseline",
+      "bin": 1,
+      "n": 207,
+      "predicted": 0.07186597331071622,
+      "actual": 0.04830917874396135
+    },
+    {
+      "award": "MVP",
+      "variant": "baseline",
+      "bin": 2,
+      "n": 175,
+      "predicted": 0.13901975247390114,
+      "actual": 0.09142857142857143
+    },
+    {
+      "award": "MVP",
+      "variant": "baseline",
+      "bin": 3,
+      "n": 160,
+      "predicted": 0.2731902960196942,
+      "actual": 0.25625
+    },
+    {
+      "award": "MVP",
+      "variant": "baseline",
+      "bin": 4,
+      "n": 69,
+      "predicted": 0.506535728911008,
+      "actual": 0.5217391304347826
+    },
+    {
+      "award": "MVP",
+      "variant": "baseline",
+      "bin": 5,
+      "n": 63,
+      "predicted": 0.6905537740675508,
+      "actual": 0.746031746031746
+    },
+    {
+      "award": "MVP",
+      "variant": "baseline",
+      "bin": 6,
+      "n": 26,
+      "predicted": 0.8861557268234506,
+      "actual": 0.9615384615384616
+    },
+    {
+      "award": "MVP",
+      "variant": "fixed",
+      "bin": 0,
+      "n": 14900,
+      "predicted": 0.001583150169132418,
+      "actual": 0.0022147651006711407
+    },
+    {
+      "award": "MVP",
+      "variant": "fixed",
+      "bin": 1,
+      "n": 207,
+      "predicted": 0.07186597331071622,
+      "actual": 0.04830917874396135
+    },
+    {
+      "award": "MVP",
+      "variant": "fixed",
+      "bin": 2,
+      "n": 175,
+      "predicted": 0.13901975247390114,
+      "actual": 0.09142857142857143
+    },
+    {
+      "award": "MVP",
+      "variant": "fixed",
+      "bin": 3,
+      "n": 160,
+      "predicted": 0.2731902960196942,
+      "actual": 0.25625
+    },
+    {
+      "award": "MVP",
+      "variant": "fixed",
+      "bin": 4,
+      "n": 69,
+      "predicted": 0.506535728911008,
+      "actual": 0.5217391304347826
+    },
+    {
+      "award": "MVP",
+      "variant": "fixed",
+      "bin": 5,
+      "n": 63,
+      "predicted": 0.6905537740675508,
+      "actual": 0.746031746031746
+    },
+    {
+      "award": "MVP",
+      "variant": "fixed",
+      "bin": 6,
+      "n": 26,
+      "predicted": 0.8861557268234506,
+      "actual": 0.9615384615384616
+    },
+    {
+      "award": "ROY",
+      "variant": "baseline",
+      "bin": 0,
+      "n": 8154,
+      "predicted": 0.001099738398685358,
+      "actual": 0.001839587932303164
+    },
+    {
+      "award": "ROY",
+      "variant": "baseline",
+      "bin": 1,
+      "n": 87,
+      "predicted": 0.07226312037753804,
+      "actual": 0.034482758620689655
+    },
+    {
+      "award": "ROY",
+      "variant": "baseline",
+      "bin": 2,
+      "n": 73,
+      "predicted": 0.1501689554097431,
+      "actual": 0.1643835616438356
+    },
+    {
+      "award": "ROY",
+      "variant": "baseline",
+      "bin": 3,
+      "n": 95,
+      "predicted": 0.30489401243539466,
+      "actual": 0.23157894736842105
+    },
+    {
+      "award": "ROY",
+      "variant": "baseline",
+      "bin": 4,
+      "n": 56,
+      "predicted": 0.48786812294506127,
+      "actual": 0.75
+    },
+    {
+      "award": "ROY",
+      "variant": "baseline",
+      "bin": 5,
+      "n": 50,
+      "predicted": 0.7104394592023255,
+      "actual": 0.66
+    },
+    {
+      "award": "ROY",
+      "variant": "baseline",
+      "bin": 6,
+      "n": 80,
+      "predicted": 0.9121998606620041,
+      "actual": 0.8
+    },
+    {
+      "award": "ROY",
+      "variant": "fixed",
+      "bin": 0,
+      "n": 8150,
+      "predicted": 0.0011497367396541773,
+      "actual": 0.0018404907975460123
+    },
+    {
+      "award": "ROY",
+      "variant": "fixed",
+      "bin": 1,
+      "n": 94,
+      "predicted": 0.07274894173048137,
+      "actual": 0.0425531914893617
+    },
+    {
+      "award": "ROY",
+      "variant": "fixed",
+      "bin": 2,
+      "n": 71,
+      "predicted": 0.14809859839285,
+      "actual": 0.16901408450704225
+    },
+    {
+      "award": "ROY",
+      "variant": "fixed",
+      "bin": 3,
+      "n": 95,
+      "predicted": 0.3026250495381615,
+      "actual": 0.24210526315789474
+    },
+    {
+      "award": "ROY",
+      "variant": "fixed",
+      "bin": 4,
+      "n": 55,
+      "predicted": 0.4914755441989026,
+      "actual": 0.7272727272727273
+    },
+    {
+      "award": "ROY",
+      "variant": "fixed",
+      "bin": 5,
+      "n": 52,
+      "predicted": 0.713926786052163,
+      "actual": 0.6346153846153846
+    },
+    {
+      "award": "ROY",
+      "variant": "fixed",
+      "bin": 6,
+      "n": 78,
+      "predicted": 0.9150194493779923,
+      "actual": 0.8205128205128205
+    }
+  ]
+}
