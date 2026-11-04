@@ -62,3 +62,8 @@ TypeSafe (96%, confidence 0.94): treat the paired run as the valid result, and b
 - **Live from 5 Nov 2026 as a shadow only:** nhl_model publishes g_playoffs / g_div / g_final / g_cup / g_roster, and pipeline/sport_archive.py archives them as g_*.
 - **Goalie ratings:** model/nhl_goalie_ratings_2026.csv, from research/nhl_rapm.goalie_ratings(2026), seasons 2023-2025, built 5 Nov 2026.
 - **Displayed NHL probabilities are unchanged.** A live switch needs its own forward-scored decision.
+
+**5 Nov 2026, later (correction to the amendment above):** GPT has since corrected its own description: its passing run was **not production-equivalent**. It set `NHL_XG=adj`, which also changes the playoff rating input; the live playoff rating uses shot differential. Claude's failing run omitted the live 20% regular-season xG share and included the 2014 fallback. The two runs used different configurations, so neither result decides the question.
+- **Status:** unresolved. Freeze one canonical production-equivalent baseline (inputs, season coverage, cached ratings), then change only the goalie term.
+- **The archived g_* shadow keeps collecting** (TypeSafe 99%) as forward evidence only. It is not adopted, deployed or closed.
+- Calling GPT's run "the valid PASS" above was wrong; that sentence is withdrawn.
