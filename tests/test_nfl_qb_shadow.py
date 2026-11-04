@@ -118,21 +118,22 @@ class Review(unittest.TestCase):
             rows[0]["team"] = "NYJ"
             self.assertEqual(Q.episodes(2026, None, {"BUF": "00-001"}, None, rows), [])
 
-    def test_no_future_regular_game_keeps_live_adjustment(self):
+    def test_no_future_regular_game_keeps_season_ending_playoff_adjustment(self):
         import ratings
         R = pd.DataFrame({"rating": np.arange(Q.NT, dtype=float), "base": np.arange(Q.NT),
                           "qb_adj": 2.0, "press_adj": 0.0}, index=Q.TEAMS)
         g = pd.DataFrame([dict(week=18, gameday=str(TODAY), game_id="x", home_team="BUF", away_team="NYJ", result=7)])
-        episode = dict(team="BUF", ref="a", repl="b", kind="season", m=0, res=False)
-        with patch.object(ratings, "qb_values", return_value=({}, 0, {})), \
+        episode = dict(team="BUF", ref="a", repl="b", kind="season", m=0, res=False, source="espn")
+        with patch.object(ratings, "qb_values", return_value=({"a": 2.0, "b": 0.0}, 0, {})), \
              patch.object(Q, "fetch_espn", return_value=([], True)), \
              patch.object(Q, "reference", return_value={}), \
              patch.object(Q, "episodes", return_value=[episode]), \
              patch.object(Q.pd, "read_csv", return_value=RUNS):
             r, adj, eps, _, po = Q.build(2026, g, None, None, None, R, None, 10)
-        np.testing.assert_array_equal(r, R.rating.to_numpy())
-        self.assertIsNone(adj)
-        self.assertEqual(eps, [])
+        self.assertTrue((po[:, Q.TIX["BUF"]] < 0).all())
+        self.assertTrue((adj == 0).all())
+        self.assertEqual(len(eps), 1)
+        self.assertIsNotNone(po)
 
 
 class FixesV2(unittest.TestCase):
@@ -144,6 +145,19 @@ class FixesV2(unittest.TestCase):
         self.assertAlmostEqual(tail, 0.5)                         # two of four still out at the end of the record
         no_cens = pd.DataFrame({"L": [1, 2, 3, 3], "censored": [False] * 4})
         self.assertAlmostEqual(Q.km_pmf(no_cens, 1)[2], 0.0)
+
+    def test_draw_samples_km_tail_once_and_conditions_once(self):
+        runs = pd.DataFrame({"L": [1, 2, 3, 3], "censored": [False, False, True, True]})
+        # P(L=1)=.25, P(L=2)=.25, unresolved tail=.5.
+        days = [TODAY + dt.timedelta(days=k) for k in range(1, 11)]
+        miss, beyond = Q.draw_absence(ep("nodate"), days, 40000, np.random.default_rng(12), runs)
+        self.assertAlmostEqual(float(beyond.mean()), .5, delta=.01)
+        self.assertAlmostEqual(float((miss == 1).mean()), .25, delta=.01)
+        self.assertAlmostEqual(float((miss == 2).mean()), .25, delta=.01)
+        # Given L>1: mass 1/3 at L=2 (one extra game), 2/3 unresolved.
+        miss, beyond = Q.draw_absence(ep("nodate", m=1), days, 40000, np.random.default_rng(12), runs)
+        self.assertAlmostEqual(float(beyond.mean()), 2/3, delta=.01)
+        self.assertAlmostEqual(float((miss == 1).mean()), 1/3, delta=.01)
 
     def test_absence_beyond_season_flags(self):
         rng = np.random.default_rng(1)
@@ -157,11 +171,8 @@ class FixesV2(unittest.TestCase):
 
     def test_simulator_playoff_shift_is_identity_when_zero(self):
         import simulate
-        from common import games
-        try:
-            g = games()
-        except Exception:  # noqa: BLE001  (no network in some test environments)
-            self.skipTest("schedule not available")
+        from pathlib import Path
+        g = pd.read_csv(Path(__file__).parent / "fixtures" / "nfl_2024_schedule.csv")
         g = g[(g.season == 2024) & (g.game_type == "REG")].copy()
         g.loc[g.week >= 17, "result"] = np.nan
         R = np.linspace(-6, 6, Q.NT)

@@ -79,3 +79,10 @@ TypeSafe chose to fix both review gaps now (49%, low confidence). Version tag `2
     - Tests: 15 pass, including Kaplan-Meier censoring, the beyond-season flags, simulator identity with zero playoff shifts, and playoff-only effect.
     - Fake-feed check: a season-ending Burrow injury leaves Cincinnati's playoff chance unchanged (v1 = v2 = 77%) but lowers the conference chance (10.4% → 8.2%) and the Super Bowl chance (5.2% → 3.7%).
     - With Kaplan-Meier, a no-date IR absence lasts longer (Dallas median 9 games, 81% out past the season) than with the v1 sampling.
+
+### 5 November 2026 — v2 review correction (2.1-review-20261105)
+Review of d5496ff found that km_pmf already returns finite probabilities summing to 1-tail, but draw_absence multiplied the CDF by 1-tail again. Removed that second factor. In a known example with 50% unresolved mass, v2 incorrectly drew 75% unresolved; the corrected sampler draws 50%. Both unconditional and already-missed conditional draws have frequency regressions. The earlier Dallas illustration is implementation-affected and must not be interpreted as a calibrated estimate.
+
+Also process episodes with zero remaining regular-season games: their regular-season array is zero, but season-ending or beyond-season absences still affect playoffs. Previously these episodes were silently skipped. The prior no-episode exact-v4 guarantee remains; a known episode after the regular season is no longer treated as no episode. Updated tests cover this distinction.
+
+Use the separate version tag for corrected forward snapshots; do not pool affected v2 results with v2.1 or rewrite old snapshots. The preregistered whole-playoff carry-over approximation remains: there are no partial playoff returns, and unresolved KM tail mass is conservatively assigned out for the remainder, not a statistically identified claim that such absences are permanent. No live v4 change.
