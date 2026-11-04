@@ -64,7 +64,7 @@ TypeSafe (96%, confidence 0.94): treat the paired run as the valid result, and b
 - **Displayed NHL probabilities are unchanged.** A live switch needs its own forward-scored decision.
 
 ### 5 November 2026 — research-branch merge clarification
-The original rule, original result and adoption note above are preserved. GPT's separate original rule is retained verbatim as NHL_GOALIE_ROSTER_GPT_RULE_20261105.md; its findings, result JSON and strict replay/scoring helpers are merged as research records only.
+The original rule, original result and adoption note above are preserved. GPT's separate original rule text is retained (LF line endings normalized) as NHL_GOALIE_ROSTER_GPT_RULE_20261105.md; its findings, result JSON and strict replay/scoring helpers are merged as research records only.
 
 The adoption note needs qualification: the +0.000317 result passes the registered GPT configuration, but it is not a matched rerun of the original configuration or the current complete live model. GPT used nine seasons, NHL_RS_SHOT_W=0.2 and NHL_XG=adj; enabling NHL_XG=adj also changes the replay playoff rating input, whereas the live playoff calculation uses shot differential. Claude's original configuration omitted the 20% regular-season xG share. Neither test included the subsequently adopted overtime fix. Do not attribute the difference in verdicts solely to 2014 or float serialization. The float-cache mismatch was demonstrated in GPT's own initial unscored arms; Claude's original raw arms were not independently checked for it.
 
