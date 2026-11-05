@@ -124,6 +124,11 @@ def fixture_map(P, F):
 
 def assemble(prices_dir, dirs, with_outcomes):
     raw = pd.concat([pd.read_csv(p) for p in glob.glob(os.path.join(prices_dir, "*.csv.gz"))], ignore_index=True)
+    # historical updates carry OddsPapi player ids only; names come from the live-odds name map (collector "names" mode)
+    nmap_path = os.path.join(os.path.dirname(os.path.abspath(prices_dir)), "player_names.json")
+    nmap = {k: v["name"] for k, v in json.load(open(nmap_path)).items()} if os.path.exists(nmap_path) else {}
+    raw["player_name"] = raw.player_name.where(raw.player_name.notna(), raw.player_key.astype(str).map(nmap))
+    raw["player_name"] = raw.player_name.fillna("id:" + raw.player_key.astype(str))
     P = PT.prices_long(raw)
     F = forecasts(dirs)
     fmap = fixture_map(P, F)
@@ -152,7 +157,8 @@ def assemble(prices_dir, dirs, with_outcomes):
         D["actual"] = [r[s] for r, s in zip(D[["pts", "reb", "ast"]].to_dict("records"), D.stat)]
         D["over"] = (D.actual > D.line).astype(int)
     meta = dict(price_rows=len(raw), fixtures=int(P.fixture_id.nunique()), fixtures_mapped=len(fmap), main_lines=len(L),
-                lines_with_game=int(L.game_id.notna().sum()), names_unmatched=int(unmatched), joined=len(D))
+                lines_with_game=int(L.game_id.notna().sum()), names_unmatched=int(unmatched), joined=len(D),
+                lines_without_player_name=int(L.player_name.astype(str).str.startswith("id:").sum()) if len(L) else 0)
     return P, L, D, meta
 
 

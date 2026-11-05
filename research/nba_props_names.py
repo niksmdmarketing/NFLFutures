@@ -17,7 +17,11 @@ NICK = {"nic": "nicolas", "nicolas": "nicolas", "herb": "herbert", "cam": "camer
 
 
 def norm(name):
-    s = unicodedata.normalize("NFKD", str(name or "")).encode("ascii", "ignore").decode().lower()
+    s = str(name or "")
+    if s.count(",") == 1:            # OddsPapi gives "Last, First" (e.g. "Cunningham, Cade", "Jackson Jr., Jaren")
+        last, first = s.split(",")
+        s = f"{first.strip()} {last.strip()}"
+    s = unicodedata.normalize("NFKD", s).encode("ascii", "ignore").decode().lower()
     s = re.sub(r"[.'`’]", "", s)
     s = re.sub(r"[^a-z0-9 -]", " ", s).replace("-", " ")
     s = SUFFIX.sub(" ", s)

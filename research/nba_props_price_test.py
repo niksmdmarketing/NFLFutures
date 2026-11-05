@@ -21,20 +21,21 @@ import pandas as pd
 
 STAT_PATTERNS = [("pra", r"points.*rebounds.*assists|\bpra\b"), ("pr", r"points.*rebounds"), ("pa", r"points.*assists"),
                  ("ra", r"rebounds.*assists"), ("pts", r"points"), ("reb", r"rebounds"), ("ast", r"assists")]
-EXCLUDE = re.compile(r"alternate|milestone|\d\+|first|quarter|half|1st|2nd|3rd|4th|double|triple|steals|blocks|threes|3-point|turnover",
+EXCLUDE = re.compile(r"alternate|milestone|\d\+|first|quarter|half|1st|2nd|3rd|4th|double|triple|steals|blocks|threes|3-point|3 point|turnover",
                      re.I)
 PRIMARY_STATS = ("pts", "reb", "ast")
 BOOT, SEED = 2000, 1
 
 
 def stat_of(market_name):
+    """Stat of a full-game player over/under market from its name, whatever order the components are listed in
+    (OddsPapi: 'Over Under Player Points + Assists + Rebounds (incl. overtime)'). Quarter, half, alternate and other markets: None."""
     m = str(market_name or "").lower()
     if EXCLUDE.search(m):
         return None
-    for s, pat in STAT_PATTERNS:
-        if re.search(pat, m):
-            return s
-    return None
+    has = tuple(w in m for w in ("points", "rebounds", "assists"))
+    return {(1, 1, 1): "pra", (1, 1, 0): "pr", (1, 0, 1): "pa", (0, 1, 1): "ra", (1, 0, 0): "pts", (0, 1, 0): "reb",
+            (0, 0, 1): "ast"}.get(tuple(map(int, has)))
 
 
 def side_of(outcome_name):
@@ -283,6 +284,9 @@ def selftest():
     toy3 = pd.DataFrame([row("draftkings", 24.5, s, 1.91, t60="2026-01-09T23:30:00Z") for s in ("Over", "Under")])
     assert len(main_lines(prices_long(toy3))) == 0
     assert abs(p_over([0.1] * 10, 4.5) - 0.5) < 1e-9
+    assert stat_of("Over Under Player Points + Assists + Rebounds (incl. overtime)") == "pra"
+    assert stat_of("Over Under Player Assists + Rebounds (incl. overtime)") == "ra" and stat_of("Over Under Player Points First Quarter") is None
+    assert stat_of("Over Under Player Rebounds (incl. overtime)") == "reb" and stat_of("Over Under Player Steals (incl. overtime)") is None
     assert stat_of("Player Points") == "pts" and stat_of("Player Points + Rebounds + Assists") == "pra" and stat_of("Player Points Alternate") is None
     print("selftest passed:", {k: round(v, 4) if isinstance(v, float) else v for k, v in it.items()}, {k: round(v, 4) if isinstance(v, float) else v for k, v in cs.items()})
 
