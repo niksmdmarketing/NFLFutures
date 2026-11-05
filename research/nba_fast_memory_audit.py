@@ -31,6 +31,14 @@ def timing_errors(record,receipt,primary,raw_primary):
     return sorted(set(errors))
 
 
+def timing_pushes(timing):
+    """Legacy run lists are not independent push receipts; ignore, never infer."""
+    if not isinstance(timing, dict):
+        return []
+    return [(p['timestamp'], p['after']) for p in timing.get('pushes', [])
+            if p.get('timestamp') and p.get('after')]
+
+
 def audit(repo,ref):
     a=GitArchive(repo,ref)
     prefix='nba/props_forward/challengers/fast-minutes-hl2-dev1'
@@ -39,7 +47,7 @@ def audit(repo,ref):
     if not paths:return dict(checked_utc=datetime.now(timezone.utc).isoformat(),snapshots=0,eligible_game_horizons=0,records=[])
     pri=a.audit(); primaries={r['path']:r for r in pri['snapshots']}
     timings=a.git('ls-tree','-r','--name-only',ref,'nba/props_forward/timing').decode().splitlines()
-    pushes={(p['timestamp'],p['after']) for t in timings for p in a.read(t).get('pushes',[]) if p.get('timestamp') and p.get('after')}
+    pushes={p for t in timings for p in timing_pushes(a.read(t))}
     ancestors={h:set(a.git('rev-list',h).decode().splitlines()) for _,h in pushes}
     inputs=a.git('ls-tree','-r','--name-only',ref,'nba/props_forward/inputs').decode().splitlines()
     byhash={Path(p).name.split('.')[0]:p for p in inputs}; verified=set()
