@@ -35,7 +35,7 @@ Combined -0.0032, 2 of 10 seasons better (90% -0.0046 to -0.0018).
 2. State the residual lookahead in every new rule: A0 knows every player who plays that season and his first team; it does not know players who never play.
 3. Report the NOLEAK arm alongside, since it bounds one part of the leak. Do not describe A1 as leak-free.
 4. Where a challenger's change interacts with rosters (any new roster or player-based layer), run both A0 rosters and a rule that keeps a player on his previous team until he plays for another (a closer analogue of what is known live). The new rule is not built or tested here.
-5. Treat all historical NBA player-based results as optimistic by an amount of the order of 0.003 combined log loss (A1 minus A0 is an upper-end indication of the effect of dropping late-returning players; the true optimism is unmeasured).
+5. Treat all historical NBA player-based results as optimistic by an unmeasured amount. A1 minus A0 (-0.0032) is not an estimate of it: A1 loses information A0 legitimately has (injured players signed to the team) as well as the lookahead, so its size says nothing about which way the net bias runs.
 
 ## Not done
 - No transaction feed: nothing here can recreate the live roster at each date, so the lookahead cannot be removed, only bounded.
