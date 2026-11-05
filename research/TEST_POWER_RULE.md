@@ -49,3 +49,17 @@ research/test_power.py (inputs list, Part A, Part B), research/TEST_POWER_RESULT
 
 ## Result (5 Nov 2026)
 Run as amended; full tables in research/TEST_POWER_RESULTS.md, numbers in research/test_power_results.json. Main findings: (1) the season-to-season spread of paired gains depends mostly on how much a challenger changes forecasts (sd 0.0003 for NHL goalie tweaks to 0.03 for the NBA joint model), so planning should use the closest past comparison, not a sport median; (2) large structural challengers can only be screened for large losses or gains on 10 seasons; (3) NFL tests on 4 seasons are badly under-powered (MDE 0.003-0.011); 13 seasons roughly halves that; (4) passing all three common gates needs a noticeably larger true gain than the mean gate alone (roster-sized change at 0.002: 27% vs 77%); (5) Part B, exploratory: final-wins error tracks futures for large deteriorations (within-pair correlation 0.77-0.85) but not for the small roster change (0.15, opposite sign); nothing adopted.
+
+## Amendment 2 (5 Nov 2026, after GPT's review of the results; the result above is not edited, these corrections govern its reading)
+1. **Rebuilds are not inherently untestable.** The observed rebuilds (NBA joint, NFL recalibration) produced highly variable season gains. A different architecture could make large, consistently beneficial changes. The report shows a limitation of those comparisons, not a limit on rebuilding models.
+2. **Forecast movement was not measured.** The analysis uses variation in seasonal score differences, which can reflect forecast movement, calibration, market mix and particular seasons. "Detectability depends mainly on forecast movement" is a plausible interpretation, not an isolated finding.
+3. **The 27% pass probability is conditional** on the uniform-shift simulation and the observed historical variation. The table does not establish that the 70%-of-seasons gate is the binding one; that needs runs with each gate removed separately (not done).
+4. **"One season needed" is not sufficient evidence.** Those are formula extrapolations. One season cannot estimate season-to-season variability or support the season bootstrap.
+5. **Log-loss power is not profitability.** Neither the gain range called "realistic" nor any detectable improvement translates directly into an Australian futures edge.
+6. **Arithmetic for planning:** at the same season-to-season spread, going from 4 to 13 seasons cuts the approximate MDE by about 45% (sqrt(4/13) = 0.55); 10 to 21 seasons cuts it by about 31%. Useful, not a guarantee of adequate power.
+
+## Plan recorded (5 Nov 2026; no further ranking of alternatives)
+- **NFL first:** make 2013-2025 the standard extended comparison window, after verifying required inputs, historical timing (point-in-time data at each checkpoint) and baseline settings across every season.
+- **NBA next:** check data quality for several early seasons (usable possessions, lineups, box scores, roster inputs, era handling, not just successful downloads), then extend if valid, under research/NBA_REPLAY_STANDING_RULE.md.
+- **Both:** every later futures rule reports a recent-season window and the extended-history window, both chosen before scoring; older seasons may represent different conditions.
+- Gates unchanged. The extension is research infrastructure, not evidence for a better model.
