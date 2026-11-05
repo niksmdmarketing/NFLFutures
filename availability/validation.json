@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-11-05T02:30:54+00:00",
+ "checked_utc": "2026-11-05T11:02:14+00:00",
  "leagues": {
   "nfl": {
-   "records": 1190,
+   "records": 1434,
    "by_layer": {
-    "official": 1119,
-    "reported": 71
+    "official": 1357,
+    "reported": 77
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -53,16 +53,16 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "71/71"
+   "reported_matched_to_official_list": "77/77"
   },
   "nba": {
-   "records": 302,
+   "records": 199,
    "by_layer": {
-    "official": 247,
-    "reported": 55
+    "official": 145,
+    "reported": 54
    },
    "unknown_team": 0,
-   "no_player": 2,
+   "no_player": 20,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -97,24 +97,6 @@
     "WSH"
    ],
    "conflicts": [
-    {
-     "player": "Kon Knueppel",
-     "official": [
-      "available",
-      "out"
-     ],
-     "other": "expected out",
-     "source": "ESPN injury note"
-    },
-    {
-     "player": "Jalen Smith",
-     "official": [
-      "available",
-      "day-to-day"
-     ],
-     "other": "expected out",
-     "source": "ESPN injury note"
-    },
     {
      "player": "Tarik Biberovic",
      "official": [
@@ -173,14 +155,14 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "55/55"
+   "reported_matched_to_official_list": "54/54"
   },
   "nhl": {
-   "records": 1549,
+   "records": 1562,
    "by_layer": {
-    "official": 153,
+    "official": 152,
     "reported": 69,
-    "projected": 1327
+    "projected": 1341
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -231,9 +213,9 @@
    "reported_matched_to_official_list": "65/69"
   },
   "nbl": {
-   "records": 26,
+   "records": 25,
    "by_layer": {
-    "official": 26
+    "official": 25
    },
    "unknown_team": 0,
    "no_player": 0,
