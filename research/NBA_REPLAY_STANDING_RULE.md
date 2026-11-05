@@ -43,3 +43,9 @@ All five complete files model/replay/nba_2016, 2017, 2018, 2019 and 2021 were re
 - 2022-2026 reproduce exactly under the current command.
 - 2013-2015 committed files: unverified.
 - Earlier comparisons that used these files remain evidence about the simulated format only, per section 4. Any conclusion about actual 2016-2021 futures needs an era-correct replay.
+
+## Amendment 2 (5 Nov 2026, after GPT's review of the rule)
+1. **Gain convention.** Section 5's "challenger minus baseline" refers to the pairing, not the sign. Gain is always baseline log loss minus challenger log loss; positive means the challenger improves. The paired gain under a roster convention is the gain computed with both arms run under that convention.
+2. **Previous-team sensitivity.** It stays unbuilt until a challenger needs it. Before any score is read for that challenger, its rule must fix (a) the exact construction (how a player's previous team is set at the first checkpoint, what happens to players with no previous team, and when a transfer is recognised), and (b) which comparisons are required (both arms, which conventions, which gain, how reported).
+3. **Verification status.** GPT reviewed the rule text only. The guard implementation and the full-file comparisons in Amendment 1 are reported checks by Claude, not independently verified.
+4. **Outcome unchanged.** The joint model failed, the live NBA model is unchanged, and no wider-grid rerun is justified. This work improves the reliability of the research; it has not produced a better forecasting model.
