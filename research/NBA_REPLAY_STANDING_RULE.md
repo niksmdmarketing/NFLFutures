@@ -36,3 +36,10 @@ State the roster convention, era setting, manifest, and the words "bias of unkno
 
 ## 7. Status of older committed files
 (Section filled by amendment 1 below after the full check.)
+
+## Amendment 1 (5 Nov 2026): status of older committed files, checked in full
+All five complete files model/replay/nba_2016, 2017, 2018, 2019 and 2021 were regenerated with the current code under `BT_ERA=0` (play-in format and 82 games in every season) and compared with the committed files on every checkpoint and team (24, 24, 25, 25, 20 weeks; 720, 720, 750, 750, 600 rows): maximum absolute difference 0.0 in title, finals, division, No.1 seed, playoffs, second round, conference finals, top six, play-in and mean wins. Under the current command (`BT_ERA=1`) they do not reproduce.
+- Label: these five committed files are **"play-in format in every season (BT_ERA=0), verified exact"**. They are not era-correct and are not baselines under this rule.
+- 2022-2026 reproduce exactly under the current command.
+- 2013-2015 committed files: unverified.
+- Earlier comparisons that used these files remain evidence about the simulated format only, per section 4. Any conclusion about actual 2016-2021 futures needs an era-correct replay.

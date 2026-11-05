@@ -41,3 +41,11 @@ Combined -0.0032, 2 of 10 seasons better (90% -0.0046 to -0.0018).
 - No transaction feed: nothing here can recreate the live roster at each date, so the lookahead cannot be removed, only bounded.
 - 2013-2015 committed files not rechecked.
 - The previous-team-until-new-team convention in point 4 is proposed, not implemented.
+
+## Corrections (5 Nov 2026, after GPT's review; text above is not edited)
+- Section 5, point 3: NOLEAK is an **absence sensitivity**, not a bound. It addresses one omission and establishes neither an upper nor a lower bound on forecast bias.
+- Section 5, point 5: historical NBA player-based results carry **a bias of unknown direction and size**, not an "optimistic" bias. A1 minus A0 cannot determine the direction.
+- Section 5, point 4: the previous-team convention is a further sensitivity; it misses known transfers until a player appears. Roster sensitivities are applied to both baseline and challenger and the paired gains compared.
+- Section 4: the claim that the five older files reproduce under BT_ERA=0 was based on the first three checkpoints of 2016 and 2021. All five complete files have since been checked and match exactly (standing rule, Amendment 1). Also withdrawn: "nothing earlier is wrong as a comparison among arms run with the same setting". Arms sharing a wrong playoff format are not automatically valid, because the format can affect models differently.
+- The audit's missing-stints observation is now enforced by code (standing rule section 2), not by recording a directory path.
+Standing rule: research/NBA_REPLAY_STANDING_RULE.md.
