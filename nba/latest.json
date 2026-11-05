@@ -1,8 +1,14 @@
 {
-"collected_utc": "2026-11-05T0116Z",
-"feed_timestamp": "2026-11-05T01:16:19Z",
+"collected_utc": "2026-11-05T0144Z",
+"feed_timestamp": "2026-11-05T01:44:22Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
+{
+"athlete_id": "4873201",
+"status": "Day-To-Day",
+"return_date": "2026-11-06",
+"injury": "Left Toe"
+},
 {
 "athlete_id": "5105571",
 "status": "Out",
@@ -64,6 +70,12 @@
 "injury": "Left Hamstring"
 },
 {
+"athlete_id": "4397189",
+"status": "Day-To-Day",
+"return_date": "2026-11-08",
+"injury": "Left Hand"
+},
+{
 "athlete_id": "4278067",
 "status": "Out",
 "return_date": "2026-11-08",
@@ -110,18 +122,6 @@
 "status": "Out",
 "return_date": "2026-11-12",
 "injury": "Right Heel Inflammation"
-},
-{
-"athlete_id": "4065813",
-"status": "Day-To-Day",
-"return_date": null,
-"injury": ""
-},
-{
-"athlete_id": "3138196",
-"status": "Day-To-Day",
-"return_date": null,
-"injury": ""
 },
 {
 "athlete_id": "4432181",
@@ -448,12 +448,6 @@
 "injury": "Left Calf Strain"
 },
 {
-"athlete_id": "3134908",
-"status": "Day-To-Day",
-"return_date": "2026-11-04",
-"injury": "Left Shoulder Inflammation"
-},
-{
 "athlete_id": "6450",
 "status": "Out",
 "return_date": "2026-11-23",
@@ -509,6 +503,15 @@
 }
 ],
 "rows": [
+{
+"athlete_id": "4873201",
+"name": "Asa Newell",
+"team_name": "Atlanta Hawks",
+"status": "Day-To-Day",
+"return_date": "2026-11-06",
+"injury": "Left Toe",
+"updated": "2026-11-05T01:19Z"
+},
 {
 "athlete_id": "5105571",
 "name": "Henri Veesaar",
@@ -600,6 +603,15 @@
 "updated": "2026-11-05T01:00Z"
 },
 {
+"athlete_id": "4397189",
+"name": "Jalen Smith",
+"team_name": "Chicago Bulls",
+"status": "Day-To-Day",
+"return_date": "2026-11-08",
+"injury": "Left Hand",
+"updated": "2026-11-05T01:19Z"
+},
+{
 "athlete_id": "4278067",
 "name": "Nic Claxton",
 "team_name": "Chicago Bulls",
@@ -670,24 +682,6 @@
 "return_date": "2026-11-12",
 "injury": "Right Heel Inflammation",
 "updated": "2026-11-01T23:19Z"
-},
-{
-"athlete_id": "4065813",
-"name": "Alpha Diallo",
-"team_name": "Denver Nuggets",
-"status": "Day-To-Day",
-"return_date": null,
-"injury": "",
-"updated": "2026-11-03T23:51Z"
-},
-{
-"athlete_id": "3138196",
-"name": "Cameron Johnson",
-"team_name": "Denver Nuggets",
-"status": "Day-To-Day",
-"return_date": null,
-"injury": "",
-"updated": "2026-11-03T23:57Z"
 },
 {
 "athlete_id": "4432181",
@@ -1174,15 +1168,6 @@
 "return_date": "2026-11-09",
 "injury": "Left Calf Strain",
 "updated": "2026-10-30T21:44Z"
-},
-{
-"athlete_id": "3134908",
-"name": "Jakob Poeltl",
-"team_name": "Toronto Raptors",
-"status": "Day-To-Day",
-"return_date": "2026-11-04",
-"injury": "Left Shoulder Inflammation",
-"updated": "2026-11-03T23:28Z"
 },
 {
 "athlete_id": "6450",
