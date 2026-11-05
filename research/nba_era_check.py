@@ -53,7 +53,7 @@ def outputs(first, last, d):
         if not first <= y <= last:
             continue
         s = D.groupby("week")[["p_title", "p_conf", "p_seed1", "p_div", "p_playoff", "mean_wins"]].sum()
-        games = 66 * 15 if y == 2012 else 72 * 15 if y == 2021 else 82 * 15
+        games = {2012: 990, 2013: 1229, 2021: 1080}.get(y, 1230)
         for c, v, tol in (("p_title", 1, 0.002), ("p_conf", 2, 0.002), ("p_seed1", 2, 0.002), ("p_div", 6, 0.002), ("p_playoff", 16, 0.002), ("mean_wins", games, 1.0)):
             bad = s[(s[c] - v).abs() > tol]
             if len(bad):

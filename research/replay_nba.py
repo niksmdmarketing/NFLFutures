@@ -345,6 +345,8 @@ def run_season(boxes, y):
     if not p:
         return None
     sched = N._schedule(_fr(N._csv(p)))
+    if ERA:   # Amendment 5: postponed originals and the NBA Cup final are not regular-season games; no filler games
+        sched = sched[(sched.status_type_name.astype(str) != "STATUS_POSTPONED") & (sched.type_abbreviation.astype(str) != "CC")].copy()
     g = B.season_games(boxes, y)
     div_w, seed1 = labels(g)
     top6, playin = seeds(g)
@@ -446,7 +448,8 @@ def run_season(boxes, y):
                 N.PO_DELTA = _po_delta(cur[cur.date <= cutoff], (ck_rating if (INS and INS_PO and ck_rating is not None) else rating), prev_assign, prev_mins)
         s = sched.copy()
         s["completed"] = s.completed & (pd.to_datetime(s.game_date) <= cutoff)
-        res = N._simulate(s, ratings, SIMS, playin=ERA_PLAYIN, season_games=ERA_GAMES, div_top4=bool(ERA and y <= 2015))
+        n_games = int(pd.concat([sched.home_abbreviation, sched.away_abbreviation]).value_counts().min()) if ERA else ERA_GAMES
+        res = N._simulate(s, ratings, SIMS, playin=ERA_PLAYIN, season_games=min(ERA_GAMES, n_games), div_top4=bool(ERA and y <= 2015))
         for t, v in res.items():
             rows.append(dict(season=y, week=wk, date=str(cutoff.date()), gp_avg=round(2 * len(done) / 30, 1), team=t,
                              p_title=v["p_title"], p_conf=v["p_conf"], p_div=v["p_div"], p_seed1=v["p_seed1"], p_playoff=v["p_playoff"], p_r2=v.get("p_r2"), p_cf=v.get("p_cf"),
