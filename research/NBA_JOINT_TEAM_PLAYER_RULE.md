@@ -123,3 +123,34 @@ Mechanics output is in research/NBA_JOINT_MECHANICS_OUTPUT.txt (2022 pre-season 
 4. **Units and minutes.** Every team has 12 players and minutes summing to 240.000000; team strength by hand equals the function; the playoff delta by hand equals the function and scales exactly with the season scalar.
 5. **Interpretation choices frozen (not in the rule text above):** (i) a current-roster player with no prior-season minutes gets projected minutes of 180/82 per game (the roster step's convention) and the live rookie rating if he has no rating; (ii) the development bonus applies only to players with minutes in an earlier season, so a player whose first minutes are in season K gets none (the live code only develops players with prior-stint ratings); experience is counted from regular-season box data of 2002 to K-1; (iii) projected minutes are divided by 82 literally, including after 72-game and shortened seasons; (iv) the game-level fit still supplies the home edge and pace used by the simulator, identically in every arm; (v) a player on the pre-season roster who has not played by a checkpoint keeps his pre-season team, a player who has played is on the team he last played for; (vi) in A1 the week-0 playoff rotation also uses the revised pre-season roster; (vii) the 2020 bubble season is out of the selection and test seasons, but its stints still feed fits of 2021 and 2022; (viii) selection checkpoints are the weekly checkpoints nearest to 0, 20 and 41 average games played; the scale is the least-squares slope through the origin of rest-of-season net rating (per 100, centred) on the pre-scalar rating over the same selection seasons, checkpoints and teams; (ix) the replay hooks are BT_ROSTER=v2, BT_JOINT=1, BT_JOINT_SCALE=0 and BT_FULL_NOLEAK=1; A0 is the unchanged replay and was reproduced exactly (max difference 0.0 in all five markets and mean wins) against the committed 2022 file for weeks 0-2 on this machine before freezing; the full comparison against every committed file is reported with the results.
 6. **Usable play-by-play.** Share of games with rebuildable lineups is at least 96% in every season 2012-2026 (lowest 2019: 96.0%, 49 games), so the 60% fallback is not triggered. Stints come from the same rebuild code as the live RAPM, run here on the 2012-2026 play-by-play files.
+
+## Result (5 Nov 2026): FAIL. All seven gates fail. Code frozen at 71d47d6c6b1b; scored output in model/replay/nba_joint_score.json
+Test seasons 2016-2019, 2021-2026 (ten). Gain = baseline log loss minus challenger log loss, positive is better. Season-cluster bootstrap 4,000 draws, seed 1.
+
+| Comparison | Combined gain | 90% interval | Seasons better |
+|---|---|---|---|
+| **A2 (joint) vs A1 (same rosters)** | **-0.0119** | -0.0238 to -0.0002 | 3 of 10 |
+| A2 vs A0 (unchanged live replay) | -0.0151 | -0.0272 to -0.0032 | 3 of 10 |
+| A1 vs A0 (revised rosters alone) | -0.0032 | -0.0046 to -0.0018 | 2 of 10 |
+| A2 without the scalar vs A1 | -0.0205 | -0.0362 to -0.0052 | 3 of 10 |
+
+A2 vs A1 by market: title -0.0119, finals -0.0175, division -0.0035, No.1 seed -0.0018, playoffs -0.0246. By stage: pre-season -0.0068, games 1-19 -0.0142, 20-41 -0.0141, 42+ -0.0101. By season: 2016 -0.022, 2017 -0.007, 2018 -0.054, 2019 -0.028, 2021 +0.010, 2022 +0.019, 2023 -0.025, 2024 -0.020, 2025 +0.025, 2026 -0.016.
+
+Gates: G1 fail (gain -0.0119, lower bound -0.0238; even the upper bound is below zero). G2 fail (3 of 10). G3 fail (four of five markets below -0.0005 by wide margins). G4 fail (2026 -0.016). G5 fail (every stage below -0.002). G6 fail (absence sensitivity -0.0118, 3 of 10). G7 fail (A2 vs A0 -0.0151).
+
+Other reported numbers:
+- Single games (supporting, same 2.2 home edge and sigma 12.2 for all arms): margin MSE A0 182.6, A1 182.4, A2 187.6; win log loss 0.6195, 0.6195, 0.6303. Worse in early and later games alike.
+- Rating spread across teams (mean sd, points per 100): A0 4.02, A1 3.98, A2 3.46 after the scale. Mean absolute rating change A2 vs A1: 1.51.
+- Share of A2 rating variance from the player sum: 98.9%; correlation of player part and team part 0.10. The team effect carried almost nothing.
+- Calibration slope of the reaches-Finals probability: A0 0.92, A1 0.90, A2 0.84; playoffs 0.99, 0.99, 0.92 (below 1 means overconfident).
+- Selection chose the same corner of the grid in every one of the ten test seasons: current-season weight 2 (the lowest), team penalty 16000 (the highest), rho 0 (the lowest). Scales were 0.71 to 0.79. The grid could not go further in any of those directions, so the selected model is at the edge of what was allowed to be tried, and it effectively switched the team effect off.
+- A0 against the committed replay files: 2022-2026 reproduced exactly (max difference 0.0 in every market). 2016-2019 and 2021 differ (title up to 0.037, playoffs up to 0.25, division and No.1 seed identical in 2016-2019; 2021 differs in all markets), so those committed files were not built with the same era settings as the current replay command. As the rule says, the fresh run is the baseline; all arms share it.
+- Usable play-by-play: at least 96% of games in every season, so no fallback.
+
+What this says and does not say:
+- Under this design the joint model is clearly worse than the live pipeline for futures, and worse for single games. It is not a noisy near miss: it loses in 7 of 10 seasons, in every stage, and in four of five markets.
+- A1 vs A0 is a separate finding. Removing the lookahead from the live model's rosters costs -0.0032 and 8 of 10 seasons. Part of the live replay's apparent skill (at least for 2016-2026) comes from knowing which players actually played for each team. The live forecast has no such knowledge, so the historical baseline is flattered by an amount of that order.
+- The joint model lost by more than that, so lookahead in the baseline does not explain the fail.
+- Not tested, so not claimed: whether a wider grid (lower current-season weight, higher team penalty, other prior strength) helps; whether the cause is the loss of the game-level team rating, the 3-season window, or the scale step; whether the weekly refit adds noise. All three were named in the rule as open.
+
+Decision, as written: any gate fails, so this is recorded as a fail. Nothing changes in the live model. No re-run with tweaks; a variant needs its own rule written first. The selection corner and the roster finding are the two things a follow-up rule should start from.
