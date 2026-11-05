@@ -31,6 +31,9 @@ PO_FADE = float(os.environ.get("NHL_PO_FADE", "0"))   # extra playoff-gap multip
 SHOT_W = float(os.environ.get("NHL_SHOT_W", "0"))
 SHOT_PO = os.environ.get("NHL_SHOT_PO") == "1"   # use the shot-blended rate only in playoff series (regular season on goals)   # share of the in-season rate from shot differential (x league shooting %)
 RS_SHOT_W = float(os.environ.get("NHL_RS_SHOT_W", "0"))   # with NHL_SHOT_PO: shot share in the regular-season rating
+# NHL_RS_XG=raw|adj (with NHL_SHOT_PO and NHL_RS_SHOT_W): the regular-season share uses MoneyPuck game xG differential, as live
+# (nhl_model.XG_SHARE on the team table's MoneyPuck xG), while the playoff rating keeps shots x league shooting %, as live.
+RS_XG = os.environ.get("NHL_RS_XG", "")
 LINEUP_C = float(os.environ.get("NHL_LINEUP_C", "0"))     # roster term from lineups (pipeline/nhl_lineup.py), x this
 LINEUP_N = int(os.environ.get("NHL_LINEUP_N", "5"))
 LINEUP_PRE = os.environ.get("NHL_LINEUP_PRE", "1") == "1"   # include roster change vs last season (prior part)
@@ -54,6 +57,24 @@ def mp_xg(y):
         _MP = d
     x = _MP[_MP.season == y]
     return x.set_index(["date", "team"]).xgd
+
+
+_MPK = {}
+
+
+def mp_xg_kind(y, kind):
+    """As mp_xg, but for an explicit kind (raw | adj), independent of NHL_XG (used by NHL_RS_XG)."""
+    if kind not in _MPK:
+        d = pd.read_csv(os.path.join(ROOT, "data", "research", "mp", "team_games.csv.gz"))
+        d = d[(d.gameId.astype(str).str[4:6] == "02") & (d.situation == "all")].copy()
+        d["team"] = d.team.replace(MP_ALIAS)
+        d["date"] = pd.to_datetime(d.gameDate.astype(str), format="%Y%m%d")
+        pre = "scoreVenueAdjustedxGoals" if kind == "adj" else "xGoals"
+        d["xgd"] = d[pre + "For"] - d[pre + "Against"]
+        _MPK[kind] = d
+    x = _MPK[kind][_MPK[kind].season == y]
+    s = x.set_index(["date", "team"]).xgd
+    return s[~s.index.duplicated()]
 
 
 UPD_EVERY = int(os.environ.get("NHL_UPD_EVERY", "0"))   # refit player ratings with this season's games every N weeks
@@ -212,6 +233,10 @@ def run_season(TT, GG, fit_years, done, y):
             g["sd"] = [xg.get((d_, t_), np.nan) for d_, t_ in zip(g.date, g.team)]
             print(y, "xG coverage", round(float(g.sd.notna().mean()), 3), flush=True)
         g["rate"] = (1 - SHOT_W) * g.gd + SHOT_W * g.sd.fillna(g.gd)
+        if RS_XG:
+            xr = mp_xg_kind(y, RS_XG)
+            g["rsx"] = [xr.get((d_, t_), np.nan) for d_, t_ in zip(g.date, g.team)]
+            print(y, "regular-season MoneyPuck xG coverage", round(float(g.rsx.notna().mean()), 3), flush=True)
     else:
         g["rate"] = g.gd
     g["pts"] = g.res.map({"W": 2, "OTL": 1, "L": 0}).fillna(0)
@@ -274,7 +299,8 @@ def run_season(TT, GG, fit_years, done, y):
         rating = rating - rating.mean()
         po_delta = None
         if SHOT_PO:
-            rs_rate = (1 - RS_SHOT_W) * pl.gd + RS_SHOT_W * pl.sd.fillna(pl.gd) if (RS_SHOT_W and "sd" in pl) else pl.gd
+            rs_src = pl.rsx if (RS_XG and "rsx" in pl) else (pl.sd if "sd" in pl else None)
+            rs_rate = (1 - RS_SHOT_W) * pl.gd + RS_SHOT_W * rs_src.fillna(pl.gd) if (RS_SHOT_W and rs_src is not None) else pl.gd
             curg = rs_rate.groupby(pl.team).mean().reindex(teams).fillna(0) if len(pl) else pd.Series(0.0, index=teams)
             curg = curg - curg.mean()
             rg = (gp * curg + k * prior) / (gp + k)
