@@ -1,0 +1,28 @@
+{
+  "scope": "Existing replay rows at production max-team-games trigger; no forecasting rerun",
+  "rows": 108,
+  "late_rows_switched": 34,
+  "log_loss": 1.714368584461512,
+  "baseline_proxy_log_loss": 2.556142139642166,
+  "fav_said": 0.510840765004218,
+  "fav_won": 0.4351851851851852,
+  "gap_ci90": [
+    -0.01715697715255802,
+    0.1800673702086931
+  ],
+  "by_third": {
+    "early": {
+      "model": 2.942468591865137,
+      "base": 3.21539046092728
+    },
+    "mid": {
+      "model": 1.4646978804373811,
+      "base": 2.302585092994046
+    },
+    "late": {
+      "model": 0.7966715224286662,
+      "base": 2.302585092994046
+    }
+  },
+  "passes_original_proxy_gates": true
+}

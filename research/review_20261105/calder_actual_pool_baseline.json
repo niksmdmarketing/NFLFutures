@@ -1,0 +1,21 @@
+{
+  "original_reported_baseline": 2.836,
+  "actual_pool_baseline": 2.8314667026339064,
+  "model_log_loss": 1.6746972978955608,
+  "pool_mismatch_rows": 7,
+  "by_third": {
+    "early": {
+      "model": 2.238246007217365,
+      "base_actual": 2.993303066155286
+    },
+    "mid": {
+      "model": 1.5225372080741997,
+      "base_actual": 2.770106471426798
+    },
+    "late": {
+      "model": 1.3287689667823546,
+      "base_actual": 2.76745289944653
+    }
+  },
+  "loss_gates_still_pass": true
+}

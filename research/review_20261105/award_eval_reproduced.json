@@ -1,0 +1,332 @@
+{
+  "nba:MVP": {
+    "seasons": 17,
+    "rows": 174,
+    "log_loss": 1.388,
+    "baseline_log_loss": 3.219,
+    "by_third": {
+      "early": [
+        1.902,
+        3.219
+      ],
+      "mid": [
+        1.394,
+        3.219
+      ],
+      "late": [
+        0.983,
+        3.219
+      ]
+    },
+    "mean_p_winner": 0.434,
+    "winner_in_pool": 1.0,
+    "fav_said": 0.565,
+    "fav_won": 0.621,
+    "fav_gap_ci90": [
+      -0.189,
+      0.09
+    ],
+    "pass": true,
+    "fails": [],
+    "method": "sim",
+    "rule": "research/NBA_NHL_AWARD_EVAL_RULE.md",
+    "basis": "in-season checkpoints (10-90% of the season), uniform pool baseline"
+  },
+  "nba:DPOY": {
+    "seasons": 17,
+    "rows": 174,
+    "log_loss": 2.911,
+    "baseline_log_loss": 3.199,
+    "by_third": {
+      "early": [
+        3.21,
+        3.264
+      ],
+      "mid": [
+        3.026,
+        3.197
+      ],
+      "late": [
+        2.562,
+        3.151
+      ]
+    },
+    "mean_p_winner": 0.152,
+    "winner_in_pool": 0.937,
+    "fav_said": 0.351,
+    "fav_won": 0.259,
+    "fav_gap_ci90": [
+      -0.068,
+      0.234
+    ],
+    "pass": true,
+    "fails": [],
+    "method": "sim",
+    "rule": "research/NBA_NHL_AWARD_EVAL_RULE.md",
+    "basis": "in-season checkpoints (10-90% of the season), uniform pool baseline"
+  },
+  "nba:ROY": {
+    "seasons": 17,
+    "rows": 174,
+    "log_loss": 0.973,
+    "baseline_log_loss": 2.708,
+    "by_third": {
+      "early": [
+        1.354,
+        2.708
+      ],
+      "mid": [
+        0.855,
+        2.708
+      ],
+      "late": [
+        0.799,
+        2.708
+      ]
+    },
+    "mean_p_winner": 0.576,
+    "winner_in_pool": 1.0,
+    "fav_said": 0.715,
+    "fav_won": 0.713,
+    "fav_gap_ci90": [
+      -0.122,
+      0.155
+    ],
+    "pass": true,
+    "fails": [],
+    "method": "sim",
+    "rule": "research/NBA_NHL_AWARD_EVAL_RULE.md",
+    "basis": "in-season checkpoints (10-90% of the season), uniform pool baseline"
+  },
+  "nba:6MOY": {
+    "seasons": 17,
+    "rows": 174,
+    "log_loss": 1.71,
+    "baseline_log_loss": 2.91,
+    "by_third": {
+      "early": [
+        2.321,
+        3.073
+      ],
+      "mid": [
+        1.717,
+        2.927
+      ],
+      "late": [
+        1.228,
+        2.765
+      ]
+    },
+    "mean_p_winner": 0.357,
+    "winner_in_pool": 0.943,
+    "fav_said": 0.525,
+    "fav_won": 0.506,
+    "fav_gap_ci90": [
+      -0.134,
+      0.181
+    ],
+    "pass": true,
+    "fails": [],
+    "method": "sim",
+    "rule": "research/NBA_NHL_AWARD_EVAL_RULE.md",
+    "basis": "in-season checkpoints (10-90% of the season), uniform pool baseline"
+  },
+  "nhl:Hart": {
+    "seasons": 15,
+    "rows": 108,
+    "log_loss": 2.658,
+    "baseline_log_loss": 3.559,
+    "by_third": {
+      "early": [
+        3.592,
+        4.046
+      ],
+      "mid": [
+        2.543,
+        3.429
+      ],
+      "late": [
+        1.808,
+        3.258
+      ]
+    },
+    "mean_p_winner": 0.216,
+    "winner_in_pool": 0.898,
+    "fav_said": 0.359,
+    "fav_won": 0.398,
+    "fav_gap_ci90": [
+      -0.175,
+      0.094
+    ],
+    "pass": true,
+    "fails": [],
+    "method": "T1.0",
+    "rule": "research/NBA_NHL_AWARD_EVAL_RULE.md",
+    "basis": "in-season checkpoints (10-90% of the season), uniform pool baseline"
+  },
+  "nhl:Vezina": {
+    "seasons": 15,
+    "rows": 108,
+    "log_loss": 1.734,
+    "baseline_log_loss": 2.556,
+    "by_third": {
+      "early": [
+        2.942,
+        3.215
+      ],
+      "mid": [
+        1.473,
+        2.303
+      ],
+      "late": [
+        0.863,
+        2.303
+      ]
+    },
+    "mean_p_winner": 0.326,
+    "winner_in_pool": 0.935,
+    "fav_said": 0.489,
+    "fav_won": 0.435,
+    "fav_gap_ci90": [
+      -0.041,
+      0.161
+    ],
+    "pass": true,
+    "fails": [],
+    "method": "T1.0",
+    "rule": "research/NBA_NHL_AWARD_EVAL_RULE.md",
+    "basis": "in-season checkpoints (10-90% of the season), uniform pool baseline"
+  },
+  "nhl:Norris": {
+    "seasons": 15,
+    "rows": 108,
+    "log_loss": 2.354,
+    "baseline_log_loss": 2.865,
+    "by_third": {
+      "early": [
+        3.097,
+        3.355
+      ],
+      "mid": [
+        2.166,
+        2.772
+      ],
+      "late": [
+        1.871,
+        2.485
+      ]
+    },
+    "mean_p_winner": 0.205,
+    "winner_in_pool": 0.898,
+    "fav_said": 0.387,
+    "fav_won": 0.352,
+    "fav_gap_ci90": [
+      -0.124,
+      0.191
+    ],
+    "pass": true,
+    "fails": [],
+    "method": "T1.0",
+    "rule": "research/NBA_NHL_AWARD_EVAL_RULE.md",
+    "basis": "in-season checkpoints (10-90% of the season), uniform pool baseline"
+  },
+  "nhl:Calder": {
+    "seasons": 15,
+    "rows": 108,
+    "log_loss": 1.675,
+    "baseline_log_loss": 2.836,
+    "by_third": {
+      "early": [
+        2.238,
+        3.002
+      ],
+      "mid": [
+        1.523,
+        2.773
+      ],
+      "late": [
+        1.329,
+        2.773
+      ]
+    },
+    "mean_p_winner": 0.305,
+    "winner_in_pool": 0.981,
+    "fav_said": 0.483,
+    "fav_won": 0.444,
+    "fav_gap_ci90": [
+      -0.112,
+      0.194
+    ],
+    "pass": true,
+    "fails": [],
+    "method": "T1.0",
+    "rule": "research/NBA_NHL_AWARD_EVAL_RULE.md",
+    "basis": "in-season checkpoints (10-90% of the season), uniform pool baseline"
+  },
+  "nhl:ArtRoss": {
+    "seasons": 15,
+    "rows": 108,
+    "log_loss": 1.65,
+    "baseline_log_loss": 2.935,
+    "by_third": {
+      "early": [
+        2.392,
+        3.176
+      ],
+      "mid": [
+        1.542,
+        2.91
+      ],
+      "late": [
+        1.01,
+        2.708
+      ]
+    },
+    "mean_p_winner": 0.384,
+    "winner_in_pool": 0.935,
+    "fav_said": 0.509,
+    "fav_won": 0.528,
+    "fav_gap_ci90": [
+      -0.129,
+      0.102
+    ],
+    "pass": true,
+    "fails": [],
+    "method": "T1.0",
+    "rule": "research/NBA_NHL_AWARD_EVAL_RULE.md",
+    "basis": "in-season checkpoints (10-90% of the season), uniform pool baseline"
+  },
+  "nhl:Richard": {
+    "seasons": 15,
+    "rows": 108,
+    "log_loss": 1.104,
+    "baseline_log_loss": 2.708,
+    "by_third": {
+      "early": [
+        2.086,
+        2.708
+      ],
+      "mid": [
+        0.976,
+        2.708
+      ],
+      "late": [
+        0.229,
+        2.708
+      ]
+    },
+    "mean_p_winner": 0.492,
+    "winner_in_pool": 1.0,
+    "fav_said": 0.596,
+    "fav_won": 0.639,
+    "fav_gap_ci90": [
+      -0.135,
+      0.057
+    ],
+    "pass": true,
+    "fails": [],
+    "method": "T1.0",
+    "rule": "research/NBA_NHL_AWARD_EVAL_RULE.md",
+    "basis": "in-season checkpoints (10-90% of the season), uniform pool baseline"
+  }
+}
