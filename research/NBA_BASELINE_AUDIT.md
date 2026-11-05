@@ -49,3 +49,6 @@ Combined -0.0032, 2 of 10 seasons better (90% -0.0046 to -0.0018).
 - Section 4: the claim that the five older files reproduce under BT_ERA=0 was based on the first three checkpoints of 2016 and 2021. All five complete files have since been checked and match exactly (standing rule, Amendment 1). Also withdrawn: "nothing earlier is wrong as a comparison among arms run with the same setting". Arms sharing a wrong playoff format are not automatically valid, because the format can affect models differently.
 - The audit's missing-stints observation is now enforced by code (standing rule section 2), not by recording a directory path.
 Standing rule: research/NBA_REPLAY_STANDING_RULE.md.
+
+## Correction 2 (5 Nov 2026)
+A1's pre-season and in-season rosters also suffered from an All-Star bug (research/NBA_JOINT_TEAM_PLAYER_RULE.md, Amendment 4): All-Stars were moved onto the All-Star sides at the checkpoint after the All-Star game. Without those ten checkpoints A1 vs A0 is -0.0028 (3 of 10 seasons better) instead of -0.0032. The audit's conclusions about late-returning players stand.
