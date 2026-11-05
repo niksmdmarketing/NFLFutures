@@ -77,3 +77,16 @@ research/nfl_nonqb_injury_test.py -> research/nfl_nonqb_injury_results.json (fea
 - **Sensitivity (reported, not a gate):** using the final injury report alone (Out/Doubtful, no roster status) gives RMSE 12.877 and log loss 0.6330, better in 2/4 seasons. So most of the information is in reserve lists and game-day inactives, not in Friday's report.
 - **Timing check:** players with a non-ACT roster status in week w almost never played that week (RES 0.2%, INA 0.0%, DEV 0.2% of rows, 2016/2020/2023/2025). The status is pre-game, not a post-game record. Inactives (INA) are announced about 90 minutes before kickoff, so that part of the information is game-day only.
 - **Next:** Stage 2 (futures) is written as a dated amendment before it runs.
+
+## Stage 2 amendment (5 Nov 2026), written before any futures replay with this layer
+- **Known at a checkpoint after week w:** players with importance (at least 2 games with snaps through week w) whose week-w roster status is neither ACT nor INA (reserve/injured, PUP, suspended, non-football injury, practice squad, released and so on). QBs, K, P and LS are excluded. Game-day inactives and injury-report listings are for that week's game only, so they are not carried forward.
+- **Duration:** each such player is assumed out for his team's next 4 regular-season games (the injured-reserve minimum since 2020). No playoff carry-over.
+- **Per game:** home-margin shift = sum over g of beta_g x (missing share home - missing share away), using the Stage 1 coefficients fitted on 2014-2021 (research/nfl_nonqb_injury_results.json). Each team's missing share applies only to games within its own 4-game window. It is added to the edge through simulate's existing research `margin_adj` column, in points, unscaled.
+- **Replay:** research/replay_nfl.py with BT_INJ=1 against the same baseline (BT_REST=1 in both arms), seasons 2022-2025, checkpoints after weeks 2-17 (BT_WMIN=2), 4,000 simulations.
+- **Pass (a model change, so stricter than the rest fix):**
+    - combined mean gain (division, playoff, No. 1 seed, conference, Super Bowl) > 0, with its 90% season-bootstrap lower bound > 0;
+    - better in at least 3 of 4 seasons;
+    - no market's mean gain below -0.0005.
+- **Decision:**
+    - **Pass:** a shadow next to v4 for the rest of 2026, archived and forward-scored (v4 stays frozen). Live only after the forward record.
+    - **Fail:** recorded. The game-level result (Stage 1) stands as research.
