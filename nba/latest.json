@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-11-05T0144Z",
-"feed_timestamp": "2026-11-05T01:44:22Z",
+"collected_utc": "2026-11-05T0200Z",
+"feed_timestamp": "2026-11-05T02:00:41Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -66,8 +66,8 @@
 {
 "athlete_id": "5061575",
 "status": "Out",
-"return_date": "2026-11-04",
-"injury": "Left Hamstring"
+"return_date": "2026-11-06",
+"injury": "Left Leg Soreness"
 },
 {
 "athlete_id": "4397189",
@@ -80,6 +80,12 @@
 "status": "Out",
 "return_date": "2026-11-08",
 "injury": "Left Hamstring Strain"
+},
+{
+"athlete_id": "4066328",
+"status": "Day-To-Day",
+"return_date": "2026-11-04",
+"injury": "Right Knee"
 },
 {
 "athlete_id": "4683747",
@@ -254,12 +260,6 @@
 "status": "Out",
 "return_date": "2026-11-06",
 "injury": "Back Soreness"
-},
-{
-"athlete_id": "3032977",
-"status": "Day-To-Day",
-"return_date": "2026-11-04",
-"injury": "Right Wrist Sprain"
 },
 {
 "athlete_id": "4697268",
@@ -598,9 +598,9 @@
 "name": "Kon Knueppel",
 "team_name": "Charlotte Hornets",
 "status": "Out",
-"return_date": "2026-11-04",
-"injury": "Left Hamstring",
-"updated": "2026-11-05T01:00Z"
+"return_date": "2026-11-06",
+"injury": "Left Leg Soreness",
+"updated": "2026-11-05T01:54Z"
 },
 {
 "athlete_id": "4397189",
@@ -609,7 +609,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-11-08",
 "injury": "Left Hand",
-"updated": "2026-11-05T01:19Z"
+"updated": "2026-11-05T01:35Z"
 },
 {
 "athlete_id": "4278067",
@@ -619,6 +619,15 @@
 "return_date": "2026-11-08",
 "injury": "Left Hamstring Strain",
 "updated": "2026-11-04T22:34Z"
+},
+{
+"athlete_id": "4066328",
+"name": "Jarrett Allen",
+"team_name": "Cleveland Cavaliers",
+"status": "Day-To-Day",
+"return_date": "2026-11-04",
+"injury": "Right Knee",
+"updated": "2026-11-05T01:54Z"
 },
 {
 "athlete_id": "4683747",
@@ -880,15 +889,6 @@
 "return_date": "2026-11-06",
 "injury": "Back Soreness",
 "updated": "2026-11-03T23:19Z"
-},
-{
-"athlete_id": "3032977",
-"name": "Giannis Antetokounmpo",
-"team_name": "Miami Heat",
-"status": "Day-To-Day",
-"return_date": "2026-11-04",
-"injury": "Right Wrist Sprain",
-"updated": "2026-11-04T01:05Z"
 },
 {
 "athlete_id": "4697268",
