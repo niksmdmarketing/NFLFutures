@@ -1,0 +1,40 @@
+season 2022: pre-season cutoff 2021-10-18, in-season cutoff (week 4) 2021-11-15
+seasons in fit: [2020, 2021, 2022]  players 777  team-seasons 90
+1a. stints in the prior-season block: max date 2021-05-16 / 2020-08-14 (< season start)
+1b. current-season stints used at pre-season: None
+1c. latest current-season stint used at the in-season checkpoint: 2021-11-15 <= cutoff 2021-11-15 True
+1d. current-season normal-equation mass: pre-season 0.0  in-season 2945960
+1e. current-season stints used in-season: 5646 of 32561
+1f. players whose first minutes are in season K but who have a box prior: 0 (should be 0)
+1g. games played per team by the in-season cutoff: min 13 max 15
+1h. roster sizes pre-season (players with a team): median per team 15  in-season 15
+1i. pre-season roster v2 vs live (first team in the season): same team for 442 of 442 common players; only in v2: 0  only in live: 163
+2a. lambda_tau 1e9 (pre-season): joint beta vs live RAPM on 636 players: corr 1.000000, max abs diff 0.00001, slope 1.00000, joint-only players 141
+2b. home-court intercept eta 1.239 (points per 100)
+2c. tau at lambda_tau 1e9: max |tau| 0.0
+2d. in-season fit (w_c 4, lambda_tau 4000, rho 0): beta sd 2.52  tau sd 1.555  eta 1.323
+2e. normal-equation residual of the dense solve: 1.7462298274040222e-10
+3a. pre-season: minutes per team sum min 240.000000 max 240.000000; players per team min 12 max 12; teams 30
+3a. in-season: minutes per team sum min 240.000000 max 240.000000; players per team min 12 max 12; teams 30
+3b. pre-season team strength S (points per 100): mean 6.302  sd 3.961  range -2.16 to 12.9
+3c. rating (scale 1): mean 0.0  sd 3.946 ; player-sum part sd 3.961  tau part sd 0.373
+3d. a hand check on one team:
+ athlete_id      m      r
+    4066372 30.970 -1.664
+    4277905 30.926  6.559
+    3102529 27.679  5.820
+    3908845 26.864  3.363
+    2488958 22.045 -2.554
+    3037789 19.016  1.504
+       3428 17.735  2.957
+    3064447 15.318 -0.182
+    3893019 15.318 -2.918
+       2799 13.352  0.119
+    4395627 10.906 -1.995
+    4065732  9.872  0.876
+   sum m 240.0  S by hand 7.676  S from function 7.676
+3e. players in the fit with no prior-season minutes (no development bonus): 129 of 777
+   development bonus values seen: [np.float64(0.0), np.float64(1.0), np.float64(2.0), np.float64(3.0)]
+3f. playoff delta team ATL: by hand (centred) 4.36691 vs function 4.36691; sd across teams 1.996; scale 0.8 gives 3.49353 (= 0.8 x)
+3g. rating sign check: rating - scale x (S + tau) are centred versions of the same quantity; scale 0.8 ratio: 0.8
+MECHANICS CHECK COMPLETE

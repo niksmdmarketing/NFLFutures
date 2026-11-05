@@ -10,6 +10,7 @@ Outputs per season: model/replay/nba_<season>.csv with one row per team per chec
   y_title, y_finals, y_div, y_seed1, y_playoff.
 Usage: python research/replay_nba.py [first_season] [last_season]   (env BT_SIMS, default 2000)
 """
+import json
 import os
 import sys
 
@@ -46,6 +47,14 @@ AV_B = (-4.579, 1.992, 5.308)   # logistic: intercept, share of team games misse
 N_SCEN = 400
 PO_GAMES = os.environ.get("BT_PO_GAMES") == "1"
 FULL = os.environ.get("BT_FULL") == "1"
+# research/NBA_JOINT_TEAM_PLAYER_RULE.md Amendment 1: BT_ROSTER=v2 (arm A1) revised rosters; BT_JOINT=1 (arm A2) the joint team-and-player model.
+ROSTER_V2 = os.environ.get("BT_ROSTER") == "v2"
+JOINT = os.environ.get("BT_JOINT") == "1"
+NOLEAK = os.environ.get("BT_FULL_NOLEAK") == "1"
+SAVE_RATING = os.environ.get("BT_SAVE_RATING") == "1"
+MAXW = int(os.environ.get("BT_MAXWEEKS", "0"))   # smoke tests only: stop after this many checkpoints (0 = all)
+JOINT_PARAMS = os.environ.get("BT_JOINT_PARAMS") or os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "model", "replay", "nba_joint_params.json")
+JOINT_SCALE = os.environ.get("BT_JOINT_SCALE", "1") == "1"   # 0: scale = 1 (reported next to the primary)
 ERA = os.environ.get("BT_ERA", "1") == "1"   # era-correct format: no play-in before 2020-21, 72 games in 2020-21, 2019-20 (bubble) skipped
 ERA_PLAYIN, ERA_GAMES = True, 82
 N.ROSTER_FADE = float(os.environ.get("BT_RFADE", "0"))   # research: roster adjustment fades to zero by game 82 when 1.0
@@ -332,10 +341,18 @@ def run_season(boxes, y):
         cuts.append(d)
         d += pd.Timedelta(days=7)
     rows = []
-    if FULL:
+    if JOINT or ROSTER_V2:
+        import nba_joint as J
+    if JOINT:
+        jp = json.load(open(JOINT_PARAMS))[str(y)]
+        jhp = (jp["wc"], jp["lam_tau"], jp["rho"])
+        jscale = jp["scale"] if JOINT_SCALE else 1.0
+        jctx = J.season_context(y)
+        jratio = J.po_ratio(y)
+    if FULL and not JOINT:
         v1, v2, prior_roster, cur_roster, rv, LR = _season_extras(y)
         prating = _player_ratings(y)
-    if PO_K:
+    if PO_K and not JOINT:
         rating = _player_ratings(y)
         p1 = _pbox(y - 1).sort_values("date")
         prev_mins = p1.groupby("athlete_id").minutes.sum().to_dict()
@@ -350,7 +367,12 @@ def run_season(boxes, y):
         if PO_LASTPO:
             PO_RATIO.update(_po_ratio(y))
         prev_assign = _pbox(y).sort_values("date").groupby("athlete_id").team_abbreviation.first().to_dict()
+        if ROSTER_V2:   # week-0 playoff rotation uses the same revised pre-season roster
+            _r0 = J.roster_v2(y, cuts[0], g, noleak=NOLEAK)
+            prev_assign = {float(a): t for a, t in zip(_r0.athlete_id, _r0.team_abbreviation)}
     for wk, cutoff in enumerate(cuts):
+        if MAXW and wk >= MAXW:
+            break
         done = g[g.date <= cutoff]
         tr = boxes[pd.to_numeric(boxes.season, errors="coerce") < y]
         if PO_GAMES:
@@ -362,8 +384,10 @@ def run_season(boxes, y):
         N.HFA = float(fit["home_offense_points_per_100"]) if 0 < fit["home_offense_points_per_100"] < 6 else 2.2
         N.PACE = ratings.set_index("team").pace.reindex(N.TEAMS).fillna(100.0).to_numpy(float)
         ratings["rating"] = ratings.raw_net - ratings.raw_net.mean()
-        if FULL:
+        if FULL and not JOINT:
             gp = 2 * len(done) / 30
+            if ROSTER_V2:
+                cur_roster = J.roster_v2(y, cutoff, g, noleak=NOLEAK)
             ratings, _ = N._roster_adjustment(ratings, v1, prior_roster.copy(), cur_roster.copy(), v2, gp)
             share = LR.MIX * max(0.0, 1.0 - gp / LR.MIX_GAMES)
             ck_rating = prating
@@ -386,7 +410,7 @@ def run_season(boxes, y):
                 P = LR.team_strength(cur_roster, rv, prating, N.TEAMS)
                 ratings["rating"] = (1 - share) * ratings.rating + share * ratings.team.map(P).fillna(0)
                 ratings["rating"] -= ratings.rating.mean()
-        if not FULL:
+        if not FULL or JOINT:
             ck_rating = None
         if PF and not PF2:
             ratings["rating"] = ratings.rating + _pf_term(y, cutoff, ratings.team)
@@ -394,7 +418,13 @@ def run_season(boxes, y):
         if PF2 and len(done):
             ratings["rating"] = _pf2_rating(y, cutoff, ratings)
             ratings["rating"] -= ratings.rating.mean()
-        if PO_K:
+        jparts = {}
+        if JOINT:
+            roster = J.roster_v2(y, cutoff, g, noleak=NOLEAK)
+            rt, mt_r, jparts = J.rating_at(y, cutoff, roster, jhp, jctx, jscale, return_parts=True)
+            ratings["rating"] = ratings.team.map(rt).to_numpy(float)
+            N.PO_DELTA = J.playoff_delta(mt_r, jratio, jscale).reindex(N.TEAMS).to_numpy(float)
+        elif PO_K:
             cur = _pbox(y)
             if PO_AVAIL:
                 N.PO_DELTA_SCEN = _po_scen(cur[cur.date <= cutoff], rating, prev_assign, prev_mins, prev_info, rng)
@@ -409,7 +439,9 @@ def run_season(boxes, y):
                              y_r2=int(t in out.get("r2", ())), y_cf=int(t in out.get("cf", ())),
                              p_top6=v.get("p_top6"), p_playin=v.get("p_playin"), y_top6=int(t in top6), y_playin=int(t in playin),
                              mean_wins=v["mean_wins"], y_title=int(t == out["champ"]), y_finals=int(t in out["finalists"]),
-                             y_div=int(t in div_w), y_seed1=int(t in seed1), y_playoff=int(t in out["playoffs"])))
+                             y_div=int(t in div_w), y_seed1=int(t in seed1), y_playoff=int(t in out["playoffs"]),
+                             **({"rating": v["rating"]} if SAVE_RATING else {}),
+                             **({"part_players": float(jparts["players"][t]), "part_tau": float(jparts["tau"][t])} if JOINT else {})))
     return pd.DataFrame(rows)
 
 
