@@ -52,3 +52,13 @@ How absences carry into the season simulation (an Out listing for the next game 
 - Doubtful players sometimes play.
 - A player who was out all season before week w has no importance and is not counted (the ratings already reflect his absence).
 - 2022-2025 tests the injury coefficients out of sample. The baseline's simulation settings saw those seasons, but Stage 1 uses no simulation settings.
+
+## Amendments
+**5 Nov 2026, implementation fixes after the first run, which is recorded here and not used:**
+- **The first run was flawed.** Its numbers were seen: test RMSE 12.913 -> 12.813, log loss 0.6348 -> 0.6259, 3/4 seasons, a nominal "pass". Two defects:
+    1. **Player links:** snap counts were joined to injuries through the weekly roster's pfr_id, which is missing for many players. Almost no offensive lineman ever had an importance (OL feature about 0 in every season).
+    2. **Positions:** from 2016 the roster's `position` column is coarse (DB, OL, DL), so cornerbacks were counted as safeties (CB = 0 from 2016).
+- **Fix (no other change; groups, thresholds, seasons and gates are as written above):**
+    - Links use the nflverse players table (players.csv: gsis_id <-> pfr_id), falling back to the roster's pfr_id.
+    - A player's position is the weekly roster's `depth_chart_position`, else the players table's position, else the roster's `position`. Coarse labels go to groups as written (DB -> S, OL -> OL, DL -> DL).
+- The rerun decides Stage 1. If it fails, the first run's "pass" does not count.
