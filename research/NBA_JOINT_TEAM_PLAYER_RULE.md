@@ -136,7 +136,7 @@ Test seasons 2016-2019, 2021-2026 (ten). Gain = baseline log loss minus challeng
 
 A2 vs A1 by market: title -0.0119, finals -0.0175, division -0.0035, No.1 seed -0.0018, playoffs -0.0246. By stage: pre-season -0.0068, games 1-19 -0.0142, 20-41 -0.0141, 42+ -0.0101. By season: 2016 -0.022, 2017 -0.007, 2018 -0.054, 2019 -0.028, 2021 +0.010, 2022 +0.019, 2023 -0.025, 2024 -0.020, 2025 +0.025, 2026 -0.016.
 
-Gates: G1 fail (gain -0.0119, lower bound -0.0238; even the upper bound is below zero). G2 fail (3 of 10). G3 fail (four of five markets below -0.0005 by wide margins). G4 fail (2026 -0.016). G5 fail (every stage below -0.002). G6 fail (absence sensitivity -0.0118, 3 of 10). G7 fail (A2 vs A0 -0.0151).
+Gates: G1 fail (gain -0.0119, lower bound -0.0238; even the upper bound is below zero). G2 fail (3 of 10). G3 fail (all five markets below -0.0005). G4 fail (2026 -0.016). G5 fail (every stage below -0.002). G6 fail (absence sensitivity -0.0118, 3 of 10). G7 fail (A2 vs A0 -0.0151).
 
 Other reported numbers:
 - Single games (supporting, same 2.2 home edge and sigma 12.2 for all arms): margin MSE A0 182.6, A1 182.4, A2 187.6; win log loss 0.6195, 0.6195, 0.6303. Worse in early and later games alike.
@@ -148,7 +148,7 @@ Other reported numbers:
 - Usable play-by-play: at least 96% of games in every season, so no fallback.
 
 What this says and does not say:
-- Under this design the joint model is clearly worse than the live pipeline for futures, and worse for single games. It is not a noisy near miss: it loses in 7 of 10 seasons, in every stage, and in four of five markets.
+- Under this design the joint model is clearly worse than the live pipeline for futures, and worse for single games. It is not a noisy near miss: it loses in 7 of 10 seasons, in every stage, and in all five markets.
 - A1 vs A0 is a separate finding. Removing the lookahead from the live model's rosters costs -0.0032 and 8 of 10 seasons. Part of the live replay's apparent skill (at least for 2016-2026) comes from knowing which players actually played for each team. The live forecast has no such knowledge, so the historical baseline is flattered by an amount of that order.
 - The joint model lost by more than that, so lookahead in the baseline does not explain the fail.
 - Not tested, so not claimed: whether a wider grid (lower current-season weight, higher team penalty, other prior strength) helps; whether the cause is the loss of the game-level team rating, the 3-season window, or the scale step; whether the weekly refit adds noise. All three were named in the rule as open.
