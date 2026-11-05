@@ -503,7 +503,8 @@ def build_data():
     po_seasons.sort(reverse=True)
     in_progress = cur in seasons
     S.write_json(OUT, "futures.json", futures(cur))
-    S.write_json(OUT, "awards.json", awards(cur, player_hist, team_hist))
+    import award_eval   # published evaluation vs a uniform pool baseline (research/NBA_NHL_AWARD_EVAL_RULE.md)
+    S.write_json(OUT, "awards.json", award_eval.attach(awards(cur, player_hist, team_hist), "nba"))
     groupings = [
         {"name": "Division", "groups": DIVS, "by_season": {str(y): OLD_DIVS for y in seasons if y <= 2004}},
         {"name": "Conference", "groups": {"Eastern Conference": [t for d in EAST for t in DIVS[d]],

@@ -443,4 +443,6 @@ def build():
     if cur in T:
         out["awards"]["ArtRoss"] = {"title": TITLES["ArtRoss"], "kind": "ArtRoss", "current": leaders_race("pts", cur, T), "past": leader_rows("pts", sorted(done, reverse=True), T)}
         out["awards"]["Richard"] = {"title": TITLES["Richard"], "kind": "Richard", "current": leaders_race("goals", cur, T), "past": leader_rows("goals", sorted(done, reverse=True), T)}
+    import award_eval   # published evaluation vs a uniform pool baseline (research/NBA_NHL_AWARD_EVAL_RULE.md)
+    award_eval.attach(out, "nhl")
     nhl.write("awards.json", out)

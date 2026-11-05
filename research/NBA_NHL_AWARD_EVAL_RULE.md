@@ -36,3 +36,23 @@ The NBA and NHL awards builders attach it as `eval`, like NFL. An award that fai
 - A uniform baseline is weak; beating it is necessary, not sufficient (GPT review). It is used because it is what NFL publishes.
 - Seasons are few (15-17 per award), and checkpoints within a season are dependent.
 - Australian award prices are not collected, so a pass shows on the award pages and the research page, not on the main Value list.
+
+## Result (5 Nov 2026): all 10 pass
+research/nba_nhl_award_eval.py -> model/award_eval_nba_nhl.json. In-season checkpoints at 10-90% of the season. Log loss of the eventual winner (model vs uniform pool baseline):
+
+| Award | Seasons | Model | Baseline | Mean chance on winner | Favourite said / won (90% CI of gap) |
+|---|---|---|---|---|---|
+| NBA MVP | 17 | 1.388 | 3.219 | 43% | 57% / 62% (-0.19 to +0.09) |
+| NBA DPOY | 17 | 2.911 | 3.199 | 15% | 35% / 26% (-0.07 to +0.23) |
+| NBA ROY | 17 | 0.973 | 2.708 | 58% | 72% / 71% |
+| NBA Sixth Man | 17 | 1.710 | 2.910 | 36% | 53% / 51% |
+| NHL Hart | 15 | 2.658 | 3.559 | 22% | 36% / 40% |
+| NHL Vezina | 15 | 1.734 | 2.556 | 33% | 49% / 44% |
+| NHL Norris | 15 | 2.354 | 2.865 | 21% | 39% / 35% |
+| NHL Calder | 15 | 1.675 | 2.836 | 31% | 48% / 44% |
+| NHL Art Ross | 15 | 1.650 | 2.935 | 38% | 51% / 53% |
+| NHL Richard | 15 | 1.104 | 2.708 | 49% | 60% / 64% |
+
+- Every award beats the baseline overall and in each third of the season, and no favourite is significantly overconfident.
+- NBA DPOY is the weakest: its favourites won 26% vs 35% said. The interval includes 0, but the lean is overconfident, so treat DPOY value with care.
+- **Published:** pipeline/award_eval.attach adds `eval` to nba/data/awards.json and nhl/data/awards.json. Award probabilities are unchanged.
