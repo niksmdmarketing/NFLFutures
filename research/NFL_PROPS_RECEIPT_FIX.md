@@ -16,3 +16,5 @@ This is a receipt-only rescore, not a fresh outcome validation or proof of profi
 
 ## Validation and rollout
 20 relevant NFL props unit tests pass, covering server rather than commit time, late/missing evidence, wrong branches, modified files, hash and game identity, path containment, timezone-aware times, and existing outcome/matching rules. The branch is for review, unmerged; scheduled production scoring is not yet repaired until this branch is merged. No synthetic/manual forecast is presented as a live qualification.
+
+Six-hour sensitivity: v1.1 retains 16/16 completed games; v1.2 retains 15/16, excluding 2026_07_KC_SEA. Aggregate receipt-only results are in research/nfl_props_receipt_fix_results.json. These are different horizon samples, not additional independent games.
