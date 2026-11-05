@@ -187,6 +187,62 @@ def stage2():
         pd.DataFrame(rows).to_csv(os.path.join(ROOT, "model", "replay", f"nfl_ss_{y}.csv"), index=False)
 
 
+def matched():
+    """Amendment 1 (5 Nov 2026): recompute v4 pre-game margins point-in-time for the same 1,023 game IDs and compare with SS on identical rows.
+    v4 harness form: r_home - r_away + intercept (as research/nfl_efficiency_weight_test.py); sim form: rating_scale x diff + hfa (neutral = 0)."""
+    import ratings
+    from common import load_pbp
+    g = load_games()
+    p = json.load(open(PARAMS))["params"]
+    _, _, _, rows = run(g, p, list(range(BURN0, 2026)), record=True)
+    SSd = pd.DataFrame(rows)
+    SSd = SSd[(SSd.season >= 2022) & (SSd.season <= 2025) & (SSd.week >= 2)]
+    gall = games()
+    for c in ("home_team", "away_team"):
+        gall[c] = gall[c].replace(FIX)
+    sim = ratings.S["sim"]
+    icpt = float(ratings.P["intercept"])
+    out = []
+    for y in range(2022, 2026):
+        cur_all, pri = load_pbp(y), load_pbp(y - 1)
+        reg = gall[(gall.season == y) & (gall.game_type == "REG")]
+        for w in range(1, int(reg.week.max())):          # checkpoint w (results through week w) predicts week w+1
+            gg = gall.copy()
+            gg.loc[(gg.season == y) & (gg.game_type == "REG") & (gg.week > w), "result"] = np.nan
+            base, _ = ratings.base_ratings(cur_all[cur_all.week <= w], pri, gg, y)
+            for r in reg[(reg.week == w + 1) & reg.result.notna()].itertuples():
+                d = base[TIX[r.home_team]] - base[TIX[r.away_team]]
+                neutral = str(r.location).lower() == "neutral"
+                out.append(dict(game_id=r.game_id, v4_harness=d + icpt,
+                                v4_sim=sim["rating_scale"] * d + (0.0 if neutral else sim["hfa"])))
+        print(y, flush=True)
+    V = pd.DataFrame(out)
+    M = SSd.merge(V, on="game_id", how="inner")
+    def rm(c):
+        return float(np.sqrt(np.mean((M.result - M[c]) ** 2)))
+    res = {"games_ss": int(len(SSd)), "games_v4": int(len(V)), "games_matched": int(len(M)),
+           "rmse_ss": rm("pred"), "rmse_v4_harness_form": rm("v4_harness"), "rmse_v4_sim_form": rm("v4_sim"),
+           "rmse_close": float(np.sqrt(np.mean((M.dropna(subset=["spread"]).result - M.dropna(subset=["spread"]).spread) ** 2))),
+           "by_season": {int(k): {"ss": float(np.sqrt(np.mean((x.result - x.pred) ** 2))),
+                                  "v4_harness": float(np.sqrt(np.mean((x.result - x.v4_harness) ** 2))),
+                                  "v4_sim": float(np.sqrt(np.mean((x.result - x.v4_sim) ** 2)))} for k, x in M.groupby("season")},
+           "ss_minus_v4_harness": rm("pred") - rm("v4_harness"), "ss_minus_v4_sim": rm("pred") - rm("v4_sim")}
+    # paired difference in squared error with a season-cluster bootstrap, SS vs v4 harness form
+    dse = ((M.result - M.pred) ** 2 - (M.result - M.v4_harness) ** 2)
+    rng = np.random.default_rng(1)
+    seas = {k: x.index.values for k, x in M.groupby("season")}
+    bs = []
+    for _ in range(4000):
+        pick = rng.integers(0, 4, 4)
+        idx = np.concatenate([seas[list(seas)[i]] for i in pick])
+        bs.append(dse.loc[idx].mean())
+    res["paired_mse_diff_ss_minus_v4"] = {"mean": float(dse.mean()), "ci90": [float(np.percentile(bs, 5)), float(np.percentile(bs, 95))]}
+    r0 = json.load(open(RES))
+    r0["stage1_matched_amendment1"] = res
+    json.dump(r0, open(RES, "w"), indent=1)
+    print(json.dumps(res, indent=1))
+
+
 MARKETS = {"division": ("p_div", "y_div"), "playoff": ("p_playoff", "y_playoff"), "No. 1 seed": ("p_seed1", "y_seed1"),
            "conference": ("p_conf", "y_finals"), "Super Bowl": ("p_title", "y_title")}
 
@@ -240,4 +296,4 @@ def score():
 
 
 if __name__ == "__main__":
-    {"fit": fit, "games": stage1, "futures": stage2, "score": score}[sys.argv[1]]()
+    {"fit": fit, "games": stage1, "futures": stage2, "score": score, "matched": matched}[sys.argv[1]]()
