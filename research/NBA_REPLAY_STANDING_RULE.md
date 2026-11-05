@@ -1,0 +1,38 @@
+# NBA futures replay: standing rule, version 1 (5 Nov 2026)
+Applies to every NBA futures replay or challenger comparison from now on. Written after the joint team-and-player fail and the baseline audit (research/NBA_BASELINE_AUDIT.md), with GPT's corrections. Changes are dated amendments below; nothing above is edited. Historical passes qualify a challenger for forward testing only and never change the live model.
+
+## 1. The baseline (A0)
+- Command: `BT_FULL=1 BT_PO_K=1 BT_PO_GAMMA=1.5 BT_PO_LASTPO=1 BT_PO_GAMES=1` with `BT_ERA=1` (default), `BT_SIMS=2000`, and `NBA_STINTS` set to a directory of `stints_<season>.parquet` files built by research/nba_stints.py or research/nba_joint_stints.py. `python research/replay_nba.py <first> <last>`.
+- Fixed seeds: simulation 20261009, playoff scenario draw 11. Same schedule, outcomes and seeds for every arm in a comparison.
+- Era-correct (BT_ERA=1): no play-in before 2020-21, 72 games in 2020-21, the 2020 bubble season skipped.
+
+## 2. Inputs are checked, never defaulted (enforced in code)
+research/nba_replay_guard.py runs before any season and **stops the replay** (no fallback, no warning-and-continue) when any of these fails:
+- the stints directory does not exist, or `stints_<s>.parquet` is missing for any season the run reads (y-1 and y-2 for every test season y; also y for the joint model or in-season RAPM);
+- a stints file has fewer than 20,000 rows, or its recorded usable-game share is below 0.90;
+- team box scores (five seasons back), player box scores (y-2 to y) or schedules are missing;
+- the RAPM layer is inactive: a pre-season RAPM fit for the first test season returns fewer than 300 players or a rating spread below 0.05.
+Tested on 5 Nov 2026: no directory, an empty directory and a truncated stints file each stop the run with the reason. `BT_SKIP_GUARD=1` exists for debugging only; a run made with it is not a baseline.
+
+## 3. Provenance and reuse
+- Every run writes `manifest.json` beside its output: code revision and any uncommitted files, SHA-256 of the replay and model code, all BT_*, NBA_* and NP_* settings (a partial run shows BT_MAXWEEKS), seeds, simulation count, seasons requested and written, stints directory, Python, numpy and pandas versions, SHA-256 and size of every input file, and SHA-256 of every output file.
+- `python research/nba_replay_guard.py verify <output dir>` re-hashes inputs, code and outputs. On MATCH the saved baseline may be reused; on any difference it must be regenerated. Regenerating an identical, verified baseline adds nothing.
+- Each rule that uses a baseline names its manifest.
+
+## 4. Era-correctness
+- Results from a replay with the wrong format (here BT_ERA=0, play-in applied to every season) are evidence only about that simulated format.
+- Two arms run with the same wrong format are **not** automatically valid: a different playoff structure can affect two models differently. Conclusions about actual historical futures need an era-correct replay.
+- Committed files model/replay/nba_<season>.csv: 2022-2026 reproduce exactly under the current command. 2016-2019 and 2021: status in section 7. 2013-2015: not checked, unverified.
+
+## 5. Roster limitation and sensitivities (bias of unknown direction and size)
+- The baseline roster convention knows every player who appears that season and his first team of the year, and none who never appear. It is not what a live forecast knows on a given date. Historical player-based results therefore carry **a bias of unknown direction and size**. No arm here estimates or bounds it.
+- A1 (first team within a team's first 10 games, then last team played for) is a different convention with its own error: it drops players who first appear after game 10 (injured stars who return, mid-season debuts). A1 minus A0 (-0.0032 combined) cannot show the direction of the baseline's bias.
+- NOLEAK (players absent all season stay on last season's team) is an **absence sensitivity**. It addresses one omission only. It is not a bound.
+- Previous-team convention (a player stays on his previous team until he appears for another) is a further **sensitivity**. It misses known transfers until the player appears. Proposed; not built.
+- Whenever a challenger changes player or roster logic (any roster step, player rating or minutes layer), run each chosen sensitivity on **both** the baseline and the challenger, and compare the paired gain (challenger minus baseline) under each convention. Report all of them. A challenger whose gain changes sign across conventions is not supported. Which sensitivities are required is written into that challenger's rule before any result.
+
+## 6. Reporting
+State the roster convention, era setting, manifest, and the words "bias of unknown direction and size" in every rule that depends on historical player data. A historical pass qualifies only for a forward shadow with the adoption rule written before the first forward score.
+
+## 7. Status of older committed files
+(Section filled by amendment 1 below after the full check.)

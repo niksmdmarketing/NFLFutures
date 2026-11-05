@@ -450,11 +450,18 @@ if __name__ == "__main__":
     first = int(sys.argv[1]) if len(sys.argv) > 1 else cur - 5
     last = int(sys.argv[2]) if len(sys.argv) > 2 else cur - 1
     os.makedirs(OUT, exist_ok=True)
+    import nba_replay_guard as GD   # stops the run on missing stints / inactive RAPM; writes a manifest (standing rule, 5 Nov 2026)
+    if os.environ.get("BT_SKIP_GUARD") != "1":
+        GD.check_inputs(first, last, N.NBA_DATA, joint=JOINT, in_season_rapm=bool(INS or PF or PF2),
+                        rapm_needed=bool(FULL or PO_K or PF or JOINT or INS), era=ERA)
     boxes = B.load_boxes(last)
+    written = []
     for y in range(first, last + 1):
         D = run_season(boxes, y)
         if D is None:
             print("skip", y)
             continue
         D.to_csv(os.path.join(OUT, f"nba_{y}.csv"), index=False)
+        written.append(y)
         print("season", y, "weeks", D.week.nunique(), flush=True)
+    GD.write_manifest(OUT, first, last, N.NBA_DATA, SIMS, written)
