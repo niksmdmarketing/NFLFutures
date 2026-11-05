@@ -1,0 +1,404 @@
+{
+ "code_revision": "7145566e4aa6849839400c524e77adfb204957d2",
+ "code_dirty_files": [],
+ "code_sha256": {
+  "research/replay_nba.py": "5450e27235f76e0ef1430896f8487a00d1da836592d47abd10ca1e608e532daa",
+  "pipeline/nba.py": "f7dde216761b156934cb469f22d82f93e0ce6f5bc151b251b636a3cab812045d",
+  "pipeline/nba_rapm.py": "6fc1bcde20286eed47fbbf814a5313e07825f9664de312916ef12eea2ec25db2",
+  "research/nba_rapm.py": "25f2f9c27500244c1b6a9fe69bd0e52406c3e1a5b847d81b0bde7dfaafe21809",
+  "research/nba_joint.py": "30e673fc349f1329c7eb4bed7ded3c81e0a593d1851c494e63fe792f2c3314a9",
+  "research/nba_player_replay.py": "bec4aafdfd67c1f2d4ef165484d859fbcdadd93839d7f81cc748e13aa5fc2709",
+  "pipeline/nba_backtest.py": "2e6fbe86bad86b718f65c2af1fd9eaf59488e48cb503ee153f594c07ec6e487c",
+  "pipeline/nba_title_backtest.py": "60c046ce7cfc15f25fea9634c97ab272f167014a924c653cef5f58b6976e2f75",
+  "research/nba_stints.py": "d6ddd8b38751946fd3f867b1aa45ed549dd6c9e2de1dabb1b57ab7e1a67d17bd",
+  "research/nba_joint_stints.py": "e959b6aa658df35749984df82692a6c1a137fbe5b94be75344d132edef98bc2a",
+  "research/nba_replay_guard.py": "ea9b5fd3b8d00ee610564b8589530f11ef2d4a7916fcba359ec0d79d2ca7c451"
+ },
+ "settings": {
+  "BT_FULL": "1",
+  "BT_OUTDIR": "model/replay/nba_base_v2",
+  "BT_PO_GAMES": "1",
+  "BT_PO_GAMMA": "1.5",
+  "BT_PO_K": "1",
+  "BT_PO_LASTPO": "1",
+  "BT_SAVE_RATING": "1",
+  "NBA_STINTS": "/home/claude/nbapbp/jstints"
+ },
+ "seeds": {
+  "simulation_rng": 20261009,
+  "playoff_availability_rng": 11
+ },
+ "simulations": 2000,
+ "seasons_requested": [
+  2009,
+  2026
+ ],
+ "seasons_written": [
+  2009,
+  2010,
+  2011,
+  2012,
+  2013,
+  2014,
+  2015,
+  2016,
+  2017,
+  2018,
+  2019,
+  2021,
+  2022,
+  2023,
+  2024,
+  2025,
+  2026
+ ],
+ "stints_dir": "/home/claude/nbapbp/jstints",
+ "python": "3.13.18",
+ "inputs": {
+  "team_box_2004.csv": {
+   "bytes": 1057399,
+   "sha256": "feb7bc3315dccb5615b771303dffeb1f1dc11c893dbc827fe302e65eacc99b97"
+  },
+  "team_box_2005.csv": {
+   "bytes": 1091249,
+   "sha256": "ac9d2df303b93a5936e6071f0e5f7ecffc0df6f1a27df945b90b5b8bd779e90d"
+  },
+  "team_box_2006.csv": {
+   "bytes": 1099228,
+   "sha256": "38a709117854e22c6831d5d11d2a8d8ac169e4991622ebde83ab036a9994dedd"
+  },
+  "team_box_2007.csv": {
+   "bytes": 1090633,
+   "sha256": "844fe56ed83745e2b1147ca0a58ca989acc93da75067d2b1b10e50b8d0ab3f9e"
+  },
+  "team_box_2008.csv": {
+   "bytes": 1093226,
+   "sha256": "26e4f09114ffc64dac55107e2fdb1f95d13ef6907b8f0f4fe8107438c1d93764"
+  },
+  "team_box_2009.csv": {
+   "bytes": 1102066,
+   "sha256": "efd3f80feb1a206aabac2aa3744b15d4b6a6f36be978e1c72f18ca464b99e22a"
+  },
+  "team_box_2010.csv": {
+   "bytes": 1100547,
+   "sha256": "14fa59d0d0b0aab3848e67112f09a26de4423d5ef27fb814f65d875270d71bd5"
+  },
+  "team_box_2011.csv": {
+   "bytes": 1099846,
+   "sha256": "7d3295125f99f9c753bf19924553c71676685225542db75e29fa604adeaad519"
+  },
+  "team_box_2012.csv": {
+   "bytes": 900874,
+   "sha256": "e5f1a228a6d210c1d5e505a6df393f7f11857201acec986d567a7fbf894678c2"
+  },
+  "team_box_2013.csv": {
+   "bytes": 1099636,
+   "sha256": "4896d2f2680bb2da98339d2303c6c06e36cb1aaaeb5a4e043d31e25e3ca3a57e"
+  },
+  "team_box_2014.csv": {
+   "bytes": 1117322,
+   "sha256": "5a96729d90440ecb4e15868d989a3b1b6ba3e2988b516b317a50771dc5dd6bd1"
+  },
+  "team_box_2015.csv": {
+   "bytes": 1120021,
+   "sha256": "7e093f1932dceacc5b0fe6016e3fcaa22f4742882aa0797c0bd5a5ab2d56da89"
+  },
+  "team_box_2016.csv": {
+   "bytes": 1129485,
+   "sha256": "7c1d0c5ad97c783e835d7cc3ebe07a8b204d8b76e0f3429910dd65414bc32ab5"
+  },
+  "team_box_2017.csv": {
+   "bytes": 1122493,
+   "sha256": "b257424853fefaef1986e6261d7b40f9a84ba31497efd674b2973fdc4a2ccc51"
+  },
+  "team_box_2018.csv": {
+   "bytes": 1124421,
+   "sha256": "78cd5e76610169bd032a85e31333b012cfdd8d7315799b660c0b670ff42e60f9"
+  },
+  "team_box_2019.csv": {
+   "bytes": 1128663,
+   "sha256": "72969eeeb2705c02836b2a96fdb6b7d9dcdfba0630565c35da7026bae285c9f3"
+  },
+  "team_box_2020.csv": {
+   "bytes": 981679,
+   "sha256": "4c85a6017bb4df5422eaa95607724d8d54b0744bb95a23bd322a7d7eb22905cc"
+  },
+  "team_box_2021.csv": {
+   "bytes": 1027092,
+   "sha256": "cfb1780034bdb0fee8cc344fa5a86e94cca0045e429ec9dd11769d3eaeba4d90"
+  },
+  "team_box_2022.csv": {
+   "bytes": 1167736,
+   "sha256": "c0de4f3e8188fc8343db0701c3805b43df8e83a9c764054690add7283f4f01b4"
+  },
+  "team_box_2023.csv": {
+   "bytes": 1165641,
+   "sha256": "a9b851ecd64d8964783efa4157b24949297e2725d36374f5fd454291bce42937"
+  },
+  "team_box_2024.csv": {
+   "bytes": 1165847,
+   "sha256": "d80d3d84da77197c3178ebab24fb054b2d6d275c8433d8a9f5e358c8acc20c9f"
+  },
+  "team_box_2025.csv": {
+   "bytes": 1170754,
+   "sha256": "0d30b0ae0a6f5578d0ba8418ce361cd20e5faa4fa7feb04fbc9e21c396b408af"
+  },
+  "team_box_2026.csv": {
+   "bytes": 1184546,
+   "sha256": "c5dcf467c15763aff7b78f6e5de0357c5fca8a77434f7371a41ee7846d4ce178"
+  },
+  "player_box_2007.csv": {
+   "bytes": 16814707,
+   "sha256": "82b3eabdf2411adafa3cdc0d7397d67afcc58fc14eb8164ffc8c5f458a0e75c4"
+  },
+  "stints_2007.parquet": {
+   "bytes": 593426,
+   "sha256": "992dcc8bb758dd42e6d2b3f01edc1c8440bdb72ff83ab7c4b0eefcc41e697086"
+  },
+  "player_box_2008.csv": {
+   "bytes": 16895682,
+   "sha256": "328e70b2363416f050999fe060418a71c578d748ea3726136b56a7640e3fa0a4"
+  },
+  "stints_2008.parquet": {
+   "bytes": 573494,
+   "sha256": "ef33d2d4a12e1a126e9c937c122e9d3214e393a88c6396b70e9ca103d5d6b4d8"
+  },
+  "player_box_2009.csv": {
+   "bytes": 17000650,
+   "sha256": "3ec1629c3dac84da52ffbd8ea31393922a5c7eb5ddc24eabad08df00a72c79ef"
+  },
+  "nba_schedule_2009.csv": {
+   "bytes": 927956,
+   "sha256": "b5b5a297ce3cee185620db0d66f70fd0095835a8dd78bf159380fc9d5de1f7fc"
+  },
+  "stints_2009.parquet": {
+   "bytes": 570014,
+   "sha256": "140795306c1303719825ea8a04b0f856d5a295795941539bb42d0ca86fab3bc7"
+  },
+  "player_box_2010.csv": {
+   "bytes": 17072619,
+   "sha256": "9cb4484095636dc8cb3f2f9d764475cb8b42928c46fb52af1eae6d08b1cbebc1"
+  },
+  "nba_schedule_2010.csv": {
+   "bytes": 938452,
+   "sha256": "610bf83866ca017fe35d02a51270c87a83b1cefd01402deaf94b1552ce02a4c1"
+  },
+  "stints_2010.parquet": {
+   "bytes": 571392,
+   "sha256": "0722fda733744add977c89ddffa2ce8c874f0320a61442075d1d2c6519bf62df"
+  },
+  "player_box_2011.csv": {
+   "bytes": 17513096,
+   "sha256": "e59d89f3a07ce8c487ee0f3e53d1a6f538867216dba396acaa0486ac39a8f559"
+  },
+  "nba_schedule_2011.csv": {
+   "bytes": 937318,
+   "sha256": "3c51b3cd37d7d33dfff0dfeb4c3567605e9e485c85b8fe3e48ada46342d35353"
+  },
+  "stints_2011.parquet": {
+   "bytes": 591666,
+   "sha256": "8bad059efac3890a1b13691ed2bc56b30da8fcae2668b5008e0e29c25972ffe4"
+  },
+  "player_box_2012.csv": {
+   "bytes": 14406372,
+   "sha256": "a32b85703ead80b02af6cd8822f5f42fc6c4ab7d8ae28826a5fce26bd4e28024"
+  },
+  "nba_schedule_2012.csv": {
+   "bytes": 769414,
+   "sha256": "4b3e9e614ee753aa043039422a93241405d3e45d4862ff97997749fbc5c75044"
+  },
+  "stints_2012.parquet": {
+   "bytes": 473403,
+   "sha256": "90d704d40bc1e3328bb276c36e7c4628e3b40bb57c34c95d74396107eeaeb4e4"
+  },
+  "player_box_2013.csv": {
+   "bytes": 16240634,
+   "sha256": "d8afa95359b4afe53d2e48f3366315b49b07179f3f1c38f2da903e21f4961715"
+  },
+  "nba_schedule_2013.csv": {
+   "bytes": 942372,
+   "sha256": "93849ee704addd697ea4c97da807241742a985783cef59b3d3738635b235c66d"
+  },
+  "stints_2013.parquet": {
+   "bytes": 642548,
+   "sha256": "0bfc48f799624bac261f3ad15e7434f27613db7b48c25ab03c0d04f0ab769ceb"
+  },
+  "player_box_2014.csv": {
+   "bytes": 16522274,
+   "sha256": "ddd8cc52cbe8b95724fd4c2f61ecc9adf37d009233d8ad9c2230329f094d29ee"
+  },
+  "nba_schedule_2014.csv": {
+   "bytes": 951679,
+   "sha256": "2a0313da0565ab676470d96f47e89d9a1404c8669023822f8f77725adc5aaa69"
+  },
+  "stints_2014.parquet": {
+   "bytes": 598892,
+   "sha256": "6bd1304246a7eed6b766d6ce8545050e2ab0d1549295db5c876238733ac20bbe"
+  },
+  "player_box_2015.csv": {
+   "bytes": 16580267,
+   "sha256": "5d1c0db7f86f7b0ce19330249375423f3f3183d09bc3a4e790647b25bc694538"
+  },
+  "nba_schedule_2015.csv": {
+   "bytes": 950818,
+   "sha256": "64a72fad4ab41a36429d2bd3f822cf37e03b85bb7c2bbcbc9161bc4c94e6bbfa"
+  },
+  "stints_2015.parquet": {
+   "bytes": 644967,
+   "sha256": "20a3b0597aa1145c149eb6d1084a292cb05b11e1cfea6bea3c7de83581bdfbfc"
+  },
+  "player_box_2016.csv": {
+   "bytes": 16687907,
+   "sha256": "ffd09dec990bc3226ab7fc02d8a80c4933832527a5ae8eb808d0f6513ec74397"
+  },
+  "nba_schedule_2016.csv": {
+   "bytes": 954991,
+   "sha256": "3373fb4ade99e7056228a4dfaa1c2128f7a255672e09c27dd3cab731edb53a9c"
+  },
+  "stints_2016.parquet": {
+   "bytes": 633742,
+   "sha256": "b0569f8c495d63e379f9929a52b0d8a854e44179cb42c07fbaa593408a92ae58"
+  },
+  "player_box_2017.csv": {
+   "bytes": 16669172,
+   "sha256": "45d6fe8b7d91eede2ab4364522269306e8cf2acf2dcf15e6d0994aa7750ed941"
+  },
+  "nba_schedule_2017.csv": {
+   "bytes": 949421,
+   "sha256": "d17829cbcaaa5fee9f3cbb73289357e702786b02f5bc08ea9eb9b4ab4c718f03"
+  },
+  "stints_2017.parquet": {
+   "bytes": 640302,
+   "sha256": "c9497ed540ee3bfebf1047f2c1653c2098b0aa4b647c48ce9fb0bf55f0050099"
+  },
+  "player_box_2018.csv": {
+   "bytes": 16439255,
+   "sha256": "c963c9ac9fea5a9f641b5e8ec2d20ae1b57a8b2bdb20bbe6696960a5278b9df3"
+  },
+  "nba_schedule_2018.csv": {
+   "bytes": 951431,
+   "sha256": "ce772be7fc1627c0be22d5d18a65eef3dc699683738538d922320e4546ad12aa"
+  },
+  "stints_2018.parquet": {
+   "bytes": 637355,
+   "sha256": "408fbf7c311688e08e3966d345d4231458716216ebdde833d74f26e3a41c3722"
+  },
+  "player_box_2019.csv": {
+   "bytes": 16423678,
+   "sha256": "5df73407e22c013e1602aec0c13223217523ca11966c28beac73b09c870128f0"
+  },
+  "nba_schedule_2019.csv": {
+   "bytes": 950828,
+   "sha256": "b99913f6167a59d52150ab69fcc59df2fd588b8d255c2e5d4d3e0f8828c6c084"
+  },
+  "stints_2019.parquet": {
+   "bytes": 651229,
+   "sha256": "c94981e7a0dbca3331320beec51e4e0a157dcda32540bcef3ad0e48ca7b4d73e"
+  },
+  "player_box_2020.csv": {
+   "bytes": 14334441,
+   "sha256": "f822c3cf5a1e440cca81ab98aac5cc97f1fb0c2259cb0ab1a2cfd7cf5a47b473"
+  },
+  "nba_schedule_2020.csv": {
+   "bytes": 1648408,
+   "sha256": "af35fed1dc55add0425f5b0f1a332fcbc433ff8f44265224107c8d46fd90bce7"
+  },
+  "stints_2020.parquet": {
+   "bytes": 615695,
+   "sha256": "ae0c15f07c59a3809d3045b7df29fe306b6ccba283aa58a5e0bc3be5e05baab3"
+  },
+  "player_box_2021.csv": {
+   "bytes": 16122075,
+   "sha256": "86b12342459b786450460000ad4de6a6c6a618ae064f6047e19565110bcc638f"
+  },
+  "nba_schedule_2021.csv": {
+   "bytes": 1615095,
+   "sha256": "1857bb44da8458a6e9205ffb57ed87e43a35ad4cdbab6ee7752684bb8f7744bf"
+  },
+  "stints_2021.parquet": {
+   "bytes": 629190,
+   "sha256": "bf2dcf72c16f17148f44f98cadaaf8d27fff35f6eb8c12f36d5018c359054db9"
+  },
+  "player_box_2022.csv": {
+   "bytes": 17355393,
+   "sha256": "1a639a8c47250a35cb823a17510d6a1a900bbab9bcaec19b7b79abe2f7f803e6"
+  },
+  "nba_schedule_2022.csv": {
+   "bytes": 1791225,
+   "sha256": "8cd13a11b16aa49f26e766e7af1d674aecb96ef427bfe1655740b7fd252b24ed"
+  },
+  "stints_2022.parquet": {
+   "bytes": 723893,
+   "sha256": "aa5ffb762b828cf838cbe90b7eb668c35eff026c90a7b20bffee0c773b0a3cad"
+  },
+  "player_box_2023.csv": {
+   "bytes": 17431336,
+   "sha256": "1b797107d4a0b2fbc98862bd283b9e807a05aa11c671b89a471b25591a589493"
+  },
+  "nba_schedule_2023.csv": {
+   "bytes": 1776788,
+   "sha256": "71aad62f4c082455ba7659b5cc900745a72b113b85bc22727ac04a603a9b5dca"
+  },
+  "stints_2023.parquet": {
+   "bytes": 712804,
+   "sha256": "587190d87c3d52ce1746079e891161eb9c519025ded3beb7d7d6089ea5336b69"
+  },
+  "player_box_2024.csv": {
+   "bytes": 17930190,
+   "sha256": "c52a708ac80542baa0711f166154e0a647543036854e29aa903bd2fc27b49ae2"
+  },
+  "nba_schedule_2024.csv": {
+   "bytes": 1813321,
+   "sha256": "ae89a6e51dec1817b41e457d02ffc4cfc26d25b411d318906c1ec5f39a6c5527"
+  },
+  "stints_2024.parquet": {
+   "bytes": 688078,
+   "sha256": "39dddb6008287a2e4a53e3f49af8b7afdd7e1e77975d66485115dcd749024542"
+  },
+  "player_box_2025.csv": {
+   "bytes": 17909380,
+   "sha256": "8e34c5b1b7629dda89483356b5ec40f76a0b534aa273a5ddd8d9ef23f3e0e4f7"
+  },
+  "nba_schedule_2025.csv": {
+   "bytes": 2216279,
+   "sha256": "a7a5b6607a256c84a324f819e4461248bdff90a78b1ddb675a5a117a9a94e74f"
+  },
+  "stints_2025.parquet": {
+   "bytes": 723557,
+   "sha256": "a54efb975e97c284dde6566b03f7bc75a17bd6e37c1cf97c89e0696405388c58"
+  },
+  "player_box_2026.csv": {
+   "bytes": 17729581,
+   "sha256": "7a4868da67ae7f6ebfba23389e04220be2e3f69d2e56a3942c02aa56f1becc89"
+  },
+  "nba_schedule_2026.csv": {
+   "bytes": 9153001,
+   "sha256": "5a4a7473fce1c49d56382211c5955ad405f421d59869143b1d501e997e79223e"
+  },
+  "stints_2026.parquet": {
+   "bytes": 879140,
+   "sha256": "8a17cbae081c7796017c5c10e9907501165795f6b6c6735dfaf708962e1869a3"
+  }
+ },
+ "outputs": {
+  "nba_2009.csv": "0b216324263871ac54790fd311c1f1003cea97fddf97e503e186a91f0819f085",
+  "nba_2010.csv": "160d0193989f0edef1980e1ddc8a3539f80f90ed4c46ef7706ce867699890ef2",
+  "nba_2011.csv": "ddd78e7766e8105f9c0d4658cc57d5b06e01d22c1212769c65332c8ada022bed",
+  "nba_2012.csv": "447c58cf06578625add34dc1c76030d68b33d156a1097c6645b16f93189b63c4",
+  "nba_2013.csv": "40c0a0d8c48624d35f98c39f98390f7f3b4081f0795c9d67cf28d1c3dedfe7db",
+  "nba_2014.csv": "630d5477dbac6a910a8d8e37eaa42b96f3e399e54bd0c99760c579e07eed0099",
+  "nba_2015.csv": "7b61db0799c422bb95a92400611c65f2944c604b11e86edcad2b642f4852fdf3",
+  "nba_2016.csv": "f8f02933bfc89fe8326d87c1389f850731e6ece0216de0aab1a33261c08aa65d",
+  "nba_2017.csv": "59dede69b288afb3d48ce7b554a8169c679b024a438b312d45e0a837cfba9380",
+  "nba_2018.csv": "9c9e1a115716b6e510983bd29589f1bdbd290a6cef390b021582ad873fe7ede7",
+  "nba_2019.csv": "9ddf049135eaae2b305e9edfb638a926bcb4ebd62824fa235e06a1c257f9bdbe",
+  "nba_2021.csv": "98d2b88eea7fddc09654c4fdd375a2eb39847565bc417fbd3ca21a8b18c4e597",
+  "nba_2022.csv": "56dcf0bdd649a14eac3a039d547e06d0d5f6a7158f8fe2dca536a06897c89840",
+  "nba_2023.csv": "075d883eb09677d5fc84c483b48fe4f4e5d5ab8f14b0084d59809551554dff5e",
+  "nba_2024.csv": "7cf78031bba986ac5ffeb99a4030195edee0fc6c665e0e537a9753204ae2d060",
+  "nba_2025.csv": "e1b0d6f5fffb2e4cc5ef55c48672e004f717f15e1dfe6bacdc4c317252b61029",
+  "nba_2026.csv": "3844a1b2faa0a453a26563497074843f9ef3ad42636408cbdacb8e3986fa17c9"
+ },
+ "numpy": "2.5.3",
+ "pandas": "3.0.5"
+}
