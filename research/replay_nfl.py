@@ -39,6 +39,9 @@ if COEF_FILE:
     import json
     ratings.P["coef"] = json.load(open(COEF_FILE))["coef"]
 OUT = os.environ.get("BT_OUTDIR") or os.path.join(ROOT, "model", "replay")
+# BT_INJ=1: non-QB players known out after week w carried into their team's next 4 games (research/NFL_NONQB_INJURY_RULE.md Stage 2)
+INJ = os.environ.get("BT_INJ") == "1"
+INJ_WIN = 4
 # BT_QB=lambda: quarterback layer as live (expected starter vs the QB behind this season's numbers); expected starter = the
 # QB who took the team's first dropback in its next game (known before kickoff), preseason = week-1 starter.
 QB_LAM = float(os.environ.get("BT_QB", "0"))
@@ -97,6 +100,12 @@ def run_season(g, y):
         from nfl_qb_prior_test import qb_mix
         mix = qb_mix(pri)
     out = B.outcomes(g, y)
+    if INJ:
+        sys.path.insert(0, os.path.join(ROOT, "research"))
+        import json as _json
+        import nfl_nonqb_injury_test as IJ
+        miss = IJ.futures_missing(y)
+        ibeta = _json.load(open(os.path.join(ROOT, "research", "nfl_nonqb_injury_results.json")))["beta"]
     P = {**ratings.S["sim"], **OVR}
     rows = []
     reg_all = g[(g.season == y) & (g.game_type == "REG")]
@@ -112,6 +121,18 @@ def run_season(g, y):
             base = XT @ ew
             base = base - base.mean()
         greg = gg[(gg.season == y) & (gg.game_type == "REG")]
+        if INJ and w >= 2:
+            greg = greg.copy()
+            share = {t: sum(ibeta[k] * v for k, v in miss.get((w, t), {}).items()) for t in TEAMS}   # points lost per game
+            left = greg[greg.result.isna()].sort_values(["week", "gameday", "game_id"])
+            nth = {t: 0 for t in TEAMS}
+            adj = {}
+            for gid, h, a in zip(left.game_id, left.home_team, left.away_team):
+                sh = share.get(h, 0.0) if nth.get(h, 0) < INJ_WIN else 0.0
+                sa = share.get(a, 0.0) if nth.get(a, 0) < INJ_WIN else 0.0
+                nth[h] = nth.get(h, 0) + 1; nth[a] = nth.get(a, 0) + 1
+                adj[gid] = sh - sa
+            greg["margin_adj"] = greg.game_id.map(adj).fillna(0.0)
         played = greg[greg.result.notna()]
         gp = np.array([((played.home_team == t) | (played.away_team == t)).sum() for t in TEAMS], float)
         if QB_LAM:

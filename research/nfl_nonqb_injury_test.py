@@ -176,3 +176,35 @@ if __name__ == "__main__":
     out["stage1_pass"] = bool(out["gates"]["rmse_lower"] and better >= 3 and out["gates"]["logloss_lower"] and signs)
     json.dump(out, open(RES, "w"), indent=1)
     print(json.dumps(out, indent=1))
+
+
+def futures_missing(y):
+    """Stage 2 (amendment): (week w, team) -> {group: missing share} for players known out after week w's games, from the week-w
+    roster: status neither ACT nor INA, with at least 2 games of snaps through week w. QB/K/P/LS excluded."""
+    sn = load("snap_counts/snap_counts", y)
+    ro = load("weekly_rosters/roster_weekly", y)
+    sn = sn[sn.game_type == "REG"].copy(); ro = ro[ro.game_type == "REG"].copy()
+    for d in (sn, ro):
+        d["team"] = fix(d["team"].astype(str))
+    pfr2gsis = {**ro.dropna(subset=["pfr_id", "gsis_id"]).drop_duplicates("pfr_id").set_index("pfr_id").gsis_id.to_dict(), **PFR2GSIS}
+    sn["gsis_id"] = sn.pfr_player_id.map(pfr2gsis)
+    sn["share"] = np.fmax(pd.to_numeric(sn.offense_pct, errors="coerce").fillna(0), pd.to_numeric(sn.defense_pct, errors="coerce").fillna(0))
+    if sn.share.max() > 1.5:
+        sn["share"] = sn.share / 100.0
+    played = sn.dropna(subset=["gsis_id"])
+    played = played[(played.offense_snaps.fillna(0) + played.defense_snaps.fillna(0)) > 0]
+    ro["pos2"] = ro["depth_chart_position"].where(ro["depth_chart_position"].notna() & (ro["depth_chart_position"].astype(str) != ""), ro.gsis_id.map(PLAYER_POS)) if "depth_chart_position" in ro else ro.gsis_id.map(PLAYER_POS)
+    ro["pos2"] = ro["pos2"].fillna(ro["position"])
+    out = {}
+    for (t, w), rw in ro.groupby(["team", "week"]):
+        prior = played[(played.team == t) & (played.week <= w)]
+        imp = prior.groupby("gsis_id").share.agg(["mean", "size"])
+        imp = imp[imp["size"] >= 2]["mean"]
+        feats = dict.fromkeys(G, 0.0)
+        for r in rw[~rw.status.astype(str).isin(["ACT", "INA"])].itertuples():
+            if r.gsis_id in imp.index and str(r.pos2) not in EXCLUDE:
+                g = group(str(r.pos2))
+                if g:
+                    feats[g] += float(imp[r.gsis_id])
+        out[(int(w), t)] = feats
+    return out
