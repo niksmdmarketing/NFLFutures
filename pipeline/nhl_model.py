@@ -635,7 +635,9 @@ def build():
     lineup_g = None
     if LINEUP:
         try:
-            lineup_g, _ = nhl_lineup.live_term(cur, teams, k, absences, goalie=True)
+            lineup_g, _lv_g = nhl_lineup.live_term(cur, teams, k, absences, goalie=True)
+            if lineup_g is not None and _lv_g is None:      # no lineup input: a zero term is not goalie evidence (GPT review, 5 Nov 2026)
+                lineup_g = None
             if lineup_g is not None:
                 lineup_g = lineup_g.reindex(teams).fillna(0.0)
                 log("nhl model: goalie part of the roster term", (lineup_g - lineup_term).round(3).sort_values().iloc[[0, 1, -2, -1]].to_dict())
