@@ -33,6 +33,11 @@ WF = None
 if os.environ.get("BT_COEF") == "wf":
     import json
     WF = json.load(open(os.path.join(ROOT, "model", "replay", "nfl_wf_coef.json")))["seasons"]
+# BT_COEF_FILE=<json with {"coef": {col: weight}}>: fixed research rating weights for every season (research/NFL_EFFICIENCY_WEIGHT_RULE.md).
+COEF_FILE = os.environ.get("BT_COEF_FILE")
+if COEF_FILE:
+    import json
+    ratings.P["coef"] = json.load(open(COEF_FILE))["coef"]
 OUT = os.environ.get("BT_OUTDIR") or os.path.join(ROOT, "model", "replay")
 # BT_QB=lambda: quarterback layer as live (expected starter vs the QB behind this season's numbers); expected starter = the
 # QB who took the team's first dropback in its next game (known before kickoff), preseason = week-1 starter.
