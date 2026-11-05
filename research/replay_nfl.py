@@ -167,7 +167,7 @@ def run_season(g, y):
             R = R * (1 + EARLY * max(0.0, 1 - gp.mean() / EARLY_N))
         R = R - R.mean()
         res = simulate.simulate(greg, R, SIMS, P["tau"] * (1 - TAUFADE * min(gp.mean() / 17.0, 1.0)), P["sigma"], P["hfa"], hfa_post=HFA_POST,
-                                rest_pen=REST)
+                                rest_pen=REST, n_seeds=7 if y >= 2020 else 6)   # era playoff format (fix 5 Nov 2026: was 7 seeds for every season)
         date = str(pd.to_datetime(played.gameday).max().date()) if len(played) else str(pd.to_datetime(reg_all.gameday).min().date())
         for i, t in enumerate(TEAMS):
             rows.append(dict(season=y, week=w, date=date, gp_avg=round(float(gp.mean()), 1), team=t, p_div=float(res["div"][i]), p_playoff=float(res["playoff"][i]),
