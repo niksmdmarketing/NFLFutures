@@ -647,3 +647,7 @@ TypeSafe 96%: shadow. nhl_model g_* fields + archive; model/nhl_goalie_ratings_2
 - NHL goalie: GPT's passing run used NHL_XG=adj (not production-equivalent); Claude's failing run omitted the 20% xG share.
   Unresolved: rerun from one canonical baseline. The g_* shadow keeps collecting as evidence only.
 - NHL futures carry model_version "nhl-ot-20261104".
+
+## 2026-11-05 NFL: shift weight from points margin to efficiency (research/NFL_EFFICIENCY_WEIGHT_RULE.md) - FAIL
+- E50 (SRS weights halved, efficiency refitted 2010-21) game-margin RMSE 2022-25: 12.883 vs v4 12.863 (closing spread 12.389).
+- Futures: +0.0004 (90% -0.0033 to +0.0037); division -0.0028, playoff -0.0035. Nothing changes.

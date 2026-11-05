@@ -34,3 +34,13 @@ Written 5 Nov 2026 (Sydney), before any variant weights were fitted or any resul
 ## Limits, stated now
 - Four test seasons is a small sample, and the season bootstrap is coarse.
 - The offline script that trained v4 is not in the repo. The walk-forward reconstruction matches the frozen weights only loosely (correlation 0.66). E50's efficiency weights therefore come from the reconstruction pipeline, while the baseline is frozen v4 as live.
+
+## Result (5 Nov 2026): FAIL
+research/nfl_efficiency_weight_test.py and research/nfl_efficiency_weight_results.json.
+- **Stage 1 (1,023 games, 2022-2025, weeks 2-18):** margin RMSE v4 12.863, E50 12.883, E0 12.919. E50 is better only in 2022; the gate is not met.
+    - On the training seasons (2010-2021) E50 fits slightly better (13.508 vs 13.523). The improvement does not carry over to unseen seasons.
+    - The closing spread is better than every arm (RMSE 12.389). Next to it, the blend weight on every arm is about 0.
+- **Stage 2 (futures, 4,000 sims, BT_REST=1):** combined gain +0.0004 (90% -0.0033 to +0.0037), better in 3/4 seasons.
+    - Division -0.0028 and playoff -0.0035 are below the -0.0005 limit. No. 1 seed +0.0058, conference +0.0009, Super Bowl +0.0014.
+    - 2025 is -0.0063.
+- **Decision:** fail on both stages. Nothing changes; no shadow.
