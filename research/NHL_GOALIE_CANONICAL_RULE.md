@@ -64,3 +64,8 @@ Both arms ran on the same frozen RAPM cache (hashes in research/nhl_goalie_canon
 - **Leave-one-season-out** picks the goalie arm for every season (held-out +0.0002, 6/9).
 - **Size today:** in the 5 Nov 01:20 UTC live run, the goalie part moves team ratings by at most 0.0017 goals per game (rating spread about 0.39). It matters when a team's starter changes during the season.
 - **Next step:** TypeSafe (55% go live, 43% keep as a shadow, confidence 0.33). The owner decides.
+- **Decision (5 Nov 2026): live.** The owner approved going live, as TypeSafe recommended (55%).
+    - pipeline/nhl_model.py now uses the roster term with the starting goalie (scale 0.438). Displayed NHL futures are labelled `nhl-goalie-20261105`.
+    - The previous no-goalie forecast is archived every refresh as ng_* fields (pipeline/sport_archive.py) for forward comparison.
+    - If goalie inputs are missing, live falls back to the no-goalie term and roster_diag.goalie is false.
+    - Snapshots archived before this change keep their g_* (shadow) fields and earlier version labels.

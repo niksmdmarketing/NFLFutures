@@ -628,18 +628,24 @@ def build():
         except Exception as e:  # noqa: BLE001
             log("nhl model: roster term failed:", e)
             lineup_term = pd.Series(0.0, index=teams)
-    # goalie shadow (5 Nov 2026, research/NHL_GOALIE_ROSTER_RULE.md): the same roster term with the starting goalie added
-    # (scale 0.438), archived beside live (g_* fields) for forward scoring before any live decision
+    # starting goalie in the roster term (scale 0.438): live from 5 Nov 2026 after the canonical production-equivalent replay
+    # passed (research/NHL_GOALIE_CANONICAL_RULE.md: +0.0002, 90% +0.0001 to +0.0004, 6/9; TypeSafe 55%; owner approved).
+    # The previous roster term without the goalie is archived beside it (ng_* fields). If goalie inputs are missing, live
+    # falls back to the no-goalie term and says so in roster_diag.
     lineup_g = None
     if LINEUP:
         try:
             lineup_g, _ = nhl_lineup.live_term(cur, teams, k, absences, goalie=True)
             if lineup_g is not None:
                 lineup_g = lineup_g.reindex(teams).fillna(0.0)
-                log("nhl model: goalie shadow roster term", (lineup_g - lineup_term).round(3).sort_values().iloc[[0, 1, -2, -1]].to_dict())
+                log("nhl model: goalie part of the roster term", (lineup_g - lineup_term).round(3).sort_values().iloc[[0, 1, -2, -1]].to_dict())
         except Exception as e:  # noqa: BLE001
-            log("nhl model: goalie shadow failed:", e)
+            log("nhl model: goalie roster term failed, falling back to the no-goalie term:", e)
             lineup_g = None
+    ROSTER_DIAG["goalie"] = lineup_g is not None
+    lineup_ng = lineup_term                                  # previous live term (no goalie), kept for the ng_* shadow
+    if lineup_g is not None:
+        lineup_term = lineup_g
     rating = rating + lineup_term
     sim = simulate(teams, state, games, rating.to_dict(), tau_now, total, hfa, SIMS, po_scale=po_scale, po_delta=po_delta, game_adj=game_adj, **OTKW)
     # same model without the injury adjustment, to show what the absences are worth
@@ -651,11 +657,11 @@ def build():
     share_left = max(0.0, 1 - n_avg / (n_avg + float(remaining_ct.mean())))
     sim_s = simulate(teams, state, games, rating.to_dict(), tau_now, total, hfa, SIMS, po_scale=1 + PO_FADE_SHADOW * share_left,   # same draws as live
                      po_delta=po_delta, game_adj=game_adj, **OTKW)
-    sim_g = None
+    sim_ng = None   # shadow: the forecast without the goalie part (the live model until 5 Nov 2026), same draws
     if lineup_g is not None:
-        rating_g = rating - lineup_term + lineup_g
-        sim_g = simulate(teams, state, games, rating_g.to_dict(), tau_now, total, hfa, SIMS, po_scale=po_scale, po_delta=po_delta,
-                         game_adj=game_adj, **OTKW)
+        rating_ng = rating - lineup_term + lineup_ng
+        sim_ng = simulate(teams, state, games, rating_ng.to_dict(), tau_now, total, hfa, SIMS, po_scale=po_scale, po_delta=po_delta,
+                          game_adj=game_adj, **OTKW)
     # previous model (goal-based playoff rating, no multiplier), kept as the comparison column
     sim_c = simulate(teams, state, games, rating.to_dict(), tau_now, total, hfa, max(SIMS // 2, 1000), **OTKW)
     # diagnostic (15 Oct 2026, GPT/TypeSafe): each team's playoff and Cup chance with its own rating moved -/+ SENS_D goals
@@ -688,8 +694,8 @@ def build():
                      "p_r2": float(sim["r2"][i]), "p_r3": float(sim["r3"][i]), "p_final": float(sim["final"][i]), "p_cup": float(sim["cup"][i]),
                      "c_final": float(sim_c["final"][i]), "c_cup": float(sim_c["cup"][i]),
                      "s_final": float(sim_s["final"][i]), "s_cup": float(sim_s["cup"][i]),
-                     **({"g_playoffs": float(sim_g["playoffs"][i]), "g_div": float(sim_g["div"][i]), "g_final": float(sim_g["final"][i]),
-                         "g_cup": float(sim_g["cup"][i]), "g_roster": float(lineup_g[t])} if sim_g is not None else {}),
+                     **({"ng_playoffs": float(sim_ng["playoffs"][i]), "ng_div": float(sim_ng["div"][i]), "ng_final": float(sim_ng["final"][i]),
+                         "ng_cup": float(sim_ng["cup"][i]), "ng_roster": float(lineup_ng[t])} if sim_ng is not None else {}),
                      "p_top3": float(sim["top3"][i]), "p_wc": float(sim["playoffs"][i] - sim["top3"][i]),
                      "sens_d": SENS_D, "sens_po": [sens[t][0][0], float(sens0["playoffs"][i]), sens[t][1][0]] if t in sens else None,
                      "sens_cup": [sens[t][0][1], float(sens0["cup"][i]), sens[t][1][1]] if t in sens else None,
@@ -706,7 +712,7 @@ def build():
     if bt is None:
         bt = backtest(TT, GG, fit_years, done, [y for y in done if y >= 2021])
         json.dump({"key": key, "bt": bt}, open(cache, "w"))
-    out = {"season": cur, "model_version": "nhl-ot-20261104",   # overtime fix live 4 Nov 2026 (research/NHL_OT_RATE_RULE.md)
+    out = {"season": cur, "model_version": "nhl-goalie-20261105" if lineup_g is not None else "nhl-ot-20261104",   # OT fix 4 Nov; starting goalie 5 Nov 2026
            "updated_utc": dt.datetime.now(dt.timezone.utc).isoformat(timespec="minutes"), "games_played": n_avg, "sims": SIMS,
            "params": {"k": k, "tau_now": tau_now, "tau": tau, "total_goals": total, "hfa": hfa, "beta": [float(b) for b in beta], "prior_r2": r2, "prior_rmse": rmse},
            "backtest": bt, "teams": rows, "pts_axis": [30, 140], "roster_diag": dict(ROSTER_DIAG),
