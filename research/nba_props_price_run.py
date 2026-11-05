@@ -163,37 +163,72 @@ def mechanics(args):
         cov[f"{b}/{s}"] = dict(rows=len(g), with_entry_price=float(g.t60_price.notna().mean()), with_close=float(g.close_price.notna().mean()))
     late = P[pd.to_datetime(P.t60_time, utc=True, errors="coerce") > pd.to_datetime(P.start_time, utc=True) - pd.Timedelta(minutes=60)]
     match_rate = 1 - meta["names_unmatched"] / max(L.dropna(subset=["game_id"]).player_name.nunique() if len(L) else 1, 1)
-    out = dict(meta, coverage=cov, entry_prices_after_entry_time=len(late), name_match_rate_approx=round(match_rate, 4),
+    lq = dict(lines=len(L), primary_two_books=float(L.primary.mean()) if len(L) else None,
+              close_complete=float(L.close_complete.mean()) if len(L) else None,
+              books_per_line=L.books.value_counts().sort_index().to_dict() if len(L) else {})
+    out = dict(meta, coverage=cov, line_quality=lq, entry_prices_after_entry_time=len(late), name_match_rate_approx=round(match_rate, 4),
                forecasts_after_cutoff=int((D.generated > D.cutoff).sum()) if "generated" in D else None,
                by_window=D.groupby("window").size().to_dict() if len(D) else {}, by_stat=D.groupby("stat").size().to_dict() if len(D) else {})
     print(json.dumps(out, indent=1, default=str))
     json.dump(out, open(args.out or os.path.join(HERE, "nba_props_price_mechanics.json"), "w"), indent=1, default=str)
 
 
+def _blend_w1_on_w2(X):
+    """Blend fitted on window 1 only, applied unchanged to window 2: log losses of market, model and blend on window 2."""
+    A, B = X[X.window == 1], X[X.window == 2]
+    if len(A) < 50 or len(B) < 50:
+        return None
+    XA = np.column_stack([PT._logit(A.market_over), PT._logit(A.model_over)])
+    b, st = PT.logistic(XA, A.over.to_numpy(float))
+    if b is None:
+        return {"fit_status": st}
+    mu, sd = XA.mean(axis=0), XA.std(axis=0)
+    XB = (np.column_stack([PT._logit(B.market_over), PT._logit(B.model_over)]) - mu) / sd
+    pb = 1 / (1 + np.exp(-(b[0] + XB @ b[1:])))
+    ll = lambda p: float(-np.mean(B.over * np.log(np.clip(p, 1e-6, 1)) + (1 - B.over) * np.log(np.clip(1 - p, 1e-6, 1))))
+    return {"fit_status": st, "n_w2": int(len(B)), "logloss_market": ll(B.market_over), "logloss_model": ll(B.model_over), "logloss_blend": ll(pb)}
+
+
+def _gate(ok, assessable):
+    return "pass" if assessable and ok else "insufficient" if not assessable else "fail"
+
+
 def score(args):
+    """Amendment 2 gates. Each gate is pass, fail or insufficient; a stat passes only if all three pass."""
     P, L, D, meta = assemble(args.prices, [d for d in (args.w1, args.w2) if d], with_outcomes=True)
     res = {"meta": meta, "stats": {}}
     for s in PT.PRIMARY_STATS:
-        X = D[D.stat == s].dropna(subset=["model_over_v2", "market_over", "close_market_over"]).reset_index(drop=True)
-        r = {}
+        A = D[D.stat == s].dropna(subset=["model_over_v2", "market_over"]).reset_index(drop=True)
+        X = A[A.primary].reset_index(drop=True)
+        r = {"n_priced_lines_all": int(len(A)), "n_primary": int(len(X)), "n_one_book_only": int((~A.primary).sum())}
         if len(X) < 50:
-            res["stats"][s] = {"n": len(X), "note": "too few"}
+            r["gates"] = {"G1": "insufficient", "G2": "insufficient", "G3": "insufficient", "result": "insufficient"}
+            res["stats"][s] = r
             continue
         Xm = X.assign(model_over=X.model_over_v2)
         r["info_pooled"] = PT.info_test(Xm)
-        r["info_by_window"] = {int(w): PT.info_test(g.reset_index(drop=True)) for w, g in Xm.groupby("window") if len(g) >= 50}
+        r["info_by_window"] = {int(w): PT.info_test(Xm[Xm.window == w].reset_index(drop=True)) if (Xm.window == w).sum() >= 50
+                               else {"n": int((Xm.window == w).sum()), "assessable": False} for w in (1, 2)}
+        r["blend_w1_on_w2"] = _blend_w1_on_w2(Xm)
         for thr in (0.03, 0.05, 0.10):
             B = PT.bets(Xm, thr)
             r[f"bets_{int(thr * 100)}"] = {"pooled": PT.clv_summary(B),
-                                           "by_window": {int(w): PT.clv_summary(g) for w, g in B.groupby("window")}}
-        b5 = r["bets_5"]
-        g1 = r["info_pooled"]["lb90"] > 0 and all(v["model_coef"] > 0 for v in r["info_by_window"].values())
-        g2 = b5["pooled"].get("n", 0) >= 200 and b5["pooled"].get("clv_lb90", -1) > 0
-        g3 = all(v.get("clv_mean", 0) > 0 for v in b5["by_window"].values() if v.get("n", 0) >= 50)
-        r["gates"] = {"G1": bool(g1), "G2": bool(g2), "G3": bool(g3), "pass": bool(g1 and g2 and g3)}
+                                           "by_window": {int(w): PT.clv_summary(B[B.window == w]) for w in (1, 2)}}
+        ip, iw = r["info_pooled"], r["info_by_window"]
+        g1_ass = ip["assessable"] and all(v.get("assessable") for v in iw.values())
+        g1 = _gate(g1_ass and ip["lb90"] > 0 and all(v["model_coef"] > 0 for v in iw.values()), g1_ass)
+        b5 = r["bets_5"]["pooled"]
+        g2_ass = b5.get("n", 0) >= 200 and b5.get("dates", 0) >= 20
+        g2 = _gate(g2_ass and b5.get("clv_lb90", -1) > 0, g2_ass)
+        bw = r["bets_5"]["by_window"]
+        g3_ass = all(v.get("n", 0) >= 50 for v in bw.values())
+        g3 = _gate(g3_ass and all(v.get("clv_mean", -1) > 0 for v in bw.values()), g3_ass)
+        gates = {"G1": g1, "G2": g2, "G3": g3}
+        gates["result"] = "pass" if all(v == "pass" for v in gates.values()) else "fail" if "fail" in gates.values() else "insufficient"
+        r["gates"] = gates
         r["reported_v3_info"] = PT.info_test(X.assign(model_over=X.model_over_v3).dropna(subset=["model_over"]).reset_index(drop=True))
-        r["pinnacle_only_info"] = PT.info_test(Xm.dropna(subset=["pinnacle_over"]).assign(market_over=lambda x: x.pinnacle_over).reset_index(drop=True)) \
-            if Xm.pinnacle_over.notna().sum() >= 50 else None
+        pin = A.dropna(subset=["pinnacle_over"]).assign(market_over=lambda x: x.pinnacle_over, model_over=lambda x: x.model_over_v2)
+        r["pinnacle_only_info"] = PT.info_test(pin.reset_index(drop=True)) if len(pin) >= 50 else None
         res["stats"][s] = r
     json.dump(res, open(args.out or os.path.join(HERE, "nba_props_price_results.json"), "w"), indent=1, default=str)
     print(json.dumps({s: v.get("gates", v) for s, v in res["stats"].items()}, indent=1))
