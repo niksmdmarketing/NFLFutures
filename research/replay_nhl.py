@@ -271,6 +271,11 @@ def run_season(TT, GG, fit_years, done, y):
                 print(y, "goalie GSAx coverage", round(len(gg_upd) / max(len(G), 1), 3), flush=True)
         if S1 is not None:
             last_lv = nhl_lineup.game_values(S1, G1, val)
+        if S is not None and LINEUP_PRE and os.environ.get("NHL_LINEUP_VAL") == "rapm":
+            # Registered research candidate: common valuation scale, no future
+            # opening-game lineup. The canonical PRE=0 baseline is unchanged.
+            from nhl_preseason_roster import prior_lineups
+            last_lv, opening = prior_lineups(S1, G1, sk_r, gk_r, float(os.environ.get("NHL_LINEUP_GS", "0")))
     po_prev = pd.Series(0.0, index=teams)
     if PO_PRIOR_K:
         pp = os.path.join(nhl.NHL_OUT, f"team_{y - 1}p.json")
