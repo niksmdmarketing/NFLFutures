@@ -1,0 +1,432 @@
+{
+ "part_a_comparisons": [
+  {
+   "comparison": "NFL efficiency weight",
+   "sport": "NFL",
+   "seasons": 4,
+   "mean_gain": 0.00036,
+   "sd": 0.00502,
+   "mde_normal": 0.00624,
+   "mde_t": 0.00828,
+   "seasons_for_0_002": 39,
+   "seasons_for_0_005": 7
+  },
+  {
+   "comparison": "NFL non-QB injuries",
+   "sport": "NFL",
+   "seasons": 4,
+   "mean_gain": 0.00082,
+   "sd": 0.00161,
+   "mde_normal": 0.002,
+   "mde_t": 0.00265,
+   "seasons_for_0_002": 5,
+   "seasons_for_0_005": 1
+  },
+  {
+   "comparison": "NFL recalibration",
+   "sport": "NFL",
+   "seasons": 10,
+   "mean_gain": -0.00052,
+   "sd": 0.02073,
+   "mde_normal": 0.0163,
+   "mde_t": 0.01768,
+   "seasons_for_0_002": 665,
+   "seasons_for_0_005": 107
+  },
+  {
+   "comparison": "NFL tau fade",
+   "sport": "NFL",
+   "seasons": 13,
+   "mean_gain": 0.00218,
+   "sd": 0.01228,
+   "mde_normal": 0.00847,
+   "mde_t": 0.00899,
+   "seasons_for_0_002": 234,
+   "seasons_for_0_005": 38
+  },
+  {
+   "comparison": "NFL v5 promotion",
+   "sport": "NFL",
+   "seasons": 13,
+   "mean_gain": 0.00289,
+   "sd": 0.00816,
+   "mde_normal": 0.00563,
+   "mde_t": 0.00598,
+   "seasons_for_0_002": 104,
+   "seasons_for_0_005": 17
+  },
+  {
+   "comparison": "NFL state-space",
+   "sport": "NFL",
+   "seasons": 4,
+   "mean_gain": 0.00098,
+   "sd": 0.00674,
+   "mde_normal": 0.00838,
+   "mde_t": 0.01112,
+   "seasons_for_0_002": 71,
+   "seasons_for_0_005": 12
+  },
+  {
+   "comparison": "NHL goalie roster prior",
+   "sport": "NHL",
+   "seasons": 9,
+   "mean_gain": 0.00032,
+   "sd": 0.00035,
+   "mde_normal": 0.00029,
+   "mde_t": 0.00032,
+   "seasons_for_0_002": 1,
+   "seasons_for_0_005": 1,
+   "rule_power": {
+    "0.001": {
+     "p_mean_gate": 1.0,
+     "p_three_gates": 1.0
+    },
+    "0.002": {
+     "p_mean_gate": 1.0,
+     "p_three_gates": 1.0
+    },
+    "0.003": {
+     "p_mean_gate": 1.0,
+     "p_three_gates": 1.0
+    },
+    "0.005": {
+     "p_mean_gate": 1.0,
+     "p_three_gates": 1.0
+    }
+   }
+  },
+  {
+   "comparison": "NHL goalie canonical",
+   "sport": "NHL",
+   "seasons": 9,
+   "mean_gain": 0.00021,
+   "sd": 0.0003,
+   "mde_normal": 0.00025,
+   "mde_t": 0.00027,
+   "seasons_for_0_002": 1,
+   "seasons_for_0_005": 1,
+   "rule_power": {
+    "0.001": {
+     "p_mean_gate": 1.0,
+     "p_three_gates": 1.0
+    },
+    "0.002": {
+     "p_mean_gate": 1.0,
+     "p_three_gates": 1.0
+    },
+    "0.003": {
+     "p_mean_gate": 1.0,
+     "p_three_gates": 1.0
+    },
+    "0.005": {
+     "p_mean_gate": 1.0,
+     "p_three_gates": 1.0
+    }
+   }
+  },
+  {
+   "comparison": "NBA player term (corrected)",
+   "sport": "NBA",
+   "seasons": 11,
+   "mean_gain": 0.00105,
+   "sd": 0.00872,
+   "mde_normal": 0.00654,
+   "mde_t": 0.00703,
+   "seasons_for_0_002": 118,
+   "seasons_for_0_005": 19
+  },
+  {
+   "comparison": "NBA joint A2 vs A1",
+   "sport": "NBA",
+   "seasons": 10,
+   "mean_gain": -0.01185,
+   "sd": 0.02406,
+   "mde_normal": 0.01893,
+   "mde_t": 0.02052,
+   "seasons_for_0_002": 896,
+   "seasons_for_0_005": 144,
+   "rule_power": {
+    "0.001": {
+     "p_mean_gate": 0.089,
+     "p_three_gates": 0.024
+    },
+    "0.002": {
+     "p_mean_gate": 0.111,
+     "p_three_gates": 0.025
+    },
+    "0.003": {
+     "p_mean_gate": 0.138,
+     "p_three_gates": 0.03
+    },
+    "0.005": {
+     "p_mean_gate": 0.213,
+     "p_three_gates": 0.101
+    }
+   }
+  },
+  {
+   "comparison": "NBA joint A2 vs A0",
+   "sport": "NBA",
+   "seasons": 10,
+   "mean_gain": -0.01506,
+   "sd": 0.02445,
+   "mde_normal": 0.01923,
+   "mde_t": 0.02085,
+   "seasons_for_0_002": 925,
+   "seasons_for_0_005": 148,
+   "rule_power": {
+    "0.001": {
+     "p_mean_gate": 0.087,
+     "p_three_gates": 0.025
+    },
+    "0.002": {
+     "p_mean_gate": 0.107,
+     "p_three_gates": 0.026
+    },
+    "0.003": {
+     "p_mean_gate": 0.132,
+     "p_three_gates": 0.029
+    },
+    "0.005": {
+     "p_mean_gate": 0.205,
+     "p_three_gates": 0.041
+    }
+   }
+  },
+  {
+   "comparison": "NBA rosters A1 vs A0",
+   "sport": "NBA",
+   "seasons": 10,
+   "mean_gain": -0.00321,
+   "sd": 0.00298,
+   "mde_normal": 0.00234,
+   "mde_t": 0.00254,
+   "seasons_for_0_002": 14,
+   "seasons_for_0_005": 3,
+   "rule_power": {
+    "0.001": {
+     "p_mean_gate": 0.335,
+     "p_three_gates": 0.104
+    },
+    "0.002": {
+     "p_mean_gate": 0.769,
+     "p_three_gates": 0.27
+    },
+    "0.003": {
+     "p_mean_gate": 0.998,
+     "p_three_gates": 0.689
+    },
+    "0.005": {
+     "p_mean_gate": 1.0,
+     "p_three_gates": 0.913
+    }
+   }
+  },
+  {
+   "comparison": "NBA joint no scalar vs A1",
+   "sport": "NBA",
+   "seasons": 10,
+   "mean_gain": -0.02051,
+   "sd": 0.03149,
+   "mde_normal": 0.02476,
+   "mde_t": 0.02685,
+   "seasons_for_0_002": 1534,
+   "seasons_for_0_005": 246,
+   "rule_power": {
+    "0.001": {
+     "p_mean_gate": 0.065,
+     "p_three_gates": 0.027
+    },
+    "0.002": {
+     "p_mean_gate": 0.073,
+     "p_three_gates": 0.028
+    },
+    "0.003": {
+     "p_mean_gate": 0.087,
+     "p_three_gates": 0.032
+    },
+    "0.005": {
+     "p_mean_gate": 0.129,
+     "p_three_gates": 0.084
+    }
+   }
+  },
+  {
+   "comparison": "NBA joint vs A1, absence rosters",
+   "sport": "NBA",
+   "seasons": 10,
+   "mean_gain": -0.01178,
+   "sd": 0.0248,
+   "mde_normal": 0.0195,
+   "mde_t": 0.02115,
+   "seasons_for_0_002": 951,
+   "seasons_for_0_005": 153,
+   "rule_power": {
+    "0.001": {
+     "p_mean_gate": 0.095,
+     "p_three_gates": 0.047
+    },
+    "0.002": {
+     "p_mean_gate": 0.122,
+     "p_three_gates": 0.059
+    },
+    "0.003": {
+     "p_mean_gate": 0.152,
+     "p_three_gates": 0.075
+    },
+    "0.005": {
+     "p_mean_gate": 0.223,
+     "p_three_gates": 0.1
+    }
+   }
+  }
+ ],
+ "part_a_sports": {
+  "NFL": {
+   "comparisons": 6,
+   "sd_median": 0.00745,
+   "sd_min": 0.00161,
+   "sd_max": 0.02073,
+   "usual_seasons": 4,
+   "mde_normal": 0.00927,
+   "mde_t": 0.01229,
+   "seasons_for_0_002": 86,
+   "seasons_for_0_005": 14
+  },
+  "NHL": {
+   "comparisons": 2,
+   "sd_median": 0.00033,
+   "sd_min": 0.0003,
+   "sd_max": 0.00035,
+   "usual_seasons": 9,
+   "mde_normal": 0.00027,
+   "mde_t": 0.0003,
+   "seasons_for_0_002": 1,
+   "seasons_for_0_005": 1
+  },
+  "NBA": {
+   "comparisons": 6,
+   "sd_median": 0.02425,
+   "sd_min": 0.00298,
+   "sd_max": 0.03149,
+   "usual_seasons": 10,
+   "mde_normal": 0.01908,
+   "mde_t": 0.02069,
+   "seasons_for_0_002": 910,
+   "seasons_for_0_005": 146
+  }
+ },
+ "part_b": {
+  "per_pair": {
+   "NBA joint A2 vs A1": {
+    "futures_mean": -0.01185,
+    "wins_mse_gain_mean": -3.843,
+    "t_futures": -1.56,
+    "t_wins": -1.69,
+    "within_pair_corr": 0.779,
+    "wins_mse_gain_by_season": {
+     "2016": -16.182,
+     "2017": -1.967,
+     "2018": -10.03,
+     "2019": -9.26,
+     "2021": 1.299,
+     "2022": 8.645,
+     "2023": -2.991,
+     "2024": -2.494,
+     "2025": 2.565,
+     "2026": -8.016
+    }
+   },
+   "NBA joint A2 vs A0": {
+    "futures_mean": -0.01506,
+    "wins_mse_gain_mean": -3.458,
+    "t_futures": -1.95,
+    "t_wins": -1.48,
+    "within_pair_corr": 0.775,
+    "wins_mse_gain_by_season": {
+     "2016": -17.336,
+     "2017": -2.019,
+     "2018": -8.509,
+     "2019": -9.525,
+     "2021": 3.667,
+     "2022": 8.627,
+     "2023": -2.894,
+     "2024": -1.243,
+     "2025": 1.148,
+     "2026": -6.497
+    }
+   },
+   "NBA rosters A1 vs A0": {
+    "futures_mean": -0.00321,
+    "wins_mse_gain_mean": 0.385,
+    "t_futures": -3.41,
+    "t_wins": 0.99,
+    "within_pair_corr": 0.148,
+    "wins_mse_gain_by_season": {
+     "2016": -1.155,
+     "2017": -0.052,
+     "2018": 1.521,
+     "2019": -0.264,
+     "2021": 2.367,
+     "2022": -0.018,
+     "2023": 0.097,
+     "2024": 1.251,
+     "2025": -1.416,
+     "2026": 1.519
+    }
+   },
+   "NBA joint no scalar vs A1": {
+    "futures_mean": -0.02051,
+    "wins_mse_gain_mean": -4.804,
+    "t_futures": -2.06,
+    "t_wins": -1.94,
+    "within_pair_corr": 0.847,
+    "wins_mse_gain_by_season": {
+     "2016": -15.329,
+     "2017": -1.782,
+     "2018": -11.636,
+     "2019": -13.023,
+     "2021": 0.858,
+     "2022": 9.519,
+     "2023": -4.511,
+     "2024": -1.233,
+     "2025": 0.317,
+     "2026": -11.219
+    }
+   },
+   "NBA joint vs A1, absence rosters": {
+    "futures_mean": -0.01178,
+    "wins_mse_gain_mean": -3.631,
+    "t_futures": -1.5,
+    "t_wins": -1.6,
+    "within_pair_corr": 0.767,
+    "wins_mse_gain_by_season": {
+     "2016": -16.378,
+     "2017": -2.549,
+     "2018": -8.85,
+     "2019": -9.638,
+     "2021": 1.973,
+     "2022": 8.69,
+     "2023": -2.663,
+     "2024": -2.694,
+     "2025": 2.852,
+     "2026": -7.05
+    }
+   }
+  },
+  "pooled_corr": 0.799,
+  "pooled_corr_90": [
+   0.685,
+   0.91
+  ],
+  "arm_mean_wins_mse": {
+   "A0": 27.52,
+   "A1": 27.13,
+   "A2": 30.98,
+   "A2_noscale": 31.94,
+   "A1_noleak": 27.91,
+   "A2_noleak": 31.54
+  },
+  "note": "exploratory; nothing adopted (Amendment 1 item 3)"
+ }
+}
