@@ -948,6 +948,18 @@ def _schedule(schedule: pd.DataFrame) -> pd.DataFrame:
     return d
 
 
+def _season_rows(schedule: pd.DataFrame) -> pd.DataFrame:
+    """Rows that count in the regular-season standings. Bug fix 6 Nov 2026 (research/NBA_LIVE_SCHEDULE_FIX.md): ESPN keeps
+    the original row of a postponed game beside its make-up game, and lists the NBA Cup final, which does not count; both were
+    simulated as extra games. A postponed game without a make-up row yet is covered by the simulator's filler games."""
+    keep = pd.Series(True, index=schedule.index)
+    if "status_type_name" in schedule:
+        keep &= schedule.status_type_name.astype(str) != "STATUS_POSTPONED"
+    if "type_abbreviation" in schedule:
+        keep &= schedule.type_abbreviation.astype(str) != "CC"
+    return schedule[keep].copy()
+
+
 def _one_game(rng: np.random.Generator, home: str, away: str, strength: np.ndarray,
               neutral: bool = False, extra_home: float = 0.0) -> str:
     pace = (PACE[TIX[home]] + PACE[TIX[away]]) / 200
@@ -1340,7 +1352,7 @@ def build_data() -> None:
     ratings = _player_mix(ratings, players, values, values_prev, current_roster, end_year, gp_now)
     team_stats, player_stats, team_games = _stats_data(boxes, players)
     advanced_teams, advanced_players, shot_zones, advanced_meta = _advanced_data(end_year)
-    schedule = _schedule(raw_schedule)
+    schedule = _season_rows(_schedule(raw_schedule))
     if len(schedule) < 1200:
         raise RuntimeError(f"NBA schedule is incomplete ({len(schedule)} regular-season games)")
     n_sims = int(os.environ.get("NBA_N_SIMS", os.environ.get("N_SIMS", "100000")))
