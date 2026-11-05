@@ -976,7 +976,7 @@ def _series(rng: np.random.Generator, a: str, b: str, strength: np.ndarray,
 
 
 def _simulate(schedule: pd.DataFrame, ratings: pd.DataFrame, n_sims: int, avail: dict | None = None, playin: bool = True,
-              season_games: int = 82) -> dict[str, dict]:
+              season_games: int = 82, div_top4: bool = False) -> dict[str, dict]:
     """playin / season_games: era switches for historical replays (the 7-10 play-in began in 2020-21; 2020-21 had 72 games).
     avail: nba_avail.plan(...) output; each simulation draws its own recovery paths (nba_avail.draw_adjustments)."""
     base = ratings.set_index("team").rating.reindex(TEAMS).to_numpy(float)
@@ -1065,13 +1065,19 @@ def _simulate(schedule: pd.DataFrame, ratings: pd.DataFrame, n_sims: int, avail:
             wins = {t: int(win_arr[TIX[t]]) for t in TEAMS}
             for t in TEAMS:
                 counts[t]["wins"][min(82, wins[t])] += 1
+            div_winners = set()
             for members in DIVS.values():
                 winner = max(members, key=lambda t: (wins[t], pd_arr[TIX[t]], strength[TIX[t]], rng.random()))
                 counts[winner]["div"] += 1
+                div_winners.add(winner)
 
             conference_winners = []
             for conference in (EAST, WEST):
                 order = sorted(conference, key=lambda t: (wins[t], pd_arr[TIX[t]], strength[TIX[t]], rng.random()), reverse=True)
+                if div_top4:   # replays of seasons to 2014-15: division winners guaranteed a top-four seed (off for the live forecast)
+                    best_other = next(t for t in order if t not in div_winners)
+                    top4 = [t for t in order if t in div_winners or t == best_other]
+                    order = top4 + [t for t in order if t not in top4]
                 counts[order[0]]["seed1"] += 1
                 for t in order[:6]:
                     counts[t]["top6"] += 1

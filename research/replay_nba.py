@@ -70,9 +70,20 @@ PF = os.environ.get("BT_PF") in ("1", "2")
 PF2 = os.environ.get("BT_PF") == "2"   # amendment 2: in season only, scale-preserving combination, usual rotation (last 10 team games)
 
 
+# Standing rule Amendment 4 (6 Nov 2026): old franchise codes mapped to today's before any filtering.
+FRANCHISE = {"NJ": "BKN", "SEA": "OKC"}
+
+
+def _fr(d, cols=("team_abbreviation", "opponent_team_abbreviation", "home_abbreviation", "away_abbreviation")):
+    for c in cols:
+        if c in d.columns:
+            d[c] = d[c].replace(FRANCHISE)
+    return d
+
+
 def _raw(y):
     if y not in _RAW:
-        _RAW[y] = pd.read_csv(os.path.join(N.NBA_DATA, f"player_box_{y}.csv"), low_memory=False)
+        _RAW[y] = _fr(pd.read_csv(os.path.join(N.NBA_DATA, f"player_box_{y}.csv"), low_memory=False))
     return _RAW[y]
 
 
@@ -121,6 +132,8 @@ def _player_ratings(y, cutoff=None):
     sys.modules["research_nba_rapm"] = RA
     import nba_player_replay as NP
     NP.RA = RA
+    for k in (y - 1, y - 2):   # box priors from franchise-mapped box scores (Amendment 4)
+        NP._raw[k] = _raw(k)
     if cutoff is not None:
         return NP.develop(RA.fit(y, lam=3000, w2=0.5, prior=NP.box_prior(y - 1), cutoff=cutoff, wcur=INS_W), y)
     return NP.develop(RA.fit(y, lam=3000, w2=0.5, prior=NP.box_prior(y - 1)), y)
@@ -219,6 +232,7 @@ def _pbox(y):
         d = pd.read_csv(os.path.join(N.NBA_DATA, f"player_box_{y}.csv"), low_memory=False,
                         usecols=["athlete_id", "team_abbreviation", "minutes", "season_type", "game_date"])
         d = d[(pd.to_numeric(d.season_type, errors="coerce") == 2) & (pd.to_numeric(d.minutes, errors="coerce") > 0)].copy()
+        d = _fr(d)
         d["athlete_id"] = pd.to_numeric(d.athlete_id, errors="coerce")
         d["minutes"] = pd.to_numeric(d.minutes, errors="coerce")
         d["date"] = pd.to_datetime(d.game_date.astype(str).str[:10])
@@ -323,14 +337,14 @@ def run_season(boxes, y):
     global ERA_PLAYIN, ERA_GAMES
     if ERA and y == 2020:
         return None   # COVID-interrupted season: 63-67 games, then seeding games and a 22-team bubble
-    ERA_PLAYIN, ERA_GAMES = (y >= 2021, 72 if y == 2021 else 82) if ERA else (True, 82)
+    ERA_PLAYIN, ERA_GAMES = (y >= 2021, 72 if y == 2021 else 66 if y == 2012 else 82) if ERA else (True, 82)   # 2012: 66-game lockout (Amendment 4)
     out = T.outcomes(boxes, y)
     if out is None:
         return None
     p = N._download("espn_nba_schedules", f"nba_schedule_{y}.csv", 24 * 365, required=False)
     if not p:
         return None
-    sched = N._schedule(N._csv(p))
+    sched = N._schedule(_fr(N._csv(p)))
     g = B.season_games(boxes, y)
     div_w, seed1 = labels(g)
     top6, playin = seeds(g)
@@ -432,7 +446,7 @@ def run_season(boxes, y):
                 N.PO_DELTA = _po_delta(cur[cur.date <= cutoff], (ck_rating if (INS and INS_PO and ck_rating is not None) else rating), prev_assign, prev_mins)
         s = sched.copy()
         s["completed"] = s.completed & (pd.to_datetime(s.game_date) <= cutoff)
-        res = N._simulate(s, ratings, SIMS, playin=ERA_PLAYIN, season_games=ERA_GAMES)
+        res = N._simulate(s, ratings, SIMS, playin=ERA_PLAYIN, season_games=ERA_GAMES, div_top4=bool(ERA and y <= 2015))
         for t, v in res.items():
             rows.append(dict(season=y, week=wk, date=str(cutoff.date()), gp_avg=round(2 * len(done) / 30, 1), team=t,
                              p_title=v["p_title"], p_conf=v["p_conf"], p_div=v["p_div"], p_seed1=v["p_seed1"], p_playoff=v["p_playoff"], p_r2=v.get("p_r2"), p_cf=v.get("p_cf"),
@@ -454,7 +468,7 @@ if __name__ == "__main__":
     if os.environ.get("BT_SKIP_GUARD") != "1":
         GD.check_inputs(first, last, N.NBA_DATA, joint=JOINT, in_season_rapm=bool(INS or PF or PF2),
                         rapm_needed=bool(FULL or PO_K or PF or JOINT or INS), era=ERA)
-    boxes = B.load_boxes(last)
+    boxes = _fr(B.load_boxes(last))
     written = []
     for y in range(first, last + 1):
         D = run_season(boxes, y)
