@@ -49,3 +49,18 @@ research/nhl_goalie_roster_score.py (GPT's strict paired scorer: same keys, outc
 ## Limits, stated now
 - 0.438 was fitted at game level on overlapping seasons, and the shot-xG builder uses leave-one-season-out calibration that includes later seasons. This is development evidence, not untouched validation.
 - The term compares recent lineups with the season's, so a goalie who arrived before the season and played every game adds nothing (for example, Hellebuyck at New Jersey). That is a separate question.
+
+## Result (5 Nov 2026): PASS
+Both arms ran on the same frozen RAPM cache (hashes in research/nhl_goalie_canonical_cache_sha256.txt, unchanged after both runs). They were scored with research/nhl_goalie_roster_score.py: keys, outcomes and rating identities all match, and the output is in research/nhl_goalie_canonical_results.json. MoneyPuck xG coverage was 100% in every season.
+- **Combined:** +0.0002 (90% +0.0001 to +0.0004), better in 6/9 seasons.
+- **By market:**
+    - round 2 +0.0008 (+0.0004 to +0.0012, 8/9);
+    - final +0.0004;
+    - round 3 +0.0002;
+    - playoff +0.0002;
+    - title +0.0001;
+    - Presidents' Trophy 0.0000;
+    - division -0.0002 (within the -0.0005 limit).
+- **Leave-one-season-out** picks the goalie arm for every season (held-out +0.0002, 6/9).
+- **Size today:** in the 5 Nov 01:20 UTC live run, the goalie part moves team ratings by at most 0.0017 goals per game (rating spread about 0.39). It matters when a team's starter changes during the season.
+- **Next step:** TypeSafe (55% go live, 43% keep as a shadow, confidence 0.33). The owner decides.

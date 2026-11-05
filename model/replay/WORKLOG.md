@@ -651,3 +651,7 @@ TypeSafe 96%: shadow. nhl_model g_* fields + archive; model/nhl_goalie_ratings_2
 ## 2026-11-05 NFL: shift weight from points margin to efficiency (research/NFL_EFFICIENCY_WEIGHT_RULE.md) - FAIL
 - E50 (SRS weights halved, efficiency refitted 2010-21) game-margin RMSE 2022-25: 12.883 vs v4 12.863 (closing spread 12.389).
 - Futures: +0.0004 (90% -0.0033 to +0.0037); division -0.0028, playoff -0.0035. Nothing changes.
+
+## 2026-11-05 NHL starting goalie, canonical production-equivalent comparison (research/NHL_GOALIE_CANONICAL_RULE.md) - PASS
+- Live-equivalent replay (20% MP xG, shot playoff rating, fade 3, OT fix, RAPM lineups, frozen shared cache) with only the goalie scale (0.438) changed.
+- Combined +0.0002 (+0.0001 to +0.0004), 6/9; round 2 +0.0008 (8/9); division -0.0002. Supersedes the unresolved NHL_GOALIE_ROSTER_RULE.md runs.
