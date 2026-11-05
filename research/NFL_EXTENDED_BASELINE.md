@@ -23,3 +23,6 @@ The committed model/replay/nfl_2022.csv (fixed v4 weights, no rest) does not rep
 
 ## Use in later rules
 Every NFL futures rule reports both windows, chosen before scoring: recent 2022-2025 and extended 2013-2025. Older seasons may represent different conditions (pre-2021 16-game seasons, 6-seed format, rule and style changes). Reuse this baseline only when `python research/nfl_extended_manifest.py verify` reports MATCH; otherwise regenerate.
+
+## Note (6 Nov 2026, owner/GPT)
+Treat results on this baseline as **extended development evidence, not fresh confirmation of model quality**. Walk-forward rating weights do not make it fully out of sample: the other model settings were chosen on overlapping seasons.
