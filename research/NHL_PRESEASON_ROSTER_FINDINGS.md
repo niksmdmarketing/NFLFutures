@@ -43,3 +43,11 @@ All computations ran locally: baseline 543.9 seconds, candidate 510.9 seconds. N
 Public aggregate results: research/nhl_preseason_roster_results.json. Private evidence bundle: research/nhl_preseason_roster_bundle, containing both replay outputs, exact used rating tables as lossless JSON, input manifest, reproduction checks, commands/scripts, logs and runtimes. Recreated exported tables are hash-checked against the ratings actually used. The original supplied bundle is untouched.
 
 Decision: FAIL / research only / no merge or model adoption requested.
+
+## Reproduction addendum — 5 November 2026, after private d2dd5d77
+
+The missing original goalie tables are now supplied. Independently verified all nine table hashes against the canonical rating identities. Load them with pandas float_precision="round_trip"; default CSV parsing does not retain the exact recorded values. The exact canonical skater cache is unchanged.
+
+Reran only the canonical goalie-inclusive baseline with those original tables: **all columns/probabilities match exactly in all nine seasons, 7,494 rows**. The original canonical score is also reproduced: gain +0.000209335549 (90% +0.000064557881 to +0.000369279510). The original-input availability gap is closed.
+
+This does not retroactively change which inputs were used in the rejected roster-prior test above. That was an internally paired rebuilt-input experiment and remains a fail. The roster candidate was NOT rerun, and nothing is adopted or changed live. Private reproduction evidence is in research/nhl_goalie_canonical_verification_20261105.
