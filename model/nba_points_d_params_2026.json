@@ -1,0 +1,10 @@
+{
+ "version": "pts-D1",
+ "season": 2026,
+ "a": -1.102709991435621,
+ "b": 1.3012995359446136,
+ "form": "negative binomial size r(mu) = exp(a + b log max(mu, 0.01)), mu = rate x minutes",
+ "rate": "P+T as in model/nba_props_live_params_2026b.json",
+ "source": "research/nba_points_dispersion_results.json fits['2026'] (the season's own walk-forward fit used in the research); created 6 Nov 2026 for the window-1 replay of research/NBA_PROPS_PRICE_TEST_RULE.md",
+ "rule": "research/NBA_POINTS_DISPERSION_RULE.md"
+}

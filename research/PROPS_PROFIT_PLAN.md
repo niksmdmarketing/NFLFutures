@@ -11,9 +11,9 @@ Goal: bet player props only where the evidence shows the models beat market pric
 |---|---|---|---|---|
 | 1 | NBA props price test rule (research/NBA_PROPS_PRICE_TEST_RULE.md) | Claude | overnight, first (TypeSafe 91%) | written |
 | 2 | OddsPapi scripts aligned with the rule's information times (60 min, 6 h, close); NFL option | Claude | overnight | done |
-| 3 | Scoring code: de-vig, main line, edge, closing-line value, date-clustered bootstrap, logistic information test; tested on synthetic data | Claude | overnight | to do |
-| 4 | NBA player-name matching (bookmaker names to ESPN ids), tested on ESPN rosters | Claude | overnight | to do |
-| 5 | NBA window-1 forecasts (1 Jan 2026 to end of regular season) from the frozen 2026b parameters, 60 min and 6 h, ready to join | Claude | overnight | to do |
+| 3 | Scoring code: de-vig, main line, edge, closing-line value, date-clustered bootstrap, logistic information test; tested on synthetic data | Claude | overnight | done (research/nba_props_price_test.py, nba_props_price_run.py) |
+| 4 | NBA player-name matching (bookmaker names to ESPN ids), tested on ESPN rosters | Claude | overnight | done (research/nba_props_names.py, 99.8% on synthetic variants) |
+| 5 | NBA window-1 forecasts (1 Jan 2026 to end of regular season) from the frozen 2026b parameters, 60 min, ready to join | Claude | overnight | running (489 replay runs) |
 | 6 | NFL: point-in-time prop probabilities from the frozen NFL props model for 2026 (January playoffs if in scope, and 2026-27 weeks so far); NFL name matching; NFL price-test rule draft; review of the NBA rule | GPT | overnight (TypeSafe 65% for GPT) | handed over |
 | 7 | Owner adds ODDSPAPI_KEY; Claude runs discovery (about 5 counted requests) then the free backfill for NBA, then NFL | Owner, Claude | tomorrow | waiting |
 | 8 | Mechanics check, then scoring under the rule | Claude | after 7 | waiting |

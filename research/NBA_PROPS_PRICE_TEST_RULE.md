@@ -53,3 +53,10 @@ v3-b; 6-hour horizon; Pinnacle-only fair prices; by month; by over and under; by
 
 ## Mechanics check before scoring (no outcomes or profits looked at)
 Price coverage at entry by book and stat; share of half-point main lines; match rate; that no price after the entry time is used for entry; that forecasts are dated before their entry price time; and that window 1 forecasts reproduce the frozen functions on a sample (as research/nba_props_live_core.py verify).
+
+## Amendment 1 (6 Nov 2026, implementation notes before any price data; nothing above edited)
+1. **Window-1 forecasts** come from the forward forecaster's own offline replay mode (research/nba_props_window1.py: NBA_PROPS_SEASON=2026, parameters 2026b, official reports archived on the market-data branch, box scores of games finished at least 3 hours earlier). The replay forecasts exactly at the cutoff (60 minutes before tip-off); live forecasts are made 0-45 minutes before the cutoff, so window 1 can see up to 45 minutes more injury news than a live forecast. This favours the model slightly in window 1 and is a stated limit.
+2. **Points in window 1** use the season's own walk-forward dispersion fit from the research (research/nba_points_dispersion_results.json, fits 2026: fitted on seasons before 2026), written to model/nba_points_d_params_2026.json, the same form as the live 2027 file. No new fitting.
+3. **Window 2 coverage:** the forward archive holds 60-minute forecasts for 121 games up to 5 Nov 2026 (gaps on some days). Only archived games are scored; games without a forecast are not imputed.
+4. **Main line ties:** when books split evenly between two lines, Pinnacle's main line is used if it is among them, otherwise the lower line.
+5. **Code:** research/nba_props_price_test.py (pieces, self-test on synthetic data passes), research/nba_props_names.py (matching; self-test 99.8% on synthetic name variants of 2025-26 ESPN names), research/nba_props_price_run.py (assembly, mechanics, score). An end-to-end run on fabricated prices (not real data) completed: 60 of 60 fixtures mapped, all names matched.
