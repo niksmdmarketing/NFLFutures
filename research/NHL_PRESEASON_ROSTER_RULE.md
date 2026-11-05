@@ -49,3 +49,7 @@ Pass only if combined 90% lower bound >0 AND every market mean gain >=-0.0005. O
 ## Limits and decision
 
 Development evidence: overlapping research seasons, previously fitted scales, LOSO xG calibration includes later seasons, and roster minutes come from earlier realized games rather than advance availability. The historical team prior uses more than last season, so this is an approximate correction, not an exact decomposition. No claim of a betting edge. No promotion, merge or website change in this task; report provenance, gates and commits.
+
+## Result appended 5 November 2026
+
+FAIL on the registered rebuilt frozen pair: combined gain -0.0031968 (90% -0.0100341 to +0.0041192), better 4/9 seasons. Both gates fail. No further variants run; no live change. See NHL_PRESEASON_ROSTER_FINDINGS.md for the full result and the registered qualification that rebuilt goalie inputs differ from the supplied older canonical identities.
