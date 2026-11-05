@@ -78,5 +78,28 @@
   "logloss_lower": true,
   "signs_ok": true
  },
- "stage1_pass": true
+ "stage1_pass": true,
+ "stage2": {
+  "combined_mean": 0.0008136375928984984,
+  "ci90": [
+   -0.00019417861167230068,
+   0.0019135724638545486
+  ],
+  "seasons_better": 2,
+  "per_market": {
+   "division": 0.00275,
+   "playoff": 0.00201,
+   "seed1": -0.00138,
+   "conference": 0.0005,
+   "super_bowl": 0.00019
+  },
+  "per_season": {
+   "2022": 0.00311,
+   "2023": 0.00072,
+   "2024": -0.00047,
+   "2025": -0.0001
+  },
+  "max_abs_change_pp_playoff": 12.9,
+  "pass": false
+ }
 }

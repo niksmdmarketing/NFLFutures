@@ -90,3 +90,12 @@ research/nfl_nonqb_injury_test.py -> research/nfl_nonqb_injury_results.json (fea
 - **Decision:**
     - **Pass:** a shadow next to v4 for the rest of 2026, archived and forward-scored (v4 stays frozen). Live only after the forward record.
     - **Fail:** recorded. The game-level result (Stage 1) stands as research.
+
+## Stage 2 result (5 Nov 2026): FAIL
+Futures replay 2022-2025, checkpoints after weeks 2-17, 4,000 sims, BT_REST=1 in both arms, paired on the same draws.
+- **Combined:** +0.0008 (90% -0.0002 to +0.0019); better in only 2 of 4 seasons (2022 +0.0031, 2023 +0.0007, 2024 -0.0005, 2025 -0.0001).
+- **By market:** division +0.0028, playoff +0.0020, conference +0.0005, Super Bowl +0.0002, **No. 1 seed -0.0014** (below the -0.0005 limit).
+- **Largest single change:** 12.9 points in a team's playoff chance.
+- **Decision under this rule: FAIL.** No shadow and no live change. The Stage 1 game-level result stands as research.
+    - Most of the game-level information is game-day (inactives) or one week ahead, so it does little for season-long futures.
+    - It may matter more for single-game prices, which this project does not bet on NFL.

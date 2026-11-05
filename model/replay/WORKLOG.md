@@ -659,3 +659,4 @@ TypeSafe 96%: shadow. nhl_model g_* fields + archive; model/nhl_goalie_ratings_2
 ## 2026-11-05 NFL non-QB injuries, Stage 1 games (research/NFL_NONQB_INJURY_RULE.md) - PASS (corrected run)
 - Missing-starter snap share by group (OL/DL/LB/CB/S/WR/TE/RB) from injury reports + roster status; fit 2014-21, test 2022-25.
 - Test RMSE 12.913 -> 12.829, log loss 0.6348 -> 0.6247, 3/4 seasons. First run had a player-link bug (recorded, not used).
+- Stage 2 futures (players known out carried 4 games): +0.0008 (-0.0002 to +0.0019), 2/4 seasons, No. 1 seed -0.0014 - FAIL; no shadow.
