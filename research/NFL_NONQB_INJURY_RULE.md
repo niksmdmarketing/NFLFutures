@@ -62,3 +62,18 @@ How absences carry into the season simulation (an Out listing for the next game 
     - Links use the nflverse players table (players.csv: gsis_id <-> pfr_id), falling back to the roster's pfr_id.
     - A player's position is the weekly roster's `depth_chart_position`, else the players table's position, else the roster's `position`. Coarse labels go to groups as written (DB -> S, OL -> OL, DL -> DL).
 - The rerun decides Stage 1. If it fails, the first run's "pass" does not count.
+
+## Stage 1 result (5 Nov 2026, corrected run): PASS
+research/nfl_nonqb_injury_test.py -> research/nfl_nonqb_injury_results.json (features in data/research/nfl_nonqb_injury_features.csv.gz). 1,681 fit games (2014-2021) and 959 test games (2022-2025). 89% of 2014-2025 games had features for both teams.
+- **Test (2022-2025):**
+    - margin RMSE 12.913 -> 12.829;
+    - win log loss 0.6348 -> 0.6247;
+    - better in 3 of 4 seasons (2022 worse: 11.655 -> 11.865).
+    - Pooled single-coefficient version: RMSE 12.789, log loss 0.6257.
+- **Coefficients (points per 1.0 of missing snap share, home minus away; t on the fit seasons):**
+    - significant, all with the expected sign: OL -0.62 (t -2.1), DL -1.17 (-3.1), WR -1.58 (-3.3), RB -2.12 (-2.7);
+    - not significant: LB -0.40, CB -0.21, TE -0.72, S +0.24.
+- **Next to the closing spread:** the blend weight on the model goes from -0.03 to +0.11. The market still carries most of the weight (0.98). The closing spread's RMSE is 12.436.
+- **Sensitivity (reported, not a gate):** using the final injury report alone (Out/Doubtful, no roster status) gives RMSE 12.877 and log loss 0.6330, better in 2/4 seasons. So most of the information is in reserve lists and game-day inactives, not in Friday's report.
+- **Timing check:** players with a non-ACT roster status in week w almost never played that week (RES 0.2%, INA 0.0%, DEV 0.2% of rows, 2016/2020/2023/2025). The status is pre-game, not a post-game record. Inactives (INA) are announced about 90 minutes before kickoff, so that part of the information is game-day only.
+- **Next:** Stage 2 (futures) is written as a dated amendment before it runs.

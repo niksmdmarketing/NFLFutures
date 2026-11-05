@@ -655,3 +655,7 @@ TypeSafe 96%: shadow. nhl_model g_* fields + archive; model/nhl_goalie_ratings_2
 ## 2026-11-05 NHL starting goalie, canonical production-equivalent comparison (research/NHL_GOALIE_CANONICAL_RULE.md) - PASS
 - Live-equivalent replay (20% MP xG, shot playoff rating, fade 3, OT fix, RAPM lineups, frozen shared cache) with only the goalie scale (0.438) changed.
 - Combined +0.0002 (+0.0001 to +0.0004), 6/9; round 2 +0.0008 (8/9); division -0.0002. Supersedes the unresolved NHL_GOALIE_ROSTER_RULE.md runs.
+
+## 2026-11-05 NFL non-QB injuries, Stage 1 games (research/NFL_NONQB_INJURY_RULE.md) - PASS (corrected run)
+- Missing-starter snap share by group (OL/DL/LB/CB/S/WR/TE/RB) from injury reports + roster status; fit 2014-21, test 2022-25.
+- Test RMSE 12.913 -> 12.829, log loss 0.6348 -> 0.6247, 3/4 seasons. First run had a player-link bug (recorded, not used).

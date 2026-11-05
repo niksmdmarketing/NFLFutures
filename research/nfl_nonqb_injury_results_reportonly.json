@@ -1,0 +1,82 @@
+{
+ "fit_games": 1681,
+ "test_games": 959,
+ "coverage_2014_2025": 0.892,
+ "beta": {
+  "OL": -0.435,
+  "DL": -1.025,
+  "LB": -1.52,
+  "CB": -0.311,
+  "S": 0.612,
+  "WR": -1.826,
+  "TE": -0.456,
+  "RB": -2.213
+ },
+ "t": {
+  "OL": -0.84,
+  "DL": -1.52,
+  "LB": -1.46,
+  "CB": -0.45,
+  "S": 0.77,
+  "WR": -2.31,
+  "TE": -0.4,
+  "RB": -1.71
+ },
+ "beta_pooled": -0.718,
+ "feature_mean_abs_test": {
+  "OL": 0.391,
+  "DL": 0.284,
+  "LB": 0.154,
+  "CB": 0.309,
+  "S": 0.213,
+  "WR": 0.259,
+  "TE": 0.127,
+  "RB": 0.1
+ },
+ "baseline": {
+  "rmse": 12.9128,
+  "logloss": 0.63482,
+  "rmse_by_season": {
+   "2022": 11.6554,
+   "2023": 13.6431,
+   "2024": 12.8751,
+   "2025": 13.3821
+  },
+  "blend_with_close": {
+   "model": -0.027,
+   "spread": 1.1
+  }
+ },
+ "injury": {
+  "rmse": 12.8766,
+  "logloss": 0.63297,
+  "rmse_by_season": {
+   "2022": 11.7611,
+   "2023": 13.6319,
+   "2024": 12.6288,
+   "2025": 13.3968
+  },
+  "blend_with_close": {
+   "model": 0.042,
+   "spread": 1.043
+  }
+ },
+ "pooled": {
+  "rmse": 12.8647,
+  "logloss": 0.63225,
+  "rmse_by_season": {
+   "2022": 11.6812,
+   "2023": 13.638,
+   "2024": 12.6965,
+   "2025": 13.3504
+  }
+ },
+ "close_rmse": 12.436,
+ "gates": {
+  "rmse_lower": true,
+  "seasons_better": 2,
+  "logloss_lower": true,
+  "signs_ok": true
+ },
+ "stage1_pass": false
+}
