@@ -53,3 +53,10 @@ Fit a blend on window A only, score it on B without refitting. Report market-onl
 - All gates must be assessable and pass. Price schema, IDs, quote timing, scope and receipt validity must pass mechanics before outcomes are inspected. Each stat is a distinct hypothesis; report both, including failures. The small two-stat screen qualifies only a new forward paper test, never real-money deployment.
 
 Any assessed gate failure is recorded. No fitting a different prop model, alternative cohort, threshold or horizon to rescue a failure. No NFL priced results are produced by the export/matching task. A later scoring run must first freeze valid price coverage and settlement rules.
+
+## Dated amendment 1 — 6 November 2026, before any price access
+
+Two clarifications from implementation review; no priced test has run:
+
+- In G1, replace the fixed L2 fit with **unpenalized maximum-likelihood logistic regression**, retaining the intercept, the two train-standardized logits, clipping and complete refit in every bootstrap draw. Require a full-rank design, each predictor's standard deviation above `1e-8` and standardized design condition number below `1e8`. Separation, non-convergence or failed rank checks are failed draws, subject to the existing 5% rule. Exact/near duplicate model/market predictors make the information test insufficient; do not use a penalized solver to manufacture identifiable positive coefficients by splitting the market signal between duplicates. No penalty fallback or solver tuning. G1/G2/G3 thresholds, model forecasts and cohorts are unchanged.
+- References to an 'executable' price mean the recorded bookmaker reference quote for this historical test. Fills, account access and limits have not been proved. Neither positive quote-based CLV nor the subsequent paper test is a record of executable profit.
