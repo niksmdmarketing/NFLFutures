@@ -1,0 +1,96 @@
+{
+  "v11_60": {
+    "original_completed_games": 19,
+    "server_qualified_completed_games": 19,
+    "excluded_games": [],
+    "rows": 496,
+    "by_stat": {
+      "pass_attempts": {
+        "players": 38,
+        "availability_scored": 38,
+        "appearance_brier": 0.0025999916396695563,
+        "appeared_players_scored": 38,
+        "mean_conditional_rps": 0.07691006279340833
+      },
+      "receptions": {
+        "players": 458,
+        "availability_scored": 456,
+        "appearance_brier": 0.17938781614765756,
+        "appeared_players_scored": 308,
+        "mean_conditional_rps": 0.029069540487229307
+      }
+    }
+  },
+  "v11_360": {
+    "original_completed_games": 16,
+    "server_qualified_completed_games": 16,
+    "excluded_games": [],
+    "rows": 417,
+    "by_stat": {
+      "pass_attempts": {
+        "players": 32,
+        "availability_scored": 32,
+        "appearance_brier": 0.0026187400721075977,
+        "appeared_players_scored": 32,
+        "mean_conditional_rps": 0.0775932781875294
+      },
+      "receptions": {
+        "players": 385,
+        "availability_scored": 384,
+        "appearance_brier": 0.17871286976850775,
+        "appeared_players_scored": 260,
+        "mean_conditional_rps": 0.028801807099487917
+      }
+    }
+  },
+  "v12_60": {
+    "original_completed_games": 19,
+    "server_qualified_completed_games": 16,
+    "excluded_games": [
+      "2026_07_DEN_ARI",
+      "2026_07_GB_DET",
+      "2026_07_LA_LV"
+    ],
+    "rows": 417,
+    "by_stat": {
+      "pass_attempts": {
+        "players": 32,
+        "availability_scored": 32,
+        "appearance_brier": 0.0026187400721075977,
+        "appeared_players_scored": 32,
+        "mean_conditional_rps": 0.07759327818752941
+      },
+      "receptions": {
+        "players": 385,
+        "availability_scored": 384,
+        "appearance_brier": 0.17967248460349397,
+        "appeared_players_scored": 260,
+        "mean_conditional_rps": 0.028799503706915343
+      }
+    }
+  },
+  "v12_360": {
+    "original_completed_games": 16,
+    "server_qualified_completed_games": 15,
+    "excluded_games": [
+      "2026_07_KC_SEA"
+    ],
+    "rows": 384,
+    "by_stat": {
+      "pass_attempts": {
+        "players": 30,
+        "availability_scored": 30,
+        "appearance_brier": 0.002588569361436109,
+        "appeared_players_scored": 30,
+        "mean_conditional_rps": 0.08059888327306199
+      },
+      "receptions": {
+        "players": 354,
+        "availability_scored": 353,
+        "appearance_brier": 0.17528542560765514,
+        "appeared_players_scored": 242,
+        "mean_conditional_rps": 0.029406954059147096
+      }
+    }
+  }
+}

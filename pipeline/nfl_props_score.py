@@ -8,14 +8,7 @@ import numpy as np
 import pandas as pd
 
 from common import FIX, download, games
-
-
-def receipt(root, rel):
-    try:
-        s = subprocess.check_output(["git", "-C", str(root), "log", "--diff-filter=A", "-1", "--format=%cI", "--", rel], text=True).strip()
-        return pd.Timestamp(s).tz_convert("UTC") if s else None
-    except Exception:
-        return None
+from nfl_props_receipts import load_activity, build_receipts, snapshot_valid, timestamp
 
 
 def rps(p, y):
@@ -23,13 +16,15 @@ def rps(p, y):
     return float(np.mean((np.cumsum(p)[:-1] - (y <= np.arange(end))) ** 2))
 
 
-def choose(root, horizon):
+def choose(root, horizon, pushes=None):
+    root = Path(root)
+    evidence = build_receipts(root, load_activity(root) if pushes is None else pushes)
     rows = [json.loads(x) for x in (root / "index.jsonl").read_text().splitlines() if x.strip()]
     out = {}
     for x in rows:
         cut = pd.Timestamp(x["kickoff_utc"]) - pd.Timedelta(minutes=horizon)
-        rec = receipt(root, x["file"])
-        if rec is None or rec > cut:
+        rec = evidence.get(x["file"])
+        if rec is None or not timestamp(x["generated_utc"]) <= rec <= cut or not snapshot_valid(root, x):
             continue
         key = x["game_id"]
         if key not in out or rec > out[key][0]: out[key] = (rec, x)
@@ -99,8 +94,8 @@ def player_outcome(game_id, team, player, labels):
     return 1, value, "scored"
 
 
-def score(root, horizon, output):
-    root = Path(root); selected = choose(root, horizon)
+def score(root, horizon, output, receipts_file=None):
+    root = Path(root); selected = choose(root, horizon, load_activity(root, receipts_file))
     # The archive itself determines the scored season.  Do not accidentally select a
     # future schedule season merely because nflverse has already published it.
     seasons = []
@@ -120,13 +115,15 @@ def score(root, horizon, output):
                 app, y, outcome_status = player_outcome(gid, team["team"], p, labels)
                 if app is None: unresolved_availability += 1
                 row = {"game_id": gid, "team": team["team"], "player_id": p["player_id"], "name": p["name"], "stat": p["stat"],
-                       "horizon_minutes": horizon, "receipt_utc": rec.isoformat(), "kickoff_utc": game["kickoff_utc"],
+                       "horizon_minutes": horizon, "receipt_utc": rec.isoformat(),
+                       "generated_utc": idx["generated_utc"], "snapshot": idx["file"],
+                       "age_at_cutoff_minutes": float((pd.Timestamp(game["kickoff_utc"]) - pd.Timedelta(minutes=horizon) - pd.Timestamp(idx["generated_utc"])).total_seconds()/60), "kickoff_utc": game["kickoff_utc"],
                        "appearance_probability": p["availability_probability"], "appeared": app,
                        "appearance_brier": (p["availability_probability"] - app) ** 2 if app is not None else None,
                        "actual": y, "outcome_status": outcome_status,
                        "conditional_rps": rps(p["pmf"], y) if app == 1 and y is not None else None}
                 rows.append(row)
-                if app == 1 and y is None: missing.append(key)
+                if app == 1 and y is None: missing.append((gid, team["team"], p["player_id"]))
     frame = pd.DataFrame(rows)
     by_stat = {}
     for stat, group in frame.groupby("stat") if len(frame) else []:
@@ -136,7 +133,9 @@ def score(root, horizon, output):
                          "appeared_players_scored": int(len(conditional)),
                          "mean_conditional_rps": float(conditional.mean()) if len(conditional) else None}
     n_games = len(set(frame.game_id)) if len(frame) else 0
-    summary = {"horizon_minutes": horizon, "eligible_games": n_games,
+    summary = {"receipt_basis": "GitHub server push activity, immutable creation ancestry and verified snapshot hash",
+               "timing_scope": "Latest independently received snapshot before cutoff; forecast age reported, no retrospective recency gate added",
+               "horizon_minutes": horizon, "eligible_games": n_games,
                "pending_or_incomplete_games": len(selected) - n_games,
                "players": len(frame), "availability_scored": int(frame.appearance_brier.notna().sum()) if len(frame) else 0,
                "unresolved_availability": unresolved_availability,
@@ -151,4 +150,5 @@ def score(root, horizon, output):
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(); ap.add_argument("archive"); ap.add_argument("--horizon", type=int, choices=[60, 360], default=60); ap.add_argument("--output", required=True)
-    a = ap.parse_args(); score(a.archive, a.horizon, a.output)
+    ap.add_argument("--receipts-file", help="Saved GitHub activity evidence for a reproducible offline audit")
+    a = ap.parse_args(); score(a.archive, a.horizon, a.output, a.receipts_file)

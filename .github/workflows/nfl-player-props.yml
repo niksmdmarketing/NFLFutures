@@ -16,6 +16,8 @@ jobs:
   forecast:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    env:
+      GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -82,24 +84,24 @@ jobs:
         continue-on-error: true
         run: |
           mkdir -p ../nfl-props-v12-archive/scores
-          python pipeline/nfl_props_score.py ../nfl-props-v12-archive --horizon 60 --output ../nfl-props-v12-archive/scores/60.json || true
-          python pipeline/nfl_props_score.py ../nfl-props-v12-archive --horizon 360 --output ../nfl-props-v12-archive/scores/360.json || true
+          python pipeline/nfl_props_score.py ../nfl-props-v12-archive --horizon 60 --output ../nfl-props-v12-archive/scores/server_received_60.json || true
+          python pipeline/nfl_props_score.py ../nfl-props-v12-archive --horizon 360 --output ../nfl-props-v12-archive/scores/server_received_360.json || true
       - name: Score v1.1 forecasts independently after results arrive
         continue-on-error: true   # v1.1 problems must never block the v1 baseline archive
         run: |
           mkdir -p ../nfl-props-v11-archive/scores
-          python pipeline/nfl_props_score.py ../nfl-props-v11-archive --horizon 60 --output ../nfl-props-v11-archive/scores/60.json || true
-          python pipeline/nfl_props_score.py ../nfl-props-v11-archive --horizon 360 --output ../nfl-props-v11-archive/scores/360.json || true
+          python pipeline/nfl_props_score.py ../nfl-props-v11-archive --horizon 60 --output ../nfl-props-v11-archive/scores/server_received_60.json || true
+          python pipeline/nfl_props_score.py ../nfl-props-v11-archive --horizon 360 --output ../nfl-props-v11-archive/scores/server_received_360.json || true
       - name: Score shadow forecasts independently after results arrive
         run: |
           mkdir -p ../nfl-props-challenger-archive/scores
-          python pipeline/nfl_props_score.py ../nfl-props-challenger-archive --horizon 60 --output ../nfl-props-challenger-archive/scores/60.json || true
-          python pipeline/nfl_props_score.py ../nfl-props-challenger-archive --horizon 360 --output ../nfl-props-challenger-archive/scores/360.json || true
+          python pipeline/nfl_props_score.py ../nfl-props-challenger-archive --horizon 60 --output ../nfl-props-challenger-archive/scores/server_received_60.json || true
+          python pipeline/nfl_props_score.py ../nfl-props-challenger-archive --horizon 360 --output ../nfl-props-challenger-archive/scores/server_received_360.json || true
       - name: Score independently received forecasts after results arrive
         run: |
           mkdir -p ../nfl-props-archive/scores
-          python pipeline/nfl_props_score.py ../nfl-props-archive --horizon 60 --output ../nfl-props-archive/scores/60.json || true
-          python pipeline/nfl_props_score.py ../nfl-props-archive --horizon 360 --output ../nfl-props-archive/scores/360.json || true
+          python pipeline/nfl_props_score.py ../nfl-props-archive --horizon 60 --output ../nfl-props-archive/scores/server_received_60.json || true
+          python pipeline/nfl_props_score.py ../nfl-props-archive --horizon 360 --output ../nfl-props-archive/scores/server_received_360.json || true
       - name: Save immutable snapshot
         run: |
           cd ../nfl-props-archive
