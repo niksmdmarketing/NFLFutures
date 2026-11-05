@@ -64,6 +64,8 @@ def pbox(y):
         d["team_id"] = pd.to_numeric(d.team_id, errors="coerce").astype("int64")
         d["minutes"] = pd.to_numeric(d.minutes, errors="coerce")
         d["date"] = pd.to_datetime(d.game_date.astype(str).str[:10])
+        # 5 Nov 2026 fix (rule Amendment 4): ESPN files the All-Star and Rising Stars games as regular season; keep NBA teams only
+        d = d[d.team_abbreviation.isin(N.TEAMS)]
         _PBOX[y] = d[["athlete_id", "team_abbreviation", "team_id", "minutes", "date"]].reset_index(drop=True)
     return _PBOX[y]
 

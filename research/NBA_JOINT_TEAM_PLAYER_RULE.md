@@ -161,3 +161,18 @@ Decision, as written: any gate fails, so this is recorded as a fail. Nothing cha
 3. **Grid corner.** The selected corner (lowest current-season weight, highest team penalty, no carry-over) is recorded as a fact. By itself it is not a reason for a wider-grid run; a variant would need a specific, independently supported explanation for the failure, written as a new rule first.
 4. **Reviewer position recorded (GPT, 5 Nov 2026, not independently reproduced by GPT):** reject the challenger and keep the live NBA model unchanged; no further NBA rebuild now.
 5. **Next work, bounded (no new model):** a baseline audit. (i) State exactly what future information each roster convention uses (A0, A1, NOLEAK). (ii) Break A1 minus A0 down by season, stage and market. (iii) Identify the players and team assignments that drive the difference. (iv) Record the code and settings behind each committed replay file and label those that do not reproduce under current settings (2016-2019 and 2021 do not). (v) Fix one baseline convention for later experiments, with the residual lookahead stated. Priority stays with baseline integrity and the forward tests already running.
+
+## Amendment 4 (5 Nov 2026, flaw found after the result; recorded, result and decision unchanged)
+- **Flaw:** ESPN player box scores file the All-Star game (and in 2018-2019 the Rising Stars game) as regular season. The revised rosters used by A1 and A2 (`nba_joint.roster_v2`, "last team played for before the checkpoint") therefore moved the players in those games onto sides such as EAST, WEST, LEB or USA, which are not NBA teams. At the weekly checkpoint just after the All-Star game, 22-45 players a season were missing from their real teams in A1 and A2 (343 player-checkpoints over the ten seasons, almost all at one checkpoint per season; a handful of fringe players also at early checkpoints in 2019, 2023 and 2026). A0 was not affected (its rosters use each player's first team, and its game-level fit and playoff rotation keep only NBA teams). The mechanics check looked at 2022 week 4, before the All-Star game, so it did not catch this.
+- **Sensitivity (post hoc, labelled, not a re-run):** the same scores with the ten affected checkpoints removed from every arm:
+
+| Comparison | As recorded | Without the All-Star checkpoints |
+|---|---|---|
+| A2 vs A1 | -0.0119 (3/10, lower bound -0.0238) | -0.0100 (3/10, lower bound -0.0219) |
+| A2 vs A0 | -0.0151 (3/10) | -0.0128 (3/10) |
+| A1 vs A0 | -0.0032 (2/10) | -0.0028 (3/10) |
+| A2 without scalar vs A1 | -0.0205 (3/10) | -0.0178 (4/10) |
+| Absence sensitivity A2 vs A1 | -0.0118 (3/10) | -0.0099 (3/10) |
+
+- **Effect on conclusions:** every gate still fails by a wide margin; the decision stands. Part of the A1 vs A0 roster cost (about 0.0004 of 0.0032) came from this bug, not from the roster convention; the baseline audit's description of A1 is corrected accordingly.
+- **Fix (5 Nov 2026, after the result, for any later use):** `nba_joint.pbox` now keeps only rows whose team is one of the 30 NBA teams. The frozen run is not repeated under this rule; any re-test needs a new rule.

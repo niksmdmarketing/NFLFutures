@@ -49,3 +49,6 @@ All five complete files model/replay/nba_2016, 2017, 2018, 2019 and 2021 were re
 2. **Previous-team sensitivity.** It stays unbuilt until a challenger needs it. Before any score is read for that challenger, its rule must fix (a) the exact construction (how a player's previous team is set at the first checkpoint, what happens to players with no previous team, and when a transfer is recognised), and (b) which comparisons are required (both arms, which conventions, which gain, how reported).
 3. **Verification status.** GPT reviewed the rule text only. The guard implementation and the full-file comparisons in Amendment 1 are reported checks by Claude, not independently verified.
 4. **Outcome unchanged.** The joint model failed, the live NBA model is unchanged, and no wider-grid rerun is justified. This work improves the reliability of the research; it has not produced a better forecasting model.
+
+## Amendment 3 (5 Nov 2026)
+Player box scores contain All-Star and Rising Stars games filed as regular season (team codes such as EAST, WEST, LEB, USA, WORLD). Any roster, minutes or player-value step must keep only rows whose team is one of the 30 NBA teams. Found in the joint test's revised rosters (rule Amendment 4 there); the live replay's own steps already filter to NBA teams or use first-team assignments that the All-Star game cannot change.
