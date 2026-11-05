@@ -1,0 +1,53 @@
+{
+ "code_revision": "d1f2a4f33fd1674a46fe6f3481a17c09509f311b",
+ "settings": {
+  "BT_COEF": "wf",
+  "BT_REST": "1",
+  "BT_SIMS": "4000 (default)",
+  "simulation seed": 7,
+  "n_seeds": "6 to 2019, 7 from 2020"
+ },
+ "code_sha256": {
+  "research/replay_nfl.py": "cec95983fd3a37c1afb7d35d89775d91759458cbcbe355627a4259e0758f9f17",
+  "pipeline/simulate.py": "19a7e4196e33269aecc44a7633e837b53a66b0d81516bf8ba8a8ab01c8105ff3",
+  "pipeline/ratings.py": "ff269df334563933b156f8c15a0f1a3f66f82db89f5b57ee918ac42144c2f1a1",
+  "pipeline/common.py": "980df1d5c671a96876092797b528d261e306ceeb89c8d413431d7b527d85dccd",
+  "pipeline/nfl_backtest.py": "5aaf7dd066237bbf6cf79bfce47f9f63eac313976ce7bb46d34c48605d9507a4",
+  "model/settings.json": "2f668789978800162203356bf175c5eeda05d9214718b291b654bc622957089e",
+  "model/replay/nfl_wf_coef.json": "5ddbbe254983ed16ed1dae78582225058be72007f14620c9f5a4ab32f49281a5",
+  "research/nfl_extended_check.py": "56d1aa243ded467aeac529ecf1e49aacb62006e8bcc3519436dd5a1e1b2c5a14"
+ },
+ "inputs": {
+  "data/play_by_play_2012.csv.gz": "ff1cda2e26610ef8720324e442d1e5ebc24918e08fd1d2933590b7b91a7068cd",
+  "data/play_by_play_2013.csv.gz": "b4cd0dc48697ec44a2041d57dfc1c7210a792d1b5be497c161ef20a5b7fb9942",
+  "data/play_by_play_2014.csv.gz": "4ab286d2873a7eab28e11120f1fe1bd1f0a6bbb6be452f86a76092bd49b2ee4a",
+  "data/play_by_play_2015.csv.gz": "837811471df06c43d55faede7a363274484da11e71f49d8e0801baede3a5965d",
+  "data/play_by_play_2016.csv.gz": "dc1703d9aae3ec697ac2787617f82b6f074d0c151e1a54f8217f570a63dcb5ed",
+  "data/play_by_play_2017.csv.gz": "74032964ca6bdfc5bbe186253231a533d2d82aa531fac02b9382da01b3a8b34e",
+  "data/play_by_play_2018.csv.gz": "d37899610b397b96a90da6902827de5b46c5457b93e0e16d5f95a8eb524e4a7d",
+  "data/play_by_play_2019.csv.gz": "b764668137052be23745953cbc33fa17e537a70c81e9b73785a19a15e7288216",
+  "data/play_by_play_2020.csv.gz": "bc954b5780e325df4faa255fac092585c981a4de5d2f553a8a4e0a3c8b3a3cf2",
+  "data/play_by_play_2021.csv.gz": "e8743a568f99667a8bdcd29ba12224ee1782ad2b7916bee78ee335c099383739",
+  "data/play_by_play_2022.csv.gz": "0c69a71eb39498956c7b1d5c1ca52ce7fe679934a95d1af249facb5ea9829ea4",
+  "data/play_by_play_2023.csv.gz": "4649804ee0f0a40b41e51ec75a1ce921949d7fab5459213488656b92f78560e8",
+  "data/play_by_play_2024.csv.gz": "23370d5d10f8104d80d46a1fc5e61f4f6f5a3263fe96fe2dd629913cfcb08c06",
+  "data/play_by_play_2025.csv.gz": "2f135887790a013fd004e609e37096bb4816d5cc80b9f19122e1bad478961978",
+  "data/games.csv": "be457b94d364ebf9ab6343e07d3dc617e5ea42242e30c8f4a81c861e10e62554",
+  "data/nfl_standings.csv": "e513c4918fc622e1e45ea8d7917eb156c1425dbeaa049f9d5fb1c3b970003b47"
+ },
+ "outputs": {
+  "nfl_2013.csv": "62ae0c066d3a65450a6a8fa4d289fc40f18d0a95b9168fc1e9b00819a4c8cf7c",
+  "nfl_2014.csv": "1ec70d5c8ddfb044adb975988ac33aa7c05f39f5e5bc12b44c6e0f715edcab34",
+  "nfl_2015.csv": "fc4c7f86bc201105ce8dd084b81a2984c521e82442b0cf8e108af707a9bacad8",
+  "nfl_2016.csv": "b442a42720e5da9bf89f866f5db049d04b970f5ec9d47a5b28d67001cd70f41f",
+  "nfl_2017.csv": "7d4a45aa496829861b10e79d54982536ec9474efe402d4af99fe8e424626c012",
+  "nfl_2018.csv": "79b2d58ef86a88427d4817c9b65d645fad61e7f24b4d5497a7e3093ecf948ea6",
+  "nfl_2019.csv": "0d7dde82a55a78a64370b3c404427be6e0c9bd439469323d6b47e6b57cc60b6c",
+  "nfl_2020.csv": "90b1d60f480fc51af0250ff04fcda49adab4f36acce5287ce0f7c574747e4ed1",
+  "nfl_2021.csv": "214920df6ce946c5f6a5831480e23a96b0d75af95490ed931d697156a59bc9c3",
+  "nfl_2022.csv": "b1013e400081e5012d219e4e9c3c1754c9fb41da0b89181267881b554cfaed06",
+  "nfl_2023.csv": "33ab5058bd1e25509bf14f5cd42ce830d0f39820b73529429edc6a77f60a4299",
+  "nfl_2024.csv": "8dff90ecffe40438425fa55e80d839895bb1b428e80f6b34e6cd8df85e0cf64c",
+  "nfl_2025.csv": "269af00af0a490dbac430c2096bb9fe6898faca26c7acee2e766c8817958bb7d"
+ }
+}
