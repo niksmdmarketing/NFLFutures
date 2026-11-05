@@ -660,3 +660,9 @@ TypeSafe 96%: shadow. nhl_model g_* fields + archive; model/nhl_goalie_ratings_2
 - Missing-starter snap share by group (OL/DL/LB/CB/S/WR/TE/RB) from injury reports + roster status; fit 2014-21, test 2022-25.
 - Test RMSE 12.913 -> 12.829, log loss 0.6348 -> 0.6247, 3/4 seasons. First run had a player-link bug (recorded, not used).
 - Stage 2 futures (players known out carried 4 games): +0.0008 (-0.0002 to +0.0019), 2/4 seasons, No. 1 seed -0.0014 - FAIL; no shadow.
+
+## 2026-11-05 NBA early-season over-reaction check (diagnostic; no rule, no change)
+14-season replay CSVs (live settings, current-season weight 8), checkpoints at 5-20 games. Teams whose chance roughly doubled since the pre-season (logit up more than 0.7): title said 15.2% vs won 15.4% (169); playoffs 87.6% vs 86.2% (538); No. 1 seed 31.6% vs 35.5% (211); Finals 22.0% vs 18.4% (201).
+- With current and pre-season logits together, the pre-season coefficient is about 0: title -0.04 (se 0.19), seed1 -0.34 (se 0.15).
+- Early slopes are above 1 (title 1.25), so the model is slightly too cautious early, not over-reacting.
+- No fix tested.
