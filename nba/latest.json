@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-11-05T0059Z",
-"feed_timestamp": "2026-11-05T00:59:41Z",
+"collected_utc": "2026-11-05T0116Z",
+"feed_timestamp": "2026-11-05T01:16:19Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -58,6 +58,12 @@
 "injury": "Right Hamstring"
 },
 {
+"athlete_id": "5061575",
+"status": "Out",
+"return_date": "2026-11-04",
+"injury": "Left Hamstring"
+},
+{
 "athlete_id": "4278067",
 "status": "Out",
 "return_date": "2026-11-08",
@@ -108,14 +114,14 @@
 {
 "athlete_id": "4065813",
 "status": "Day-To-Day",
-"return_date": "2026-11-04",
-"injury": "Right Wrist"
+"return_date": null,
+"injury": ""
 },
 {
 "athlete_id": "3138196",
 "status": "Day-To-Day",
-"return_date": "2026-11-04",
-"injury": "Lower Body"
+"return_date": null,
+"injury": ""
 },
 {
 "athlete_id": "4432181",
@@ -142,21 +148,9 @@
 "injury": "Right Hamstring Strain"
 },
 {
-"athlete_id": "3213",
-"status": "Day-To-Day",
-"return_date": null,
-"injury": ""
-},
-{
-"athlete_id": "4397040",
-"status": "Day-To-Day",
-"return_date": "2026-11-05",
-"injury": "Left Quadriceps Bruise"
-},
-{
 "athlete_id": "4997536",
-"status": "Day-To-Day",
-"return_date": "2026-11-05",
+"status": "Out",
+"return_date": "2026-11-07",
 "injury": "Knee"
 },
 {
@@ -389,8 +383,8 @@
 },
 {
 "athlete_id": "4278402",
-"status": "Day-To-Day",
-"return_date": "2026-11-04",
+"status": "Out",
+"return_date": "2026-11-05",
 "injury": "Left Calf Not Specified"
 },
 {
@@ -597,6 +591,15 @@
 "updated": "2026-11-04T23:50Z"
 },
 {
+"athlete_id": "5061575",
+"name": "Kon Knueppel",
+"team_name": "Charlotte Hornets",
+"status": "Out",
+"return_date": "2026-11-04",
+"injury": "Left Hamstring",
+"updated": "2026-11-05T01:00Z"
+},
+{
 "athlete_id": "4278067",
 "name": "Nic Claxton",
 "team_name": "Chicago Bulls",
@@ -673,8 +676,8 @@
 "name": "Alpha Diallo",
 "team_name": "Denver Nuggets",
 "status": "Day-To-Day",
-"return_date": "2026-11-04",
-"injury": "Right Wrist",
+"return_date": null,
+"injury": "",
 "updated": "2026-11-03T23:51Z"
 },
 {
@@ -682,8 +685,8 @@
 "name": "Cameron Johnson",
 "team_name": "Denver Nuggets",
 "status": "Day-To-Day",
-"return_date": "2026-11-04",
-"injury": "Lower Body",
+"return_date": null,
+"injury": "",
 "updated": "2026-11-03T23:57Z"
 },
 {
@@ -723,31 +726,13 @@
 "updated": "2026-10-25T14:56Z"
 },
 {
-"athlete_id": "3213",
-"name": "Al Horford",
-"team_name": "Golden State Warriors",
-"status": "Day-To-Day",
-"return_date": null,
-"injury": "",
-"updated": "2026-11-03T06:11Z"
-},
-{
-"athlete_id": "4397040",
-"name": "Brandon Williams",
-"team_name": "Golden State Warriors",
-"status": "Day-To-Day",
-"return_date": "2026-11-05",
-"injury": "Left Quadriceps Bruise",
-"updated": "2026-11-03T06:12Z"
-},
-{
 "athlete_id": "4997536",
 "name": "Gui Santos",
 "team_name": "Golden State Warriors",
-"status": "Day-To-Day",
-"return_date": "2026-11-05",
+"status": "Out",
+"return_date": "2026-11-07",
 "injury": "Knee",
-"updated": "2026-11-03T06:12Z"
+"updated": "2026-11-05T00:52Z"
 },
 {
 "athlete_id": "6430",
@@ -1095,10 +1080,10 @@
 "athlete_id": "4278402",
 "name": "Jordan Goodwin",
 "team_name": "Phoenix Suns",
-"status": "Day-To-Day",
-"return_date": "2026-11-04",
+"status": "Out",
+"return_date": "2026-11-05",
 "injury": "Left Calf Not Specified",
-"updated": "2026-11-04T00:26Z"
+"updated": "2026-11-05T01:04Z"
 },
 {
 "athlete_id": "4701232",
