@@ -1,0 +1,208 @@
+name: NBA paired futures archive (public runner, private data)
+permissions:
+  contents: read
+concurrency:
+  group: public-private-nba-futures-forward
+  cancel-in-progress: false
+jobs:
+  archive:
+    if: github.repository == 'niksmdmarketing/NFLFutures' && github.ref == 'refs/heads/main' && (inputs.mode == 'preflight' || vars.NBA_FORWARD_PUBLIC_ENABLED
+      == 'true')
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+    - name: Collector code (review branch remains unmerged)
+      uses: actions/checkout@v4
+      with:
+        repository: niksmdmarketing/NFLFutures
+        ref: 3b2ad6e644a85d7dbbbf39cd49b0be2ec261e1b9
+        path: collector
+        persist-credentials: false
+    - name: Frozen unchanged production model
+      uses: actions/checkout@v4
+      with:
+        repository: niksmdmarketing/NFLFutures
+        ref: 5708ccf7d3112ace7b054efe1c7c8688573ab4ca
+        path: production
+        persist-credentials: false
+    - name: Read-only injury-monitor source
+      uses: actions/checkout@v4
+      with:
+        repository: niksmdmarketing/NFLFutures
+        ref: injury-monitor
+        path: injuries
+        persist-credentials: false
+    - name: Private data branch (never main or published site)
+      uses: actions/checkout@v4
+      with:
+        ref: nba-forward-archive
+        path: archive
+        fetch-depth: 0
+        repository: niksmdmarketing/nflfutures-private-data
+        token: ${{ secrets.ODDSPAPI_PRIVATE_ARCHIVE_TOKEN }}
+    - name: Check private archive access without collection or writes
+      if: inputs.mode == 'preflight'
+      run: |
+        set -eu
+        git push --dry-run origin HEAD:"$(git branch --show-current)" > "$RUNNER_TEMP/private-access.log" 2>&1 || { echo 'Private write-access check failed.'; exit 1; }
+        echo 'Private archive access check passed; no collection or data writes performed.'
+      working-directory: archive
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.13'
+    - name: Select mode and skip expensive work after successful capture
+      id: mode
+      env:
+        REQUESTED_MODE: ${{ inputs.mode }}
+        CRON: ${{ github.event.schedule }}
+      run: |
+        set -eu
+        cat > "$RUNNER_TEMP/private-step-6.sh" <<'__PRIVATE_WORKFLOW_STEP__'
+        mode="${REQUESTED_MODE:-collect}"
+        [ "$CRON" = '5 12 * * *' ] && mode=check
+        day=$(date -u +%F)
+        if [ "$mode" = collect ] && [ -f "archive/runs/$day/manifest.json" ]; then mode=check; fi
+        if [[ "$day" > '2027-04-15' ]] || { [ "$mode" = collect ] && [[ "$day" < '2026-10-30' ]]; }; then mode=check; fi
+        echo "mode=$mode" >> "$GITHUB_OUTPUT"
+        __PRIVATE_WORKFLOW_STEP__
+        if ! bash -e -o pipefail "$RUNNER_TEMP/private-step-6.sh" > "$RUNNER_TEMP/private-step-6.log" 2>&1; then
+          echo "Private operation failed; raw details are suppressed."
+          exit 1
+        fi
+      if: inputs.mode != 'preflight'
+      shell: bash
+    - name: Install model dependencies
+      if: inputs.mode != 'preflight' && (steps.mode.outputs.mode != 'check')
+      run: |
+        set -eu
+        cat > "$RUNNER_TEMP/private-step-7.sh" <<'__PRIVATE_WORKFLOW_STEP__'
+        pip install -r production/requirements.txt
+        __PRIVATE_WORKFLOW_STEP__
+        if ! bash -e -o pipefail "$RUNNER_TEMP/private-step-7.sh" > "$RUNNER_TEMP/private-step-7.log" 2>&1; then
+          echo "Private operation failed; raw details are suppressed."
+          exit 1
+        fi
+      shell: bash
+    - name: Generate one immutable paired bundle
+      if: inputs.mode != 'preflight' && (steps.mode.outputs.mode != 'check')
+      env:
+        MODE: ${{ steps.mode.outputs.mode }}
+      run: |
+        set -eu
+        cat > "$RUNNER_TEMP/private-step-8.sh" <<'__PRIVATE_WORKFLOW_STEP__'
+        args=()
+        [ "$MODE" = smoke ] && args+=(--smoke)
+        python collector/research/nba_futures_forward_collect.py --model-root production --cache archive/input-cache --injury-root injuries --archive archive "${args[@]}"
+        __PRIVATE_WORKFLOW_STEP__
+        if ! bash -e -o pipefail "$RUNNER_TEMP/private-step-8.sh" > "$RUNNER_TEMP/private-step-8.log" 2>&1; then
+          echo "Private operation failed; raw details are suppressed."
+          exit 1
+        fi
+      shell: bash
+    - name: Push bundle in one commit
+      if: inputs.mode != 'preflight' && (steps.mode.outputs.mode != 'check')
+      run: |
+        set -eu
+        cat > "$RUNNER_TEMP/private-step-9.sh" <<'__PRIVATE_WORKFLOW_STEP__'
+        cd archive
+        git config user.name 'github-actions[bot]'
+        git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+        for p in objects runs smoke input-cache; do [ ! -d "$p" ] || git add -- "$p"; done
+        if ! git diff --cached --quiet; then
+          git commit -m "Private NBA paired bundle $(date -u +%FT%TZ)"
+          for attempt in 1 2 3 4; do
+            if git push origin HEAD:nba-forward-archive; then exit 0; fi
+            sleep $((attempt * 5))
+          done
+          echo 'Archive upload failed after bounded retries; bundle remains unqualified.' >&2
+          exit 1
+        fi
+        __PRIVATE_WORKFLOW_STEP__
+        if ! bash -e -o pipefail "$RUNNER_TEMP/private-step-9.sh" > "$RUNNER_TEMP/private-step-9.log" 2>&1; then
+          echo "Private operation failed; raw details are suppressed."
+          exit 1
+        fi
+      shell: bash
+    - name: Verify actual GitHub push receipt (separate immutable proof)
+      env:
+        GH_TOKEN: ${{ secrets.ODDSPAPI_PRIVATE_ARCHIVE_TOKEN }}
+      run: |
+        set -eu
+        cat > "$RUNNER_TEMP/private-step-10.sh" <<'__PRIVATE_WORKFLOW_STEP__'
+        env GITHUB_REPOSITORY=niksmdmarketing/nflfutures-private-data python collector/research/nba_futures_forward_collect.py --archive archive --receipts
+        __PRIVATE_WORKFLOW_STEP__
+        if ! bash -e -o pipefail "$RUNNER_TEMP/private-step-10.sh" > "$RUNNER_TEMP/private-step-10.log" 2>&1; then
+          echo "Private operation failed; raw details are suppressed."
+          exit 1
+        fi
+      if: inputs.mode != 'preflight'
+      shell: bash
+    - name: Save verification receipts even if another check fails
+      if: always() && inputs.mode != 'preflight'
+      run: |
+        set -eu
+        cat > "$RUNNER_TEMP/private-step-11.sh" <<'__PRIVATE_WORKFLOW_STEP__'
+        cd archive
+        git config user.name 'github-actions[bot]'
+        git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+        [ -d receipts ] || exit 0
+        git add receipts
+        if ! git diff --cached --quiet; then
+          git commit -m 'Verify independent NBA push receipts'
+          for attempt in 1 2 3 4; do
+            if git push origin HEAD:nba-forward-archive; then exit 0; fi
+            sleep $((attempt * 5))
+          done
+          echo 'Receipt upload failed after bounded retries; no success is assumed.' >&2
+          exit 1
+        fi
+        __PRIVATE_WORKFLOW_STEP__
+        if ! bash -e -o pipefail "$RUNNER_TEMP/private-step-11.sh" > "$RUNNER_TEMP/private-step-11.log" 2>&1; then
+          echo "Private operation failed; raw details are suppressed."
+          exit 1
+        fi
+      shell: bash
+    - name: Retain failed bundle only on a private diagnostic branch
+      if: failure() && inputs.mode != 'preflight'
+      run: |
+        set -eu
+        cat > "$RUNNER_TEMP/private-step-12.sh" <<'__PRIVATE_WORKFLOW_STEP__'
+        cd archive
+        git config user.name 'github-actions[bot]'
+        git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+        for p in objects runs smoke receipts input-cache; do [ ! -d "$p" ] || git add -- "$p"; done
+        if ! git diff --cached --quiet; then git commit -q -m 'Unqualified NBA bundle diagnostic'; fi
+        git push -q origin HEAD:"refs/heads/nba-forward-unqualified-${GITHUB_RUN_ID}"
+        __PRIVATE_WORKFLOW_STEP__
+        if ! bash -e -o pipefail "$RUNNER_TEMP/private-step-12.sh" > "$RUNNER_TEMP/private-step-12.log" 2>&1; then
+          echo "Private operation failed; raw details are suppressed."
+          exit 1
+        fi
+      shell: bash
+    - name: Loud failure for every missed or unverified due cutoff
+      if: always() && inputs.mode != 'preflight'
+      run: |
+        set -eu
+        cat > "$RUNNER_TEMP/private-step-13.sh" <<'__PRIVATE_WORKFLOW_STEP__'
+        python collector/research/nba_futures_forward_collect.py --archive archive --check
+        __PRIVATE_WORKFLOW_STEP__
+        if ! bash -e -o pipefail "$RUNNER_TEMP/private-step-13.sh" > "$RUNNER_TEMP/private-step-13.log" 2>&1; then
+          echo "Private operation failed; raw details are suppressed."
+          exit 1
+        fi
+      shell: bash
+'on':
+  schedule:
+  - cron: 15,35,50 11 * * *
+  - cron: 5 12 * * *
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: smoke is excluded from adoption; check verifies due cutoffs
+        type: choice
+        options:
+        - preflight
+        - smoke
+        - collect
+        - check
+        default: preflight
