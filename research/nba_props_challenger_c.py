@@ -139,18 +139,30 @@ def _pairs(D, s):
     return np.concatenate(B), np.concatenate(X), np.concatenate(Y)
 
 
+def _lg(p):
+    p = np.clip(np.asarray(p, float), 1e-9, 1 - 1e-9)
+    return np.log(p / (1 - p))
+
+
 def fit(D):
-    from sklearn.isotonic import IsotonicRegression
+    """c2 (Amendment 12): per stat and band, logit G = a + b logit F, by maximum Bernoulli likelihood of 1{y <= k}; b > 0."""
+    from scipy.optimize import minimize
     maps = {}
     for s in FIELD:
-        b, x, y = _pairs(D, s)
+        bnd, x, y = _pairs(D, s)
         maps[s] = {}
         for i in range(len(BANDS)):
-            m = b == i
+            m = (bnd == i) & (x < 1)
             if m.sum() < 200:
                 continue
-            ir = IsotonicRegression(y_min=0.0, y_max=1.0, increasing=True, out_of_bounds="clip").fit(x[m], y[m])
-            maps[s][str(i)] = {"x": [float(v) for v in ir.X_thresholds_], "y": [float(v) for v in ir.y_thresholds_], "n": int(m.sum())}
+            z, yy = _lg(x[m]), y[m]
+
+            def nll(th):
+                a, lb = th
+                eta = a + np.exp(lb) * z
+                return float(np.sum(np.logaddexp(0, eta) - yy * eta))
+            o = minimize(nll, np.array([0.0, 0.0]), method="BFGS")
+            maps[s][str(i)] = {"type": "logit", "a": float(o.x[0]), "b": float(np.exp(o.x[1])), "n": int(m.sum()), "converged": bool(o.success)}
     return maps
 
 
@@ -163,6 +175,13 @@ def calibrated_conditional(c, em, s, maps):
     if not mp:
         return c
     cdf = np.clip(np.cumsum(c), 0, 1)
+    if mp.get("type") == "logit":
+        g = np.where(cdf >= 1 - 1e-12, 1.0, 1 / (1 + np.exp(-(mp["a"] + mp["b"] * _lg(cdf)))))
+        g = np.maximum.accumulate(np.clip(g, 0, 1))
+        g[-1] = 1.0
+        new = np.diff(np.r_[0.0, g])
+        new = (1 - FLOOR) * new + FLOOR * c
+        return new / new.sum()
     x, y = np.asarray(mp["x"], float), np.asarray(mp["y"], float)
     # One CDF argument must have one mapped value. Anchor g(1)=1, including
     # earlier bins with CDF == 1, rather than inventing mass at the last bin.
@@ -248,7 +267,7 @@ def freeze(dirs):
     chk = holdout_check(D)
     maps = fit(D)
     kept = {s: maps[s] if chk["stats"][s]["keep"] else {} for s in FIELD}
-    out = dict(version="c", rule="research/NBA_PROPS_PRICE_TEST_RULE.md Amendment 6", dev_end=str(DEV_END),
+    out = dict(version="c2", rule="research/NBA_PROPS_PRICE_TEST_RULE.md Amendments 6, 11 and 12", dev_end=str(DEV_END),
                bands=BANDS, floor=FLOOR, fields=FIELD, kept={s: bool(kept[s]) for s in FIELD},
                n_dev=len(D), dev_games=int(D.game_id.nunique()), maps=kept)
     with open(OUT, "w") as f:
