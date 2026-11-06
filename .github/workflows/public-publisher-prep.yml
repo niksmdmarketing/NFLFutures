@@ -119,3 +119,26 @@ jobs:
           exit 1
         fi
       shell: bash
+    - name: Keep failed-save path metadata privately
+      if: failure() && inputs.mode != 'preflight'
+      run: |
+        set -eu
+        cat > "$RUNNER_TEMP/private-step-9.sh" <<'__PRIVATE_WORKFLOW_STEP__'
+        python - <<'PY'
+        import json,subprocess
+        from pathlib import Path
+        p=Path('automation/public_prep_diagnostic.json');p.parent.mkdir(parents=True,exist_ok=True)
+        paths=subprocess.check_output(['git','diff','--name-only','-z']).decode().split('\0')
+        p.write_text(json.dumps({'unstaged_paths':[x for x in paths if x]},indent=2))
+        PY
+        git config user.name 'github-actions[bot]'
+        git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+        git add automation/public_prep_diagnostic.json
+        git commit -q -m 'Record publisher staging metadata for diagnosis'
+        git push -q origin HEAD:"refs/heads/public-prep-diagnostic-${GITHUB_RUN_ID}"
+        __PRIVATE_WORKFLOW_STEP__
+        if ! bash -e -o pipefail "$RUNNER_TEMP/private-step-9.sh" > "$RUNNER_TEMP/private-step-9.log" 2>&1; then
+          echo "Private operation failed; raw details are suppressed."
+          exit 1
+        fi
+      shell: bash
