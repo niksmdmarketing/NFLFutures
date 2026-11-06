@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-11-05T2347Z",
-"feed_timestamp": "2026-11-05T23:46:54Z",
+"collected_utc": "2026-11-06T0139Z",
+"feed_timestamp": "2026-11-06T01:38:55Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -30,7 +30,7 @@
 {
 "athlete_id": "4585618",
 "status": "Out",
-"return_date": "2026-11-08",
+"return_date": "2026-11-07",
 "injury": "Left Knee Inflammation"
 },
 {
@@ -292,10 +292,10 @@
 "injury": "Right Foot Surgery"
 },
 {
-"athlete_id": "5060631",
-"status": "Out",
+"athlete_id": "4278580",
+"status": "Day-To-Day",
 "return_date": "2026-11-06",
-"injury": "Left Knee Inflammation"
+"injury": "Illness"
 },
 {
 "athlete_id": "4432810",
@@ -342,7 +342,7 @@
 {
 "athlete_id": "5061589",
 "status": "Out",
-"return_date": "2026-11-08",
+"return_date": "2026-11-09",
 "injury": "Left Knee Bruise"
 },
 {
@@ -478,12 +478,6 @@
 "injury": "Right Achilles Surgery"
 },
 {
-"athlete_id": "4279318",
-"status": "Day-To-Day",
-"return_date": "2026-11-06",
-"injury": "Illness"
-},
-{
 "athlete_id": "4594327",
 "status": "Out",
 "return_date": "2026-11-10",
@@ -518,6 +512,12 @@
 "status": "Out",
 "return_date": "2026-11-09",
 "injury": "Right Foot Fracture"
+},
+{
+"athlete_id": "4433134",
+"status": "Day-To-Day",
+"return_date": "2026-11-06",
+"injury": "Left Groin Soreness"
 },
 {
 "athlete_id": "4277961",
@@ -610,7 +610,7 @@
 "name": "Keshon Gilbert",
 "team_name": "Atlanta Hawks",
 "status": "Out",
-"return_date": "2026-11-08",
+"return_date": "2026-11-07",
 "injury": "Left Knee Inflammation",
 "updated": "2026-11-05T22:41Z"
 },
@@ -729,7 +729,7 @@
 "status": "Out",
 "return_date": "2026-11-08",
 "injury": "Left Hamstring Strain",
-"updated": "2026-11-05T16:59Z"
+"updated": "2026-11-05T23:39Z"
 },
 {
 "athlete_id": "4066650",
@@ -1002,13 +1002,13 @@
 "updated": "2026-11-02T16:12Z"
 },
 {
-"athlete_id": "5060631",
-"name": "Adou Thiero",
+"athlete_id": "4278580",
+"name": "Sandro Mamukelashvili",
 "team_name": "Los Angeles Lakers",
-"status": "Out",
+"status": "Day-To-Day",
 "return_date": "2026-11-06",
-"injury": "Left Knee Inflammation",
-"updated": "2026-11-05T18:30Z"
+"injury": "Illness",
+"updated": "2026-11-06T01:03Z"
 },
 {
 "athlete_id": "4432810",
@@ -1035,7 +1035,7 @@
 "status": "Out",
 "return_date": "2026-11-08",
 "injury": "Right Ankle",
-"updated": "2026-11-05T23:02Z"
+"updated": "2026-11-06T00:26Z"
 },
 {
 "athlete_id": "4594268",
@@ -1078,7 +1078,7 @@
 "name": "Yves Missi",
 "team_name": "New Orleans Pelicans",
 "status": "Out",
-"return_date": "2026-11-08",
+"return_date": "2026-11-09",
 "injury": "Left Knee Bruise",
 "updated": "2026-11-05T20:47Z"
 },
@@ -1281,15 +1281,6 @@
 "updated": "2026-10-21T04:22Z"
 },
 {
-"athlete_id": "4279318",
-"name": "Daeqwon Plowden",
-"team_name": "Sacramento Kings",
-"status": "Day-To-Day",
-"return_date": "2026-11-06",
-"injury": "Illness",
-"updated": "2026-11-05T15:05Z"
-},
-{
 "athlete_id": "4594327",
 "name": "Keegan Murray",
 "team_name": "Sacramento Kings",
@@ -1342,6 +1333,15 @@
 "return_date": "2026-11-09",
 "injury": "Right Foot Fracture",
 "updated": "2026-11-02T20:20Z"
+},
+{
+"athlete_id": "4433134",
+"name": "Scottie Barnes",
+"team_name": "Toronto Raptors",
+"status": "Day-To-Day",
+"return_date": "2026-11-06",
+"injury": "Left Groin Soreness",
+"updated": "2026-11-06T01:20Z"
 },
 {
 "athlete_id": "4277961",
