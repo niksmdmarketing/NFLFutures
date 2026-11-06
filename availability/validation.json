@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-11-06T06:59:37+00:00",
+ "checked_utc": "2026-11-06T15:07:39+00:00",
  "leagues": {
   "nfl": {
-   "records": 1500,
+   "records": 1578,
    "by_layer": {
-    "official": 1431,
-    "reported": 69
+    "official": 1505,
+    "reported": 73
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -53,7 +53,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "69/69"
+   "reported_matched_to_official_list": "73/73"
   },
   "nba": {
    "records": 278,
@@ -159,11 +159,11 @@
    "reported_matched_to_official_list": "56/56"
   },
   "nhl": {
-   "records": 1531,
+   "records": 1535,
    "by_layer": {
-    "official": 149,
-    "reported": 60,
-    "projected": 1322
+    "official": 150,
+    "reported": 66,
+    "projected": 1319
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -185,6 +185,7 @@
     "MIN",
     "MTL",
     "NJD",
+    "NSH",
     "NYI",
     "NYR",
     "OTT",
@@ -203,16 +204,14 @@
    ],
    "conflicts": [],
    "stale_projection_dates": 0,
-   "teams_missing_official": [
-    "NSH"
-   ],
+   "teams_missing_official": [],
    "season_state": {
     "state": "in_season",
     "why": "35 regular-season/playoff and 0 other games 2026-10-30..2026-11-16"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "60/60"
+   "reported_matched_to_official_list": "66/66"
   },
   "nbl": {
    "records": 26,
