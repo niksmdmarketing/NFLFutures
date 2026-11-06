@@ -22,6 +22,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 sys.path.insert(0, HERE)
 
+DEV_START = pd.Timestamp("2025-10-21T00:00:00Z")
 DEV_END = pd.Timestamp("2026-01-12T00:00:00Z")      # earliest priced game tips 13 Jan 2026
 HOLD_START = pd.Timestamp("2025-12-15T00:00:00Z")
 FIELD = {"pts": "pts_d_v2", "reb": "reb_v2", "ast": "ast_v2"}
@@ -31,52 +32,97 @@ OUT = os.path.join(ROOT, "model", "nba_props_challenger_c.json")
 
 
 def band_of(em):
-    for i, (lo, hi) in enumerate(BANDS):
-        if lo < em <= hi or (i == 0 and em <= hi):
-            return i
-    return len(BANDS) - 1
+    em = float(em)
+    if not np.isfinite(em) or em < 0:
+        raise ValueError("Expected minutes must be finite and nonnegative")
+    return 0 if em <= 15 else 1 if em <= 25 else 2
+
+
+def expected_minutes(q):
+    q = np.asarray(q, float)
+    if q.ndim != 1 or not len(q) or not np.isfinite(q).all() or (q < 0).any() or q.sum() <= 0:
+        raise ValueError("Invalid conditional minutes PMF")
+    return float(q @ np.arange(1, len(q) + 1) / q.sum())
+
+
+ARCHIVE_TOL = 1e-5     # Amendment 11: the archive rounds p_appear to 6 and pmf entries to 7 decimals
+PA_MIN = 0.01          # Amendment 11: below this the conditional is too imprecise to recover; excluded for every model and counted
+
+
+class LowAppearance(ValueError):
+    """p_appear below PA_MIN: the player-game is excluded (for b, c and every reported model alike) and counted."""
 
 
 def conditional(unc, pa):
-    """Appearing-conditional pmf from the stored unconditional pmf (mass 1 - pa was added at zero)."""
-    c = np.asarray(unc, float).copy()
-    c[0] -= (1 - pa)
-    c = np.clip(c, 0, None)
-    s = c.sum()
-    return c / s if s > 0 else c
+    """Appearing-conditional pmf from the stored unconditional pmf (Amendment 11 policy).
+    Positive counts come only from the appearing component, so they are recovered by division (no subtraction near zero);
+    the zero mass is the remainder. Inputs inconsistent beyond the archive's rounding (1e-5) stop the run."""
+    u = np.asarray(unc, float)
+    pa = float(pa)
+    if u.ndim != 1 or not len(u) or not np.isfinite(u).all() or (u < 0).any():
+        raise ValueError("Invalid stored PMF")
+    if not np.isfinite(pa) or not 0 <= pa <= 1:
+        raise ValueError("Invalid p_appear")
+    if pa < PA_MIN:
+        raise LowAppearance(f"p_appear {pa} below {PA_MIN}")
+    if abs(float(u.sum()) - 1) > ARCHIVE_TOL:
+        raise ValueError("Stored PMF normalization exceeds the archive-rounding tolerance")
+    tail = u[1:] / pa
+    if float(tail.sum()) > 1 + ARCHIVE_TOL / pa:
+        raise ValueError("Stored PMF has more positive-count mass than p_appear allows")
+    c = np.r_[max(0.0, 1.0 - float(tail.sum())), tail]
+    return c / c.sum()
 
 
 def load(dirs, end=DEV_END):
-    """Player rows from replay archives, games tipping before `end`, one record per game (the latest cutoff at or before tip-60)."""
+    """Frozen-b 60-minute replays only, inside the registered development window."""
     import nba_props_price_run as R
-    s = pd.read_csv(os.path.join(ROOT, "data", "nba", "nba_schedule_2026.csv"), low_memory=False)
-    tips = dict(zip(pd.to_numeric(s.id, errors="coerce"), pd.to_datetime(s.game_date_time if "game_date_time" in s else s.date, utc=True,
-                                                                         errors="coerce")))
+    end = min(pd.Timestamp(end), DEV_END)
+    schedule = pd.read_csv(os.path.join(ROOT, "data", "nba", "nba_schedule_2026.csv"), low_memory=False)
+    schedule = schedule[pd.to_numeric(schedule.season_type, errors="coerce") == 2]
+    tips = dict(zip(pd.to_numeric(schedule.id, errors="coerce"),
+                    pd.to_datetime(schedule.game_date_time if "game_date_time" in schedule else schedule.date,
+                                   utc=True, errors="coerce")))
     best = {}
-    for d in dirs:
-        for p in glob.glob(os.path.join(d, "**", "*.json.gz"), recursive=True):
-            if "_60_" not in os.path.basename(p):
+    for directory in dirs:
+        for path in sorted(glob.glob(os.path.join(directory, "**", "*.json.gz"), recursive=True)):
+            if "_60_" not in os.path.basename(path):
                 continue
-            r = json.load(gzip.open(p))
-            gid, cut = int(r["game_id"]), pd.Timestamp(r["cutoff_utc"])
+            with gzip.open(path) as f:
+                record = json.load(f)
+            if record.get("params_id") != "b" or record.get("horizon_min") != 60:
+                continue
+            if not isinstance(record.get("report"), dict) or record["report"].get("replay") is not True:
+                continue
+            gid = int(record["game_id"])
             tip = tips.get(gid)
-            if tip is None or pd.isna(tip) or tip >= end or cut > tip - pd.Timedelta(minutes=60) or not r.get("players"):
+            if tip is None or pd.isna(tip) or not DEV_START <= tip < end or not record.get("players"):
                 continue
-            if gid not in best or cut > best[gid][0]:      # the latest cutoff at or before tip - 60 minutes
-                best[gid] = (cut, tip, r)
+            cut, run = pd.Timestamp(record["cutoff_utc"]), pd.Timestamp(record["run_utc"])
+            if pd.isna(cut) or pd.isna(run) or cut.tzinfo is None or run.tzinfo is None:
+                raise ValueError("Replay timing evidence requires explicit time zones")
+            if cut > tip - pd.Timedelta(minutes=60) or run > cut:
+                continue
+            if gid not in best or cut > best[gid][0]:
+                best[gid] = (cut, tip, record)
     rows = []
-    for gid, (cut, tip, r) in best.items():
-        if True:
-            for pl in r["players"]:
-                q = np.asarray(pl["minutes_v2"], float)
-                em = float((np.arange(1, len(q) + 1) * q).sum() / max(q.sum(), 1e-12))
-                rows.append(dict(game_id=int(r["game_id"]), aid=int(pl["aid"]), tip=tip, pa=float(pl["p_appear"]), em=em,
-                                 **{s: pl.get(f) for s, f in FIELD.items()}))
-    F = pd.DataFrame(rows)
-    O = R.outcomes(seasons=(2026,))
-    D = F.merge(O[["game_id", "aid", "minutes", "pts", "reb", "ast"]].rename(columns={"pts": "y_pts", "reb": "y_reb", "ast": "y_ast"}),
-                on=["game_id", "aid"], how="inner")
-    return D[D.minutes > 0].reset_index(drop=True)
+    for gid, (cut, tip, record) in best.items():
+        for player in record["players"]:
+            rows.append(dict(game_id=gid, aid=int(player["aid"]), tip=tip, pa=float(player["p_appear"]),
+                             em=expected_minutes(player["minutes_v2"]), **{s: player.get(f) for s, f in FIELD.items()}))
+    if not rows:
+        raise ValueError("No eligible registered development replays")
+    forecasts = pd.DataFrame(rows)
+    if forecasts.duplicated(["game_id", "aid"]).any():
+        raise ValueError("Duplicate development player-game")
+    outcomes = R.outcomes(seasons=(2026,))
+    data = forecasts.merge(outcomes[["game_id", "aid", "minutes", "pts", "reb", "ast"]].rename(
+        columns={"pts": "y_pts", "reb": "y_reb", "ast": "y_ast"}),
+        on=["game_id", "aid"], how="inner", validate="one_to_one")
+    data = data[data.minutes > 0]
+    low = data.pa < PA_MIN                      # Amendment 11: excluded and counted
+    load.excluded_low_appearance = int(low.sum())
+    return data[~low].reset_index(drop=True)
 
 
 def _pairs(D, s):
@@ -109,14 +155,22 @@ def fit(D):
 
 
 def calibrated_conditional(c, em, s, maps):
-    mp = (maps.get(s) or {}).get(str(band_of(em)))
+    c = np.asarray(c, float)
+    stat_maps = maps.get(s) or {}
+    if not stat_maps:
+        return c
+    mp = stat_maps.get(str(band_of(em)))
     if not mp:
         return c
-    cdf = np.cumsum(c)
-    g = np.interp(cdf, mp["x"], mp["y"])
+    cdf = np.clip(np.cumsum(c), 0, 1)
+    x, y = np.asarray(mp["x"], float), np.asarray(mp["y"], float)
+    # One CDF argument must have one mapped value. Anchor g(1)=1, including
+    # earlier bins with CDF == 1, rather than inventing mass at the last bin.
+    below = x < 1
+    g = np.interp(cdf, np.r_[x[below], 1.0], np.r_[y[below], 1.0])
     g = np.maximum.accumulate(np.clip(g, 0, 1))
     g[-1] = 1.0
-    new = np.diff(np.concatenate([[0.0], g]))
+    new = np.diff(np.r_[0.0, g])
     new = (1 - FLOOR) * new + FLOOR * c
     return new / new.sum()
 
@@ -129,13 +183,18 @@ def apply(unc, pa, em, s, maps):
 
 
 def logscore(D, s, maps=None):
-    v = []
+    values = []
     for unc, pa, em, y in zip(D[s], D.pa, D.em, D["y_" + s]):
+        if not np.isfinite(y) or y < 0 or int(y) != y:
+            raise ValueError("Log score requires a nonnegative integer observation")
         c = conditional(unc, pa)
         if maps is not None:
             c = calibrated_conditional(c, em, s, maps)
-        v.append(np.log(max(c[int(y)] if int(y) < len(c) else 0.0, 1e-9)))
-    return float(np.mean(v))
+        probability = c[int(y)] if int(y) < len(c) else 0.0
+        values.append(float(np.log(probability)) if probability > 0 else -np.inf)
+    if not values:
+        raise ValueError("No holdout observations")
+    return float(np.mean(values))
 
 
 def _summary(D, s, maps=None):
@@ -158,29 +217,45 @@ def _summary(D, s, maps=None):
     return out
 
 
-def check(dirs):
-    D = load(dirs)
+def holdout_check(D):
     A, H = D[D.tip < HOLD_START], D[D.tip >= HOLD_START]
+    if A.empty or H.empty:
+        raise ValueError("Both registered training and holdout windows are required")
     maps = fit(A)
-    res = {"n_fit": len(A), "n_holdout": len(H), "fit_games": int(A.game_id.nunique()), "holdout_games": int(H.game_id.nunique()), "stats": {}}
-    for s in FIELD:
-        lb, lc = logscore(H, s), logscore(H, s, maps)
-        res["stats"][s] = dict(holdout_logscore_b=lb, holdout_logscore_c=lc, keep=bool(lc > lb),
-                               calib_b=_summary(H, s), calib_c=_summary(H, s, maps))
-    json.dump(res, open(os.path.join(HERE, "nba_props_challenger_c_check.json"), "w"), indent=1)
-    print(json.dumps({s: {k: v[k] for k in ("holdout_logscore_b", "holdout_logscore_c", "keep")} for s, v in res["stats"].items()}, indent=1))
-    return res
+    result = {"n_fit": len(A), "n_holdout": len(H), "fit_games": int(A.game_id.nunique()),
+              "holdout_games": int(H.game_id.nunique()), "stats": {}}
+    for stat in FIELD:
+        baseline, challenger = logscore(H, stat), logscore(H, stat, maps)
+        result["stats"][stat] = dict(holdout_logscore_b=baseline, holdout_logscore_c=challenger,
+                                     keep=bool(challenger > baseline),
+                                     calib_b=_summary(H, stat), calib_c=_summary(H, stat, maps))
+    return result
+
+
+def check(dirs):
+    result = holdout_check(load(dirs))
+    with open(os.path.join(HERE, "nba_props_challenger_c_check.json"), "w") as f:
+        json.dump(result, f, indent=1)
+    print(json.dumps({s: {k: v[k] for k in ("holdout_logscore_b", "holdout_logscore_c", "keep")}
+                      for s, v in result["stats"].items()}, indent=1))
+    return result
 
 
 def freeze(dirs):
-    chk = json.load(open(os.path.join(HERE, "nba_props_challenger_c_check.json")))
+    # Derive keep/identity and the final refit from the same freshly loaded
+    # development cohort. An unrelated/stale check JSON cannot select maps.
     D = load(dirs)
+    chk = holdout_check(D)
     maps = fit(D)
-    kept = {s: (maps[s] if chk["stats"][s]["keep"] else {}) for s in FIELD}
-    out = dict(version="c", rule="research/NBA_PROPS_PRICE_TEST_RULE.md Amendment 6", dev_end=str(DEV_END), bands=BANDS, floor=FLOOR,
-               fields=FIELD, kept={s: bool(kept[s]) for s in FIELD}, n_dev=len(D), dev_games=int(D.game_id.nunique()), maps=kept)
-    json.dump(out, open(OUT, "w"), indent=1)
-    print(OUT, hashlib.sha256(open(OUT, "rb").read()).hexdigest(), out["kept"], out["n_dev"])
+    kept = {s: maps[s] if chk["stats"][s]["keep"] else {} for s in FIELD}
+    out = dict(version="c", rule="research/NBA_PROPS_PRICE_TEST_RULE.md Amendment 6", dev_end=str(DEV_END),
+               bands=BANDS, floor=FLOOR, fields=FIELD, kept={s: bool(kept[s]) for s in FIELD},
+               n_dev=len(D), dev_games=int(D.game_id.nunique()), maps=kept)
+    with open(OUT, "w") as f:
+        json.dump(out, f, indent=1)
+    with open(OUT, "rb") as f:
+        digest = hashlib.sha256(f.read()).hexdigest()
+    print(OUT, digest, out["kept"], out["n_dev"])
 
 
 def selftest():
@@ -192,7 +267,10 @@ def selftest():
         mu = rng.uniform(1, 20)
         pmf = poisson.pmf(np.arange(60), mu)
         n = 3.0
-        y = nbinom.rvs(n, n / (n + mu), random_state=rng)
+        # Keep this fabricated test's observations in the finite PMF support;
+        # an exact log score must not hide unsupported counts behind a cap.
+        pmf[-1] += max(0.0, 1.0 - float(pmf.sum()))
+        y = min(nbinom.rvs(n, n / (n + mu), random_state=rng), len(pmf) - 1)
         rows.append(dict(pts=list(pmf), reb=list(pmf), ast=list(pmf), pa=1.0, em=rng.uniform(5, 35), y_pts=y, y_reb=y, y_ast=y,
                          tip=pd.Timestamp("2025-11-01", tz="UTC")))
     D = pd.DataFrame(rows)

@@ -47,6 +47,7 @@ def export_w2(dest):
 
 def forecasts(dirs):
     """One row per game, player: the latest 60-minute record generated at or before the cutoff."""
+    import nba_props_challenger_c as CC
     recs = []
     for d in dirs:
         for p in glob.glob(os.path.join(d, "**", "*.json.gz"), recursive=True):
@@ -79,8 +80,7 @@ def forecasts(dirs):
         for pl in r["players"]:
             row = dict(game_id=gid, cutoff=cut, generated=gen, aid=int(pl["aid"]), name=pl.get("name"), team=pl.get("team"),
                        p_appear=pl.get("p_appear"),
-                       em=float((np.arange(1, len(pl["minutes_v2"]) + 1) * np.asarray(pl["minutes_v2"], float)).sum() / max(sum(pl["minutes_v2"]), 1e-12))
-                       if pl.get("minutes_v2") else np.nan)
+                       em=CC.expected_minutes(pl["minutes_v2"]))
             for v, m in DIST.items():
                 for s, k in m.items():
                     row[f"{s}_{v}"] = pl.get(k)
@@ -138,10 +138,13 @@ def assemble(prices_dir, dirs, with_outcomes):
     # Amendment 8 fallback: SportsGameOdds identity matches, only for ids the live-odds map did not name
     sgo_path = os.path.join(os.path.dirname(nmap_path), "player_names_sgo.json")
     sgo = {str(k): v["name"] for k, v in json.load(open(sgo_path)).items()} if os.path.exists(sgo_path) else {}
+    nmap = {k: v for k, v in nmap.items() if isinstance(v, str) and v.strip()}
+    sgo = {k: v for k, v in sgo.items() if isinstance(v, str) and v.strip()}
     n_sgo = len(set(sgo) - set(nmap))
     nmap = {**sgo, **nmap}
     supplied = raw.get("player_name", pd.Series(index=raw.index, dtype="object"))
-    raw["player_name"] = supplied.where(supplied.notna(), raw.player_key.astype(str).map(nmap))
+    resolved = raw.player_key.astype(str).map(nmap)
+    raw["player_name"] = resolved.where(resolved.notna(), supplied)
     raw["player_name"] = raw.player_name.fillna("id:" + raw.player_key.astype(str))
     P = PT.prices_long(raw)
     F = forecasts(dirs)
@@ -168,18 +171,30 @@ def assemble(prices_dir, dirs, with_outcomes):
     import nba_props_challenger_c as CC
     cmaps = json.load(open(CC.OUT))["maps"] if os.path.exists(CC.OUT) else None
     recs = D.to_dict("records")
+    # Amendment 11: p_appear below 0.01 is excluded for every model (same rows) and counted
+    low_pa = np.array([row["p_appear"] is not None and float(row["p_appear"]) < CC.PA_MIN for row in recs], dtype=bool)
+
+    def _over(pmf, pa, ln, stat=None, em=None):
+        if not isinstance(pmf, list) or (pa is not None and float(pa) < CC.PA_MIN):
+            return np.nan
+        c = CC.conditional(pmf, pa)
+        return PT.p_over(c if cmaps is None or stat is None else CC.calibrated_conditional(c, em, stat, cmaps), ln)
     for v in DIST:
-        D[f"model_over_{v}"] = [PT.p_over(CC.conditional(row[f"{s}_{v}"], row["p_appear"]), ln) if isinstance(row[f"{s}_{v}"], list) else np.nan
-                                for row, s, ln in zip(recs, D.stat, D.line)]
+        D[f"model_over_{v}"] = [_over(row[f"{s}_{v}"], row["p_appear"], ln) for row, s, ln in zip(recs, D.stat, D.line)]
     if cmaps is not None:
-        D["model_over_c"] = [PT.p_over(CC.calibrated_conditional(CC.conditional(row[f"{s}_v2"], row["p_appear"]), row["em"], s, cmaps), ln)
-                             if isinstance(row[f"{s}_v2"], list) else np.nan for row, s, ln in zip(recs, D.stat, D.line)]
+        D["model_over_c"] = [_over(row[f"{s}_v2"], row["p_appear"], ln, s, row["em"]) for row, s, ln in zip(recs, D.stat, D.line)]
+    excluded_low_pa = int(low_pa.sum())
     tip = D.fixture_id.map(P.drop_duplicates("fixture_id").set_index("fixture_id").start_time)
     D["date"] = pd.to_datetime(tip, utc=True).dt.tz_convert("America/New_York").dt.date.astype(str)
+    unknown_participation_lines = None
+    unknown_participation_player_games = None
     if with_outcomes:
         O = outcomes()
         D = D.merge(O[["game_id", "aid", "minutes", "pts", "reb", "ast"]], on=["game_id", "aid"], how="left", validate="many_to_one")
-        D = D[D.minutes > 0].copy()
+        unknown = ~(D.minutes > 0)
+        unknown_participation_lines = int(unknown.sum())
+        unknown_participation_player_games = int(D.loc[unknown, ["game_id", "aid"]].drop_duplicates().shape[0])
+        D = D[~unknown].copy()
         D["actual"] = [r[s] for r, s in zip(D[["pts", "reb", "ast"]].to_dict("records"), D.stat)]
         if D.actual.isna().any():
             raise ValueError("Missing played-player outcome: cannot settle as under")
@@ -193,6 +208,9 @@ def assemble(prices_dir, dirs, with_outcomes):
     meta["matched_player_games"] = len(matched_player_games)
     meta["name_match_rate"] = len(matched_player_games) / max(len(priced_player_games), 1)
     meta["ids_named_by_sgo_fallback"] = n_sgo
+    meta["excluded_low_appearance_lines"] = excluded_low_pa
+    meta["unknown_participation_lines"] = unknown_participation_lines
+    meta["unknown_participation_player_games"] = unknown_participation_player_games
     return P, L, D, meta
 
 
@@ -236,7 +254,11 @@ def _gate(ok, assessable):
 def _evaluate(X, col):
     """Gates G1-G3 for one model column on the primary rows X (same rows for every model)."""
     r = {}
-    Xm = X.assign(model_over=X[col]).dropna(subset=["model_over"]).reset_index(drop=True)
+    probabilities = pd.to_numeric(X[col], errors="coerce")
+    values = probabilities.to_numpy(dtype=float, na_value=np.nan)
+    if not np.isfinite(values).all() or (values < 0).any() or (values > 1).any():
+        raise ValueError("Missing/invalid model probabilities: paired scoring cannot change rows by model")
+    Xm = X.assign(model_over=probabilities).reset_index(drop=True)
     r["n"] = int(len(Xm))
     r["info_pooled"] = PT.info_test(Xm)
     r["info_by_window"] = {int(w): PT.info_test(Xm[Xm.window == w].reset_index(drop=True)) if (Xm.window == w).sum() > 0
@@ -262,6 +284,9 @@ def _evaluate(X, col):
 
 def score(args):
     """Amendment 2 gates for the frozen model (primary, v2) and challenger c (secondary, Amendment 6), on the same rows."""
+    import nba_props_challenger_c as CC
+    if not os.path.isfile(CC.OUT):
+        raise ValueError("Registered challenger file missing; stop before prices or outcomes are opened")
     P, L, D, meta = assemble(args.prices, [d for d in (args.w1, args.w2) if d], with_outcomes=True)
     if meta["name_match_rate"] < 0.95:
         raise ValueError("Mechanics failed: fewer than 95% of priced player-games matched")
@@ -277,6 +302,9 @@ def score(args):
             r["gates"], r["challenger_c"] = empty, {"gates": empty}
             res["stats"][s] = r
             continue
+        challenger = pd.to_numeric(X.model_over_c, errors="coerce").to_numpy(dtype=float, na_value=np.nan)
+        if not np.isfinite(challenger).all() or (challenger < 0).any() or (challenger > 1).any():
+            raise ValueError("Challenger unavailable on frozen-model primary rows; cannot score different cohorts")
         r.update(_evaluate(X, "model_over_v2"))
         r["challenger_c"] = _evaluate(X, "model_over_c")
         r["reported_v3_info"] = PT.info_test(X.assign(model_over=X.model_over_v3).dropna(subset=["model_over"]).reset_index(drop=True))

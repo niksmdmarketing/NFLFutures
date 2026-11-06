@@ -19,6 +19,8 @@ import nba_props_price_test as PT   # noqa: E402
 
 BOOKS = ("draftkings", "fanduel")
 STAT_SGO = {"points": "pts", "rebounds": "reb", "assists": "ast"}
+OP_IDENTITY = ["player_key", "fixture_id", "start_time", "home", "away", "bookmaker", "market_name", "handicap", "has_close_quote"]
+SGO_IDENTITY = ["event_id", "start_time", "home", "away", "player_id", "player_name", "stat", "bookmaker", "line"]
 TIP_TOL = pd.Timedelta(minutes=15)
 MIN_PAIRS, MIN_GAMES, AGREE = 2, 2, 0.8
 
@@ -32,10 +34,13 @@ def oddspapi_lines(O):
     """id, fixture, book, stat -> set of lines quoted with a closing quote (no price values kept)."""
     O = O[O.bookmaker.isin(BOOKS)].copy()
     O["stat"] = O.market_name.map(PT.stat_of)
-    O = O[O.stat.isin(PT.PRIMARY_STATS) & O.close_price.notna()]
+    if "has_close_quote" not in O:
+        raise ValueError("Identity quote-presence metadata is missing; numeric prices will not be inspected")
+    present = O.has_close_quote.map(lambda value: str(value).lower() in ("true", "1"))
+    O = O[O.stat.isin(PT.PRIMARY_STATS) & present]
     O["line"] = pd.to_numeric(O.handicap, errors="coerce")
     O = O.dropna(subset=["line"])
-    return O.groupby(["player_key", "fixture_id", "bookmaker", "stat"]).line.apply(lambda s: set(s.round(1))).to_dict()
+    return O.groupby(["player_key", "fixture_id", "bookmaker", "stat"]).line.apply(lambda s: set(s)).to_dict()
 
 
 def pair_games(O, S):
@@ -49,13 +54,15 @@ def pair_games(O, S):
         c = fs[(fs.k == k) & ((fs.t - t).abs() <= TIP_TOL)]
         if len(c) == 1:
             out[f] = c.event_id.iloc[0]
-    return out
+    counts = Counter(out.values())
+    # Duplicate OddsPapi fixture IDs must not turn one SGO game into two games.
+    return {fixture: event for fixture, event in out.items() if counts[event] == 1}
 
 
 def match(O, S, named):
     lines = oddspapi_lines(O)
     games = pair_games(O, S)
-    S = S[S.bookmaker.isin(BOOKS) & S.stat.isin(STAT_SGO)].assign(stat=lambda x: x.stat.map(STAT_SGO), line=lambda x: pd.to_numeric(x.line).round(1))
+    S = S[S.bookmaker.isin(BOOKS) & S.stat.isin(STAT_SGO)].assign(stat=lambda x: x.stat.map(STAT_SGO), line=lambda x: pd.to_numeric(x.line, errors="coerce"))
     sg = defaultdict(list)
     for e, pid, nm, b, s, ln in S[["event_id", "player_id", "player_name", "bookmaker", "stat", "line"]].itertuples(index=False):
         sg[(e, b, s, ln)].append((pid, nm))
@@ -70,9 +77,9 @@ def match(O, S, named):
         votes = Counter()
         names = {}
         for (b, s), ls in bs.items():
-            cands = {p for ln in ls for p in sg.get((e, b, s, ln), [])}
-            for pid, nm in cands:
-                votes[pid] += 1
+            cands = {pid: nm for ln in ls for pid, nm in sg.get((e, b, s, ln), [])}
+            for pid, nm in cands.items():
+                votes[pid] += 1  # Exactly one vote per player ID and bookmaker/stat pair.
                 names[pid] = nm
         if not votes:
             continue
@@ -89,24 +96,38 @@ def match(O, S, named):
 
 
 def run(odir, sdir):
-    O = pd.concat([pd.read_csv(p) for p in glob.glob(os.path.join(odir, "props", "*.csv.gz")) if os.path.getsize(p) > 60], ignore_index=True)
-    S = pd.concat([pd.read_csv(p) for p in glob.glob(os.path.join(sdir, "*.csv.gz")) if os.path.getsize(p) > 60], ignore_index=True)
+    paths = [p for p in glob.glob(os.path.join(odir, "props", "*.csv.gz")) if os.path.getsize(p) > 60]
+    for path in paths:
+        header = pd.read_csv(path, nrows=0)
+        if not set(OP_IDENTITY) <= set(header.columns):
+            raise ValueError("Identity-only metadata export required, including has_close_quote; no price values will be loaded")
+    O = pd.concat([pd.read_csv(p, usecols=OP_IDENTITY, dtype={"player_key": str, "fixture_id": str})
+                   for p in paths], ignore_index=True)
+    S = pd.concat([pd.read_csv(p, usecols=SGO_IDENTITY, dtype={"player_id": str, "event_id": str})
+                   for p in glob.glob(os.path.join(sdir, "*.csv.gz")) if os.path.getsize(p) > 60], ignore_index=True)
     npath = os.path.join(odir, "player_names.json")
-    named = set(json.load(open(npath))) if os.path.exists(npath) else set()
+    live = {}
+    if os.path.exists(npath):
+        with open(npath, encoding="utf-8") as f:
+            live = json.load(f)
+    named = {str(k) for k, value in live.items()
+             if isinstance(value.get("name") if isinstance(value, dict) else value, str)
+             and (value.get("name") if isinstance(value, dict) else value).strip()}
     out = match(O, S, named)
-    json.dump(out, open(os.path.join(odir, "player_names_sgo.json"), "w"), indent=1, sort_keys=True)
+    with open(os.path.join(odir, "player_names_sgo.json"), "w", encoding="utf-8") as f:
+        json.dump(out, f, indent=1, sort_keys=True)
     ids = set(O.player_key.astype(str)) - named
-    print(json.dumps({"ids_total": int(O.player_key.nunique()), "named_live": len(named), "unnamed_before": len(ids), "named_by_sgo": len(out),
-                      "still_unnamed": len(ids - set(out))}))
+    print(json.dumps({"ids_total": int(O.player_key.nunique()), "named_live": len(named), "unnamed_before": len(ids),
+                      "named_by_sgo": len(out), "still_unnamed": len(ids - set(out))}))
 
 
 def selftest():
     O = pd.DataFrame([dict(fixture_id="f1", start_time="2026-02-01T00:00:00Z", home="Boston Celtics", away="Miami Heat", bookmaker=b, market_name=m,
-                           handicap=h, player_key=k, close_price=1.9)
+                           handicap=h, player_key=k, has_close_quote=True)
                       for b in BOOKS for k, (hp, hr) in {"11": (20.5, 6.5), "12": (12.5, 3.5)}.items()
                       for m, h in (("Over Under Player Points (incl. overtime)", hp), ("Over Under Player Rebounds (incl. overtime)", hr))]
                      + [dict(fixture_id="f2", start_time="2026-02-03T00:30:00Z", home="Miami Heat", away="Boston Celtics", bookmaker=b, market_name=m,
-                             handicap=h, player_key="11", close_price=1.9)
+                             handicap=h, player_key="11", has_close_quote=True)
                         for b in BOOKS for m, h in (("Over Under Player Points (incl. overtime)", 21.5), ("Over Under Player Rebounds (incl. overtime)", 5.5))])
     S = pd.DataFrame([dict(event_id="e1", start_time="2026-02-01T00:05:00Z", home="Boston Celtics", away="Miami Heat", player_id=p, player_name=n,
                            stat=s, bookmaker=b, line=l) for b in BOOKS
