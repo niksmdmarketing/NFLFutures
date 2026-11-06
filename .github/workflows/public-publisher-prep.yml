@@ -1,0 +1,113 @@
+name: Protected publisher public preparation
+'on':
+  schedule:
+  - cron: 27 20 * * *
+  workflow_dispatch:
+    inputs:
+      mode:
+        type: choice
+        options:
+        - preflight
+        - prepare
+        default: preflight
+permissions:
+  contents: read
+concurrency:
+  group: protected-publisher-public-prep
+  cancel-in-progress: false
+jobs:
+  prepare:
+    if: github.repository == 'niksmdmarketing/NFLFutures' && github.ref == 'refs/heads/main' && (inputs.mode == 'preflight' || vars.PUBLISHER_PREP_PUBLIC_ENABLED
+      == 'true')
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: archive
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        repository: niksmdmarketing/nflfutures-private-data
+        ref: main
+        token: ${{ secrets.ODDSPAPI_PRIVATE_ARCHIVE_TOKEN }}
+        path: archive
+    - name: Record private source revision
+      run: |
+        echo "PRIVATE_SOURCE_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+    - name: Check private archive access without collection or writes
+      if: inputs.mode == 'preflight'
+      run: |
+        set -eu
+        git push --dry-run origin HEAD:"$(git branch --show-current)" > "$RUNNER_TEMP/private-access.log" 2>&1 || { echo 'Private write-access check failed.'; exit 1; }
+        echo 'Private archive access check passed; no collection or data writes performed.'
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.13'
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+    - name: Install packages (tests, winner-trends pages, college models)
+      if: inputs.mode != 'preflight'
+      run: |
+        set -eu
+        cat > "$RUNNER_TEMP/private-step-4.sh" <<'__PRIVATE_WORKFLOW_STEP__'
+        pip install numpy pandas scipy scikit-learn
+        __PRIVATE_WORKFLOW_STEP__
+        if ! bash -e -o pipefail "$RUNNER_TEMP/private-step-4.sh" > "$RUNNER_TEMP/private-step-4.log" 2>&1; then
+          echo "Private operation failed; raw details are suppressed."
+          exit 1
+        fi
+      shell: bash
+    - name: Merge open data collected by the public repo (college basketball results, Polymarket CFB prices)
+      if: inputs.mode != 'preflight'
+      run: |
+        set -eu
+        cat > "$RUNNER_TEMP/private-step-5.sh" <<'__PRIVATE_WORKFLOW_STEP__'
+        git clone -q --depth 1 --branch open-data https://github.com/niksmdmarketing/NFLFutures.git ../open-data 2>/dev/null && python pipeline/open_data_merge.py ../open-data || echo "open-data branch not available yet; using the copies in this repo"
+        # 27 Oct 2026: the merge above replaces this season's schedule with the partial sportsdataverse file, so re-apply the direct ESPN
+        # schedule (refreshed for the last 3 and next 8 days) and add any finished games the open results do not have yet.
+        python pipeline/espn_mbb_schedule.py --recent || true
+        python research/cbb_schedule_meta.py --espn-only || true
+        python research/cbb_data.py --espn-fill || true
+        __PRIVATE_WORKFLOW_STEP__
+        if ! bash -e -o pipefail "$RUNNER_TEMP/private-step-5.sh" > "$RUNNER_TEMP/private-step-5.log" 2>&1; then
+          echo "Private operation failed; raw details are suppressed."
+          exit 1
+        fi
+      shell: bash
+    - name: Check publishing safeguards
+      if: inputs.mode != 'preflight'
+      run: |
+        set -eu
+        cat > "$RUNNER_TEMP/private-step-6.sh" <<'__PRIVATE_WORKFLOW_STEP__'
+        python -m unittest discover -s tests -v
+        node --test tests/football.test.cjs
+        __PRIVATE_WORKFLOW_STEP__
+        if ! bash -e -o pipefail "$RUNNER_TEMP/private-step-6.sh" > "$RUNNER_TEMP/private-step-6.log" 2>&1; then
+          echo "Private operation failed; raw details are suppressed."
+          exit 1
+        fi
+      shell: bash
+    - name: Save prepared inputs and exact-snapshot check attestation privately
+      if: success() && inputs.mode != 'preflight'
+      run: |
+        set -eu
+        cat > "$RUNNER_TEMP/private-step-8.sh" <<'__PRIVATE_WORKFLOW_STEP__'
+        git config user.name 'github-actions[bot]'
+        git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+        for p in collected_data/cbb collected_data/polymarket_cfb collected_data/award_markets/slugs.json forecast_archive collected_data/market_history collected_data/cbb_bet_decisions collected_data/espn_bpi collected_data/cfb_model research/nfl_kalshi_paper_bets.json; do
+          [ ! -e "$p" ] || git add -- "$p"
+        done
+        python pipeline/public_publisher_prep.py record
+        git add automation/public_publisher_prep.json
+        if ! git diff --cached --quiet; then
+          git commit -q -m 'Prepare public publisher inputs and validated snapshot'
+          git pull --rebase -q origin main
+          git push -q origin HEAD:main
+        fi
+        __PRIVATE_WORKFLOW_STEP__
+        if ! bash -e -o pipefail "$RUNNER_TEMP/private-step-8.sh" > "$RUNNER_TEMP/private-step-8.log" 2>&1; then
+          echo "Private operation failed; raw details are suppressed."
+          exit 1
+        fi
+      shell: bash
