@@ -1,0 +1,43 @@
+{
+ "n_fit": 7885,
+ "n_holdout": 4179,
+ "status_codes": {
+  "": 0,
+  "Available": 1,
+  "Doubtful": 2,
+  "Probable": 3,
+  "Questionable": 4
+ },
+ "stats": {
+  "pts": {
+   "iterations": 25,
+   "holdout_b": -2.9805825171137634,
+   "holdout_c2": -2.9730813605161748,
+   "holdout_e": -2.976065546708536,
+   "e_minus_c2": -0.002984186192361011,
+   "e_minus_c2_lower90": -0.004224987269702668,
+   "e_minus_b": 0.0045169704052274275,
+   "keep": false
+  },
+  "reb": {
+   "iterations": 25,
+   "holdout_b": -2.170692057357568,
+   "holdout_c2": -2.168342309930505,
+   "holdout_e": -2.170610908676622,
+   "e_minus_c2": -0.0022685987461172155,
+   "e_minus_c2_lower90": -0.003604950772209571,
+   "e_minus_b": 8.114868094611074e-05,
+   "keep": false
+  },
+  "ast": {
+   "iterations": 25,
+   "holdout_b": -1.7289998482708977,
+   "holdout_c2": -1.724426129397173,
+   "holdout_e": -1.725858628814456,
+   "e_minus_c2": -0.0014324994172828392,
+   "e_minus_c2_lower90": -0.0026353678164001324,
+   "e_minus_b": 0.0031412194564420055,
+   "keep": false
+  }
+ }
+}

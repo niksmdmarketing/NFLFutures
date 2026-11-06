@@ -46,4 +46,11 @@ In `_fit_ratings`, current-season game weights become CW x w_g, where w_g = 0.5^
 - Results are written to research/nba_futures_recency_results.json and an amendment section below, dated, never by editing this rule.
 
 ## Amendments
-(none yet)
+### Result note (7 Nov 2026; replays run after this rule and the code were committed; nothing above edited)
+Run: 6 arms x the script's 13 replayable seasons (2013-2026; the COVID-bubble season is skipped by the script, so "14" in gate 1 meant 13 available; the result fails under either count), 2,000 sims, seed sets A and B, scratch outputs, committed CSVs untouched. Results: research/nba_futures_recency_results.json.
+- **Verdict: FAIL** (sets A and B agree). H = 90 days: primary gain +0.00011 mean log loss (A +0.00006, B +0.00015), one-sided 90% lower bound -0.00061, better in 4 of 13 seasons (gate 1 fails).
+- By market (average): title -0.0010, finals +0.00003, division +0.0003, seed 1 +0.0007, make-playoffs +0.0005; title is worse (gate 2 fails; gate 3 holds, none worse than -0.002).
+- By quarter: first +0.0002, second -0.0005 (gate 4 fails), third +0.0005, fourth +0.0004.
+- Title calibration slope (seed A): 1.374 baseline vs 1.343 with recency; others within 0.01.
+- Sensitivity only: H = 45 days -0.0004 (4 seasons better); H = 180 days +0.0003 (6 seasons better). Neither could pass.
+- **Decision:** NBA futures keep equal in-season weights. No shadow. Recency is within noise of zero in both directions, consistent with the NFL, AFL and NBL recency tests.
