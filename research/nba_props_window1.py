@@ -20,7 +20,8 @@ def cutoffs():
     s = pd.read_csv(os.path.join(ROOT, "data", "nba", "nba_schedule_2026.csv"), low_memory=False)
     s = s[pd.to_numeric(s.season_type, errors="coerce") == 2]
     tip = pd.to_datetime(s.game_date_time if "game_date_time" in s else s.date, utc=True, errors="coerce")
-    tip = tip[(tip >= "2026-01-01") & (tip < "2026-05-01")].dropna()
+    lo, hi = os.environ.get("NBA_W1_FROM", "2026-01-01"), os.environ.get("NBA_W1_TO", "2026-05-01")   # Amendment 6 development replays
+    tip = tip[(tip >= lo) & (tip < hi)].dropna()
     return sorted({(t - pd.Timedelta(minutes=60)) for t in tip})
 
 

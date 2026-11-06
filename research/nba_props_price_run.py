@@ -78,7 +78,9 @@ def forecasts(dirs):
     for gid, (cut, gen, r) in best.items():
         for pl in r["players"]:
             row = dict(game_id=gid, cutoff=cut, generated=gen, aid=int(pl["aid"]), name=pl.get("name"), team=pl.get("team"),
-                       p_appear=pl.get("p_appear"))
+                       p_appear=pl.get("p_appear"),
+                       em=float((np.arange(1, len(pl["minutes_v2"]) + 1) * np.asarray(pl["minutes_v2"], float)).sum() / max(sum(pl["minutes_v2"]), 1e-12))
+                       if pl.get("minutes_v2") else np.nan)
             for v, m in DIST.items():
                 for s, k in m.items():
                     row[f"{s}_{v}"] = pl.get(k)
@@ -156,9 +158,17 @@ def assemble(prices_dir, dirs, with_outcomes):
     if matched_lines.duplicated(["game_id", "aid", "stat"]).any():
         raise ValueError("Duplicate player/game/stat after identity resolution; reconcile aliases before scoring")
     D = matched_lines.merge(F, on=["game_id", "aid"], how="inner", validate="many_to_one")
+    # Amendment 7: stored pmfs are unconditional (mass 1 - p_appear at zero); books void non-appearances, so the model's over
+    # probability is taken from the appearing-conditional pmf. Challenger c (Amendment 6) recalibrates that conditional pmf.
+    import nba_props_challenger_c as CC
+    cmaps = json.load(open(CC.OUT))["maps"] if os.path.exists(CC.OUT) else None
+    recs = D.to_dict("records")
     for v in DIST:
-        D[f"model_over_{v}"] = [PT.p_over(row[f"{s}_{v}"], ln) if isinstance(row[f"{s}_{v}"], list) else np.nan
-                                for row, s, ln in zip(D.to_dict("records"), D.stat, D.line)]
+        D[f"model_over_{v}"] = [PT.p_over(CC.conditional(row[f"{s}_{v}"], row["p_appear"]), ln) if isinstance(row[f"{s}_{v}"], list) else np.nan
+                                for row, s, ln in zip(recs, D.stat, D.line)]
+    if cmaps is not None:
+        D["model_over_c"] = [PT.p_over(CC.calibrated_conditional(CC.conditional(row[f"{s}_v2"], row["p_appear"]), row["em"], s, cmaps), ln)
+                             if isinstance(row[f"{s}_v2"], list) else np.nan for row, s, ln in zip(recs, D.stat, D.line)]
     tip = D.fixture_id.map(P.drop_duplicates("fixture_id").set_index("fixture_id").start_time)
     D["date"] = pd.to_datetime(tip, utc=True).dt.tz_convert("America/New_York").dt.date.astype(str)
     if with_outcomes:
@@ -217,47 +227,58 @@ def _gate(ok, assessable):
     return "pass" if assessable and ok else "insufficient" if not assessable else "fail"
 
 
+def _evaluate(X, col):
+    """Gates G1-G3 for one model column on the primary rows X (same rows for every model)."""
+    r = {}
+    Xm = X.assign(model_over=X[col]).dropna(subset=["model_over"]).reset_index(drop=True)
+    r["n"] = int(len(Xm))
+    r["info_pooled"] = PT.info_test(Xm)
+    r["info_by_window"] = {int(w): PT.info_test(Xm[Xm.window == w].reset_index(drop=True)) if (Xm.window == w).sum() > 0
+                           else {"n": int((Xm.window == w).sum()), "assessable": False} for w in (1, 2)}
+    r["blend_w1_on_w2"] = _blend_w1_on_w2(Xm)
+    for thr in (0.03, 0.05, 0.10):
+        B = PT.bets(Xm, thr)
+        r[f"bets_{int(thr * 100)}"] = {"pooled": PT.clv_summary(B), "by_window": {int(w): PT.clv_summary(B[B.window == w]) for w in (1, 2)}}
+    ip, iw = r["info_pooled"], r["info_by_window"]
+    g1_ass = ip["assessable"] and all(v.get("assessable") for v in iw.values())
+    g1 = _gate(g1_ass and ip["lb90"] > 0 and all(v["model_coef"] > 0 for v in iw.values()), g1_ass)
+    b5 = r["bets_5"]["pooled"]
+    g2_ass = b5.get("n", 0) >= 200 and b5.get("dates", 0) >= 20
+    g2 = _gate(g2_ass and b5.get("clv_lb90", -1) > 0, g2_ass)
+    bw = r["bets_5"]["by_window"]
+    g3_ass = all(v.get("n", 0) >= 50 for v in bw.values())
+    g3 = _gate(g3_ass and all(v.get("clv_mean", -1) > 0 for v in bw.values()), g3_ass)
+    gates = {"G1": g1, "G2": g2, "G3": g3}
+    gates["result"] = "pass" if all(v == "pass" for v in gates.values()) else "fail" if "fail" in gates.values() else "insufficient"
+    r["gates"] = gates
+    return r
+
+
 def score(args):
-    """Amendment 2 gates. Each gate is pass, fail or insufficient; a stat passes only if all three pass."""
+    """Amendment 2 gates for the frozen model (primary, v2) and challenger c (secondary, Amendment 6), on the same rows."""
     P, L, D, meta = assemble(args.prices, [d for d in (args.w1, args.w2) if d], with_outcomes=True)
     if meta["name_match_rate"] < 0.95:
         raise ValueError("Mechanics failed: fewer than 95% of priced player-games matched")
+    if "model_over_c" not in D:
+        raise ValueError("Challenger c is registered (Amendment 6) but model/nba_props_challenger_c.json is missing")
     res = {"meta": meta, "stats": {}}
+    empty = {"G1": "insufficient", "G2": "insufficient", "G3": "insufficient", "result": "insufficient"}
     for s in PT.PRIMARY_STATS:
         A = D[D.stat == s].dropna(subset=["model_over_v2", "market_over"]).reset_index(drop=True)
         X = A[A.primary].reset_index(drop=True)
         r = {"n_priced_lines_all": int(len(A)), "n_primary": int(len(X)), "n_one_book_only": int((~A.primary).sum())}
         if X.empty:
-            r["gates"] = {"G1": "insufficient", "G2": "insufficient", "G3": "insufficient", "result": "insufficient"}
+            r["gates"], r["challenger_c"] = empty, {"gates": empty}
             res["stats"][s] = r
             continue
-        Xm = X.assign(model_over=X.model_over_v2)
-        r["info_pooled"] = PT.info_test(Xm)
-        r["info_by_window"] = {int(w): PT.info_test(Xm[Xm.window == w].reset_index(drop=True)) if (Xm.window == w).sum() > 0
-                               else {"n": int((Xm.window == w).sum()), "assessable": False} for w in (1, 2)}
-        r["blend_w1_on_w2"] = _blend_w1_on_w2(Xm)
-        for thr in (0.03, 0.05, 0.10):
-            B = PT.bets(Xm, thr)
-            r[f"bets_{int(thr * 100)}"] = {"pooled": PT.clv_summary(B),
-                                           "by_window": {int(w): PT.clv_summary(B[B.window == w]) for w in (1, 2)}}
-        ip, iw = r["info_pooled"], r["info_by_window"]
-        g1_ass = ip["assessable"] and all(v.get("assessable") for v in iw.values())
-        g1 = _gate(g1_ass and ip["lb90"] > 0 and all(v["model_coef"] > 0 for v in iw.values()), g1_ass)
-        b5 = r["bets_5"]["pooled"]
-        g2_ass = b5.get("n", 0) >= 200 and b5.get("dates", 0) >= 20
-        g2 = _gate(g2_ass and b5.get("clv_lb90", -1) > 0, g2_ass)
-        bw = r["bets_5"]["by_window"]
-        g3_ass = all(v.get("n", 0) >= 50 for v in bw.values())
-        g3 = _gate(g3_ass and all(v.get("clv_mean", -1) > 0 for v in bw.values()), g3_ass)
-        gates = {"G1": g1, "G2": g2, "G3": g3}
-        gates["result"] = "pass" if all(v == "pass" for v in gates.values()) else "fail" if "fail" in gates.values() else "insufficient"
-        r["gates"] = gates
+        r.update(_evaluate(X, "model_over_v2"))
+        r["challenger_c"] = _evaluate(X, "model_over_c")
         r["reported_v3_info"] = PT.info_test(X.assign(model_over=X.model_over_v3).dropna(subset=["model_over"]).reset_index(drop=True))
         pin = A.dropna(subset=["pinnacle_over"]).assign(market_over=lambda x: x.pinnacle_over, model_over=lambda x: x.model_over_v2)
         r["pinnacle_only_info"] = PT.info_test(pin.reset_index(drop=True)) if len(pin) >= 50 else None
         res["stats"][s] = r
     json.dump(res, open(args.out or os.path.join(HERE, "nba_props_price_results.json"), "w"), indent=1, default=str)
-    print(json.dumps({s: v.get("gates", v) for s, v in res["stats"].items()}, indent=1))
+    print(json.dumps({s: {"b": v.get("gates"), "c": v.get("challenger_c", {}).get("gates")} for s, v in res["stats"].items()}, indent=1))
 
 
 if __name__ == "__main__":
