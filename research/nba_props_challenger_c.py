@@ -49,20 +49,30 @@ def conditional(unc, pa):
 def load(dirs, end=DEV_END):
     """Player rows from replay archives, games tipping before `end`, one record per game (the latest cutoff at or before tip-60)."""
     import nba_props_price_run as R
-    rows = []
+    s = pd.read_csv(os.path.join(ROOT, "data", "nba", "nba_schedule_2026.csv"), low_memory=False)
+    tips = dict(zip(pd.to_numeric(s.id, errors="coerce"), pd.to_datetime(s.game_date_time if "game_date_time" in s else s.date, utc=True,
+                                                                         errors="coerce")))
+    best = {}
     for d in dirs:
         for p in glob.glob(os.path.join(d, "**", "*.json.gz"), recursive=True):
-            r = json.load(gzip.open(p))
-            cut = pd.Timestamp(r["cutoff_utc"])
-            tip = cut + pd.Timedelta(minutes=60)
-            if tip >= end or not r.get("players"):
+            if "_60_" not in os.path.basename(p):
                 continue
+            r = json.load(gzip.open(p))
+            gid, cut = int(r["game_id"]), pd.Timestamp(r["cutoff_utc"])
+            tip = tips.get(gid)
+            if tip is None or pd.isna(tip) or tip >= end or cut > tip - pd.Timedelta(minutes=60) or not r.get("players"):
+                continue
+            if gid not in best or cut > best[gid][0]:      # the latest cutoff at or before tip - 60 minutes
+                best[gid] = (cut, tip, r)
+    rows = []
+    for gid, (cut, tip, r) in best.items():
+        if True:
             for pl in r["players"]:
                 q = np.asarray(pl["minutes_v2"], float)
                 em = float((np.arange(1, len(q) + 1) * q).sum() / max(q.sum(), 1e-12))
                 rows.append(dict(game_id=int(r["game_id"]), aid=int(pl["aid"]), tip=tip, pa=float(pl["p_appear"]), em=em,
                                  **{s: pl.get(f) for s, f in FIELD.items()}))
-    F = pd.DataFrame(rows).drop_duplicates(["game_id", "aid"], keep="last")
+    F = pd.DataFrame(rows)
     O = R.outcomes(seasons=(2026,))
     D = F.merge(O[["game_id", "aid", "minutes", "pts", "reb", "ast"]].rename(columns={"pts": "y_pts", "reb": "y_reb", "ast": "y_ast"}),
                 on=["game_id", "aid"], how="inner")
