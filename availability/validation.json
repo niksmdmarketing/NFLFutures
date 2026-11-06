@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-11-06T00:21:20+00:00",
+ "checked_utc": "2026-11-06T06:59:37+00:00",
  "leagues": {
   "nfl": {
-   "records": 1505,
+   "records": 1500,
    "by_layer": {
     "official": 1431,
-    "reported": 74
+    "reported": 69
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -53,16 +53,16 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "74/74"
+   "reported_matched_to_official_list": "69/69"
   },
   "nba": {
-   "records": 271,
+   "records": 278,
    "by_layer": {
-    "official": 213,
-    "reported": 58
+    "official": 222,
+    "reported": 56
    },
    "unknown_team": 0,
-   "no_player": 3,
+   "no_player": 14,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -80,7 +80,6 @@
     "LAC",
     "LAL",
     "MEM",
-    "MIA",
     "MIL",
     "MIN",
     "NO",
@@ -97,14 +96,6 @@
     "WSH"
    ],
    "conflicts": [
-    {
-     "player": "Keshon Gilbert",
-     "official": [
-      "out"
-     ],
-     "other": "expected to play",
-     "source": "ESPN injury note"
-    },
     {
      "player": "Tarik Biberovic",
      "official": [
@@ -156,21 +147,23 @@
     }
    ],
    "stale_projection_dates": 0,
-   "teams_missing_official": [],
+   "teams_missing_official": [
+    "MIA"
+   ],
    "season_state": {
     "state": "in_season",
     "why": "33 regular-season/playoff and 0 other games 2026-10-30..2026-11-16"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "57/58"
+   "reported_matched_to_official_list": "56/56"
   },
   "nhl": {
-   "records": 1542,
+   "records": 1531,
    "by_layer": {
-    "official": 147,
-    "reported": 57,
-    "projected": 1338
+    "official": 149,
+    "reported": 60,
+    "projected": 1322
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -192,7 +185,6 @@
     "MIN",
     "MTL",
     "NJD",
-    "NSH",
     "NYI",
     "NYR",
     "OTT",
@@ -211,19 +203,21 @@
    ],
    "conflicts": [],
    "stale_projection_dates": 0,
-   "teams_missing_official": [],
+   "teams_missing_official": [
+    "NSH"
+   ],
    "season_state": {
     "state": "in_season",
     "why": "35 regular-season/playoff and 0 other games 2026-10-30..2026-11-16"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "57/57"
+   "reported_matched_to_official_list": "60/60"
   },
   "nbl": {
-   "records": 25,
+   "records": 26,
    "by_layer": {
-    "official": 25
+    "official": 26
    },
    "unknown_team": 0,
    "no_player": 0,
