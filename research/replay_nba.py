@@ -26,7 +26,8 @@ import nba_title_backtest as T  # noqa: E402
 _DECAY = float(os.environ.get("BT_DECAY", "0.2"))
 _CW = float(os.environ.get("BT_CW", "8"))   # live setting since 13 Oct 2026 (was 4)
 _orig_fit = N._fit_ratings
-N._fit_ratings = lambda boxes, end_year: _orig_fit(boxes, end_year, decay=_DECAY, current_weight=_CW)
+_RH = float(os.environ.get("BT_RECENCY_DAYS", "0"))   # NBA_FUTURES_RECENCY_RULE.md: within-season half-life in days (0 = off, live)
+N._fit_ratings = lambda boxes, end_year: _orig_fit(boxes, end_year, decay=_DECAY, current_weight=_CW, recency_days=_RH)
 N.TAU_FADE = float(os.environ.get("BT_TAUFADE", "0"))
 N.TAU_FADE_START = float(os.environ.get("BT_TAUFADE_START", "0"))
 N.PO_SCALE = float(os.environ.get("BT_PO_SCALE", "1"))

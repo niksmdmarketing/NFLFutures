@@ -550,7 +550,7 @@ def _regular_boxes(boxes: pd.DataFrame) -> pd.DataFrame:
 
 
 def _fit_ratings(boxes: pd.DataFrame, end_year: int, decay: float = 0.2, ridge: float = 24.0,
-                 current_weight: float = 8.0) -> tuple[pd.DataFrame, dict]:
+                 current_weight: float = 8.0, recency_days: float = 0.0) -> tuple[pd.DataFrame, dict]:
     # current_weight 4 -> 8 (13 Oct 2026): 14-season weekly replay, every market better, 9 of 14 seasons, mean log loss
     # -0.0018 (90% -0.0011 to +0.0046); walk-forward choice picked 8 every year from 2015. TypeSafe 75% (confidence 0.62).
     d = _regular_boxes(boxes)
@@ -567,6 +567,15 @@ def _fit_ratings(boxes: pd.DataFrame, end_year: int, decay: float = 0.2, ridge: 
     # preseason mode (both chosen on the point-in-time backtest).
     weights = np.power(decay, np.maximum(0, (end_year - 1) - train.season.to_numpy()))
     weights = np.where(train.season.to_numpy() == end_year, current_weight, weights)
+    if recency_days > 0:
+        # research/NBA_FUTURES_RECENCY_RULE.md: within-season recency, mean current-season weight kept at current_weight; 0 = off (live)
+        cur = (train.season.to_numpy() == end_year)
+        if cur.any():
+            when = pd.to_datetime(train.game_date).to_numpy()
+            age = (when.max() - when).astype("timedelta64[h]").astype(float) / 24.0
+            w = np.power(0.5, age / recency_days)
+            w = w * (cur.sum() / w[cur].sum())
+            weights = np.where(cur, current_weight * w, weights)
     design = np.column_stack([np.ones(n, dtype=np.float32), x]).astype(float)
     root_w = np.sqrt(weights)[:, None]
     weighted_x = design * root_w
@@ -1032,7 +1041,7 @@ def _simulate(schedule: pd.DataFrame, ratings: pd.DataFrame, n_sims: int, avail:
 
     counts = {t: {"div": 0, "top6": 0, "playin": 0, "playoff": 0, "seed1": 0, "r2": 0, "cf": 0, "conf": 0, "title": 0,
                   "wins": np.zeros(83, dtype=np.int64)} for t in TEAMS}
-    rng = np.random.default_rng(20261009)
+    rng = np.random.default_rng(int(os.environ.get("BT_SEED") or 20261009))   # BT_SEED: research replays only; default = live seed
     played_each = float(actual_wins.sum()) * 2 / len(TEAMS)
     tau_now = TEAM_TAU * (1 + (TAU_PRE - 1) * max(0.0, 1 - played_each / TAU_PRE_GAMES)) * (1 - TAU_FADE * min(max(played_each - TAU_FADE_START, 0.0) / (82 - TAU_FADE_START), 1.0))
 
