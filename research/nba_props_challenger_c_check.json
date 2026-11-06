@@ -1,0 +1,161 @@
+{
+ "n_fit": 7885,
+ "n_holdout": 4179,
+ "fit_games": 372,
+ "holdout_games": 196,
+ "stats": {
+  "pts": {
+   "holdout_logscore_b": -2.9805825171137634,
+   "holdout_logscore_c": -3.017668976713015,
+   "keep": false,
+   "calib_b": {
+    "0-15": {
+     "n": 710,
+     "p_zero": 0.2513,
+     "actual_zero": 0.369,
+     "p_over_median": 0.4557,
+     "actual_over_median": 0.3901
+    },
+    "15-25": {
+     "n": 1513,
+     "p_zero": 0.0566,
+     "actual_zero": 0.1097,
+     "p_over_median": 0.4625,
+     "actual_over_median": 0.4065
+    },
+    "25-99": {
+     "n": 1956,
+     "p_zero": 0.0058,
+     "actual_zero": 0.0138,
+     "p_over_median": 0.4707,
+     "actual_over_median": 0.4591
+    }
+   },
+   "calib_c": {
+    "0-15": {
+     "n": 710,
+     "p_zero": 0.3045,
+     "actual_zero": 0.369,
+     "p_over_median": 0.4277,
+     "actual_over_median": 0.3986
+    },
+    "15-25": {
+     "n": 1513,
+     "p_zero": 0.0893,
+     "actual_zero": 0.1097,
+     "p_over_median": 0.4454,
+     "actual_over_median": 0.4283
+    },
+    "25-99": {
+     "n": 1956,
+     "p_zero": 0.0061,
+     "actual_zero": 0.0138,
+     "p_over_median": 0.4498,
+     "actual_over_median": 0.4294
+    }
+   }
+  },
+  "reb": {
+   "holdout_logscore_b": -2.170692057357568,
+   "holdout_logscore_c": -2.199629980323437,
+   "keep": false,
+   "calib_b": {
+    "0-15": {
+     "n": 710,
+     "p_zero": 0.277,
+     "actual_zero": 0.3141,
+     "p_over_median": 0.4008,
+     "actual_over_median": 0.3592
+    },
+    "15-25": {
+     "n": 1513,
+     "p_zero": 0.0988,
+     "actual_zero": 0.1262,
+     "p_over_median": 0.4106,
+     "actual_over_median": 0.3959
+    },
+    "25-99": {
+     "n": 1956,
+     "p_zero": 0.0271,
+     "actual_zero": 0.021,
+     "p_over_median": 0.4246,
+     "actual_over_median": 0.433
+    }
+   },
+   "calib_c": {
+    "0-15": {
+     "n": 710,
+     "p_zero": 0.2954,
+     "actual_zero": 0.3141,
+     "p_over_median": 0.4227,
+     "actual_over_median": 0.4042
+    },
+    "15-25": {
+     "n": 1513,
+     "p_zero": 0.1047,
+     "actual_zero": 0.1262,
+     "p_over_median": 0.3938,
+     "actual_over_median": 0.4197
+    },
+    "25-99": {
+     "n": 1956,
+     "p_zero": 0.0228,
+     "actual_zero": 0.021,
+     "p_over_median": 0.4194,
+     "actual_over_median": 0.433
+    }
+   }
+  },
+  "ast": {
+   "holdout_logscore_b": -1.7289998482708977,
+   "holdout_logscore_c": -1.750185880699168,
+   "keep": false,
+   "calib_b": {
+    "0-15": {
+     "n": 710,
+     "p_zero": 0.5028,
+     "actual_zero": 0.5606,
+     "p_over_median": 0.3473,
+     "actual_over_median": 0.2859
+    },
+    "15-25": {
+     "n": 1513,
+     "p_zero": 0.2524,
+     "actual_zero": 0.2888,
+     "p_over_median": 0.3682,
+     "actual_over_median": 0.3166
+    },
+    "25-99": {
+     "n": 1956,
+     "p_zero": 0.0871,
+     "actual_zero": 0.0798,
+     "p_over_median": 0.4009,
+     "actual_over_median": 0.4024
+    }
+   },
+   "calib_c": {
+    "0-15": {
+     "n": 710,
+     "p_zero": 0.5532,
+     "actual_zero": 0.5606,
+     "p_over_median": 0.3268,
+     "actual_over_median": 0.3225
+    },
+    "15-25": {
+     "n": 1513,
+     "p_zero": 0.2663,
+     "actual_zero": 0.2888,
+     "p_over_median": 0.3722,
+     "actual_over_median": 0.3463
+    },
+    "25-99": {
+     "n": 1956,
+     "p_zero": 0.0762,
+     "actual_zero": 0.0798,
+     "p_over_median": 0.3841,
+     "actual_over_median": 0.3839
+    }
+   }
+  }
+ }
+}
