@@ -95,8 +95,8 @@ jobs:
         cat > "$RUNNER_TEMP/private-step-8.sh" <<'__PRIVATE_WORKFLOW_STEP__'
         git config user.name 'github-actions[bot]'
         git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-        for p in collected_data/cbb collected_data/polymarket_cfb collected_data/award_markets/slugs.json forecast_archive collected_data/market_history collected_data/cbb_bet_decisions collected_data/espn_bpi collected_data/cfb_model research/nfl_kalshi_paper_bets.json; do
-          [ ! -e "$p" ] || git add -- "$p"
+        for p in collected_data/cbb collected_data/polymarket_cfb; do
+          [ ! -e "$p" ] || git add -f -- "$p"
         done
         python pipeline/public_publisher_prep.py record
         git add automation/public_publisher_prep.json
@@ -107,7 +107,15 @@ jobs:
         fi
         __PRIVATE_WORKFLOW_STEP__
         if ! bash -e -o pipefail "$RUNNER_TEMP/private-step-8.sh" > "$RUNNER_TEMP/private-step-8.log" 2>&1; then
-          echo "Private operation failed; raw details are suppressed."
+          if grep -q 'Unstaged source or input changes' "$RUNNER_TEMP/private-step-8.log"; then
+            echo 'Preparation cannot be attested because tracked source/input changes remain unstaged.'
+          elif grep -q 'ignored by one of your' "$RUNNER_TEMP/private-step-8.log"; then
+            echo 'Private archive staging was rejected by an ignore rule.'
+          elif grep -q 'non-fast-forward\|cannot rebase\|CONFLICT' "$RUNNER_TEMP/private-step-8.log"; then
+            echo 'A concurrent private-repository update prevented saving this preparation.'
+          else
+            echo 'Private preparation save failed; raw details are suppressed.'
+          fi
           exit 1
         fi
       shell: bash
