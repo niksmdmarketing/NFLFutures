@@ -73,15 +73,30 @@ class TimingTests(unittest.TestCase):
         self.assertEqual(out['distribution'],'conditional_on_appearance')
 
 class JoinTests(unittest.TestCase):
-    def test_compact_quote_matches_identity_but_boolean_handicap_cannot_be_line(self):
+    # Amendment 2 (6 Nov 2026): the line is the market's frozen numeric handicap; names come only from the key-to-name map.
+    def _setup(self):
         f=row(game_id='g',horizon_minutes=60,source_tier='receipt_proved',primary_eligible=True,cutoff_utc='2026-09-10T19:00Z',pmf=[.2,.3,.5])
         game={'game_id':'g','home':'DET','away':'LA','kickoff_utc':'2026-09-10T20:00Z'}
-        quote={'home':'Detroit Lions','away':'Los Angeles Rams','start_time':game['kickoff_utc'],'market_id':'1','player_name':f['name'],'handicap':True}
-        mapping={'1':{'scope':'full_game','stat':'receptions','line_field':'handicap'}}
-        result=list(M.join([quote],[f],[game],mapping,60))[0]
-        self.assertEqual(result['status'],'matched');self.assertEqual(result['line_status'],'missing_or_unsupported_numeric_line')
-        quote['handicap']=1.5;result=list(M.join([quote],[f],[game],mapping,60))[0]
-        self.assertEqual(result['line_status'],'numeric_half_point');self.assertEqual(result['p_over'],.5)
-        self.assertEqual(list(M.join([quote],[f],[game],{},60))[0]['status'],'unsupported_or_unverified_market')
+        last,first=f['name'].split(' ',1)[1],f['name'].split(' ',1)[0]
+        names={'777':{'name':f'{last}, {first}'}}
+        quote={'home':'Detroit Lions','away':'Los Angeles Rams','start_time':game['kickoff_utc'],'market_id':'1','player_key':'777',
+               'handicap':'1.5','gsis_id':'00-WRONG','espn_id':'999'}
+        mapping={'1':{'scope':'full_game','stat':'receptions','line_field':'handicap','handicap':1.5}}
+        return f,game,names,quote,mapping
+    def test_numeric_handicap_and_last_first_name_resolve(self):
+        f,game,names,quote,mapping=self._setup()
+        result=list(M.join([quote],[f],[game],mapping,60,names))[0]
+        self.assertEqual(result['status'],'matched');self.assertEqual(result['line_status'],'numeric_half_point')
+        self.assertEqual(result['line'],1.5);self.assertEqual(result['p_over'],.5);self.assertEqual(result['gsis_id'],f['gsis_id'])
+    def test_boolean_or_mismatched_handicap_rejected(self):
+        f,game,names,quote,mapping=self._setup()
+        for bad in (True,'True','2.5','',None,'1.0'):
+            q=dict(quote,handicap=bad)
+            self.assertEqual(list(M.join([q],[f],[game],mapping,60,names))[0]['status'],'market_handicap_mismatch',bad)
+    def test_missing_name_and_unverified_market(self):
+        f,game,names,quote,mapping=self._setup()
+        self.assertEqual(list(M.join([dict(quote,player_key='888')],[f],[game],mapping,60,names))[0]['status'],'missing_player_name_map')
+        self.assertEqual(list(M.join([quote],[f],[game],mapping,60,{}))[0]['status'],'missing_player_name_map')
+        self.assertEqual(list(M.join([quote],[f],[game],{},60,names))[0]['status'],'unsupported_or_unverified_market')
 
 if __name__=='__main__':unittest.main()
