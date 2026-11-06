@@ -61,7 +61,7 @@ Two clarifications from implementation review; no priced test has run:
 - In G1, replace the fixed L2 fit with **unpenalized maximum-likelihood logistic regression**, retaining the intercept, the two train-standardized logits, clipping and complete refit in every bootstrap draw. Require a full-rank design, each predictor's standard deviation above `1e-8` and standardized design condition number below `1e8`. Separation, non-convergence or failed rank checks are failed draws, subject to the existing 5% rule. Exact/near duplicate model/market predictors make the information test insufficient; do not use a penalized solver to manufacture identifiable positive coefficients by splitting the market signal between duplicates. No penalty fallback or solver tuning. G1/G2/G3 thresholds, model forecasts and cohorts are unchanged.
 - References to an 'executable' price mean the recorded bookmaker reference quote for this historical test. Fills, account access and limits have not been proved. Neither positive quote-based CLV nor the subsequent paper test is a record of executable profit.
 
-## Dated amendment 2 — 6 November 2026: verified OddsPapi schema and market crosswalk
+## Dated amendment 2 â€” 6 November 2026: verified OddsPapi schema and market crosswalk
 
 Frozen from discovery metadata alone, before this review opened any props CSV or results. This amendment supersedes the earlier statement that market handicap is merely a flag: each verified market ID fixes its numeric line, and `handicap` is that numeric line. Require the row's handicap to equal the frozen value; reject mismatches. Do not infer lines from prices or outcomes.
 
