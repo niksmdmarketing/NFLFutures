@@ -61,7 +61,12 @@ def forecasts(dirs):
             cut = pd.Timestamp(r["cutoff_utc"])
             replay = isinstance(r.get("report"), dict) and r["report"].get("replay") is True
             # replay records (window 1) are dated by their replay time (run_utc); live records by when the forecast finished
-            gen = pd.Timestamp(r["run_utc"] if replay else (r.get("forecast_finished_utc") or r.get("generated_utc") or r["cutoff_utc"]))
+            stamp = r.get("run_utc") if replay else r.get("forecast_finished_utc")
+            if not stamp:
+                raise ValueError(f"Forecast has no provable generation/completion timestamp: {p}")
+            gen = pd.Timestamp(stamp)
+            if gen.tzinfo is None or cut.tzinfo is None:
+                raise ValueError(f"Forecast timestamps need explicit timezone: {p}")
             if gen > cut:
                 continue
             recs.append((int(r["game_id"]), cut, gen, p, r))
@@ -126,8 +131,10 @@ def assemble(prices_dir, dirs, with_outcomes):
     raw = pd.concat([pd.read_csv(p) for p in glob.glob(os.path.join(prices_dir, "*.csv.gz"))], ignore_index=True)
     # historical updates carry OddsPapi player ids only; names come from the live-odds name map (collector "names" mode)
     nmap_path = os.path.join(os.path.dirname(os.path.abspath(prices_dir)), "player_names.json")
-    nmap = {k: v["name"] for k, v in json.load(open(nmap_path)).items()} if os.path.exists(nmap_path) else {}
-    raw["player_name"] = raw.player_name.where(raw.player_name.notna(), raw.player_key.astype(str).map(nmap))
+    nmap = {str(k): v["name"] if isinstance(v, dict) else v
+            for k, v in json.load(open(nmap_path)).items()} if os.path.exists(nmap_path) else {}
+    supplied = raw.get("player_name", pd.Series(index=raw.index, dtype="object"))
+    raw["player_name"] = supplied.where(supplied.notna(), raw.player_key.astype(str).map(nmap))
     raw["player_name"] = raw.player_name.fillna("id:" + raw.player_key.astype(str))
     P = PT.prices_long(raw)
     F = forecasts(dirs)
@@ -145,20 +152,31 @@ def assemble(prices_dir, dirs, with_outcomes):
         for k, v in got.items():
             aid[(gid, k)] = v
     L["aid"] = [aid.get((g, n)) for g, n in zip(L.game_id, L.player_name)]
-    D = L.dropna(subset=["game_id", "aid"]).astype({"game_id": int, "aid": int}).merge(F, on=["game_id", "aid"], how="inner")
+    matched_lines = L.dropna(subset=["game_id", "aid"]).astype({"game_id": int, "aid": int})
+    if matched_lines.duplicated(["game_id", "aid", "stat"]).any():
+        raise ValueError("Duplicate player/game/stat after identity resolution; reconcile aliases before scoring")
+    D = matched_lines.merge(F, on=["game_id", "aid"], how="inner", validate="many_to_one")
     for v in DIST:
         D[f"model_over_{v}"] = [PT.p_over(row[f"{s}_{v}"], ln) if isinstance(row[f"{s}_{v}"], list) else np.nan
                                 for row, s, ln in zip(D.to_dict("records"), D.stat, D.line)]
-    D["date"] = D.cutoff.dt.tz_convert("America/New_York").dt.date.astype(str)
+    tip = D.fixture_id.map(P.drop_duplicates("fixture_id").set_index("fixture_id").start_time)
+    D["date"] = pd.to_datetime(tip, utc=True).dt.tz_convert("America/New_York").dt.date.astype(str)
     if with_outcomes:
         O = outcomes()
-        D = D.merge(O[["game_id", "aid", "minutes", "pts", "reb", "ast"]], on=["game_id", "aid"], how="left")
+        D = D.merge(O[["game_id", "aid", "minutes", "pts", "reb", "ast"]], on=["game_id", "aid"], how="left", validate="many_to_one")
         D = D[D.minutes > 0].copy()
         D["actual"] = [r[s] for r, s in zip(D[["pts", "reb", "ast"]].to_dict("records"), D.stat)]
+        if D.actual.isna().any():
+            raise ValueError("Missing played-player outcome: cannot settle as under")
         D["over"] = (D.actual > D.line).astype(int)
     meta = dict(price_rows=len(raw), fixtures=int(P.fixture_id.nunique()), fixtures_mapped=len(fmap), main_lines=len(L),
                 lines_with_game=int(L.game_id.notna().sum()), names_unmatched=int(unmatched), joined=len(D),
                 lines_without_player_name=int(L.player_name.astype(str).str.startswith("id:").sum()) if len(L) else 0)
+    priced_player_games = L[["fixture_id", "player_name"]].drop_duplicates()
+    matched_player_games = L.dropna(subset=["game_id", "aid"])[["fixture_id", "player_name"]].drop_duplicates()
+    meta["priced_player_games"] = len(priced_player_games)
+    meta["matched_player_games"] = len(matched_player_games)
+    meta["name_match_rate"] = len(matched_player_games) / max(len(priced_player_games), 1)
     return P, L, D, meta
 
 
@@ -168,7 +186,7 @@ def mechanics(args):
     for (b, s), g in P[P.stat.isin(PT.PRIMARY_STATS)].groupby(["bookmaker", "stat"]):
         cov[f"{b}/{s}"] = dict(rows=len(g), with_entry_price=float(g.t60_price.notna().mean()), with_close=float(g.close_price.notna().mean()))
     late = P[pd.to_datetime(P.t60_time, utc=True, errors="coerce") > pd.to_datetime(P.start_time, utc=True) - pd.Timedelta(minutes=60)]
-    match_rate = 1 - meta["names_unmatched"] / max(L.dropna(subset=["game_id"]).player_name.nunique() if len(L) else 1, 1)
+    match_rate = meta["name_match_rate"]
     lq = dict(lines=len(L), primary_two_books=float(L.primary.mean()) if len(L) else None,
               close_complete=float(L.close_complete.mean()) if len(L) else None,
               books_per_line=L.books.value_counts().sort_index().to_dict() if len(L) else {})
@@ -202,18 +220,20 @@ def _gate(ok, assessable):
 def score(args):
     """Amendment 2 gates. Each gate is pass, fail or insufficient; a stat passes only if all three pass."""
     P, L, D, meta = assemble(args.prices, [d for d in (args.w1, args.w2) if d], with_outcomes=True)
+    if meta["name_match_rate"] < 0.95:
+        raise ValueError("Mechanics failed: fewer than 95% of priced player-games matched")
     res = {"meta": meta, "stats": {}}
     for s in PT.PRIMARY_STATS:
         A = D[D.stat == s].dropna(subset=["model_over_v2", "market_over"]).reset_index(drop=True)
         X = A[A.primary].reset_index(drop=True)
         r = {"n_priced_lines_all": int(len(A)), "n_primary": int(len(X)), "n_one_book_only": int((~A.primary).sum())}
-        if len(X) < 50:
+        if X.empty:
             r["gates"] = {"G1": "insufficient", "G2": "insufficient", "G3": "insufficient", "result": "insufficient"}
             res["stats"][s] = r
             continue
         Xm = X.assign(model_over=X.model_over_v2)
         r["info_pooled"] = PT.info_test(Xm)
-        r["info_by_window"] = {int(w): PT.info_test(Xm[Xm.window == w].reset_index(drop=True)) if (Xm.window == w).sum() >= 50
+        r["info_by_window"] = {int(w): PT.info_test(Xm[Xm.window == w].reset_index(drop=True)) if (Xm.window == w).sum() > 0
                                else {"n": int((Xm.window == w).sum()), "assessable": False} for w in (1, 2)}
         r["blend_w1_on_w2"] = _blend_w1_on_w2(Xm)
         for thr in (0.03, 0.05, 0.10):

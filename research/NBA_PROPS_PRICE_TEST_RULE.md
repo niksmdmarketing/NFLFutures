@@ -74,3 +74,14 @@ TypeSafe (6 Nov): record all nine of GPT's proposals now, before prices (87%). W
 9. **Narrow conclusion.** Positive CLV is about prices relative to the reference close, not proof of settled profit; profit is reported, not gated. All three stats are reported, including failures; the three stats are separate hypotheses. A pass qualifies a stat for a forward paper test only.
 
 Code: research/nba_props_price_test.py (self-test now also checks a market copy is insufficient, stale-quote and late-quote exclusion, and incomplete closes); research/nba_props_price_run.py (gates as above; mechanics adds two-book and complete-close shares).
+
+## Amendment 3 (6 Nov 2026, from GPT's independent code review, before any price row or result was read; nothing above edited)
+GPT reviewed commit f9bb002 (research/NBA_AMENDMENT_2_REVIEW_2026-11-06.md). TypeSafe (6 Nov): accept all seven findings (93%). Code changes are GPT's patch as proposed, plus two extra self-test cases.
+1. **Both sides inside the window.** An entry pair counts only if both sides were last changed at or before the cutoff, and the older side within 24 hours of it; a close pair only if both sides were last changed strictly before tip-off, and the older side within 60 minutes of it.
+2. **Forecast timing evidence is required.** Replays use run_utc, live forecasts forecast_finished_utc, both with a time zone; a record without one stops the run. (Checked before applying: all 364 live records and all replay records have them.)
+3. **The 95% name-match requirement is enforced.** Rate = matched priced player-games / all priced player-games (fixture, name). Below 95%, scoring stops and the matcher is fixed first (mechanics, no outcomes).
+4. **One row per ESPN player, game and stat.** If two bookmaker name strings resolve to the same player in a game, scoring stops until the aliases are reconciled; nothing is dropped after seeing prices.
+5. **A played player with a missing stat stops the run**; it is never settled as an under.
+6. **Bootstrap clusters are game dates**: the scheduled tip-off's date in US Eastern time (not the cutoff's).
+7. **G1 has no row minimum per window**; its fit checks (rank, spread, condition, convergence, failed draws) decide whether it is assessable. G2 and G3 counts are unchanged.
+8. **Settlement (Amendment 2 item 8) is not fully verified** (research/BOOKMAKER_SETTLEMENT_REVIEW_2026-11-06.md). Supported: all three books void a player who does not take the court, a brief appearance gives action, and full-game totals include overtime. Open: the jurisdiction and historical versions of each book's rules for the feed; DraftKings' early-exit rule (an eligible pre-halftime over on a player injured out of the second half can be voided while the under stands); missing or zero ESPN minutes do not by themselves prove a non-appearance. Scoring waits for a dated amendment that settles these from sources, without looking at outcomes or profits.

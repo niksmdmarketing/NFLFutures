@@ -80,7 +80,10 @@ def _two_way(d, col):
 
 def _times(d, col):
     w = d.assign(_t=pd.to_datetime(d[col], utc=True, errors="coerce")).pivot_table(index=KEY, columns="side", values="_t", aggfunc="last")
-    return w.min(axis=1).rename(col) if {"over", "under"} <= set(w.columns) else pd.Series(dtype="datetime64[ns, UTC]", name=col)
+    w = w.reindex(columns=["over", "under"])
+    complete = w[["over", "under"]].notna().all(axis=1)
+    return pd.DataFrame({col: pd.to_datetime(w.min(axis=1).where(complete), utc=True),
+                         col + "_latest": pd.to_datetime(w.max(axis=1).where(complete), utc=True)})
 
 
 def main_lines(P, col="t60_price", horizon=pd.Timedelta(minutes=60)):
@@ -95,7 +98,7 @@ def main_lines(P, col="t60_price", horizon=pd.Timedelta(minutes=60)):
                                                                                     if pd.Timestamp(s).tzinfo else pd.Timestamp(s, tz="UTC"))
     W = W.join(_times(P, tcol)).reset_index()
     W["cutoff"] = W.fixture_id.map(start) - horizon
-    W = W[(W[tcol] <= W.cutoff) & (W.cutoff - W[tcol] <= ENTRY_MAX_AGE)].copy()
+    W = W[(W[tcol + "_latest"] <= W.cutoff) & (W.cutoff - W[tcol] <= ENTRY_MAX_AGE)].copy()
     if W.empty:
         return W
     W["gap"] = (1 / W.over - 1 / W.under).abs()
@@ -110,7 +113,7 @@ def main_lines(P, col="t60_price", horizon=pd.Timedelta(minutes=60)):
     W = W[W.line == W.main_line].drop(columns=["gap", "main_line"])
     C = _two_way(P, "close_price").join(_times(P, "close_time")).reset_index()
     C["tip"] = C.fixture_id.map(start)
-    C = C[(C.close_time < C.tip) & (C.tip - C.close_time <= CLOSE_MAX_AGE)]
+    C = C[(C.close_time_latest < C.tip) & (C.tip - C.close_time <= CLOSE_MAX_AGE)]
     C = C.rename(columns={"over": "close_over", "under": "close_under"})[KEY + ["close_over", "close_under"]]
     return W.merge(C, on=KEY, how="left")
 
@@ -283,6 +286,12 @@ def selftest():
     # a quote changed after the cutoff is not an entry quote
     toy3 = pd.DataFrame([row("draftkings", 24.5, s, 1.91, t60="2026-01-09T23:30:00Z") for s in ("Over", "Under")])
     assert len(main_lines(prices_long(toy3))) == 0
+    # one side changed after the cutoff (over 20:00, under 23:30) is not a valid entry pair (GPT review finding 1)
+    toy4 = pd.DataFrame([row("draftkings", 24.5, "Over", 1.91), row("draftkings", 24.5, "Under", 1.91, t60="2026-01-09T23:30:00Z")])
+    assert len(main_lines(prices_long(toy4))) == 0
+    # one closing side stamped after tip-off leaves the close missing
+    toy5 = pd.DataFrame([row("draftkings", 24.5, "Over", 1.91), row("draftkings", 24.5, "Under", 1.91, close="2026-01-10T00:05:00Z")])
+    assert main_lines(prices_long(toy5)).close_over.isna().all()
     assert abs(p_over([0.1] * 10, 4.5) - 0.5) < 1e-9
     assert stat_of("Over Under Player Points + Assists + Rebounds (incl. overtime)") == "pra"
     assert stat_of("Over Under Player Assists + Rebounds (incl. overtime)") == "ra" and stat_of("Over Under Player Points First Quarter") is None
