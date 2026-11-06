@@ -1,0 +1,1478 @@
+{
+ "date": "2026-11-06",
+ "markets": [
+  {
+   "sport": "nfl",
+   "market": "Super Bowl",
+   "event": "Pro Football: 2027 Champion",
+   "rows": [
+    {
+     "team": "JAX",
+     "model": 0.1564,
+     "market": 0.0845
+    },
+    {
+     "team": "CHI",
+     "model": 0.061,
+     "market": 0.1199
+    },
+    {
+     "team": "BUF",
+     "model": 0.0914,
+     "market": 0.1327
+    },
+    {
+     "team": "KC",
+     "model": 0.0518,
+     "market": 0.087
+    },
+    {
+     "team": "SF",
+     "model": 0.1672,
+     "market": 0.1391
+    },
+    {
+     "team": "PIT",
+     "model": 0.0461,
+     "market": 0.0192
+    },
+    {
+     "team": "NE",
+     "model": 0.0559,
+     "market": 0.031
+    },
+    {
+     "team": "SEA",
+     "model": 0.0248,
+     "market": 0.0442
+    },
+    {
+     "team": "DEN",
+     "model": 0.0256,
+     "market": 0.0447
+    },
+    {
+     "team": "DET",
+     "model": 0.0534,
+     "market": 0.0359
+    },
+    {
+     "team": "LA",
+     "model": 0.0577,
+     "market": 0.0737
+    },
+    {
+     "team": "TB",
+     "model": 0.0191,
+     "market": 0.0088
+    },
+    {
+     "team": "CIN",
+     "model": 0.056,
+     "market": 0.0467
+    },
+    {
+     "team": "GB",
+     "model": 0.018,
+     "market": 0.0231
+    },
+    {
+     "team": "MIN",
+     "model": 0.0356,
+     "market": 0.031
+    },
+    {
+     "team": "ATL",
+     "model": 0.0117,
+     "market": 0.0074
+    },
+    {
+     "team": "HOU",
+     "model": 0.0113,
+     "market": 0.0147
+    },
+    {
+     "team": "BAL",
+     "model": 0.003,
+     "market": 0.0064
+    },
+    {
+     "team": "LV",
+     "model": 0.0046,
+     "market": 0.0025
+    },
+    {
+     "team": "NO",
+     "model": 0.0046,
+     "market": 0.0025
+    },
+    {
+     "team": "ARI",
+     "model": 0.0018,
+     "market": 0.0005
+    },
+    {
+     "team": "IND",
+     "model": 0.0018,
+     "market": 0.0005
+    },
+    {
+     "team": "PHI",
+     "model": 0.0003,
+     "market": 0.0015
+    },
+    {
+     "team": "NYJ",
+     "model": 0.0015,
+     "market": 0.0005
+    },
+    {
+     "team": "CAR",
+     "model": 0.007,
+     "market": 0.0079
+    },
+    {
+     "team": "NYG",
+     "model": 0.0117,
+     "market": 0.0123
+    },
+    {
+     "team": "DAL",
+     "model": 0.0122,
+     "market": 0.0128
+    },
+    {
+     "team": "CLE",
+     "model": 0.0031,
+     "market": 0.0034
+    },
+    {
+     "team": "TEN",
+     "model": 0.0002,
+     "market": 0.0005
+    },
+    {
+     "team": "LAC",
+     "model": 0.0002,
+     "market": 0.0005
+    },
+    {
+     "team": "MIA",
+     "model": 0.0007,
+     "market": 0.0005
+    },
+    {
+     "team": "WAS",
+     "model": 0.0043,
+     "market": 0.0044
+    }
+   ]
+  },
+  {
+   "sport": "nfl",
+   "market": "AFC champion",
+   "event": "Pro Football: 2027 AFC Champion",
+   "rows": [
+    {
+     "team": "JAX",
+     "model": 0.2725,
+     "market": 0.17
+    },
+    {
+     "team": "BUF",
+     "model": 0.1786,
+     "market": 0.2524
+    },
+    {
+     "team": "KC",
+     "model": 0.1048,
+     "market": 0.1597
+    },
+    {
+     "team": "PIT",
+     "model": 0.0979,
+     "market": 0.0479
+    },
+    {
+     "team": "DEN",
+     "model": 0.062,
+     "market": 0.0979
+    },
+    {
+     "team": "NE",
+     "model": 0.1104,
+     "market": 0.0773
+    },
+    {
+     "team": "BAL",
+     "model": 0.007,
+     "market": 0.0191
+    },
+    {
+     "team": "CIN",
+     "model": 0.1144,
+     "market": 0.1036
+    },
+    {
+     "team": "HOU",
+     "model": 0.0234,
+     "market": 0.0325
+    },
+    {
+     "team": "CLE",
+     "model": 0.0086,
+     "market": 0.0149
+    },
+    {
+     "team": "IND",
+     "model": 0.0038,
+     "market": 0.0077
+    },
+    {
+     "team": "LAC",
+     "model": 0.0004,
+     "market": 0.0036
+    },
+    {
+     "team": "LV",
+     "model": 0.0108,
+     "market": 0.0077
+    },
+    {
+     "team": "NYJ",
+     "model": 0.0034,
+     "market": 0.0015
+    },
+    {
+     "team": "TEN",
+     "model": 0.0003,
+     "market": 0.0015
+    },
+    {
+     "team": "MIA",
+     "model": 0.0016,
+     "market": 0.0026
+    }
+   ]
+  },
+  {
+   "sport": "nfl",
+   "market": "NFC champion",
+   "event": "Pro Football: 2027 NFC Champion",
+   "rows": [
+    {
+     "team": "SEA",
+     "model": 0.0497,
+     "market": 0.1074
+    },
+    {
+     "team": "SF",
+     "model": 0.3114,
+     "market": 0.2558
+    },
+    {
+     "team": "CHI",
+     "model": 0.1241,
+     "market": 0.179
+    },
+    {
+     "team": "DET",
+     "model": 0.111,
+     "market": 0.0844
+    },
+    {
+     "team": "TB",
+     "model": 0.0426,
+     "market": 0.0174
+    },
+    {
+     "team": "ATL",
+     "model": 0.0278,
+     "market": 0.0123
+    },
+    {
+     "team": "LA",
+     "model": 0.1029,
+     "market": 0.1176
+    },
+    {
+     "team": "DAL",
+     "model": 0.0272,
+     "market": 0.0373
+    },
+    {
+     "team": "PHI",
+     "model": 0.0009,
+     "market": 0.0066
+    },
+    {
+     "team": "GB",
+     "model": 0.0404,
+     "market": 0.046
+    },
+    {
+     "team": "WAS",
+     "model": 0.0101,
+     "market": 0.0051
+    },
+    {
+     "team": "NYG",
+     "model": 0.0324,
+     "market": 0.0276
+    },
+    {
+     "team": "NO",
+     "model": 0.0118,
+     "market": 0.0072
+    },
+    {
+     "team": "MIN",
+     "model": 0.0843,
+     "market": 0.0798
+    },
+    {
+     "team": "CAR",
+     "model": 0.019,
+     "market": 0.0148
+    },
+    {
+     "team": "ARI",
+     "model": 0.0043,
+     "market": 0.0015
+    }
+   ]
+  },
+  {
+   "sport": "nfl",
+   "market": "Division",
+   "event": "Pro Football: AFC East Champion",
+   "rows": [
+    {
+     "team": "NE",
+     "model": 0.3528,
+     "market": 0.2199
+    },
+    {
+     "team": "BUF",
+     "model": 0.6371,
+     "market": 0.7646
+    },
+    {
+     "team": "NYJ",
+     "model": 0.0061,
+     "market": 0.0105
+    },
+    {
+     "team": "MIA",
+     "model": 0.004,
+     "market": 0.005
+    }
+   ]
+  },
+  {
+   "sport": "nfl",
+   "market": "Division",
+   "event": "Pro Football: AFC North Champion",
+   "rows": [
+    {
+     "team": "PIT",
+     "model": 0.4405,
+     "market": 0.3226
+    },
+    {
+     "team": "CIN",
+     "model": 0.4698,
+     "market": 0.5444
+    },
+    {
+     "team": "CLE",
+     "model": 0.0622,
+     "market": 0.0927
+    },
+    {
+     "team": "BAL",
+     "model": 0.0275,
+     "market": 0.0403
+    }
+   ]
+  },
+  {
+   "sport": "nfl",
+   "market": "Division",
+   "event": "Pro Football: AFC South Champion",
+   "rows": [
+    {
+     "team": "JAX",
+     "model": 0.8995,
+     "market": 0.8602
+    },
+    {
+     "team": "HOU",
+     "model": 0.0806,
+     "market": 0.1157
+    },
+    {
+     "team": "IND",
+     "model": 0.0173,
+     "market": 0.0236
+    },
+    {
+     "team": "TEN",
+     "model": 0.0026,
+     "market": 0.0005
+    }
+   ]
+  },
+  {
+   "sport": "nfl",
+   "market": "Division",
+   "event": "Pro Football: AFC West Champion",
+   "rows": [
+    {
+     "team": "DEN",
+     "model": 0.4524,
+     "market": 0.51
+    },
+    {
+     "team": "LV",
+     "model": 0.0826,
+     "market": 0.0445
+    },
+    {
+     "team": "KC",
+     "model": 0.4645,
+     "market": 0.445
+    },
+    {
+     "team": "LAC",
+     "model": 0.0005,
+     "market": 0.0005
+    }
+   ]
+  },
+  {
+   "sport": "nfl",
+   "market": "Division",
+   "event": "Pro Football: NFC East Champion",
+   "rows": [
+    {
+     "team": "NYG",
+     "model": 0.5919,
+     "market": 0.5378
+    },
+    {
+     "team": "WAS",
+     "model": 0.137,
+     "market": 0.1563
+    },
+    {
+     "team": "DAL",
+     "model": 0.2502,
+     "market": 0.2689
+    },
+    {
+     "team": "PHI",
+     "model": 0.0209,
+     "market": 0.037
+    }
+   ]
+  },
+  {
+   "sport": "nfl",
+   "market": "Division",
+   "event": "Pro Football: NFC North Champion",
+   "rows": [
+    {
+     "team": "CHI",
+     "model": 0.2965,
+     "market": 0.37
+    },
+    {
+     "team": "MIN",
+     "model": 0.3159,
+     "market": 0.255
+    },
+    {
+     "team": "DET",
+     "model": 0.31,
+     "market": 0.29
+    },
+    {
+     "team": "GB",
+     "model": 0.0777,
+     "market": 0.085
+    }
+   ]
+  },
+  {
+   "sport": "nfl",
+   "market": "Division",
+   "event": "Pro Football: NFC South Champion",
+   "rows": [
+    {
+     "team": "CAR",
+     "model": 0.2455,
+     "market": 0.3123
+    },
+    {
+     "team": "TB",
+     "model": 0.3704,
+     "market": 0.3226
+    },
+    {
+     "team": "NO",
+     "model": 0.1435,
+     "market": 0.1331
+    },
+    {
+     "team": "ATL",
+     "model": 0.2406,
+     "market": 0.232
+    }
+   ]
+  },
+  {
+   "sport": "nfl",
+   "market": "Division",
+   "event": "Pro Football: NFC West Champion",
+   "rows": [
+    {
+     "team": "SF",
+     "model": 0.8506,
+     "market": 0.7751
+    },
+    {
+     "team": "SEA",
+     "model": 0.063,
+     "market": 0.1266
+    },
+    {
+     "team": "LA",
+     "model": 0.0807,
+     "market": 0.0963
+    },
+    {
+     "team": "ARI",
+     "model": 0.0057,
+     "market": 0.002
+    }
+   ]
+  },
+  {
+   "sport": "nfl",
+   "market": "Make playoffs",
+   "event": "Pro Football: Team to Make Postseason",
+   "rows": [
+    {
+     "team": "SEA",
+     "model": 0.3963,
+     "market": 0.545
+    },
+    {
+     "team": "PIT",
+     "model": 0.8378,
+     "market": 0.735
+    },
+    {
+     "team": "HOU",
+     "model": 0.255,
+     "market": 0.34
+    },
+    {
+     "team": "DEN",
+     "model": 0.764,
+     "market": 0.845
+    },
+    {
+     "team": "KC",
+     "model": 0.7935,
+     "market": 0.86
+    },
+    {
+     "team": "GB",
+     "model": 0.4567,
+     "market": 0.515
+    },
+    {
+     "team": "CHI",
+     "model": 0.7918,
+     "market": 0.845
+    },
+    {
+     "team": "WAS",
+     "model": 0.1577,
+     "market": 0.205
+    },
+    {
+     "team": "TB",
+     "model": 0.407,
+     "market": 0.36
+    },
+    {
+     "team": "NE",
+     "model": 0.8145,
+     "market": 0.7695
+    },
+    {
+     "team": "MIN",
+     "model": 0.786,
+     "market": 0.745
+    },
+    {
+     "team": "NYG",
+     "model": 0.6255,
+     "market": 0.585
+    },
+    {
+     "team": "LV",
+     "model": 0.2345,
+     "market": 0.195
+    },
+    {
+     "team": "CAR",
+     "model": 0.2857,
+     "market": 0.325
+    },
+    {
+     "team": "ARI",
+     "model": 0.085,
+     "market": 0.0485
+    },
+    {
+     "team": "BUF",
+     "model": 0.9201,
+     "market": 0.955
+    },
+    {
+     "team": "PHI",
+     "model": 0.0227,
+     "market": 0.055
+    },
+    {
+     "team": "DAL",
+     "model": 0.2864,
+     "market": 0.315
+    },
+    {
+     "team": "BAL",
+     "model": 0.1529,
+     "market": 0.175
+    },
+    {
+     "team": "IND",
+     "model": 0.0566,
+     "market": 0.0365
+    },
+    {
+     "team": "LAC",
+     "model": 0.0046,
+     "market": 0.0245
+    },
+    {
+     "team": "TEN",
+     "model": 0.0043,
+     "market": 0.0235
+    },
+    {
+     "team": "LA",
+     "model": 0.5316,
+     "market": 0.55
+    },
+    {
+     "team": "DET",
+     "model": 0.7468,
+     "market": 0.765
+    },
+    {
+     "team": "JAX",
+     "model": 0.9481,
+     "market": 0.93
+    },
+    {
+     "team": "NYJ",
+     "model": 0.0467,
+     "market": 0.031
+    },
+    {
+     "team": "NO",
+     "model": 0.1636,
+     "market": 0.15
+    },
+    {
+     "team": "MIA",
+     "model": 0.0212,
+     "market": 0.0305
+    },
+    {
+     "team": "ATL",
+     "model": 0.2954,
+     "market": 0.29
+    },
+    {
+     "team": "CIN",
+     "model": 0.8429,
+     "market": 0.84
+    },
+    {
+     "team": "CLE",
+     "model": 0.3033,
+     "market": 0.302
+    },
+    {
+     "team": "SF",
+     "model": 0.9619,
+     "market": 0.9625
+    }
+   ]
+  },
+  {
+   "sport": "nba",
+   "market": "NBA title",
+   "event": "NBA: 2027 Champion",
+   "rows": [
+    {
+     "team": "PHI",
+     "model": 0.0223,
+     "market": 0.1254
+    },
+    {
+     "team": "OKC",
+     "model": 0.1953,
+     "market": 0.1297
+    },
+    {
+     "team": "DET",
+     "model": 0.099,
+     "market": 0.0437
+    },
+    {
+     "team": "MIN",
+     "model": 0.0048,
+     "market": 0.0524
+    },
+    {
+     "team": "POR",
+     "model": 0.0674,
+     "market": 0.0207
+    },
+    {
+     "team": "CLE",
+     "model": 0.0606,
+     "market": 0.0216
+    },
+    {
+     "team": "SA",
+     "model": 0.2492,
+     "market": 0.2162
+    },
+    {
+     "team": "NY",
+     "model": 0.0349,
+     "market": 0.0625
+    },
+    {
+     "team": "DEN",
+     "model": 0.0518,
+     "market": 0.0245
+    },
+    {
+     "team": "LAL",
+     "model": 0.0099,
+     "market": 0.0322
+    },
+    {
+     "team": "TOR",
+     "model": 0.012,
+     "market": 0.0341
+    },
+    {
+     "team": "HOU",
+     "model": 0.0646,
+     "market": 0.0778
+    },
+    {
+     "team": "IND",
+     "model": 0.0,
+     "market": 0.013
+    },
+    {
+     "team": "MEM",
+     "model": 0.0168,
+     "market": 0.0072
+    },
+    {
+     "team": "DAL",
+     "model": 0.0005,
+     "market": 0.0072
+    },
+    {
+     "team": "ORL",
+     "model": 0.0018,
+     "market": 0.0062
+    },
+    {
+     "team": "WSH",
+     "model": 0.0002,
+     "market": 0.0043
+    },
+    {
+     "team": "BOS",
+     "model": 0.0665,
+     "market": 0.0625
+    },
+    {
+     "team": "UTAH",
+     "model": 0.0,
+     "market": 0.0034
+    },
+    {
+     "team": "CHA",
+     "model": 0.0013,
+     "market": 0.0043
+    },
+    {
+     "team": "ATL",
+     "model": 0.0081,
+     "market": 0.0106
+    },
+    {
+     "team": "GS",
+     "model": 0.0139,
+     "market": 0.0163
+    },
+    {
+     "team": "NO",
+     "model": 0.0004,
+     "market": 0.0014
+    },
+    {
+     "team": "PHX",
+     "model": 0.0014,
+     "market": 0.0024
+    },
+    {
+     "team": "MIA",
+     "model": 0.0172,
+     "market": 0.0178
+    },
+    {
+     "team": "SAC",
+     "model": 0.0,
+     "market": 0.0005
+    },
+    {
+     "team": "BKN",
+     "model": 0.0,
+     "market": 0.0005
+    },
+    {
+     "team": "CHI",
+     "model": 0.0,
+     "market": 0.0005
+    },
+    {
+     "team": "MIL",
+     "model": 0.0,
+     "market": 0.0005
+    },
+    {
+     "team": "LAC",
+     "model": 0.0001,
+     "market": 0.0005
+    }
+   ]
+  },
+  {
+   "sport": "nba",
+   "market": "Conference",
+   "event": "NBA: 2027 Eastern Conference Champion",
+   "rows": [
+    {
+     "team": "PHI",
+     "model": 0.0827,
+     "market": 0.2532
+    },
+    {
+     "team": "DET",
+     "model": 0.2633,
+     "market": 0.096
+    },
+    {
+     "team": "CLE",
+     "model": 0.1779,
+     "market": 0.0622
+    },
+    {
+     "team": "NY",
+     "model": 0.1136,
+     "market": 0.1566
+    },
+    {
+     "team": "IND",
+     "model": 0.0007,
+     "market": 0.0424
+    },
+    {
+     "team": "TOR",
+     "model": 0.0511,
+     "market": 0.091
+    },
+    {
+     "team": "BOS",
+     "model": 0.1925,
+     "market": 0.1566
+    },
+    {
+     "team": "MIA",
+     "model": 0.0619,
+     "market": 0.0404
+    },
+    {
+     "team": "WSH",
+     "model": 0.0016,
+     "market": 0.0182
+    },
+    {
+     "team": "ORL",
+     "model": 0.0113,
+     "market": 0.0177
+    },
+    {
+     "team": "CHA",
+     "model": 0.0073,
+     "market": 0.0126
+    },
+    {
+     "team": "ATL",
+     "model": 0.0353,
+     "market": 0.0404
+    },
+    {
+     "team": "CHI",
+     "model": 0.0001,
+     "market": 0.0045
+    },
+    {
+     "team": "MIL",
+     "model": 0.0001,
+     "market": 0.004
+    },
+    {
+     "team": "BKN",
+     "model": 0.0007,
+     "market": 0.004
+    }
+   ]
+  },
+  {
+   "sport": "nba",
+   "market": "Conference",
+   "event": "NBA: 2027 Western Conference Champion",
+   "rows": [
+    {
+     "team": "MIN",
+     "model": 0.0115,
+     "market": 0.1007
+    },
+    {
+     "team": "OKC",
+     "model": 0.2724,
+     "market": 0.2061
+    },
+    {
+     "team": "POR",
+     "model": 0.1055,
+     "market": 0.0436
+    },
+    {
+     "team": "DEN",
+     "model": 0.0843,
+     "market": 0.0431
+    },
+    {
+     "team": "LAL",
+     "model": 0.0204,
+     "market": 0.0537
+    },
+    {
+     "team": "HOU",
+     "model": 0.1059,
+     "market": 0.1318
+    },
+    {
+     "team": "MEM",
+     "model": 0.0314,
+     "market": 0.0149
+    },
+    {
+     "team": "DAL",
+     "model": 0.0014,
+     "market": 0.0149
+    },
+    {
+     "team": "UTAH",
+     "model": 0.0,
+     "market": 0.0072
+    },
+    {
+     "team": "LAC",
+     "model": 0.0001,
+     "market": 0.0048
+    },
+    {
+     "team": "PHX",
+     "model": 0.0034,
+     "market": 0.0077
+    },
+    {
+     "team": "NO",
+     "model": 0.001,
+     "market": 0.0043
+    },
+    {
+     "team": "GS",
+     "model": 0.0284,
+     "market": 0.0302
+    },
+    {
+     "team": "SAC",
+     "model": 0.0,
+     "market": 0.0014
+    },
+    {
+     "team": "SA",
+     "model": 0.3343,
+     "market": 0.3356
+    }
+   ]
+  },
+  {
+   "sport": "nhl",
+   "market": "Stanley Cup",
+   "event": "NHL: 2027 Champion",
+   "rows": [
+    {
+     "team": "CAR",
+     "model": 0.257,
+     "market": 0.1075
+    },
+    {
+     "team": "TBL",
+     "model": 0.1303,
+     "market": 0.0421
+    },
+    {
+     "team": "EDM",
+     "model": 0.02,
+     "market": 0.1075
+    },
+    {
+     "team": "COL",
+     "model": 0.1711,
+     "market": 0.0888
+    },
+    {
+     "team": "FLA",
+     "model": 0.0195,
+     "market": 0.0654
+    },
+    {
+     "team": "MTL",
+     "model": 0.0083,
+     "market": 0.0453
+    },
+    {
+     "team": "NJD",
+     "model": 0.0385,
+     "market": 0.0645
+    },
+    {
+     "team": "TOR",
+     "model": 0.0027,
+     "market": 0.0285
+    },
+    {
+     "team": "BOS",
+     "model": 0.0038,
+     "market": 0.0271
+    },
+    {
+     "team": "WSH",
+     "model": 0.0217,
+     "market": 0.0421
+    },
+    {
+     "team": "MIN",
+     "model": 0.0546,
+     "market": 0.0715
+    },
+    {
+     "team": "SJS",
+     "model": 0.0007,
+     "market": 0.0136
+    },
+    {
+     "team": "DET",
+     "model": 0.0138,
+     "market": 0.0014
+    },
+    {
+     "team": "UTA",
+     "model": 0.0396,
+     "market": 0.0313
+    },
+    {
+     "team": "NYR",
+     "model": 0.002,
+     "market": 0.0098
+    },
+    {
+     "team": "ANA",
+     "model": 0.0044,
+     "market": 0.0117
+    },
+    {
+     "team": "DAL",
+     "model": 0.0585,
+     "market": 0.0514
+    },
+    {
+     "team": "VGK",
+     "model": 0.064,
+     "market": 0.0701
+    },
+    {
+     "team": "LAK",
+     "model": 0.0129,
+     "market": 0.0173
+    },
+    {
+     "team": "PIT",
+     "model": 0.0113,
+     "market": 0.0154
+    },
+    {
+     "team": "CBJ",
+     "model": 0.0059,
+     "market": 0.0098
+    },
+    {
+     "team": "NSH",
+     "model": 0.0014,
+     "market": 0.0051
+    },
+    {
+     "team": "PHI",
+     "model": 0.0014,
+     "market": 0.0051
+    },
+    {
+     "team": "CHI",
+     "model": 0.0,
+     "market": 0.0033
+    },
+    {
+     "team": "BUF",
+     "model": 0.0126,
+     "market": 0.0154
+    },
+    {
+     "team": "SEA",
+     "model": 0.0016,
+     "market": 0.0042
+    },
+    {
+     "team": "NYI",
+     "model": 0.0034,
+     "market": 0.0051
+    },
+    {
+     "team": "WPG",
+     "model": 0.0046,
+     "market": 0.0033
+    },
+    {
+     "team": "VAN",
+     "model": 0.0001,
+     "market": 0.0014
+    },
+    {
+     "team": "CGY",
+     "model": 0.001,
+     "market": 0.0014
+    },
+    {
+     "team": "STL",
+     "model": 0.0047,
+     "market": 0.0051
+    },
+    {
+     "team": "OTT",
+     "model": 0.0289,
+     "market": 0.0285
+    }
+   ]
+  },
+  {
+   "sport": "nhl",
+   "market": "Conference",
+   "event": "NHL: 2027 Eastern Conference Champion",
+   "rows": [
+    {
+     "team": "CAR",
+     "model": 0.4559,
+     "market": 0.2207
+    },
+    {
+     "team": "TBL",
+     "model": 0.2484,
+     "market": 0.1051
+    },
+    {
+     "team": "FLA",
+     "model": 0.0482,
+     "market": 0.1314
+    },
+    {
+     "team": "MTL",
+     "model": 0.0231,
+     "market": 0.082
+    },
+    {
+     "team": "WSH",
+     "model": 0.0509,
+     "market": 0.0998
+    },
+    {
+     "team": "CBJ",
+     "model": 0.0159,
+     "market": 0.0599
+    },
+    {
+     "team": "PIT",
+     "model": 0.0277,
+     "market": 0.0699
+    },
+    {
+     "team": "BOS",
+     "model": 0.0131,
+     "market": 0.0552
+    },
+    {
+     "team": "PHI",
+     "model": 0.0041,
+     "market": 0.0352
+    },
+    {
+     "team": "BUF",
+     "model": 0.0326,
+     "market": 0.0541
+    },
+    {
+     "team": "NYI",
+     "model": 0.0119,
+     "market": 0.0184
+    },
+    {
+     "team": "OTT",
+     "model": 0.0681,
+     "market": 0.0683
+    }
+   ]
+  },
+  {
+   "sport": "nhl",
+   "market": "Conference",
+   "event": "NHL: 2027 Western Conference Champion",
+   "rows": [
+    {
+     "team": "COL",
+     "model": 0.4742,
+     "market": 0.2714
+    },
+    {
+     "team": "EDM",
+     "model": 0.0826,
+     "market": 0.2436
+    },
+    {
+     "team": "UTA",
+     "model": 0.139,
+     "market": 0.0626
+    },
+    {
+     "team": "SJS",
+     "model": 0.0036,
+     "market": 0.0592
+    },
+    {
+     "team": "WPG",
+     "model": 0.0229,
+     "market": 0.0668
+    },
+    {
+     "team": "STL",
+     "model": 0.021,
+     "market": 0.0605
+    },
+    {
+     "team": "DAL",
+     "model": 0.2006,
+     "market": 0.1809
+    },
+    {
+     "team": "LAK",
+     "model": 0.0557,
+     "market": 0.0522
+    },
+    {
+     "team": "VAN",
+     "model": 0.0004,
+     "market": 0.0028
+    }
+   ]
+  },
+  {
+   "sport": "nhl",
+   "market": "Make playoffs",
+   "event": "Which teams will make the NHL Playoffs?",
+   "rows": [
+    {
+     "team": "SJS",
+     "model": 0.1035,
+     "market": 0.36
+    },
+    {
+     "team": "FLA",
+     "model": 0.5253,
+     "market": 0.755
+    },
+    {
+     "team": "TOR",
+     "model": 0.29,
+     "market": 0.445
+    },
+    {
+     "team": "SEA",
+     "model": 0.4749,
+     "market": 0.38
+    },
+    {
+     "team": "MTL",
+     "model": 0.6015,
+     "market": 0.685
+    },
+    {
+     "team": "CHI",
+     "model": 0.0135,
+     "market": 0.095
+    },
+    {
+     "team": "BUF",
+     "model": 0.3736,
+     "market": 0.445
+    },
+    {
+     "team": "NYR",
+     "model": 0.3253,
+     "market": 0.385
+    },
+    {
+     "team": "PHI",
+     "model": 0.0762,
+     "market": 0.135
+    },
+    {
+     "team": "WSH",
+     "model": 0.617,
+     "market": 0.675
+    },
+    {
+     "team": "NJD",
+     "model": 0.7097,
+     "market": 0.765
+    },
+    {
+     "team": "CBJ",
+     "model": 0.2887,
+     "market": 0.235
+    },
+    {
+     "team": "EDM",
+     "model": 0.9549,
+     "market": 0.91
+    },
+    {
+     "team": "TBL",
+     "model": 0.8889,
+     "market": 0.845
+    },
+    {
+     "team": "NYI",
+     "model": 0.3612,
+     "market": 0.325
+    },
+    {
+     "team": "STL",
+     "model": 0.4049,
+     "market": 0.37
+    },
+    {
+     "team": "COL",
+     "model": 0.9476,
+     "market": 0.9145
+    },
+    {
+     "team": "CGY",
+     "model": 0.1613,
+     "market": 0.131
+    },
+    {
+     "team": "OTT",
+     "model": 0.6646,
+     "market": 0.635
+    },
+    {
+     "team": "BOS",
+     "model": 0.7037,
+     "market": 0.675
+    },
+    {
+     "team": "DAL",
+     "model": 0.8481,
+     "market": 0.82
+    },
+    {
+     "team": "LAK",
+     "model": 0.4768,
+     "market": 0.45
+    },
+    {
+     "team": "UTA",
+     "model": 0.7583,
+     "market": 0.785
+    },
+    {
+     "team": "MIN",
+     "model": 0.9458,
+     "market": 0.925
+    },
+    {
+     "team": "WPG",
+     "model": 0.1975,
+     "market": 0.21
+    },
+    {
+     "team": "ANA",
+     "model": 0.405,
+     "market": 0.415
+    },
+    {
+     "team": "PIT",
+     "model": 0.2938,
+     "market": 0.3
+    }
+   ]
+  }
+ ]
+}
