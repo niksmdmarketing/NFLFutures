@@ -135,6 +135,11 @@ def assemble(prices_dir, dirs, with_outcomes):
     nmap_path = os.path.join(os.path.dirname(os.path.abspath(prices_dir)), "player_names.json")
     nmap = {str(k): v["name"] if isinstance(v, dict) else v
             for k, v in json.load(open(nmap_path)).items()} if os.path.exists(nmap_path) else {}
+    # Amendment 8 fallback: SportsGameOdds identity matches, only for ids the live-odds map did not name
+    sgo_path = os.path.join(os.path.dirname(nmap_path), "player_names_sgo.json")
+    sgo = {str(k): v["name"] for k, v in json.load(open(sgo_path)).items()} if os.path.exists(sgo_path) else {}
+    n_sgo = len(set(sgo) - set(nmap))
+    nmap = {**sgo, **nmap}
     supplied = raw.get("player_name", pd.Series(index=raw.index, dtype="object"))
     raw["player_name"] = supplied.where(supplied.notna(), raw.player_key.astype(str).map(nmap))
     raw["player_name"] = raw.player_name.fillna("id:" + raw.player_key.astype(str))
@@ -187,6 +192,7 @@ def assemble(prices_dir, dirs, with_outcomes):
     meta["priced_player_games"] = len(priced_player_games)
     meta["matched_player_games"] = len(matched_player_games)
     meta["name_match_rate"] = len(matched_player_games) / max(len(priced_player_games), 1)
+    meta["ids_named_by_sgo_fallback"] = n_sgo
     return P, L, D, meta
 
 
