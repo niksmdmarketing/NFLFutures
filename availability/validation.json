@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-11-07T18:50:26+00:00",
+ "checked_utc": "2026-11-07T22:48:10+00:00",
  "leagues": {
   "nfl": {
-   "records": 1648,
+   "records": 1649,
    "by_layer": {
     "official": 1545,
-    "reported": 103
+    "reported": 104
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -53,16 +53,16 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "103/103"
+   "reported_matched_to_official_list": "104/104"
   },
   "nba": {
-   "records": 235,
+   "records": 268,
    "by_layer": {
-    "official": 186,
-    "reported": 49
+    "official": 222,
+    "reported": 46
    },
    "unknown_team": 0,
-   "no_player": 17,
+   "no_player": 7,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -122,15 +122,6 @@
      "source": "ESPN injury note"
     },
     {
-     "player": "T.J. McConnell",
-     "official": [
-      "out",
-      "questionable"
-     ],
-     "other": "expected to play",
-     "source": "ESPN injury note"
-    },
-    {
      "player": "Cason Wallace",
      "official": [
       "",
@@ -164,13 +155,13 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "49/49"
+   "reported_matched_to_official_list": "46/46"
   },
   "nhl": {
-   "records": 1544,
+   "records": 1543,
    "by_layer": {
-    "official": 145,
-    "reported": 65,
+    "official": 146,
+    "reported": 63,
     "projected": 1334
    },
    "unknown_team": 0,
@@ -229,7 +220,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "65/65"
+   "reported_matched_to_official_list": "63/63"
   },
   "nbl": {
    "records": 26,
@@ -245,7 +236,6 @@
     "CNS",
     "ILL",
     "PER",
-    "SEM",
     "SYD",
     "TAS"
    ],
@@ -253,7 +243,8 @@
    "stale_projection_dates": 0,
    "teams_missing_official": [
     "MEL",
-    "NZL"
+    "NZL",
+    "SEM"
    ],
    "season_state": {
     "state": "in_season",
