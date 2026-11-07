@@ -219,3 +219,9 @@ TypeSafe (7 Nov), multiplicity: only b gates with correction across the three st
 **Checked and corrected.** The reviewer's guess that collector runs take 20 to 30 minutes is wrong: recent runs of the price collectors take 0.6 to 1.0 minutes each. The long job is the site refresh (about 20 minutes). The sparse PropLine snapshots come from GitHub's cron not firing, not from run length. Window 2 entry and close come from the OddsPapi change log, so PropLine cadence is not on the scoring path (agreed).
 
 **Implementation.** `placebo_arms` in research/nba_props_price_test.py; G2 uses `exceeds_binding`.
+
+## Amendment 17 (7 Nov 2026, second-reviewer round 4 checked; recorded before any price row or result was read; nothing above edited)
+**Conceded:** the "shopping" arm (both sides of every priced row) is the two-sided average, about (o - 2)/2, so it is normally below zero and rarely binds. It is a de-vig and price-data sanity check, reported as such.
+**Not adopted:** replacing it with a coin-per-row arm as a positive floor. The coin's expected CLV is the same average of the two sides, so it is the same number, not +s. The shopping advantage from picking the better-priced side is already inside the residual-permutation null, which takes the top placebo edge at best prices. So the binding floor is max(0, the null's 1 - 0.05/3 quantile, and the shopping/coin arms only if they come out positive). The code already works this way; no change.
+**Process:** upstream tracking set on the branch (stops the push-hook false alarms). Test footer captured at this commit: see the commit message.
+**AU price sample (owner's call, optional, not a gate):** 30 hand-typed Sportsbet/TAB props with the sharp quote alongside, for r = o_sharp/o_au - 1 (record side and stat). Reviewer's staging: mean r of 4% or more means props are not executable there; 2% or less means expand to about 150 rows split by side and stat; between means about 100 rows.
