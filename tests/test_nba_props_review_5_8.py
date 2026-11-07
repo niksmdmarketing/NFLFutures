@@ -94,8 +94,8 @@ class ScoringTests(unittest.TestCase):
         x=pd.DataFrame(dict(window=[1,2],model_over_v2=[.4,.6],model_over_c=[.45,.55]))
         info=dict(assessable=True,model_coef=1.,lb90=.1)
         def summary(b):return dict(n=len(b),dates=2,clv_lb90=.1,clv_mean=.1)
-        with patch.object(R.PT,'info_test',return_value=info),patch.object(R.PT,'bets',side_effect=lambda d,t:d),patch.object(R.PT,'clv_summary',side_effect=summary):
-            b=R._evaluate(x,'model_over_v2');c=R._evaluate(x,'model_over_c')
+        with patch.object(R.PT,'info_test',return_value=info),patch.object(R.PT,'bets',side_effect=lambda d,t:d),patch.object(R.PT,'clv_summary',side_effect=summary),patch.object(R.PT,'placebo_arms',return_value=dict(exceeds_null_p95=True)):
+            b=R._evaluate(x,'model_over_v2',True);c=R._evaluate(x,'model_over_c',True)
         self.assertEqual(b['n'],c['n']);self.assertEqual(b['gates'],c['gates'])
     def test_missing_challenger_stops_before_io(self):
         with patch.object(C,'OUT',str(BASE/'definitely_missing_model.json')),patch.object(R,'assemble',side_effect=AssertionError('data IO must not occur')):

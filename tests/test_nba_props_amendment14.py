@@ -23,10 +23,24 @@ def rows(n=600, seed=3, missing=0.0, informed=True):
 
 
 class Amendment14(unittest.TestCase):
-    def test_placebo_is_below_bets_and_below_zero(self):
-        s = PT.clv_summary(PT.bets(rows(4000), 0.05))
-        self.assertGreater(s["clv_mean"], s["anti_clv_mean"])
-        self.assertLess(s["anti_clv_mean"], 0)
+    def test_permutation_null_is_exceeded_by_informed_model_only(self):
+        inf = PT.placebo_arms(rows(3000), n_perm=200)
+        non = PT.placebo_arms(rows(3000, informed=False), n_perm=200)
+        self.assertTrue(inf["exceeds_null_p95"])
+        self.assertFalse(non["exceeds_null_p95"])
+        self.assertLess(inf["perm_null_mean"], inf["observed_clv"])
+
+    def test_arms_use_same_rows_and_shopping_is_unselected(self):
+        a = PT.placebo_arms(rows(2000), n_perm=50)
+        self.assertGreater(a["n_bets"], 0)
+        self.assertIsNotNone(a["random_side_mean"])
+        self.assertIsNotNone(a["shopping_all_rows_mean"])
+
+    def test_trigger_counts_need_no_outcome(self):
+        R = rows(3000).drop(columns=["over"])
+        c = PT.trigger_counts(R)
+        self.assertGreater(c["bets"], 0)
+        self.assertGreater(c["dates"], 0)
 
     def test_no_skill_model_does_not_beat_the_vig_floor(self):
         s = PT.clv_summary(PT.bets(rows(4000, informed=False), 0.03))
@@ -44,6 +58,18 @@ class Amendment14(unittest.TestCase):
         for k in ("bets_per_date", "date_icc", "fewer_than_40_dates", "roi_with_close"):
             self.assertIn(k, s)
         self.assertEqual(PT.BOOT, 10000)
+
+
+class Amendment15Looks(unittest.TestCase):
+    def test_look_refused_before_trigger_and_after_first_look(self):
+        sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "research"))
+        import nba_props_price_run as R
+        R._TRIG.clear()
+        self.assertFalse(R._look_allowed("pts", "b", {}))
+        R._TRIG["pts|b"] = {"reached": True}
+        self.assertTrue(R._look_allowed("pts", "b", {}))
+        self.assertFalse(R._look_allowed("pts", "b", {"pts|b": {}}))
+        R._TRIG.clear()
 
 
 if __name__ == "__main__":

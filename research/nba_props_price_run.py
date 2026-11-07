@@ -269,14 +269,23 @@ def _gate(ok, assessable):
     return "pass" if assessable and ok else "insufficient" if not assessable else "fail"
 
 
-def _evaluate(X, col):
-    """Gates G1-G3 for one model column on the primary rows X (same rows for every model)."""
+LOOKS = os.path.join(HERE, "nba_props_price_looks.json")
+TRIGGER_BETS, TRIGGER_DATES = 200, 20
+
+
+def _looks():
+    return json.load(open(LOOKS)) if os.path.isfile(LOOKS) else {}
+
+
+def _evaluate(X, col, confirmatory=False):
+    """Amendment 15. Descriptive results always (pooled and by window); gates only from window 2 and only when confirmatory."""
     r = {}
     probabilities = pd.to_numeric(X[col], errors="coerce")
     values = probabilities.to_numpy(dtype=float, na_value=np.nan)
     if not np.isfinite(values).all() or (values < 0).any() or (values > 1).any():
         raise ValueError("Missing/invalid model probabilities: paired scoring cannot change rows by model")
     Xm = X.assign(model_over=probabilities).reset_index(drop=True)
+    W2 = Xm[Xm.window == 2].reset_index(drop=True)
     r["n"] = int(len(Xm))
     r["info_pooled"] = PT.info_test(Xm)
     r["info_by_window"] = {int(w): PT.info_test(Xm[Xm.window == w].reset_index(drop=True)) if (Xm.window == w).sum() > 0
@@ -285,19 +294,52 @@ def _evaluate(X, col):
     for thr in (0.03, 0.05, 0.10):
         B = PT.bets(Xm, thr)
         r[f"bets_{int(thr * 100)}"] = {"pooled": PT.clv_summary(B), "by_window": {int(w): PT.clv_summary(B[B.window == w]) for w in (1, 2)}}
-    ip, iw = r["info_pooled"], r["info_by_window"]
-    g1_ass = ip["assessable"] and all(v.get("assessable") for v in iw.values())
-    g1 = _gate(g1_ass and ip["lb90"] > 0 and all(v["model_coef"] > 0 for v in iw.values()), g1_ass)
-    b5 = r["bets_5"]["pooled"]
-    g2_ass = b5.get("n", 0) >= 200 and b5.get("dates", 0) >= 20 and b5.get("close_coverage_ok", False)   # Amendment 14 item 2
-    g2 = _gate(g2_ass and b5.get("clv_lb90", -1) > 0, g2_ass)
-    bw = r["bets_5"]["by_window"]
-    g3_ass = all(v.get("n", 0) >= 50 for v in bw.values())
-    g3 = _gate(g3_ass and all(v.get("clv_mean", -1) > 0 for v in bw.values()), g3_ass)
+    r["control_arms"] = {int(w): PT.placebo_arms(Xm[Xm.window == w].reset_index(drop=True)) for w in (1, 2) if (Xm.window == w).any()}
+    w1 = r["bets_5"]["by_window"][1]
+    r["window1_negative_flag"] = bool(w1.get("n", 0) >= 50 and w1.get("clv_mean", 0) <= 0)   # flagged, cannot block or earn a pass
+    if not confirmatory:
+        r["gates"] = {"G1": "not_looked", "G2": "not_looked", "G3": "not_looked", "result": "descriptive_only"}
+        return r
+    i2 = r["info_by_window"][2]
+    r["anti_predictive"] = bool(i2.get("assessable") and i2.get("ub90", 1) < 0)
+    g1_ass = bool(i2.get("assessable"))
+    g1 = _gate(g1_ass and i2["lb90"] > 0, g1_ass)
+    B2 = PT.clv_summary(PT.bets(W2, 0.05))
+    r["bets_5_window2"] = B2
+    ctl = r["control_arms"].get(2, {})
+    g2_ass = B2.get("n", 0) >= 200 and B2.get("dates", 0) >= 20 and B2.get("close_coverage_ok", False)
+    g2 = _gate(g2_ass and B2.get("clv_lb90", -1) > 0 and ctl.get("exceeds_null_p95", False), g2_ass)
+    g3_ass = B2.get("n", 0) >= 50
+    g3 = _gate(g3_ass and B2.get("clv_mean", -1) > 0, g3_ass)
     gates = {"G1": g1, "G2": g2, "G3": g3}
     gates["result"] = "pass" if all(v == "pass" for v in gates.values()) else "fail" if "fail" in gates.values() else "insufficient"
     r["gates"] = gates
     return r
+
+
+_TRIG = {}
+
+
+def _look_allowed(stat, tag, looks):
+    """One gated look per stat and model, only once the trigger counts are reached (Amendment 15 item 2)."""
+    k = f"{stat}|{tag}"
+    return k not in looks and bool(_TRIG.get(k, {}).get("reached"))
+
+
+def trigger(args):
+    """Amendment 15 item 2: counts only (no outcome, no CLV). Reports whether each stat and model has reached the look."""
+    P, L, D, meta = assemble(args.prices, [d for d in (args.w1, args.w2) if d], with_outcomes=False)
+    out, looks = {}, _looks()
+    for s in PT.PRIMARY_STATS:
+        A = D[(D.stat == s) & D.primary & (D.window == 2)].dropna(subset=["market_over"])
+        for tag, col in (("b", "model_over_v2"), ("c2", "model_over_c")):
+            X = A.dropna(subset=[col]).assign(model_over=lambda x: pd.to_numeric(x[col]))
+            c = PT.trigger_counts(X.reset_index(drop=True)) if len(X) else {"bets": 0, "dates": 0}
+            c["reached"] = c["bets"] >= TRIGGER_BETS and c["dates"] >= TRIGGER_DATES
+            c["already_looked"] = f"{s}|{tag}" in looks
+            out[f"{s}|{tag}"] = c
+    print(json.dumps(out, indent=1))
+    return out
 
 
 def manifest(args):
@@ -338,7 +380,11 @@ def score(args):
         raise ValueError(f"Amendment 14 item 5: match rate below 90% in a stratum {low}; explain in an amendment before scoring")
     if "model_over_c" not in D:
         raise ValueError("Challenger c is registered (Amendment 6) but model/nba_props_challenger_c.json is missing")
-    res = {"meta": meta, "stats": {}}
+    confirm = bool(getattr(args, "confirmatory", False))
+    looks = _looks()
+    trig = trigger(args) if confirm else {}
+    _TRIG.update(trig)
+    res = {"meta": meta, "stats": {}, "mode": "confirmatory" if confirm else "descriptive (window-1 gates not applied; non-confirmatory)"}
     empty = {"G1": "insufficient", "G2": "insufficient", "G3": "insufficient", "result": "insufficient"}
     for s in PT.PRIMARY_STATS:
         A = D[D.stat == s].dropna(subset=["model_over_v2", "market_over"]).reset_index(drop=True)
@@ -351,15 +397,22 @@ def score(args):
         challenger = pd.to_numeric(X.model_over_c, errors="coerce").to_numpy(dtype=float, na_value=np.nan)
         if not np.isfinite(challenger).all() or (challenger < 0).any() or (challenger > 1).any():
             raise ValueError("Challenger unavailable on frozen-model primary rows; cannot score different cohorts")
-        r.update(_evaluate(X, "model_over_v2"))
+        ok_b = confirm and _look_allowed(s, "b", looks)
+        ok_c = confirm and _look_allowed(s, "c2", looks)
+        r.update(_evaluate(X, "model_over_v2", ok_b))
         r["mean_model_minus_market_over"] = float((pd.to_numeric(X.model_over_v2) - pd.to_numeric(X.market_over)).mean())   # Amendment 14 item 8
         r["expected_minutes_tiers"] = {k: int(v) for k, v in pd.cut(pd.to_numeric(X.em, errors="coerce"), [-1, 15, 25, 100], labels=["<=15", "15-25", ">25"]).value_counts().items()} if "em" in X else None
-        r["challenger_c"] = _evaluate(X, "model_over_c")
+        r["challenger_c"] = _evaluate(X, "model_over_c", ok_c)
+        for tag, took in (("b", ok_b), ("c2", ok_c)):
+            if took:
+                looks[f"{s}|{tag}"] = {"date": pd.Timestamp.now("UTC").isoformat(), "counts": trig[f"{s}|{tag}"]}
         r["reported_v3_info"] = PT.info_test(X.assign(model_over=X.model_over_v3).dropna(subset=["model_over"]).reset_index(drop=True))
         pin = A.dropna(subset=["pinnacle_over"]).assign(market_over=lambda x: x.pinnacle_over, model_over=lambda x: x.model_over_v2)
         r["pinnacle_only_info"] = PT.info_test(pin.reset_index(drop=True)) if len(pin) >= 50 else None
         res["stats"][s] = r
     res["manifest"] = manifest(args)   # Amendment 14 item 7
+    if confirm:
+        json.dump(looks, open(LOOKS, "w"), indent=1)
     json.dump(res, open(args.out or os.path.join(HERE, "nba_props_price_results.json"), "w"), indent=1, default=str)
     print(json.dumps({s: {"b": v.get("gates"), "c": v.get("challenger_c", {}).get("gates")} for s, v in res["stats"].items()}, indent=1))
 
@@ -372,5 +425,6 @@ if __name__ == "__main__":
     ap.add_argument("--w1")
     ap.add_argument("--w2")
     ap.add_argument("--out")
+    ap.add_argument("--confirmatory", action="store_true")
     a = ap.parse_args()
-    {"export-w2": lambda: export_w2(a.dest), "mechanics": lambda: mechanics(a), "score": lambda: score(a)}[a.mode]()
+    {"export-w2": lambda: export_w2(a.dest), "mechanics": lambda: mechanics(a), "score": lambda: score(a), "trigger": lambda: trigger(a)}[a.mode]()

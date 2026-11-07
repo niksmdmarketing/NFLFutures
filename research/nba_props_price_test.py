@@ -212,7 +212,8 @@ def info_test(D):
     fail = float(np.isnan(bs).mean())
     ok = bs[~np.isnan(bs)]
     return out | {"model_coef": float(b[2]), "lb90": float(np.percentile(ok, 5)) if len(ok) else None,
-                  "ub90": float(np.percentile(ok, 95)) if len(ok) else None, "failed_draws": fail, "assessable": fail <= 0.05}
+                  "ub90": float(np.percentile(ok, 95)) if len(ok) else None, "failed_draws": fail, "assessable": fail <= 0.05,
+                  "anti_predictive": bool(len(ok) and np.percentile(ok, 95) < 0)}
 
 
 def bets(D, thr=0.05):
@@ -225,14 +226,60 @@ def bets(D, thr=0.05):
                  price=np.where(side_over, D.best_over, D.best_under),
                  close_fair=np.where(side_over, D.close_market_over, 1 - D.close_market_over),
                  won=np.where(side_over, D.over, 1 - D.over))
-    # Amendment 14 item 1: the opposite side on the same rows at its own best price (placebo floor, reported only)
-    B["anti_price"] = np.where(side_over, D.best_under, D.best_over)
-    B["anti_close_fair"] = np.where(side_over, 1 - D.close_market_over, D.close_market_over)
     B = B[B.edge >= thr].copy()
     B["clv"] = B.close_fair * B.price - 1
-    B["anti_clv"] = B.anti_close_fair * B.anti_price - 1
     B["profit"] = np.where(B.won == 1, B.price - 1, -1.0)
     return B
+
+
+def _sel_clv(model, best_over, best_under, close, thr):
+    """Mean CLV and count of the primary selection (higher-edge side, edge >= thr) over rows with a complete close."""
+    eo, eu = model * best_over - 1, (1 - model) * best_under - 1
+    over = eo >= eu
+    edge = np.where(over, eo, eu)
+    price = np.where(over, best_over, best_under)
+    fair = np.where(over, close, 1 - close)
+    keep = (edge >= thr) & np.isfinite(close)
+    return (float(np.mean(fair[keep] * price[keep] - 1)) if keep.any() else float("nan")), int(keep.sum())
+
+
+def trigger_counts(D, thr=0.05):
+    """Amendment 15 item 2: bets with a complete same-line close, and distinct dates. Prices and forecasts only; no outcome, no CLV."""
+    m, bo, bu, cl = (D[c].to_numpy(float) for c in ("model_over", "best_over", "best_under", "close_market_over"))
+    eo, eu = m * bo - 1, (1 - m) * bu - 1
+    keep = (np.maximum(eo, eu) >= thr) & np.isfinite(cl)
+    return {"bets": int(keep.sum()), "dates": int(D.date.to_numpy()[keep].astype(str).size and len(set(D.date.to_numpy()[keep].astype(str))))}
+
+
+def placebo_arms(D, thr=0.05, n_perm=1000, seed=20261107):
+    """Amendment 15 item 1. Same rows, dates and prices as the confirmatory bets; the information is removed, not the side.
+    permutation null: model probabilities shuffled within each date, identical selection; random side: the selected rows with a coin
+    for the side; shopping: every priced row, both sides at the best price, no selection."""
+    rng = np.random.default_rng(seed)
+    m, bo, bu, cl = (D[c].to_numpy(float) for c in ("model_over", "best_over", "best_under", "close_market_over"))
+    obs, n_obs = _sel_clv(m, bo, bu, cl, thr)
+    groups = [np.flatnonzero(D.date.to_numpy() == d) for d in D.date.unique()]
+    nulls = []
+    for _ in range(n_perm):
+        mp = m.copy()
+        for idx in groups:
+            mp[idx] = rng.permutation(m[idx])
+        v, _n = _sel_clv(mp, bo, bu, cl, thr)
+        if np.isfinite(v):
+            nulls.append(v)
+    eo, eu = m * bo - 1, (1 - m) * bu - 1
+    sel = (np.maximum(eo, eu) >= thr) & np.isfinite(cl)
+    coin = []
+    for _ in range(min(n_perm, 1000)):
+        o = rng.random(sel.sum()) < 0.5
+        coin.append(np.mean(np.where(o, cl[sel] * bo[sel], (1 - cl[sel]) * bu[sel]) - 1)) if sel.any() else None
+    ok = np.isfinite(cl)
+    shop = float(np.mean(np.r_[cl[ok] * bo[ok] - 1, (1 - cl[ok]) * bu[ok] - 1])) if ok.any() else None
+    nulls = np.array(nulls)
+    return {"observed_clv": obs, "n_bets": n_obs, "perm_null_mean": float(nulls.mean()) if len(nulls) else None,
+            "perm_null_p95": float(np.percentile(nulls, 95)) if len(nulls) else None, "perm_draws": int(len(nulls)),
+            "exceeds_null_p95": bool(len(nulls) and np.isfinite(obs) and obs > np.percentile(nulls, 95)),
+            "random_side_mean": float(np.mean(coin)) if coin else None, "shopping_all_rows_mean": shop}
 
 
 def clv_summary(B):
@@ -253,7 +300,7 @@ def clv_summary(B):
     n0 = (n - (g.size() ** 2).sum() / n) / max(k - 1, 1)
     icc = float((msb - msw) / (msb + (n0 - 1) * msw)) if k > 1 and n0 > 0 and (msb + (n0 - 1) * msw) > 0 else None
     return out | {"clv_mean": float(C.clv.mean()), "clv_lb90": float(np.percentile(bs, 5)),
-                  "anti_clv_mean": float(C.anti_clv.mean()), "missing_close_share": float(len(miss) / len(B)),
+                  "clv_pessimistic_mean": float(np.r_[C.clv.to_numpy(), np.full(len(miss), np.percentile(C.clv, 10))].mean()), "missing_close_share": float(len(miss) / len(B)),
                   "roi_with_close": float(C.profit.mean()), "roi_missing_close": float(miss.profit.mean()) if len(miss) else None,
                   "close_coverage_ok": bool(len(miss) / len(B) <= 0.30), "bets_per_date": float(n / k), "date_icc": icc,
                   "fewer_than_40_dates": bool(k < 40)}
