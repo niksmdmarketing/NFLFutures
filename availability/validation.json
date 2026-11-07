@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-11-07T14:06:32+00:00",
+ "checked_utc": "2026-11-07T18:50:26+00:00",
  "leagues": {
   "nfl": {
-   "records": 1650,
+   "records": 1648,
    "by_layer": {
     "official": 1545,
-    "reported": 105
+    "reported": 103
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -53,16 +53,16 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "105/105"
+   "reported_matched_to_official_list": "103/103"
   },
   "nba": {
-   "records": 223,
+   "records": 235,
    "by_layer": {
-    "official": 170,
-    "reported": 53
+    "official": 186,
+    "reported": 49
    },
    "unknown_team": 0,
-   "no_player": 20,
+   "no_player": 17,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -164,13 +164,13 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "53/53"
+   "reported_matched_to_official_list": "49/49"
   },
   "nhl": {
-   "records": 1553,
+   "records": 1544,
    "by_layer": {
-    "official": 151,
-    "reported": 68,
+    "official": 145,
+    "reported": 65,
     "projected": 1334
    },
    "unknown_team": 0,
@@ -193,7 +193,6 @@
     "MIN",
     "MTL",
     "NJD",
-    "NSH",
     "NYI",
     "NYR",
     "OTT",
@@ -210,16 +209,27 @@
     "WPG",
     "WSH"
    ],
-   "conflicts": [],
+   "conflicts": [
+    {
+     "player": "Elias Salomonsson",
+     "official": [
+      "out"
+     ],
+     "other": "expected to play",
+     "source": "ESPN injury note"
+    }
+   ],
    "stale_projection_dates": 0,
-   "teams_missing_official": [],
+   "teams_missing_official": [
+    "NSH"
+   ],
    "season_state": {
     "state": "in_season",
     "why": "31 regular-season/playoff and 0 other games 2026-10-31..2026-11-17"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "68/68"
+   "reported_matched_to_official_list": "65/65"
   },
   "nbl": {
    "records": 26,
