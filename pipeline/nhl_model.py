@@ -273,15 +273,31 @@ def league_scoring(GG, years):
 
 # ---------------------------------------------------------------- simulation
 
+def series_win_prob(gap, hfa):
+    """P(home-ice team wins a best-of-7) for an array of rating gaps (home minus away, already scaled). Home games are 1, 2, 5, 7,
+    the same pattern and the same game probabilities series() samples; all seven games are counted, as there."""
+    ph = ndtr((gap + hfa) / GAME_SD); pa = ndtr((gap - hfa) / GAME_SD)
+    dist = np.zeros((8, len(gap))); dist[0] = 1.0
+    for g in range(7):
+        p = ph if g in (0, 1, 4, 6) else pa
+        new = dist * (1 - p)
+        new[1:] += dist[:-1] * p
+        dist = new
+    return dist[4:].sum(0)
+
+
 def simulate(teams, state, games, ratings, tau, total, hfa, n_sims, seed=7, div_map=ALIGN, po_scale=1.0, po_delta=None, game_adj=None,
-             ot_target=None, ot_edge=1.0, po_gap_only=False):
+             ot_target=None, ot_edge=1.0, po_gap_only=False, series_pairs=None):
     """state: DataFrame by team (points, rw, row, gd). games: list of (home, away) still to play. Returns dict of arrays.
     po_scale: multiplier on rating gaps in playoff series (research option; 1.0 = live behaviour).
     game_adj: per-game addition to the home-minus-away margin (injured players, nhl_absence).
     ot_target: share of games going to OT/shootout to match (research/NHL_OT_RATE_RULE.md); None = independent Poisson only.
     ot_edge: multiplier on the regulation edge when a tie is decided in OT/shootout (1.0 = previous behaviour).
     po_gap_only: research option (research/NHL_PO_SCALE_RULE.md). False = live: po_scale multiplies the whole sampled gap, noise
-    included. True = po_scale multiplies only the deterministic rating gap; the tau draw is left unscaled."""
+    included. True = po_scale multiplies only the deterministic rating gap; the tau draw is left unscaled.
+    series_pairs: research option (research/NHL_SERIES_CALIBRATION_RULE.md), list of (home-ice team, opponent). Adds res["series_q"],
+    the mean over the tau draws of P(home-ice team wins a best-of-7 | the two meet), computed analytically from the same game
+    probabilities series() uses. It draws no random numbers, so every other output is unchanged."""
     rng = np.random.default_rng(seed)
     rng_ot = np.random.default_rng(seed + 1000)   # separate stream: the OT fix leaves every other draw unchanged
     T = len(teams)
@@ -300,10 +316,22 @@ def simulate(teams, state, games, ratings, tau, total, hfa, n_sims, seed=7, div_
     pts_hist = np.zeros((T, PTS_CAP + 1))
     pts_sum = np.zeros(T); pts_sq = np.zeros(T)
     r0 = np.array([ratings[t] for t in teams], float)
+    pair_ix = [(idx[x_], idx[y_]) for x_, y_ in series_pairs] if series_pairs else []
+    pair_q = np.zeros(len(pair_ix))
     done = 0
     while done < n_sims:
         S = min(CHUNK, n_sims - done)
         R = r0[None, :] + rng.normal(0, tau, (S, T))
+        for j_, (x_, y_) in enumerate(pair_ix):
+            rx_, ry_ = R[:, x_], R[:, y_]
+            if po_delta is not None:
+                rx_, ry_ = rx_ + po_delta[x_], ry_ + po_delta[y_]
+            if po_gap_only:
+                b0 = r0[x_] - r0[y_] + ((po_delta[x_] - po_delta[y_]) if po_delta is not None else 0.0)
+                gap_ = po_scale * b0 + ((rx_ - ry_) - b0)
+            else:
+                gap_ = po_scale * (rx_ - ry_)
+            pair_q[j_] += series_win_prob(gap_, hfa).sum()
         m = R[:, h] + 0.0 - R[:, a] + hfa
         if game_adj is not None:
             m = m + game_adj[None, :]
@@ -417,6 +445,8 @@ def simulate(teams, state, games, ratings, tau, total, hfa, n_sims, seed=7, div_
     res["pts_mean"] = pts_sum / n
     res["pts_sd"] = np.sqrt(np.maximum(pts_sq / n - (pts_sum / n) ** 2, 0))
     res["pts_hist"] = pts_hist / n
+    if pair_ix:
+        res["series_q"] = pair_q / n
     return res
 
 
