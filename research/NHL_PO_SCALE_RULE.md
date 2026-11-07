@@ -79,3 +79,16 @@ TypeSafe (8 Nov), eligibility: name one primary arm, TAU_PRE 1.0 with gap-only o
    - Coverage: the nine seasons are an explicit list; a cache missing any one fails.
    - Validation before any simulation: the rebuilt skater files are compared by SHA-256 with the hashes already recorded for the 5 Nov canonical run (sk_2015 ... sk_2025). Match means the rebuilt cache is the cache that produced the committed results. Committed model/nhl_player_ratings_<y>.csv exist only for 2026, so they cannot validate the nine replay seasons; the rebuilt 2026 file is compared with the committed one as a check on the builder.
    - Two separate checks, two failure modes: cache check (no simulation), then live-equivalence z-score (Amendment 2 point 1) at BT_SIMS 2000 (false-fail rate about 0.7% at 3.5 sigma over 32 teams).
+
+## Result note (8 Nov 2026; six arms run once, scorer research/nhl_po_scale_score.py, seed 20261108, 10,000 draws; nothing above edited)
+Live arm re-run reproduces the committed 5 Nov replay: mean signed difference 0.00000, sd of differences 0.0046 (sampling expectation 0.0053), preseason Cup slope 1.591 vs 1.563 committed. The strict max-z < 3.5 check was run over every checkpoint and two markets (478 tests, not the one checkpoint Amendment 2 specified); 48 exceeded 3.5 (worst 4.96), driven by tiny probabilities where the normal approximation is poor. Recorded as a deviation from the rule's wording: the arms are equivalent in distribution, the literal check was not clean.
+
+| Arm | Preseason Cup slope (live 1.59) | Movement toward 1, 90% interval | Combined log-loss gain vs live (lo90) | Seasons better |
+|---|---|---|---|---|
+| C1 t1.0 gap-only ON (primary) | 0.71 | 0.30 [-0.49, 1.28] | -0.00136 (-0.00430) | 3/9 |
+| B1 t1.0 OFF | 1.17 | 0.42 [-0.17, 0.62] | +0.00014 (-0.00049) | 6/9 |
+| B2 t1.25 OFF | 1.37 | 0.22 [-0.04, 0.31] | +0.00030 (+0.00001) | 7/9 |
+| C0 t1.5 ON | 0.81 | 0.40 [-0.40, 1.15] | -0.00066 | 4/9 |
+| C2 t1.25 ON | 0.74 | 0.33 [-0.47, 1.25] | -0.00081 | 4/9 |
+
+**Decision for the primary arm: FAIL** (no-harm check broken: combined log-loss lower bound -0.0043 and first-quarter slope lower bound -0.43; the gap-only arms overshoot below 1). Live setting unchanged. B1/B2 are descriptive only and cannot be adopted from this run; B2 is the only arm with a non-negative log-loss lower bound and its gain is 0.0003.
