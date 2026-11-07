@@ -24,7 +24,7 @@ STAT_PATTERNS = [("pra", r"points.*rebounds.*assists|\bpra\b"), ("pr", r"points.
 EXCLUDE = re.compile(r"alternate|milestone|\d\+|first|quarter|half|1st|2nd|3rd|4th|double|triple|steals|blocks|threes|3-point|3 point|turnover",
                      re.I)
 PRIMARY_STATS = ("pts", "reb", "ast")
-BOOT, SEED = 2000, 1
+BOOT, SEED = 10000, 1   # Amendment 14 item 3: 10,000 draws
 
 
 def stat_of(market_name):
@@ -225,8 +225,12 @@ def bets(D, thr=0.05):
                  price=np.where(side_over, D.best_over, D.best_under),
                  close_fair=np.where(side_over, D.close_market_over, 1 - D.close_market_over),
                  won=np.where(side_over, D.over, 1 - D.over))
+    # Amendment 14 item 1: the opposite side on the same rows at its own best price (placebo floor, reported only)
+    B["anti_price"] = np.where(side_over, D.best_under, D.best_over)
+    B["anti_close_fair"] = np.where(side_over, 1 - D.close_market_over, D.close_market_over)
     B = B[B.edge >= thr].copy()
     B["clv"] = B.close_fair * B.price - 1
+    B["anti_clv"] = B.anti_close_fair * B.anti_price - 1
     B["profit"] = np.where(B.won == 1, B.price - 1, -1.0)
     return B
 
@@ -241,7 +245,18 @@ def clv_summary(B):
     if len(C) == 0:
         return out
     bs = _cluster_boot(C, lambda x: x.clv.mean())
-    return out | {"clv_mean": float(C.clv.mean()), "clv_lb90": float(np.percentile(bs, 5))}
+    # Amendment 14 items 1, 2, 4: placebo floor, close coverage (G2 insufficient above 30% missing), cluster diagnostics
+    miss = B[B.clv.isna()]
+    g = C.groupby("date").clv
+    k, n = g.ngroups, len(C)
+    msw, msb = (g.apply(lambda v: ((v - v.mean()) ** 2).sum()).sum() / max(n - k, 1)), (g.apply(lambda v: len(v) * (v.mean() - C.clv.mean()) ** 2).sum() / max(k - 1, 1))
+    n0 = (n - (g.size() ** 2).sum() / n) / max(k - 1, 1)
+    icc = float((msb - msw) / (msb + (n0 - 1) * msw)) if k > 1 and n0 > 0 and (msb + (n0 - 1) * msw) > 0 else None
+    return out | {"clv_mean": float(C.clv.mean()), "clv_lb90": float(np.percentile(bs, 5)),
+                  "anti_clv_mean": float(C.anti_clv.mean()), "missing_close_share": float(len(miss) / len(B)),
+                  "roi_with_close": float(C.profit.mean()), "roi_missing_close": float(miss.profit.mean()) if len(miss) else None,
+                  "close_coverage_ok": bool(len(miss) / len(B) <= 0.30), "bets_per_date": float(n / k), "date_icc": icc,
+                  "fewer_than_40_dates": bool(k < 40)}
 
 
 def selftest():

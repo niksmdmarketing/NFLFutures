@@ -207,6 +207,24 @@ def assemble(prices_dir, dirs, with_outcomes):
     meta["priced_player_games"] = len(priced_player_games)
     meta["matched_player_games"] = len(matched_player_games)
     meta["name_match_rate"] = len(matched_player_games) / max(len(priced_player_games), 1)
+    # Amendment 14 items 5 and 6: match rate by stat (and book when present), and coverage by month of the regular season
+    meta["name_match_by_stat"] = {s_: float(g.dropna(subset=["game_id", "aid"])[["fixture_id", "player_name"]].drop_duplicates().shape[0]
+                                            / max(g[["fixture_id", "player_name"]].drop_duplicates().shape[0], 1))
+                                  for s_, g in L.groupby("stat")} if "stat" in L else {}
+    meta["name_match_by_book"] = {b_: float(g.dropna(subset=["game_id", "aid"])[["fixture_id", "player_name"]].drop_duplicates().shape[0]
+                                            / max(g[["fixture_id", "player_name"]].drop_duplicates().shape[0], 1))
+                                  for b_, g in L.groupby("bookmaker")} if "bookmaker" in L else {}
+    try:
+        sch = pd.read_csv(os.path.join(ROOT, "data", "nba", "nba_schedule_2026.csv"), low_memory=False)
+        sch = sch[pd.to_numeric(sch.season_type, errors="coerce") == 2]
+        sch["t"] = pd.to_datetime(sch["game_date_time"] if "game_date_time" in sch else sch["date"], utc=True, errors="coerce")
+        lo = pd.to_datetime(P.start_time, utc=True).min()
+        sch = sch[sch.t >= lo]
+        got = set(pd.to_numeric(L.game_id.dropna(), errors="coerce").dropna().astype(int))
+        sch["has_price"] = pd.to_numeric(sch.id, errors="coerce").isin(got)
+        meta["coverage_by_month"] = {str(k): [int(v.has_price.sum()), int(len(v))] for k, v in sch.groupby(sch.t.dt.strftime("%Y-%m"))}
+    except Exception as ex:
+        meta["coverage_by_month"] = f"not computed: {ex}"
     meta["ids_named_by_sgo_fallback"] = n_sgo
     meta["excluded_low_appearance_lines"] = excluded_low_pa
     meta["unknown_participation_lines"] = unknown_participation_lines
@@ -271,7 +289,7 @@ def _evaluate(X, col):
     g1_ass = ip["assessable"] and all(v.get("assessable") for v in iw.values())
     g1 = _gate(g1_ass and ip["lb90"] > 0 and all(v["model_coef"] > 0 for v in iw.values()), g1_ass)
     b5 = r["bets_5"]["pooled"]
-    g2_ass = b5.get("n", 0) >= 200 and b5.get("dates", 0) >= 20
+    g2_ass = b5.get("n", 0) >= 200 and b5.get("dates", 0) >= 20 and b5.get("close_coverage_ok", False)   # Amendment 14 item 2
     g2 = _gate(g2_ass and b5.get("clv_lb90", -1) > 0, g2_ass)
     bw = r["bets_5"]["by_window"]
     g3_ass = all(v.get("n", 0) >= 50 for v in bw.values())
@@ -282,6 +300,31 @@ def _evaluate(X, col):
     return r
 
 
+def manifest(args):
+    """Amendment 14 item 7: hashes that pin the rule, models, code, price files and window archives used for this run."""
+    import hashlib
+    def sha(path):
+        h = hashlib.sha256()
+        with open(path, "rb") as f:
+            for chunk in iter(lambda: f.read(1 << 20), b""):
+                h.update(chunk)
+        return h.hexdigest()
+    fixed = {"rule": "research/NBA_PROPS_PRICE_TEST_RULE.md", "params_b": "model/nba_props_live_params_2026b.json",
+             "challenger_c2": "model/nba_props_challenger_c.json", "points_dispersion": "model/nba_points_d_params_2026.json",
+             "price_test_code": "research/nba_props_price_test.py", "runner_code": "research/nba_props_price_run.py",
+             "challenger_code": "research/nba_props_challenger_c.py", "live_core_code": "research/nba_props_live_core.py"}
+    out = {k: (sha(os.path.join(ROOT, v)) if os.path.exists(os.path.join(ROOT, v)) else None) for k, v in fixed.items()}
+    def tree(d):
+        files = sorted(os.path.join(r, f) for r, _, fs in os.walk(d) for f in fs) if d and os.path.isdir(d) else []
+        listing = "\n".join(f"{os.path.relpath(p, d)}\t{os.path.getsize(p)}" for p in files)
+        return {"files": len(files), "listing_sha256": hashlib.sha256(listing.encode()).hexdigest()}
+    out["prices_dir"] = {**tree(args.prices), "content_sha256": hashlib.sha256("".join(sha(p) for p in sorted(
+        os.path.join(r, f) for r, _, fs in os.walk(args.prices) for f in fs if f.endswith(".gz"))).encode()).hexdigest()} if args.prices and os.path.isdir(args.prices) else None
+    out["window1_dir"], out["window2_dir"] = tree(args.w1), tree(args.w2)
+    out["window_bounds"] = "window 1: 1 Jan 2026 to end of 2025-26 regular season; window 2: 2026-27 regular season from activation (rule v1)"
+    return out
+
+
 def score(args):
     """Amendment 2 gates for the frozen model (primary, v2) and challenger c (secondary, Amendment 6), on the same rows."""
     import nba_props_challenger_c as CC
@@ -290,6 +333,9 @@ def score(args):
     P, L, D, meta = assemble(args.prices, [d for d in (args.w1, args.w2) if d], with_outcomes=True)
     if meta["name_match_rate"] < 0.95:
         raise ValueError("Mechanics failed: fewer than 95% of priced player-games matched")
+    low = {k: v for k, v in {**meta.get("name_match_by_stat", {}), **meta.get("name_match_by_book", {})}.items() if v < 0.90}
+    if low:
+        raise ValueError(f"Amendment 14 item 5: match rate below 90% in a stratum {low}; explain in an amendment before scoring")
     if "model_over_c" not in D:
         raise ValueError("Challenger c is registered (Amendment 6) but model/nba_props_challenger_c.json is missing")
     res = {"meta": meta, "stats": {}}
@@ -306,11 +352,14 @@ def score(args):
         if not np.isfinite(challenger).all() or (challenger < 0).any() or (challenger > 1).any():
             raise ValueError("Challenger unavailable on frozen-model primary rows; cannot score different cohorts")
         r.update(_evaluate(X, "model_over_v2"))
+        r["mean_model_minus_market_over"] = float((pd.to_numeric(X.model_over_v2) - pd.to_numeric(X.market_over)).mean())   # Amendment 14 item 8
+        r["expected_minutes_tiers"] = {k: int(v) for k, v in pd.cut(pd.to_numeric(X.em, errors="coerce"), [-1, 15, 25, 100], labels=["<=15", "15-25", ">25"]).value_counts().items()} if "em" in X else None
         r["challenger_c"] = _evaluate(X, "model_over_c")
         r["reported_v3_info"] = PT.info_test(X.assign(model_over=X.model_over_v3).dropna(subset=["model_over"]).reset_index(drop=True))
         pin = A.dropna(subset=["pinnacle_over"]).assign(market_over=lambda x: x.pinnacle_over, model_over=lambda x: x.model_over_v2)
         r["pinnacle_only_info"] = PT.info_test(pin.reset_index(drop=True)) if len(pin) >= 50 else None
         res["stats"][s] = r
+    res["manifest"] = manifest(args)   # Amendment 14 item 7
     json.dump(res, open(args.out or os.path.join(HERE, "nba_props_price_results.json"), "w"), indent=1, default=str)
     print(json.dumps({s: {"b": v.get("gates"), "c": v.get("challenger_c", {}).get("gates")} for s, v in res["stats"].items()}, indent=1))
 
