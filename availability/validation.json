@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-11-07T00:57:52+00:00",
+ "checked_utc": "2026-11-07T07:15:56+00:00",
  "leagues": {
   "nfl": {
-   "records": 1582,
+   "records": 1649,
    "by_layer": {
-    "official": 1507,
-    "reported": 75
+    "official": 1545,
+    "reported": 104
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -53,16 +53,16 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "75/75"
+   "reported_matched_to_official_list": "104/104"
   },
   "nba": {
-   "records": 301,
+   "records": 223,
    "by_layer": {
-    "official": 248,
+    "official": 170,
     "reported": 53
    },
    "unknown_team": 0,
-   "no_player": 6,
+   "no_player": 20,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -80,6 +80,7 @@
     "LAC",
     "LAL",
     "MEM",
+    "MIA",
     "MIL",
     "MIN",
     "NO",
@@ -156,9 +157,7 @@
     }
    ],
    "stale_projection_dates": 0,
-   "teams_missing_official": [
-    "MIA"
-   ],
+   "teams_missing_official": [],
    "season_state": {
     "state": "in_season",
     "why": "37 regular-season/playoff and 0 other games 2026-10-31..2026-11-17"
@@ -168,11 +167,11 @@
    "reported_matched_to_official_list": "53/53"
   },
   "nhl": {
-   "records": 1531,
+   "records": 1554,
    "by_layer": {
-    "official": 147,
-    "reported": 65,
-    "projected": 1319
+    "official": 151,
+    "reported": 66,
+    "projected": 1337
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -220,7 +219,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "65/65"
+   "reported_matched_to_official_list": "66/66"
   },
   "nbl": {
    "records": 26,
@@ -255,9 +254,9 @@
    "reported_matched_to_official_list": "0/0"
   },
   "afl": {
-   "records": 11,
+   "records": 10,
    "by_layer": {
-    "reported": 11
+    "reported": 10
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -292,7 +291,7 @@
    "coverage_expected": false,
    "teams_missing_official_note": "off-season: no official coverage expected",
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "0/11"
+   "reported_matched_to_official_list": "0/10"
   }
  },
  "sources_failed": [],
