@@ -26,9 +26,10 @@ class Amendment14(unittest.TestCase):
     def test_permutation_null_is_exceeded_by_informed_model_only(self):
         inf = PT.placebo_arms(rows(3000), n_perm=200)
         non = PT.placebo_arms(rows(3000, informed=False), n_perm=200)
-        self.assertTrue(inf["exceeds_null_p95"])
-        self.assertFalse(non["exceeds_null_p95"])
+        self.assertTrue(inf["exceeds_binding"])
+        self.assertFalse(non["exceeds_binding"])
         self.assertLess(inf["perm_null_mean"], inf["observed_clv"])
+        self.assertGreaterEqual(inf["binding_floor"], max(0, inf["shopping_all_rows_mean"]))
 
     def test_arms_use_same_rows_and_shopping_is_unselected(self):
         a = PT.placebo_arms(rows(2000), n_perm=50)

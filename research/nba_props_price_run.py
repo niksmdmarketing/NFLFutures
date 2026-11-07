@@ -308,7 +308,7 @@ def _evaluate(X, col, confirmatory=False):
     r["bets_5_window2"] = B2
     ctl = r["control_arms"].get(2, {})
     g2_ass = B2.get("n", 0) >= 200 and B2.get("dates", 0) >= 20 and B2.get("close_coverage_ok", False)
-    g2 = _gate(g2_ass and B2.get("clv_lb90", -1) > 0 and ctl.get("exceeds_null_p95", False), g2_ass)
+    g2 = _gate(g2_ass and B2.get("clv_lb90", -1) > 0 and ctl.get("exceeds_binding", False), g2_ass)
     g3_ass = B2.get("n", 0) >= 50
     g3 = _gate(g3_ass and B2.get("clv_mean", -1) > 0, g3_ass)
     gates = {"G1": g1, "G2": g2, "G3": g3}

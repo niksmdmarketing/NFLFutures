@@ -232,17 +232,6 @@ def bets(D, thr=0.05):
     return B
 
 
-def _sel_clv(model, best_over, best_under, close, thr):
-    """Mean CLV and count of the primary selection (higher-edge side, edge >= thr) over rows with a complete close."""
-    eo, eu = model * best_over - 1, (1 - model) * best_under - 1
-    over = eo >= eu
-    edge = np.where(over, eo, eu)
-    price = np.where(over, best_over, best_under)
-    fair = np.where(over, close, 1 - close)
-    keep = (edge >= thr) & np.isfinite(close)
-    return (float(np.mean(fair[keep] * price[keep] - 1)) if keep.any() else float("nan")), int(keep.sum())
-
-
 def trigger_counts(D, thr=0.05):
     """Amendment 15 item 2: bets with a complete same-line close, and distinct dates. Prices and forecasts only; no outcome, no CLV."""
     m, bo, bu, cl = (D[c].to_numpy(float) for c in ("model_over", "best_over", "best_under", "close_market_over"))
@@ -251,35 +240,65 @@ def trigger_counts(D, thr=0.05):
     return {"bets": int(keep.sum()), "dates": int(D.date.to_numpy()[keep].astype(str).size and len(set(D.date.to_numpy()[keep].astype(str))))}
 
 
+ALPHA_CONTROL = 0.05 / 3   # Amendment 16: Bonferroni across the three stats (Holm needs all three looks at once)
+
+
+def _row_clv(model, bo, bu, cl):
+    eo, eu = model * bo - 1, (1 - model) * bu - 1
+    over = eo >= eu
+    return np.maximum(eo, eu), np.where(over, cl * bo, (1 - cl) * bu) - 1
+
+
 def placebo_arms(D, thr=0.05, n_perm=1000, seed=20261107):
-    """Amendment 15 item 1. Same rows, dates and prices as the confirmatory bets; the information is removed, not the side.
-    permutation null: model probabilities shuffled within each date, identical selection; random side: the selected rows with a coin
-    for the side; shopping: every priced row, both sides at the best price, no selection."""
+    """Amendments 15-16. Same rows, dates and prices as the confirmatory bets; information removed, not the side.
+    residual-permutation null: r = model - market is permuted within date x market-price bucket, placebo = market + r_perm, and the
+    same NUMBER of bets per date as the real run is taken (top edge); random side: the selected rows with a coin for the side;
+    shopping: every priced row, both sides at the best price, no selection."""
     rng = np.random.default_rng(seed)
-    m, bo, bu, cl = (D[c].to_numpy(float) for c in ("model_over", "best_over", "best_under", "close_market_over"))
-    obs, n_obs = _sel_clv(m, bo, bu, cl, thr)
-    groups = [np.flatnonzero(D.date.to_numpy() == d) for d in D.date.unique()]
+    m, mk, bo, bu, cl = (D[c].to_numpy(float) for c in ("model_over", "market_over", "best_over", "best_under", "close_market_over"))
+    ok = np.isfinite(cl)
+    edge, clv_row = _row_clv(m, bo, bu, cl)
+    sel = ok & (edge >= thr)
+    obs = float(np.mean(clv_row[sel])) if sel.any() else float("nan")
+    dates = D.date.to_numpy().astype(str)
+    bucket = np.digitize(mk, [.2, .3, .4, .5, .6, .7, .8])
+    cells = {}
+    for i, key in enumerate(zip(dates, bucket)):
+        cells.setdefault(key, []).append(i)
+    cells = [np.array(v) for v in cells.values()]
+    by_date = {}
+    for i in np.flatnonzero(ok):
+        by_date.setdefault(dates[i], []).append(i)
+    k = {d: int(sel[np.array(ix)].sum()) for d, ix in by_date.items()}
+    by_date = {d: np.array(ix) for d, ix in by_date.items() if k[d] > 0}
+    resid = m - mk
     nulls = []
     for _ in range(n_perm):
-        mp = m.copy()
-        for idx in groups:
-            mp[idx] = rng.permutation(m[idx])
-        v, _n = _sel_clv(mp, bo, bu, cl, thr)
-        if np.isfinite(v):
-            nulls.append(v)
-    eo, eu = m * bo - 1, (1 - m) * bu - 1
-    sel = (np.maximum(eo, eu) >= thr) & np.isfinite(cl)
+        rp = resid.copy()
+        for ix in cells:
+            if len(ix) > 1:
+                rp[ix] = rng.permutation(resid[ix])
+        pm = np.clip(mk + rp, 0.001, 0.999)
+        e_p, c_p = _row_clv(pm, bo, bu, cl)
+        take = np.concatenate([ix[np.argsort(-e_p[ix])[:k[d]]] for d, ix in by_date.items()]) if by_date else np.array([], int)
+        if len(take):
+            nulls.append(float(np.mean(c_p[take])))
+    nulls = np.array(nulls)
     coin = []
     for _ in range(min(n_perm, 1000)):
         o = rng.random(sel.sum()) < 0.5
-        coin.append(np.mean(np.where(o, cl[sel] * bo[sel], (1 - cl[sel]) * bu[sel]) - 1)) if sel.any() else None
-    ok = np.isfinite(cl)
+        if sel.any():
+            coin.append(np.mean(np.where(o, cl[sel] * bo[sel], (1 - cl[sel]) * bu[sel]) - 1))
     shop = float(np.mean(np.r_[cl[ok] * bo[ok] - 1, (1 - cl[ok]) * bu[ok] - 1])) if ok.any() else None
-    nulls = np.array(nulls)
-    return {"observed_clv": obs, "n_bets": n_obs, "perm_null_mean": float(nulls.mean()) if len(nulls) else None,
-            "perm_null_p95": float(np.percentile(nulls, 95)) if len(nulls) else None, "perm_draws": int(len(nulls)),
+    q = float(np.quantile(nulls, 1 - ALPHA_CONTROL)) if len(nulls) else None
+    perm_p = float((1 + (nulls >= obs).sum()) / (1 + len(nulls))) if len(nulls) and np.isfinite(obs) else None
+    bind = max([0.0] + [v for v in (q, shop) if v is not None])
+    return {"observed_clv": obs, "n_bets": int(sel.sum()), "perm_null_mean": float(nulls.mean()) if len(nulls) else None,
+            "perm_null_p95": float(np.percentile(nulls, 95)) if len(nulls) else None, "perm_null_bonferroni_q": q, "perm_p": perm_p,
+            "perm_draws": int(len(nulls)), "random_side_mean": float(np.mean(coin)) if coin else None, "shopping_all_rows_mean": shop,
+            "binding_floor": bind, "exceeds_binding": bool(np.isfinite(obs) and obs > bind),
             "exceeds_null_p95": bool(len(nulls) and np.isfinite(obs) and obs > np.percentile(nulls, 95)),
-            "random_side_mean": float(np.mean(coin)) if coin else None, "shopping_all_rows_mean": shop}
+            "breakeven_book_premium_r": obs}   # EV at a book with price disadvantage r is about (1+obs)/(1+r)-1
 
 
 def clv_summary(B):
