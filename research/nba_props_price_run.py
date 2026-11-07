@@ -398,7 +398,7 @@ def score(args):
         if not np.isfinite(challenger).all() or (challenger < 0).any() or (challenger > 1).any():
             raise ValueError("Challenger unavailable on frozen-model primary rows; cannot score different cohorts")
         ok_b = confirm and _look_allowed(s, "b", looks)
-        ok_c = confirm and _look_allowed(s, "c2", looks)
+        ok_c = False   # Amendment 16 item 3: c2 is descriptive, it never gates or takes a look
         r.update(_evaluate(X, "model_over_v2", ok_b))
         r["mean_model_minus_market_over"] = float((pd.to_numeric(X.model_over_v2) - pd.to_numeric(X.market_over)).mean())   # Amendment 14 item 8
         r["expected_minutes_tiers"] = {k: int(v) for k, v in pd.cut(pd.to_numeric(X.em, errors="coerce"), [-1, 15, 25, 100], labels=["<=15", "15-25", ">25"]).value_counts().items()} if "em" in X else None
