@@ -274,12 +274,14 @@ def league_scoring(GG, years):
 # ---------------------------------------------------------------- simulation
 
 def simulate(teams, state, games, ratings, tau, total, hfa, n_sims, seed=7, div_map=ALIGN, po_scale=1.0, po_delta=None, game_adj=None,
-             ot_target=None, ot_edge=1.0):
+             ot_target=None, ot_edge=1.0, po_gap_only=False):
     """state: DataFrame by team (points, rw, row, gd). games: list of (home, away) still to play. Returns dict of arrays.
     po_scale: multiplier on rating gaps in playoff series (research option; 1.0 = live behaviour).
     game_adj: per-game addition to the home-minus-away margin (injured players, nhl_absence).
     ot_target: share of games going to OT/shootout to match (research/NHL_OT_RATE_RULE.md); None = independent Poisson only.
-    ot_edge: multiplier on the regulation edge when a tie is decided in OT/shootout (1.0 = previous behaviour)."""
+    ot_edge: multiplier on the regulation edge when a tie is decided in OT/shootout (1.0 = previous behaviour).
+    po_gap_only: research option (research/NHL_PO_SCALE_RULE.md). False = live: po_scale multiplies the whole sampled gap, noise
+    included. True = po_scale multiplies only the deterministic rating gap; the tau draw is left unscaled."""
     rng = np.random.default_rng(seed)
     rng_ot = np.random.default_rng(seed + 1000)   # separate stream: the OT fix leaves every other draw unchanged
     T = len(teams)
@@ -364,7 +366,12 @@ def simulate(teams, state, games, ratings, tau, total, hfa, n_sims, seed=7, div_
             rx, ry = R[np.arange(S), x], R[np.arange(S), y]
             if po_delta is not None:
                 rx, ry = rx + po_delta[x], ry + po_delta[y]
-            ph = ndtr((po_scale * (rx - ry) + hfa) / GAME_SD); pa = ndtr((po_scale * (rx - ry) - hfa) / GAME_SD)
+            if po_gap_only:
+                base = r0[x] - r0[y] + ((po_delta[x] - po_delta[y]) if po_delta is not None else 0.0)
+                gap = po_scale * base + ((rx - ry) - base)
+            else:
+                gap = po_scale * (rx - ry)
+            ph = ndtr((gap + hfa) / GAME_SD); pa = ndtr((gap - hfa) / GAME_SD)
             wins = np.zeros(S, int)
             for g in range(7):
                 p = ph if g in (0, 1, 4, 6) else pa

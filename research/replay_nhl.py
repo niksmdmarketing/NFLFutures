@@ -7,6 +7,7 @@ Outputs model/replay/nhl_<season>.csv: season, week, date, gp_avg, team, p_playo
 'p_conf' is mapped to the replay score's 'finals' market (y_finals = y_conf).
 Usage: python research/replay_nhl.py <published nhl/data dir> [first] [last]    (env BT_SIMS, default 2000)
 """
+import json
 import os
 import sys
 
@@ -27,6 +28,7 @@ if os.environ.get("NHL_TAU_PRE"):
     M.TAU_PRE = float(os.environ["NHL_TAU_PRE"])
 PRIOR_SCALE = float(os.environ.get("NHL_PRIOR_SCALE", "1"))
 PO_SCALE = float(os.environ.get("NHL_PO_SCALE", "1"))
+PO_GAP_ONLY = os.environ.get("NHL_PO_GAP_ONLY") == "1"   # research/NHL_PO_SCALE_RULE.md: po_scale on the rating gap only, not the tau draw
 PO_FADE = float(os.environ.get("NHL_PO_FADE", "0"))   # extra playoff-gap multiplier at season start, fading to 0 by game 82
 SHOT_W = float(os.environ.get("NHL_SHOT_W", "0"))
 SHOT_PO = os.environ.get("NHL_SHOT_PO") == "1"   # use the shot-blended rate only in playoff series (regular season on goals)   # share of the in-season rate from shot differential (x league shooting %)
@@ -332,7 +334,7 @@ def run_season(TT, GG, fit_years, done, y):
         if PO_PRIOR_K and po_delta is not None:   # playoff-only: last season's playoff goal difference, shrunk, faded like the prior
             po_delta = po_delta + (po_prev * (k / (gp + k))).reindex(teams).fillna(0).to_numpy(float)
         ot_kw = dict(ot_target=ot_tgt, ot_edge=OT_EDGE) if OT_FIX else {}
-        sim = M.simulate(teams, state, list(zip(rm.team, rm.opp)), rating.to_dict(), M.tau_at(tau, n_avg), total, hfa, SIMS, seed=3, div_map=align, po_scale=PO_SCALE + PO_FADE * max(0.0, 1 - n_avg / 82), po_delta=po_delta, **ot_kw)
+        sim = M.simulate(teams, state, list(zip(rm.team, rm.opp)), rating.to_dict(), M.tau_at(tau, n_avg), total, hfa, SIMS, seed=3, po_gap_only=PO_GAP_ONLY, div_map=align, po_scale=PO_SCALE + PO_FADE * max(0.0, 1 - n_avg / 82), po_delta=po_delta, **ot_kw)
         for i, t in enumerate(teams):
             rows.append(dict(season=y, week=wk, date=str(cut.date()), gp_avg=round(n_avg, 1), team=t, p_playoff=sim["playoffs"][i],
                              p_div=sim["div"][i], p_pres=sim["pres"][i], p_r2=sim["r2"][i], p_r3=sim["r3"][i], p_conf=sim["final"][i],
@@ -364,4 +366,5 @@ if __name__ == "__main__":
             print("skip", y)
             continue
         D.to_csv(os.path.join(OUT, f"nhl_{y}.csv"), index=False)
+        json.dump({k: v for k, v in os.environ.items() if k.startswith(("NHL_", "BT_", "RAPM_"))}, open(os.path.join(OUT, "knobs.json"), "w"), indent=1, sort_keys=True)
         print("season", y, "weeks", D.week.nunique(), flush=True)
