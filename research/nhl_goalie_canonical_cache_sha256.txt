@@ -7,3 +7,9 @@ bf463b51b9fe5d3dc310449f0360ae30149dbc984383f861e6422e0f4b5fe47d  rapm_cache/sk_
 aefda706fa28ca684d308672c9e51eb71cbe373a0eee31166d156bd6a3510728  rapm_cache/sk_2023_300000_1_0.csv
 716fbc23aa93c158be62b2535eca81640a47e296c02a7a0a6491e635d0a45d0a  rapm_cache/sk_2024_300000_1_0.csv
 64655a9ae99e770e64a8db20dd2eb0a9fea890ac8c4241ec6ea080d951e87951  rapm_cache/sk_2025_300000_1_0.csv
+
+# Rebuild verification, 8 Nov 2026 (NHL_PO_SCALE_RULE.md Amendment 3 point 4): all nine skater files above were rebuilt and match byte for byte.
+# shift data: branch nhl-shifts-data commit 95ee088f317c1ee79248cb8fa93f596e890d5d42, then `python research/nhl_xg.py <dir>` (leave-one-season-out shot xG)
+# invocation: RAPM_LAM=300000 RAPM_KBOX=1 (RAPM_RHO unset = 0, other nhl_rapm knobs at their defaults), nhl.NHL_OUT = the published nhl/data folder
+# (nhl_rapm.box_prior reads skaters_/goalies_<y>.json through nhl.NHL_OUT; with it unset the box prior is silently all zeros and every hash differs)
+# builder asserts: coverage = 2015-2018, 2021-2025 (explicit list); skater_ratings(y) loads only seasons y-1, y-2, y-3.
