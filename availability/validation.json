@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-11-06T20:56:06+00:00",
+ "checked_utc": "2026-11-07T00:57:52+00:00",
  "leagues": {
   "nfl": {
-   "records": 1581,
+   "records": 1582,
    "by_layer": {
-    "official": 1505,
-    "reported": 76
+    "official": 1507,
+    "reported": 75
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -49,20 +49,20 @@
    "teams_missing_official": [],
    "season_state": {
     "state": "in_season",
-    "why": "15 regular-season/playoff and 0 other games 2026-10-30..2026-11-16"
+    "why": "14 regular-season/playoff and 0 other games 2026-10-31..2026-11-17"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "76/76"
+   "reported_matched_to_official_list": "75/75"
   },
   "nba": {
-   "records": 288,
+   "records": 301,
    "by_layer": {
-    "official": 232,
-    "reported": 56
+    "official": 248,
+    "reported": 53
    },
    "unknown_team": 0,
-   "no_player": 13,
+   "no_player": 6,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -121,6 +121,15 @@
      "source": "ESPN injury note"
     },
     {
+     "player": "T.J. McConnell",
+     "official": [
+      "out",
+      "questionable"
+     ],
+     "other": "expected to play",
+     "source": "ESPN injury note"
+    },
+    {
      "player": "Cason Wallace",
      "official": [
       "",
@@ -152,11 +161,11 @@
    ],
    "season_state": {
     "state": "in_season",
-    "why": "33 regular-season/playoff and 0 other games 2026-10-30..2026-11-16"
+    "why": "37 regular-season/playoff and 0 other games 2026-10-31..2026-11-17"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "56/56"
+   "reported_matched_to_official_list": "53/53"
   },
   "nhl": {
    "records": 1531,
@@ -207,7 +216,7 @@
    "teams_missing_official": [],
    "season_state": {
     "state": "in_season",
-    "why": "35 regular-season/playoff and 0 other games 2026-10-30..2026-11-16"
+    "why": "31 regular-season/playoff and 0 other games 2026-10-31..2026-11-17"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
@@ -239,7 +248,7 @@
    ],
    "season_state": {
     "state": "in_season",
-    "why": "23 NBL games 2026-10-30..2026-11-16 (NBL fixture, season 2026)"
+    "why": "21 NBL games 2026-10-31..2026-11-17 (NBL fixture, season 2026)"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
@@ -278,7 +287,7 @@
    ],
    "season_state": {
     "state": "off_season",
-    "why": "0 AFL games 2026-10-30..2026-11-16 (Squiggle fixture)"
+    "why": "0 AFL games 2026-10-31..2026-11-17 (Squiggle fixture)"
    },
    "coverage_expected": false,
    "teams_missing_official_note": "off-season: no official coverage expected",
