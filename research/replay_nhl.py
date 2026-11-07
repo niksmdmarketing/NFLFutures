@@ -26,6 +26,14 @@ SIMS = int(os.environ.get("BT_SIMS", "2000"))
 # Research knobs: NHL_TAU_PRE (preseason widening), NHL_PRIOR_SCALE (stretch preseason prior), NHL_PO_SCALE (playoff gaps).
 if os.environ.get("NHL_TAU_PRE"):
     M.TAU_PRE = float(os.environ["NHL_TAU_PRE"])
+def _git_commit():
+    import subprocess
+    try:
+        return subprocess.run(["git", "-C", ROOT, "rev-parse", "HEAD"], capture_output=True, text=True, timeout=10).stdout.strip()
+    except Exception:
+        return "unknown"
+
+
 PRIOR_SCALE = float(os.environ.get("NHL_PRIOR_SCALE", "1"))
 PO_SCALE = float(os.environ.get("NHL_PO_SCALE", "1"))
 PO_GAP_ONLY = os.environ.get("NHL_PO_GAP_ONLY") == "1"   # research/NHL_PO_SCALE_RULE.md: po_scale on the rating gap only, not the tau draw
@@ -366,5 +374,6 @@ if __name__ == "__main__":
             print("skip", y)
             continue
         D.to_csv(os.path.join(OUT, f"nhl_{y}.csv"), index=False)
-        json.dump({k: v for k, v in os.environ.items() if k.startswith(("NHL_", "BT_", "RAPM_"))}, open(os.path.join(OUT, "knobs.json"), "w"), indent=1, sort_keys=True)
+        json.dump({**{k: v for k, v in os.environ.items() if k.startswith(("NHL_", "BT_", "RAPM_"))}, "git_commit": _git_commit(),
+                   "rapm_cache_sha256_file": "research/nhl_goalie_canonical_cache_sha256.txt"}, open(os.path.join(OUT, "knobs.json"), "w"), indent=1, sort_keys=True)
         print("season", y, "weeks", D.week.nunique(), flush=True)

@@ -37,3 +37,17 @@ The canonical baseline needs the frozen RAPM cache built from the nhl-shifts-dat
 
 ## Amendments
 (none)
+
+## Amendment 1 (8 Nov 2026, reviewer round 3 checked; recorded before any run; nothing above edited)
+**Accepted.**
+1. **Grid, not four arms.** `po_scale` multiplies the tau draw inside each series, so Cup sensitivity to TAU_PRE depends on `po_gap_only`. Arms are TAU_PRE {1.0, 1.25, 1.5} x NHL_PO_GAP_ONLY {off, on} = six arms. The live arm is (1.5, off); the other five are eligible. This replaces arms A-D above (D is dropped).
+2. **Decision statistic is the calibration slope, not log loss.** TAU_PRE moves probability from the tail to the middle, which aggregate log loss barely sees (the 15 Oct runs were 0.0000 / +0.0001). Primary: Cup slope at preseason and first quarter, paired with live on the same seasons and outcomes, 90% season-cluster interval on the slope movement toward 1. Reported separately: conference, finals, playoffs. Log loss becomes a no-harm check only.
+3. **Selection rule, fixed now.** Among eligible arms with combined log loss no worse than live by more than 0.0002 and no market worse than -0.0005, choose the arm whose preseason Cup slope is closest to 1. It passes only if the paired slope movement toward 1 has a 90% interval excluding 0. Otherwise fail. A pass authorises a shadow only.
+4. **Falsification wording.** The prediction is an interpretation check, not an acceptance test. If the playoff slope moves by more than a third of the Cup slope's movement, the variance diagnosis is not supported; record it and do not present the arm as evidence for the mechanism. The prediction is conditional on the arm: the largest Cup-slope movement is expected at (TAU_PRE 1.0, gap-only off) and the smallest at (1.5, gap-only on), because the 4x amplification path is removed by the fix. If that ordering does not appear, both mechanisms are unsupported.
+5. **assert_live_equivalent before any arm is trusted.** Run the live arm at the most recent checkpoint and compare with the archived live forecast for the same date; Monte Carlo SE on a 10% probability is about 0.5pp at 2,000 sims, so max |p_replay - p_live| above 2pp means the string is not live-equivalent and no arm is scored.
+6. **Provenance.** knobs.json now also records the code commit and points to the RAPM cache hash file.
+
+**Checked, not changed.**
+- *"Canonical string is missing the xG knobs."* True of the strings printed in NHL_GOALIE_ROSTER_RULE.md and NHL_OT_RATE_RULE.md, but the baseline in NHL_GOALIE_CANONICAL_RULE.md (the one this rule uses) already carries NHL_RS_SHOT_W=0.2 NHL_RS_XG=raw NHL_OT_FIX=1 NHL_OT_EDGE=0.5. `NHL_SHOT_W=1` is not a leftover: with `NHL_SHOT_PO=1` it sets the playoff-series rating to shots x league shooting % (that rule, line 19), while the regular-season 20% xG share is the RS_* pair.
+- *"Slopes may be computable from the 15 Oct CSVs."* Only the committed replay CSVs (5 Nov) are stored, which are the live-arm configuration; the TAU_PRE variants were scratch runs and were not kept. The live-arm slopes are already in model/replay/CALIBRATION_CI.md.
+- *M-only as a placebo for CLV7.* The selection paper test already scores M, X and B and prefers B only if B-M and B-X have paired intervals above 0 (research/SELECTION_PAPER_TEST_RULE.md in the private repo). X (exchange-only) takes the exchange-convergence drift; B-X is the contrast the reviewer asks for. Nothing new to register before 13 Nov.
