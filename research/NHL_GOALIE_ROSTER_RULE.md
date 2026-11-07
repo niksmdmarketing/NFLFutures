@@ -70,3 +70,7 @@ TypeSafe (96%, confidence 0.94): treat the paired run as the valid result, and b
 
 ### 5 November 2026 — research records merged
 Retained main's complete rule history, including the original fail, adoption note and subsequent configuration correction. GPT's original rule text is preserved separately in NHL_GOALIE_ROSTER_GPT_RULE_20261105.md (LF endings normalized; exact original Git bytes remain at 5afbbb5). Its findings, aggregate results and strict helpers are now research records alongside this rule. No production implementation or displayed forecasts change in this research merge. The different configurations remain unresolved pending a canonical-baseline comparison, as the correction above states.
+
+
+## Pointer (8 Nov 2026)
+The replay baseline string in this rule is superseded by research/NHL_GOALIE_CANONICAL_RULE.md (it carries NHL_RS_SHOT_W=0.2 NHL_RS_XG=raw and the OT knobs). Nothing above edited.

@@ -62,3 +62,7 @@ TypeSafe split evenly between "points only" and "points plus no harm on probabil
 
 ## Amendments
 (none)
+
+
+## Pointer (8 Nov 2026)
+The replay baseline string in this rule is superseded by research/NHL_GOALIE_CANONICAL_RULE.md (it carries NHL_RS_SHOT_W=0.2 NHL_RS_XG=raw and the OT knobs). Nothing above edited.
