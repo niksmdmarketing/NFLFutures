@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>NFL player forecasts · NFLFutures</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Public+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="site-head">
+    <div class="sportbar"><span>SPORT</span><a href="./" aria-current="page">NFL</a><a href="nba/">NBA</a><a href="nbl/">NBL</a><a href="nhl/">NHL</a><a href="afl/">AFL</a><a href="cfb/">CFB</a><a class="sb-shiv" href="shiv/">Shiv</a><a href="updates.html">Updates</a></div>
+    <div class="brand"><a class="brand-name" href="./">NFL<span>Futures</span></a><span class="stamp" id="stamp">Loading latest update…</span></div>
+    <nav class="nav nav-top" aria-label="NFL sections"><a href="standings.html">Standings</a><a href="./" aria-current="page">Forecast</a><a href="offense.html">Teams</a><a href="players-qb.html">Players</a><a href="matchups.html">Games</a><a href="model.html">Model</a></nav><nav class="nav nav-sub" aria-label="Forecast pages"><a href="./">Chances</a><a href="player-props.html" aria-current="page">Player props</a><a href="why.html">Why, team by team</a><a href="awards.html">Award chances</a><a href="award-race.html">Award race</a><a href="outlook.html">Schedule difficulty</a><a href="sos.html">Strength of schedule</a><a href="trends.html">Winner trends</a></nav>
+  </header>
+  <main class="page" id="main">
+    <div class="page-head"><h1 id="pageTitle">NFL player forecasts</h1><p id="pageIntro">Experimental &#x27;if he plays&#x27; forecasts for quarterback pass attempts and receptions, grouped by injury designation. Independent model probabilities, not bookmaker lines or betting advice.</p></div>
+        <div class="controls tab-controls">
+      <div class="field"><label for="game">Game</label><select id="game"></select></div>
+      <div class="field"><label for="stat">Stat</label>
+        <select id="stat"><option value="all">All</option><option value="pass_attempts">Pass attempts</option><option value="receptions">Receptions</option></select>
+      </div>
+      <div class="field"><label for="team">Team</label><select id="team"><option value="all">All teams</option></select></div>
+    </div>
+
+  <section>
+    <div class="table-head">
+      <h2>Available players</h2>
+      <div class="legend"><span>No injury designation · every number assumes he plays</span></div>
+    </div>
+    <div class="scroll"><table class="stbl" id="clearTable"><thead><tr><th>Player</th><th>Team</th><th>Stat</th><th>Average</th><th>Middle 80%</th><th>Example line</th><th>Over chance</th></tr></thead><tbody id="clearRows"></tbody></table></div>
+  </section>
+
+  <section>
+    <div class="table-head">
+      <h2>Questionable</h2>
+      <div class="legend"><span>Listed questionable · numbers still assume he plays, but his role may be reduced</span></div>
+    </div>
+    <div class="scroll"><table class="stbl" id="qTable"><thead><tr><th>Player</th><th>Team</th><th>Stat</th><th>Average</th><th>Middle 80%</th><th>Example line</th><th>Over chance</th></tr></thead><tbody id="qRows"></tbody></table></div>
+    <p class="note" id="hidden" style="margin-top:8px"></p>
+  </section>
+
+  <section class="proof">
+    <div class="panel">
+      <h3>How to read this</h3>
+      <p class="note" id="method"></p>
+      <p class="note">The example line is the model average rounded to a half point, not a bookmaker price. The over chance is the model's probability that the player beats that line if he plays. These are experimental, independent model probabilities, not betting advice; no betting edge has been established.</p>
+      <p class="note" id="evidence"></p>
+    </div>
+  </section>
+
+  </main>
+  <footer class="stamp">Built from nflverse public data (play-by-play, schedules, player stats, rosters, injury reports, FTN and Pro Football Reference charting). An independent model. Probabilities only, not betting advice.</footer>
+</div>
+<script src="js/common.js"></script>
+<script src="js/player_props.js"></script>
+</body>
+</html>
