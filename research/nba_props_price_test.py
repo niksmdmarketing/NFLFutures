@@ -296,7 +296,8 @@ def placebo_arms(D, thr=0.05, n_perm=1000, seed=20261107):
     return {"observed_clv": obs, "n_bets": int(sel.sum()), "perm_null_mean": float(nulls.mean()) if len(nulls) else None,
             "perm_null_p95": float(np.percentile(nulls, 95)) if len(nulls) else None, "perm_null_bonferroni_q": q, "perm_p": perm_p,
             "perm_draws": int(len(nulls)), "random_side_mean": float(np.mean(coin)) if coin else None, "shopping_all_rows_mean": shop,
-            "binding_floor": bind, "exceeds_binding": bool(np.isfinite(obs) and obs > bind),
+            "binding_floor": bind,
+            "floor_bound_by": "zero (null inert)" if bind == 0.0 else ("null quantile" if q is not None and bind == q else "shopping arm"), "exceeds_binding": bool(np.isfinite(obs) and obs > bind),
             "exceeds_null_p95": bool(len(nulls) and np.isfinite(obs) and obs > np.percentile(nulls, 95)),
             "breakeven_book_premium_r": obs}   # EV at a book with price disadvantage r is about (1+obs)/(1+r)-1
 
