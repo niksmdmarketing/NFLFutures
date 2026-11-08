@@ -51,7 +51,13 @@ A.GAME_DF = float(os.environ.get("BT_GAME_DF", A.GAME_DF))
 BT_M = tuple(float(x) for x in os.environ.get("BT_M", "1,1,1").split(","))
 
 
+BT_M_FROM = os.environ.get("BT_M_FROM")      # EXPLORATORY_ALLSPORTS_RULE.md: one constant BT_M[1] applied from this many games played (m=1 before)
+A.GAME_SD = A.GAME_SD * float(os.environ.get("BT_GAME_SD_MULT", "1"))
+
+
 def tau_mult(gp):
+    if BT_M_FROM is not None:
+        return BT_M[1] if gp >= int(BT_M_FROM) else 1.0
     return BT_M[0] if gp <= 6 else (BT_M[1] if gp <= 15 else BT_M[2])
 
 

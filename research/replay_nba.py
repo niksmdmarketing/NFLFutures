@@ -28,6 +28,7 @@ _CW = float(os.environ.get("BT_CW", "8"))   # live setting since 13 Oct 2026 (wa
 _orig_fit = N._fit_ratings
 _RH = float(os.environ.get("BT_RECENCY_DAYS", "0"))   # NBA_FUTURES_RECENCY_RULE.md: within-season half-life in days (0 = off, live)
 N._fit_ratings = lambda boxes, end_year: _orig_fit(boxes, end_year, decay=_DECAY, current_weight=_CW, recency_days=_RH)
+N.TAU_PRE = float(os.environ.get("BT_TAU_PRE", N.TAU_PRE))   # EXPLORATORY_ALLSPORTS_RULE.md: 2.0 = live
 N.TAU_FADE = float(os.environ.get("BT_TAUFADE", "0"))
 N.TAU_FADE_START = float(os.environ.get("BT_TAUFADE_START", "0"))
 N.PO_SCALE = float(os.environ.get("BT_PO_SCALE", "1"))
