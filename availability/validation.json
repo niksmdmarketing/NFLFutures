@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-11-08T02:31:54+00:00",
+ "checked_utc": "2026-11-08T10:29:13+00:00",
  "leagues": {
   "nfl": {
-   "records": 1657,
+   "records": 1303,
    "by_layer": {
-    "official": 1547,
-    "reported": 110
+    "official": 1187,
+    "reported": 116
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -53,16 +53,16 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "110/110"
+   "reported_matched_to_official_list": "116/116"
   },
   "nba": {
-   "records": 284,
+   "records": 225,
    "by_layer": {
-    "official": 237,
-    "reported": 47
+    "official": 176,
+    "reported": 49
    },
    "unknown_team": 0,
-   "no_player": 1,
+   "no_player": 17,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -155,14 +155,14 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "47/47"
+   "reported_matched_to_official_list": "49/49"
   },
   "nhl": {
-   "records": 1544,
+   "records": 1537,
    "by_layer": {
-    "official": 147,
-    "reported": 63,
-    "projected": 1334
+    "official": 149,
+    "reported": 64,
+    "projected": 1324
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -211,12 +211,12 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "63/63"
+   "reported_matched_to_official_list": "64/64"
   },
   "nbl": {
-   "records": 26,
+   "records": 24,
    "by_layer": {
-    "official": 26
+    "official": 24
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -227,6 +227,7 @@
     "CNS",
     "ILL",
     "PER",
+    "SEM",
     "SYD",
     "TAS"
    ],
@@ -234,8 +235,7 @@
    "stale_projection_dates": 0,
    "teams_missing_official": [
     "MEL",
-    "NZL",
-    "SEM"
+    "NZL"
    ],
    "season_state": {
     "state": "in_season",
@@ -286,6 +286,8 @@
    "reported_matched_to_official_list": "0/10"
   }
  },
- "sources_failed": [],
+ "sources_failed": [
+  "nfl: nflverse injuries (official reports, CC-BY) - HTTPError: HTTP Error 504: Gateway Time-out"
+ ],
  "sources_not_expected": []
 }
