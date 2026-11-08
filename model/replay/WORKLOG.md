@@ -705,3 +705,5 @@ TypeSafe 96%: shadow. nhl_model g_* fields + archive; model/nhl_goalie_ratings_2
 - 2026-11-08: NBA overrides scoring rule v1 + Amendment 1 (research/NBA_OVERRIDES_SCORING_RULE.md): outcome scoring is descriptive only (power: t ~ dp x sqrt(m)); validation is the mechanism check; overrides stay as unvalidated owner judgement. No-overrides run is 20k sims vs 100k live, no shared draws. Selection paper test readiness is Amendment 3 in the private SELECTION_PAPER_TEST_RULE.md (gate mid-Jan 2027).
 
 - 2026-11-08: AFL finals home edge (research/AFL_FINALS_HOME_RULE.md): finals edge 3.0 unresolved vs 7.0 (eval +3.21 [-3.38,10.02], n 58); grand final set to neutral (0.0) per pre-registered rule; no-harm: ladder, PF, GF outputs identical, flag max 0.9pp.
+
+- 2026-11-08: CALIBRATION_CI.md stamped: AFL (35 slopes) and NBL (25) reproduce from current replay CSVs, unchanged to 0.01; NBA block regenerated (21 of 25 slopes had moved since the 14 Oct block, CSVs last committed 5 Nov). Intervals are fresh 150-rep bootstrap draws.
