@@ -666,3 +666,8 @@ TypeSafe 96%: shadow. nhl_model g_* fields + archive; model/nhl_goalie_ratings_2
 - With current and pre-season logits together, the pre-season coefficient is about 0: title -0.04 (se 0.19), seed1 -0.34 (se 0.15).
 - Early slopes are above 1 (title 1.25), so the model is slightly too cautious early, not over-reacting.
 - No fix tested.
+
+## 2026-11-08 AFL/NBL pre-season accuracy line now at live settings
+- The AFL/NBL round-by-round replays already ran at live ratings and tau. The page's pre-season accuracy sentence did not: AFL hard-coded prior .55 and 1.15x game spread, NBL divided by 1.1. Both now use the live constants (PRIOR_REG, GAME_SD, HCA); text only, no forecast changes.
+- AFL rerun (14 seasons 2013-2026, fitzRoy archive, previous season only): wins error per team 2.82 old settings -> 2.72 live; naive 'last season's win rate pulled halfway' 2.84. Single-game log loss 0.6186 -> 0.6126. GAME_SD and PRIOR_REG were tuned on the same seasons, so the live figure is in-sample.
+- NBL not rerun: its source (prod.rosetta.nbl.com.au) is unreachable from this workspace. The change is the same one-line fix; the first Actions build will show the new number.

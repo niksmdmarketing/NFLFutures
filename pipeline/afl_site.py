@@ -568,13 +568,13 @@ def backtest(hist_games):
         prev, now = hist_games[y - 1] if y - 1 in hist_games else None, hist_games[y]
         if prev is None:
             continue
-        rating = {t: .55 * v for t, v in srs(prev).items()}
+        rating = {t: PRIOR_REG * v for t, v in srs(prev).items()}   # live settings (2026-11-08; was a hard-coded .55 and 1.15x game spread)
         s = now.groupby("team").agg(w=("win", "sum"), gp=("win", "size"))
         pw = prev.groupby("team").win.mean()
         x = now[now.ha == "H"]
         exp = {t: 0.0 for t in s.index}
         for h, a in zip(x.team, x.opp):
-            p = 1 - _ncdf(-(rating.get(h, 0) - rating.get(a, 0) + HGA) / (GAME_SD * 1.15))
+            p = 1 - _ncdf(-(rating.get(h, 0) - rating.get(a, 0) + HGA) / GAME_SD)
             exp[h] += p
             exp[a] += 1 - p
         for t in s.index:

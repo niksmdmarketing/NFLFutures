@@ -508,7 +508,7 @@ def backtest(hist):
         x = now[now.ha == "H"]
         exp = {t: 0.0 for t in now.team.unique()}
         for h, a in zip(x.team, x.opp):
-            p = _p((rating.get(h, 0) - rating.get(a, 0) + HCA) / 1.1)
+            p = _p((rating.get(h, 0) - rating.get(a, 0) + HCA))   # live game spread (2026-11-08; was divided by 1.1)
             exp[h] += p
             exp[a] += 1 - p
         s = now.groupby("team").agg(w=("win", "sum"), n=("win", "size"))
