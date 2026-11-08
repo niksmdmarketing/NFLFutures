@@ -1,0 +1,20 @@
+# Futures bake-off (DeepSeek leads; Claude implements and runs; TypeSafe prioritises). Rule, draft v1 (NOT YET FROZEN)
+
+Written 8 Nov 2026 (Sydney), before any arm exists or any arm result. Amendments below, dated; nothing above them is edited. Source: private relay packets 012-015 (replies in deepseek_relay/inbox, private repo).
+
+## Objective and limits
+Most accurate and most profitable FUTURES forecasts (NBA, NHL, AFL, NBL; NFL descriptive only, 4 replay seasons). No historical futures prices are held, so historical PROFIT cannot be measured; the pre-registered measure is calibration of replayed playoff/division/title probabilities, and profit is judged forward (selection paper test, mid-January 2027 earliest, and daily price capture). A calibrated model has zero edge against a calibrated price: the forward record must log the book's de-vigged tail beside ours.
+No market price is ever a model input. Model count cap: TWO (TypeSafe 99%: stop at two and put the effort into daily futures price capture). Structural fixes count as models.
+
+## Agreed so far (DeepSeek, checked by Claude; TypeSafe on M2 build form 88%)
+- Decision-capable markets (at least 60 independent outcomes in the evaluation window): NBA playoff (112), AFL playoff (56-64), NHL playoff (80). Everything else (title anywhere, NHL r2/r3/finals alone, seed1, AFL/NBL divisions, all of NBL and NFL) is descriptive; no pass can be earned.
+- Evaluation seasons after 2018; replays are NBA 2013-2026, NHL 2015-2025 (no 2019-20), AFL 2013-2026, NBL 2013-2025, NFL 2022-2025.
+- Metric: calibration slope of the outcome on logit(p), intercept free. Log loss kept only as a no-harm check (second-order).
+- Rows at p = 0 or 1 (certain outcomes; up to 24% of AFL Q3 playoff, 21% of NBA Q3 playoff): CLIP at 0.001/0.999 as primary (dropping depends on the arm's own output and breaks the pairing); the drop slope is reported as a robustness check; opposite signs between constructions means INSUFFICIENT, not fail. Sensitivity floor 0.0001 reported, not gating. Known: AFL Q3 playoff slope is 0.69 clipped (pack) and 0.63 dropped.
+- Interval: season-cluster Bayesian (exponential-weight) bootstrap, 10,000 draws, seed 20261108, both arms on the same draws; point estimate is the full-sample fit, never the bootstrap mean; report the 10th/50th/90th contrast percentiles; fixed small L2 penalty in every fit (lambda to be fixed by a null live-versus-live run so that |slope| < 5 in at least 99% of draws); fraction of draws with |slope| above 5 or non-convergent above 5% means INSUFFICIENT. Rademacher wild weights are invalid for a likelihood and are not used.
+- Success per test: slope moves toward 1, paired 90% interval excludes 0; holds with 2019-20 and 2020-21 dropped (NBA) / 2020 dropped (AFL); no-harm log-loss lower bound above -0.002 and no decision market worse than live by more than 0.002; a null arm run and printed beside every arm. A pass authorises a SHADOW season, never a live change.
+- M2: AFL playoff slope crosses 1 within one season (1.10 at Q1 to 0.63-0.69 at Q3; contrast -0.47 [-0.67, -0.27]) so one constant tau cannot fix it. Build form: three-constant tau schedule keyed to games played (TypeSafe 88%), not the Kalman filter. Confirmatory: AFL Q3 playoff slope (powered), NBA preseason playoff slope (conditional on the paired half-width being below the 0.50 live displacement). Exact schedule, cut points, grid, gates and registered prediction: awaiting DeepSeek (its packet-015 reply was cut off before that section).
+- M1 (concave series transform): DOWNGRADED to a DIAGNOSTIC by DeepSeek; a single exponent cannot move NHL r2 (0.89, too extreme) and r3 (1.51, too flat) in the needed opposite directions; the r3-r2 contrast (+0.62 [+0.17, +1.15]) looks like a bracket/seeding effect. Its full diagnostic spec is also awaiting.
+
+## Still to do before freezing
+Complete M2 schedule spec and M1 diagnostic spec; null-arm lambda; paired minimum detectable movements (needs an arm); stamp the NBA top-6/play-in block (16 Oct provenance); regenerate the pack at 10,000 draws as the baseline.

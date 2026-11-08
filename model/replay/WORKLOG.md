@@ -713,3 +713,5 @@ TypeSafe 96%: shadow. nhl_model g_* fields + archive; model/nhl_goalie_ratings_2
 - 2026-11-08: NBL LOSO refit (research/LOSO_REFIT_RULE.md Amendment 1): LOSO minus live +0.0034 [+0.0018, +0.0052], better 2/14; fold fits pile on grid edges (unidentified); live favoured by tuning leakage. No change. CBB LOSO (private repo): c 0.9 immaterial.
 
 - 2026-11-08: Amendment 10 (top-10 rule): live NBA/CFB engines not shown to share the proxy's tail problems (NBA live LL 0.6075 vs proxy 0.644 on recent seasons; live CFB drops non-FBS games). Open: join live NBA per-game forecasts for 2021-23 to the SBR odds; CFB spread test 2023-25.
+
+- 2026-11-08: Futures bake-off draft rule (research/FUTURES_BAKEOFF_RULE.md): DeepSeek leads, 2 model slots, M2 tau schedule (TypeSafe 88%), M1 downgraded to diagnostic, clip p=0/1, Bayesian cluster bootstrap. Stats pack and numbers in research/FUTURES_*.md. Not frozen yet.
