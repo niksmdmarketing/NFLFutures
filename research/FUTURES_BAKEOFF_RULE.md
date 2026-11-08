@@ -44,3 +44,9 @@ Concave series transform plus round-1 intercept shift, measuring whether the NHL
 - Prediction: tau widens the distribution and leaves mean wins unchanged to first order; S2/S4 move < 0.1 win, S3 moves measurably, most at preseason. Falsifier (overrides S3 gains, arm not scored): any team's mean wins shifting by more than 0.25 wins.
 - MDM: DeepSeek's rough figures (NBA about +/-1.0 win on S2, AFL about +/-0.5) are placeholders; Claude replaces them with realised sd and the null live-vs-live spread from the run.
 - Fields to add to each replay (new columns only, existing columns untouched): team, gp, w_mean, w_sd, w_q05, w_q25, w_q50, w_q75, w_q95, w_hist (compact string 0..G), y_wins. Claude confirmed: replay_afl.py saves none of w_mean/wins_hist today (simulate returns them); replay_nba.py saves only mean_wins (win_dist unsaved). To be added BEFORE the AFL grid run.
+
+---
+## Amendment 2 (9 Nov 2026): M2 AFL result and ruling. Earlier text unchanged.
+- Result: research/M2_AFL_RESULT_20261109.md. Arm (0.7, 2.0, 2.0) moved the AFL Q3 playoff slope 0.62 -> 0.82 (primary clause met, not falsified) but registered predictions failed in direction (Q1 slope 0.99 -> 0.78, log loss +0.0081; finals slope 1.08 -> 1.45, log loss +0.0052) and the optimum sat on two grid edges.
+- DeepSeek ruling (relay 019): FAIL, not adopted. Shadow season refused. NBA not run. No-harm clause read literally (pooled by market) for this run, and made per stage for every later run (DeepSeek's wording loophole, owned by DeepSeek).
+- One further fix was permitted by DeepSeek (m1 = 1, m2 = m3 one constant from gp >= 10, discovery 2013-2020, test 2021-2026) with its own prediction of INSUFFICIENT. TypeSafe 79% stop (58% confident): NOT run. The bake-off therefore ends with the live model unchanged; M1 diagnostic and win-total scoring remain available for any future arm. Live code is untouched.
