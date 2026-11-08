@@ -1,0 +1,131 @@
+name: OddsPapi collector (private archive)
+
+on:
+  schedule:
+    - cron: '47 21 * * *' # Existing NBA names schedule, gated until explicit cutover.
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Preflight checks access only; other modes call OddsPapi
+        type: choice
+        options: [preflight, discover, probe, names, backfill]
+        default: preflight
+      sport:
+        description: Sport to collect
+        type: choice
+        options: [nba, nfl]
+        default: nba
+      max_fixtures:
+        description: Backfill fixtures (0 means all remaining); names uses 15 requests
+        default: '0'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: oddspapi-private-archive
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    # Only trusted default-branch dispatches can access private data or credentials.
+    if: github.repository == 'niksmdmarketing/NFLFutures' && github.ref == 'refs/heads/main' && (inputs.mode == 'preflight' || vars.ODDSPAPI_PUBLIC_ENABLED == 'true')
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - name: Validate configuration and inputs without API requests
+        env:
+          ARCHIVE_TOKEN: ${{ secrets.ODDSPAPI_PRIVATE_ARCHIVE_TOKEN }}
+          API_KEY: ${{ secrets.ODDSPAPI_KEY }}
+          MODE: ${{ github.event_name == 'schedule' && 'names' || inputs.mode }}
+          SPORT: ${{ inputs.sport || 'nba' }}
+          MAX_FIXTURES: ${{ inputs.max_fixtures || '0' }}
+        shell: bash
+        run: |
+          set -eu
+          test -n "$ARCHIVE_TOKEN" || { echo 'Missing ODDSPAPI_PRIVATE_ARCHIVE_TOKEN'; exit 1; }
+          test -n "$API_KEY" || { echo 'Missing ODDSPAPI_KEY'; exit 1; }
+          case "$MODE" in preflight|discover|probe|names|backfill) ;; *) exit 1 ;; esac
+          case "$SPORT" in nba|nfl) ;; *) exit 1 ;; esac
+          [[ "$MAX_FIXTURES" =~ ^[0-9]{1,6}$ ]] || { echo 'max_fixtures must contain 1â€“6 digits'; exit 1; }
+      - name: Check out private collector code only
+        uses: actions/checkout@v4
+        with:
+          repository: niksmdmarketing/nflfutures-private-data
+          ref: main
+          token: ${{ secrets.ODDSPAPI_PRIVATE_ARCHIVE_TOKEN }}
+          path: private-archive
+          sparse-checkout: |
+            pipeline
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Preflight (no OddsPapi requests, no writes)
+        if: inputs.mode == 'preflight'
+        working-directory: private-archive
+        shell: bash
+        run: |
+          set -eu
+          test -f pipeline/oddspapi_nba_history.py
+          echo 'Private collector checkout succeeded. Token write permission still needs to be Contents: read and write.'
+          echo 'No OddsPapi requests, price inspection, writes or uploads were performed.'
+      - name: Restore existing private archives without displaying contents
+        if: inputs.mode != 'preflight'
+        working-directory: private-archive
+        shell: bash
+        run: |
+          set -eu
+          git sparse-checkout set pipeline collected_data/oddspapi_nba collected_data/oddspapi_nfl > "$RUNNER_TEMP/oddspapi-checkout.log" 2>&1 || { echo 'Private archive checkout failed; details are not published.'; exit 1; }
+      - name: Run collector with private output and suppressed public logs
+        id: collector
+        if: inputs.mode != 'preflight'
+        working-directory: private-archive
+        env:
+          ODDSPAPI_KEY: ${{ secrets.ODDSPAPI_KEY }}
+          ODDSPAPI_SPORT: ${{ inputs.sport || 'nba' }}
+          MODE: ${{ github.event_name == 'schedule' && 'names' || inputs.mode }}
+          MAX_FIXTURES: ${{ inputs.max_fixtures || '0' }}
+          EVENT_NAME: ${{ github.event_name }}
+        shell: bash
+        run: |
+          set -eu
+          if [ "$EVENT_NAME" = schedule ] && [ "$(date -u +%Y%m%d)" -gt 20261120 ]; then
+            echo 'Names schedule ended 20 November 2026; no API request made.'
+            exit 0
+          fi
+          args=("$MODE")
+          if [ "$MODE" = names ]; then args+=(15); fi
+          if [ "$MODE" = backfill ] && [ "$MAX_FIXTURES" != 0 ]; then args+=("$MAX_FIXTURES"); fi
+          if ! python pipeline/oddspapi_nba_history.py "${args[@]}" > "$RUNNER_TEMP/oddspapi-private.log" 2>&1; then
+            echo 'Collector failed. Partial archives will be saved privately; response bodies and error details are not published.'
+            exit 1
+          fi
+          echo 'Collector completed. Data and response logs are not published.'
+      - name: Save completed and partial downloads only to private main
+        if: always() && steps.collector.outcome != 'skipped' && steps.collector.outcome != ''
+        working-directory: private-archive
+        shell: bash
+        run: |
+          set -eu
+          # Avoid printing private filenames, commit diffs, API responses or git diagnostics.
+          if ! (
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            for d in collected_data/oddspapi_nba collected_data/oddspapi_nfl; do
+              if [ -d "$d" ]; then git add -- "$d"; fi
+            done
+            if ! git diff --cached --quiet; then
+              git commit -q -m 'Archive OddsPapi player-prop history from public runner'
+              saved=false
+              for attempt in 1 2 3; do
+                if git push -q origin HEAD:main; then saved=true; break; fi
+                git pull --rebase -q origin main || exit 1
+              done
+              test "$saved" = true
+            fi
+          ) > "$RUNNER_TEMP/oddspapi-save.log" 2>&1; then
+            echo 'Private save failed; no data is uploaded as a public artifact. Review private main before retrying.'
+            exit 1
+          fi
+          echo 'Private archive save completed. No public artifacts or caches were created.'

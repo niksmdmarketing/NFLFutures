@@ -1,0 +1,130 @@
+name: Australian odds collector (public runner, private data)
+permissions:
+  contents: read
+concurrency:
+  group: public-private-odds-api-au
+  cancel-in-progress: false
+jobs:
+  collect:
+    if: github.repository == 'niksmdmarketing/NFLFutures' && github.ref == 'refs/heads/main' && (inputs.mode == 'preflight' || vars.AU_ODDS_PUBLIC_ENABLED
+      == 'true')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+    - name: Require AU collector secret
+      env:
+        KEY: ${{ secrets.ODDS_API_KEY }}
+      run: |
+        test -n "$KEY" || { echo "Missing ODDS_API_KEY repository secret"; exit 1; }
+      working-directory: .
+    - uses: actions/checkout@v4
+      with:
+        ref: main
+        repository: niksmdmarketing/nflfutures-private-data
+        token: ${{ secrets.ODDSPAPI_PRIVATE_ARCHIVE_TOKEN }}
+        path: archive
+    - name: Check private archive access without collection or writes
+      if: inputs.mode == 'preflight'
+      run: |
+        set -eu
+        git push --dry-run origin HEAD:"$(git branch --show-current)" > "$RUNNER_TEMP/private-access.log" 2>&1 || { echo 'Private write-access check failed.'; exit 1; }
+        echo 'Private archive access check passed; no collection or data writes performed.'
+    - name: Record actual private source revision
+      run: |
+        echo "PRIVATE_SOURCE_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.13'
+    - name: Forecast snapshot before any price is requested (NFL/NBA model chances, public forecast-archive branch)
+      run: |
+        set -eu
+        cat > "$RUNNER_TEMP/private-step-4.sh" <<'__PRIVATE_WORKFLOW_STEP__'
+        git clone -q --depth 1 --branch forecast-archive https://github.com/niksmdmarketing/NFLFutures.git ../forecast-archive || echo "forecast-archive clone failed"
+        date -u +%Y-%m-%dT%H:%M:%SZ > ../forecast_cloned_utc
+        __PRIVATE_WORKFLOW_STEP__
+        if ! bash -e -o pipefail "$RUNNER_TEMP/private-step-4.sh" > "$RUNNER_TEMP/private-step-4.log" 2>&1; then
+          echo "Private operation failed; raw details are suppressed."
+          exit 1
+        fi
+      if: inputs.mode != 'preflight'
+      shell: bash
+    - name: Collect (comparison only; never a model input)
+      env:
+        ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+        ODDS_MANIFEST: collected_data/odds_api_au/runs/${{ github.run_id }}.json
+        ODDS_RUN_EVENT: ${{ github.event_name }}
+        ODDS_RUN_SCHEDULE: ${{ github.event.schedule }}
+        RUN_SCHEDULE: ${{ github.event.schedule }}
+      run: |
+        set -eu
+        cat > "$RUNNER_TEMP/private-step-5.sh" <<'__PRIVATE_WORKFLOW_STEP__'
+        export GITHUB_SHA="$PRIVATE_SOURCE_SHA"
+        if [ "$RUN_SCHEDULE" = "43 21 * * *" ] || [ "$RUN_SCHEDULE" = "43 23 * * *" ]; then
+          python pipeline/odds_api_au_collect.py basketball_ncaab americanfootball_nfl basketball_nba
+        else
+          python pipeline/odds_api_au_collect.py
+        fi
+        __PRIVATE_WORKFLOW_STEP__
+        if ! bash -e -o pipefail "$RUNNER_TEMP/private-step-5.sh" > "$RUNNER_TEMP/private-step-5.log" 2>&1; then
+          echo "Private operation failed; raw details are suppressed."
+          exit 1
+        fi
+      if: inputs.mode != 'preflight'
+      shell: bash
+    - name: Immutable paper-bet decisions from this run's exact snapshots (scheduled runs only; failures queued for retry)
+      id: decide
+      continue-on-error: true
+      run: |
+        set -eu
+        cat > "$RUNNER_TEMP/private-step-6.sh" <<'__PRIVATE_WORKFLOW_STEP__'
+        export GITHUB_SHA="$PRIVATE_SOURCE_SHA"
+        pip install -q pandas
+        python pipeline/au_decisions_run.py --manifest collected_data/odds_api_au/runs/${{ github.run_id }}.json --forecast-archive ../forecast-archive
+        __PRIVATE_WORKFLOW_STEP__
+        if ! bash -e -o pipefail "$RUNNER_TEMP/private-step-6.sh" > "$RUNNER_TEMP/private-step-6.log" 2>&1; then
+          echo "Private operation failed; raw details are suppressed."
+          exit 1
+        fi
+      if: inputs.mode != 'preflight'
+      shell: bash
+    - name: Save privately
+      if: always() && inputs.mode != 'preflight'
+      run: |
+        set -eu
+        cat > "$RUNNER_TEMP/private-step-7.sh" <<'__PRIVATE_WORKFLOW_STEP__'
+        git config user.name 'github-actions[bot]'
+        git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+        git add collected_data/odds_api_au 2>/dev/null || true
+        [ -d collected_data/cbb_bet_decisions ] && git add collected_data/cbb_bet_decisions || true
+        [ -d collected_data/nfl_bet_decisions ] && git add collected_data/nfl_bet_decisions || true
+        [ -d collected_data/nba_bet_decisions ] && git add collected_data/nba_bet_decisions || true
+        [ -f collected_data/au_decision_pending.json ] && git add collected_data/au_decision_pending.json || true
+        [ -d collected_data/pro_title_decisions ] && git add collected_data/pro_title_decisions || true
+        if ! git diff --cached --quiet; then
+          git commit -q -m 'Archive Australian bookmaker prices'
+          git pull --rebase -q origin main
+          git push -q origin HEAD:main
+        fi
+        __PRIVATE_WORKFLOW_STEP__
+        if ! bash -e -o pipefail "$RUNNER_TEMP/private-step-7.sh" > "$RUNNER_TEMP/private-step-7.log" 2>&1; then
+          echo "Private operation failed; raw details are suppressed."
+          exit 1
+        fi
+      shell: bash
+    defaults:
+      run:
+        working-directory: archive
+'on':
+  schedule:
+  - cron: 13 15 * * *
+  - cron: 43 21 * * *
+  - cron: 43 23 * * *
+  workflow_dispatch:
+    inputs:
+      mode:
+        type: choice
+        options:
+        - preflight
+        - collect
+        default: preflight
+        description: Preflight checks access only; collect calls the existing collector
