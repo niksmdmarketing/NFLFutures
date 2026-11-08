@@ -691,3 +691,5 @@ TypeSafe 96%: shadow. nhl_model g_* fields + archive; model/nhl_goalie_ratings_2
 ## 2026-11-08 Top-10 backtest edges (NFL games 2014-2025): not legitimate; no bug; no validated fix
 - research/TOP10_BACKTEST_EDGES_RULE.md (rule + Amendments 1-3 + rounds 1-4). Scripts: top10_edges.py, top10_fix_round.py, top10_seedfixed.py, top10_seedfixed_stage1.py, top10_round3.py. DeepSeek reviewed (relay 006, 007).
 - Largest edges are final-week games where the other side rested, week 2-4 rebuilds/quarterback changes, an injury cascade: the close knew, the harness did not. Mirrored-tail test D 0.083 [0.034, 0.128]. Weight on the model's disagreement with the close: 0.04 in weeks 2-4, 0.21 in weeks 5-16, 0.12 overall. The 'seed fixed' fix passed 2002-2025 but failed 2002-2013 (-1.72 [-6.30, +3.95]) and is withdrawn; engine unchanged.
+
+- 2026-11-08: Top-10 edges on NBA/NCAAF/EPL with proxy model (see TOP10_BACKTEST_EDGES_RULE.md, Record 8 Nov). NBA eval D 0.119 [0.018,0.155], NCAAF eval D 0.221, EPL all D 0.039. Causes: late-season rest, week 0-2 priors, promoted clubs. Proxy only; live engines untested. NHL needs an odds file.
