@@ -8,22 +8,27 @@ os.makedirs(out, exist_ok=True)
 LL = lambda p, y: -(y * np.log(np.clip(p, 1e-4, 1 - 1e-4)) + (1 - y) * np.log(1 - np.clip(p, 1e-4, 1 - 1e-4)))
 
 
-def sbr_files(pattern, reader):
+def sbr_files(pattern, reader, mlcol="ML"):
     G = []
     for f in sorted(glob.glob(os.path.join(ddir, pattern))):
         m = re.search(r"(\d{4})-(\d{2})", os.path.basename(f)); y0 = int(m.group(1))
-        x = reader(f).dropna(subset=["Final"]).reset_index(drop=True)
+        x = reader(f); x["Final"] = pd.to_numeric(x["Final"], errors="coerce"); x = x.dropna(subset=["Final"]).reset_index(drop=True)
         x["Date"] = x["Date"].astype(int)
-        for i in range(0, len(x) - 1, 2):
+        i = 0; yr = y0; prev_mo = None
+        while i < len(x) - 1:
             a, b = x.iloc[i], x.iloc[i + 1]
-            if a.VH == "V" and b.VH == "H" and a.Date == b.Date:
+            ok = a.VH == "V" and b.VH == "H" and a.Date == b.Date
+            i += 2 if (ok or a.VH == "N") else 1   # re-sync after a break (prereg: log, do not misalign)
+            if ok:
                 mo, d = divmod(int(a.Date), 100)
-                yr = y0 if mo >= 7 else y0 + 1
+                if prev_mo is None: yr = y0 if mo >= 8 else y0 + 1
+                elif mo <= prev_mo - 6: yr += 1   # calendar wrap Dec->Jan (also handles Jul-Oct 2020 bubble/COVID seasons)
+                prev_mo = mo
                 try:
                     pd.Timestamp(yr, mo, d)
                 except ValueError:
                     continue
-                G.append(dict(season=y0, date=pd.Timestamp(yr, mo, d), home=b.Team, away=a.Team, hs=float(b.Final), as_=float(a.Final), mlh=b.ML, mla=a.ML))
+                G.append(dict(season=y0, date=pd.Timestamp(yr, mo, d), home=b.Team, away=a.Team, hs=float(b.Final), as_=float(a.Final), mlh=b[mlcol], mla=a[mlcol], clh=(b["Close"] if "Close" in b.index else np.nan), cla=(a["Close"] if "Close" in a.index else np.nan)))
     return pd.DataFrame(G)
 
 
@@ -33,6 +38,10 @@ def ml_prob(m):
 
 if sport == "nba":
     G = sbr_files(os.path.join("csv", "nba-odds-*.csv"), lambda f: pd.read_csv(f))
+elif sport == "nhl":
+    G = sbr_files(os.path.join("csv", "nhl-odds-2*.csv"), lambda f: pd.read_csv(f), "Close")
+elif sport == "cbb":
+    G = sbr_files("ncaa-basketball-*.xlsx", lambda f: pd.read_excel(f))
 elif sport == "ncaaf":
     G = sbr_files("ncaa_football_*.xlsx", lambda f: pd.read_excel(f))
 else:
@@ -103,6 +112,12 @@ else:
     J["p_model"] = norm.cdf(J.m / SD)
     ph, pa = ml_prob(J.mlh), ml_prob(J.mla); J["p_market"] = ph / (ph + pa); J["y"] = (J.margin > 0).astype(float)
     J = J[J.margin != 0]
+    if sport in ("nba", "ncaaf", "cbb"):
+        # data-integrity check (prereg 8 Nov): the favourite's row carries the SPREAD (smaller number), so the moneyline favourite must agree with it
+        ch, ca = pd.to_numeric(J.clh, errors="coerce"), pd.to_numeric(J.cla, errors="coerce")
+        J["mismatch"] = ((ch < ca) != (pd.to_numeric(J.mlh, errors="coerce") < pd.to_numeric(J.mla, errors="coerce"))) & ch.notna() & ca.notna()
+        print(sport, "moneyline-vs-spread favourite mismatches:", int(J.mismatch.sum()), "of", len(J), "(dropped, logged)")
+        J = J[~J.mismatch]
 J = J.dropna(subset=["p_market", "p_model"])
 J["gap"] = J.p_model - J.p_market; J = J[J.gap != 0].copy()
 J["side"] = np.where(J.gap > 0, "home", "away"); J["edge"] = J.gap.abs()

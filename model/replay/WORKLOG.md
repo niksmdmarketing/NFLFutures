@@ -695,3 +695,5 @@ TypeSafe 96%: shadow. nhl_model g_* fields + archive; model/nhl_goalie_ratings_2
 - 2026-11-08: Top-10 edges on NBA/NCAAF/EPL with proxy model (see TOP10_BACKTEST_EDGES_RULE.md, Record 8 Nov). NBA eval D 0.119 [0.018,0.155], NCAAF eval D 0.221, EPL all D 0.039. Causes: late-season rest, week 0-2 priors, promoted clubs. Proxy only; live engines untested. NHL needs an odds file.
 
 - 2026-11-08: Amendment 6 to top-10 rule: DeepSeek relay 008 corrections; fade test falsified (NBA/EPL/NCAAF proxy). Next: D labels, prior fixes for FCS/promoted clubs gated on live engine. TypeSafe ranked held-out-validatable first (0.46) over biggest-overconfidence (0.41).
+
+- 2026-11-08: Amendment 7 (top-10 rule): NHL + CBB odds files; moneyline/spread integrity check; CBB eval D 0.123, NCAAF 0.224, NBA 0.112, NHL 0.043 (all proxy). GPT soften fade wording. Placebo and de-vig sensitivity still to run.
