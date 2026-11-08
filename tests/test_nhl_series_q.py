@@ -1,5 +1,6 @@
 import os
 import sys
+import tempfile
 import unittest
 
 import numpy as np
@@ -57,6 +58,38 @@ class SeriesQ(unittest.TestCase):
         r = M.simulate(teams, state, games, ratings, 0.1, 6.0, 0.1, 300, seed=3, series_pairs=[(teams[0], teams[1]), (teams[1], teams[0])])
         self.assertGreater(r["series_q"][0], 0.75)
         self.assertLess(r["series_q"][1], 0.3)
+
+
+class ForwardLog(unittest.TestCase):
+    def test_matrix_matches_simulate_pairs_and_is_sane(self):
+        teams, state, games, ratings = _toy()
+        m = M.series_matrix(teams, ratings, 0.3, 0.1, 3.0, None, n=4000)
+        self.assertEqual(len(m["q"]), len(teams)); self.assertIsNone(m["q"][0][0])
+        pairs = [(teams[0], teams[1]), (teams[3], teams[9]), (teams[20], teams[2])]
+        sim = M.simulate(teams, state, games, ratings, 0.3, 6.0, 0.1, 6000, seed=3, po_scale=3.0, series_pairs=pairs)["series_q"]
+        for (a, b), v in zip(pairs, sim):
+            self.assertAlmostEqual(m["q"][teams.index(a)][teams.index(b)], v, delta=0.03)
+        ia, ib = teams.index(max(ratings, key=ratings.get)), teams.index(min(ratings, key=ratings.get))
+        self.assertGreater(m["q"][ia][ib], 0.8); self.assertLess(m["q"][ib][ia], 0.3)
+
+    def test_archive_stores_matrix_without_changing_the_digest(self):
+        import json as _json
+        import sport_archive as A
+        tmp = tempfile.mkdtemp(); site = os.path.join(tmp, "site"); os.makedirs(os.path.join(site, "nhl", "data"))
+        rows = [{"team": t, "gp": 10, "p_cup": 0.03, "p_final": 0.06, "p_div": 0.1, "p_playoffs": 0.5} for t in ("AAA", "BBB")]
+        fut = {"season": 2026, "status": "x", "teams": rows}
+        def write(sq):
+            _json.dump(dict(fut, **({"series_q": sq} if sq else {})), open(os.path.join(site, "nhl", "data", "futures.json"), "w"))
+        sq1 = {"teams": ["AAA", "BBB"], "po_scale": 3.0, "q": [[None, 0.61], [0.55, None]]}
+        write(sq1)
+        arch = os.path.join(tmp, "arch")
+        self.assertTrue(A.archive_one("nhl", arch, site).startswith("wrote"))
+        import gzip, glob
+        f = glob.glob(os.path.join(arch, "nhl", "2026", "*.json.gz"))[0]
+        self.assertEqual(_json.load(gzip.open(f))["series_q"]["q"], [[None, 610], [550, None]])
+        sq2 = dict(sq1, q=[[None, 0.62], [0.56, None]])
+        write(sq2)
+        self.assertEqual(A.archive_one("nhl", arch, site), "unchanged")      # a changed matrix alone writes nothing new
 
 
 if __name__ == "__main__":

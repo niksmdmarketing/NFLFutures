@@ -277,13 +277,33 @@ def series_win_prob(gap, hfa):
     """P(home-ice team wins a best-of-7) for an array of rating gaps (home minus away, already scaled). Home games are 1, 2, 5, 7,
     the same pattern and the same game probabilities series() samples; all seven games are counted, as there."""
     ph = ndtr((gap + hfa) / GAME_SD); pa = ndtr((gap - hfa) / GAME_SD)
-    dist = np.zeros((8, len(gap))); dist[0] = 1.0
+    gap = np.asarray(gap, float)
+    dist = np.zeros((8,) + gap.shape); dist[0] = 1.0
     for g in range(7):
         p = ph if g in (0, 1, 4, 6) else pa
         new = dist * (1 - p)
         new[1:] += dist[:-1] * p
         dist = new
     return dist[4:].sum(0)
+
+
+def series_matrix(teams, ratings, tau, hfa, po_scale, po_delta=None, n=2000, seed=11):
+    """Forward series log (research/NHL_SERIES_CALIBRATION_RULE.md): q[i][j] = P(team i, with home ice, beats team j in a best-of-7 | they
+    meet) under the live playoff settings, averaged over n tau draws from its own random stream (the live simulation is untouched).
+    Diagonal is None. Same gap, stretch and home-ice pattern as series()."""
+    rng = np.random.default_rng(seed)
+    T = len(teams)
+    r0 = np.array([ratings[t] for t in teams], float)
+    R = r0[None, :] + rng.normal(0, tau, (n, T))
+    if po_delta is not None:
+        R = R + np.asarray(po_delta, float)[None, :]
+    q = np.full((T, T), np.nan)
+    for i in range(T):
+        gap = po_scale * (R[:, i][:, None] - R)             # [n, T]: team i against every team j
+        q[i] = series_win_prob(gap, hfa).mean(0)
+    np.fill_diagonal(q, np.nan)
+    return {"teams": list(teams), "n_draws": n, "po_scale": round(float(po_scale), 4), "hfa": round(float(hfa), 4),
+            "q": [[None if np.isnan(v) else round(float(v), 4) for v in row] for row in q]}
 
 
 def simulate(teams, state, games, ratings, tau, total, hfa, n_sims, seed=7, div_map=ALIGN, po_scale=1.0, po_delta=None, game_adj=None,
@@ -687,6 +707,11 @@ def build():
         lineup_term = lineup_g
     rating = rating + lineup_term
     sim = simulate(teams, state, games, rating.to_dict(), tau_now, total, hfa, SIMS, po_scale=po_scale, po_delta=po_delta, game_adj=game_adj, **OTKW)
+    try:    # forward series log (8 Nov 2026, research/NHL_SERIES_CALIBRATION_RULE.md): archived, never shown or used in any forecast
+        series_log = series_matrix(teams, rating.to_dict(), tau_now, hfa, po_scale, po_delta)
+    except Exception as e:  # noqa: BLE001
+        log("nhl model: series log failed:", e)
+        series_log = None
     # same model without the injury adjustment, to show what the absences are worth
     sim_n = None
     if absences is not None:
@@ -763,5 +788,7 @@ def build():
                             "per_game": round(float(r.cost), 4), "season_goals": round(float(r.season_goals), 3),
                             "playoffs": bool(r.season_out)}
                            for r in absences.sort_values("season_goals", ascending=False).itertuples() if r.games_missed > 0]}}
+    if series_log is not None:
+        out["series_q"] = series_log
     nhl.write("futures.json", out)
     log("nhl model done: top cup", sorted(((r["p_cup"], r["team"]) for r in rows), reverse=True)[:4])

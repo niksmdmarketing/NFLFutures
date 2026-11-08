@@ -96,7 +96,9 @@ def snapshot(sport, site_dir):
                     p[f"{key}_{lab}"] = [int(round(float(r[key][j]) * 10000)) for r in rows]
     games = upcoming_games(site_dir, sport)
     awards = award_chances(site_dir, sport)
-    return {"season": int(d["season"]), "status": d.get("status"), "games": games, "awards": awards, "gp_avg": round(sum(gp) / len(gp), 1) if gp else 0.0,
+    sq = d.get("series_q") if sport == "nhl" else None      # forward series log (NHL_SERIES_CALIBRATION_RULE.md): P(home-ice side wins | meet), permille
+    series_q = {"teams": sq["teams"], "po_scale": sq["po_scale"], "q": [[None if v is None else int(round(v * 1000)) for v in row] for row in sq["q"]]} if sq else None
+    return {"series_q": series_q, "season": int(d["season"]), "status": d.get("status"), "games": games, "awards": awards, "gp_avg": round(sum(gp) / len(gp), 1) if gp else 0.0,
             "teams": [r["team"] for r in rows], "p": p}
 
 
@@ -119,7 +121,8 @@ def archive_one(sport, arch, site_dir, now=None):
     now = now or dt.datetime.now(dt.timezone.utc)
     name = now.strftime("%Y%m%dT%H%MZ") + ".json.gz"
     with gzip.open(os.path.join(d, name), "wt") as f:
-        json.dump({"generated_utc": now.isoformat(timespec="minutes"), "status": snap["status"], **body}, f, separators=(",", ":"))
+        extra = {"series_q": snap["series_q"]} if snap.get("series_q") else {}     # not in the digest: it cannot trigger a snapshot
+        json.dump({"generated_utc": now.isoformat(timespec="minutes"), "status": snap["status"], **body, **extra}, f, separators=(",", ":"))
     new = not rows
     with open(idx, "a", newline="") as f:
         w = csv.writer(f)
