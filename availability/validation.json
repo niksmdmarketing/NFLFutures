@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-11-08T10:29:13+00:00",
+ "checked_utc": "2026-11-08T17:06:06+00:00",
  "leagues": {
   "nfl": {
-   "records": 1303,
+   "records": 1630,
    "by_layer": {
-    "official": 1187,
-    "reported": 116
+    "official": 1549,
+    "reported": 81
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -44,7 +44,26 @@
     "TEN",
     "WAS"
    ],
-   "conflicts": [],
+   "conflicts": [
+    {
+     "player": "Lamar Jackson",
+     "official": [
+      "injured reserve",
+      "out"
+     ],
+     "other": "expected to play",
+     "source": "ESPN injury note"
+    },
+    {
+     "player": "Lamar Jackson",
+     "official": [
+      "injured reserve",
+      "out"
+     ],
+     "other": "expected to play",
+     "source": "ESPN news"
+    }
+   ],
    "stale_projection_dates": 0,
    "teams_missing_official": [],
    "season_state": {
@@ -53,12 +72,12 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "116/116"
+   "reported_matched_to_official_list": "81/81"
   },
   "nba": {
-   "records": 225,
+   "records": 228,
    "by_layer": {
-    "official": 176,
+    "official": 179,
     "reported": 49
    },
    "unknown_team": 0,
@@ -158,10 +177,10 @@
    "reported_matched_to_official_list": "49/49"
   },
   "nhl": {
-   "records": 1537,
+   "records": 1545,
    "by_layer": {
-    "official": 149,
-    "reported": 64,
+    "official": 150,
+    "reported": 71,
     "projected": 1324
    },
    "unknown_team": 0,
@@ -184,6 +203,7 @@
     "MIN",
     "MTL",
     "NJD",
+    "NSH",
     "NYI",
     "NYR",
     "OTT",
@@ -202,16 +222,14 @@
    ],
    "conflicts": [],
    "stale_projection_dates": 0,
-   "teams_missing_official": [
-    "NSH"
-   ],
+   "teams_missing_official": [],
    "season_state": {
     "state": "in_season",
     "why": "34 regular-season/playoff and 0 other games 2026-11-01..2026-11-18"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "64/64"
+   "reported_matched_to_official_list": "70/71"
   },
   "nbl": {
    "records": 24,
@@ -286,8 +304,6 @@
    "reported_matched_to_official_list": "0/10"
   }
  },
- "sources_failed": [
-  "nfl: nflverse injuries (official reports, CC-BY) - HTTPError: HTTP Error 504: Gateway Time-out"
- ],
+ "sources_failed": [],
  "sources_not_expected": []
 }
