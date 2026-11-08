@@ -711,3 +711,5 @@ TypeSafe 96%: shadow. nhl_model g_* fields + archive; model/nhl_goalie_ratings_2
 - 2026-11-08: LOSO refit of AFL constants (research/LOSO_REFIT_RULE.md): LOSO minus live held-out LL -0.0004 [-0.0020, +0.0011], 8/14 seasons; detectable size ~0.015 so insufficient; SD pinned at grid edge 36 (not identified). No change. NBL/NHL/CBB not run.
 
 - 2026-11-08: NBL LOSO refit (research/LOSO_REFIT_RULE.md Amendment 1): LOSO minus live +0.0034 [+0.0018, +0.0052], better 2/14; fold fits pile on grid edges (unidentified); live favoured by tuning leakage. No change. CBB LOSO (private repo): c 0.9 immaterial.
+
+- 2026-11-08: Amendment 10 (top-10 rule): live NBA/CFB engines not shown to share the proxy's tail problems (NBA live LL 0.6075 vs proxy 0.644 on recent seasons; live CFB drops non-FBS games). Open: join live NBA per-game forecasts for 2021-23 to the SBR odds; CFB spread test 2023-25.
