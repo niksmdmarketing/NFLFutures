@@ -47,6 +47,12 @@ OUT = os.environ.get("BT_OUTDIR") or os.path.join(ROOT, "model", "replay")
 A.TAU0 = float(os.environ.get("BT_TAU0", A.TAU0))
 A.TAU_FADE = float(os.environ.get("BT_TAU_FADE", A.TAU_FADE))
 A.GAME_DF = float(os.environ.get("BT_GAME_DF", A.GAME_DF))
+# FUTURES_BAKEOFF_RULE.md Amendment 1: M2 tau multiplier m(gp) = m1 (gp<=6), m2 (7-15), m3 (>=16). Default (1,1,1) is the live code.
+BT_M = tuple(float(x) for x in os.environ.get("BT_M", "1,1,1").split(","))
+
+
+def tau_mult(gp):
+    return BT_M[0] if gp <= 6 else (BT_M[1] if gp <= 15 else BT_M[2])
 
 
 def season_frames():
@@ -105,16 +111,27 @@ def run_season(G, y):
         for t in teams:
             rating.setdefault(t, 0.0)
         tau = A.TAU0 * (1 - min(n_played, 23) / A.TAU_FADE)
+        if BT_M != (1.0, 1.0, 1.0):
+            tau = tau * tau_mult(n_played)
         sim = A.simulate(teams, table, remaining, rating, tau, n=SIMS, seed=7, finals8=top_finals == 8)
         date = str(played.date.max()) if len(played) else str(reg.date.min())
         for t in teams:
             if t not in pos:
                 continue
             r = sim[t]
+            ov = np.array(r["over"], dtype=float)          # P(W >= k)
+            pmf = ov - np.append(ov[1:], 0.0)
+            cdf = np.cumsum(pmf)
+            ks = np.arange(len(pmf))
+            wm = float((pmf * ks).sum())
             rows.append(dict(season=y, week=int(ck), date=date, gp_avg=float(n_played), team=t,
                              p_playoff=r["p8"] if top_finals == 8 else r["p10"], p_top8=r["p8"], p_div=r["p4"], p_seed1=r["p1"], p_pf=r["pf"], p_conf=r["gf"], p_title=r["flag"],
                              y_playoff=int(t in finalists), y_top8=int(pos[t] < 8), y_div=int(pos[t] < 4), y_seed1=int(pos[t] == 0), y_pf=int(t in pf_teams),
-                             y_finals=int(t in gf_teams), y_title=int(t == champ)))
+                             y_finals=int(t in gf_teams), y_title=int(t == champ),
+                             w_mean=wm, w_sd=float(np.sqrt((pmf * (ks - wm) ** 2).sum())),
+                             w_q05=int(np.searchsorted(cdf, .05)), w_q25=int(np.searchsorted(cdf, .25)), w_q50=int(np.searchsorted(cdf, .5)),
+                             w_q75=int(np.searchsorted(cdf, .75)), w_q95=int(np.searchsorted(cdf, .95)),
+                             w_hist=" ".join(f"{x:.5f}" for x in pmf[:int(lad.w.max()) + 4]), y_wins=float(lad.w[t])))
     return pd.DataFrame(rows)
 
 
