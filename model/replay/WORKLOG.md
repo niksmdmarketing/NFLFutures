@@ -701,3 +701,5 @@ TypeSafe 96%: shadow. nhl_model g_* fields + archive; model/nhl_goalie_ratings_2
 - 2026-11-08: Amendment 8: placebo + power de-vig. Correctly mirrored D is inside the placebo for CBB, NCAAF, NBA, NHL (proxy); earlier D definition used absolute gap tail (corrected). Extreme edges are noise, not an overconfidence defect. Next: held-out test of shrink-to-market in early-season/no-prior windows on the live engines.
 
 - 2026-11-08: Amendment 9 (shrink tests registered separately; TypeSafe: model-side first). V2 proxy grid: w~0 everywhere, so the proxy adds nothing over market; V1 (prior-mean shrink, k fitted <=2019) on live engines pending.
+
+- 2026-11-08: NBA overrides scoring rule v1 + Amendment 1 (research/NBA_OVERRIDES_SCORING_RULE.md): outcome scoring is descriptive only (power: t ~ dp x sqrt(m)); validation is the mechanism check; overrides stay as unvalidated owner judgement. No-overrides run is 20k sims vs 100k live, no shared draws. Selection paper test readiness is Amendment 3 in the private SELECTION_PAPER_TEST_RULE.md (gate mid-Jan 2027).
