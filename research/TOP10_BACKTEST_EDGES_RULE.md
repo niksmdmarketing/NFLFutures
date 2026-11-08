@@ -76,3 +76,13 @@ Proxy = results-only ridge rating (weekly refit, last-season prior), settings fi
 - NCAAF (13,108 games): proxy LL 0.543 vs market 0.493. D: discovery 0.097 [0.066, 0.130]; evaluation 0.221 [0.168, 0.283]; all 0.127. Weight 0.10. 48% of the top tail is weeks 0-2 (all-season share 23%): FBS-vs-FCS and no-prior games. Mechanism = missing prior for lower-division/new teams.
 - EPL (9,120 games): proxy LL 0.626 vs market 0.609. D: discovery 0.030 [-0.015, 0.072]; evaluation 0.051 [-0.010, 0.106]; all 0.039 [0.001, 0.074]. Weight 0.70. Top edges: final-day games (Portsmouth May 2008), newly promoted clubs (Huddersfield, Brighton 2017).
 Reading: for all three the largest proxy edges are NOT legitimate: they come from missing rest/injury/promotion information. None of this tests the live NBA/NCAAF/EPL models. NHL: no odds file supplied.
+
+## Amendment 6 (8 Nov 2026, after DeepSeek relay 008): corrections and the fade test
+Rule written before the result: on the top-5% model-vs-market gap games inside the flag window (NBA/EPL last 15%/10% of season, NCAAF first 20%), the fade bets the side AGAINST the model at the de-vigged close. Mean realised profit per unit probability staked, season-clustered 90% interval. Falsified for a sport if the mean is not above 0 (book premium not even needed). Proxy data, so descriptive.
+Corrections to the 8 Nov record (originals unedited):
+- "Every sport" over-claims. Aggregate overconfidence is shown for NFL, NBA (eval), NCAAF only. AFL D -0.042 [-0.108, +0.019] and NBL +0.020 [-0.068, +0.104] contain 0; their top-10 diagnoses are per-edge case evidence. EPL eval contains 0.
+- NBL eval interval [-0.078, +0.206] has half-width 0.142, below the 0.20 floor: label "no evidence of upward overconfidence", not INSUFFICIENT.
+- "No bug" means: no arithmetic bug in the scored probability; the NFL quarterback-starter source check is UNVERIFIED.
+- NBA eval D 0.119 sits off-centre in [0.018, 0.155]; method/draw count to be restated before it is relied on.
+Fade result: NBA disc -0.130 [-0.262, -0.033] (n 24), eval -0.043 [-0.273, 0.071] (n 18); EPL disc 0.008 [-0.082, 0.091] (n 44), eval 0.087 [-0.111, 0.262] (n 24); NCAAF disc 0.002 [-0.030, 0.038] (n 202), eval -0.033 [-0.116, 0.003] (n 81). None above 0 => fade falsified in all three; no shrink-arm or relabelled fade revived there. The market priced the information; the model's edges there are errors, not tradeable opposites.
+Standing answer: D (caution labels) plus correctness fixes for structurally absent priors (FCS/promoted clubs), adoption-gated on the live engine.
