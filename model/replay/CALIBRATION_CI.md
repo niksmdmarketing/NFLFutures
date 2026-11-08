@@ -31,28 +31,28 @@ last quarter    seed1    slope  1.46 [1.19,1.99]  int +0.14 [+0.00,+0.43]  seaso
 last quarter    playoff  slope  1.26 [1.03,1.62]  int -0.02 [-0.11,+0.02]  seasons 14
 ```
 
-## nhl
+## nhl (regenerated 8 Nov 2026, 9 seasons 2015-18 and 2021-25; canonical live NHL setup, commit 622838995396, config BT_SIMS=2000 NHL_SHOT_W=1 NHL_SHOT_PO=1 NHL_RS_SHOT_W=0.2 NHL_RS_XG=raw NHL_PO_FADE=3 NHL_OT_FIX=1 NHL_OT_EDGE=0.5 NHL_LINEUP_C=1 NHL_LINEUP_N=5 NHL_LINEUP_PRE=0 NHL_LINEUP_VAL=rapm RAPM_LAM=300000 RAPM_KBOX=1 NHL_LINEUP_GS=0.438)
 ```
-preseason       title    slope  2.25 [1.52,3.19]  int +3.54 [+1.51,+5.91]  seasons 10
-preseason       finals   slope  2.37 [1.99,2.93]  int +3.00 [+2.20,+4.09]  seasons 10
-preseason       div      slope  0.91 [0.64,1.24]  int -0.14 [-0.60,+0.37]  seasons 10
-preseason       playoff  slope  1.04 [0.80,1.33]  int -0.00 [-0.04,+0.02]  seasons 10
-first quarter   title    slope  1.58 [1.00,2.33]  int +1.60 [-0.01,+3.45]  seasons 10
-first quarter   finals   slope  1.57 [1.17,2.06]  int +1.22 [+0.37,+2.17]  seasons 10
-first quarter   div      slope  0.99 [0.73,1.41]  int -0.01 [-0.40,+0.51]  seasons 10
-first quarter   playoff  slope  1.00 [0.86,1.16]  int -0.00 [-0.02,+0.01]  seasons 10
-second quarter  title    slope  1.18 [0.68,2.45]  int +0.49 [-0.97,+3.51]  seasons 10
-second quarter  finals   slope  1.14 [0.84,1.54]  int +0.29 [-0.35,+1.09]  seasons 10
-second quarter  div      slope  1.05 [0.77,1.42]  int +0.05 [-0.28,+0.43]  seasons 10
-second quarter  playoff  slope  0.97 [0.83,1.12]  int +0.00 [-0.01,+0.01]  seasons 10
-third quarter   title    slope  1.06 [0.68,1.89]  int +0.15 [-0.93,+2.22]  seasons 10
-third quarter   finals   slope  1.03 [0.72,1.56]  int +0.06 [-0.61,+1.08]  seasons 10
-third quarter   div      slope  1.02 [0.83,1.42]  int +0.01 [-0.18,+0.32]  seasons 10
-third quarter   playoff  slope  1.01 [0.91,1.15]  int -0.00 [-0.01,+0.01]  seasons 10
-last quarter    title    slope  1.21 [0.89,1.76]  int +0.52 [-0.32,+1.84]  seasons 10
-last quarter    finals   slope  1.10 [0.84,1.48]  int +0.18 [-0.33,+0.90]  seasons 10
-last quarter    div      slope  1.07 [0.89,1.42]  int +0.02 [-0.11,+0.19]  seasons 10
-last quarter    playoff  slope  1.10 [0.98,1.26]  int -0.00 [-0.03,+0.01]  seasons 10
+preseason       title    slope  1.59 [1.07,2.43]  int +1.59 [+0.20,+3.62]  seasons 9
+preseason       finals   slope  1.92 [1.51,2.43]  int +1.89 [+1.08,+2.83]  seasons 9
+preseason       div      slope  0.91 [0.55,1.32]  int -0.15 [-0.77,+0.49]  seasons 9
+preseason       playoff  slope  1.16 [0.95,1.49]  int -0.02 [-0.07,+0.00]  seasons 9
+first quarter   title    slope  1.30 [0.88,1.85]  int +0.79 [-0.35,+2.12]  seasons 9
+first quarter   finals   slope  1.59 [1.25,1.97]  int +1.17 [+0.51,+1.86]  seasons 9
+first quarter   div      slope  1.10 [0.74,1.67]  int +0.14 [-0.39,+0.82]  seasons 9
+first quarter   playoff  slope  1.10 [0.91,1.34]  int -0.01 [-0.03,+0.01]  seasons 9
+second quarter  title    slope  1.11 [0.67,1.77]  int +0.27 [-0.95,+1.73]  seasons 9
+second quarter  finals   slope  1.28 [0.98,1.63]  int +0.53 [-0.05,+1.09]  seasons 9
+second quarter  div      slope  1.18 [0.89,1.62]  int +0.19 [-0.14,+0.62]  seasons 9
+second quarter  playoff  slope  1.03 [0.90,1.23]  int -0.00 [-0.02,+0.01]  seasons 9
+third quarter   title    slope  1.23 [0.83,1.89]  int +0.54 [-0.47,+1.84]  seasons 9
+third quarter   finals   slope  1.42 [1.12,1.77]  int +0.76 [+0.23,+1.33]  seasons 9
+third quarter   div      slope  1.02 [0.86,1.54]  int +0.01 [-0.15,+0.37]  seasons 9
+third quarter   playoff  slope  1.10 [1.01,1.26]  int +0.00 [-0.01,+0.01]  seasons 9
+last quarter    title    slope  1.35 [1.04,1.82]  int +0.83 [+0.09,+1.85]  seasons 9
+last quarter    finals   slope  1.48 [1.23,1.72]  int +0.85 [+0.42,+1.25]  seasons 9
+last quarter    div      slope  1.05 [0.88,1.64]  int +0.01 [-0.11,+0.28]  seasons 9
+last quarter    playoff  slope  1.17 [1.05,1.35]  int -0.00 [-0.05,+0.02]  seasons 9
 ```
 
 ## afl
@@ -123,23 +123,23 @@ last quarter    seed1    slope  1.53 [1.08,3.03]  int +0.27 [+0.03,+0.96]  seaso
 last quarter    playoff  slope  0.74 [0.56,1.11]  int +0.01 [-0.03,+0.03]  seasons 13
 ```
 
-## nhl (round 2, conference final, best record; added 16 Oct 2026 from the same 10 replayed seasons)
+## nhl (round 2, conference final, best record; regenerated 8 Nov 2026, same 9 seasons and setup)
 ```
-preseason       r2       slope  0.84 [0.58,1.12]  int -0.13 [-0.39,+0.10]  seasons 10
-preseason       r3       slope  1.47 [1.19,2.18]  int +0.69 [+0.29,+1.61]  seasons 10
-preseason       pres     slope  0.86 [0.66,1.18]  int -0.44 [-1.04,+0.54]  seasons 10
-first quarter   r2       slope  0.92 [0.66,1.26]  int -0.06 [-0.28,+0.18]  seasons 10
-first quarter   r3       slope  1.32 [1.06,1.91]  int +0.45 [+0.09,+1.22]  seasons 10
-first quarter   pres     slope  1.05 [0.72,1.63]  int +0.10 [-0.80,+1.51]  seasons 10
-second quarter  r2       slope  0.94 [0.70,1.22]  int -0.04 [-0.22,+0.13]  seasons 10
-second quarter  r3       slope  1.15 [0.92,1.47]  int +0.20 [-0.12,+0.58]  seasons 10
-second quarter  pres     slope  1.20 [0.86,2.06]  int +0.36 [-0.35,+1.76]  seasons 10
-third quarter   r2       slope  1.08 [0.85,1.57]  int +0.04 [-0.09,+0.27]  seasons 10
-third quarter   r3       slope  1.32 [1.01,1.86]  int +0.39 [+0.01,+1.07]  seasons 10
-third quarter   pres     slope  1.10 [0.90,1.56]  int +0.10 [-0.25,+0.72]  seasons 10
-last quarter    r2       slope  1.35 [1.03,2.00]  int +0.10 [+0.01,+0.23]  seasons 10
-last quarter    r3       slope  1.58 [1.22,2.05]  int +0.66 [+0.25,+1.14]  seasons 10
-last quarter    pres     slope  1.42 [1.18,1.85]  int +0.38 [+0.13,+0.73]  seasons 10
+preseason       r2       slope  0.89 [0.58,1.32]  int -0.09 [-0.39,+0.25]  seasons 9
+preseason       r3       slope  1.51 [1.21,2.11]  int +0.75 [+0.33,+1.58]  seasons 9
+preseason       pres     slope  0.91 [0.67,1.37]  int -0.28 [-1.02,+1.08]  seasons 9
+first quarter   r2       slope  1.01 [0.67,1.34]  int +0.00 [-0.27,+0.24]  seasons 9
+first quarter   r3       slope  1.38 [1.06,2.01]  int +0.54 [+0.10,+1.36]  seasons 9
+first quarter   pres     slope  1.32 [0.97,1.74]  int +0.79 [-0.09,+1.70]  seasons 9
+second quarter  r2       slope  1.00 [0.81,1.44]  int -0.00 [-0.14,+0.24]  seasons 9
+second quarter  r3       slope  1.14 [0.85,1.55]  int +0.18 [-0.23,+0.70]  seasons 9
+second quarter  pres     slope  1.53 [1.20,2.12]  int +0.99 [+0.38,+2.02]  seasons 9
+third quarter   r2       slope  1.18 [0.86,1.71]  int +0.09 [-0.08,+0.34]  seasons 9
+third quarter   r3       slope  1.28 [0.95,1.81]  int +0.36 [-0.07,+0.93]  seasons 9
+third quarter   pres     slope  1.14 [0.88,1.73]  int +0.17 [-0.29,+0.87]  seasons 9
+last quarter    r2       slope  1.39 [1.02,2.02]  int +0.11 [+0.00,+0.25]  seasons 9
+last quarter    r3       slope  1.51 [1.17,2.10]  int +0.57 [+0.19,+1.19]  seasons 9
+last quarter    pres     slope  1.38 [1.12,1.97]  int +0.31 [+0.04,+0.65]  seasons 9
 ```
 
 ## nba (top 6 and play-in places; added 16 Oct 2026 from the same 14 replayed seasons; 7th-10th recorded before the play-in existed too)

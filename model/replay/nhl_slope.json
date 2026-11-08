@@ -1,257 +1,257 @@
 {
  "preseason": {
   "title": {
-   "intercept": 1.745,
-   "slope": 1.658,
-   "ll": 0.1112,
-   "ll_recal": 0.1074,
-   "n": 312
+   "intercept": 1.594,
+   "slope": 1.591,
+   "ll": 0.1129,
+   "ll_recal": 0.11,
+   "n": 282
   },
   "finals": {
-   "intercept": 1.549,
-   "slope": 1.757,
-   "ll": 0.1838,
-   "ll_recal": 0.1762,
-   "n": 312
+   "intercept": 1.885,
+   "slope": 1.923,
+   "ll": 0.182,
+   "ll_recal": 0.1722,
+   "n": 282
   },
   "div": {
-   "intercept": -0.152,
-   "slope": 0.906,
-   "ll": 0.3416,
-   "ll_recal": 0.3413,
-   "n": 312
+   "intercept": -0.151,
+   "slope": 0.907,
+   "ll": 0.3422,
+   "ll_recal": 0.3419,
+   "n": 282
   },
   "playoff": {
-   "intercept": -0.004,
-   "slope": 1.043,
-   "ll": 0.5794,
-   "ll_recal": 0.5793,
-   "n": 312
+   "intercept": -0.016,
+   "slope": 1.157,
+   "ll": 0.5668,
+   "ll_recal": 0.5651,
+   "n": 282
   },
   "r2": {
-   "intercept": -0.133,
-   "slope": 0.843,
-   "ll": 0.505,
-   "ll_recal": 0.5035,
-   "n": 312
+   "intercept": -0.093,
+   "slope": 0.89,
+   "ll": 0.4992,
+   "ll_recal": 0.4985,
+   "n": 282
   },
   "r3": {
-   "intercept": 0.687,
-   "slope": 1.468,
-   "ll": 0.3031,
-   "ll_recal": 0.2974,
-   "n": 312
+   "intercept": 0.755,
+   "slope": 1.514,
+   "ll": 0.3026,
+   "ll_recal": 0.2962,
+   "n": 282
   },
   "pres": {
-   "intercept": -0.435,
-   "slope": 0.856,
-   "ll": 0.1296,
-   "ll_recal": 0.1293,
-   "n": 312
+   "intercept": -0.283,
+   "slope": 0.907,
+   "ll": 0.1285,
+   "ll_recal": 0.1284,
+   "n": 282
   }
  },
  "first quarter": {
   "title": {
-   "intercept": 1.023,
-   "slope": 1.398,
-   "ll": 0.1097,
-   "ll_recal": 0.1078,
-   "n": 1842
+   "intercept": 0.794,
+   "slope": 1.301,
+   "ll": 0.1131,
+   "ll_recal": 0.112,
+   "n": 1662
   },
   "finals": {
-   "intercept": 1.007,
-   "slope": 1.508,
-   "ll": 0.1796,
-   "ll_recal": 0.1751,
-   "n": 1842
+   "intercept": 1.17,
+   "slope": 1.585,
+   "ll": 0.1802,
+   "ll_recal": 0.1748,
+   "n": 1662
   },
   "div": {
-   "intercept": -0.006,
-   "slope": 0.997,
-   "ll": 0.2999,
-   "ll_recal": 0.2999,
-   "n": 1842
+   "intercept": 0.141,
+   "slope": 1.102,
+   "ll": 0.295,
+   "ll_recal": 0.2945,
+   "n": 1662
   },
   "playoff": {
-   "intercept": -0.0,
-   "slope": 1.003,
-   "ll": 0.514,
-   "ll_recal": 0.514,
-   "n": 1842
+   "intercept": -0.008,
+   "slope": 1.098,
+   "ll": 0.5052,
+   "ll_recal": 0.5043,
+   "n": 1662
   },
   "r2": {
-   "intercept": -0.063,
-   "slope": 0.917,
-   "ll": 0.4735,
-   "ll_recal": 0.473,
-   "n": 1842
+   "intercept": 0.004,
+   "slope": 1.005,
+   "ll": 0.4646,
+   "ll_recal": 0.4646,
+   "n": 1662
   },
   "r3": {
-   "intercept": 0.454,
-   "slope": 1.324,
-   "ll": 0.2948,
-   "ll_recal": 0.2914,
-   "n": 1842
+   "intercept": 0.543,
+   "slope": 1.385,
+   "ll": 0.2951,
+   "ll_recal": 0.2908,
+   "n": 1662
   },
   "pres": {
-   "intercept": 0.1,
-   "slope": 1.045,
-   "ll": 0.1117,
-   "ll_recal": 0.1117,
-   "n": 1842
+   "intercept": 0.788,
+   "slope": 1.323,
+   "ll": 0.105,
+   "ll_recal": 0.1035,
+   "n": 1662
   }
  },
  "second quarter": {
   "title": {
-   "intercept": 0.57,
-   "slope": 1.234,
-   "ll": 0.1074,
-   "ll_recal": 0.1065,
-   "n": 1904
+   "intercept": 0.265,
+   "slope": 1.109,
+   "ll": 0.1109,
+   "ll_recal": 0.1107,
+   "n": 1724
   },
   "finals": {
-   "intercept": 0.538,
-   "slope": 1.284,
+   "intercept": 0.525,
+   "slope": 1.275,
    "ll": 0.1762,
-   "ll_recal": 0.1743,
-   "n": 1904
+   "ll_recal": 0.1744,
+   "n": 1724
   },
   "div": {
-   "intercept": 0.06,
-   "slope": 1.059,
-   "ll": 0.2469,
-   "ll_recal": 0.2467,
-   "n": 1904
+   "intercept": 0.193,
+   "slope": 1.183,
+   "ll": 0.2376,
+   "ll_recal": 0.2359,
+   "n": 1724
   },
   "playoff": {
-   "intercept": 0.002,
-   "slope": 0.973,
-   "ll": 0.4078,
-   "ll_recal": 0.4077,
-   "n": 1904
+   "intercept": -0.002,
+   "slope": 1.029,
+   "ll": 0.4034,
+   "ll_recal": 0.4033,
+   "n": 1724
   },
   "r2": {
-   "intercept": -0.041,
-   "slope": 0.937,
-   "ll": 0.4385,
-   "ll_recal": 0.4382,
-   "n": 1904
+   "intercept": -0.004,
+   "slope": 0.995,
+   "ll": 0.431,
+   "ll_recal": 0.431,
+   "n": 1724
   },
   "r3": {
-   "intercept": 0.198,
-   "slope": 1.15,
-   "ll": 0.288,
-   "ll_recal": 0.2871,
-   "n": 1904
+   "intercept": 0.181,
+   "slope": 1.135,
+   "ll": 0.289,
+   "ll_recal": 0.2883,
+   "n": 1724
   },
   "pres": {
-   "intercept": 0.365,
-   "slope": 1.196,
-   "ll": 0.0844,
-   "ll_recal": 0.0835,
-   "n": 1904
+   "intercept": 0.992,
+   "slope": 1.527,
+   "ll": 0.0748,
+   "ll_recal": 0.0706,
+   "n": 1724
   }
  },
  "third quarter": {
   "title": {
-   "intercept": 0.786,
-   "slope": 1.33,
-   "ll": 0.1033,
-   "ll_recal": 0.1017,
-   "n": 2032
+   "intercept": 0.544,
+   "slope": 1.229,
+   "ll": 0.1049,
+   "ll_recal": 0.104,
+   "n": 1852
   },
   "finals": {
-   "intercept": 0.85,
-   "slope": 1.466,
-   "ll": 0.1662,
-   "ll_recal": 0.1616,
-   "n": 2032
+   "intercept": 0.763,
+   "slope": 1.418,
+   "ll": 0.1655,
+   "ll_recal": 0.1615,
+   "n": 1852
   },
   "div": {
-   "intercept": 0.031,
-   "slope": 1.049,
-   "ll": 0.1934,
-   "ll_recal": 0.1932,
-   "n": 2032
+   "intercept": 0.01,
+   "slope": 1.025,
+   "ll": 0.1921,
+   "ll_recal": 0.192,
+   "n": 1852
   },
   "playoff": {
-   "intercept": -0.0,
-   "slope": 1.031,
-   "ll": 0.3048,
-   "ll_recal": 0.3047,
-   "n": 2032
+   "intercept": 0.002,
+   "slope": 1.104,
+   "ll": 0.2959,
+   "ll_recal": 0.2949,
+   "n": 1852
   },
   "r2": {
-   "intercept": 0.043,
-   "slope": 1.083,
-   "ll": 0.4001,
-   "ll_recal": 0.3996,
-   "n": 2032
+   "intercept": 0.092,
+   "slope": 1.177,
+   "ll": 0.388,
+   "ll_recal": 0.3861,
+   "n": 1852
   },
   "r3": {
-   "intercept": 0.394,
-   "slope": 1.315,
-   "ll": 0.2697,
-   "ll_recal": 0.2662,
-   "n": 2032
+   "intercept": 0.355,
+   "slope": 1.283,
+   "ll": 0.2689,
+   "ll_recal": 0.266,
+   "n": 1852
   },
   "pres": {
-   "intercept": 0.103,
-   "slope": 1.097,
-   "ll": 0.0656,
-   "ll_recal": 0.0653,
-   "n": 2032
+   "intercept": 0.166,
+   "slope": 1.142,
+   "ll": 0.0609,
+   "ll_recal": 0.0603,
+   "n": 1852
   }
  },
  "last quarter": {
   "title": {
-   "intercept": 1.107,
-   "slope": 1.465,
-   "ll": 0.1034,
-   "ll_recal": 0.1009,
-   "n": 2184
+   "intercept": 0.825,
+   "slope": 1.348,
+   "ll": 0.1042,
+   "ll_recal": 0.1027,
+   "n": 1974
   },
   "finals": {
-   "intercept": 0.958,
-   "slope": 1.533,
-   "ll": 0.1693,
-   "ll_recal": 0.1649,
-   "n": 2184
+   "intercept": 0.853,
+   "slope": 1.476,
+   "ll": 0.1682,
+   "ll_recal": 0.1643,
+   "n": 1974
   },
   "div": {
-   "intercept": 0.033,
-   "slope": 1.091,
-   "ll": 0.1364,
-   "ll_recal": 0.136,
-   "n": 2184
+   "intercept": 0.006,
+   "slope": 1.049,
+   "ll": 0.138,
+   "ll_recal": 0.1379,
+   "n": 1974
   },
   "playoff": {
-   "intercept": -0.003,
-   "slope": 1.114,
-   "ll": 0.1722,
-   "ll_recal": 0.1713,
-   "n": 2184
+   "intercept": -0.0,
+   "slope": 1.169,
+   "ll": 0.1664,
+   "ll_recal": 0.1647,
+   "n": 1974
   },
   "r2": {
-   "intercept": 0.1,
-   "slope": 1.352,
-   "ll": 0.3571,
-   "ll_recal": 0.3524,
-   "n": 2184
+   "intercept": 0.111,
+   "slope": 1.394,
+   "ll": 0.3506,
+   "ll_recal": 0.3447,
+   "n": 1974
   },
   "r3": {
-   "intercept": 0.656,
-   "slope": 1.581,
-   "ll": 0.2607,
-   "ll_recal": 0.2534,
-   "n": 2184
+   "intercept": 0.575,
+   "slope": 1.509,
+   "ll": 0.2595,
+   "ll_recal": 0.2533,
+   "n": 1974
   },
   "pres": {
-   "intercept": 0.38,
-   "slope": 1.417,
-   "ll": 0.0364,
-   "ll_recal": 0.034,
-   "n": 2184
+   "intercept": 0.307,
+   "slope": 1.382,
+   "ll": 0.0337,
+   "ll_recal": 0.0316,
+   "n": 1974
   }
  }
 }

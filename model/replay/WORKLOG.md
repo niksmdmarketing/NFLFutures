@@ -671,3 +671,9 @@ TypeSafe 96%: shadow. nhl_model g_* fields + archive; model/nhl_goalie_ratings_2
 - The AFL/NBL round-by-round replays already ran at live ratings and tau. The page's pre-season accuracy sentence did not: AFL hard-coded prior .55 and 1.15x game spread, NBL divided by 1.1. Both now use the live constants (PRIOR_REG, GAME_SD, HCA); text only, no forecast changes.
 - AFL rerun (14 seasons 2013-2026, fitzRoy archive, previous season only): wins error per team 2.82 old settings -> 2.72 live; naive 'last season's win rate pulled halfway' 2.84. Single-game log loss 0.6186 -> 0.6126. GAME_SD and PRIOR_REG were tuned on the same seasons, so the live figure is in-sample.
 - NBL not rerun: its source (prod.rosetta.nbl.com.au) is unreachable from this workspace. The change is the same one-line fix; the first Actions build will show the new number.
+
+## 2026-11-08 NHL history and calibration files regenerated from the canonical current setup
+- model/replay/nhl_2015-18 and 2021-25 .csv, nhl_score.json, nhl_slope.json and the two NHL blocks of CALIBRATION_CI.md now come from one run: commit 622838995396, BT_SIMS=2000 NHL_SHOT_W=1 NHL_SHOT_PO=1 NHL_RS_SHOT_W=0.2 NHL_RS_XG=raw NHL_PO_FADE=3 NHL_OT_FIX=1 NHL_OT_EDGE=0.5 NHL_LINEUP_C=1 NHL_LINEUP_N=5 NHL_LINEUP_PRE=0 NHL_LINEUP_VAL=rapm RAPM_LAM=300000 RAPM_KBOX=1 NHL_LINEUP_GS=0.438 (the 'A_live' arm of the six-arm test, which matched the live model).
+- The files published before were the 16 Oct 2026 setup (no OT fix, shot-based playoff rating). 2014 is dropped from the set (not rerun; old file in git history), so the sample is 9 seasons, not 10.
+- Preseason, old -> new: title log loss 0.1112 -> 0.1129, slope 1.66 -> 1.59 [1.07, 2.43]; finals 0.1838 -> 0.1820, slope 1.76 -> 1.92; division 0.3416 -> 0.3422; playoffs 0.5794 -> 0.5668, slope 1.04 -> 1.16. Different season sets, so not a like-for-like gain.
+- CI blocks: 150 whole-season bootstrap reps, seed 0, same as before.
