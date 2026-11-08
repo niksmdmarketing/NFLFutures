@@ -686,3 +686,4 @@ TypeSafe 96%: shadow. nhl_model g_* fields + archive; model/nhl_goalie_ratings_2
 
 ## 2026-11-08 Four-agent plan v3 recorded
 - research/FOUR_AGENT_PLAN.md. TypeSafe was asked about the v1 plan: 54% 'endorse but add a hard kill rule and stake limits', 41% 'endorse as written', 3% 'cut review cost', 2% 'prop markets only'. The owner then said no real money is touched, so the stake-limit part lapsed and v1 stands, with v3 additions from DeepSeek and GPT. Partly rejected: 'model changes do not restart a test' (an edge claim attaches to one frozen version).
+- 2026-11-08 FOUR_AGENT_PLAN.md Amendment 1 after DeepSeek's check (relay 005): no-harm check fixed at N = 2,000 and reported as a distribution rather than a max-z gate; futility-only interim spends no alpha; one return floor for pass and futility. GPT added to the relay (dormant until OPENAI_API_KEY is set).
