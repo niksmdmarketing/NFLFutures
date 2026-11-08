@@ -707,3 +707,5 @@ TypeSafe 96%: shadow. nhl_model g_* fields + archive; model/nhl_goalie_ratings_2
 - 2026-11-08: AFL finals home edge (research/AFL_FINALS_HOME_RULE.md): finals edge 3.0 unresolved vs 7.0 (eval +3.21 [-3.38,10.02], n 58); grand final set to neutral (0.0) per pre-registered rule; no-harm: ladder, PF, GF outputs identical, flag max 0.9pp.
 
 - 2026-11-08: CALIBRATION_CI.md stamped: AFL (35 slopes) and NBL (25) reproduce from current replay CSVs, unchanged to 0.01; NBA block regenerated (21 of 25 slopes had moved since the 14 Oct block, CSVs last committed 5 Nov). Intervals are fresh 150-rep bootstrap draws.
+
+- 2026-11-08: LOSO refit of AFL constants (research/LOSO_REFIT_RULE.md): LOSO minus live held-out LL -0.0004 [-0.0020, +0.0011], 8/14 seasons; detectable size ~0.015 so insufficient; SD pinned at grid edge 36 (not identified). No change. NBL/NHL/CBB not run.
