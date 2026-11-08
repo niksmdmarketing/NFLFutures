@@ -697,3 +697,5 @@ TypeSafe 96%: shadow. nhl_model g_* fields + archive; model/nhl_goalie_ratings_2
 - 2026-11-08: Amendment 6 to top-10 rule: DeepSeek relay 008 corrections; fade test falsified (NBA/EPL/NCAAF proxy). Next: D labels, prior fixes for FCS/promoted clubs gated on live engine. TypeSafe ranked held-out-validatable first (0.46) over biggest-overconfidence (0.41).
 
 - 2026-11-08: Amendment 7 (top-10 rule): NHL + CBB odds files; moneyline/spread integrity check; CBB eval D 0.123, NCAAF 0.224, NBA 0.112, NHL 0.043 (all proxy). GPT soften fade wording. Placebo and de-vig sensitivity still to run.
+
+- 2026-11-08: Amendment 8: placebo + power de-vig. Correctly mirrored D is inside the placebo for CBB, NCAAF, NBA, NHL (proxy); earlier D definition used absolute gap tail (corrected). Extreme edges are noise, not an overconfidence defect. Next: held-out test of shrink-to-market in early-season/no-prior windows on the live engines.
