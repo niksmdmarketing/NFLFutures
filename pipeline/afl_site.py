@@ -368,8 +368,8 @@ def simulate(teams, table, remaining, rating, tau, n=20000, seed=7, finals8=Fals
             seed_ = order[s]
             r = Rs[s]
 
-            def play(a, b):
-                p = 1 - _ncdf(-(r[a] - r[b] + 3.0) / GAME_SD)
+            def play(a, b, edge=3.0):   # edge: first-named side's points; the grand final is neutral (0.0), AFL_FINALS_HOME_RULE.md, 8 Nov 2026
+                p = 1 - _ncdf(-(r[a] - r[b] + edge) / GAME_SD)
                 return (a, b) if rng.random() < p else (b, a)
             if finals8:     # 2000-2023 McIntyre final eight: no wildcard round, elimination finals 5v8 and 6v7
                 q1w, q1l = play(seed_[0], seed_[3])
@@ -391,7 +391,7 @@ def simulate(teams, table, remaining, rating, tau, n=20000, seed=7, finals8=Fals
                 out["pf"][t] += 1
             out["gf"][p1w] += 1
             out["gf"][p2w] += 1
-            gw, _ = play(p1w, p2w)
+            gw, _ = play(p1w, p2w, 0.0)
             out["flag"][gw] += 1
     res = {}
     for t, i in ix.items():
