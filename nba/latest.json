@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-11-08T0131Z",
-"feed_timestamp": "2026-11-08T01:30:56Z",
+"collected_utc": "2026-11-08T0506Z",
+"feed_timestamp": "2026-11-08T05:06:04Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -34,16 +34,16 @@
 "injury": "Left Foot Fracture"
 },
 {
-"athlete_id": "4432194",
-"status": "Day-To-Day",
-"return_date": "2026-11-04",
-"injury": "Undisclosed"
-},
-{
 "athlete_id": "5175643",
 "status": "Out",
 "return_date": "2026-11-11",
 "injury": "Right Leg Bruise"
+},
+{
+"athlete_id": "5101761",
+"status": "Out",
+"return_date": "2026-11-11",
+"injury": "Rest"
 },
 {
 "athlete_id": "4433287",
@@ -430,16 +430,10 @@
 "injury": "Right Achilles Surgery"
 },
 {
-"athlete_id": "4065732",
-"status": "Day-To-Day",
-"return_date": "2026-11-08",
-"injury": "Illness"
-},
-{
 "athlete_id": "4594327",
 "status": "Out",
-"return_date": "2026-11-10",
-"injury": "Ankle"
+"return_date": "2026-11-08",
+"injury": "Left Ankle"
 },
 {
 "athlete_id": "4898371",
@@ -506,6 +500,12 @@
 "status": "Out",
 "return_date": "2026-11-09",
 "injury": "Right Ankle Sprain"
+},
+{
+"athlete_id": "4278129",
+"status": "Out",
+"return_date": "2026-11-09",
+"injury": "Not Specified Leg"
 },
 {
 "athlete_id": "4606840",
@@ -579,15 +579,6 @@
 "updated": "2026-10-19T19:38Z"
 },
 {
-"athlete_id": "4432194",
-"name": "Day'Ron Sharpe",
-"team_name": "Brooklyn Nets",
-"status": "Day-To-Day",
-"return_date": "2026-11-04",
-"injury": "Undisclosed",
-"updated": "2026-11-05T02:29Z"
-},
-{
 "athlete_id": "5175643",
 "name": "Egor Demin",
 "team_name": "Brooklyn Nets",
@@ -595,6 +586,15 @@
 "return_date": "2026-11-11",
 "injury": "Right Leg Bruise",
 "updated": "2026-10-29T17:09Z"
+},
+{
+"athlete_id": "5101761",
+"name": "Mikel Brown Jr.",
+"team_name": "Brooklyn Nets",
+"status": "Out",
+"return_date": "2026-11-11",
+"injury": "Rest",
+"updated": "2026-11-08T04:04Z"
 },
 {
 "athlete_id": "4433287",
@@ -1134,7 +1134,7 @@
 "status": "Out",
 "return_date": "2026-12-01",
 "injury": "Left Hamstring Not Specified",
-"updated": "2026-10-30T18:45Z"
+"updated": "2026-11-08T02:18Z"
 },
 {
 "athlete_id": "4066211",
@@ -1173,22 +1173,13 @@
 "updated": "2026-10-21T04:22Z"
 },
 {
-"athlete_id": "4065732",
-"name": "De'Andre Hunter",
-"team_name": "Sacramento Kings",
-"status": "Day-To-Day",
-"return_date": "2026-11-08",
-"injury": "Illness",
-"updated": "2026-11-07T15:05Z"
-},
-{
 "athlete_id": "4594327",
 "name": "Keegan Murray",
 "team_name": "Sacramento Kings",
 "status": "Out",
-"return_date": "2026-11-10",
-"injury": "Ankle",
-"updated": "2026-10-26T22:01Z"
+"return_date": "2026-11-08",
+"injury": "Left Ankle",
+"updated": "2026-11-08T01:30Z"
 },
 {
 "athlete_id": "4898371",
@@ -1288,6 +1279,15 @@
 "return_date": "2026-11-09",
 "injury": "Right Ankle Sprain",
 "updated": "2026-11-07T23:33Z"
+},
+{
+"athlete_id": "4278129",
+"name": "Deandre Ayton",
+"team_name": "Washington Wizards",
+"status": "Out",
+"return_date": "2026-11-09",
+"injury": "Not Specified Leg",
+"updated": "2026-11-08T02:47Z"
 },
 {
 "athlete_id": "4606840",
