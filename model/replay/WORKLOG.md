@@ -699,3 +699,5 @@ TypeSafe 96%: shadow. nhl_model g_* fields + archive; model/nhl_goalie_ratings_2
 - 2026-11-08: Amendment 7 (top-10 rule): NHL + CBB odds files; moneyline/spread integrity check; CBB eval D 0.123, NCAAF 0.224, NBA 0.112, NHL 0.043 (all proxy). GPT soften fade wording. Placebo and de-vig sensitivity still to run.
 
 - 2026-11-08: Amendment 8: placebo + power de-vig. Correctly mirrored D is inside the placebo for CBB, NCAAF, NBA, NHL (proxy); earlier D definition used absolute gap tail (corrected). Extreme edges are noise, not an overconfidence defect. Next: held-out test of shrink-to-market in early-season/no-prior windows on the live engines.
+
+- 2026-11-08: Amendment 9 (shrink tests registered separately; TypeSafe: model-side first). V2 proxy grid: w~0 everywhere, so the proxy adds nothing over market; V1 (prior-mean shrink, k fitted <=2019) on live engines pending.
