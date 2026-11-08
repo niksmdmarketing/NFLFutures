@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-11-08T17:06:06+00:00",
+ "checked_utc": "2026-11-08T21:13:46+00:00",
  "leagues": {
   "nfl": {
-   "records": 1630,
+   "records": 1617,
    "by_layer": {
     "official": 1549,
-    "reported": 81
+    "reported": 68
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -55,6 +55,14 @@
      "source": "ESPN injury note"
     },
     {
+     "player": "Taylen Green",
+     "official": [
+      "out"
+     ],
+     "other": "expected to play",
+     "source": "ESPN injury note"
+    },
+    {
      "player": "Lamar Jackson",
      "official": [
       "injured reserve",
@@ -72,16 +80,16 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "81/81"
+   "reported_matched_to_official_list": "68/68"
   },
   "nba": {
-   "records": 228,
+   "records": 230,
    "by_layer": {
-    "official": 179,
-    "reported": 49
+    "official": 182,
+    "reported": 48
    },
    "unknown_team": 0,
-   "no_player": 17,
+   "no_player": 16,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -174,13 +182,13 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "49/49"
+   "reported_matched_to_official_list": "48/48"
   },
   "nhl": {
-   "records": 1545,
+   "records": 1537,
    "by_layer": {
-    "official": 150,
-    "reported": 71,
+    "official": 145,
+    "reported": 68,
     "projected": 1324
    },
    "unknown_team": 0,
@@ -229,7 +237,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "70/71"
+   "reported_matched_to_official_list": "65/68"
   },
   "nbl": {
    "records": 24,
