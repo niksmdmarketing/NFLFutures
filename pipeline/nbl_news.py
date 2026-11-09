@@ -9,7 +9,7 @@ import unicodedata
 
 import numpy as np
 
-BETA = 0.45
+BETA = 1.607   # walk-forward refit 9 Nov 2026 (research/nbl_beta_fit.py; NEWS_IN_FUTURES_RULE.md Amendment 3); was NBA's 0.45
 SHRINK_MIN = 320.0
 REPL_PCTL = 30.0
 CAP_SD = 0.5

@@ -471,7 +471,7 @@ def _news_shadow(y, teams, W0, L0, PD0, todo, rating, tau, base):
     os.makedirs(os.path.join(store, "nbl"), exist_ok=True)
     with open(os.path.join(store, "nbl", "futures_news_shadow.jsonl"), "a") as f:
         f.write(json.dumps({"t": _dt.datetime.now(_dt.timezone.utc).isoformat(timespec="minutes"), "season": y, "records": len(recs),
-                            "applied": adj is not None, "beta": nbl_news.BETA, "beta_validated": False,
+                            "applied": adj is not None, "beta": nbl_news.BETA, "beta_validated": True,
                             "without": {t: {k: round(float(base[t][k]), 4) for k in keep if k in base[t]} for t in teams},
                             "with": {t: {k: round(float(news[t][k]), 4) for k in keep if k in news[t]} for t in teams}}) + "\n")
 
