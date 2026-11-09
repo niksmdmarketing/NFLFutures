@@ -568,7 +568,8 @@ def futures(cur):
                      "w_mean": v.get("mean_wins"), "w_p10": q(.1), "w_p90": q(.9), "over": over,
                      **{k: v.get(k) for k in ("p_playoff", "p_top6", "p_playin", "p_div", "p_seed1", "p_r2", "p_cf", "p_conf", "p_title")},
                      **{"n_" + k: (v.get("no_overrides") or {}).get(k) for k in ("p_title", "p_conf", "p_playoff", "p_seed1", "p_div", "mean_wins")},
-                     **{"pt_" + k: (v.get("player_term") or {}).get(k) for k in ("p_title", "p_conf", "p_playoff", "p_seed1", "p_div", "mean_wins")}})
+                     **{"pt_" + k: (v.get("player_term") or {}).get(k) for k in ("p_title", "p_conf", "p_playoff", "p_seed1", "p_div", "mean_wins")},
+                     **{"tf_" + k: (v.get("trades_full") or {}).get(k) for k in ("p_title", "p_conf", "p_playoff", "p_seed1", "p_div", "mean_wins")}})
     sched = schedule_context(cur, {r["team"]: r["rating"] for r in rows})
     for r in rows:
         r.update(sched.get(r["team"], {}))

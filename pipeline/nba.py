@@ -892,6 +892,26 @@ def depth_minutes(mins: np.ndarray, rating: np.ndarray, budget: float = 82 * 240
     return out
 
 
+TRADE_CREDIT = False   # research/NBA_TRADE_DOUBLE_COUNT_RULE.md Amendment 1 (9 Nov 2026): mid-season moves get no roster-step credit
+
+
+def _opening_roster(players: pd.DataFrame, current_roster: pd.DataFrame, end_year: int) -> pd.DataFrame:
+    """Roster for the roster step: each player on the team of his FIRST regular-season game this season; players who have
+    not played yet keep today's team. Pre-season moves are unchanged; only mid-season moves lose the roster-step credit
+    (the results-weighted rating absorbs them; crediting them at full weight double counted: 13-season replay)."""
+    r = current_roster.copy()
+    if TRADE_CREDIT or players is None or not len(players):
+        return r
+    cur = players[(pd.to_numeric(players.season, errors="coerce") == end_year) & (pd.to_numeric(players.season_type, errors="coerce") == 2)
+                  & (pd.to_numeric(players.minutes, errors="coerce") > 0)]
+    if cur.empty:
+        return r
+    first = cur.sort_values("game_date").groupby(cur.athlete_id.astype(str).str.replace(r"\.0$", "", regex=True)).team_abbreviation.first()
+    ids = r.athlete_id.astype(str).str.replace(r"\.0$", "", regex=True)
+    r["team_abbreviation"] = ids.map(first).fillna(r.team_abbreviation).values
+    return r
+
+
 def _roster_adjustment(ratings: pd.DataFrame, values: pd.DataFrame, prior_roster: pd.DataFrame,
                        current_roster: pd.DataFrame, values_prev: pd.DataFrame | None = None,
                        games_played: float = 0.0) -> tuple[pd.DataFrame, list[dict]]:
@@ -1357,8 +1377,15 @@ def build_data() -> None:
     values_prev = _player_values(prev2) if len(prev2) else None
     reg = _regular_boxes(boxes)
     gp_now = float(len(reg[reg.season == end_year])) / len(TEAMS) if len(reg) else 0.0
-    ratings, player_rows = _roster_adjustment(ratings, values, prior_roster, current_roster, values_prev, gp_now)
-    ratings = _player_mix(ratings, players, values, values_prev, current_roster, end_year, gp_now)
+    step_roster = _opening_roster(players, current_roster, end_year)
+    moved = int((step_roster.team_abbreviation.values != current_roster.team_abbreviation.values).sum())
+    log("NBA roster step: opening-season teams for", moved, "players who moved mid-season (no trade credit, TRADE_CREDIT False)")
+    ratings_full_credit = None
+    if moved:   # archived shadow: the previous behaviour (mid-season moves credited at full weight)
+        rf, _ = _roster_adjustment(ratings.copy(), values, prior_roster.copy(), current_roster.copy(), values_prev, gp_now)
+        ratings_full_credit = _player_mix(rf, players, values, values_prev, current_roster, end_year, gp_now)
+    ratings, player_rows = _roster_adjustment(ratings, values, prior_roster, step_roster, values_prev, gp_now)
+    ratings = _player_mix(ratings, players, values, values_prev, step_roster, end_year, gp_now)
     team_stats, player_stats, team_games = _stats_data(boxes, players)
     advanced_teams, advanced_players, shot_zones, advanced_meta = _advanced_data(end_year)
     schedule = _season_rows(_schedule(raw_schedule))
@@ -1382,6 +1409,12 @@ def build_data() -> None:
             v["player_term"] = pt.get(t)
     except Exception as e:  # noqa: BLE001
         log("nba player-term shadow skipped:", repr(e)[:200])
+    try:   # previous behaviour (full mid-season trade credit), archived for the forward check at the trade deadline
+        tf = _simulate(schedule, ratings_full_credit, min(n_sims, 20000)) if ratings_full_credit is not None else futures
+        for t, v in futures.items():
+            v["trades_full"] = {k: round(tf[t][k], 4) for k in ("p_title", "p_conf", "p_playoff", "p_seed1", "p_div", "mean_wins")}
+    except Exception as e:  # noqa: BLE001
+        log("nba full-trade-credit shadow skipped:", repr(e)[:200])
     if avail:
         shadow = _simulate(schedule, ratings, min(n_sims, 20000), avail)
         availability["shadow"] = {t: {k: round(v[k], 4) for k in ("mean_wins", "p_playoff", "p_conf", "p_title")} for t, v in shadow.items()}
