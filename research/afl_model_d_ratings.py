@@ -82,7 +82,35 @@ def ratings_before(clean_M, T, P, season, rnd, par):
     raw = {t: par["wA"] * rA.get(t, 0.0) + par["wB"] * sum(bj * rB[st].get(t, 0.0) / par["sd"][st] for bj, st in zip(b, TW.STATS))
            + par["wC"] * par["betaC"] * strength.get(t, 0.0) for t in teams}
     m = np.mean(list(raw.values()))
+    try:   # news-layer export (research/NEWS_IN_FUTURES_RULE.md; DeepSeek relay 032): derived per-player contributions only, top 30 per team
+        _export_contrib(Pp, S, W, par, lastmatch, raw, m, teams)
+    except Exception as e:  # noqa: BLE001
+        print("AFL contributions export skipped:", repr(e)[:200])
     return {t: raw[t] - m for t in teams}
+
+
+def _export_contrib(Pp, S, W, par, lastmatch, raw, m, teams):
+    import re
+    import unicodedata
+    def nkey(x):
+        x = unicodedata.normalize("NFKD", str(x)).encode("ascii", "ignore").decode()
+        return re.sub(r"[^a-z0-9]", "", x.lower())
+    col = next((c for c in ("Player", "PlayerName", "Name") if c in Pp.columns), None)
+    if col is None:
+        raise ValueError("no player name column")
+    names = Pp.drop_duplicates("WebsiteId").set_index("WebsiteId")[col].to_dict()
+    shr = lambda p: (S.get(p, 0.0) + par["n0"] * par["R"]) / (W.get(p, 0.0) + par["n0"])
+    scale = par["wC"] * par["betaC"]
+    recent = Pp[Pp.season >= Pp.season.max() - 1]
+    out = {"season": int(Pp.season.max()), "round": int(Pp["round"].max()), "sd_rating": round(float(np.std([raw[t] - m for t in teams])), 4), "teams": {}}
+    for team, mid in lastmatch.items():
+        code = CODES.get(team, team)
+        ids = list(Pp[(Pp.MatchId == mid) & (Pp.Team == team)].WebsiteId)
+        pool = {nkey(names[p]): scale * shr(p) for p in recent[recent.Team == team].WebsiteId.unique() if p in names}
+        top = sorted(pool.items(), key=lambda kv: -kv[1])[:30]
+        out["teams"][code] = {"lineup": [nkey(names[p]) for p in ids if p in names], "c": {k: round(float(v), 3) for k, v in top}}
+    path = os.path.join(os.path.dirname(OUT), "afl_model_d_contrib.json")
+    json.dump(out, open(path, "w"), indent=0)
 
 
 def params(res, ex, mu, sdv):
