@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-11-08T21:13:46+00:00",
+ "checked_utc": "2026-11-09T00:58:20+00:00",
  "leagues": {
   "nfl": {
-   "records": 1617,
+   "records": 1623,
    "by_layer": {
     "official": 1549,
-    "reported": 68
+    "reported": 74
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -61,35 +61,26 @@
      ],
      "other": "expected to play",
      "source": "ESPN injury note"
-    },
-    {
-     "player": "Lamar Jackson",
-     "official": [
-      "injured reserve",
-      "out"
-     ],
-     "other": "expected to play",
-     "source": "ESPN news"
     }
    ],
    "stale_projection_dates": 0,
    "teams_missing_official": [],
    "season_state": {
     "state": "in_season",
-    "why": "14 regular-season/playoff and 0 other games 2026-11-01..2026-11-18"
+    "why": "15 regular-season/playoff and 0 other games 2026-11-02..2026-11-19"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "68/68"
+   "reported_matched_to_official_list": "74/74"
   },
   "nba": {
-   "records": 230,
+   "records": 288,
    "by_layer": {
-    "official": 182,
-    "reported": 48
+    "official": 238,
+    "reported": 50
    },
    "unknown_team": 0,
-   "no_player": 16,
+   "no_player": 5,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -172,23 +163,39 @@
      ],
      "other": "expected to play",
      "source": "ESPN injury note"
+    },
+    {
+     "player": "Tobias Harris",
+     "official": [
+      "out"
+     ],
+     "other": "expected to play",
+     "source": "ESPN injury note"
+    },
+    {
+     "player": "Nate Bittle",
+     "official": [
+      "out"
+     ],
+     "other": "expected to play",
+     "source": "ESPN injury note"
     }
    ],
    "stale_projection_dates": 0,
    "teams_missing_official": [],
    "season_state": {
     "state": "in_season",
-    "why": "38 regular-season/playoff and 0 other games 2026-11-01..2026-11-18"
+    "why": "35 regular-season/playoff and 0 other games 2026-11-02..2026-11-19"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "48/48"
+   "reported_matched_to_official_list": "50/50"
   },
   "nhl": {
-   "records": 1537,
+   "records": 1540,
    "by_layer": {
-    "official": 145,
-    "reported": 68,
+    "official": 147,
+    "reported": 69,
     "projected": 1324
    },
    "unknown_team": 0,
@@ -199,7 +206,6 @@
     "BOS",
     "BUF",
     "CAR",
-    "CBJ",
     "CGY",
     "CHI",
     "COL",
@@ -230,14 +236,16 @@
    ],
    "conflicts": [],
    "stale_projection_dates": 0,
-   "teams_missing_official": [],
+   "teams_missing_official": [
+    "CBJ"
+   ],
    "season_state": {
     "state": "in_season",
-    "why": "34 regular-season/playoff and 0 other games 2026-11-01..2026-11-18"
+    "why": "33 regular-season/playoff and 0 other games 2026-11-02..2026-11-19"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "65/68"
+   "reported_matched_to_official_list": "65/69"
   },
   "nbl": {
    "records": 24,
@@ -265,7 +273,7 @@
    ],
    "season_state": {
     "state": "in_season",
-    "why": "20 NBL games 2026-11-01..2026-11-18 (NBL fixture, season 2026)"
+    "why": "19 NBL games 2026-11-02..2026-11-19 (NBL fixture, season 2026)"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
@@ -304,7 +312,7 @@
    ],
    "season_state": {
     "state": "off_season",
-    "why": "0 AFL games 2026-11-01..2026-11-18 (Squiggle fixture)"
+    "why": "0 AFL games 2026-11-02..2026-11-19 (Squiggle fixture)"
    },
    "coverage_expected": false,
    "teams_missing_official_note": "off-season: no official coverage expected",
