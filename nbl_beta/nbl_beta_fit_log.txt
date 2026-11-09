@@ -29,10 +29,10 @@
   prior(2025): 10 teams
   2026: n_games 59, used 54, value match 45.6%, x sd 1.992, |x|>0 87.0%
 2022: no past seasons, skipped as fit point
-2023: fit beta +1.321 (se 1.269, n 135), oos gain +8.32163 (x sd 1.541)
-2024: fit beta +1.795 (se 0.679, n 270), oos gain +5.95037 (x sd 1.678)
-2025: fit beta +1.651 (se 0.510, n 410), oos gain +12.76954 (x sd 1.679)
-2026: fit beta +1.841 (se 0.421, n 570), oos gain +8.41097 (x sd 1.992)
+2023: fit beta +1.596 (se 1.311, n 135), oos gain +8.05943 (x sd 1.541)
+2024: fit beta +1.783 (se 0.676, n 270), oos gain +3.22905 (x sd 1.678)
+2025: fit beta +1.517 (se 0.503, n 410), oos gain +9.31940 (x sd 1.679)
+2026: fit beta +1.632 (se 0.413, n 570), oos gain +8.89023 (x sd 1.992)
 
-FINAL {"beta": 1.7847727788008636, "se": 0.3837964401706933, "n": 624, "rmse_with": 14.955894441982252, "rmse_without": 15.213252451448461, "x_sd": 1.5595043554850339, "x_nonzero": 0.9038461538461539, "beta_recommended": 1.7847727788008636, "sign_ok": true}
-Recommended BETA for the shadow: +1.785 (do NOT clip to positive without a sign check)
+FINAL {"beta": 1.6069553159338994, "se": 0.3771782848658268, "n": 624, "rmse_with": 14.69799618712557, "rmse_without": 14.910577442144662, "x_sd": 1.5595043554850339, "x_nonzero": 0.9038461538461539, "beta_recommended": 1.6069553159338994, "sign_ok": true}
+Recommended BETA for the shadow: +1.607 (do NOT clip to positive without a sign check)
