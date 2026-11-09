@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-11-09T0152Z",
-"feed_timestamp": "2026-11-09T01:52:45Z",
+"collected_utc": "2026-11-09T0549Z",
+"feed_timestamp": "2026-11-09T05:49:16Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -208,6 +208,12 @@
 "injury": "Left Knee Surgery"
 },
 {
+"athlete_id": "4897262",
+"status": "Out",
+"return_date": "2026-11-11",
+"injury": "Left Thumb"
+},
+{
 "athlete_id": "3102529",
 "status": "Out",
 "return_date": "2026-11-11",
@@ -282,13 +288,13 @@
 {
 "athlete_id": "4397014",
 "status": "Day-To-Day",
-"return_date": "2026-11-08",
-"injury": "Undisclosed"
+"return_date": "2026-11-09",
+"injury": "Finger"
 },
 {
 "athlete_id": "4432810",
 "status": "Out",
-"return_date": "2026-11-09",
+"return_date": "2026-11-11",
 "injury": "Right Knee Bruise"
 },
 {
@@ -524,6 +530,12 @@
 "status": "Out",
 "return_date": "2026-11-20",
 "injury": "Right Foot Strain"
+},
+{
+"athlete_id": "4433627",
+"status": "Day-To-Day",
+"return_date": "2026-11-10",
+"injury": "Right Ankle"
 },
 {
 "athlete_id": "4066336",
@@ -870,6 +882,15 @@
 "updated": "2026-10-16T16:14Z"
 },
 {
+"athlete_id": "4897262",
+"name": "Will Richard",
+"team_name": "Golden State Warriors",
+"status": "Out",
+"return_date": "2026-11-11",
+"injury": "Left Thumb",
+"updated": "2026-11-09T01:52Z"
+},
+{
 "athlete_id": "3102529",
 "name": "Clint Capela",
 "team_name": "Houston Rockets",
@@ -982,16 +1003,16 @@
 "name": "Quentin Grimes",
 "team_name": "Los Angeles Lakers",
 "status": "Day-To-Day",
-"return_date": "2026-11-08",
-"injury": "Undisclosed",
-"updated": "2026-11-09T01:07Z"
+"return_date": "2026-11-09",
+"injury": "Finger",
+"updated": "2026-11-09T02:01Z"
 },
 {
 "athlete_id": "4432810",
 "name": "Isaiah Stewart",
 "team_name": "Memphis Grizzlies",
 "status": "Out",
-"return_date": "2026-11-09",
+"return_date": "2026-11-11",
 "injury": "Right Knee Bruise",
 "updated": "2026-11-08T23:01Z"
 },
@@ -1345,6 +1366,15 @@
 "return_date": "2026-11-20",
 "injury": "Right Foot Strain",
 "updated": "2026-11-06T18:20Z"
+},
+{
+"athlete_id": "4433627",
+"name": "Keyonte George",
+"team_name": "Utah Jazz",
+"status": "Day-To-Day",
+"return_date": "2026-11-10",
+"injury": "Right Ankle",
+"updated": "2026-11-09T02:24Z"
 },
 {
 "athlete_id": "4066336",
