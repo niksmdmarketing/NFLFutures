@@ -63,7 +63,7 @@ def season_games(Sd):
         date = str(g.get("start_time") or "")[:10]
         if g.get("match_status") != "complete":
             if g.get("match_status") == "scheduled" and is_reg(g) and not any(w in rnd.upper() for w in ("PLAY", "SEMI", "CHAMP", "FINAL", "ELIM", "SEED", "QUALIF")):
-                todo.append({"date": date, "home": h, "away": a})
+                todo.append({"date": date, "home": h, "away": a, "round": rnd})
             continue
         hs, as_ = num(g.get("home_score")), num(g.get("away_score"))
         if hs != hs or as_ != as_:
@@ -305,7 +305,7 @@ def _p(d):
     return 0.5 * (1 + erf(d / (GAME_SD * sqrt(2))))
 
 
-def simulate(teams, W0, L0, PD0, todo, rating, tau, n=20000, seed=11, top4=False):
+def simulate(teams, W0, L0, PD0, todo, rating, tau, n=20000, seed=11, top4=False, game_adj=None):
     rng = np.random.default_rng(seed)
     T = len(teams)
     ix = {t: i for i, t in enumerate(teams)}
@@ -324,6 +324,8 @@ def simulate(teams, W0, L0, PD0, todo, rating, tau, n=20000, seed=11, top4=False
         PD = np.repeat(np.array([PD0.get(t, 0) for t in teams], float)[None, :], m, 0)
         if len(todo):
             mu = Rreg[:, H] - Rreg[:, A] + HCA
+            if game_adj is not None:   # news shadow only (pipeline/nbl_news.py); None = live, identical
+                mu = mu + np.asarray(game_adj, float)[None, :]
             mg = mu + rng.normal(0, GAME_SD, mu.shape)
             hw = (mg > 0).astype(float)
             np.add.at(W.T, H, hw.T)
@@ -450,6 +452,30 @@ def build_data():
     S.log("NBL site data", len(seasons), "seasons", len(po_seasons), "with finals")
 
 
+def _news_shadow(y, teams, W0, L0, PD0, todo, rating, tau, base):
+    import datetime as _dt
+    import nbl_news
+    store = os.environ.get("NBL_INJ_STORE")
+    if not store or not os.path.exists(SRC):
+        return
+    D = json.load(open(SRC))
+    seasons = {int(k): [p for p in (v.get("leaders") or []) if is_reg(p)] for k, v in D.get("seasons", {}).items()}
+    av = os.path.join(store, "availability", "nbl", "latest.json")
+    recs = json.load(open(av)) if os.path.exists(av) else []
+    recs = recs.get("records", recs) if isinstance(recs, dict) else recs
+    recs = recs if isinstance(recs, list) else list(recs.values())
+    vals = nbl_news.values(seasons, y)
+    adj = nbl_news.adjustments(todo, recs, vals, rating)
+    news = base if adj is None else simulate(teams, W0, L0, PD0, todo, rating, tau, game_adj=adj)
+    keep = ("p1", "p2", "p4", "p6", "gf", "champ", "w_mean")
+    os.makedirs(os.path.join(store, "nbl"), exist_ok=True)
+    with open(os.path.join(store, "nbl", "futures_news_shadow.jsonl"), "a") as f:
+        f.write(json.dumps({"t": _dt.datetime.now(_dt.timezone.utc).isoformat(timespec="minutes"), "season": y, "records": len(recs),
+                            "applied": adj is not None, "beta": nbl_news.BETA, "beta_validated": False,
+                            "without": {t: {k: round(float(base[t][k]), 4) for k in keep if k in base[t]} for t in teams},
+                            "with": {t: {k: round(float(news[t][k]), 4) for k in keep if k in news[t]} for t in teams}}) + "\n")
+
+
 def futures(y, hist, tables, todo, T, names):
     prev = hist.get(y - 1)
     prior = {t: PRIOR_REG * v for t, v in srs(prev).items()} if prev is not None and len(prev) else {}
@@ -463,6 +489,10 @@ def futures(y, hist, tables, todo, T, names):
     total = gp + 2 * len(todo) / max(len(teams), 1)
     tau = TAU0 * max(TAU_FLOOR, 1 - gp / max(total, 1))
     res = simulate(teams, W0, L0, PD0, todo, rating, tau)
+    try:   # news shadow (research/NEWS_IN_FUTURES_RULE.md): archived only, never changes the forecast
+        _news_shadow(y, teams, W0, L0, PD0, todo, rating, tau, res)
+    except Exception as e:  # noqa: BLE001
+        S.log("NBL news shadow skipped:", repr(e)[:200])
     left = {t: {"left": 0, "road_left": 0, "opp": []} for t in teams}
     for gm in todo:
         for t, o, road in ((gm["home"], gm["away"], 0), (gm["away"], gm["home"], 1)):

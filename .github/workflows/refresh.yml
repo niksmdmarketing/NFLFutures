@@ -85,6 +85,8 @@ jobs:
         env:
           SHIV_ARCHIVE: ../shiv-archive
           NBA_INJ_STORE: ../injury-monitor
+          AFL_INJ_STORE: ../injury-monitor   # AFL news shadow (research/NEWS_IN_FUTURES_RULE.md)
+          NBL_INJ_STORE: ../injury-monitor   # NBL news shadow
           NFL_AVAILABILITY_STORE: ../injury-monitor
           NBL_BOXSCORE_SEASONS: "15"   # backfills NBL game box scores gradually (newest first, per-run time budget)
         run: python pipeline/run.py
@@ -95,6 +97,7 @@ jobs:
           if [ -d ../injury-monitor/nba ]; then
             cd ../injury-monitor
             git add -A nba
+            git add -A afl nbl 2>/dev/null || true
             if ! git diff --cached --quiet; then git commit -q -m "NBA injury report $(date -u +%Y-%m-%dT%H:%MZ)"; for i in 1 2 3; do git push -q origin injury-monitor && break; git pull -q --rebase origin injury-monitor; sleep 5; done; fi
           fi
 
