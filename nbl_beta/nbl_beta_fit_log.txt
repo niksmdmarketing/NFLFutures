@@ -1,0 +1,38 @@
+[keys] boxscore: ['_game', 'assists', 'blocks', 'defensive_rebounds', 'efficiency', 'external_id', 'field_goals_attempted', 'field_goals_made', 'field_goals_percentage', 'fouls', 'free_throws_attempted', 'free_throws_made', 'free_throws_percentage', 'id', 'jersey_number', 'match', 'minutes', 'minutes_string', 'offensive_fouls', 'offensive_rebounds', 'participated', 'period', 'period_type', 'personal_fouls', 'phase', 'player', 'playing_position', 'plus_minus', 'points', 'rebounds', 'sc', 'starter', 'steals', 'team', 'technical_fouls', 'three_points_attempted', 'three_points_made', 'three_points_percentage', 'turnovers', 'two_points_attempted', 'two_points_made', 'two_points_percentage']
+[keys] player: ['external_id', 'external_player_image', 'external_player_image_blurhash', 'first_name', 'full_name', 'id', 'image', 'image_blurhash', 'jersey_number', 'last_name', 'playing_position']
+[keys] _game: ['attendance', 'away_score', 'away_team', 'home_score', 'home_team', 'id', 'match_status', 'start_time', 'status', 'venue']
+  values(y=2022): 152 roster rows from [2020, 2021]
+  prior(2021): 10 teams
+  2022: n_games 140, used 135, value match 53.6%, x sd 0.965, |x|>0 86.7%
+[keys] boxscore: ['_game', 'assists', 'blocks', 'defensive_rebounds', 'efficiency', 'external_id', 'field_goals_attempted', 'field_goals_made', 'field_goals_percentage', 'fouls', 'free_throws_attempted', 'free_throws_made', 'free_throws_percentage', 'id', 'jersey_number', 'match', 'minutes', 'minutes_string', 'offensive_fouls', 'offensive_rebounds', 'participated', 'period', 'period_type', 'personal_fouls', 'phase', 'player', 'playing_position', 'plus_minus', 'points', 'rebounds', 'sc', 'starter', 'steals', 'team', 'technical_fouls', 'three_points_attempted', 'three_points_made', 'three_points_percentage', 'turnovers', 'two_points_attempted', 'two_points_made', 'two_points_percentage']
+[keys] player: ['external_id', 'external_player_image', 'external_player_image_blurhash', 'first_name', 'full_name', 'id', 'image', 'image_blurhash', 'jersey_number', 'last_name', 'playing_position']
+[keys] _game: ['attendance', 'away_score', 'away_team', 'home_score', 'home_team', 'id', 'match_status', 'start_time', 'status', 'venue']
+  values(y=2023): 156 roster rows from [2021, 2022]
+  prior(2022): 10 teams
+  2023: n_games 140, used 135, value match 51.0%, x sd 1.541, |x|>0 89.6%
+[keys] boxscore: ['_game', 'assists', 'blocks', 'defensive_rebounds', 'efficiency', 'external_id', 'field_goals_attempted', 'field_goals_made', 'field_goals_percentage', 'fouls', 'free_throws_attempted', 'free_throws_made', 'free_throws_percentage', 'id', 'jersey_number', 'match', 'minutes', 'minutes_string', 'offensive_fouls', 'offensive_rebounds', 'participated', 'period', 'period_type', 'personal_fouls', 'phase', 'player', 'playing_position', 'plus_minus', 'points', 'rebounds', 'sc', 'starter', 'steals', 'team', 'technical_fouls', 'three_points_attempted', 'three_points_made', 'three_points_percentage', 'turnovers', 'two_points_attempted', 'two_points_made', 'two_points_percentage']
+[keys] player: ['external_id', 'external_player_image', 'external_player_image_blurhash', 'first_name', 'full_name', 'id', 'image', 'image_blurhash', 'jersey_number', 'last_name', 'playing_position']
+[keys] _game: ['attendance', 'away_score', 'away_team', 'home_score', 'home_team', 'id', 'match_status', 'start_time', 'status', 'venue']
+  values(y=2024): 155 roster rows from [2022, 2023]
+  prior(2023): 10 teams
+  2024: n_games 145, used 140, value match 52.4%, x sd 1.678, |x|>0 93.6%
+[keys] boxscore: ['_game', 'assists', 'blocks', 'defensive_rebounds', 'efficiency', 'external_id', 'field_goals_attempted', 'field_goals_made', 'field_goals_percentage', 'fouls', 'free_throws_attempted', 'free_throws_made', 'free_throws_percentage', 'id', 'jersey_number', 'match', 'minutes', 'minutes_string', 'offensive_fouls', 'offensive_rebounds', 'participated', 'period', 'period_type', 'personal_fouls', 'phase', 'player', 'playing_position', 'plus_minus', 'points', 'rebounds', 'sc', 'starter', 'steals', 'team', 'technical_fouls', 'three_points_attempted', 'three_points_made', 'three_points_percentage', 'turnovers', 'two_points_attempted', 'two_points_made', 'two_points_percentage']
+[keys] player: ['external_id', 'external_player_image', 'external_player_image_blurhash', 'first_name', 'full_name', 'id', 'image', 'image_blurhash', 'jersey_number', 'last_name', 'playing_position']
+[keys] _game: ['attendance', 'away_score', 'away_team', 'home_score', 'home_team', 'id', 'match_status', 'start_time', 'status', 'venue']
+  values(y=2025): 154 roster rows from [2023, 2024]
+  prior(2024): 10 teams
+  2025: n_games 165, used 160, value match 40.2%, x sd 1.679, |x|>0 92.5%
+[keys] boxscore: ['_game', 'assists', 'blocks', 'defensive_rebounds', 'efficiency', 'external_id', 'field_goals_attempted', 'field_goals_made', 'field_goals_percentage', 'fouls', 'free_throws_attempted', 'free_throws_made', 'free_throws_percentage', 'id', 'jersey_number', 'match', 'minutes', 'minutes_string', 'mqtt_timestamp', 'mqtt_updated', 'offensive_fouls', 'offensive_rebounds', 'participated', 'period', 'period_type', 'personal_fouls', 'phase', 'player', 'playing_position', 'plus_minus', 'points', 'rebounds', 'sc', 'source', 'starter', 'steals', 'team', 'technical_fouls', 'three_points_attempted', 'three_points_made', 'three_points_percentage', 'turnovers', 'two_points_attempted', 'two_points_made', 'two_points_percentage']
+[keys] player: ['external_id', 'external_player_image', 'external_player_image_blurhash', 'first_name', 'full_name', 'id', 'image', 'image_blurhash', 'jersey_number', 'last_name', 'playing_position']
+[keys] _game: ['attendance', 'away_score', 'away_team', 'home_score', 'home_team', 'id', 'match_status', 'start_time', 'status', 'venue']
+  values(y=2026): 164 roster rows from [2024, 2025]
+  prior(2025): 10 teams
+  2026: n_games 59, used 54, value match 45.6%, x sd 1.992, |x|>0 87.0%
+2022: no past seasons, skipped as fit point
+2023: fit beta +1.321 (se 1.269, n 135), oos gain +8.32163 (x sd 1.541)
+2024: fit beta +1.795 (se 0.679, n 270), oos gain +5.95037 (x sd 1.678)
+2025: fit beta +1.651 (se 0.510, n 410), oos gain +12.76954 (x sd 1.679)
+2026: fit beta +1.841 (se 0.421, n 570), oos gain +8.41097 (x sd 1.992)
+
+FINAL {"beta": 1.7847727788008636, "se": 0.3837964401706933, "n": 624, "rmse_with": 14.955894441982252, "rmse_without": 15.213252451448461, "x_sd": 1.5595043554850339, "x_nonzero": 0.9038461538461539, "beta_recommended": 1.7847727788008636, "sign_ok": true}
+Recommended BETA for the shadow: +1.785 (do NOT clip to positive without a sign check)
