@@ -313,6 +313,42 @@ def _pf2_rating(y, cutoff, ratings):
 
 
 
+# BT_TRADES (research/NBA_TRADE_DOUBLE_COUNT_RULE.md; DeepSeek relay 028, corrected by Claude): A = point-in-time roster
+# (each player's latest team up to the checkpoint; live behaviour); B = A with each team's trade contribution weighted
+# (new team: share of its games so far WITHOUT the player; old team: share of its games so far WITH him).
+# Claude's correction: the roster step is not additive in players (12-man rotation, minute scaling, clip, demeaning), so B
+# weights the per-team difference between the A and opening-roster roster steps, not per-player pieces; DeepSeek's old-team
+# sign was also reversed.
+TRADES = os.environ.get("BT_TRADES", "").upper()
+TRADE_LOG = []
+
+
+def _roster_at(y, cutoff, cur_roster):
+    p0 = _pbox(y)
+    p0 = p0[p0.date <= pd.Timestamp(cutoff)]
+    latest = p0.sort_values("date").groupby("athlete_id").team_abbreviation.last()
+    latest.index = latest.index.astype("int64").astype(str)
+    out = cur_roster[["athlete_id", "team_abbreviation"]].copy()
+    out["team_abbreviation"] = out.athlete_id.map(latest).fillna(out.team_abbreviation)
+    return out
+
+
+def _team_trade_weights(y, cutoff, opening, at_cut):
+    p0 = _pbox(y)
+    p0 = p0[p0.date <= pd.Timestamp(cutoff)].assign(athlete_id=lambda d: d.athlete_id.astype("int64").astype(str))
+    gp = p0.groupby("team_abbreviation").date.nunique().to_dict()
+    op = dict(zip(opening.athlete_id, opening.team_abbreviation)); cu = dict(zip(at_cut.athlete_id, at_cut.team_abbreviation))
+    w = {}
+    for pid, new_t in cu.items():
+        old_t = op.get(pid)
+        if old_t is None or old_t == new_t:
+            continue
+        mine = p0[p0.athlete_id == pid]
+        w.setdefault(new_t, []).append(1.0 - float((mine.team_abbreviation == new_t).sum()) / max(gp.get(new_t, 1), 1))
+        w.setdefault(old_t, []).append(float((mine.team_abbreviation == old_t).sum()) / max(gp.get(old_t, 1), 1))
+    return {t: float(np.clip(np.mean(v), 0, 1)) for t, v in w.items()}
+
+
 # BT_CARRY=1: honest history test (research/NEWS_IN_FUTURES_RULE.md, Job 3). At each in-season checkpoint a player is 'Out'
 # once he has missed his current team's last K=3 games in a row (box scores up to the checkpoint only). Remaining games
 # out are drawn per simulation from completed absence streaks in the three seasons before (streaks that reached the
@@ -466,7 +502,24 @@ def run_season(boxes, y):
         ratings["rating"] = ratings.raw_net - ratings.raw_net.mean()
         if FULL:
             gp = 2 * len(done) / 30
-            ratings, _ = N._roster_adjustment(ratings, v1, prior_roster.copy(), cur_roster.copy(), v2, gp)
+            if TRADES in ("A", "B"):
+                cur_at = _roster_at(y, cutoff, cur_roster)
+                rA, _ = N._roster_adjustment(ratings, v1, prior_roster.copy(), cur_at.copy(), v2, gp)
+                if TRADES == "B":
+                    rN, _ = N._roster_adjustment(ratings, v1, prior_roster.copy(), cur_roster.copy(), v2, gp)
+                    wt = _team_trade_weights(y, cutoff, cur_roster, cur_at)
+                    d = (rA.set_index("team").roster_adj - rN.set_index("team").roster_adj)
+                    k = d.index.map(lambda t: wt.get(t, 1.0)).to_numpy(float)
+                    adj = rN.set_index("team").roster_adj + k * d
+                    TRADE_LOG.append(dict(season=y, date=str(cutoff.date()), teams=len(wt), max_d=round(float(d.abs().max()), 3),
+                                          max_removed=round(float(((1 - k) * d).abs().max()), 3)))
+                    rA = rN.copy()
+                    rA["roster_adj"] = rA.team.map(adj).fillna(0)
+                    rA["rating"] = rA.raw_net + rA.roster_adj
+                    rA["rating"] -= rA.rating.mean()
+                ratings = rA
+            else:
+                ratings, _ = N._roster_adjustment(ratings, v1, prior_roster.copy(), cur_roster.copy(), v2, gp)
             share = LR.MIX * max(0.0, 1.0 - gp / LR.MIX_GAMES)
             ck_rating = prating
             if INS and len(done):
@@ -533,5 +586,7 @@ if __name__ == "__main__":
             continue
         D.to_csv(os.path.join(OUT, f"nba_{y}.csv"), index=False)
         print("season", y, "weeks", D.week.nunique(), flush=True)
+        if TRADES == "B":
+            pd.DataFrame(TRADE_LOG).to_csv(os.path.join(OUT, "trade_log.csv"), index=False)
         if CARRY:
             pd.DataFrame(CARRY_LOG).to_csv(os.path.join(OUT, "carry_log.csv"), index=False)
