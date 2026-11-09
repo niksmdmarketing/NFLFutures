@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-11-09T08:02:38+00:00",
+ "checked_utc": "2026-11-09T18:52:27+00:00",
  "leagues": {
   "nfl": {
-   "records": 1625,
+   "records": 1623,
    "by_layer": {
     "official": 1549,
-    "reported": 76
+    "reported": 74
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -71,16 +71,16 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "76/76"
+   "reported_matched_to_official_list": "74/74"
   },
   "nba": {
-   "records": 246,
+   "records": 262,
    "by_layer": {
-    "official": 195,
+    "official": 211,
     "reported": 51
    },
    "unknown_team": 0,
-   "no_player": 16,
+   "no_player": 13,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -192,10 +192,10 @@
    "reported_matched_to_official_list": "51/51"
   },
   "nhl": {
-   "records": 1540,
+   "records": 1538,
    "by_layer": {
-    "official": 149,
-    "reported": 72,
+    "official": 146,
+    "reported": 73,
     "projected": 1319
    },
    "unknown_team": 0,
@@ -245,7 +245,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "67/72"
+   "reported_matched_to_official_list": "67/73"
   },
   "nbl": {
    "records": 24,
@@ -320,6 +320,8 @@
    "reported_matched_to_official_list": "0/10"
   }
  },
- "sources_failed": [],
+ "sources_failed": [
+  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 41 h old"
+ ],
  "sources_not_expected": []
 }
