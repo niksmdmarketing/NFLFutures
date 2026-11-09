@@ -1,0 +1,41 @@
+name: NBL BETA refit (research)
+# research/NEWS_IN_FUTURES_RULE.md: walk-forward refit of the NBL news shadow's BETA (DeepSeek relay 036). Results only.
+on:
+  push:
+    branches: [main]
+    paths: [research/nbl_beta_fit_trigger.txt]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: pip install pandas numpy scipy
+      - name: Restore cached downloads (read only)
+        uses: actions/cache/restore@v4
+        with:
+          path: data
+          key: nflverse-none
+          restore-keys: nflverse-
+      - name: Build NBL source data
+        run: cd pipeline && python -c "import nbl; nbl.build_data()"
+      - name: Fit
+        run: python research/nbl_beta_fit.py | tee research/nbl_beta_fit_log.txt
+      - name: Commit results to research-results
+        if: always()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          mkdir -p /tmp/res && cp research/nbl_beta_fit_results.json research/nbl_beta_fit_log.txt /tmp/res/ 2>/dev/null || true
+          git fetch -q origin research-results && git checkout -q research-results
+          mkdir -p nbl_beta && cp /tmp/res/* nbl_beta/ 2>/dev/null || true
+          git add -f nbl_beta && git commit -qm "NBL BETA fit $GITHUB_SHA" || echo "no change"
+          for i in 1 2 3; do git push -q origin research-results && break || sleep 15; done
