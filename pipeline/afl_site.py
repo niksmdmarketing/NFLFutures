@@ -317,7 +317,7 @@ def balanced_fixture(teams, rng, n_extra=6):
     return games
 
 
-def simulate(teams, table, remaining, rating, tau, n=20000, seed=7, finals8=False, hga=None):
+def simulate(teams, table, remaining, rating, tau, n=20000, seed=7, finals8=False, hga=None, game_adj=None):
     """table: current wins/draws/pf/pa by team. remaining: list of (home, away). Returns per-team probabilities."""
     rng = np.random.default_rng(seed)
     T = len(teams)
@@ -336,6 +336,8 @@ def simulate(teams, table, remaining, rating, tau, n=20000, seed=7, finals8=Fals
         m = min(2000, n - start)
         Rs = R[None, :] + rng.normal(0, tau, (m, T))
         mu = Rs[:, H] - Rs[:, A] + (HGA if hga is None else hga)
+        if game_adj is not None:   # news shadow (research/NEWS_IN_FUTURES_RULE.md); None = live, identical
+            mu = mu + np.asarray(game_adj, float)[None, :]
         if GAME_DF:
             marg = mu + GAME_SD * np.sqrt((GAME_DF - 2) / GAME_DF) * rng.standard_t(GAME_DF, mu.shape)
         else:
@@ -482,6 +484,104 @@ def model_d(cur, played):
     return {k: float(v) for k, v in doc["ratings"].items()}, float(doc["home_term"]), doc
 
 
+# ---- AFL news layer, SHADOW ONLY (research/NEWS_IN_FUTURES_RULE.md; DeepSeek relay 032, Claude's corrections:
+# records with no team are matched by player key within each team's contribution pool; a returning player adds only
+# what he adds over the weakest starter; the contributions file lives beside the ratings file).
+MODEL_D_CONTRIB = os.path.join(ROOT, "pipeline", "afl_model_d_contrib.json")
+NEWS_DEFAULT_ROUNDS = (3, 4, 5, 6, 7, 8)
+
+
+def _nkey(x):
+    import re
+    import unicodedata
+    x = unicodedata.normalize("NFKD", str(x)).encode("ascii", "ignore").decode()
+    return re.sub(r"[^a-z0-9]", "", x.lower())
+
+
+def _round_no(x):
+    import re
+    m = re.search(r"(\d+)", str(x or ""))
+    return int(m.group(1)) if m and str(x).strip().upper().startswith("R") else None
+
+
+def _p_out(rec, r, now):
+    """P(player still out at round r) given a record collected before round now."""
+    cls = (rec.get("return_text_class") or "").lower()
+    if cls == "season":
+        return 1.0
+    if cls == "test":
+        return 0.5 if r <= now else 0.0
+    nums = [n for n in (_round_no(rec.get("return_low")), _round_no(rec.get("return_high"))) if n is not None]
+    if nums:
+        lo, hi = min(nums), max(nums)
+        return float(np.mean([1.0 if v > r else 0.0 for v in range(lo, hi + 1)]))
+    return float(np.mean([1.0 if now + v > r else 0.0 for v in NEWS_DEFAULT_ROUNDS]))
+
+
+def news_adjustments(remaining, rounds, contrib, records, now_round, team_lists=None, cap_mult=0.5):
+    """Array len(remaining) added to the home-minus-away margin, or None when nothing applies (shadow = live)."""
+    if not records or not contrib:
+        return None
+    cap = cap_mult * float(contrib["sd_rating"])
+    keys = {}
+    for rec in records:
+        k = _nkey(rec.get("player_key") or rec.get("player") or "")
+        if k:
+            keys.setdefault(k, []).append(rec)
+    adj = np.zeros(len(remaining))
+    hit = False
+    for i, ((h, a), r) in enumerate(zip(remaining, rounds)):
+        for side, sign in ((h, 1.0), (a, -1.0)):
+            c = (contrib.get("teams") or {}).get(side)
+            if not c or not c.get("lineup") or r is None:
+                continue
+            vals = {k: float(v) for k, v in c["c"].items()}
+            start = set(c["lineup"])
+            floor = min([vals.get(k, 0.0) for k in start] or [0.0])
+            repl = max([v for k, v in vals.items() if k not in start and v <= floor] or [0.0])
+            named = (team_lists or {}).get((side, r))
+            d = 0.0
+            for k, v in vals.items():
+                recs = [x for x in keys.get(k, []) if x.get("team") in (None, side)]
+                if not recs and not named:
+                    continue
+                p = (0.0 if k in named else 1.0) if named else _p_out(recs[-1], r, now_round)
+                if k in start:
+                    d -= max(0.0, v - repl) * p
+                elif recs:
+                    d += max(0.0, v - floor) * (1.0 - p)
+            if d:
+                hit = True
+            adj[i] += sign * float(np.clip(d, -cap, cap))
+    return adj if hit else None
+
+
+def _news_shadow(cur, teams, table, remaining, rounds, rating, tau, hga, base):
+    """Archive live vs news-adjusted chances; never changes the published forecast."""
+    store = os.environ.get("AFL_INJ_STORE")
+    if not store or not os.path.exists(MODEL_D_CONTRIB):
+        return
+    contrib = json.load(open(MODEL_D_CONTRIB))
+    av = os.path.join(store, "availability", "afl", "latest.json")
+    recs = json.load(open(av)) if os.path.exists(av) else []
+    recs = recs.get("records", recs) if isinstance(recs, dict) else recs
+    recs = recs if isinstance(recs, list) else list(recs.values())
+    now = min([r for r in rounds if r is not None] or [0])
+    adj = news_adjustments(remaining, rounds, contrib, recs, now)
+    news = base if adj is None else simulate(teams, table, remaining, rating, tau, hga=hga, game_adj=adj)
+    os.makedirs(os.path.join(store, "afl"), exist_ok=True)
+    keep = ("p10", "p8", "p4", "p1", "flag", "w_mean")
+    with open(os.path.join(store, "afl", "futures_news_shadow.jsonl"), "a") as f:
+        f.write(json.dumps({"t": dt_now(), "season": cur, "records": len(recs), "applied": adj is not None,
+                            "without": {t: {k: round(float(base[t][k]), 4) for k in keep} for t in teams},
+                            "with": {t: {k: round(float(news[t][k]), 4) for k in keep} for t in teams}}) + "\n")
+
+
+def dt_now():
+    import datetime as _dt
+    return _dt.datetime.now(_dt.timezone.utc).isoformat(timespec="minutes")
+
+
 def futures(cur, hist_games, tables):
     last = max(hist_games)
     # rating: previous season's opponent-adjusted margin regressed halfway, then this season's games (if any)
@@ -518,6 +618,11 @@ def futures(cur, hist_games, tables):
     n_played = int(np.mean([v["w"] + v["d"] for v in table.values()])) if table else 0
     tau = TAU0 * (1 - min(n_played, 23) / TAU_FADE)
     res = simulate(teams, table, remaining, rating, tau, hga=hga)
+    try:   # news shadow (archived only)
+        rounds = [_round_no(f"R{g['round']}") if str(g.get("round") or "").isdigit() else None for g in fx if not g["complete"]] if fx else [None] * len(remaining)
+        _news_shadow(cur, teams, table, remaining, rounds, rating, tau, hga, res)
+    except Exception as e:  # noqa: BLE001
+        S.log("AFL news shadow skipped:", repr(e)[:200])
     ctx = {t: {"left": 0, "road_left": 0, "opp": []} for t in teams}
     if fx:
         for h, a in remaining:
