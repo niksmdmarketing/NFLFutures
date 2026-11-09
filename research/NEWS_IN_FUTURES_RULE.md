@@ -22,3 +22,15 @@ Owner: "Add it to all futures markets, including trades, injuries, every info th
 - Arms: live vs live + carry-forward, one per sport (family 2). NBA 2013-2026 (live replay seasons); NHL 2015-2025 needs the lineup cache (cannot run in the sandbox).
 - Primary: IN-SEASON playoff and title log loss (correction by Claude: DeepSeek's 'preseason' cannot carry a K = 3 streak; the preseason checkpoint is unchanged by construction and is reported as a null check). Paired by season, season-block bootstrap. No-harm: no stage worse than live by more than 0.002 at the 90% bound.
 - Falsification (overrides gains): worse on the check block in both sports -> the missed-games proxy is retired, not re-parametrised.
+
+---
+## Amendment 1 (9 Nov 2026): first results. Rule text above unchanged.
+**Job 1, NBA facts found in the code:** in-season trades already move NBA futures live through the roster step (pipeline/nba.py _roster_adjustment: current roster vs last season's, coefficient 1.0 from game 20 on, ROSTER_FADE 0, so no fade). Injuries in futures already run as the shadow (nba/futures_shadow.jsonl). Nothing new built for NBA trades; the double-count check DeepSeek asked for (roster step plus results after a trade) stays open.
+**Job 2, NBA audit (research/score_news_shadow.py, descriptive):** 370 snapshots 10 Oct to 9 Nov 2026; median largest playoff-chance move per snapshot 4.0 points (largest 7.9); mean move 1.1 points, 0.44 wins; latest biggest: MIN 0.83 -> 0.78, MEM 0.46 -> 0.50, GS 0.82 -> 0.79. Season-end decision unchanged (one season cannot decide).
+**Job 3, NBA honest history test (research/replay_nba.py BT_CARRY=1, live flags, 1000 sims, 13 seasons 2013-2026 without 2020; null = live with the same flags):**
+```
+nba: seasons 2013-2026 (13), null null; IN-SAMPLE, EXPLORATORY. discovery < 2021 <= check
+carry          pooled dLL -0.0002 | disc +0.0005 check -0.0012 | best season removed +0.0000 | worst cell second quarter/div +0.0045 (90% up +0.0073) | harm cells 15/45 | decision playoff@preseason: slope null 2.08 arm 2.08 contrast +0.000 [10% +0.000, 90% +0.000]
+```
+Primary (in-season playoff log loss): -0.0018 (carry better), 9 of 13 seasons better, check block 2021-2026 -0.0033. Mid-season -0.0026, last quarter -0.0020 (check -0.0048). Title flat (-0.0001). Preseason identical by construction (null check passes). No-harm fails as written: 15 of 45 stage x market cells have an upper bound worse than +0.002 (worst second-quarter division +0.0045).
+Reading: EXPLORATORY (spent seasons). Falsification clause needs both sports worse on the check block; NBA is better on it, so the proxy is not retired. NHL arm still to run (needs the lineup cache via the GitHub Action). Nothing live changes.

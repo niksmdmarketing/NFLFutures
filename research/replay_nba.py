@@ -312,6 +312,106 @@ def _pf2_rating(y, cutoff, ratings):
     return (b / bA) * ratings.rating.to_numpy() + (c / bA) * Sd
 
 
+
+# BT_CARRY=1: honest history test (research/NEWS_IN_FUTURES_RULE.md, Job 3). At each in-season checkpoint a player is 'Out'
+# once he has missed his current team's last K=3 games in a row (box scores up to the checkpoint only). Remaining games
+# out are drawn per simulation from completed absence streaks in the three seasons before (streaks that reached the
+# season's end count as rest-of-season); the return is never read from later box scores. Costs use nba_avail v2 values.
+CARRY = os.environ.get("BT_CARRY") == "1"
+CARRY_K = int(os.environ.get("BT_CARRY_K", "3"))
+_STREAKS = {}
+CARRY_LOG = []
+
+
+def _streak_table(d):
+    """d: player rows (played, minutes>0) for one season -> list of (missed games, censored) for runs of >= K misses
+    while the player stayed with the team (after his first game for it, ending at his next game for it, a game for
+    another team, or the season end = censored)."""
+    out = []
+    tg = d.drop_duplicates(["team_abbreviation", "date"]).groupby("team_abbreviation").date.apply(lambda x: np.sort(x.to_numpy()))
+    for pid, pr in d.sort_values("date").groupby("athlete_id"):
+        teams = pr.team_abbreviation.to_numpy(); dates = pr.date.to_numpy()
+        for i in range(len(pr)):
+            t = teams[i]; td = tg.get(t)
+            if td is None:
+                continue
+            nxt = dates[i + 1] if i + 1 < len(pr) else None
+            same = nxt is not None and teams[i + 1] == t
+            hi = nxt if nxt is not None else td[-1] + np.timedelta64(1, "D")
+            m = int(((td > dates[i]) & (td < hi)).sum())
+            if m >= CARRY_K:
+                out.append((m, nxt is None))
+    return out
+
+
+def _carry_prior(y):
+    if y not in _STREAKS:
+        rows = []
+        for yy in (y - 3, y - 2, y - 1):
+            try:
+                rows += _streak_table(_pbox(yy))
+            except FileNotFoundError:
+                pass
+        _STREAKS[y] = rows
+    return _STREAKS[y]
+
+
+def _carry_plan(y, cutoff, s):
+    import nba_avail as A
+    cut = pd.Timestamp(cutoff)
+    frames = []
+    for yy in range(y - 4, y + 1):
+        try:
+            r = _raw(yy)
+        except FileNotFoundError:
+            continue
+        frames.append(r[pd.to_datetime(r.game_date.astype(str).str[:10]) <= cut] if yy == y else r)
+    players = pd.concat(frames, ignore_index=True)
+    values = A.player_values(players, y, None, today=cut)
+    cur = _pbox(y); cur = cur[cur.date <= cut]
+    tg = cur.drop_duplicates(["team_abbreviation", "date"]).groupby("team_abbreviation").date.apply(lambda x: np.sort(x.to_numpy()))
+    last = cur.sort_values("date").groupby("athlete_id").agg(t=("team_abbreviation", "last"), d=("date", "last"))
+    prior = _carry_prior(y)
+    injuries, streak_len = [], {}
+    for pid, r in last.iterrows():
+        td = tg.get(r.t)
+        if td is None:
+            continue
+        L = int((td > np.datetime64(r.d)).sum())
+        if L >= CARRY_K:
+            key = str(int(pid))
+            if key in values:
+                injuries.append({"athlete_id": key, "status": "Out", "team_name": None, "return_date": None, "injury": ""})
+                streak_len[key] = L
+    P = A.plan(s, injuries, values, N.NAMES, today=cut.date())
+    # attach empirical remaining-games draws to each episode (same order as listed Out players in plan)
+    outset = {i["athlete_id"] for i in injuries}
+    ids = [pid for pid, v in values.items() if pid in outset and v["team"] in N.NAMES]   # plan() appends episodes in values order
+    assert len(ids) == len(P["episodes"]), (len(ids), len(P["episodes"]))
+    for pid, e in zip(ids, P["episodes"]):
+        L = streak_len.get(pid, CARRY_K)
+        pool = [(m - L, c) for m, c in prior if m >= L]
+        e["emp"] = pool or [(0, False)]
+    CARRY_LOG.append(dict(season=y, date=str(cut.date()), out=len(P["episodes"]), cost=round(float(sum(e["cost_out"] for e in P["episodes"])), 2)))
+    return P
+
+
+def _draw_emp(P, rng, size):
+    adj = np.tile(P["fixed"], (size, 1))
+    playoff = {}
+    for e in P["episodes"]:
+        pool = e["emp"]
+        pick = rng.integers(0, len(pool), size)
+        rem = np.array([pool[i][0] for i in pick]); cens = np.array([pool[i][1] for i in pick])
+        n = len(e["games"])
+        idx = np.arange(n)[None, :]
+        out = (idx < rem[:, None]) | cens[:, None]
+        cost = np.where(out, e["cost_out"], e["cost_back"][None, :])
+        adj[:, e["games"]] += cost * e["sign"][None, :]
+        playoff.setdefault(e["team"], np.zeros(size))
+        playoff[e["team"]] += np.where(cens | (rem > n), e["cost_out"], 0.0)
+    return adj, playoff
+
 def run_season(boxes, y):
     global ERA_PLAYIN, ERA_GAMES
     if ERA and y == 2020:
@@ -404,7 +504,12 @@ def run_season(boxes, y):
                 N.PO_DELTA = _po_delta(cur[cur.date <= cutoff], (ck_rating if (INS and INS_PO and ck_rating is not None) else rating), prev_assign, prev_mins)
         s = sched.copy()
         s["completed"] = s.completed & (pd.to_datetime(s.game_date) <= cutoff)
-        res = N._simulate(s, ratings, SIMS, playin=ERA_PLAYIN, season_games=ERA_GAMES)
+        if CARRY and len(done):
+            import nba_avail as _A
+            _A.draw_adjustments = _draw_emp
+            res = N._simulate(s, ratings, SIMS, _carry_plan(y, cutoff, s), playin=ERA_PLAYIN, season_games=ERA_GAMES)
+        else:
+            res = N._simulate(s, ratings, SIMS, playin=ERA_PLAYIN, season_games=ERA_GAMES)
         for t, v in res.items():
             rows.append(dict(season=y, week=wk, date=str(cutoff.date()), gp_avg=round(2 * len(done) / 30, 1), team=t,
                              p_title=v["p_title"], p_conf=v["p_conf"], p_div=v["p_div"], p_seed1=v["p_seed1"], p_playoff=v["p_playoff"], p_r2=v.get("p_r2"), p_cf=v.get("p_cf"),
@@ -428,3 +533,5 @@ if __name__ == "__main__":
             continue
         D.to_csv(os.path.join(OUT, f"nba_{y}.csv"), index=False)
         print("season", y, "weeks", D.week.nunique(), flush=True)
+        if CARRY:
+            pd.DataFrame(CARRY_LOG).to_csv(os.path.join(OUT, "carry_log.csv"), index=False)
