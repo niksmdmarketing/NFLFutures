@@ -35,7 +35,7 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           mkdir -p /tmp/res && cp research/nbl_beta_fit_results.json research/nbl_beta_fit_log.txt /tmp/res/ 2>/dev/null || true
-          git fetch -q origin research-results && git checkout -q research-results
+          git stash -q -u || true; git fetch -q origin research-results && git checkout -q -f research-results
           mkdir -p nbl_beta && cp /tmp/res/* nbl_beta/ 2>/dev/null || true
           git add -f nbl_beta && git commit -qm "NBL BETA fit $GITHUB_SHA" || echo "no change"
           for i in 1 2 3; do git push -q origin research-results && break || sleep 15; done

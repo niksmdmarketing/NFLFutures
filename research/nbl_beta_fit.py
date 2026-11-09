@@ -105,7 +105,7 @@ def _season_matrix(y, seasons, verbose=False):
     gx, _, _ = NS.season_games(Sd)
     if "fin" in gx.columns:   # Claude: fin flags FINALS; DeepSeek kept only finals here
         gx = gx[~gx["fin"].astype(bool)]
-    gx = gx.rename(columns={"as": "as_"})   # Claude: 'as' is a Python keyword (r.as is a syntax error)
+    away_pts = gx["as"].to_numpy(float)   # Claude: 'as' is a Python keyword; read it by position (team_rows needs the column name)
     gx = _regular(gx).sort_values("date").reset_index(drop=True)
     ap = _appearances(Sd.get("boxscores") or [], show=verbose)
     if not ap:
@@ -150,7 +150,7 @@ def _season_matrix(y, seasons, verbose=False):
                 base = 1.0 - len(on_books) / len(prev)
                 absent = 0.0 if pk in here else 1.0
                 x += sign * v * (absent - base)
-        resid = (float(r.hs) - float(r.as_)) - (rat[h] - rat[a] + NS.HCA)
+        resid = (float(r.hs) - float(away_pts[i])) - (rat[h] - rat[a] + NS.HCA)
         rows.append({"gid": gid, "h": h, "a": a, "r": resid, "x": x})
     if verbose and rows:
         xs = np.array([w["x"] for w in rows])
