@@ -105,8 +105,8 @@ def _season_matrix(y, seasons, verbose=False):
     gx, _, _ = NS.season_games(Sd)
     if "fin" in gx.columns:   # Claude: fin flags FINALS; DeepSeek kept only finals here
         gx = gx[~gx["fin"].astype(bool)]
-    away_pts = gx["as"].to_numpy(float)   # Claude: 'as' is a Python keyword; read it by position (team_rows needs the column name)
     gx = _regular(gx).sort_values("date").reset_index(drop=True)
+    away_pts = gx["as"].to_numpy(float)   # Claude: 'as' is a Python keyword; read by position after sorting (team_rows needs the column name)
     ap = _appearances(Sd.get("boxscores") or [], show=verbose)
     if not ap:
         if verbose: print(f"  {y}: no boxscores"); return None
