@@ -249,6 +249,135 @@ def realised_series(y):
     return out
 
 
+
+# --- NHL_CARRY=1: Job 3 honest history test (research/NEWS_IN_FUTURES_RULE.md). Code by DeepSeek (relay 031); Claude's
+# corrections: history runs only between a player's first and last game for the team (no pre-arrival or post-trade
+# runs; a trailing run counts as rest-of-season only if he played for no other team after), the chance he is still out
+# is CONDITIONAL on the run so far (DeepSeek's was unconditional), values and lineups cached. Expected cost per game
+# (probability still out minus his season-to-date missing share, times cost), capped 0.30 goals per team-game.
+CARRY = os.environ.get("NHL_CARRY") == "1"
+CARRY_K, CARRY_CAP = 3, 0.30
+_C3 = {}
+
+
+def _c3_lineups(y):
+    if ("l", y) not in _C3:
+        out = []
+        for kind in ("skaters", "goalies"):
+            f = os.path.join(LINEUP_DIR, f"{kind}_{y}.csv.gz")
+            df = pd.read_csv(f) if os.path.exists(f) else pd.DataFrame()
+            if len(df):
+                df["date"] = pd.to_datetime(df["date"]); df["player_id"] = df["player_id"].astype(str)
+            out.append(df)
+        allg = pd.concat([d[["team", "game_id", "date"]] for d in out if len(d)]).drop_duplicates() if any(len(d) for d in out) else pd.DataFrame()
+        _C3[("l", y)] = (out, allg)
+    return _C3[("l", y)]
+
+
+def _c3_hist(y):
+    """Completed absence runs (team games, >= K) and runs that reached the season end, seasons before y only."""
+    if ("h", y) in _C3:
+        return _C3[("h", y)]
+    dur, n_end = [], 0
+    for yy in range(2014, y):
+        (frames, allg) = _c3_lineups(yy)
+        if allg.empty:
+            continue
+        tgames = {t: tt.sort_values("date").game_id.tolist() for t, tt in allg.groupby("team")}
+        for df in frames:
+            if df.empty:
+                continue
+            lastteam = df.sort_values("date").groupby("player_id").team.last()
+            for (pid, team), pp in df.groupby(["player_id", "team"]):
+                order = tgames.get(team, []); played = set(pp.game_id)
+                idx = [i for i, gid in enumerate(order) if gid in played]
+                if not idx:
+                    continue
+                run = 0
+                for gid in order[idx[0]:idx[-1] + 1]:
+                    if gid in played:
+                        if run >= CARRY_K:
+                            dur.append(run)
+                        run = 0
+                    else:
+                        run += 1
+                trail = len(order) - 1 - idx[-1]
+                if trail >= CARRY_K and lastteam.get(pid) == team:
+                    n_end += 1
+    _C3[("h", y)] = (np.asarray(dur, float), n_end)
+    return _C3[("h", y)]
+
+
+def _c3_key(name, pos):
+    return f"{str(name).strip().lower()}|{'G' if pos == 'G' else ('D' if pos == 'D' else 'F')}"
+
+
+def _c3_out(y, cut):
+    """team -> [(cost per game, run so far, baseline missing share)] for players out >= K games at cut."""
+    if ("v", y) not in _C3:
+        _C3[("v", y)] = nhl_absence.values(y)
+    vals = _C3[("v", y)]
+    (frames, allg) = _c3_lineups(y)
+    res = {}
+    if allg.empty:
+        return res
+    a = allg[allg.date < cut]
+    tgames = {t: tt.sort_values("date").game_id.tolist() for t, tt in a.groupby("team")}
+    for df in frames:
+        if df.empty:
+            continue
+        d = df[df.date < cut]
+        lastteam = d.sort_values("date").groupby("player_id").team.last()
+        for (pid, team), pp in d.groupby(["player_id", "team"]):
+            if lastteam.get(pid) != team:
+                continue
+            order = tgames.get(team, []); played = set(pp.game_id)
+            idx = [i for i, gid in enumerate(order) if gid in played]
+            if not idx:
+                continue
+            run = len(order) - 1 - idx[-1]
+            if run < CARRY_K:
+                continue
+            pos = str(pp.pos.iloc[-1]); v = vals.get(_c3_key(pp.name.iloc[-1], pos))
+            if v is None or not np.isfinite(v):
+                continue
+            if pos == "G":
+                share = float(pp.get("started", pd.Series(0, index=pp.index)).sum()) / max(len(order), 1)
+                others = d[(d.team == team) & (d.player_id != pid)].drop_duplicates("player_id")
+                bk = [vals.get(_c3_key(r.name, "G")) for r in others.itertuples()]
+                bk = [b for b in bk if b is not None and np.isfinite(b)]
+                cost = nhl_absence.SCALE_G * max(0.0, v - (max(bk) if bk else nhl_absence.REPL_G)) * share
+            else:
+                cost = nhl_absence.SCALE_SK * float(pp.toi.mean()) / 3600.0 * max(0.0, v - nhl_absence.REPL_SK)
+            span = order[idx[0]:]
+            base = 1.0 - len(played & set(span)) / max(len(span), 1)
+            res.setdefault(team, []).append((cost, run, base))
+    return res
+
+
+def _c3_game_adj(y, cut, rm):
+    dur, n_end = _c3_hist(y)
+    per = _c3_out(y, pd.Timestamp(cut))
+    def p_out(r, k):     # P(still out at his team's k-th remaining game | out r games so far)
+        alive = n_end + int((dur >= r).sum())
+        return (n_end + int((dur >= r + k).sum())) / alive if alive else 0.0
+    order = rm.sort_values("date")
+    rank = {}
+    for t in pd.unique(pd.concat([rm.team, rm.opp])):
+        m = order[(order.team == t) | (order.opp == t)]
+        rank[t] = {gid: i + 1 for i, gid in enumerate(m.index)}
+    adj = np.zeros(len(rm))
+    for i, (gid, row) in enumerate(rm.iterrows()):
+        for side, sign in ((row.team, -1.0), (row.opp, 1.0)):
+            s_ = sum(c * max(0.0, p_out(r, rank[side][gid]) - b) for c, r, b in per.get(side, []))
+            adj[i] += sign * min(s_, CARRY_CAP)
+    CARRY_ROWS.append(dict(season=y, date=str(pd.Timestamp(cut).date()), players=sum(len(v) for v in per.values()),
+                           mean_abs=round(float(np.abs(adj).mean()), 4)))
+    return adj
+
+
+CARRY_ROWS = []
+
 def run_season(TT, GG, fit_years, done, y):
     beta_y, k, tau, total, hfa = M.params_before(TT, GG, fit_years, done, y)
     T = TT[y]
@@ -335,6 +464,7 @@ def run_season(TT, GG, fit_years, done, y):
     for wk, cut in enumerate(cuts):
         pl = g[g.date < cut]
         rm = g[(g.date >= cut) & (g.ha == "H")]
+        gadj = _c3_game_adj(y, cut, rm) if (CARRY and wk > 0) else None
         gp = pl.groupby("team").size().reindex(teams).fillna(0)
         cur = pl.groupby("team").rate.mean().reindex(teams).fillna(0) if len(pl) else pd.Series(0.0, index=teams)
         cur = cur - cur.mean()
@@ -375,7 +505,7 @@ def run_season(TT, GG, fit_years, done, y):
         if PO_PRIOR_K and po_delta is not None:   # playoff-only: last season's playoff goal difference, shrunk, faded like the prior
             po_delta = po_delta + (po_prev * (k / (gp + k))).reindex(teams).fillna(0).to_numpy(float)
         ot_kw = dict(ot_target=ot_tgt, ot_edge=OT_EDGE) if OT_FIX else {}
-        sim = M.simulate(teams, state, list(zip(rm.team, rm.opp)), rating.to_dict(), M.tau_at(tau, n_avg), total, hfa, SIMS, seed=3, po_gap_only=PO_GAP_ONLY, series_pairs=([(x['home'], x['away']) for x in sr] or None), div_map=align, po_scale=PO_SCALE + PO_FADE * max(0.0, 1 - n_avg / 82), po_delta=po_delta, **ot_kw)
+        sim = M.simulate(teams, state, list(zip(rm.team, rm.opp)), rating.to_dict(), M.tau_at(tau, n_avg), total, hfa, SIMS, seed=3, po_gap_only=PO_GAP_ONLY, series_pairs=([(x['home'], x['away']) for x in sr] or None), div_map=align, po_scale=PO_SCALE + PO_FADE * max(0.0, 1 - n_avg / 82), po_delta=po_delta, **ot_kw, game_adj=gadj)
         if SERIES_LOG and sr:
             for x, q in zip(sr, sim["series_q"]):
                 SERIES_ROWS.append(dict(season=y, checkpoint=wk, label=("end" if wk >= n_regular else ("pre" if wk == 0 else "wk")), date=str(cut.date()),
@@ -414,6 +544,8 @@ if __name__ == "__main__":
             print("skip", y)
             continue
         D.to_csv(os.path.join(OUT, f"nhl_{y}.csv"), index=False)
+        if CARRY:
+            pd.DataFrame(CARRY_ROWS).to_csv(os.path.join(OUT, "carry_log.csv"), index=False)
         if SERIES_LOG:
             pd.DataFrame([r for r in SERIES_ROWS if r["season"] == y]).to_csv(os.path.join(OUT, f"series_{y}.csv"), index=False)
         json.dump({**{k: v for k, v in os.environ.items() if k.startswith(("NHL_", "BT_", "RAPM_"))}, "git_commit": _git_commit(),
