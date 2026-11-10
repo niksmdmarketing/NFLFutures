@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-11-10T0414Z",
-"feed_timestamp": "2026-11-10T04:13:59Z",
+"collected_utc": "2026-11-10T1038Z",
+"feed_timestamp": "2026-11-10T10:38:42Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -142,8 +142,14 @@
 "injury": "Right Hamstring Strain"
 },
 {
+"athlete_id": "4397040",
+"status": "Day-To-Day",
+"return_date": "2026-11-11",
+"injury": "Left Hamstring Not Specified"
+},
+{
 "athlete_id": "3134903",
-"status": "Out",
+"status": "Day-To-Day",
 "return_date": "2026-11-11",
 "injury": "Left Knee Inflammation"
 },
@@ -299,13 +305,13 @@
 },
 {
 "athlete_id": "4431675",
-"status": "Out",
+"status": "Day-To-Day",
 "return_date": "2026-11-11",
 "injury": "Ankle"
 },
 {
 "athlete_id": "4397688",
-"status": "Out",
+"status": "Day-To-Day",
 "return_date": "2026-11-11",
 "injury": "Not Specified Knee Tendinitis"
 },
@@ -317,7 +323,7 @@
 },
 {
 "athlete_id": "4395628",
-"status": "Out",
+"status": "Day-To-Day",
 "return_date": "2026-11-11",
 "injury": "Rest"
 },
@@ -461,7 +467,7 @@
 },
 {
 "athlete_id": "4395630",
-"status": "Out",
+"status": "Day-To-Day",
 "return_date": "2026-11-11",
 "injury": "Left Groin"
 },
@@ -771,13 +777,22 @@
 "updated": "2026-11-08T16:05Z"
 },
 {
+"athlete_id": "4397040",
+"name": "Brandon Williams",
+"team_name": "Golden State Warriors",
+"status": "Day-To-Day",
+"return_date": "2026-11-11",
+"injury": "Left Hamstring Not Specified",
+"updated": "2026-11-10T04:41Z"
+},
+{
 "athlete_id": "3134903",
 "name": "Gary Payton II",
 "team_name": "Golden State Warriors",
-"status": "Out",
+"status": "Day-To-Day",
 "return_date": "2026-11-11",
 "injury": "Left Knee Inflammation",
-"updated": "2026-11-10T01:50Z"
+"updated": "2026-11-10T05:26Z"
 },
 {
 "athlete_id": "6430",
@@ -1008,19 +1023,19 @@
 "athlete_id": "4431675",
 "name": "Trendon Watford",
 "team_name": "New Orleans Pelicans",
-"status": "Out",
+"status": "Day-To-Day",
 "return_date": "2026-11-11",
 "injury": "Ankle",
-"updated": "2026-11-09T20:50Z"
+"updated": "2026-11-10T05:28Z"
 },
 {
 "athlete_id": "4397688",
 "name": "Trey Murphy III",
 "team_name": "New Orleans Pelicans",
-"status": "Out",
+"status": "Day-To-Day",
 "return_date": "2026-11-11",
 "injury": "Not Specified Knee Tendinitis",
-"updated": "2026-11-09T20:49Z"
+"updated": "2026-11-10T05:28Z"
 },
 {
 "athlete_id": "5061589",
@@ -1035,10 +1050,10 @@
 "athlete_id": "4395628",
 "name": "Zion Williamson",
 "team_name": "New Orleans Pelicans",
-"status": "Out",
+"status": "Day-To-Day",
 "return_date": "2026-11-11",
 "injury": "Rest",
-"updated": "2026-11-09T21:49Z"
+"updated": "2026-11-10T05:27Z"
 },
 {
 "athlete_id": "3062679",
@@ -1251,10 +1266,10 @@
 "athlete_id": "4395630",
 "name": "Devin Vassell",
 "team_name": "San Antonio Spurs",
-"status": "Out",
+"status": "Day-To-Day",
 "return_date": "2026-11-11",
 "injury": "Left Groin",
-"updated": "2026-11-09T18:41Z"
+"updated": "2026-11-10T04:32Z"
 },
 {
 "athlete_id": "5101845",
