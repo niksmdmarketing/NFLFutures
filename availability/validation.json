@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-11-10T09:57:00+00:00",
+ "checked_utc": "2026-11-10T17:54:58+00:00",
  "leagues": {
   "nfl": {
-   "records": 1623,
+   "records": 1615,
    "by_layer": {
     "official": 1549,
-    "reported": 74
+    "reported": 66
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -53,6 +53,15 @@
      ],
      "other": "expected to play",
      "source": "ESPN injury note"
+    },
+    {
+     "player": "Terrance Ferguson",
+     "official": [
+      "injured reserve",
+      "out"
+     ],
+     "other": "expected to play",
+     "source": "ESPN injury note"
     }
    ],
    "stale_projection_dates": 0,
@@ -63,13 +72,13 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "74/74"
+   "reported_matched_to_official_list": "66/66"
   },
   "nba": {
-   "records": 225,
+   "records": 228,
    "by_layer": {
-    "official": 171,
-    "reported": 54
+    "official": 175,
+    "reported": 53
    },
    "unknown_team": 0,
    "no_player": 21,
@@ -188,13 +197,13 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "54/54"
+   "reported_matched_to_official_list": "53/53"
   },
   "nhl": {
-   "records": 1547,
+   "records": 1537,
    "by_layer": {
-    "official": 146,
-    "reported": 74,
+    "official": 140,
+    "reported": 70,
     "projected": 1327
    },
    "unknown_team": 0,
@@ -244,7 +253,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "66/74"
+   "reported_matched_to_official_list": "60/70"
   },
   "nbl": {
    "records": 27,
@@ -320,7 +329,7 @@
   }
  },
  "sources_failed": [
-  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 56 h old"
+  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 64 h old"
  ],
  "sources_not_expected": []
 }
