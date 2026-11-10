@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-11-10T17:54:58+00:00",
+ "checked_utc": "2026-11-10T23:27:53+00:00",
  "leagues": {
   "nfl": {
-   "records": 1615,
+   "records": 1612,
    "by_layer": {
     "official": 1549,
-    "reported": 66
+    "reported": 63
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -72,16 +72,16 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "66/66"
+   "reported_matched_to_official_list": "63/63"
   },
   "nba": {
-   "records": 228,
+   "records": 264,
    "by_layer": {
-    "official": 175,
-    "reported": 53
+    "official": 217,
+    "reported": 47
    },
    "unknown_team": 0,
-   "no_player": 21,
+   "no_player": 7,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -117,6 +117,15 @@
    ],
    "conflicts": [
     {
+     "player": "Egor Demin",
+     "official": [
+      "out",
+      "probable"
+     ],
+     "other": "expected to play",
+     "source": "ESPN injury note"
+    },
+    {
      "player": "Tarik Biberovic",
      "official": [
       "out"
@@ -128,6 +137,15 @@
      "player": "Dereck Lively II",
      "official": [
       "out"
+     ],
+     "other": "expected to play",
+     "source": "ESPN injury note"
+    },
+    {
+     "player": "Will Richard",
+     "official": [
+      "out",
+      "questionable"
      ],
      "other": "expected to play",
      "source": "ESPN injury note"
@@ -197,13 +215,13 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "53/53"
+   "reported_matched_to_official_list": "47/47"
   },
   "nhl": {
-   "records": 1537,
+   "records": 1525,
    "by_layer": {
-    "official": 140,
-    "reported": 70,
+    "official": 137,
+    "reported": 61,
     "projected": 1327
    },
    "unknown_team": 0,
@@ -253,7 +271,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "60/70"
+   "reported_matched_to_official_list": "55/61"
   },
   "nbl": {
    "records": 27,
@@ -329,7 +347,7 @@
   }
  },
  "sources_failed": [
-  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 64 h old"
+  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 70 h old"
  ],
  "sources_not_expected": []
 }
