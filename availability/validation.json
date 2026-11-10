@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-11-10T02:12:51+00:00",
+ "checked_utc": "2026-11-10T09:57:00+00:00",
  "leagues": {
   "nfl": {
-   "records": 1621,
+   "records": 1623,
    "by_layer": {
     "official": 1549,
-    "reported": 72
+    "reported": 74
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -63,16 +63,16 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "72/72"
+   "reported_matched_to_official_list": "74/74"
   },
   "nba": {
-   "records": 303,
+   "records": 225,
    "by_layer": {
-    "official": 248,
-    "reported": 55
+    "official": 171,
+    "reported": 54
    },
    "unknown_team": 0,
-   "no_player": 1,
+   "no_player": 21,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -142,7 +142,6 @@
     {
      "player": "Cason Wallace",
      "official": [
-      "",
       "out"
      ],
      "other": "expected to play",
@@ -189,14 +188,14 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "55/55"
+   "reported_matched_to_official_list": "54/54"
   },
   "nhl": {
-   "records": 1539,
+   "records": 1547,
    "by_layer": {
     "official": 146,
     "reported": 74,
-    "projected": 1319
+    "projected": 1327
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -248,9 +247,9 @@
    "reported_matched_to_official_list": "66/74"
   },
   "nbl": {
-   "records": 26,
+   "records": 27,
    "by_layer": {
-    "official": 26
+    "official": 27
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -262,14 +261,14 @@
     "ILL",
     "NZL",
     "PER",
+    "SEM",
     "SYD",
     "TAS"
    ],
    "conflicts": [],
    "stale_projection_dates": 0,
    "teams_missing_official": [
-    "MEL",
-    "SEM"
+    "MEL"
    ],
    "season_state": {
     "state": "in_season",
@@ -321,7 +320,7 @@
   }
  },
  "sources_failed": [
-  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 49 h old"
+  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 56 h old"
  ],
  "sources_not_expected": []
 }
