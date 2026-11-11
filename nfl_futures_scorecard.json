@@ -1,6 +1,6 @@
 {
   "rule": "research/NFL_FUTURES_PAPER_BET_RULE.md",
-  "updated_utc": "2026-11-10T19:58:23.083011+00:00",
+  "updated_utc": "2026-11-11T19:50:22.934497+00:00",
   "note": "Proxy test against Polymarket executable prices; not bookmaker profit. Backfill seasons were used in earlier benchmark work.",
   "missing_checkpoints_2026": [
     {
@@ -506,6 +506,16 @@
         "expected_profit_model": 1094.5426840386979,
         "wins": 0
       },
+      "2026 live": {
+        "bets": 10,
+        "settled": 0,
+        "pending": 10,
+        "staked": 0.0,
+        "profit": 0.0,
+        "return_on_stake": null,
+        "expected_profit_model": 150.33508451253408,
+        "wins": 0
+      },
       "2026 retrospective": {
         "bets": 18,
         "settled": 0,
@@ -517,23 +527,23 @@
         "wins": 0
       },
       "2026 div": {
-        "bets": 10,
+        "bets": 15,
         "settled": 0,
-        "pending": 10,
+        "pending": 15,
         "staked": 0.0,
         "profit": 0.0,
         "return_on_stake": null,
-        "expected_profit_model": 705.6955103386541,
+        "expected_profit_model": 782.5768125285986,
         "wins": 0
       },
       "2026 playoff": {
-        "bets": 8,
+        "bets": 13,
         "settled": 0,
-        "pending": 8,
+        "pending": 13,
         "staked": 0.0,
         "profit": 0.0,
         "return_on_stake": null,
-        "expected_profit_model": 388.8471737000438,
+        "expected_profit_model": 462.30095602263344,
         "wins": 0
       },
       "2026 w4": {
@@ -544,6 +554,16 @@
         "profit": 0.0,
         "return_on_stake": null,
         "expected_profit_model": 1094.5426840386979,
+        "wins": 0
+      },
+      "2026 w9": {
+        "bets": 10,
+        "settled": 0,
+        "pending": 10,
+        "staked": 0.0,
+        "profit": 0.0,
+        "return_on_stake": null,
+        "expected_profit_model": 150.33508451253408,
         "wins": 0
       }
     },
