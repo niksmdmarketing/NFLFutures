@@ -1,10 +1,10 @@
 {
- "checked_utc": "2026-11-11T06:34:39+00:00",
+ "checked_utc": "2026-11-11T15:19:08+00:00",
  "leagues": {
   "nfl": {
-   "records": 1612,
+   "records": 928,
    "by_layer": {
-    "official": 1549,
+    "official": 865,
     "reported": 63
    },
    "unknown_team": 0,
@@ -46,18 +46,8 @@
    ],
    "conflicts": [
     {
-     "player": "Lamar Jackson",
+     "player": "Deshaun Watson",
      "official": [
-      "injured reserve",
-      "out"
-     ],
-     "other": "expected to play",
-     "source": "ESPN injury note"
-    },
-    {
-     "player": "Terrance Ferguson",
-     "official": [
-      "injured reserve",
       "out"
      ],
      "other": "expected to play",
@@ -219,10 +209,10 @@
    "reported_matched_to_official_list": "47/47"
   },
   "nhl": {
-   "records": 1516,
+   "records": 1518,
    "by_layer": {
     "official": 138,
-    "reported": 60,
+    "reported": 62,
     "projected": 1318
    },
    "unknown_team": 0,
@@ -272,12 +262,12 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "55/60"
+   "reported_matched_to_official_list": "58/62"
   },
   "nbl": {
-   "records": 28,
+   "records": 27,
    "by_layer": {
-    "official": 28
+    "official": 27
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -347,8 +337,6 @@
    "reported_matched_to_official_list": "0/10"
   }
  },
- "sources_failed": [
-  "nfl: NFL official injury report (nfl.com, via injury monitor) - RuntimeError: NFL official report is 77 h old"
- ],
+ "sources_failed": [],
  "sources_not_expected": []
 }
