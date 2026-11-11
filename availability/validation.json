@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-11-11T15:19:08+00:00",
+ "checked_utc": "2026-11-11T22:00:19+00:00",
  "leagues": {
   "nfl": {
-   "records": 928,
+   "records": 927,
    "by_layer": {
     "official": 865,
-    "reported": 63
+    "reported": 62
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -62,16 +62,16 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "63/63"
+   "reported_matched_to_official_list": "62/62"
   },
   "nba": {
-   "records": 224,
+   "records": 284,
    "by_layer": {
-    "official": 177,
-    "reported": 47
+    "official": 225,
+    "reported": 59
    },
    "unknown_team": 0,
-   "no_player": 15,
+   "no_player": 5,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -106,12 +106,12 @@
    ],
    "conflicts": [
     {
-     "player": "Egor Demin",
+     "player": "Morez Johnson Jr.",
      "official": [
-      "out",
+      "day-to-day",
       "probable"
      ],
-     "other": "expected to play",
+     "other": "expected out",
      "source": "ESPN injury note"
     },
     {
@@ -131,15 +131,6 @@
      "source": "ESPN injury note"
     },
     {
-     "player": "Will Richard",
-     "official": [
-      "out",
-      "questionable"
-     ],
-     "other": "expected to play",
-     "source": "ESPN injury note"
-    },
-    {
      "player": "Moses Moody",
      "official": [
       "out"
@@ -151,6 +142,15 @@
      "player": "Clint Capela",
      "official": [
       "out"
+     ],
+     "other": "expected to play",
+     "source": "ESPN injury note"
+    },
+    {
+     "player": "Josh Hart",
+     "official": [
+      "out",
+      "probable"
      ],
      "other": "expected to play",
      "source": "ESPN injury note"
@@ -206,13 +206,13 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "47/47"
+   "reported_matched_to_official_list": "59/59"
   },
   "nhl": {
-   "records": 1518,
+   "records": 1515,
    "by_layer": {
-    "official": 138,
-    "reported": 62,
+    "official": 137,
+    "reported": 60,
     "projected": 1318
    },
    "unknown_team": 0,
@@ -262,7 +262,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "58/62"
+   "reported_matched_to_official_list": "59/60"
   },
   "nbl": {
    "records": 27,
