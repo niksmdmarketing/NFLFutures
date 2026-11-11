@@ -174,6 +174,28 @@ def expected_starters(season, injuries, depth):
             starter = qbs[1]
         out[t] = {"id": starter[0], "name": starter[1], "note": note,
                   "status": inj.get(starter[0], "") or "Active"}
+    return _apply_qb_moves(out, d, inj)
+
+
+def _apply_qb_moves(out, d, inj, path=None):
+    """Confirmed QB1 changes (trades, named starters) that the nflverse depth chart has not caught up with yet.
+    Applied only while the team's latest depth-chart timestamp is older than the move; then nflverse wins.
+    The injury check still applies to the new starter. Rule: research/NFL_QB_MOVES_OVERRIDE_RULE.md (11 Nov 2026)."""
+    import json as _json
+    path = path or os.path.join(os.path.dirname(os.path.abspath(__file__)), "nfl_qb_moves.json")
+    try:
+        moves = _json.load(open(path)).get("moves", [])
+    except (OSError, ValueError):
+        return out
+    latest = d.groupby("team").dt.max().to_dict() if len(d) else {}
+    for m in moves:
+        t = m["team"]
+        if str(latest.get(t, "")) >= m["as_of"]:
+            continue
+        status = inj.get(m["gsis_id"], "")
+        if status in ("Out", "Doubtful"):
+            continue
+        out[t] = {"id": m["gsis_id"], "name": m["name"], "note": m.get("note", ""), "status": status or "Active"}
     return out
 
 

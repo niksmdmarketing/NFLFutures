@@ -25,10 +25,24 @@ HISTORY_SEASONS = 15
 BOXSCORE_SEASONS = int(os.environ.get("NBL_BOXSCORE_SEASONS", 5))
 
 
+# Whole-step guard (added 2026-11-11 after two site refreshes hung here for ~50 min): once the NBL step has spent
+# NBL_NET_BUDGET_S on the network, or the feed fails NBL_MAX_FAILS times in a row, stop calling it and serve the
+# saved copies. Stale NBL stats beat a cancelled site build.
+NET_BUDGET_S = float(os.environ.get("NBL_NET_BUDGET_S", 600))
+MAX_FAILS = int(os.environ.get("NBL_MAX_FAILS", 5))
+_NET = {"t0": None, "fails": 0}
+
+
+def _net_open() -> bool:
+    if _NET["t0"] is None:
+        _NET["t0"] = time.time()
+    return time.time() - _NET["t0"] < NET_BUDGET_S and _NET["fails"] < MAX_FAILS
+
+
 def _get(route: str, cache_name: str, max_age_h: float) -> tuple[dict, str, str | None]:
     os.makedirs(NBL_DATA, exist_ok=True)
     path = os.path.join(NBL_DATA, cache_name)
-    if os.path.exists(path) and time.time() - os.path.getmtime(path) < max_age_h * 3600:
+    if os.path.exists(path) and (time.time() - os.path.getmtime(path) < max_age_h * 3600 or not _net_open()):
         with open(path, encoding="utf-8") as f:
             saved = json.load(f)
         return saved.get("payload", {}), saved.get("updated_utc", ""), None
@@ -41,9 +55,11 @@ def _get(route: str, cache_name: str, max_age_h: float) -> tuple[dict, str, str 
         "Sec-Fetch-Mode": "cors", "Sec-Fetch-Dest": "empty",
     })
     error = None
+    if not _net_open():
+        return {}, "", "NBL network budget spent; skipped"
     for attempt in range(3):
         try:
-            with urllib.request.urlopen(req, timeout=40) as response:
+            with urllib.request.urlopen(req, timeout=20) as response:
                 payload = json.loads(response.read().decode("utf-8"))
             if not isinstance(payload, dict) or "data" not in payload:
                 raise ValueError("Unexpected NBL response shape")
@@ -52,11 +68,13 @@ def _get(route: str, cache_name: str, max_age_h: float) -> tuple[dict, str, str 
             with open(tmp, "w", encoding="utf-8") as f:
                 json.dump(saved, f, separators=(",", ":"), ensure_ascii=False)
             os.replace(tmp, path)
+            _NET["fails"] = 0
             return payload, saved["updated_utc"], None
         except Exception as exc:  # keep the existing site build alive on feed outages
             error = f"{type(exc).__name__}: {exc}"
             if attempt < 2:
                 time.sleep(2 * (attempt + 1))
+    _NET["fails"] += 1
     if os.path.exists(path):
         with open(path, encoding="utf-8") as f:
             saved = json.load(f)
