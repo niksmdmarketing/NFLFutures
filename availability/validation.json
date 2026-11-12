@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-11-12T03:05:31+00:00",
+ "checked_utc": "2026-11-12T11:24:18+00:00",
  "leagues": {
   "nfl": {
-   "records": 1171,
+   "records": 1402,
    "by_layer": {
-    "official": 1099,
-    "reported": 72
+    "official": 1333,
+    "reported": 69
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -89,16 +89,16 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "71/72"
+   "reported_matched_to_official_list": "68/69"
   },
   "nba": {
-   "records": 290,
+   "records": 219,
    "by_layer": {
-    "official": 232,
-    "reported": 58
+    "official": 160,
+    "reported": 59
    },
    "unknown_team": 0,
-   "no_player": 2,
+   "no_player": 20,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -116,6 +116,7 @@
     "LAC",
     "LAL",
     "MEM",
+    "MIA",
     "MIL",
     "MIN",
     "NO",
@@ -132,15 +133,6 @@
     "WSH"
    ],
    "conflicts": [
-    {
-     "player": "Caleb Wilson",
-     "official": [
-      "available",
-      "day-to-day"
-     ],
-     "other": "expected out",
-     "source": "ESPN injury note"
-    },
     {
      "player": "Moses Moody",
      "official": [
@@ -199,23 +191,21 @@
     }
    ],
    "stale_projection_dates": 0,
-   "teams_missing_official": [
-    "MIA"
-   ],
+   "teams_missing_official": [],
    "season_state": {
     "state": "in_season",
     "why": "37 regular-season/playoff and 0 other games 2026-11-05..2026-11-22"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "58/58"
+   "reported_matched_to_official_list": "59/59"
   },
   "nhl": {
-   "records": 1508,
+   "records": 1523,
    "by_layer": {
-    "official": 135,
-    "reported": 57,
-    "projected": 1316
+    "official": 138,
+    "reported": 59,
+    "projected": 1326
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -264,18 +254,17 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "56/57"
+   "reported_matched_to_official_list": "58/59"
   },
   "nbl": {
-   "records": 26,
+   "records": 24,
    "by_layer": {
-    "official": 26
+    "official": 24
    },
    "unknown_team": 0,
    "no_player": 0,
    "future_published": 0,
    "teams_covered_official": [
-    "ADL",
     "BRI",
     "CNS",
     "ILL",
@@ -288,6 +277,7 @@
    "conflicts": [],
    "stale_projection_dates": 0,
    "teams_missing_official": [
+    "ADL",
     "MEL"
    ],
    "season_state": {
