@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-11-12T0050Z",
-"feed_timestamp": "2026-11-12T00:50:00Z",
+"collected_utc": "2026-11-12T0958Z",
+"feed_timestamp": "2026-11-12T09:58:17Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -29,7 +29,7 @@
 },
 {
 "athlete_id": "4251",
-"status": "Out",
+"status": "Day-To-Day",
 "return_date": "2026-11-15",
 "injury": "Illness"
 },
@@ -74,6 +74,12 @@
 "status": "Day-To-Day",
 "return_date": "2026-11-12",
 "injury": "Right Quadriceps"
+},
+{
+"athlete_id": "5095151",
+"status": "Day-To-Day",
+"return_date": "2026-11-13",
+"injury": "Right Hand"
 },
 {
 "athlete_id": "4848625",
@@ -178,6 +184,12 @@
 "injury": "Left Knee Surgery"
 },
 {
+"athlete_id": "3975",
+"status": "Day-To-Day",
+"return_date": "2026-11-13",
+"injury": "Right Abdomen Soreness"
+},
+{
 "athlete_id": "3102529",
 "status": "Out",
 "return_date": "2026-11-15",
@@ -188,6 +200,12 @@
 "status": "Out",
 "return_date": "2026-11-15",
 "injury": "Right Calf Strain"
+},
+{
+"athlete_id": "4396909",
+"status": "Day-To-Day",
+"return_date": "2026-11-13",
+"injury": "Right Knee Soreness"
 },
 {
 "athlete_id": "4433076",
@@ -238,6 +256,24 @@
 "injury": "Right Foot Surgery"
 },
 {
+"athlete_id": "4066457",
+"status": "Day-To-Day",
+"return_date": "2026-11-15",
+"injury": "Left Heel"
+},
+{
+"athlete_id": "4277811",
+"status": "Day-To-Day",
+"return_date": "2026-11-15",
+"injury": "Head"
+},
+{
+"athlete_id": "3945274",
+"status": "Day-To-Day",
+"return_date": "2026-11-15",
+"injury": "Right Ankle"
+},
+{
 "athlete_id": "4397014",
 "status": "Out",
 "return_date": "2026-11-15",
@@ -266,6 +302,12 @@
 "status": "Out",
 "return_date": "2026-11-13",
 "injury": "Rest"
+},
+{
+"athlete_id": "4591725",
+"status": "Day-To-Day",
+"return_date": "2026-11-13",
+"injury": "Head"
 },
 {
 "athlete_id": "4594268",
@@ -353,8 +395,8 @@
 },
 {
 "athlete_id": "4278572",
-"status": "Day-To-Day",
-"return_date": "2026-11-11",
+"status": "Out",
+"return_date": "2026-11-13",
 "injury": "Left Shoulder Bruise"
 },
 {
@@ -377,8 +419,8 @@
 },
 {
 "athlete_id": "4702382",
-"status": "Day-To-Day",
-"return_date": "2026-11-11",
+"status": "Out",
+"return_date": "2026-11-13",
 "injury": "Left Calf Strain"
 },
 {
@@ -497,7 +539,7 @@
 },
 {
 "athlete_id": "4431684",
-"status": "Out",
+"status": "Day-To-Day",
 "return_date": "2026-11-12",
 "injury": "Illness"
 },
@@ -512,12 +554,6 @@
 "status": "Out",
 "return_date": "2026-11-20",
 "injury": "Right Foot Strain"
-},
-{
-"athlete_id": "4433627",
-"status": "Day-To-Day",
-"return_date": "2026-11-11",
-"injury": "Right Ankle Sprain"
 },
 {
 "athlete_id": "4066336",
@@ -591,10 +627,10 @@
 "athlete_id": "4251",
 "name": "Paul George",
 "team_name": "Boston Celtics",
-"status": "Out",
+"status": "Day-To-Day",
 "return_date": "2026-11-15",
 "injury": "Illness",
-"updated": "2026-11-11T17:55Z"
+"updated": "2026-11-12T03:01Z"
 },
 {
 "athlete_id": "5101761",
@@ -658,6 +694,15 @@
 "return_date": "2026-11-12",
 "injury": "Right Quadriceps",
 "updated": "2026-11-12T00:10Z"
+},
+{
+"athlete_id": "5095151",
+"name": "Caleb Wilson",
+"team_name": "Chicago Bulls",
+"status": "Day-To-Day",
+"return_date": "2026-11-13",
+"injury": "Right Hand",
+"updated": "2026-11-12T02:53Z"
 },
 {
 "athlete_id": "4848625",
@@ -813,6 +858,15 @@
 "updated": "2026-10-16T16:14Z"
 },
 {
+"athlete_id": "3975",
+"name": "Stephen Curry",
+"team_name": "Golden State Warriors",
+"status": "Day-To-Day",
+"return_date": "2026-11-13",
+"injury": "Right Abdomen Soreness",
+"updated": "2026-11-12T05:39Z"
+},
+{
 "athlete_id": "3102529",
 "name": "Clint Capela",
 "team_name": "Houston Rockets",
@@ -829,6 +883,15 @@
 "return_date": "2026-11-15",
 "injury": "Right Calf Strain",
 "updated": "2026-11-09T23:55Z"
+},
+{
+"athlete_id": "4396909",
+"name": "Aaron Nesmith",
+"team_name": "Indiana Pacers",
+"status": "Day-To-Day",
+"return_date": "2026-11-13",
+"injury": "Right Knee Soreness",
+"updated": "2026-11-12T01:59Z"
 },
 {
 "athlete_id": "4433076",
@@ -903,6 +966,33 @@
 "updated": "2026-11-10T00:05Z"
 },
 {
+"athlete_id": "4066457",
+"name": "Austin Reaves",
+"team_name": "Los Angeles Lakers",
+"status": "Day-To-Day",
+"return_date": "2026-11-15",
+"injury": "Left Heel",
+"updated": "2026-11-12T04:11Z"
+},
+{
+"athlete_id": "4277811",
+"name": "Collin Sexton",
+"team_name": "Los Angeles Lakers",
+"status": "Day-To-Day",
+"return_date": "2026-11-15",
+"injury": "Head",
+"updated": "2026-11-12T04:40Z"
+},
+{
+"athlete_id": "3945274",
+"name": "Luka Doncic",
+"team_name": "Los Angeles Lakers",
+"status": "Day-To-Day",
+"return_date": "2026-11-15",
+"injury": "Right Ankle",
+"updated": "2026-11-12T03:34Z"
+},
+{
 "athlete_id": "4397014",
 "name": "Quentin Grimes",
 "team_name": "Los Angeles Lakers",
@@ -946,6 +1036,15 @@
 "return_date": "2026-11-13",
 "injury": "Rest",
 "updated": "2026-11-11T19:03Z"
+},
+{
+"athlete_id": "4591725",
+"name": "Ryan Rollins",
+"team_name": "Milwaukee Bucks",
+"status": "Day-To-Day",
+"return_date": "2026-11-13",
+"injury": "Head",
+"updated": "2026-11-12T03:40Z"
 },
 {
 "athlete_id": "4594268",
@@ -1077,10 +1176,10 @@
 "athlete_id": "4278572",
 "name": "Jamal Cain",
 "team_name": "Orlando Magic",
-"status": "Day-To-Day",
-"return_date": "2026-11-11",
+"status": "Out",
+"return_date": "2026-11-13",
 "injury": "Left Shoulder Bruise",
-"updated": "2026-11-11T19:50Z"
+"updated": "2026-11-12T01:28Z"
 },
 {
 "athlete_id": "4065654",
@@ -1113,10 +1212,10 @@
 "athlete_id": "4702382",
 "name": "Tristan da Silva",
 "team_name": "Orlando Magic",
-"status": "Day-To-Day",
-"return_date": "2026-11-11",
+"status": "Out",
+"return_date": "2026-11-13",
 "injury": "Left Calf Strain",
-"updated": "2026-11-11T19:50Z"
+"updated": "2026-11-12T01:33Z"
 },
 {
 "athlete_id": "5105637",
@@ -1293,10 +1392,10 @@
 "athlete_id": "4431684",
 "name": "Trayce Jackson-Davis",
 "team_name": "Toronto Raptors",
-"status": "Out",
+"status": "Day-To-Day",
 "return_date": "2026-11-12",
 "injury": "Illness",
-"updated": "2026-11-11T17:37Z"
+"updated": "2026-11-12T03:01Z"
 },
 {
 "athlete_id": "4277961",
@@ -1315,15 +1414,6 @@
 "return_date": "2026-11-20",
 "injury": "Right Foot Strain",
 "updated": "2026-11-06T18:20Z"
-},
-{
-"athlete_id": "4433627",
-"name": "Keyonte George",
-"team_name": "Utah Jazz",
-"status": "Day-To-Day",
-"return_date": "2026-11-11",
-"injury": "Right Ankle Sprain",
-"updated": "2026-11-11T20:04Z"
 },
 {
 "athlete_id": "4066336",
