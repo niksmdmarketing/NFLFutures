@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-11-12T17:03:47+00:00",
+ "generated_utc": "2026-11-13T16:43:21+00:00",
  "season_window": [
   2016,
   2027
@@ -39,7 +39,7 @@
       2026,
       2027
      ],
-     "rows": 8832,
+     "rows": 8834,
      "columns": [
       "player_id",
       "player_name",
@@ -731,7 +731,7 @@
       2026,
       2027
      ],
-     "rows": 6394,
+     "rows": 6395,
      "columns": [
       "player_id",
       "player_name",
@@ -818,7 +818,7 @@
       2026,
       2027
      ],
-     "rows": 6394,
+     "rows": 6395,
      "columns": [
       "player_id",
       "player_name",
@@ -1212,7 +1212,7 @@
       2026,
       2027
      ],
-     "rows": 8837,
+     "rows": 8838,
      "columns": [
       "player_id",
       "player_name",
@@ -1403,7 +1403,7 @@
       2026,
       2027
      ],
-     "rows": 7929,
+     "rows": 7930,
      "columns": [
       "player_id",
       "player_name",
@@ -1522,7 +1522,7 @@
       2026,
       2027
      ],
-     "rows": 8837,
+     "rows": 8838,
      "columns": [
       "player_id",
       "player_name",
@@ -1641,7 +1641,7 @@
       2026,
       2027
      ],
-     "rows": 8837,
+     "rows": 8838,
      "columns": [
       "player_id",
       "player_name",
@@ -1780,7 +1780,7 @@
       2026,
       2027
      ],
-     "rows": 8837,
+     "rows": 8838,
      "columns": [
       "player_id",
       "player_name",
@@ -1919,7 +1919,7 @@
       2026,
       2027
      ],
-     "rows": 8837,
+     "rows": 8838,
      "columns": [
       "player_id",
       "player_name",
@@ -1988,7 +1988,7 @@
       2026,
       2027
      ],
-     "rows": 8835,
+     "rows": 8838,
      "columns": [
       "player_id",
       "player_name",
@@ -2049,7 +2049,7 @@
       2026,
       2027
      ],
-     "rows": 8835,
+     "rows": 8837,
      "columns": [
       "player_id",
       "player_name",
@@ -2132,7 +2132,7 @@
       2026,
       2027
      ],
-     "rows": 8835,
+     "rows": 8837,
      "columns": [
       "player_id",
       "player_name",
@@ -2209,7 +2209,7 @@
       2026,
       2027
      ],
-     "rows": 8835,
+     "rows": 8837,
      "columns": [
       "player_id",
       "player_name",
@@ -2294,7 +2294,7 @@
       2026,
       2027
      ],
-     "rows": 8835,
+     "rows": 8837,
      "columns": [
       "player_id",
       "player_name",
@@ -2379,7 +2379,7 @@
       2026,
       2027
      ],
-     "rows": 8835,
+     "rows": 8837,
      "columns": [
       "player_id",
       "player_name",
@@ -2448,7 +2448,7 @@
       2026,
       2027
      ],
-     "rows": 8835,
+     "rows": 8837,
      "columns": [
       "player_id",
       "player_name",
@@ -2523,7 +2523,7 @@
       2026,
       2027
      ],
-     "rows": 8835,
+     "rows": 8837,
      "columns": [
       "player_id",
       "player_name",
@@ -2608,7 +2608,7 @@
       2026,
       2027
      ],
-     "rows": 8837,
+     "rows": 8838,
      "columns": [
       "player_id",
       "player_name",
@@ -2679,7 +2679,7 @@
       2026,
       2027
      ],
-     "rows": 8600,
+     "rows": 8604,
      "columns": [
       "player_id",
       "player_name",
@@ -2782,7 +2782,7 @@
       2026,
       2027
      ],
-     "rows": 8835,
+     "rows": 8837,
      "columns": [
       "player_id",
       "player_name",
@@ -4270,7 +4270,7 @@
       2026,
       2027
      ],
-     "rows": 21846,
+     "rows": 21854,
      "columns": [
       "season_id",
       "position",
@@ -4346,7 +4346,7 @@
       2026,
       2027
      ],
-     "rows": 21846,
+     "rows": 21854,
      "columns": [
       "season_id",
       "position",
@@ -4413,7 +4413,7 @@
   },
   "nba_stats_player_game_logs": {
    "files": 12,
-   "size_mb": 4.4,
+   "size_mb": 49.2,
    "seasons": [
     2016,
     2017,
@@ -4430,7 +4430,7 @@
    ],
    "families": {
     "player_game_logs_YYYY.csv": {
-     "grain": "team-game",
+     "grain": "player-game",
      "seasons": [
       2016,
       2017,
@@ -4445,9 +4445,11 @@
       2026,
       2027
      ],
-     "rows": 28596,
+     "rows": 304812,
      "columns": [
       "season_id",
+      "player_id",
+      "player_name",
       "team_id",
       "team_abbreviation",
       "team_name",
@@ -4475,44 +4477,52 @@
       "pf",
       "pts",
       "plus_minus",
+      "fantasy_pts",
       "video_available",
       "season",
       "season_type"
      ],
      "first_row": {
       "season_id": 42015,
-      "team_id": 1610612761,
-      "team_abbreviation": "TOR",
-      "team_name": "Toronto Raptors",
-      "game_id": 41500111,
+      "player_id": 2594,
+      "player_name": "Kyle Korver",
+      "team_id": 1610612737,
+      "team_abbreviation": "ATL",
+      "team_name": "Atlanta Hawks",
+      "game_id": 41500131,
       "game_date": "2016-04-16",
-      "matchup": "TOR vs. IND",
-      "wl": "L",
-      "min": 240,
-      "fgm": 30,
-      "fga": 79,
-      "fg_pct": 0.38,
-      "fg3m": 4,
-      "fg3a": 19,
-      "fg3_pct": 0.211,
-      "ftm": 26,
-      "fta": 38,
-      "ft_pct": 0.684,
-      "oreb": 20,
-      "dreb": 32,
-      "reb": 52,
-      "ast": 17,
-      "stl": 6,
-      "blk": 5,
-      "tov": 20,
-      "pf": 27,
-      "pts": 90,
-      "plus_minus": -10,
+      "matchup": "ATL vs. BOS",
+      "wl": "W",
+      "min": 32,
+      "fgm": 1,
+      "fga": 10,
+      "fg_pct": 0.1,
+      "fg3m": 0,
+      "fg3a": 7,
+      "fg3_pct": 0.0,
+      "ftm": 0,
+      "fta": 0,
+      "ft_pct": NaN,
+      "oreb": 1,
+      "dreb": 8,
+      "reb": 9,
+      "ast": 1,
+      "stl": 0,
+      "blk": 0,
+      "tov": 2,
+      "pf": 2,
+      "pts": 2,
+      "plus_minus": 4,
+      "fantasy_pts": 12.3,
       "video_available": 1,
       "season": 2016,
       "season_type": "playoffs"
      },
-     "null_share_over_5pct": {},
+     "null_share_over_5pct": {
+      "fg_pct": 0.051,
+      "fg3_pct": 0.343,
+      "ft_pct": 0.431
+     },
      "column_set_varies": false,
      "missing_seasons_in_window": []
     }
@@ -7557,7 +7567,7 @@
       2026,
       2027
      ],
-     "rows": 3821,
+     "rows": 3823,
      "columns": [
       "season_id",
       "player_id",
@@ -7636,7 +7646,7 @@
       2026,
       2027
      ],
-     "rows": 3821,
+     "rows": 3823,
      "columns": [
       "season_id",
       "player_id",
@@ -7715,7 +7725,7 @@
       2026,
       2027
      ],
-     "rows": 3522,
+     "rows": 3526,
      "columns": [
       "season_id",
       "player_id",
@@ -7873,7 +7883,7 @@
       2026,
       2027
      ],
-     "rows": 2999,
+     "rows": 3000,
      "columns": [
       "season_id",
       "player_id",
@@ -7952,7 +7962,7 @@
       2026,
       2027
      ],
-     "rows": 2999,
+     "rows": 3000,
      "columns": [
       "season_id",
       "player_id",
@@ -8031,7 +8041,7 @@
       2026,
       2027
      ],
-     "rows": 4391,
+     "rows": 4395,
      "columns": [
       "season_id",
       "player_id",
@@ -8189,7 +8199,7 @@
       2026,
       2027
      ],
-     "rows": 3014,
+     "rows": 3015,
      "columns": [
       "season_id",
       "player_id",
@@ -8268,7 +8278,7 @@
       2026,
       2027
      ],
-     "rows": 3014,
+     "rows": 3015,
      "columns": [
       "season_id",
       "player_id",
@@ -8347,7 +8357,7 @@
       2026,
       2027
      ],
-     "rows": 4126,
+     "rows": 4129,
      "columns": [
       "season_id",
       "player_id",
@@ -8426,7 +8436,7 @@
       2026,
       2027
      ],
-     "rows": 4126,
+     "rows": 4129,
      "columns": [
       "season_id",
       "player_id",
@@ -8584,7 +8594,7 @@
       2026,
       2027
      ],
-     "rows": 3353,
+     "rows": 3356,
      "columns": [
       "season_id",
       "player_id",
@@ -8663,7 +8673,7 @@
       2026,
       2027
      ],
-     "rows": 3573,
+     "rows": 3576,
      "columns": [
       "season_id",
       "player_id",
@@ -8821,7 +8831,7 @@
       2026,
       2027
      ],
-     "rows": 2514,
+     "rows": 2515,
      "columns": [
       "season_id",
       "player_id",
@@ -8900,7 +8910,7 @@
       2026,
       2027
      ],
-     "rows": 2514,
+     "rows": 2515,
      "columns": [
       "season_id",
       "player_id",
@@ -8979,7 +8989,7 @@
       2026,
       2027
      ],
-     "rows": 3880,
+     "rows": 3882,
      "columns": [
       "season_id",
       "player_id",
@@ -9295,7 +9305,7 @@
       2026,
       2027
      ],
-     "rows": 4572,
+     "rows": 4573,
      "columns": [
       "season_id",
       "player_id",
@@ -9453,7 +9463,7 @@
       2026,
       2027
      ],
-     "rows": 3542,
+     "rows": 3545,
      "columns": [
       "season_id",
       "player_id",
@@ -9532,7 +9542,7 @@
       2026,
       2027
      ],
-     "rows": 3544,
+     "rows": 3545,
      "columns": [
       "season_id",
       "player_id",
@@ -9611,7 +9621,7 @@
       2026,
       2027
      ],
-     "rows": 3314,
+     "rows": 3317,
      "columns": [
       "season_id",
       "player_id",
@@ -9769,7 +9779,7 @@
       2026,
       2027
      ],
-     "rows": 2607,
+     "rows": 2614,
      "columns": [
       "season_id",
       "player_id",
@@ -9848,7 +9858,7 @@
       2026,
       2027
      ],
-     "rows": 2607,
+     "rows": 2613,
      "columns": [
       "season_id",
       "player_id",
@@ -9927,7 +9937,7 @@
       2026,
       2027
      ],
-     "rows": 5211,
+     "rows": 5212,
      "columns": [
       "season_id",
       "player_id",
@@ -10085,7 +10095,7 @@
       2026,
       2027
      ],
-     "rows": 4983,
+     "rows": 4985,
      "columns": [
       "season_id",
       "player_id",
@@ -10164,7 +10174,7 @@
       2026,
       2027
      ],
-     "rows": 4983,
+     "rows": 4985,
      "columns": [
       "season_id",
       "player_id",
@@ -10322,7 +10332,7 @@
       2026,
       2027
      ],
-     "rows": 4899,
+     "rows": 4900,
      "columns": [
       "season_id",
       "player_id",
