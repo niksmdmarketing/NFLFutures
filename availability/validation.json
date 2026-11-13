@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-11-13T16:30:12+00:00",
+ "checked_utc": "2026-11-13T22:42:08+00:00",
  "leagues": {
   "nfl": {
-   "records": 1501,
+   "records": 1529,
    "by_layer": {
-    "official": 1421,
-    "reported": 80
+    "official": 1451,
+    "reported": 78
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -63,16 +63,16 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "80/80"
+   "reported_matched_to_official_list": "78/78"
   },
   "nba": {
-   "records": 274,
+   "records": 292,
    "by_layer": {
-    "official": 217,
-    "reported": 57
+    "official": 237,
+    "reported": 55
    },
    "unknown_team": 0,
-   "no_player": 10,
+   "no_player": 6,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -173,14 +173,14 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "57/57"
+   "reported_matched_to_official_list": "55/55"
   },
   "nhl": {
-   "records": 1502,
+   "records": 1509,
    "by_layer": {
     "official": 135,
     "reported": 62,
-    "projected": 1305
+    "projected": 1312
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -190,7 +190,6 @@
     "BOS",
     "BUF",
     "CAR",
-    "CBJ",
     "CGY",
     "CHI",
     "COL",
@@ -221,7 +220,9 @@
    ],
    "conflicts": [],
    "stale_projection_dates": 0,
-   "teams_missing_official": [],
+   "teams_missing_official": [
+    "CBJ"
+   ],
    "season_state": {
     "state": "in_season",
     "why": "34 regular-season/playoff and 0 other games 2026-11-06..2026-11-23"
@@ -294,10 +295,11 @@
     "WCE"
    ],
    "season_state": {
-    "state": "unknown",
-    "why": "HTTPError: HTTP Error 403: Forbidden"
+    "state": "off_season",
+    "why": "0 AFL games 2026-11-06..2026-11-23 (Squiggle fixture)"
    },
-   "coverage_expected": true,
+   "coverage_expected": false,
+   "teams_missing_official_note": "off-season: no official coverage expected",
    "syndicated_headlines": 0,
    "reported_matched_to_official_list": "0/11"
   }
