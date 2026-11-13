@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-11-13T0114Z",
-"feed_timestamp": "2026-11-13T01:14:44Z",
+"collected_utc": "2026-11-13T0943Z",
+"feed_timestamp": "2026-11-13T09:43:13Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -53,7 +53,7 @@
 },
 {
 "athlete_id": "4433287",
-"status": "Out",
+"status": "Day-To-Day",
 "return_date": "2026-11-15",
 "injury": "Right Groin Soreness"
 },
@@ -396,7 +396,7 @@
 {
 "athlete_id": "5061603",
 "status": "Out",
-"return_date": "2026-11-13",
+"return_date": "2026-11-20",
 "injury": "Knee"
 },
 {
@@ -461,7 +461,7 @@
 },
 {
 "athlete_id": "1966",
-"status": "Out",
+"status": "Day-To-Day",
 "return_date": "2026-11-15",
 "injury": "Back"
 },
@@ -473,8 +473,8 @@
 },
 {
 "athlete_id": "4706557",
-"status": "Day-To-Day",
-"return_date": "2026-11-13",
+"status": "Out",
+"return_date": "2026-11-16",
 "injury": "Right Foot Bruise"
 },
 {
@@ -557,7 +557,7 @@
 },
 {
 "athlete_id": "4431684",
-"status": "Out",
+"status": "Day-To-Day",
 "return_date": "2026-11-15",
 "injury": "Illness"
 },
@@ -584,6 +584,12 @@
 "status": "Out",
 "return_date": "2026-11-16",
 "injury": "Right Ankle Sprain"
+},
+{
+"athlete_id": "4845374",
+"status": "Day-To-Day",
+"return_date": "2026-11-15",
+"injury": "Chest"
 },
 {
 "athlete_id": "4606840",
@@ -687,10 +693,10 @@
 "athlete_id": "4433287",
 "name": "Brandon Miller",
 "team_name": "Charlotte Hornets",
-"status": "Out",
+"status": "Day-To-Day",
 "return_date": "2026-11-15",
 "injury": "Right Groin Soreness",
-"updated": "2026-11-12T00:06Z"
+"updated": "2026-11-13T04:46Z"
 },
 {
 "athlete_id": "3032979",
@@ -1158,7 +1164,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-11-13",
 "injury": "Left Ankle Sprain",
-"updated": "2026-11-12T15:04Z"
+"updated": "2026-11-13T01:03Z"
 },
 {
 "athlete_id": "4683692",
@@ -1201,9 +1207,9 @@
 "name": "Thomas Sorber",
 "team_name": "Oklahoma City Thunder",
 "status": "Out",
-"return_date": "2026-11-13",
+"return_date": "2026-11-20",
 "injury": "Knee",
-"updated": "2026-11-03T22:45Z"
+"updated": "2026-11-13T01:07Z"
 },
 {
 "athlete_id": "5107251",
@@ -1299,10 +1305,10 @@
 "athlete_id": "1966",
 "name": "LeBron James",
 "team_name": "Philadelphia 76ers",
-"status": "Out",
+"status": "Day-To-Day",
 "return_date": "2026-11-15",
 "injury": "Back",
-"updated": "2026-11-12T18:07Z"
+"updated": "2026-11-13T03:28Z"
 },
 {
 "athlete_id": "4701232",
@@ -1317,10 +1323,10 @@
 "athlete_id": "4706557",
 "name": "Chris Youngblood",
 "team_name": "Portland Trail Blazers",
-"status": "Day-To-Day",
-"return_date": "2026-11-13",
+"status": "Out",
+"return_date": "2026-11-16",
 "injury": "Right Foot Bruise",
-"updated": "2026-11-12T15:04Z"
+"updated": "2026-11-13T01:06Z"
 },
 {
 "athlete_id": "4279888",
@@ -1443,10 +1449,10 @@
 "athlete_id": "4431684",
 "name": "Trayce Jackson-Davis",
 "team_name": "Toronto Raptors",
-"status": "Out",
+"status": "Day-To-Day",
 "return_date": "2026-11-15",
 "injury": "Illness",
-"updated": "2026-11-12T18:09Z"
+"updated": "2026-11-13T03:27Z"
 },
 {
 "athlete_id": "4277961",
@@ -1483,6 +1489,15 @@
 "return_date": "2026-11-16",
 "injury": "Right Ankle Sprain",
 "updated": "2026-11-12T15:42Z"
+},
+{
+"athlete_id": "4845374",
+"name": "Bub Carrington",
+"team_name": "Washington Wizards",
+"status": "Day-To-Day",
+"return_date": "2026-11-15",
+"injury": "Chest",
+"updated": "2026-11-13T03:26Z"
 },
 {
 "athlete_id": "4606840",
