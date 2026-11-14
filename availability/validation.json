@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-11-14T10:40:24+00:00",
+ "checked_utc": "2026-11-14T17:11:55+00:00",
  "leagues": {
   "nfl": {
-   "records": 1631,
+   "records": 1632,
    "by_layer": {
     "official": 1515,
-    "reported": 116
+    "reported": 117
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -71,7 +71,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "116/116"
+   "reported_matched_to_official_list": "117/117"
   },
   "nba": {
    "records": 220,
@@ -183,9 +183,9 @@
    "reported_matched_to_official_list": "56/57"
   },
   "nhl": {
-   "records": 1529,
+   "records": 1527,
    "by_layer": {
-    "official": 134,
+    "official": 132,
     "reported": 59,
     "projected": 1336
    },
@@ -196,7 +196,6 @@
     "ANA",
     "BOS",
     "BUF",
-    "CAR",
     "CGY",
     "CHI",
     "COL",
@@ -228,6 +227,7 @@
    "conflicts": [],
    "stale_projection_dates": 0,
    "teams_missing_official": [
+    "CAR",
     "CBJ"
    ],
    "season_state": {
@@ -236,7 +236,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "59/59"
+   "reported_matched_to_official_list": "58/59"
   },
   "nbl": {
    "records": 24,
@@ -252,6 +252,7 @@
     "ILL",
     "NZL",
     "PER",
+    "SEM",
     "SYD",
     "TAS"
    ],
@@ -259,8 +260,7 @@
    "stale_projection_dates": 0,
    "teams_missing_official": [
     "ADL",
-    "MEL",
-    "SEM"
+    "MEL"
    ],
    "season_state": {
     "state": "in_season",
@@ -271,9 +271,9 @@
    "reported_matched_to_official_list": "0/0"
   },
   "afl": {
-   "records": 12,
+   "records": 11,
    "by_layer": {
-    "reported": 12
+    "reported": 11
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -308,7 +308,7 @@
    "coverage_expected": false,
    "teams_missing_official_note": "off-season: no official coverage expected",
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "0/12"
+   "reported_matched_to_official_list": "0/11"
   }
  },
  "sources_failed": [],
