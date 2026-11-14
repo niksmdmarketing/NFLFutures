@@ -1,10 +1,10 @@
 {
- "checked_utc": "2026-11-14T03:21:57+00:00",
+ "checked_utc": "2026-11-14T10:40:24+00:00",
  "leagues": {
   "nfl": {
-   "records": 1586,
+   "records": 1631,
    "by_layer": {
-    "official": 1470,
+    "official": 1515,
     "reported": 116
    },
    "unknown_team": 0,
@@ -49,7 +49,6 @@
      "player": "Terrance Ferguson",
      "official": [
       "injured reserve",
-      "no designation",
       "out"
      ],
      "other": "expected to play",
@@ -58,7 +57,6 @@
     {
      "player": "Sam Darnold",
      "official": [
-      "no designation",
       "out"
      ],
      "other": "expected to play",
@@ -76,13 +74,13 @@
    "reported_matched_to_official_list": "116/116"
   },
   "nba": {
-   "records": 294,
+   "records": 220,
    "by_layer": {
-    "official": 236,
-    "reported": 58
+    "official": 163,
+    "reported": 57
    },
    "unknown_team": 0,
-   "no_player": 5,
+   "no_player": 23,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -101,6 +99,7 @@
     "LAL",
     "MEM",
     "MIA",
+    "MIL",
     "MIN",
     "NO",
     "NY",
@@ -174,23 +173,21 @@
     }
    ],
    "stale_projection_dates": 0,
-   "teams_missing_official": [
-    "MIL"
-   ],
+   "teams_missing_official": [],
    "season_state": {
     "state": "in_season",
     "why": "36 regular-season/playoff and 0 other games 2026-11-07..2026-11-24"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "58/58"
+   "reported_matched_to_official_list": "56/57"
   },
   "nhl": {
-   "records": 1505,
+   "records": 1529,
    "by_layer": {
     "official": 134,
     "reported": 59,
-    "projected": 1312
+    "projected": 1336
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -255,7 +252,6 @@
     "ILL",
     "NZL",
     "PER",
-    "SEM",
     "SYD",
     "TAS"
    ],
@@ -263,7 +259,8 @@
    "stale_projection_dates": 0,
    "teams_missing_official": [
     "ADL",
-    "MEL"
+    "MEL",
+    "SEM"
    ],
    "season_state": {
     "state": "in_season",
@@ -274,9 +271,9 @@
    "reported_matched_to_official_list": "0/0"
   },
   "afl": {
-   "records": 11,
+   "records": 12,
    "by_layer": {
-    "reported": 11
+    "reported": 12
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -305,12 +302,13 @@
     "WCE"
    ],
    "season_state": {
-    "state": "unknown",
-    "why": "HTTPError: HTTP Error 403: Forbidden"
+    "state": "off_season",
+    "why": "0 AFL games 2026-11-07..2026-11-24 (Squiggle fixture)"
    },
-   "coverage_expected": true,
+   "coverage_expected": false,
+   "teams_missing_official_note": "off-season: no official coverage expected",
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "0/11"
+   "reported_matched_to_official_list": "0/12"
   }
  },
  "sources_failed": [],
