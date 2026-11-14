@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-11-14T17:11:55+00:00",
+ "checked_utc": "2026-11-14T21:33:04+00:00",
  "leagues": {
   "nfl": {
-   "records": 1632,
+   "records": 1637,
    "by_layer": {
     "official": 1515,
-    "reported": 117
+    "reported": 122
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -46,9 +46,26 @@
    ],
    "conflicts": [
     {
+     "player": "Divine Deablo",
+     "official": [
+      "doubtful",
+      "out"
+     ],
+     "other": "expected to play",
+     "source": "ESPN injury note"
+    },
+    {
      "player": "Terrance Ferguson",
      "official": [
       "injured reserve",
+      "out"
+     ],
+     "other": "expected to play",
+     "source": "ESPN injury note"
+    },
+    {
+     "player": "Kyler Murray",
+     "official": [
       "out"
      ],
      "other": "expected to play",
@@ -71,16 +88,16 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "117/117"
+   "reported_matched_to_official_list": "122/122"
   },
   "nba": {
-   "records": 220,
+   "records": 279,
    "by_layer": {
-    "official": 163,
-    "reported": 57
+    "official": 209,
+    "reported": 70
    },
    "unknown_team": 0,
-   "no_player": 23,
+   "no_player": 15,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -102,7 +119,6 @@
     "MIL",
     "MIN",
     "NO",
-    "NY",
     "OKC",
     "ORL",
     "PHI",
@@ -173,21 +189,23 @@
     }
    ],
    "stale_projection_dates": 0,
-   "teams_missing_official": [],
+   "teams_missing_official": [
+    "NY"
+   ],
    "season_state": {
     "state": "in_season",
     "why": "36 regular-season/playoff and 0 other games 2026-11-07..2026-11-24"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "56/57"
+   "reported_matched_to_official_list": "69/70"
   },
   "nhl": {
-   "records": 1527,
+   "records": 1519,
    "by_layer": {
-    "official": 132,
-    "reported": 59,
-    "projected": 1336
+    "official": 131,
+    "reported": 53,
+    "projected": 1335
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -236,7 +254,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "58/59"
+   "reported_matched_to_official_list": "53/53"
   },
   "nbl": {
    "records": 24,
