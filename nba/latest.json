@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-11-15T1721Z",
-"feed_timestamp": "2026-11-15T17:21:19Z",
+"collected_utc": "2026-11-15T1906Z",
+"feed_timestamp": "2026-11-15T19:06:06Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -14,6 +14,12 @@
 "status": "Out",
 "return_date": "2027-07-01",
 "injury": "Right Knee"
+},
+{
+"athlete_id": "3146557",
+"status": "Day-To-Day",
+"return_date": "2026-11-15",
+"injury": "Right Hip Inflammation"
 },
 {
 "athlete_id": "4585618",
@@ -121,7 +127,7 @@
 "athlete_id": "4278049",
 "status": "Day-To-Day",
 "return_date": "2026-11-15",
-"injury": "Face"
+"injury": "Right Shoulder Stinger"
 },
 {
 "athlete_id": "4683688",
@@ -130,7 +136,19 @@
 "injury": "Right Foot Surgery"
 },
 {
+"athlete_id": "6442",
+"status": "Day-To-Day",
+"return_date": "2026-11-15",
+"injury": "Left Knee"
+},
+{
 "athlete_id": "4432582",
+"status": "Day-To-Day",
+"return_date": "2026-11-15",
+"injury": "Left Ankle Sprain"
+},
+{
+"athlete_id": "4593125",
 "status": "Day-To-Day",
 "return_date": "2026-11-15",
 "injury": "Left Ankle Sprain"
@@ -226,18 +244,6 @@
 "injury": "Suspension"
 },
 {
-"athlete_id": "2991235",
-"status": "Out",
-"return_date": "2026-11-15",
-"injury": "Right Calf Strain"
-},
-{
-"athlete_id": "4396909",
-"status": "Day-To-Day",
-"return_date": "2026-11-15",
-"injury": "Left Hand Sprain"
-},
-{
 "athlete_id": "4395712",
 "status": "Out",
 "return_date": "2026-11-18",
@@ -254,12 +260,6 @@
 "status": "Out",
 "return_date": "2027-01-02",
 "injury": "Right Knee Surgery"
-},
-{
-"athlete_id": "2530530",
-"status": "Day-To-Day",
-"return_date": null,
-"injury": ""
 },
 {
 "athlete_id": "4396993",
@@ -364,6 +364,12 @@
 "injury": "Left Finger Sprain"
 },
 {
+"athlete_id": "4591725",
+"status": "Day-To-Day",
+"return_date": "2026-11-15",
+"injury": "Illness"
+},
+{
 "athlete_id": "4594268",
 "status": "Out",
 "return_date": "2026-12-21",
@@ -456,7 +462,7 @@
 {
 "athlete_id": "4065654",
 "status": "Out",
-"return_date": "2026-11-16",
+"return_date": "2026-11-18",
 "injury": "Left Knee Not Specified"
 },
 {
@@ -554,6 +560,12 @@
 "status": "Day-To-Day",
 "return_date": "2026-11-15",
 "injury": "Left Ankle Soreness"
+},
+{
+"athlete_id": "4066259",
+"status": "Day-To-Day",
+"return_date": "2026-11-15",
+"injury": "Left Hip"
 },
 {
 "athlete_id": "5101845",
@@ -682,6 +694,15 @@
 "return_date": "2027-07-01",
 "injury": "Right Knee",
 "updated": "2026-09-21T19:50Z"
+},
+{
+"athlete_id": "3146557",
+"name": "Jock Landale",
+"team_name": "Atlanta Hawks",
+"status": "Day-To-Day",
+"return_date": "2026-11-15",
+"injury": "Right Hip Inflammation",
+"updated": "2026-11-15T17:55Z"
 },
 {
 "athlete_id": "4585618",
@@ -842,8 +863,8 @@
 "team_name": "Dallas Mavericks",
 "status": "Day-To-Day",
 "return_date": "2026-11-15",
-"injury": "Face",
-"updated": "2026-11-15T15:22Z"
+"injury": "Right Shoulder Stinger",
+"updated": "2026-11-15T18:09Z"
 },
 {
 "athlete_id": "4683688",
@@ -855,13 +876,31 @@
 "updated": "2026-11-11T22:13Z"
 },
 {
+"athlete_id": "6442",
+"name": "Kyrie Irving",
+"team_name": "Dallas Mavericks",
+"status": "Day-To-Day",
+"return_date": "2026-11-15",
+"injury": "Left Knee",
+"updated": "2026-11-15T18:14Z"
+},
+{
 "athlete_id": "4432582",
 "name": "Max Christie",
 "team_name": "Dallas Mavericks",
 "status": "Day-To-Day",
 "return_date": "2026-11-15",
 "injury": "Left Ankle Sprain",
-"updated": "2026-11-15T15:22Z"
+"updated": "2026-11-15T18:18Z"
+},
+{
+"athlete_id": "4593125",
+"name": "Santi Aldama",
+"team_name": "Dallas Mavericks",
+"status": "Day-To-Day",
+"return_date": "2026-11-15",
+"injury": "Left Ankle Sprain",
+"updated": "2026-11-15T18:19Z"
 },
 {
 "athlete_id": "5279129",
@@ -999,24 +1038,6 @@
 "updated": "2026-11-12T22:45Z"
 },
 {
-"athlete_id": "2991235",
-"name": "Steven Adams",
-"team_name": "Houston Rockets",
-"status": "Out",
-"return_date": "2026-11-15",
-"injury": "Right Calf Strain",
-"updated": "2026-11-14T21:52Z"
-},
-{
-"athlete_id": "4396909",
-"name": "Aaron Nesmith",
-"team_name": "Indiana Pacers",
-"status": "Day-To-Day",
-"return_date": "2026-11-15",
-"injury": "Left Hand Sprain",
-"updated": "2026-11-14T21:21Z"
-},
-{
 "athlete_id": "4395712",
 "name": "Andrew Nembhard",
 "team_name": "Indiana Pacers",
@@ -1042,15 +1063,6 @@
 "return_date": "2027-01-02",
 "injury": "Right Knee Surgery",
 "updated": "2026-10-30T19:06Z"
-},
-{
-"athlete_id": "2530530",
-"name": "T.J. McConnell",
-"team_name": "Indiana Pacers",
-"status": "Day-To-Day",
-"return_date": null,
-"injury": "",
-"updated": "2026-11-14T21:23Z"
 },
 {
 "athlete_id": "4396993",
@@ -1206,6 +1218,15 @@
 "updated": "2026-11-14T22:40Z"
 },
 {
+"athlete_id": "4591725",
+"name": "Ryan Rollins",
+"team_name": "Milwaukee Bucks",
+"status": "Day-To-Day",
+"return_date": "2026-11-15",
+"injury": "Illness",
+"updated": "2026-11-15T17:23Z"
+},
+{
 "athlete_id": "4594268",
 "name": "Anthony Edwards",
 "team_name": "Minnesota Timberwolves",
@@ -1345,9 +1366,9 @@
 "name": "Jonathan Isaac",
 "team_name": "Orlando Magic",
 "status": "Out",
-"return_date": "2026-11-16",
+"return_date": "2026-11-18",
 "injury": "Left Knee Not Specified",
-"updated": "2026-11-09T23:10Z"
+"updated": "2026-11-15T18:22Z"
 },
 {
 "athlete_id": "5214637",
@@ -1492,6 +1513,15 @@
 "return_date": "2026-11-15",
 "injury": "Left Ankle Soreness",
 "updated": "2026-11-15T00:57Z"
+},
+{
+"athlete_id": "4066259",
+"name": "De'Aaron Fox",
+"team_name": "San Antonio Spurs",
+"status": "Day-To-Day",
+"return_date": "2026-11-15",
+"injury": "Left Hip",
+"updated": "2026-11-15T18:27Z"
 },
 {
 "athlete_id": "5101845",
