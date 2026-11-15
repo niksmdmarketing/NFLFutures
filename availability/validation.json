@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-11-15T17:14:30+00:00",
+ "checked_utc": "2026-11-15T21:52:24+00:00",
  "leagues": {
   "nfl": {
-   "records": 1607,
+   "records": 1600,
    "by_layer": {
     "official": 1519,
-    "reported": 88
+    "reported": 81
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -55,7 +55,15 @@
      "source": "ESPN injury note"
     },
     {
-     "player": "Sam Darnold",
+     "player": "Tim Patrick",
+     "official": [
+      "out"
+     ],
+     "other": "expected to play",
+     "source": "ESPN injury note"
+    },
+    {
+     "player": "Brandin Cooks",
      "official": [
       "out"
      ],
@@ -71,16 +79,16 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "88/88"
+   "reported_matched_to_official_list": "81/81"
   },
   "nba": {
-   "records": 301,
+   "records": 329,
    "by_layer": {
-    "official": 226,
+    "official": 254,
     "reported": 75
    },
    "unknown_team": 0,
-   "no_player": 17,
+   "no_player": 11,
    "future_published": 0,
    "teams_covered_official": [
     "ATL",
@@ -168,11 +176,11 @@
    "reported_matched_to_official_list": "74/75"
   },
   "nhl": {
-   "records": 1521,
+   "records": 1520,
    "by_layer": {
     "official": 138,
-    "reported": 66,
-    "projected": 1317
+    "reported": 64,
+    "projected": 1318
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -220,7 +228,7 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "66/66"
+   "reported_matched_to_official_list": "64/64"
   },
   "nbl": {
    "records": 24,
