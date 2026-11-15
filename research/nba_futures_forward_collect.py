@@ -187,24 +187,105 @@ def collect(model_root, cache, injury_root, archive, smoke=False):
     return m
 
 
+# check_due rewritten 15 Nov 2026 (Amendment 1 of NBA_DATED_ABSENCE_FORWARD_RULE.md): acknowledged-missing ledger.
+# Written by DeepSeek (relay ds051), checked by Claude; TypeSafe 98% on the design. Nothing else in this module changes.
+def _utc_date(text, i):
+    s = str(text).strip().replace("Z", "+00:00")
+    try:
+        t = dt.datetime.fromisoformat(s)
+    except ValueError:
+        raise ValueError(f"MALFORMED entry {i}: bad acknowledged_utc {text!r}")
+    if t.tzinfo is None:
+        raise ValueError(f"MALFORMED entry {i}: acknowledged_utc needs a time zone")
+    return t.astimezone(dt.timezone.utc).date()
+
+
+def _load_ledger(archive):
+    """Acknowledged-missing ledger. Absent file = no acknowledgements; malformed = raise."""
+    p = Path(archive) / "acknowledged_missing.json"
+    if not p.exists():
+        return {}
+    try:
+        raw = json.loads(p.read_text())
+    except (ValueError, OSError) as exc:
+        raise ValueError(f"MALFORMED acknowledged_missing.json: {exc}")
+    if not isinstance(raw, dict) or raw.get("schema") != 1:
+        raise ValueError('MALFORMED acknowledged_missing.json: expected {"schema": 1, ...}')
+    entries = raw.get("entries")
+    if not isinstance(entries, list):
+        raise ValueError("MALFORMED acknowledged_missing.json: entries must be a list")
+    out = {}
+    for i, e in enumerate(entries):
+        if not isinstance(e, dict):
+            raise ValueError(f"MALFORMED entry {i}: not an object")
+        for k in ("date", "acknowledged_utc", "amendment", "reason"):
+            if not str(e.get(k) or "").strip():
+                raise ValueError(f"MALFORMED entry {i}: missing {k}")
+        try:
+            d = dt.date.fromisoformat(str(e["date"]).strip())
+        except ValueError:
+            raise ValueError(f"MALFORMED entry {i}: bad date {e['date']!r}")
+        ack = _utc_date(e["acknowledged_utc"], i)
+        if d > ack:
+            raise ValueError(
+                f"LEDGER PRE-EXCUSES A FUTURE DATE: {d} acknowledged {ack}; a ledger "
+                "entry may never excuse a date later than its own acknowledgement")
+        if d in out:
+            raise ValueError(f"DUPLICATE ledger entry for {d}")
+        out[d] = e
+    return out
+
+
+def _eligible_bundle(archive, d):
+    """True when d has a verified manifest and a qualified independent receipt."""
+    root = Path(archive)
+    path = root / "runs" / d.isoformat() / "manifest.json"
+    if not path.exists():
+        return False
+    verify_bundle(root, path)
+    receipt = root / "receipts" / (d.isoformat() + ".json")
+    if not receipt.exists():
+        return False
+    try:
+        return bool(json.loads(receipt.read_text()).get("eligible"))
+    except (ValueError, OSError) as exc:
+        raise ValueError(f"unreadable receipt {receipt}: {exc}")
+
+
 def check_due(archive, today=None):
     today = today or now().date()
     last = min(END, today if now().hour >= 12 else today-dt.timedelta(days=1))
-    missing = []
+    ledger = _load_ledger(archive)
+
+    # Contradiction check covers every ledgered date, in or out of the due window.
+    for d in sorted(ledger):
+        if _eligible_bundle(archive, d):
+            raise ValueError(
+                f"LEDGER CONTRADICTS ARCHIVE: {d} has an eligible bundle but is "
+                "recorded as acknowledged missing")
+
+    eligible, acknowledged, new_missing = [], [], []
     d = START
     while d <= last:
-        path = Path(archive) / "runs" / d.isoformat() / "manifest.json"
-        if not path.exists():
-            missing.append(d.isoformat())
+        if _eligible_bundle(archive, d):
+            eligible.append(d)
+        elif d in ledger:
+            acknowledged.append(d)
         else:
-            verify_bundle(Path(archive), path)
-            receipt = Path(archive) / "receipts" / (d.isoformat() + ".json")
-            if not receipt.exists() or not json.loads(receipt.read_text()).get("eligible"):
-                missing.append(d.isoformat() + " (no qualified independent receipt)")
+            new_missing.append(d)
         d += dt.timedelta(days=1)
-    if missing:
-        raise ValueError("MISSED CUTOFFS (never backfill): " + ", ".join(missing))
-    print("all due bundles present; independent receipt checks remain mandatory")
+
+    for name, dates in (("eligible", eligible),
+                        ("acknowledged missing", acknowledged),
+                        ("new missing", new_missing)):
+        tail = (" -> " + ", ".join(x.isoformat() for x in dates)) if dates else ""
+        print(f"{name}: {len(dates)}{tail}")
+
+    if new_missing:
+        raise ValueError("MISSED CUTOFFS (never backfill): "
+                         + ", ".join(d.isoformat() for d in new_missing))
+    print("all due bundles present or acknowledged missing; "
+          "independent receipt checks remain mandatory")
 
 
 def receipts(archive):

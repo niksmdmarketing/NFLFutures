@@ -121,3 +121,21 @@ of the complete pipeline and uncertainty, rather than invented significance.
 
 No March/April result is an automatic site change. Preserve A, B, all input
 ledgers and coverage failures. Markets are benchmarks only, never model inputs.
+
+## Amendment 1 (15 November 2026, 11:20 UTC). Text above unchanged.
+
+Owner decision: restart collection. Design decided by TypeSafe (98%): keep the 30 October start and record the missed cutoffs; do not move the start, do not backfill. Code by DeepSeek (relay ds051), checked by Claude.
+
+**What happened.** The collector must make its bundle, and GitHub must receive it, between 11:15 and 12:00 UTC. GitHub started the scheduled job between 16:07 and 21:26 UTC every day, 4 to 10 hours after the window closed. Eligible bundles so far: 4 November (started by hand, received 11:30:35 UTC) and 15 November (started by hand at 11:16 UTC, received 11:18:09 UTC).
+
+**Recorded as missing (15 cutoffs):** 30 and 31 October; 1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13 and 14 November 2026. Each is listed, with the time the job actually started, in `acknowledged_missing.json` at the root of the private archive branch.
+
+**Cost, stated plainly.** 15 of the 168 registered cutoffs (8.9%) are lost. The last cutoff is not extended, so the test ends with at most 153 eligible cutoffs and less power than registered. Every coverage figure counts the 15 as missing. Nothing is backfilled.
+
+**Unchanged.** The start date, the last cutoff, both alternatives, seeds, simulations, the cohort definition and every evaluation rule.
+
+**Timing from 16 November.** The always-running public loop job (NBA props forward archive) starts the collector at its first wake-up inside 11:15-11:44 UTC (a run takes about 2 minutes) and starts a second run from 11:45 UTC that only verifies the push receipt, because GitHub's push record is often not visible in the first minute. GitHub's own late schedule remains; with the day's bundle saved it can only re-check receipts.
+
+**The daily check.** `check_due` now reads the ledger. A due date with no eligible bundle passes only if it is in the ledger; any other missed date still fails loudly. A ledger entry cannot excuse a date later than its own acknowledgement time, and cannot name a date that has an eligible bundle. A malformed ledger fails.
+
+**Model version.** This cohort stays on the frozen production model, commit 5708ccf (28 October). Proof of the pin: the workflow checks that commit out as the model root, and both eligible manifests record `model_commit` 5708ccf. Live NBA has changed since (trade credit removed, 10 November). Under this rule that is a different version and would need its own cohort; none is started here.
