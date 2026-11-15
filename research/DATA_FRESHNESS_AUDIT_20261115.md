@@ -27,10 +27,10 @@ Injury feeds (NFL, NBA, NHL, NBL, AFL) all collected at 09:32 UTC with no failed
 
 ## Changes made (TypeSafe)
 - **Private build time limit 20 -> 35 minutes** (raise: 93% across the two raise options). Private repo, no extra build triggered.
-- **Fixed-time site refreshes** (92%): the always-running NBA props loop job now also starts "Refresh site" at 01, 06, 13 and 19 UTC. The site's own schedule stays as the fallback. Public runner, free minutes.
+- **Fixed-time site refreshes** (92%): the always-running NBA props loop job now also starts "Refresh site" at 01, 06, 13, 19 and 22 UTC. The 19 and 22 slots put a model snapshot within 3 hours before the daily Australian title-price capture (title paper test; TypeSafe 100%: fix the timing, keep the 3-hour window). The site's own schedule stays as the fallback. Public runner, free minutes.
 - **Data status table** (90%): `pipeline/freshness.py` writes `data/freshness.json` each refresh; the Updates page shows it. "Behind" = a game played two or more days ago is still not in the model.
 - **Private build start time: unchanged** (keep 56%, ask owner about a second build 26%). Moving it earlier would land before the 9am-Melbourne football gate.
 
 ## Left for the owner
 - NBA paired archive: TypeSafe split 53% restart on time with a dated amendment vs 42% pause. No change made.
-- Paper-test reference window: see the private repo note of the same date.
+- Nothing else. The paper-test reference window was settled (kept at 3 hours; see the private repo note of the same date).
