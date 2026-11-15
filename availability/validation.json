@@ -1,11 +1,11 @@
 {
- "checked_utc": "2026-11-15T09:32:14+00:00",
+ "checked_utc": "2026-11-15T17:14:30+00:00",
  "leagues": {
   "nfl": {
-   "records": 1655,
+   "records": 1607,
    "by_layer": {
     "official": 1519,
-    "reported": 136
+    "reported": 88
    },
    "unknown_team": 0,
    "no_player": 0,
@@ -55,14 +55,6 @@
      "source": "ESPN injury note"
     },
     {
-     "player": "Kyler Murray",
-     "official": [
-      "out"
-     ],
-     "other": "expected to play",
-     "source": "ESPN injury note"
-    },
-    {
      "player": "Sam Darnold",
      "official": [
       "out"
@@ -79,12 +71,12 @@
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "136/136"
+   "reported_matched_to_official_list": "88/88"
   },
   "nba": {
-   "records": 300,
+   "records": 301,
    "by_layer": {
-    "official": 225,
+    "official": 226,
     "reported": 75
    },
    "unknown_team": 0,
@@ -176,10 +168,10 @@
    "reported_matched_to_official_list": "74/75"
   },
   "nhl": {
-   "records": 1511,
+   "records": 1521,
    "by_layer": {
-    "official": 137,
-    "reported": 57,
+    "official": 138,
+    "reported": 66,
     "projected": 1317
    },
    "unknown_team": 0,
@@ -190,6 +182,7 @@
     "BOS",
     "BUF",
     "CAR",
+    "CBJ",
     "CGY",
     "CHI",
     "COL",
@@ -220,16 +213,14 @@
    ],
    "conflicts": [],
    "stale_projection_dates": 0,
-   "teams_missing_official": [
-    "CBJ"
-   ],
+   "teams_missing_official": [],
    "season_state": {
     "state": "in_season",
     "why": "35 regular-season/playoff and 0 other games 2026-11-08..2026-11-25"
    },
    "coverage_expected": true,
    "syndicated_headlines": 0,
-   "reported_matched_to_official_list": "57/57"
+   "reported_matched_to_official_list": "66/66"
   },
   "nbl": {
    "records": 24,
