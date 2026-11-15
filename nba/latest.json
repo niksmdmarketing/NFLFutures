@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-11-15T0201Z",
-"feed_timestamp": "2026-11-15T02:01:42Z",
+"collected_utc": "2026-11-15T0934Z",
+"feed_timestamp": "2026-11-15T09:34:50Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -118,6 +118,12 @@
 "injury": "Right Elbow"
 },
 {
+"athlete_id": "4278049",
+"status": "Out",
+"return_date": "2026-11-15",
+"injury": "Face"
+},
+{
 "athlete_id": "4683688",
 "status": "Out",
 "return_date": "2026-11-18",
@@ -146,6 +152,12 @@
 "status": "Out",
 "return_date": "2026-11-29",
 "injury": "Left Knee Sprain"
+},
+{
+"athlete_id": "3157465",
+"status": "Day-To-Day",
+"return_date": "2026-11-14",
+"injury": "Left Thigh Soreness"
 },
 {
 "athlete_id": "4395702",
@@ -362,6 +374,12 @@
 "status": "Out",
 "return_date": "2027-04-02",
 "injury": "Right Achilles Surgery"
+},
+{
+"athlete_id": "4432247",
+"status": "Out",
+"return_date": "2026-11-16",
+"injury": "Right Hamstring Not Specified"
 },
 {
 "athlete_id": "4683634",
@@ -819,6 +837,15 @@
 "updated": "2026-11-10T22:12Z"
 },
 {
+"athlete_id": "4278049",
+"name": "Daniel Gafford",
+"team_name": "Dallas Mavericks",
+"status": "Out",
+"return_date": "2026-11-15",
+"injury": "Face",
+"updated": "2026-11-15T02:31Z"
+},
+{
 "athlete_id": "4683688",
 "name": "Dereck Lively II",
 "team_name": "Dallas Mavericks",
@@ -862,6 +889,15 @@
 "return_date": "2026-11-29",
 "injury": "Left Knee Sprain",
 "updated": "2026-10-17T00:52Z"
+},
+{
+"athlete_id": "3157465",
+"name": "Duncan Robinson",
+"team_name": "Detroit Pistons",
+"status": "Day-To-Day",
+"return_date": "2026-11-14",
+"injury": "Left Thigh Soreness",
+"updated": "2026-11-15T02:40Z"
 },
 {
 "athlete_id": "4395702",
@@ -1095,7 +1131,7 @@
 "status": "Out",
 "return_date": "2026-11-16",
 "injury": "Left Foot",
-"updated": "2026-11-15T01:56Z"
+"updated": "2026-11-15T04:09Z"
 },
 {
 "athlete_id": "2991070",
@@ -1186,6 +1222,15 @@
 "return_date": "2027-04-02",
 "injury": "Right Achilles Surgery",
 "updated": "2026-10-05T20:53Z"
+},
+{
+"athlete_id": "4432247",
+"name": "Jaylen Clark",
+"team_name": "Minnesota Timberwolves",
+"status": "Out",
+"return_date": "2026-11-16",
+"injury": "Right Hamstring Not Specified",
+"updated": "2026-11-15T02:08Z"
 },
 {
 "athlete_id": "4683634",
