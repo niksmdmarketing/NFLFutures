@@ -67,6 +67,21 @@ jobs:
           fi
           start=$(date +%s); it=0
           while [ $(( $(date +%s) - start )) -lt 18900 ]; do      # 5.25 hours (leaves room for the hand-over within the 350-minute job limit)
+            # Fixed-time site refresh (15 Nov 2026, TypeSafe 92%, reviewed by DeepSeek relay ds050). GitHub runs the site's own
+            # every-2-hours schedule only about 3 times a day at random times, so this loop, which wakes every quarter hour,
+            # also starts "Refresh site" at 01, 06, 13 and 19 UTC (13 = just after the daily 12:30 NBA/college data update).
+            # It adds to the site's own schedule, never replaces it, and a failure here can never stop the forecast loop.
+            hm=$(date -u +%H%M); slot=$(date -u +%F-%H)
+            case "$hm" in 010[0-9]|011[0-4]|060[0-9]|061[0-4]|130[0-9]|131[0-4]|190[0-9]|191[0-4])
+              if [ "$slot" != "${last_slot:-}" ]; then
+                last_slot="$slot"
+                if err=$(gh api -X POST "repos/${{ github.repository }}/actions/workflows/refresh.yml/dispatches" -f ref=main 2>&1); then
+                  echo "site refresh started at $hm UTC"
+                else
+                  echo "::warning::site refresh could not be started at $hm UTC: $err"
+                fi
+              fi;;
+            esac
             python research/nba_props_live.py ../archive || echo "forecaster error (logged in runs/)"
             save || failed=1
             it=$((it + 1))

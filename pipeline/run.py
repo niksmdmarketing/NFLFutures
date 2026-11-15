@@ -211,6 +211,11 @@ def main():
         replay_site.build_site()
     except Exception as e:  # noqa: BLE001
         log("replay history pages failed", e)
+    try:  # per-sport data status (results through, games not yet in the model); shown at the top of the Updates page
+        import freshness
+        freshness.build()
+    except Exception as e:  # noqa: BLE001
+        log("freshness status failed", e)
     try:  # dated list of new statistics and data, linked from every sports bar
         import updates
         updates.build_site()

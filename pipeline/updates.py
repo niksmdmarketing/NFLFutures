@@ -15,6 +15,7 @@ SPORTBAR = re.compile(r'(<(?:div|nav)\b[^>]*class=["\'][^"\']*\bsportbar\b[^"\']
 PAGE_BODY = """
 <main class="page" id="main">
   <div class="page-head"><h1>Updates</h1><p>New statistics and data added to the site, newest first.</p></div>
+  <div id="fresh"></div>
   <div id="updates"><p class="note">Loading…</p></div>
 </main>
 <style>
@@ -22,6 +23,11 @@ PAGE_BODY = """
 .upd li{display:flex;gap:.9rem;align-items:baseline;padding:.55rem 0;border-bottom:1px solid var(--line,#d9dee3)}
 .upd time{flex:0 0 6.2rem;font-variant-numeric:tabular-nums;color:var(--muted,#5b6773);font-size:.9rem}
 .upd b{flex:0 0 3.4rem;font-size:.75rem;letter-spacing:.06em;text-transform:uppercase}
+.fresh{border-collapse:collapse;margin:.2rem 0 1.4rem;max-width:52rem;width:100%;font-size:.92rem}
+.fresh th,.fresh td{text-align:left;padding:.4rem .7rem .4rem 0;border-bottom:1px solid var(--line,#d9dee3);vertical-align:top}
+.fresh th{font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted,#5b6773)}
+.fresh .st{font-weight:600;white-space:nowrap}
+.fresh .st-behind,.fresh .st-unknown{color:#b3261e}
 </style>
 <script>
 (function(){
@@ -32,6 +38,16 @@ PAGE_BODY = """
     el.innerHTML=rows.length?'<ul class="upd">'+rows.map(function(r){
       return '<li><time datetime="'+esc(r.date)+'">'+esc(r.date)+'</time><b>'+esc(r.sport||'')+'</b><span>'+esc(r.text)+'</span></li>';}).join('')+'</ul>':'<p class="note">Nothing yet.</p>';
   }).catch(function(){el.innerHTML='<p class="note">Could not load updates.</p>';});
+  // Data status (pipeline/freshness.py): which results each model has, and whether any played game is missing.
+  var fr=document.getElementById('fresh');
+  fetch('data/freshness.json').then(function(r){return r.json();}).then(function(d){
+    var rows=(d.sports||[]);
+    if(!rows.length){return;}
+    fr.innerHTML='<h2>Data status</h2><p class="note">Checked '+esc(String(d.checked_utc||'').replace('T',' ').replace('Z',' UTC'))+
+      '. "Behind" means a game played two or more days ago is not in the model yet.</p><table class="fresh"><thead><tr><th>Sport</th><th>Results through</th><th>Status</th><th>Note</th></tr></thead><tbody>'+
+      rows.map(function(s){return '<tr><td>'+esc(s.sport)+'</td><td>'+esc(s.results_through==null?'':s.results_through)+'</td><td class="st st-'+esc(s.status)+'">'+esc(s.status)+'</td><td>'+esc(s.note||'')+'</td></tr>';}).join('')+
+      '</tbody></table>';
+  }).catch(function(){});
 })();
 </script>
 </div></body></html>"""
