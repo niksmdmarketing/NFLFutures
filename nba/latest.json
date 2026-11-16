@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-11-16T0106Z",
-"feed_timestamp": "2026-11-16T01:06:04Z",
+"collected_utc": "2026-11-16T0606Z",
+"feed_timestamp": "2026-11-16T06:06:24Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -20,12 +20,6 @@
 "status": "Out",
 "return_date": "2026-11-18",
 "injury": "Right Hip Inflammation"
-},
-{
-"athlete_id": "4585618",
-"status": "Out",
-"return_date": "2026-11-20",
-"injury": "Left Knee Inflammation"
 },
 {
 "athlete_id": "5149077",
@@ -382,12 +376,6 @@
 "injury": "Not Specified Knee Tendinitis"
 },
 {
-"athlete_id": "4900671",
-"status": "Day-To-Day",
-"return_date": "2026-11-15",
-"injury": "Left Ankle Sprain"
-},
-{
 "athlete_id": "4683692",
 "status": "Out",
 "return_date": "2027-03-02",
@@ -509,8 +497,8 @@
 },
 {
 "athlete_id": "4065732",
-"status": "Day-To-Day",
-"return_date": "2026-11-15",
+"status": "Out",
+"return_date": "2026-11-18",
 "injury": "Left Hip Soreness"
 },
 {
@@ -655,15 +643,6 @@
 "return_date": "2026-11-18",
 "injury": "Right Hip Inflammation",
 "updated": "2026-11-15T23:22Z"
-},
-{
-"athlete_id": "4585618",
-"name": "Keshon Gilbert",
-"team_name": "Atlanta Hawks",
-"status": "Out",
-"return_date": "2026-11-20",
-"injury": "Left Knee Inflammation",
-"updated": "2026-11-12T23:10Z"
 },
 {
 "athlete_id": "5149077",
@@ -1197,15 +1176,6 @@
 "updated": "2026-11-15T22:57Z"
 },
 {
-"athlete_id": "4900671",
-"name": "Ajay Mitchell",
-"team_name": "Oklahoma City Thunder",
-"status": "Day-To-Day",
-"return_date": "2026-11-15",
-"injury": "Left Ankle Sprain",
-"updated": "2026-11-15T01:10Z"
-},
-{
 "athlete_id": "4683692",
 "name": "Cason Wallace",
 "team_name": "Oklahoma City Thunder",
@@ -1389,10 +1359,10 @@
 "athlete_id": "4065732",
 "name": "De'Andre Hunter",
 "team_name": "Sacramento Kings",
-"status": "Day-To-Day",
-"return_date": "2026-11-15",
+"status": "Out",
+"return_date": "2026-11-18",
 "injury": "Left Hip Soreness",
-"updated": "2026-11-16T00:18Z"
+"updated": "2026-11-16T01:18Z"
 },
 {
 "athlete_id": "4898371",
@@ -1419,7 +1389,7 @@
 "status": "Out",
 "return_date": "2026-11-18",
 "injury": "Illness",
-"updated": "2026-11-16T01:03Z"
+"updated": "2026-11-16T01:06Z"
 },
 {
 "athlete_id": "4066259",
