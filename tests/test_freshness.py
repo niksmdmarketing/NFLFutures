@@ -96,7 +96,7 @@ class FreshnessTests(unittest.TestCase):
 
     def test_notes_say_what_is_waiting_or_late(self):
         self.nba(games=[{"team": "ATL", "games": [["2026-11-14", "MIL"]]}])
-        self.assertIn("waiting on the data source", self.sport(freshness.build(self.site, now=self.NOW), "NBA")["note"])
+        self.assertIn("not in yet", self.sport(freshness.build(self.site, now=self.NOW), "NBA")["note"])
         self.nba(games=[{"team": "ATL", "games": [["2026-11-12", "MIL"]]}])
         self.assertIn("not in the model yet", self.sport(freshness.build(self.site, now=self.NOW), "NBA")["note"])
 

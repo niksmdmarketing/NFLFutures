@@ -158,7 +158,7 @@ def _one(site, prefix, name, has_sched, has_games, has_prog, today):
     else:
         rec["status"] = "current"
         if rec["games_awaiting"]:
-            notes.append("%d game%s from %s waiting on the data source (normal until its daily update)"
+            notes.append("%d game%s dated %s not in yet (normal: still being played, or waiting on the source's daily update)"
                          % (rec["games_awaiting"], "" if rec["games_awaiting"] == 1 else "s",
                             (today - timedelta(days=1)).isoformat()))
 
