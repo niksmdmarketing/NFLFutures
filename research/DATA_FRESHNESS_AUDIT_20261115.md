@@ -34,3 +34,7 @@ Injury feeds (NFL, NBA, NHL, NBL, AFL) all collected at 09:32 UTC with no failed
 ## Left for the owner
 - NBA paired archive: TypeSafe split 53% restart on time with a dated amendment vs 42% pause. No change made.
 - Nothing else. The paper-test reference window was settled (kept at 3 hours; see the private repo note of the same date).
+
+## Update, 16 Nov 2026
+- **NBA paired futures archive restarted** (owner decision, 15 Nov; TypeSafe 98% on the design). The 15 Nov bundle was made by hand inside the window (received 11:18:09 UTC, eligible). 15 earlier cutoffs are recorded as missing in a ledger and counted, never backfilled; the daily check passes again and still fails on any new miss. From 16 Nov the loop job starts the collector at 11:16 UTC. Rule: Amendment 1 of `NBA_DATED_ABSENCE_FORWARD_RULE.md` on branch `claude/nba-paired-archive-restart-20261115`.
+- **First night of the fixes:** fixed-time refreshes started at 19:01, 22:01 and 01:01 UTC. The private build took 20.4 minutes and finished (the old limit would have cancelled it). The 15 Nov title-price capture (20:22 UTC) had a model snapshot 1h09 earlier: 0 of 188 paper-test opportunities failed the 3-hour window (188 of 188 failed on 14 Nov).
