@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-11-16T1840Z",
-"feed_timestamp": "2026-11-16T18:40:46Z",
+"collected_utc": "2026-11-16T2206Z",
+"feed_timestamp": "2026-11-16T22:06:37Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -72,7 +72,7 @@
 {
 "athlete_id": "4432158",
 "status": "Out",
-"return_date": "2026-11-18",
+"return_date": "2026-11-29",
 "injury": "Left Toe Sprain"
 },
 {
@@ -484,6 +484,12 @@
 "injury": "Left Shoulder Surgery"
 },
 {
+"athlete_id": "4888725",
+"status": "Day-To-Day",
+"return_date": "2026-11-16",
+"injury": "Right Thumb Soreness"
+},
+{
 "athlete_id": "4706557",
 "status": "Out",
 "return_date": "2026-11-17",
@@ -552,7 +558,7 @@
 {
 "athlete_id": "6440",
 "status": "Out",
-"return_date": "2026-11-19",
+"return_date": "2026-12-03",
 "injury": "Left Calf Strain"
 },
 {
@@ -739,7 +745,7 @@
 "name": "Evan Mobley",
 "team_name": "Cleveland Cavaliers",
 "status": "Out",
-"return_date": "2026-11-18",
+"return_date": "2026-11-29",
 "injury": "Left Toe Sprain",
 "updated": "2026-11-15T21:58Z"
 },
@@ -1356,6 +1362,15 @@
 "updated": "2026-09-11T16:03Z"
 },
 {
+"athlete_id": "4888725",
+"name": "Ryan Dunn",
+"team_name": "Phoenix Suns",
+"status": "Day-To-Day",
+"return_date": "2026-11-16",
+"injury": "Right Thumb Soreness",
+"updated": "2026-11-16T20:18Z"
+},
+{
 "athlete_id": "4706557",
 "name": "Chris Youngblood",
 "team_name": "Portland Trail Blazers",
@@ -1459,9 +1474,9 @@
 "name": "Tobias Harris",
 "team_name": "San Antonio Spurs",
 "status": "Out",
-"return_date": "2026-11-19",
+"return_date": "2026-12-03",
 "injury": "Left Calf Strain",
-"updated": "2026-11-10T22:46Z"
+"updated": "2026-11-16T19:26Z"
 },
 {
 "athlete_id": "6450",
