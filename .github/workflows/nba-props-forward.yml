@@ -74,6 +74,20 @@ jobs:
             # anywhere from 19:20 to 23:50 UTC: the title paper test's reference window, TypeSafe 100% fix timing not the rule).
             # It adds to the site's own schedule, never replaces it, and a failure here can never stop the forecast loop.
             hm=$(date -u +%H%M); slot=$(date -u +%F-%H)
+            # NBA paired futures archive (restart, 16 Nov 2026; owner decision, TypeSafe 98% on the design): its bundle must be made and
+            # received between 11:15 and 12:00 UTC, and GitHub's own schedule started it 5-10 hours late every day. Start the collector
+            # at the first wake-up inside 11:15-11:44 (a run takes about 2 minutes) and a second run from 11:45 that, with the day's
+            # bundle already saved, only verifies the push receipt.
+            pslot=""
+            case "$hm" in 111[5-9]|11[23][0-9]|114[0-4]) pslot="$(date -u +%F)-collect";; 114[5-9]|115[0-4]) pslot="$(date -u +%F)-receipt";; esac
+            if [ -n "$pslot" ] && [ "$pslot" != "${last_pslot:-}" ]; then
+              last_pslot="$pslot"
+              if err=$(gh api -X POST "repos/${{ github.repository }}/actions/workflows/nba-private-archive.yml/dispatches" -f ref=main -f "inputs[mode]=collect" 2>&1); then
+                echo "paired futures archive started at $hm UTC ($pslot)"
+              else
+                echo "::warning::paired futures archive could not be started at $hm UTC: $err"
+              fi
+            fi
             case "$hm" in 010[0-9]|011[0-4]|060[0-9]|061[0-4]|130[0-9]|131[0-4]|190[0-9]|191[0-4]|220[0-9]|221[0-4])
               if [ "$slot" != "${last_slot:-}" ]; then
                 last_slot="$slot"
