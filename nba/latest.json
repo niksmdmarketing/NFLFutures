@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-11-17T0606Z",
-"feed_timestamp": "2026-11-17T06:06:41Z",
+"collected_utc": "2026-11-17T1906Z",
+"feed_timestamp": "2026-11-17T19:06:16Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -150,13 +150,13 @@
 {
 "athlete_id": "3157465",
 "status": "Out",
-"return_date": "2026-11-18",
+"return_date": "2026-11-27",
 "injury": "Left Quadriceps Strain"
 },
 {
 "athlete_id": "4395702",
 "status": "Out",
-"return_date": "2026-11-17",
+"return_date": "2026-11-18",
 "injury": "Right Hip Bruise"
 },
 {
@@ -258,7 +258,7 @@
 {
 "athlete_id": "4396993",
 "status": "Out",
-"return_date": "2026-11-22",
+"return_date": "2026-11-28",
 "injury": "Left Hamstring Strain"
 },
 {
@@ -378,7 +378,7 @@
 {
 "athlete_id": "4433247",
 "status": "Day-To-Day",
-"return_date": "2026-11-17",
+"return_date": "2026-11-19",
 "injury": "Right Shoulder"
 },
 {
@@ -586,6 +586,12 @@
 "injury": "Right Foot Fracture"
 },
 {
+"athlete_id": "4433134",
+"status": "Day-To-Day",
+"return_date": "2026-11-17",
+"injury": "Illness"
+},
+{
 "athlete_id": "4277961",
 "status": "Out",
 "return_date": "2026-12-14",
@@ -608,6 +614,12 @@
 "status": "Out",
 "return_date": "2027-01-04",
 "injury": "Right Hand Fracture"
+},
+{
+"athlete_id": "5105841",
+"status": "Day-To-Day",
+"return_date": "2026-11-18",
+"injury": "Back Strain"
 },
 {
 "athlete_id": "4606840",
@@ -669,7 +681,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-11-18",
 "injury": "Back Strain",
-"updated": "2026-11-16T14:47Z"
+"updated": "2026-11-17T18:28Z"
 },
 {
 "athlete_id": "4712863",
@@ -813,7 +825,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-11-18",
 "injury": "Left Ankle Sprain",
-"updated": "2026-11-16T14:45Z"
+"updated": "2026-11-17T18:25Z"
 },
 {
 "athlete_id": "4593125",
@@ -822,7 +834,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-11-18",
 "injury": "Left Ankle Sprain",
-"updated": "2026-11-16T14:45Z"
+"updated": "2026-11-17T18:22Z"
 },
 {
 "athlete_id": "5279129",
@@ -856,18 +868,18 @@
 "name": "Duncan Robinson",
 "team_name": "Detroit Pistons",
 "status": "Out",
-"return_date": "2026-11-18",
+"return_date": "2026-11-27",
 "injury": "Left Quadriceps Strain",
-"updated": "2026-11-16T22:37Z"
+"updated": "2026-11-17T16:25Z"
 },
 {
 "athlete_id": "4395702",
 "name": "Isaiah Joe",
 "team_name": "Detroit Pistons",
 "status": "Out",
-"return_date": "2026-11-17",
+"return_date": "2026-11-18",
 "injury": "Right Hip Bruise",
-"updated": "2026-11-16T22:40Z"
+"updated": "2026-11-17T18:33Z"
 },
 {
 "athlete_id": "4433621",
@@ -1018,9 +1030,9 @@
 "name": "Tyrese Haliburton",
 "team_name": "Indiana Pacers",
 "status": "Out",
-"return_date": "2026-11-22",
+"return_date": "2026-11-28",
 "injury": "Left Hamstring Strain",
-"updated": "2026-11-11T22:29Z"
+"updated": "2026-11-17T18:46Z"
 },
 {
 "athlete_id": "6580",
@@ -1198,7 +1210,7 @@
 "name": "Jonathan Kuminga",
 "team_name": "Minnesota Timberwolves",
 "status": "Day-To-Day",
-"return_date": "2026-11-17",
+"return_date": "2026-11-19",
 "injury": "Right Shoulder",
 "updated": "2026-11-17T03:32Z"
 },
@@ -1509,6 +1521,15 @@
 "updated": "2026-11-14T21:59Z"
 },
 {
+"athlete_id": "4433134",
+"name": "Scottie Barnes",
+"team_name": "Toronto Raptors",
+"status": "Day-To-Day",
+"return_date": "2026-11-17",
+"injury": "Illness",
+"updated": "2026-11-17T17:29Z"
+},
+{
 "athlete_id": "4277961",
 "name": "Jaren Jackson Jr.",
 "team_name": "Utah Jazz",
@@ -1543,6 +1564,15 @@
 "return_date": "2027-01-04",
 "injury": "Right Hand Fracture",
 "updated": "2026-11-11T18:22Z"
+},
+{
+"athlete_id": "5105841",
+"name": "Felix Okpara",
+"team_name": "Washington Wizards",
+"status": "Day-To-Day",
+"return_date": "2026-11-18",
+"injury": "Back Strain",
+"updated": "2026-11-17T16:38Z"
 },
 {
 "athlete_id": "4606840",
