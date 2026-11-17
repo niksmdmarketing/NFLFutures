@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-11-17T2209Z",
-"feed_timestamp": "2026-11-17T22:09:27Z",
+"collected_utc": "2026-11-17T2234Z",
+"feed_timestamp": "2026-11-17T22:34:14Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -90,14 +90,14 @@
 {
 "athlete_id": "5106268",
 "status": "Out",
-"return_date": "2026-11-18",
+"return_date": "2026-11-29",
 "injury": "Back"
 },
 {
 "athlete_id": "4576087",
 "status": "Day-To-Day",
 "return_date": "2026-11-18",
-"injury": "Head Not Specified"
+"injury": "Back Bruise"
 },
 {
 "athlete_id": "4066757",
@@ -176,6 +176,12 @@
 "status": "Out",
 "return_date": "2026-11-18",
 "injury": "Right Knee Soreness"
+},
+{
+"athlete_id": "3213",
+"status": "Day-To-Day",
+"return_date": "2026-11-18",
+"injury": "Back"
 },
 {
 "athlete_id": "4397040",
@@ -293,8 +299,8 @@
 },
 {
 "athlete_id": "4432810",
-"status": "Day-To-Day",
-"return_date": "2026-11-18",
+"status": "Out",
+"return_date": "2026-11-19",
 "injury": "Illness"
 },
 {
@@ -311,9 +317,9 @@
 },
 {
 "athlete_id": "4065733",
-"status": "Day-To-Day",
-"return_date": "2026-11-18",
-"injury": "Right Hip Soreness"
+"status": "Out",
+"return_date": "2026-11-19",
+"injury": "Right Hip"
 },
 {
 "athlete_id": "4066261",
@@ -338,12 +344,6 @@
 "status": "Out",
 "return_date": "2026-12-14",
 "injury": "Left Finger Surgery"
-},
-{
-"athlete_id": "4591725",
-"status": "Day-To-Day",
-"return_date": null,
-"injury": ""
 },
 {
 "athlete_id": "4594268",
@@ -474,7 +474,7 @@
 {
 "athlete_id": "4870562",
 "status": "Out",
-"return_date": "2026-11-18",
+"return_date": "2026-11-21",
 "injury": "Not Specified Back Fracture"
 },
 {
@@ -482,12 +482,6 @@
 "status": "Out",
 "return_date": "2026-11-21",
 "injury": "Left Hamstring Not Specified"
-},
-{
-"athlete_id": "1966",
-"status": "Day-To-Day",
-"return_date": "2026-11-18",
-"injury": "Back"
 },
 {
 "athlete_id": "4701232",
@@ -570,7 +564,7 @@
 {
 "athlete_id": "6450",
 "status": "Out",
-"return_date": "2026-11-23",
+"return_date": "2026-11-27",
 "injury": "Left Knee Inflammation"
 },
 {
@@ -771,16 +765,16 @@
 "status": "Day-To-Day",
 "return_date": "2026-11-18",
 "injury": "Right Ankle",
-"updated": "2026-11-17T03:37Z"
+"updated": "2026-11-17T22:15Z"
 },
 {
 "athlete_id": "5106268",
 "name": "Nae'Qwan Tomlin",
 "team_name": "Cleveland Cavaliers",
 "status": "Out",
-"return_date": "2026-11-18",
+"return_date": "2026-11-29",
 "injury": "Back",
-"updated": "2026-10-20T15:11Z"
+"updated": "2026-11-17T22:18Z"
 },
 {
 "athlete_id": "4576087",
@@ -788,8 +782,8 @@
 "team_name": "Cleveland Cavaliers",
 "status": "Day-To-Day",
 "return_date": "2026-11-18",
-"injury": "Head Not Specified",
-"updated": "2026-11-17T02:58Z"
+"injury": "Back Bruise",
+"updated": "2026-11-17T22:13Z"
 },
 {
 "athlete_id": "4066757",
@@ -798,7 +792,7 @@
 "status": "Out",
 "return_date": "2026-11-18",
 "injury": "Right Elbow",
-"updated": "2026-11-15T21:39Z"
+"updated": "2026-11-17T22:15Z"
 },
 {
 "athlete_id": "4683688",
@@ -907,6 +901,15 @@
 "return_date": "2026-11-18",
 "injury": "Right Knee Soreness",
 "updated": "2026-11-16T22:58Z"
+},
+{
+"athlete_id": "3213",
+"name": "Al Horford",
+"team_name": "Golden State Warriors",
+"status": "Day-To-Day",
+"return_date": "2026-11-18",
+"injury": "Back",
+"updated": "2026-11-17T22:20Z"
 },
 {
 "athlete_id": "4397040",
@@ -1083,10 +1086,10 @@
 "athlete_id": "4432810",
 "name": "Isaiah Stewart",
 "team_name": "Memphis Grizzlies",
-"status": "Day-To-Day",
-"return_date": "2026-11-18",
+"status": "Out",
+"return_date": "2026-11-19",
 "injury": "Illness",
-"updated": "2026-11-17T03:35Z"
+"updated": "2026-11-17T22:10Z"
 },
 {
 "athlete_id": "5105462",
@@ -1110,10 +1113,10 @@
 "athlete_id": "4065733",
 "name": "Ty Jerome",
 "team_name": "Memphis Grizzlies",
-"status": "Day-To-Day",
-"return_date": "2026-11-18",
-"injury": "Right Hip Soreness",
-"updated": "2026-11-17T03:35Z"
+"status": "Out",
+"return_date": "2026-11-19",
+"injury": "Right Hip",
+"updated": "2026-11-17T22:07Z"
 },
 {
 "athlete_id": "4066261",
@@ -1150,15 +1153,6 @@
 "return_date": "2026-12-14",
 "injury": "Left Finger Surgery",
 "updated": "2026-11-15T23:46Z"
-},
-{
-"athlete_id": "4591725",
-"name": "Ryan Rollins",
-"team_name": "Milwaukee Bucks",
-"status": "Day-To-Day",
-"return_date": null,
-"injury": "",
-"updated": "2026-11-16T14:47Z"
 },
 {
 "athlete_id": "4594268",
@@ -1354,9 +1348,9 @@
 "name": "Dominick Barlow",
 "team_name": "Philadelphia 76ers",
 "status": "Out",
-"return_date": "2026-11-18",
+"return_date": "2026-11-21",
 "injury": "Not Specified Back Fracture",
-"updated": "2026-11-16T23:45Z"
+"updated": "2026-11-17T22:12Z"
 },
 {
 "athlete_id": "3917376",
@@ -1365,16 +1359,7 @@
 "status": "Out",
 "return_date": "2026-11-21",
 "injury": "Left Hamstring Not Specified",
-"updated": "2026-11-17T22:07Z"
-},
-{
-"athlete_id": "1966",
-"name": "LeBron James",
-"team_name": "Philadelphia 76ers",
-"status": "Day-To-Day",
-"return_date": "2026-11-18",
-"injury": "Back",
-"updated": "2026-11-17T03:41Z"
+"updated": "2026-11-17T22:08Z"
 },
 {
 "athlete_id": "4701232",
@@ -1498,9 +1483,9 @@
 "name": "Kawhi Leonard",
 "team_name": "Toronto Raptors",
 "status": "Out",
-"return_date": "2026-11-23",
+"return_date": "2026-11-27",
 "injury": "Left Knee Inflammation",
-"updated": "2026-11-11T22:33Z"
+"updated": "2026-11-17T22:25Z"
 },
 {
 "athlete_id": "4411057",
