@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-11-17T0109Z",
-"feed_timestamp": "2026-11-17T01:09:15Z",
+"collected_utc": "2026-11-17T0301Z",
+"feed_timestamp": "2026-11-17T03:01:26Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -58,6 +58,18 @@
 "injury": "Right Hand"
 },
 {
+"athlete_id": "4397189",
+"status": "Out",
+"return_date": "2026-11-18",
+"injury": "Undisclosed"
+},
+{
+"athlete_id": "4431687",
+"status": "Day-To-Day",
+"return_date": "2026-11-18",
+"injury": "Right Finger"
+},
+{
 "athlete_id": "5105555",
 "status": "Out",
 "return_date": "2026-11-18",
@@ -80,6 +92,12 @@
 "status": "Out",
 "return_date": "2026-11-18",
 "injury": "Back"
+},
+{
+"athlete_id": "4576087",
+"status": "Out",
+"return_date": "2026-11-18",
+"injury": "Head Not Specified"
 },
 {
 "athlete_id": "4066757",
@@ -264,14 +282,20 @@
 {
 "athlete_id": "5108024",
 "status": "Out",
-"return_date": "2026-11-17",
+"return_date": "2026-11-23",
 "injury": "Right Foot Surgery"
 },
 {
 "athlete_id": "4066457",
-"status": "Day-To-Day",
-"return_date": "2026-11-17",
+"status": "Out",
+"return_date": "2026-11-18",
 "injury": "Left Heel Bruise"
+},
+{
+"athlete_id": "4433136",
+"status": "Out",
+"return_date": "2026-11-18",
+"injury": "Right Lower Leg Soreness"
 },
 {
 "athlete_id": "5105550",
@@ -302,6 +326,12 @@
 "status": "Out",
 "return_date": "2026-11-18",
 "injury": "Right Hip Soreness"
+},
+{
+"athlete_id": "4066261",
+"status": "Day-To-Day",
+"return_date": "2026-11-18",
+"injury": "Right Hip"
 },
 {
 "athlete_id": "4997528",
@@ -460,12 +490,6 @@
 "injury": "Left Shoulder Surgery"
 },
 {
-"athlete_id": "4888725",
-"status": "Day-To-Day",
-"return_date": "2026-11-16",
-"injury": "Right Thumb Soreness"
-},
-{
 "athlete_id": "4706557",
 "status": "Out",
 "return_date": "2026-11-17",
@@ -557,8 +581,8 @@
 },
 {
 "athlete_id": "4397077",
-"status": "Day-To-Day",
-"return_date": "2026-11-17",
+"status": "Out",
+"return_date": "2026-11-18",
 "injury": "Left Knee Strain"
 },
 {
@@ -681,6 +705,24 @@
 "updated": "2026-11-12T21:35Z"
 },
 {
+"athlete_id": "4397189",
+"name": "Jalen Smith",
+"team_name": "Chicago Bulls",
+"status": "Out",
+"return_date": "2026-11-18",
+"injury": "Undisclosed",
+"updated": "2026-11-17T02:47Z"
+},
+{
+"athlete_id": "4431687",
+"name": "Patrick Williams",
+"team_name": "Chicago Bulls",
+"status": "Day-To-Day",
+"return_date": "2026-11-18",
+"injury": "Right Finger",
+"updated": "2026-11-17T02:12Z"
+},
+{
 "athlete_id": "5105555",
 "name": "Tobe Awaka",
 "team_name": "Chicago Bulls",
@@ -715,6 +757,15 @@
 "return_date": "2026-11-18",
 "injury": "Back",
 "updated": "2026-10-20T15:11Z"
+},
+{
+"athlete_id": "4576087",
+"name": "Peyton Watson",
+"team_name": "Cleveland Cavaliers",
+"status": "Out",
+"return_date": "2026-11-18",
+"injury": "Head Not Specified",
+"updated": "2026-11-17T02:42Z"
 },
 {
 "athlete_id": "4066757",
@@ -991,18 +1042,27 @@
 "name": "Yanic Konan Niederhauser",
 "team_name": "LA Clippers",
 "status": "Out",
-"return_date": "2026-11-17",
+"return_date": "2026-11-23",
 "injury": "Right Foot Surgery",
-"updated": "2026-11-10T00:05Z"
+"updated": "2026-11-17T01:07Z"
 },
 {
 "athlete_id": "4066457",
 "name": "Austin Reaves",
 "team_name": "Los Angeles Lakers",
-"status": "Day-To-Day",
-"return_date": "2026-11-17",
+"status": "Out",
+"return_date": "2026-11-18",
 "injury": "Left Heel Bruise",
-"updated": "2026-11-16T14:42Z"
+"updated": "2026-11-17T01:11Z"
+},
+{
+"athlete_id": "4433136",
+"name": "Walker Kessler",
+"team_name": "Los Angeles Lakers",
+"status": "Out",
+"return_date": "2026-11-18",
+"injury": "Right Lower Leg Soreness",
+"updated": "2026-11-17T01:10Z"
 },
 {
 "athlete_id": "5105550",
@@ -1048,6 +1108,15 @@
 "return_date": "2026-11-18",
 "injury": "Right Hip Soreness",
 "updated": "2026-11-15T22:13Z"
+},
+{
+"athlete_id": "4066261",
+"name": "Bam Adebayo",
+"team_name": "Miami Heat",
+"status": "Day-To-Day",
+"return_date": "2026-11-18",
+"injury": "Right Hip",
+"updated": "2026-11-17T02:31Z"
 },
 {
 "athlete_id": "4997528",
@@ -1284,15 +1353,6 @@
 "updated": "2026-09-11T16:03Z"
 },
 {
-"athlete_id": "4888725",
-"name": "Ryan Dunn",
-"team_name": "Phoenix Suns",
-"status": "Day-To-Day",
-"return_date": "2026-11-16",
-"injury": "Right Thumb Soreness",
-"updated": "2026-11-16T20:18Z"
-},
-{
 "athlete_id": "4706557",
 "name": "Chris Youngblood",
 "team_name": "Portland Trail Blazers",
@@ -1431,10 +1491,10 @@
 "athlete_id": "4397077",
 "name": "Jaxson Hayes",
 "team_name": "Utah Jazz",
-"status": "Day-To-Day",
-"return_date": "2026-11-17",
+"status": "Out",
+"return_date": "2026-11-18",
 "injury": "Left Knee Strain",
-"updated": "2026-11-16T14:44Z"
+"updated": "2026-11-17T01:08Z"
 },
 {
 "athlete_id": "3102530",
