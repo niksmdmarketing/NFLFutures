@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-11-18T1906Z",
-"feed_timestamp": "2026-11-18T19:06:47Z",
+"collected_utc": "2026-11-18T2206Z",
+"feed_timestamp": "2026-11-18T22:06:47Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -154,6 +154,12 @@
 "injury": "Left Knee Sprain"
 },
 {
+"athlete_id": "4432166",
+"status": "Day-To-Day",
+"return_date": "2026-11-18",
+"injury": "Right Knee Soreness"
+},
+{
 "athlete_id": "3157465",
 "status": "Out",
 "return_date": "2026-11-27",
@@ -179,8 +185,8 @@
 },
 {
 "athlete_id": "2990962",
-"status": "Day-To-Day",
-"return_date": "2026-11-18",
+"status": "Out",
+"return_date": "2026-11-20",
 "injury": "Right Knee Soreness"
 },
 {
@@ -293,15 +299,9 @@
 },
 {
 "athlete_id": "4066457",
-"status": "Day-To-Day",
-"return_date": "2026-11-18",
+"status": "Out",
+"return_date": "2026-11-20",
 "injury": "Left Heel Bruise"
-},
-{
-"athlete_id": "4433136",
-"status": "Day-To-Day",
-"return_date": "2026-11-18",
-"injury": "Right Lower Leg Soreness"
 },
 {
 "athlete_id": "5105550",
@@ -538,22 +538,10 @@
 "injury": "Right Achilles Surgery"
 },
 {
-"athlete_id": "4065732",
-"status": "Day-To-Day",
-"return_date": "2026-11-18",
-"injury": "Left Hip Soreness"
-},
-{
 "athlete_id": "4898371",
 "status": "Out",
 "return_date": "2026-11-25",
 "injury": "Right Knee Dislocated"
-},
-{
-"athlete_id": "4431679",
-"status": "Day-To-Day",
-"return_date": "2026-11-18",
-"injury": "Left Ankle Soreness"
 },
 {
 "athlete_id": "5037871",
@@ -578,12 +566,6 @@
 "status": "Out",
 "return_date": "2026-11-27",
 "injury": "Left Knee Inflammation"
-},
-{
-"athlete_id": "4411057",
-"status": "Day-To-Day",
-"return_date": "2026-11-20",
-"injury": "Illness"
 },
 {
 "athlete_id": "4432586",
@@ -885,6 +867,15 @@
 "updated": "2026-10-17T00:52Z"
 },
 {
+"athlete_id": "4432166",
+"name": "Cade Cunningham",
+"team_name": "Detroit Pistons",
+"status": "Day-To-Day",
+"return_date": "2026-11-18",
+"injury": "Right Knee Soreness",
+"updated": "2026-11-18T19:09Z"
+},
+{
 "athlete_id": "3157465",
 "name": "Duncan Robinson",
 "team_name": "Detroit Pistons",
@@ -900,7 +891,7 @@
 "status": "Out",
 "return_date": "2026-11-18",
 "injury": "Right Hip Bruise",
-"updated": "2026-11-17T18:33Z"
+"updated": "2026-11-18T19:08Z"
 },
 {
 "athlete_id": "4433621",
@@ -918,16 +909,16 @@
 "status": "Out",
 "return_date": "2026-11-20",
 "injury": "Left Knee Bruise",
-"updated": "2026-11-18T19:02Z"
+"updated": "2026-11-18T19:04Z"
 },
 {
 "athlete_id": "2990962",
 "name": "Taurean Prince",
 "team_name": "Detroit Pistons",
-"status": "Day-To-Day",
-"return_date": "2026-11-18",
+"status": "Out",
+"return_date": "2026-11-20",
 "injury": "Right Knee Soreness",
-"updated": "2026-11-18T15:05Z"
+"updated": "2026-11-18T19:05Z"
 },
 {
 "athlete_id": "3213",
@@ -1095,19 +1086,10 @@
 "athlete_id": "4066457",
 "name": "Austin Reaves",
 "team_name": "Los Angeles Lakers",
-"status": "Day-To-Day",
-"return_date": "2026-11-18",
+"status": "Out",
+"return_date": "2026-11-20",
 "injury": "Left Heel Bruise",
-"updated": "2026-11-18T15:02Z"
-},
-{
-"athlete_id": "4433136",
-"name": "Walker Kessler",
-"team_name": "Los Angeles Lakers",
-"status": "Day-To-Day",
-"return_date": "2026-11-18",
-"injury": "Right Lower Leg Soreness",
-"updated": "2026-11-18T15:02Z"
+"updated": "2026-11-18T21:03Z"
 },
 {
 "athlete_id": "5105550",
@@ -1461,15 +1443,6 @@
 "updated": "2026-10-21T04:22Z"
 },
 {
-"athlete_id": "4065732",
-"name": "De'Andre Hunter",
-"team_name": "Sacramento Kings",
-"status": "Day-To-Day",
-"return_date": "2026-11-18",
-"injury": "Left Hip Soreness",
-"updated": "2026-11-18T00:33Z"
-},
-{
 "athlete_id": "4898371",
 "name": "Maxime Raynaud",
 "team_name": "Sacramento Kings",
@@ -1477,15 +1450,6 @@
 "return_date": "2026-11-25",
 "injury": "Right Knee Dislocated",
 "updated": "2026-11-18T05:54Z"
-},
-{
-"athlete_id": "4431679",
-"name": "Precious Achiuwa",
-"team_name": "Sacramento Kings",
-"status": "Day-To-Day",
-"return_date": "2026-11-18",
-"injury": "Left Ankle Soreness",
-"updated": "2026-11-18T00:29Z"
 },
 {
 "athlete_id": "5037871",
@@ -1522,15 +1486,6 @@
 "return_date": "2026-11-27",
 "injury": "Left Knee Inflammation",
 "updated": "2026-11-17T22:25Z"
-},
-{
-"athlete_id": "4411057",
-"name": "Kevin McCullar Jr.",
-"team_name": "Toronto Raptors",
-"status": "Day-To-Day",
-"return_date": "2026-11-20",
-"injury": "Illness",
-"updated": "2026-11-13T15:37Z"
 },
 {
 "athlete_id": "4432586",
@@ -1575,7 +1530,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-11-18",
 "injury": "Left Knee Strain",
-"updated": "2026-11-18T14:59Z"
+"updated": "2026-11-18T21:05Z"
 },
 {
 "athlete_id": "3102530",
