@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-11-18T0106Z",
-"feed_timestamp": "2026-11-18T01:06:39Z",
+"collected_utc": "2026-11-18T0609Z",
+"feed_timestamp": "2026-11-18T06:09:51Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -44,6 +44,12 @@
 "status": "Out",
 "return_date": "2026-11-25",
 "injury": "Left Hamstring Strain"
+},
+{
+"athlete_id": "3135045",
+"status": "Out",
+"return_date": "2026-11-20",
+"injury": "Concussion"
 },
 {
 "athlete_id": "5061575",
@@ -188,6 +194,12 @@
 "status": "Out",
 "return_date": "2026-11-22",
 "injury": "Left Hamstring Not Specified"
+},
+{
+"athlete_id": "6589",
+"status": "Day-To-Day",
+"return_date": "2026-11-18",
+"injury": "Right Elbow Inflammation"
 },
 {
 "athlete_id": "6430",
@@ -540,7 +552,7 @@
 {
 "athlete_id": "4898371",
 "status": "Out",
-"return_date": "2026-11-18",
+"return_date": "2026-11-25",
 "injury": "Right Knee Dislocated"
 },
 {
@@ -548,6 +560,12 @@
 "status": "Day-To-Day",
 "return_date": "2026-11-18",
 "injury": "Left Ankle Soreness"
+},
+{
+"athlete_id": "5037871",
+"status": "Day-To-Day",
+"return_date": "2026-11-19",
+"injury": "Undisclosed"
 },
 {
 "athlete_id": "5101845",
@@ -697,6 +715,15 @@
 "return_date": "2026-11-25",
 "injury": "Left Hamstring Strain",
 "updated": "2026-11-08T22:26Z"
+},
+{
+"athlete_id": "3135045",
+"name": "Grayson Allen",
+"team_name": "Charlotte Hornets",
+"status": "Out",
+"return_date": "2026-11-20",
+"injury": "Concussion",
+"updated": "2026-11-18T02:19Z"
 },
 {
 "athlete_id": "5061575",
@@ -915,6 +942,15 @@
 "updated": "2026-11-10T21:24Z"
 },
 {
+"athlete_id": "6589",
+"name": "Draymond Green",
+"team_name": "Golden State Warriors",
+"status": "Day-To-Day",
+"return_date": "2026-11-18",
+"injury": "Right Elbow Inflammation",
+"updated": "2026-11-18T05:49Z"
+},
+{
 "athlete_id": "6430",
 "name": "Jimmy Butler III",
 "team_name": "Golden State Warriors",
@@ -1074,7 +1110,7 @@
 "status": "Out",
 "return_date": "2026-11-18",
 "injury": "Right Lower Leg Soreness",
-"updated": "2026-11-17T01:10Z"
+"updated": "2026-11-18T02:57Z"
 },
 {
 "athlete_id": "5105550",
@@ -1441,9 +1477,9 @@
 "name": "Maxime Raynaud",
 "team_name": "Sacramento Kings",
 "status": "Out",
-"return_date": "2026-11-18",
+"return_date": "2026-11-25",
 "injury": "Right Knee Dislocated",
-"updated": "2026-11-15T01:00Z"
+"updated": "2026-11-18T05:54Z"
 },
 {
 "athlete_id": "4431679",
@@ -1453,6 +1489,15 @@
 "return_date": "2026-11-18",
 "injury": "Left Ankle Soreness",
 "updated": "2026-11-18T00:29Z"
+},
+{
+"athlete_id": "5037871",
+"name": "Dylan Harper",
+"team_name": "San Antonio Spurs",
+"status": "Day-To-Day",
+"return_date": "2026-11-19",
+"injury": "Undisclosed",
+"updated": "2026-11-18T05:07Z"
 },
 {
 "athlete_id": "5101845",
