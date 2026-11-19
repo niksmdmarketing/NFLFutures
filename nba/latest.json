@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-11-19T0029Z",
-"feed_timestamp": "2026-11-19T00:28:55Z",
+"collected_utc": "2026-11-19T0106Z",
+"feed_timestamp": "2026-11-19T01:06:32Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -125,8 +125,8 @@
 },
 {
 "athlete_id": "4432166",
-"status": "Day-To-Day",
-"return_date": "2026-11-18",
+"status": "Out",
+"return_date": "2026-11-20",
 "injury": "Right Knee Soreness"
 },
 {
@@ -134,12 +134,6 @@
 "status": "Out",
 "return_date": "2026-11-27",
 "injury": "Left Quadriceps Strain"
-},
-{
-"athlete_id": "4395702",
-"status": "Out",
-"return_date": "2026-11-18",
-"injury": "Right Hip Bruise"
 },
 {
 "athlete_id": "4433621",
@@ -194,6 +188,12 @@
 "status": "Out",
 "return_date": "2026-12-12",
 "injury": "Right Abdomen"
+},
+{
+"athlete_id": "4871144",
+"status": "Day-To-Day",
+"return_date": "2026-11-18",
+"injury": "Face"
 },
 {
 "athlete_id": "3102529",
@@ -783,10 +783,10 @@
 "athlete_id": "4432166",
 "name": "Cade Cunningham",
 "team_name": "Detroit Pistons",
-"status": "Day-To-Day",
-"return_date": "2026-11-18",
+"status": "Out",
+"return_date": "2026-11-20",
 "injury": "Right Knee Soreness",
-"updated": "2026-11-18T19:09Z"
+"updated": "2026-11-19T00:37Z"
 },
 {
 "athlete_id": "3157465",
@@ -796,15 +796,6 @@
 "return_date": "2026-11-27",
 "injury": "Left Quadriceps Strain",
 "updated": "2026-11-17T16:25Z"
-},
-{
-"athlete_id": "4395702",
-"name": "Isaiah Joe",
-"team_name": "Detroit Pistons",
-"status": "Out",
-"return_date": "2026-11-18",
-"injury": "Right Hip Bruise",
-"updated": "2026-11-18T19:08Z"
 },
 {
 "athlete_id": "4433621",
@@ -886,6 +877,15 @@
 "return_date": "2026-12-12",
 "injury": "Right Abdomen",
 "updated": "2026-11-12T17:03Z"
+},
+{
+"athlete_id": "4871144",
+"name": "Alperen Sengun",
+"team_name": "Houston Rockets",
+"status": "Day-To-Day",
+"return_date": "2026-11-18",
+"injury": "Face",
+"updated": "2026-11-19T00:54Z"
 },
 {
 "athlete_id": "3102529",
