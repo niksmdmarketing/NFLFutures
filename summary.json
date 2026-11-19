@@ -1,12 +1,12 @@
 {
  "schema_version": 2,
  "source_url": "https://www.nfl.com/injuries/",
- "generated_at": "2026-11-19T13:02:53+00:00",
- "last_attempt_at": "2026-11-19T13:02:53+00:00",
+ "generated_at": "2026-11-19T19:02:53+00:00",
+ "last_attempt_at": "2026-11-19T19:02:53+00:00",
  "last_attempt_ok": true,
  "last_error": null,
- "last_success_at": "2026-11-19T13:02:53+00:00",
- "report_first_seen_at": "2026-11-19T01:02:40+00:00",
+ "last_success_at": "2026-11-19T19:02:53+00:00",
+ "report_first_seen_at": "2026-11-19T19:02:53+00:00",
  "collection_status": "ok",
  "stale_after_hours": 6,
  "report_season": 2026,
@@ -75,9 +75,9 @@
   "2026-11-23"
  ],
  "status_counts": {
-  "No game status": 237,
+  "No game status": 238,
   "Out": 9,
-  "Questionable": 7
+  "Questionable": 6
  },
  "rows": [
   {
@@ -1075,9 +1075,9 @@
    "player_id": "charlie-heck",
    "player": "Charlie Heck",
    "position": "T",
-   "injury": "Not injury related - personal matter",
+   "injury": null,
    "practice_status": "Did Not Participate In Practice",
-   "game_status": "Questionable",
+   "game_status": null,
    "player_url": "https://www.nfl.com/players/charlie-heck/"
   },
   {
@@ -2613,6 +2613,34 @@
  ],
  "recent_changes": [
   {
+   "observed_at": "2026-11-19T19:02:53+00:00",
+   "season": 2026,
+   "week": 11,
+   "team": "IND",
+   "player_id": "charlie-heck",
+   "kind": "updated",
+   "before": {
+    "team": "IND",
+    "player_id": "charlie-heck",
+    "player": "Charlie Heck",
+    "position": "T",
+    "injury": "Not injury related - personal matter",
+    "practice_status": "Did Not Participate In Practice",
+    "game_status": "Questionable",
+    "player_url": "https://www.nfl.com/players/charlie-heck/"
+   },
+   "after": {
+    "team": "IND",
+    "player_id": "charlie-heck",
+    "player": "Charlie Heck",
+    "position": "T",
+    "injury": null,
+    "practice_status": "Did Not Participate In Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/charlie-heck/"
+   }
+  },
+  {
    "observed_at": "2026-11-19T01:02:40+00:00",
    "season": 2026,
    "week": 11,
@@ -3352,29 +3380,10 @@
     "game_status": null,
     "player_url": "https://www.nfl.com/players/dre-greenlaw-x9042/"
    }
-  },
-  {
-   "observed_at": "2026-11-19T00:26:04+00:00",
-   "season": 2026,
-   "week": 11,
-   "team": "SF",
-   "player_id": "cj-west",
-   "kind": "appeared",
-   "before": null,
-   "after": {
-    "team": "SF",
-    "player_id": "cj-west",
-    "player": "C.J. West",
-    "position": "DT",
-    "injury": null,
-    "practice_status": "Full Participation in Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/cj-west/"
-   }
   }
  ],
- "distinct_reports": 49,
- "checks": 457,
+ "distinct_reports": 50,
+ "checks": 458,
  "failed_checks": 0,
  "warnings": [
   "2 team(s) playing this week are not on the report yet (CIN, WAS). Teams usually appear as their game approaches; absence does not mean healthy."
