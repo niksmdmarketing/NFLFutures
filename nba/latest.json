@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-11-19T0106Z",
-"feed_timestamp": "2026-11-19T01:06:32Z",
+"collected_utc": "2026-11-19T0609Z",
+"feed_timestamp": "2026-11-19T06:09:28Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -192,8 +192,8 @@
 {
 "athlete_id": "4871144",
 "status": "Day-To-Day",
-"return_date": "2026-11-18",
-"injury": "Face"
+"return_date": "2026-11-20",
+"injury": "Eye"
 },
 {
 "athlete_id": "3102529",
@@ -212,6 +212,12 @@
 "status": "Out",
 "return_date": "2027-01-02",
 "injury": "Left Knee"
+},
+{
+"athlete_id": "5105854",
+"status": "Day-To-Day",
+"return_date": "2026-11-20",
+"injury": "Right Ankle Sprain"
 },
 {
 "athlete_id": "5157066",
@@ -356,6 +362,12 @@
 "status": "Out",
 "return_date": "2026-11-20",
 "injury": "Not Specified Knee Tendinitis"
+},
+{
+"athlete_id": "2991350",
+"status": "Out",
+"return_date": "2026-11-20",
+"injury": "Right Hip Soreness"
 },
 {
 "athlete_id": "4683692",
@@ -520,6 +532,12 @@
 "injury": "Left Calf Strain"
 },
 {
+"athlete_id": "5093267",
+"status": "Day-To-Day",
+"return_date": "2026-11-20",
+"injury": "Illness"
+},
+{
 "athlete_id": "6450",
 "status": "Out",
 "return_date": "2026-11-27",
@@ -550,12 +568,6 @@
 "injury": "Right Knee Not Specified"
 },
 {
-"athlete_id": "4397077",
-"status": "Day-To-Day",
-"return_date": "2026-11-18",
-"injury": "Left Knee Strain"
-},
-{
 "athlete_id": "3102530",
 "status": "Out",
 "return_date": "2026-11-20",
@@ -570,7 +582,7 @@
 {
 "athlete_id": "5105841",
 "status": "Day-To-Day",
-"return_date": "2026-11-18",
+"return_date": "2026-11-20",
 "injury": "Back Strain"
 },
 {
@@ -883,9 +895,9 @@
 "name": "Alperen Sengun",
 "team_name": "Houston Rockets",
 "status": "Day-To-Day",
-"return_date": "2026-11-18",
-"injury": "Face",
-"updated": "2026-11-19T00:54Z"
+"return_date": "2026-11-20",
+"injury": "Eye",
+"updated": "2026-11-19T01:27Z"
 },
 {
 "athlete_id": "3102529",
@@ -913,6 +925,15 @@
 "return_date": "2027-01-02",
 "injury": "Left Knee",
 "updated": "2026-10-28T21:41Z"
+},
+{
+"athlete_id": "5105854",
+"name": "Braden Smith",
+"team_name": "Indiana Pacers",
+"status": "Day-To-Day",
+"return_date": "2026-11-20",
+"injury": "Right Ankle Sprain",
+"updated": "2026-11-19T02:52Z"
 },
 {
 "athlete_id": "5157066",
@@ -966,7 +987,7 @@
 "status": "Out",
 "return_date": "2026-11-20",
 "injury": "Left Heel Bruise",
-"updated": "2026-11-18T21:03Z"
+"updated": "2026-11-19T01:38Z"
 },
 {
 "athlete_id": "5105550",
@@ -1129,6 +1150,15 @@
 "return_date": "2026-11-20",
 "injury": "Not Specified Knee Tendinitis",
 "updated": "2026-11-17T20:51Z"
+},
+{
+"athlete_id": "2991350",
+"name": "Alex Caruso",
+"team_name": "Oklahoma City Thunder",
+"status": "Out",
+"return_date": "2026-11-20",
+"injury": "Right Hip Soreness",
+"updated": "2026-11-19T03:13Z"
 },
 {
 "athlete_id": "4683692",
@@ -1374,6 +1404,15 @@
 "updated": "2026-11-16T19:26Z"
 },
 {
+"athlete_id": "5093267",
+"name": "Collin Murray-Boyles",
+"team_name": "Toronto Raptors",
+"status": "Day-To-Day",
+"return_date": "2026-11-20",
+"injury": "Illness",
+"updated": "2026-11-19T01:34Z"
+},
+{
 "athlete_id": "6450",
 "name": "Kawhi Leonard",
 "team_name": "Toronto Raptors",
@@ -1419,15 +1458,6 @@
 "updated": "2026-10-27T19:25Z"
 },
 {
-"athlete_id": "4397077",
-"name": "Jaxson Hayes",
-"team_name": "Utah Jazz",
-"status": "Day-To-Day",
-"return_date": "2026-11-18",
-"injury": "Left Knee Strain",
-"updated": "2026-11-18T21:05Z"
-},
-{
 "athlete_id": "3102530",
 "name": "Jusuf Nurkic",
 "team_name": "Utah Jazz",
@@ -1450,7 +1480,7 @@
 "name": "Felix Okpara",
 "team_name": "Washington Wizards",
 "status": "Day-To-Day",
-"return_date": "2026-11-18",
+"return_date": "2026-11-20",
 "injury": "Back Strain",
 "updated": "2026-11-17T16:38Z"
 },
