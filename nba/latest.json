@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-11-19T1907Z",
-"feed_timestamp": "2026-11-19T19:07:44Z",
+"collected_utc": "2026-11-19T2045Z",
+"feed_timestamp": "2026-11-19T20:45:24Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -300,8 +300,14 @@
 {
 "athlete_id": "4065733",
 "status": "Out",
-"return_date": "2026-11-19",
+"return_date": "2026-11-21",
 "injury": "Right Hip"
+},
+{
+"athlete_id": "4600663",
+"status": "Out",
+"return_date": "2026-11-21",
+"injury": "Ankle"
 },
 {
 "athlete_id": "4431772",
@@ -310,16 +316,22 @@
 "injury": "Hamstring"
 },
 {
+"athlete_id": "3134907",
+"status": "Out",
+"return_date": "2026-11-21",
+"injury": "Right Shoulder Bruise"
+},
+{
+"athlete_id": "3133628",
+"status": "Out",
+"return_date": "2026-11-21",
+"injury": "Left Shoulder Bruise"
+},
+{
 "athlete_id": "4997526",
 "status": "Out",
 "return_date": "2026-12-14",
 "injury": "Left Finger Surgery"
-},
-{
-"athlete_id": "4591725",
-"status": "Day-To-Day",
-"return_date": "2026-11-19",
-"injury": "Illness"
 },
 {
 "athlete_id": "4594268",
@@ -360,7 +372,7 @@
 {
 "athlete_id": "3907497",
 "status": "Out",
-"return_date": "2026-11-20",
+"return_date": "2026-11-27",
 "injury": "Ankle"
 },
 {
@@ -528,7 +540,7 @@
 {
 "athlete_id": "5037871",
 "status": "Out",
-"return_date": "2026-11-21",
+"return_date": "2026-12-13",
 "injury": "Hip Soreness"
 },
 {
@@ -1044,7 +1056,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-11-19",
 "injury": "Illness",
-"updated": "2026-11-19T14:44Z"
+"updated": "2026-11-19T19:11Z"
 },
 {
 "athlete_id": "5105462",
@@ -1069,9 +1081,18 @@
 "name": "Ty Jerome",
 "team_name": "Memphis Grizzlies",
 "status": "Out",
-"return_date": "2026-11-19",
+"return_date": "2026-11-21",
 "injury": "Right Hip",
-"updated": "2026-11-17T22:07Z"
+"updated": "2026-11-19T19:07Z"
+},
+{
+"athlete_id": "4600663",
+"name": "Zach Edey",
+"team_name": "Memphis Grizzlies",
+"status": "Out",
+"return_date": "2026-11-21",
+"injury": "Ankle",
+"updated": "2026-11-19T19:09Z"
 },
 {
 "athlete_id": "4431772",
@@ -1083,6 +1104,24 @@
 "updated": "2026-11-19T14:45Z"
 },
 {
+"athlete_id": "3134907",
+"name": "Kyle Kuzma",
+"team_name": "Milwaukee Bucks",
+"status": "Out",
+"return_date": "2026-11-21",
+"injury": "Right Shoulder Bruise",
+"updated": "2026-11-19T19:20Z"
+},
+{
+"athlete_id": "3133628",
+"name": "Myles Turner",
+"team_name": "Milwaukee Bucks",
+"status": "Out",
+"return_date": "2026-11-21",
+"injury": "Left Shoulder Bruise",
+"updated": "2026-11-19T19:15Z"
+},
+{
 "athlete_id": "4997526",
 "name": "Ousmane Dieng",
 "team_name": "Milwaukee Bucks",
@@ -1090,15 +1129,6 @@
 "return_date": "2026-12-14",
 "injury": "Left Finger Surgery",
 "updated": "2026-11-15T23:46Z"
-},
-{
-"athlete_id": "4591725",
-"name": "Ryan Rollins",
-"team_name": "Milwaukee Bucks",
-"status": "Day-To-Day",
-"return_date": "2026-11-19",
-"injury": "Illness",
-"updated": "2026-11-19T14:45Z"
 },
 {
 "athlete_id": "4594268",
@@ -1159,7 +1189,7 @@
 "name": "Dejounte Murray",
 "team_name": "New Orleans Pelicans",
 "status": "Out",
-"return_date": "2026-11-20",
+"return_date": "2026-11-27",
 "injury": "Ankle",
 "updated": "2026-11-13T20:19Z"
 },
@@ -1411,9 +1441,9 @@
 "name": "Dylan Harper",
 "team_name": "San Antonio Spurs",
 "status": "Out",
-"return_date": "2026-11-21",
+"return_date": "2026-12-13",
 "injury": "Hip Soreness",
-"updated": "2026-11-19T17:40Z"
+"updated": "2026-11-19T20:07Z"
 },
 {
 "athlete_id": "5101845",
