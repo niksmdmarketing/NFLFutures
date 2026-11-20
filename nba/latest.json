@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-11-20T0605Z",
-"feed_timestamp": "2026-11-20T06:05:30Z",
+"collected_utc": "2026-11-20T1909Z",
+"feed_timestamp": "2026-11-20T19:09:08Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -74,6 +74,12 @@
 "status": "Out",
 "return_date": "2026-12-13",
 "injury": "Right Hand"
+},
+{
+"athlete_id": "4397189",
+"status": "Day-To-Day",
+"return_date": "2026-11-20",
+"injury": "Illness"
 },
 {
 "athlete_id": "5242496",
@@ -167,8 +173,8 @@
 },
 {
 "athlete_id": "4683771",
-"status": "Out",
-"return_date": "2026-11-22",
+"status": "Day-To-Day",
+"return_date": "2026-11-20",
 "injury": "Left Knee Bruise"
 },
 {
@@ -430,6 +436,12 @@
 "injury": "Left Leg Fracture"
 },
 {
+"athlete_id": "5159925",
+"status": "Out",
+"return_date": "2026-11-22",
+"injury": "Left Hip Soreness"
+},
+{
 "athlete_id": "5061603",
 "status": "Out",
 "return_date": "2027-01-31",
@@ -462,7 +474,7 @@
 {
 "athlete_id": "5105637",
 "status": "Out",
-"return_date": "2026-11-21",
+"return_date": "2026-11-23",
 "injury": "Back Sprain"
 },
 {
@@ -470,12 +482,6 @@
 "status": "Out",
 "return_date": "2027-10-01",
 "injury": "Right Achilles Surgery"
-},
-{
-"athlete_id": "3912848",
-"status": "Day-To-Day",
-"return_date": "2026-11-21",
-"injury": "Left Hamstring Soreness"
 },
 {
 "athlete_id": "4870562",
@@ -762,6 +768,15 @@
 "updated": "2026-11-12T21:35Z"
 },
 {
+"athlete_id": "4397189",
+"name": "Jalen Smith",
+"team_name": "Chicago Bulls",
+"status": "Day-To-Day",
+"return_date": "2026-11-20",
+"injury": "Illness",
+"updated": "2026-11-20T17:41Z"
+},
+{
 "athlete_id": "5242496",
 "name": "Noa Essengue",
 "team_name": "Chicago Bulls",
@@ -900,10 +915,10 @@
 "athlete_id": "4683771",
 "name": "Ronald Holland II",
 "team_name": "Detroit Pistons",
-"status": "Out",
-"return_date": "2026-11-22",
+"status": "Day-To-Day",
+"return_date": "2026-11-20",
 "injury": "Left Knee Bruise",
-"updated": "2026-11-19T21:41Z"
+"updated": "2026-11-20T17:46Z"
 },
 {
 "athlete_id": "2990962",
@@ -1293,6 +1308,15 @@
 "updated": "2026-10-28T23:41Z"
 },
 {
+"athlete_id": "5159925",
+"name": "Nikola Topic",
+"team_name": "Oklahoma City Thunder",
+"status": "Out",
+"return_date": "2026-11-22",
+"injury": "Left Hip Soreness",
+"updated": "2026-11-20T17:02Z"
+},
+{
 "athlete_id": "5061603",
 "name": "Thomas Sorber",
 "team_name": "Oklahoma City Thunder",
@@ -1342,9 +1366,9 @@
 "name": "Adem Bona",
 "team_name": "Philadelphia 76ers",
 "status": "Out",
-"return_date": "2026-11-21",
+"return_date": "2026-11-23",
 "injury": "Back Sprain",
-"updated": "2026-11-12T16:36Z"
+"updated": "2026-11-20T17:33Z"
 },
 {
 "athlete_id": "4871141",
@@ -1356,22 +1380,13 @@
 "updated": "2026-10-06T19:17Z"
 },
 {
-"athlete_id": "3912848",
-"name": "Dean Wade",
-"team_name": "Philadelphia 76ers",
-"status": "Day-To-Day",
-"return_date": "2026-11-21",
-"injury": "Left Hamstring Soreness",
-"updated": "2026-11-19T14:47Z"
-},
-{
 "athlete_id": "4870562",
 "name": "Dominick Barlow",
 "team_name": "Philadelphia 76ers",
 "status": "Out",
 "return_date": "2026-11-21",
 "injury": "Not Specified Back Fracture",
-"updated": "2026-11-17T22:12Z"
+"updated": "2026-11-20T17:20Z"
 },
 {
 "athlete_id": "3917376",
@@ -1380,7 +1395,7 @@
 "status": "Out",
 "return_date": "2026-11-23",
 "injury": "Left Hamstring Not Specified",
-"updated": "2026-11-18T22:21Z"
+"updated": "2026-11-20T17:26Z"
 },
 {
 "athlete_id": "4431678",
@@ -1389,7 +1404,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-11-21",
 "injury": "Right Foot Soreness",
-"updated": "2026-11-19T14:46Z"
+"updated": "2026-11-20T17:28Z"
 },
 {
 "athlete_id": "4701232",
