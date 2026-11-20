@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-11-20T0109Z",
-"feed_timestamp": "2026-11-20T01:09:23Z",
+"collected_utc": "2026-11-20T0328Z",
+"feed_timestamp": "2026-11-20T03:28:05Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -294,7 +294,7 @@
 {
 "athlete_id": "4066457",
 "status": "Out",
-"return_date": "2026-11-20",
+"return_date": "2026-11-23",
 "injury": "Left Heel Bruise"
 },
 {
@@ -302,6 +302,12 @@
 "status": "Out",
 "return_date": "2027-01-18",
 "injury": "Left Foot Surgery"
+},
+{
+"athlete_id": "2991070",
+"status": "Day-To-Day",
+"return_date": "2026-11-21",
+"injury": "Left Calf Not Specified"
 },
 {
 "athlete_id": "5105462",
@@ -538,10 +544,22 @@
 "injury": "Right Achilles Surgery"
 },
 {
+"athlete_id": "4065732",
+"status": "Day-To-Day",
+"return_date": "2026-11-20",
+"injury": "Left Hip Soreness"
+},
+{
 "athlete_id": "4898371",
 "status": "Out",
 "return_date": "2026-11-25",
 "injury": "Right Knee Dislocated"
+},
+{
+"athlete_id": "4431679",
+"status": "Day-To-Day",
+"return_date": "2026-11-20",
+"injury": "Left Lower Leg Bruise"
 },
 {
 "athlete_id": "5037871",
@@ -1072,9 +1090,9 @@
 "name": "Austin Reaves",
 "team_name": "Los Angeles Lakers",
 "status": "Out",
-"return_date": "2026-11-20",
+"return_date": "2026-11-23",
 "injury": "Left Heel Bruise",
-"updated": "2026-11-19T01:38Z"
+"updated": "2026-11-20T01:05Z"
 },
 {
 "athlete_id": "5105550",
@@ -1084,6 +1102,15 @@
 "return_date": "2027-01-18",
 "injury": "Left Foot Surgery",
 "updated": "2026-11-17T23:18Z"
+},
+{
+"athlete_id": "2991070",
+"name": "Jerami Grant",
+"team_name": "Memphis Grizzlies",
+"status": "Day-To-Day",
+"return_date": "2026-11-21",
+"injury": "Left Calf Not Specified",
+"updated": "2026-11-20T02:08Z"
 },
 {
 "athlete_id": "5105462",
@@ -1437,6 +1464,15 @@
 "updated": "2026-10-21T04:22Z"
 },
 {
+"athlete_id": "4065732",
+"name": "De'Andre Hunter",
+"team_name": "Sacramento Kings",
+"status": "Day-To-Day",
+"return_date": "2026-11-20",
+"injury": "Left Hip Soreness",
+"updated": "2026-11-20T01:21Z"
+},
+{
 "athlete_id": "4898371",
 "name": "Maxime Raynaud",
 "team_name": "Sacramento Kings",
@@ -1444,6 +1480,15 @@
 "return_date": "2026-11-25",
 "injury": "Right Knee Dislocated",
 "updated": "2026-11-18T05:54Z"
+},
+{
+"athlete_id": "4431679",
+"name": "Precious Achiuwa",
+"team_name": "Sacramento Kings",
+"status": "Day-To-Day",
+"return_date": "2026-11-20",
+"injury": "Left Lower Leg Bruise",
+"updated": "2026-11-20T01:22Z"
 },
 {
 "athlete_id": "5037871",
