@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-11-19T2209Z",
-"feed_timestamp": "2026-11-19T22:09:24Z",
+"collected_utc": "2026-11-20T0109Z",
+"feed_timestamp": "2026-11-20T01:09:23Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -23,7 +23,7 @@
 },
 {
 "athlete_id": "3146557",
-"status": "Day-To-Day",
+"status": "Out",
 "return_date": "2026-11-22",
 "injury": "Right Hip Inflammation"
 },
@@ -52,9 +52,15 @@
 "injury": "Left Hamstring Strain"
 },
 {
+"athlete_id": "4066218",
+"status": "Out",
+"return_date": "2026-11-23",
+"injury": "Right Hamstring"
+},
+{
 "athlete_id": "3135045",
-"status": "Day-To-Day",
-"return_date": "2026-11-20",
+"status": "Out",
+"return_date": "2026-11-23",
 "injury": "Concussion"
 },
 {
@@ -68,6 +74,12 @@
 "status": "Out",
 "return_date": "2026-12-13",
 "injury": "Right Hand"
+},
+{
+"athlete_id": "5242496",
+"status": "Day-To-Day",
+"return_date": "2026-11-20",
+"injury": "Not Specified Wrist Soreness"
 },
 {
 "athlete_id": "5105555",
@@ -196,12 +208,6 @@
 "injury": "Illness"
 },
 {
-"athlete_id": "4433149",
-"status": "Day-To-Day",
-"return_date": "2026-11-19",
-"injury": "Back"
-},
-{
 "athlete_id": "4432171",
 "status": "Out",
 "return_date": "2026-12-01",
@@ -222,8 +228,14 @@
 {
 "athlete_id": "3102529",
 "status": "Out",
-"return_date": "2026-11-20",
+"return_date": "2026-11-23",
 "injury": "Right Ankle Sprain"
+},
+{
+"athlete_id": "2991235",
+"status": "Day-To-Day",
+"return_date": "2026-11-20",
+"injury": "Right Quadriceps Bruise"
 },
 {
 "athlete_id": "4395712",
@@ -248,6 +260,12 @@
 "status": "Out",
 "return_date": "2027-01-02",
 "injury": "Right Knee Surgery"
+},
+{
+"athlete_id": "2530530",
+"status": "Day-To-Day",
+"return_date": "2026-11-20",
+"injury": "Right Hamstring Strain"
 },
 {
 "athlete_id": "4396993",
@@ -284,12 +302,6 @@
 "status": "Out",
 "return_date": "2027-01-18",
 "injury": "Left Foot Surgery"
-},
-{
-"athlete_id": "4432810",
-"status": "Day-To-Day",
-"return_date": "2026-11-19",
-"injury": "Illness"
 },
 {
 "athlete_id": "5105462",
@@ -356,12 +368,6 @@
 "status": "Out",
 "return_date": "2026-11-29",
 "injury": "Right Hamstring Not Specified"
-},
-{
-"athlete_id": "4433247",
-"status": "Day-To-Day",
-"return_date": "2026-11-19",
-"injury": "Right Shoulder"
 },
 {
 "athlete_id": "4683634",
@@ -497,8 +503,8 @@
 },
 {
 "athlete_id": "4683021",
-"status": "Day-To-Day",
-"return_date": "2026-11-19",
+"status": "Out",
+"return_date": "2026-11-21",
 "injury": "Foot"
 },
 {
@@ -518,12 +524,6 @@
 "status": "Out",
 "return_date": "2027-03-02",
 "injury": "Right Knee Surgery"
-},
-{
-"athlete_id": "4431736",
-"status": "Day-To-Day",
-"return_date": "2026-11-19",
-"injury": "Rest"
 },
 {
 "athlete_id": "4578893",
@@ -594,7 +594,7 @@
 {
 "athlete_id": "3102530",
 "status": "Out",
-"return_date": "2026-11-20",
+"return_date": "2026-11-27",
 "injury": "Right Foot Strain"
 },
 {
@@ -666,10 +666,10 @@
 "athlete_id": "3146557",
 "name": "Jock Landale",
 "team_name": "Atlanta Hawks",
-"status": "Day-To-Day",
+"status": "Out",
 "return_date": "2026-11-22",
 "injury": "Right Hip Inflammation",
-"updated": "2026-11-19T14:50Z"
+"updated": "2026-11-19T22:07Z"
 },
 {
 "athlete_id": "5149077",
@@ -678,7 +678,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-11-20",
 "injury": "Back Strain",
-"updated": "2026-11-19T14:50Z"
+"updated": "2026-11-19T22:05Z"
 },
 {
 "athlete_id": "4712863",
@@ -708,13 +708,22 @@
 "updated": "2026-11-08T22:26Z"
 },
 {
+"athlete_id": "4066218",
+"name": "Grant Williams",
+"team_name": "Charlotte Hornets",
+"status": "Out",
+"return_date": "2026-11-23",
+"injury": "Right Hamstring",
+"updated": "2026-11-19T22:21Z"
+},
+{
 "athlete_id": "3135045",
 "name": "Grayson Allen",
 "team_name": "Charlotte Hornets",
-"status": "Day-To-Day",
-"return_date": "2026-11-20",
+"status": "Out",
+"return_date": "2026-11-23",
 "injury": "Concussion",
-"updated": "2026-11-18T15:07Z"
+"updated": "2026-11-19T22:02Z"
 },
 {
 "athlete_id": "5061575",
@@ -733,6 +742,15 @@
 "return_date": "2026-12-13",
 "injury": "Right Hand",
 "updated": "2026-11-12T21:35Z"
+},
+{
+"athlete_id": "5242496",
+"name": "Noa Essengue",
+"team_name": "Chicago Bulls",
+"status": "Day-To-Day",
+"return_date": "2026-11-20",
+"injury": "Not Specified Wrist Soreness",
+"updated": "2026-11-19T22:12Z"
 },
 {
 "athlete_id": "5105555",
@@ -876,7 +894,7 @@
 "status": "Out",
 "return_date": "2026-12-13",
 "injury": "Right Knee Surgery",
-"updated": "2026-11-19T21:49Z"
+"updated": "2026-11-19T21:53Z"
 },
 {
 "athlete_id": "5037878",
@@ -924,15 +942,6 @@
 "updated": "2026-11-06T21:26Z"
 },
 {
-"athlete_id": "4433149",
-"name": "LJ Cryer",
-"team_name": "Golden State Warriors",
-"status": "Day-To-Day",
-"return_date": "2026-11-19",
-"injury": "Back",
-"updated": "2026-11-19T18:46Z"
-},
-{
 "athlete_id": "4432171",
 "name": "Moses Moody",
 "team_name": "Golden State Warriors",
@@ -957,16 +966,25 @@
 "status": "Day-To-Day",
 "return_date": "2026-11-20",
 "injury": "Eye",
-"updated": "2026-11-19T01:27Z"
+"updated": "2026-11-19T23:17Z"
 },
 {
 "athlete_id": "3102529",
 "name": "Clint Capela",
 "team_name": "Houston Rockets",
 "status": "Out",
-"return_date": "2026-11-20",
+"return_date": "2026-11-23",
 "injury": "Right Ankle Sprain",
-"updated": "2026-11-17T20:58Z"
+"updated": "2026-11-19T23:19Z"
+},
+{
+"athlete_id": "2991235",
+"name": "Steven Adams",
+"team_name": "Houston Rockets",
+"status": "Day-To-Day",
+"return_date": "2026-11-20",
+"injury": "Right Quadriceps Bruise",
+"updated": "2026-11-19T23:22Z"
 },
 {
 "athlete_id": "4395712",
@@ -975,7 +993,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-11-20",
 "injury": "Left Hip Soreness",
-"updated": "2026-11-19T14:45Z"
+"updated": "2026-11-19T22:07Z"
 },
 {
 "athlete_id": "4433076",
@@ -993,7 +1011,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-11-20",
 "injury": "Right Ankle Sprain",
-"updated": "2026-11-19T02:52Z"
+"updated": "2026-11-19T22:05Z"
 },
 {
 "athlete_id": "5157066",
@@ -1003,6 +1021,15 @@
 "return_date": "2027-01-02",
 "injury": "Right Knee Surgery",
 "updated": "2026-10-30T19:06Z"
+},
+{
+"athlete_id": "2530530",
+"name": "T.J. McConnell",
+"team_name": "Indiana Pacers",
+"status": "Day-To-Day",
+"return_date": "2026-11-20",
+"injury": "Right Hamstring Strain",
+"updated": "2026-11-19T22:14Z"
 },
 {
 "athlete_id": "4396993",
@@ -1057,15 +1084,6 @@
 "return_date": "2027-01-18",
 "injury": "Left Foot Surgery",
 "updated": "2026-11-17T23:18Z"
-},
-{
-"athlete_id": "4432810",
-"name": "Isaiah Stewart",
-"team_name": "Memphis Grizzlies",
-"status": "Day-To-Day",
-"return_date": "2026-11-19",
-"injury": "Illness",
-"updated": "2026-11-19T19:11Z"
 },
 {
 "athlete_id": "5105462",
@@ -1167,15 +1185,6 @@
 "updated": "2026-11-15T22:40Z"
 },
 {
-"athlete_id": "4433247",
-"name": "Jonathan Kuminga",
-"team_name": "Minnesota Timberwolves",
-"status": "Day-To-Day",
-"return_date": "2026-11-19",
-"injury": "Right Shoulder",
-"updated": "2026-11-18T23:04Z"
-},
-{
 "athlete_id": "4683634",
 "name": "Bennedict Mathurin",
 "team_name": "New Orleans Pelicans",
@@ -1227,7 +1236,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-11-20",
 "injury": "Right Hip Soreness",
-"updated": "2026-11-19T14:50Z"
+"updated": "2026-11-19T23:21Z"
 },
 {
 "athlete_id": "4683692",
@@ -1377,10 +1386,10 @@
 "athlete_id": "4683021",
 "name": "Deni Avdija",
 "team_name": "Portland Trail Blazers",
-"status": "Day-To-Day",
-"return_date": "2026-11-19",
+"status": "Out",
+"return_date": "2026-11-21",
 "injury": "Foot",
-"updated": "2026-11-18T22:54Z"
+"updated": "2026-11-20T00:21Z"
 },
 {
 "athlete_id": "4279888",
@@ -1408,15 +1417,6 @@
 "return_date": "2027-03-02",
 "injury": "Right Knee Surgery",
 "updated": "2026-08-24T20:23Z"
-},
-{
-"athlete_id": "4431736",
-"name": "Toumani Camara",
-"team_name": "Portland Trail Blazers",
-"status": "Day-To-Day",
-"return_date": "2026-11-19",
-"injury": "Rest",
-"updated": "2026-11-18T22:53Z"
 },
 {
 "athlete_id": "4578893",
@@ -1522,9 +1522,9 @@
 "name": "Jusuf Nurkic",
 "team_name": "Utah Jazz",
 "status": "Out",
-"return_date": "2026-11-20",
+"return_date": "2026-11-27",
 "injury": "Right Foot Strain",
-"updated": "2026-11-06T18:20Z"
+"updated": "2026-11-20T00:05Z"
 },
 {
 "athlete_id": "4066336",
