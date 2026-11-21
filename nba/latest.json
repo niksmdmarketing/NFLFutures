@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-11-21T0320Z",
-"feed_timestamp": "2026-11-21T03:20:25Z",
+"collected_utc": "2026-11-21T0606Z",
+"feed_timestamp": "2026-11-21T06:06:41Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -256,6 +256,12 @@
 "injury": "Right Knee Surgery"
 },
 {
+"athlete_id": "2530530",
+"status": "Out",
+"return_date": "2026-11-22",
+"injury": "Left Hamstring"
+},
+{
 "athlete_id": "4396993",
 "status": "Out",
 "return_date": "2026-12-13",
@@ -494,6 +500,12 @@
 "status": "Out",
 "return_date": "2027-02-03",
 "injury": "Left Shoulder Surgery"
+},
+{
+"athlete_id": "4888725",
+"status": "Out",
+"return_date": "2026-11-23",
+"injury": "Right Quadriceps"
 },
 {
 "athlete_id": "4706557",
@@ -1014,6 +1026,15 @@
 "updated": "2026-10-30T19:06Z"
 },
 {
+"athlete_id": "2530530",
+"name": "T.J. McConnell",
+"team_name": "Indiana Pacers",
+"status": "Out",
+"return_date": "2026-11-22",
+"injury": "Left Hamstring",
+"updated": "2026-11-21T04:58Z"
+},
+{
 "athlete_id": "4396993",
 "name": "Tyrese Haliburton",
 "team_name": "Indiana Pacers",
@@ -1372,6 +1393,15 @@
 "return_date": "2027-02-03",
 "injury": "Left Shoulder Surgery",
 "updated": "2026-09-11T16:03Z"
+},
+{
+"athlete_id": "4888725",
+"name": "Ryan Dunn",
+"team_name": "Phoenix Suns",
+"status": "Out",
+"return_date": "2026-11-23",
+"injury": "Right Quadriceps",
+"updated": "2026-11-21T04:06Z"
 },
 {
 "athlete_id": "4706557",
