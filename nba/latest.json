@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-11-21T2039Z",
-"feed_timestamp": "2026-11-21T20:39:17Z",
+"collected_utc": "2026-11-21T2209Z",
+"feed_timestamp": "2026-11-21T22:09:38Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -41,15 +41,21 @@
 },
 {
 "athlete_id": "3078576",
-"status": "Day-To-Day",
-"return_date": "2026-11-21",
+"status": "Out",
+"return_date": "2026-11-22",
 "injury": "Left Shoulder"
 },
 {
 "athlete_id": "4065648",
-"status": "Day-To-Day",
-"return_date": "2026-11-21",
+"status": "Out",
+"return_date": "2026-11-22",
 "injury": "Rest"
+},
+{
+"athlete_id": "4351852",
+"status": "Out",
+"return_date": "2026-11-22",
+"injury": "Illness"
 },
 {
 "athlete_id": "4702670",
@@ -328,6 +334,12 @@
 "injury": "Back Soreness"
 },
 {
+"athlete_id": "3032977",
+"status": "Day-To-Day",
+"return_date": "2026-11-22",
+"injury": "Groin"
+},
+{
 "athlete_id": "4431772",
 "status": "Day-To-Day",
 "return_date": "2026-11-22",
@@ -401,8 +413,8 @@
 },
 {
 "athlete_id": "3934719",
-"status": "Day-To-Day",
-"return_date": "2026-11-21",
+"status": "Out",
+"return_date": "2026-11-22",
 "injury": "Calf"
 },
 {
@@ -450,13 +462,13 @@
 {
 "athlete_id": "4065654",
 "status": "Out",
-"return_date": "2026-11-22",
+"return_date": "2026-11-29",
 "injury": "Left Knee Not Specified"
 },
 {
 "athlete_id": "5214637",
 "status": "Out",
-"return_date": "2026-11-22",
+"return_date": "2026-11-29",
 "injury": "Right Hamstring Strain"
 },
 {
@@ -693,19 +705,28 @@
 "athlete_id": "3078576",
 "name": "Derrick White",
 "team_name": "Boston Celtics",
-"status": "Day-To-Day",
-"return_date": "2026-11-21",
+"status": "Out",
+"return_date": "2026-11-22",
 "injury": "Left Shoulder",
-"updated": "2026-11-21T01:00Z"
+"updated": "2026-11-21T20:53Z"
 },
 {
 "athlete_id": "4065648",
 "name": "Jayson Tatum",
 "team_name": "Boston Celtics",
-"status": "Day-To-Day",
-"return_date": "2026-11-21",
+"status": "Out",
+"return_date": "2026-11-22",
 "injury": "Rest",
-"updated": "2026-11-21T01:07Z"
+"updated": "2026-11-21T20:51Z"
+},
+{
+"athlete_id": "4351852",
+"name": "Mitchell Robinson",
+"team_name": "Boston Celtics",
+"status": "Out",
+"return_date": "2026-11-22",
+"injury": "Illness",
+"updated": "2026-11-21T20:55Z"
 },
 {
 "athlete_id": "4702670",
@@ -1122,13 +1143,22 @@
 "updated": "2026-11-16T17:16Z"
 },
 {
+"athlete_id": "3032977",
+"name": "Giannis Antetokounmpo",
+"team_name": "Miami Heat",
+"status": "Day-To-Day",
+"return_date": "2026-11-22",
+"injury": "Groin",
+"updated": "2026-11-21T20:33Z"
+},
+{
 "athlete_id": "4431772",
 "name": "Myron Gardner",
 "team_name": "Miami Heat",
 "status": "Day-To-Day",
 "return_date": "2026-11-22",
 "injury": "Hamstring",
-"updated": "2026-11-19T14:45Z"
+"updated": "2026-11-21T20:35Z"
 },
 {
 "athlete_id": "4997526",
@@ -1233,10 +1263,10 @@
 "athlete_id": "3934719",
 "name": "OG Anunoby",
 "team_name": "New York Knicks",
-"status": "Day-To-Day",
-"return_date": "2026-11-21",
+"status": "Out",
+"return_date": "2026-11-22",
 "injury": "Calf",
-"updated": "2026-11-21T16:09Z"
+"updated": "2026-11-21T21:49Z"
 },
 {
 "athlete_id": "2991350",
@@ -1306,16 +1336,16 @@
 "name": "Jonathan Isaac",
 "team_name": "Orlando Magic",
 "status": "Out",
-"return_date": "2026-11-22",
+"return_date": "2026-11-29",
 "injury": "Left Knee Not Specified",
-"updated": "2026-11-15T18:22Z"
+"updated": "2026-11-21T21:09Z"
 },
 {
 "athlete_id": "5214637",
 "name": "Noah Penda",
 "team_name": "Orlando Magic",
 "status": "Out",
-"return_date": "2026-11-22",
+"return_date": "2026-11-29",
 "injury": "Right Hamstring Strain",
 "updated": "2026-11-14T17:33Z"
 },
@@ -1452,7 +1482,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-11-21",
 "injury": "Left Lower Leg Bruise",
-"updated": "2026-11-21T14:55Z"
+"updated": "2026-11-21T21:19Z"
 },
 {
 "athlete_id": "5037871",
