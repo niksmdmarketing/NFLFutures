@@ -1,0 +1,20 @@
+/* Shiv Value Models */
+.sb-shiv { font-weight: 700; }
+.sv-three { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin: 6px 0 16px; }
+.sv-three > div { min-width: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px; }
+.sv-three p { margin: 4px 0 0; font-size: .86rem; color: var(--muted); }
+.sv-tag { font-size: .66rem; text-transform: uppercase; letter-spacing: .05em; border: 1px dashed var(--even); color: var(--muted); border-radius: 999px; padding: 1px 7px; vertical-align: middle; }
+.sv-h { font-family: var(--font-display); text-transform: uppercase; letter-spacing: .04em; font-size: 1rem; color: var(--muted); margin: 22px 0 6px; }
+.sv-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 560px), 1fr)); gap: 12px; }
+.sv-card { min-width: 0; }
+.sv-card h3 { margin: 0 0 6px; font-size: .95rem; }
+.sv-tbl td.sv-team { text-align: left; min-width: 120px; }
+.sv-tbl td.gap { color: var(--muted); }
+.sv-tbl td.gap.big { color: var(--ink); font-weight: 600; }
+.sv-tbl td.q { color: var(--muted); font-size: .8rem; white-space: nowrap; }
+.sv-note { font-size: .82rem; color: var(--muted); margin: 6px 0; }
+.sv-score td:first-child { text-align: left; }
+.sv-best { font-weight: 700; color: var(--off-ink); }
+#app { min-width: 0; max-width: 100%; }
+.sv-flag { display: inline-block; font-size: .64rem; text-transform: uppercase; letter-spacing: .04em; border: 1px solid var(--line); border-radius: 999px; padding: 0 6px; margin-left: 4px; color: var(--muted); }
+.sv-solo { max-width: 760px; }

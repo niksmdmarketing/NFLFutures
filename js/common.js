@@ -1,0 +1,185 @@
+/* Shared helpers: data loading, formatting, team names, update stamp. */
+const NAMES = {ARI:"Arizona Cardinals",ATL:"Atlanta Falcons",BAL:"Baltimore Ravens",BUF:"Buffalo Bills",CAR:"Carolina Panthers",CHI:"Chicago Bears",CIN:"Cincinnati Bengals",CLE:"Cleveland Browns",DAL:"Dallas Cowboys",DEN:"Denver Broncos",DET:"Detroit Lions",GB:"Green Bay Packers",HOU:"Houston Texans",IND:"Indianapolis Colts",JAX:"Jacksonville Jaguars",KC:"Kansas City Chiefs",LA:"Los Angeles Rams",LAC:"Los Angeles Chargers",LV:"Las Vegas Raiders",MIA:"Miami Dolphins",MIN:"Minnesota Vikings",NE:"New England Patriots",NO:"New Orleans Saints",NYG:"New York Giants",NYJ:"New York Jets",PHI:"Philadelphia Eagles",PIT:"Pittsburgh Steelers",SEA:"Seattle Seahawks",SF:"San Francisco 49ers",TB:"Tampa Bay Buccaneers",TEN:"Tennessee Titans",WAS:"Washington Commanders"};
+const DIVS = {"AFC East":["BUF","MIA","NE","NYJ"],"AFC North":["BAL","CIN","CLE","PIT"],"AFC South":["HOU","IND","JAX","TEN"],"AFC West":["DEN","KC","LV","LAC"],"NFC East":["DAL","NYG","PHI","WAS"],"NFC North":["CHI","DET","GB","MIN"],"NFC South":["ATL","CAR","NO","TB"],"NFC West":["ARI","LA","SEA","SF"]};
+const nm = t => NAMES[t] || t;
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+/* one chance format on every sport: <0.1%, one decimal under 10%, whole numbers from 10%, >99.9% */
+const pct = p => p == null ? "–" : p < 0.0005 ? "<0.1%" : p > 0.9995 ? ">99.9%" : p < 0.0995 ? (p * 100).toFixed(1) + "%" : Math.round(p * 100) + "%";
+const DAYS = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"], MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+function fmtDate(date) {
+  const [y, m, d] = date.split("-").map(Number);
+  return DAYS[new Date(Date.UTC(y, m - 1, d)).getUTCDay()] + " " + d + " " + MONTHS[m - 1];
+}
+function fmtVal(v, fmt) {
+  if (v == null || (typeof v === "number" && !isFinite(v))) return "–";
+  switch (fmt) {
+    case "pct": return (v * 100).toFixed(1) + "%";
+    case "num1": return v.toFixed(1);
+    case "num2": return v.toFixed(2);
+    case "num3": return v.toFixed(3);
+    case "int": return Math.round(v).toString();
+    default: return esc(v);
+  }
+}
+async function getJSON(name) {
+  const r = await fetch("data/" + name, {cache: "no-cache"});
+  if (!r.ok) throw new Error("Could not load " + name + " (" + r.status + ")");
+  return r.json();
+}
+/* one 'updated' line for every page: "<what the data covers> · updated <local time>", plus a warning when the
+   data is more than a day old (the site refreshes every two hours, so that means a feed or the build has stopped) */
+const STALE_HOURS = 26;
+function setStamp(iso, lead, el) {
+  el = el || $("stamp");
+  if (!el) return;
+  let when = iso, age = null;
+  try {
+    const d = new Date(String(iso).replace(" ", "T").replace(/\+00:00$/, "Z"));
+    if (!isNaN(d)) { when = d.toLocaleString(undefined, {weekday: "short", day: "numeric", month: "short", hour: "numeric", minute: "2-digit"}); age = (Date.now() - d) / 3.6e6; }
+  } catch (e) {}
+  el.textContent = (lead ? lead + " · " : "") + "updated " + when;
+  if (age != null && age > STALE_HOURS) {
+    const w = document.createElement("b");
+    w.className = "stale";
+    w.textContent = " · last update " + (age < 48 ? Math.round(age) + " hours" : Math.round(age / 24) + " days") + " ago, may be out of date";
+    el.appendChild(w);
+  }
+}
+function stamp(meta) {
+  let games = meta.through_week ? "games through Week " + meta.through_week : "preseason";
+  if (meta.next_week_played) games += " + " + meta.next_week_played + (meta.next_week_played === 1 ? " game" : " games") + " of Week " + meta.next_week;
+  const bits = [meta.season + " season", games];
+  if (meta.injury_week) bits.push("Week " + meta.injury_week + " injury report");
+  setStamp(meta.updated_utc, bits.join(" · "));
+}
+async function boot(fn) {
+  try {
+    const meta = await getJSON("meta.json");
+    stamp(meta);
+    await fn(meta);
+  } catch (e) {
+    console.error(e);
+    const m = $("main");
+    const div = document.createElement("p");
+    div.className = "err";
+    div.textContent = "Something went wrong loading this page: " + e.message;
+    m.insertBefore(div, m.children[1] || null);
+  }
+}
+
+/* Ranked-table helpers shared by the stat pages. */
+function rankMap(rows, key, dir) {
+  const vals = rows.map(r => r[key]).filter(v => typeof v === "number" && isFinite(v));
+  const sorted = [...vals].sort((a, b) => dir === "low" ? a - b : b - a);
+  const m = new Map();
+  rows.forEach(r => { const v = r[key]; if (typeof v === "number" && isFinite(v)) m.set(r.team, sorted.indexOf(v) + 1); });
+  return {m, n: vals.length};
+}
+function qClass(rank, n) {
+  if (!rank || n < 5) return "";
+  const q = Math.min(5, Math.floor((rank - 1) / n * 5) + 1);
+  return q === 3 ? "" : "q" + q;
+}
+function sortRows(rows, key, dir, getter) {
+  return [...rows].sort((a, b) => {
+    const x = getter(a, key), y = getter(b, key);
+    if (x == null && y == null) return 0; if (x == null) return 1; if (y == null) return -1;
+    return (typeof x === "string" ? x.localeCompare(y) : x - y) * dir;
+  });
+}
+function fmtDelta(d, fmt) {
+  if (d == null || !isFinite(d)) return "–";
+  const sign = d > 0 ? "+" : d < 0 ? "−" : "";
+  const a = Math.abs(d);
+  if (fmt === "pct") return sign + (a * 100).toFixed(1);
+  if (fmt === "num3") return sign + a.toFixed(3);
+  if (fmt === "num2") return sign + a.toFixed(2);
+  if (fmt === "int") return sign + Math.round(a);
+  return sign + a.toFixed(1);
+}
+
+
+/* Click-to-sort for plain HTML tables. Cells may carry data-v (numeric sort value); otherwise text is used.
+   Click cycles: highest first -> lowest first -> original order (group header rows return with it). */
+function sortableTable(table) {
+  if (!table || table.dataset.sortable) return;
+  table.dataset.sortable = "1";
+  const thead = table.tHead, tbody = table.tBodies[0];
+  const ths = [...thead.rows[thead.rows.length - 1].cells];
+  let state = {i: -1, dir: 0};
+  const original = () => [...tbody.rows];
+  let orig = original();
+  const obs = new MutationObserver(() => { orig = original(); state = {i: -1, dir: 0}; mark(); });
+  obs.observe(tbody, {childList: true});
+  const key = (tr, i) => {
+    const td = tr.cells[i]; if (!td) return null;
+    if (td.dataset.v !== undefined) { const n = parseFloat(td.dataset.v); return isNaN(n) ? null : n; }
+    const t = td.textContent.trim(); const n = parseFloat(t.replace(/[%,+<>]/g, "").replace("−", "-"));
+    return isNaN(n) || /[a-z]{2,}/i.test(t.replace(/^[<>]/, "")) ? t : n;
+  };
+  const mark = () => ths.forEach((th, j) => {
+    if (j === state.i && state.dir) th.setAttribute("aria-sort", state.dir > 0 ? "ascending" : "descending");
+    else th.removeAttribute("aria-sort");
+  });
+  ths.forEach((th, i) => {
+    th.tabIndex = 0; th.style.cursor = "pointer"; th.title = th.title || "Sort";
+    const go = () => {
+      const numeric = orig.some(tr => !tr.classList.contains("divhead") && typeof key(tr, i) === "number");
+      if (state.i !== i) state = {i, dir: numeric ? -1 : 1};
+      else if (state.dir === (numeric ? -1 : 1)) state.dir = -state.dir;
+      else state = {i: -1, dir: 0};
+      if (!state.dir) { tbody.replaceChildren(...orig); }
+      else {
+        const data = orig.filter(tr => !tr.classList.contains("divhead"));
+        data.sort((a, b) => {
+          const x = key(a, i), y = key(b, i);
+          if (x == null && y == null) return 0; if (x == null) return 1; if (y == null) return -1;
+          return (typeof x === "number" && typeof y === "number" ? x - y : String(x).localeCompare(String(y))) * state.dir;
+        });
+        tbody.replaceChildren(...data);
+      }
+      obs.takeRecords();  // our own reordering is not a redraw
+      mark();
+    };
+    th.addEventListener("click", go);
+    th.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
+  });
+}
+
+/* ---- trust ratings (pipeline/trust.py -> data/trust.json): a badge under each chances column, a legend, and the
+   by-stage table on the Model pages ---- */
+async function getTrust() { try { return await getJSON("trust.json"); } catch (e) { return null; } }
+const TRUST_CLASS = {"Reliable": "t-good", "Mixed": "t-mixed", "Weak": "t-weak", "Market usually better": "t-mkt", "Not tested": "t-none"};
+function trustBadge(T, key) {
+  const m = T && T.markets && T.markets[key];
+  if (!m) return "";
+  return '<span class="trust ' + (TRUST_CLASS[m.r] || "") + '" title="Trust (' + esc(T.stage) + "): " + esc(m.r) + ". " + esc(m.why) + '">' + esc(m.r === "Market usually better" ? "Market better" : m.r) + "</span>";
+}
+function trustLegend(T) {
+  if (!T) return "";
+  return '<p class="note trust-legend"><b>Trust</b> (under each column, for this stage of the season: ' + esc(T.stage) + '): ' +
+    ["Reliable", "Mixed", "Weak", "Market usually better", "Not tested"].map(r => '<span class="trust ' + TRUST_CLASS[r] + '">' + (r === "Market usually better" ? "Market better" : r) + "</span>").join(" ") +
+    ' <span class="muted">Hover or tap a badge for the evidence; the full table is on Model › How it works.</span></p>';
+}
+function trustTable(T, labels) {
+  if (!T || !T.table) return "";
+  return '<h2 style="margin-top:22px">How far to trust each column</h2><p class="note">' + esc(T.legend) + " Now: " + esc(T.stage) + ".</p>" +
+    '<div class="scroll"><table class="stbl"><thead><tr><th>Column</th>' + T.stages.map(s => "<th>" + esc(s) + "</th>").join("") + "</tr></thead><tbody>" +
+    T.table.map(r => "<tr><td>" + esc(labels[r.col] || r.col) + "</td>" + r.by_stage.map((x, i) => '<td style="text-align:left"><span class="trust ' + TRUST_CLASS[x] + '"' + (T.stages[i] === T.stage ? ' style="outline:2px solid var(--ink)"' : "") + ">" + (x === "Market usually better" ? "Market better" : x) + "</span></td>").join("") + "</tr>").join("") +
+    "</tbody></table></div>";
+}
+/* phones have no hover: tapping a trust badge shows its evidence in a small box */
+document.addEventListener("click", e => {
+  const old = document.getElementById("trustPop");
+  const b = e.target.closest && e.target.closest(".trust[title]");
+  if (old) old.remove();
+  if (!b) return;
+  e.preventDefault(); e.stopPropagation();
+  const pop = document.createElement("div");
+  pop.id = "trustPop"; pop.className = "trust-pop"; pop.textContent = b.getAttribute("title");
+  document.body.appendChild(pop);
+  const r = b.getBoundingClientRect();
+  pop.style.top = (window.scrollY + r.bottom + 6) + "px";
+  pop.style.left = Math.max(8, Math.min(window.scrollX + r.left - 40, window.scrollX + document.documentElement.clientWidth - pop.offsetWidth - 8)) + "px";
+}, true);
