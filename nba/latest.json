@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-11-22T0606Z",
-"feed_timestamp": "2026-11-22T06:06:53Z",
+"collected_utc": "2026-11-22T1003Z",
+"feed_timestamp": "2026-11-22T10:03:00Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -112,6 +112,12 @@
 "injury": "Right Hamstring"
 },
 {
+"athlete_id": "4431687",
+"status": "Day-To-Day",
+"return_date": "2026-11-22",
+"injury": "Left Thumb"
+},
+{
 "athlete_id": "5105555",
 "status": "Out",
 "return_date": "2026-11-25",
@@ -216,14 +222,8 @@
 {
 "athlete_id": "4397040",
 "status": "Out",
-"return_date": "2026-11-22",
+"return_date": "2026-11-25",
 "injury": "Left Hamstring Strain"
-},
-{
-"athlete_id": "6589",
-"status": "Day-To-Day",
-"return_date": "2026-11-22",
-"injury": "Not Specified Rest"
 },
 {
 "athlete_id": "6430",
@@ -492,7 +492,7 @@
 {
 "athlete_id": "4065654",
 "status": "Out",
-"return_date": "2026-11-29",
+"return_date": "2026-11-28",
 "injury": "Left Knee Not Specified"
 },
 {
@@ -828,6 +828,15 @@
 "updated": "2026-11-22T00:11Z"
 },
 {
+"athlete_id": "4431687",
+"name": "Patrick Williams",
+"team_name": "Chicago Bulls",
+"status": "Day-To-Day",
+"return_date": "2026-11-22",
+"injury": "Left Thumb",
+"updated": "2026-11-22T06:06Z"
+},
+{
 "athlete_id": "5105555",
 "name": "Tobe Awaka",
 "team_name": "Chicago Bulls",
@@ -985,18 +994,9 @@
 "name": "Brandon Williams",
 "team_name": "Golden State Warriors",
 "status": "Out",
-"return_date": "2026-11-22",
+"return_date": "2026-11-25",
 "injury": "Left Hamstring Strain",
-"updated": "2026-11-18T17:12Z"
-},
-{
-"athlete_id": "6589",
-"name": "Draymond Green",
-"team_name": "Golden State Warriors",
-"status": "Day-To-Day",
-"return_date": "2026-11-22",
-"injury": "Not Specified Rest",
-"updated": "2026-11-20T03:53Z"
+"updated": "2026-11-22T06:10Z"
 },
 {
 "athlete_id": "6430",
@@ -1399,7 +1399,7 @@
 "name": "Jonathan Isaac",
 "team_name": "Orlando Magic",
 "status": "Out",
-"return_date": "2026-11-29",
+"return_date": "2026-11-28",
 "injury": "Left Knee Not Specified",
 "updated": "2026-11-21T21:09Z"
 },
