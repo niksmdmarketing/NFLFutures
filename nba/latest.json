@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-11-22T2344Z",
-"feed_timestamp": "2026-11-22T23:44:19Z",
+"collected_utc": "2026-11-23T0105Z",
+"feed_timestamp": "2026-11-23T01:05:01Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -226,12 +226,6 @@
 "injury": "Right Knee Surgery"
 },
 {
-"athlete_id": "3149673",
-"status": "Day-To-Day",
-"return_date": "2026-11-22",
-"injury": "Left Hip Soreness"
-},
-{
 "athlete_id": "2530530",
 "status": "Out",
 "return_date": "2026-11-23",
@@ -364,10 +358,10 @@
 "injury": "Right Foot Plantar Fasciitis"
 },
 {
-"athlete_id": "3136195",
-"status": "Day-To-Day",
-"return_date": "2026-11-22",
-"injury": "Illness"
+"athlete_id": "4431823",
+"status": "Out",
+"return_date": "2026-11-25",
+"injury": "Left Abdomen"
 },
 {
 "athlete_id": "3934719",
@@ -572,6 +566,12 @@
 "status": "Out",
 "return_date": "2026-12-14",
 "injury": "Right Knee Not Specified"
+},
+{
+"athlete_id": "4397077",
+"status": "Day-To-Day",
+"return_date": "2026-11-22",
+"injury": "Left Knee Not Specified"
 },
 {
 "athlete_id": "3102530",
@@ -945,15 +945,6 @@
 "updated": "2026-10-30T19:06Z"
 },
 {
-"athlete_id": "3149673",
-"name": "Pascal Siakam",
-"team_name": "Indiana Pacers",
-"status": "Day-To-Day",
-"return_date": "2026-11-22",
-"injury": "Left Hip Soreness",
-"updated": "2026-11-21T22:19Z"
-},
-{
 "athlete_id": "2530530",
 "name": "T.J. McConnell",
 "team_name": "Indiana Pacers",
@@ -1152,13 +1143,13 @@
 "updated": "2026-11-22T18:05Z"
 },
 {
-"athlete_id": "3136195",
-"name": "Karl-Anthony Towns",
+"athlete_id": "4431823",
+"name": "Miles McBride",
 "team_name": "New York Knicks",
-"status": "Day-To-Day",
-"return_date": "2026-11-22",
-"injury": "Illness",
-"updated": "2026-11-22T18:09Z"
+"status": "Out",
+"return_date": "2026-11-25",
+"injury": "Left Abdomen",
+"updated": "2026-11-23T00:04Z"
 },
 {
 "athlete_id": "3934719",
@@ -1465,6 +1456,15 @@
 "return_date": "2026-12-14",
 "injury": "Right Knee Not Specified",
 "updated": "2026-10-27T19:25Z"
+},
+{
+"athlete_id": "4397077",
+"name": "Jaxson Hayes",
+"team_name": "Utah Jazz",
+"status": "Day-To-Day",
+"return_date": "2026-11-22",
+"injury": "Left Knee Not Specified",
+"updated": "2026-11-23T01:03Z"
 },
 {
 "athlete_id": "3102530",
