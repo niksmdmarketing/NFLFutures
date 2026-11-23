@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-11-23T0105Z",
-"feed_timestamp": "2026-11-23T01:05:01Z",
+"collected_utc": "2026-11-23T0606Z",
+"feed_timestamp": "2026-11-23T06:06:11Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -252,7 +252,7 @@
 {
 "athlete_id": "4066457",
 "status": "Out",
-"return_date": "2026-11-23",
+"return_date": "2026-11-27",
 "injury": "Left Heel Bruise"
 },
 {
@@ -269,8 +269,8 @@
 },
 {
 "athlete_id": "2991070",
-"status": "Day-To-Day",
-"return_date": "2026-11-23",
+"status": "Out",
+"return_date": "2026-12-12",
 "injury": "Left Calf Not Specified"
 },
 {
@@ -520,6 +520,12 @@
 "injury": "Right Knee Dislocated"
 },
 {
+"athlete_id": "4066259",
+"status": "Day-To-Day",
+"return_date": "2026-11-23",
+"injury": "Right Lower Leg Bruise"
+},
+{
 "athlete_id": "5037871",
 "status": "Out",
 "return_date": "2026-12-13",
@@ -532,10 +538,22 @@
 "injury": "Right Knee Surgery"
 },
 {
+"athlete_id": "3134916",
+"status": "Day-To-Day",
+"return_date": "2026-11-23",
+"injury": "Left Shoulder Bruise"
+},
+{
 "athlete_id": "6440",
 "status": "Out",
 "return_date": "2026-12-03",
 "injury": "Left Calf Strain"
+},
+{
+"athlete_id": "5104157",
+"status": "Day-To-Day",
+"return_date": "2026-11-23",
+"injury": "Back"
 },
 {
 "athlete_id": "5093267",
@@ -569,8 +587,8 @@
 },
 {
 "athlete_id": "4397077",
-"status": "Day-To-Day",
-"return_date": "2026-11-22",
+"status": "Out",
+"return_date": "2026-11-23",
 "injury": "Left Knee Not Specified"
 },
 {
@@ -985,9 +1003,9 @@
 "name": "Austin Reaves",
 "team_name": "Los Angeles Lakers",
 "status": "Out",
-"return_date": "2026-11-23",
+"return_date": "2026-11-27",
 "injury": "Left Heel Bruise",
-"updated": "2026-11-22T20:25Z"
+"updated": "2026-11-23T01:09Z"
 },
 {
 "athlete_id": "5041935",
@@ -1011,10 +1029,10 @@
 "athlete_id": "2991070",
 "name": "Jerami Grant",
 "team_name": "Memphis Grizzlies",
-"status": "Day-To-Day",
-"return_date": "2026-11-23",
+"status": "Out",
+"return_date": "2026-12-12",
 "injury": "Left Calf Not Specified",
-"updated": "2026-11-22T22:21Z"
+"updated": "2026-11-23T04:04Z"
 },
 {
 "athlete_id": "5105462",
@@ -1386,6 +1404,15 @@
 "updated": "2026-11-18T05:54Z"
 },
 {
+"athlete_id": "4066259",
+"name": "De'Aaron Fox",
+"team_name": "San Antonio Spurs",
+"status": "Day-To-Day",
+"return_date": "2026-11-23",
+"injury": "Right Lower Leg Bruise",
+"updated": "2026-11-23T01:39Z"
+},
+{
 "athlete_id": "5037871",
 "name": "Dylan Harper",
 "team_name": "San Antonio Spurs",
@@ -1404,6 +1431,15 @@
 "updated": "2026-10-05T21:43Z"
 },
 {
+"athlete_id": "3134916",
+"name": "Jordan McLaughlin",
+"team_name": "San Antonio Spurs",
+"status": "Day-To-Day",
+"return_date": "2026-11-23",
+"injury": "Left Shoulder Bruise",
+"updated": "2026-11-23T01:38Z"
+},
+{
 "athlete_id": "6440",
 "name": "Tobias Harris",
 "team_name": "San Antonio Spurs",
@@ -1411,6 +1447,15 @@
 "return_date": "2026-12-03",
 "injury": "Left Calf Strain",
 "updated": "2026-11-16T19:26Z"
+},
+{
+"athlete_id": "5104157",
+"name": "Victor Wembanyama",
+"team_name": "San Antonio Spurs",
+"status": "Day-To-Day",
+"return_date": "2026-11-23",
+"injury": "Back",
+"updated": "2026-11-23T04:52Z"
 },
 {
 "athlete_id": "5093267",
@@ -1461,10 +1506,10 @@
 "athlete_id": "4397077",
 "name": "Jaxson Hayes",
 "team_name": "Utah Jazz",
-"status": "Day-To-Day",
-"return_date": "2026-11-22",
+"status": "Out",
+"return_date": "2026-11-23",
 "injury": "Left Knee Not Specified",
-"updated": "2026-11-23T01:03Z"
+"updated": "2026-11-23T01:16Z"
 },
 {
 "athlete_id": "3102530",
