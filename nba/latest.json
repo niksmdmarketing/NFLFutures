@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-11-23T2021Z",
-"feed_timestamp": "2026-11-23T20:21:30Z",
+"collected_utc": "2026-11-23T2209Z",
+"feed_timestamp": "2026-11-23T22:09:33Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -36,14 +36,8 @@
 {
 "athlete_id": "4351852",
 "status": "Out",
-"return_date": "2026-11-24",
+"return_date": "2026-11-27",
 "injury": "Illness"
-},
-{
-"athlete_id": "4251",
-"status": "Day-To-Day",
-"return_date": "2026-11-24",
-"injury": "Rest"
 },
 {
 "athlete_id": "5279130",
@@ -174,7 +168,7 @@
 {
 "athlete_id": "4433621",
 "status": "Out",
-"return_date": "2026-11-24",
+"return_date": "2026-11-30",
 "injury": "Right Hamstring Strain"
 },
 {
@@ -581,8 +575,8 @@
 },
 {
 "athlete_id": "4397077",
-"status": "Day-To-Day",
-"return_date": "2026-11-23",
+"status": "Out",
+"return_date": "2026-11-27",
 "injury": "Left Knee Not Specified"
 },
 {
@@ -618,7 +612,7 @@
 {
 "athlete_id": "4997537",
 "status": "Out",
-"return_date": "2026-11-24",
+"return_date": "2026-11-30",
 "injury": "Left Hip Pinched Nerve"
 }
 ],
@@ -673,18 +667,9 @@
 "name": "Mitchell Robinson",
 "team_name": "Boston Celtics",
 "status": "Out",
-"return_date": "2026-11-24",
+"return_date": "2026-11-27",
 "injury": "Illness",
-"updated": "2026-11-22T20:58Z"
-},
-{
-"athlete_id": "4251",
-"name": "Paul George",
-"team_name": "Boston Celtics",
-"status": "Day-To-Day",
-"return_date": "2026-11-24",
-"injury": "Rest",
-"updated": "2026-11-23T15:07Z"
+"updated": "2026-11-23T21:09Z"
 },
 {
 "athlete_id": "5279130",
@@ -880,7 +865,7 @@
 "name": "Jalen Duren",
 "team_name": "Detroit Pistons",
 "status": "Out",
-"return_date": "2026-11-24",
+"return_date": "2026-11-30",
 "injury": "Right Hamstring Strain",
 "updated": "2026-11-08T16:05Z"
 },
@@ -900,7 +885,7 @@
 "status": "Out",
 "return_date": "2026-11-25",
 "injury": "Left Hamstring Strain",
-"updated": "2026-11-22T06:10Z"
+"updated": "2026-11-23T20:52Z"
 },
 {
 "athlete_id": "6430",
@@ -1491,10 +1476,10 @@
 "athlete_id": "4397077",
 "name": "Jaxson Hayes",
 "team_name": "Utah Jazz",
-"status": "Day-To-Day",
-"return_date": "2026-11-23",
+"status": "Out",
+"return_date": "2026-11-27",
 "injury": "Left Knee Not Specified",
-"updated": "2026-11-23T15:06Z"
+"updated": "2026-11-23T21:04Z"
 },
 {
 "athlete_id": "3102530",
@@ -1546,7 +1531,7 @@
 "name": "Tristan Vukcevic",
 "team_name": "Washington Wizards",
 "status": "Out",
-"return_date": "2026-11-24",
+"return_date": "2026-11-30",
 "injury": "Left Hip Pinched Nerve",
 "updated": "2026-11-16T18:14Z"
 }
