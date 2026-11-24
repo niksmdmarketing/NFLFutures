@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-11-24T1907Z",
-"feed_timestamp": "2026-11-24T19:07:26Z",
+"collected_utc": "2026-11-24T2209Z",
+"feed_timestamp": "2026-11-24T22:09:19Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -318,19 +318,31 @@
 {
 "athlete_id": "2528426",
 "status": "Out",
-"return_date": "2026-11-25",
+"return_date": "2026-11-27",
 "injury": "Right Foot Plantar Fasciitis"
+},
+{
+"athlete_id": "3062679",
+"status": "Day-To-Day",
+"return_date": "2026-11-25",
+"injury": "Right Shoulder Sprain"
+},
+{
+"athlete_id": "3136195",
+"status": "Day-To-Day",
+"return_date": "2026-11-25",
+"injury": "Knee"
 },
 {
 "athlete_id": "4431823",
 "status": "Day-To-Day",
 "return_date": "2026-11-25",
-"injury": "Left Abdomen"
+"injury": "Left Groin Soreness"
 },
 {
 "athlete_id": "3934719",
-"status": "Day-To-Day",
-"return_date": "2026-11-25",
+"status": "Out",
+"return_date": "2026-11-27",
 "injury": "Left Calf Soreness"
 },
 {
@@ -813,7 +825,7 @@
 "status": "Out",
 "return_date": "2026-11-25",
 "injury": "Left Hamstring Strain",
-"updated": "2026-11-23T20:52Z"
+"updated": "2026-11-24T20:58Z"
 },
 {
 "athlete_id": "6430",
@@ -885,7 +897,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-11-27",
 "injury": "Left Hamstring",
-"updated": "2026-11-24T16:02Z"
+"updated": "2026-11-24T19:43Z"
 },
 {
 "athlete_id": "4396993",
@@ -894,7 +906,7 @@
 "status": "Out",
 "return_date": "2026-12-13",
 "injury": "Left Hamstring Strain",
-"updated": "2026-11-24T15:57Z"
+"updated": "2026-11-24T19:41Z"
 },
 {
 "athlete_id": "6580",
@@ -1036,9 +1048,27 @@
 "name": "Jordan Clarkson",
 "team_name": "New York Knicks",
 "status": "Out",
-"return_date": "2026-11-25",
+"return_date": "2026-11-27",
 "injury": "Right Foot Plantar Fasciitis",
 "updated": "2026-11-24T18:48Z"
+},
+{
+"athlete_id": "3062679",
+"name": "Josh Hart",
+"team_name": "New York Knicks",
+"status": "Day-To-Day",
+"return_date": "2026-11-25",
+"injury": "Right Shoulder Sprain",
+"updated": "2026-11-24T21:53Z"
+},
+{
+"athlete_id": "3136195",
+"name": "Karl-Anthony Towns",
+"team_name": "New York Knicks",
+"status": "Day-To-Day",
+"return_date": "2026-11-25",
+"injury": "Knee",
+"updated": "2026-11-24T21:50Z"
 },
 {
 "athlete_id": "4431823",
@@ -1046,17 +1076,17 @@
 "team_name": "New York Knicks",
 "status": "Day-To-Day",
 "return_date": "2026-11-25",
-"injury": "Left Abdomen",
+"injury": "Left Groin Soreness",
 "updated": "2026-11-24T18:40Z"
 },
 {
 "athlete_id": "3934719",
 "name": "OG Anunoby",
 "team_name": "New York Knicks",
-"status": "Day-To-Day",
-"return_date": "2026-11-25",
+"status": "Out",
+"return_date": "2026-11-27",
 "injury": "Left Calf Soreness",
-"updated": "2026-11-24T18:42Z"
+"updated": "2026-11-24T21:52Z"
 },
 {
 "athlete_id": "5174983",
@@ -1299,7 +1329,7 @@
 "status": "Out",
 "return_date": "2026-12-03",
 "injury": "Left Knee Inflammation",
-"updated": "2026-11-20T20:42Z"
+"updated": "2026-11-24T21:15Z"
 },
 {
 "athlete_id": "4432586",
