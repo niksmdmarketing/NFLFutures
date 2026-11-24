@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-11-23T20:31:41+00:00",
+  "generated_utc": "2026-11-24T19:41:22+00:00",
   "current_season_end_year": 2027,
   "season_start": 2016,
   "season_end": 2027,
@@ -15,64 +15,64 @@
       "assets": [
         {
           "name": "team_stats_scoring_2027.parquet",
-          "size_bytes": 21930,
-          "source_updated_utc": "2026-11-23T15:19:37Z",
+          "size_bytes": 21870,
+          "source_updated_utc": "2026-11-24T15:19:22Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_leaguedash/team_stats_scoring_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_leaguedash/team_stats_scoring_2027.parquet"
         },
         {
           "name": "team_stats_misc_2027.parquet",
-          "size_bytes": 14119,
-          "source_updated_utc": "2026-11-23T15:19:33Z",
+          "size_bytes": 14107,
+          "source_updated_utc": "2026-11-24T15:19:18Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_leaguedash/team_stats_misc_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_leaguedash/team_stats_misc_2027.parquet"
         },
         {
           "name": "team_stats_fourfactors_2027.parquet",
-          "size_bytes": 14631,
-          "source_updated_utc": "2026-11-23T15:19:31Z",
+          "size_bytes": 14659,
+          "source_updated_utc": "2026-11-24T15:19:16Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_leaguedash/team_stats_fourfactors_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_leaguedash/team_stats_fourfactors_2027.parquet"
         },
         {
           "name": "team_stats_defense_2027.parquet",
-          "size_bytes": 15008,
-          "source_updated_utc": "2026-11-23T15:19:29Z",
+          "size_bytes": 15036,
+          "source_updated_utc": "2026-11-24T15:19:14Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_leaguedash/team_stats_defense_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_leaguedash/team_stats_defense_2027.parquet"
         },
         {
           "name": "team_stats_advanced_2027.parquet",
-          "size_bytes": 22650,
-          "source_updated_utc": "2026-11-23T15:19:25Z",
+          "size_bytes": 22658,
+          "source_updated_utc": "2026-11-24T15:19:10Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_leaguedash/team_stats_advanced_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_leaguedash/team_stats_advanced_2027.parquet"
         },
         {
           "name": "player_tracking_speeddistance_2027.parquet",
-          "size_bytes": 24852,
-          "source_updated_utc": "2026-11-23T15:19:20Z",
+          "size_bytes": 24850,
+          "source_updated_utc": "2026-11-24T15:19:04Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_leaguedash/player_tracking_speeddistance_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_leaguedash/player_tracking_speeddistance_2027.parquet"
         },
         {
           "name": "player_tracking_rebounding_2027.parquet",
-          "size_bytes": 45938,
-          "source_updated_utc": "2026-11-23T15:19:18Z",
+          "size_bytes": 45920,
+          "source_updated_utc": "2026-11-24T15:19:02Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_leaguedash/player_tracking_rebounding_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_leaguedash/player_tracking_rebounding_2027.parquet"
         },
         {
           "name": "player_tracking_pullupshot_2027.parquet",
-          "size_bytes": 21432,
-          "source_updated_utc": "2026-11-23T15:19:16Z",
+          "size_bytes": 21542,
+          "source_updated_utc": "2026-11-24T15:19:00Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_leaguedash/player_tracking_pullupshot_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_leaguedash/player_tracking_pullupshot_2027.parquet"
@@ -82,7 +82,7 @@
           "size_bytes": 27201,
           "source_updated_utc": "2026-11-23T15:19:14Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_leaguedash/player_tracking_posttouch_2027.parquet",
-          "status": "downloaded",
+          "status": "cached",
           "path": "data/nba/research/nba_stats_leaguedash/player_tracking_posttouch_2027.parquet"
         },
         {
@@ -90,7 +90,7 @@
           "size_bytes": 30595,
           "source_updated_utc": "2026-11-23T15:19:12Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_leaguedash/player_tracking_possessions_2027.parquet",
-          "status": "downloaded",
+          "status": "cached",
           "path": "data/nba/research/nba_stats_leaguedash/player_tracking_possessions_2027.parquet"
         },
         {
@@ -98,7 +98,7 @@
           "size_bytes": 24451,
           "source_updated_utc": "2026-11-23T15:19:11Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_leaguedash/player_tracking_passing_2027.parquet",
-          "status": "downloaded",
+          "status": "cached",
           "path": "data/nba/research/nba_stats_leaguedash/player_tracking_passing_2027.parquet"
         },
         {
@@ -106,7 +106,7 @@
           "size_bytes": 31054,
           "source_updated_utc": "2026-11-23T15:19:09Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_leaguedash/player_tracking_painttouch_2027.parquet",
-          "status": "downloaded",
+          "status": "cached",
           "path": "data/nba/research/nba_stats_leaguedash/player_tracking_painttouch_2027.parquet"
         },
         {
@@ -114,7 +114,7 @@
           "size_bytes": 28386,
           "source_updated_utc": "2026-11-23T15:19:07Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_leaguedash/player_tracking_elbowtouch_2027.parquet",
-          "status": "downloaded",
+          "status": "cached",
           "path": "data/nba/research/nba_stats_leaguedash/player_tracking_elbowtouch_2027.parquet"
         },
         {
@@ -122,7 +122,7 @@
           "size_bytes": 29218,
           "source_updated_utc": "2026-11-23T15:19:05Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_leaguedash/player_tracking_efficiency_2027.parquet",
-          "status": "downloaded",
+          "status": "cached",
           "path": "data/nba/research/nba_stats_leaguedash/player_tracking_efficiency_2027.parquet"
         },
         {
@@ -130,7 +130,7 @@
           "size_bytes": 32074,
           "source_updated_utc": "2026-11-23T15:19:03Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_leaguedash/player_tracking_drives_2027.parquet",
-          "status": "downloaded",
+          "status": "cached",
           "path": "data/nba/research/nba_stats_leaguedash/player_tracking_drives_2027.parquet"
         },
         {
@@ -138,53 +138,53 @@
           "size_bytes": 18311,
           "source_updated_utc": "2026-11-23T15:19:01Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_leaguedash/player_tracking_defense_2027.parquet",
-          "status": "downloaded",
+          "status": "cached",
           "path": "data/nba/research/nba_stats_leaguedash/player_tracking_defense_2027.parquet"
         },
         {
           "name": "player_tracking_catchshoot_2027.parquet",
-          "size_bytes": 22460,
-          "source_updated_utc": "2026-11-23T15:18:59Z",
+          "size_bytes": 22584,
+          "source_updated_utc": "2026-11-24T15:18:58Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_leaguedash/player_tracking_catchshoot_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_leaguedash/player_tracking_catchshoot_2027.parquet"
         },
         {
           "name": "player_stats_usage_2027.parquet",
-          "size_bytes": 82348,
-          "source_updated_utc": "2026-11-23T15:18:58Z",
+          "size_bytes": 83072,
+          "source_updated_utc": "2026-11-24T15:18:56Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_leaguedash/player_stats_usage_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_leaguedash/player_stats_usage_2027.parquet"
         },
         {
           "name": "player_stats_scoring_2027.parquet",
-          "size_bytes": 77288,
-          "source_updated_utc": "2026-11-23T15:18:56Z",
+          "size_bytes": 78073,
+          "source_updated_utc": "2026-11-24T15:18:54Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_leaguedash/player_stats_scoring_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_leaguedash/player_stats_scoring_2027.parquet"
         },
         {
           "name": "player_stats_misc_2027.parquet",
-          "size_bytes": 50238,
-          "source_updated_utc": "2026-11-23T15:18:54Z",
+          "size_bytes": 50743,
+          "source_updated_utc": "2026-11-24T15:18:52Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_leaguedash/player_stats_misc_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_leaguedash/player_stats_misc_2027.parquet"
         },
         {
           "name": "player_stats_defense_2027.parquet",
-          "size_bytes": 60451,
-          "source_updated_utc": "2026-11-23T15:18:52Z",
+          "size_bytes": 61103,
+          "source_updated_utc": "2026-11-24T15:18:50Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_leaguedash/player_stats_defense_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_leaguedash/player_stats_defense_2027.parquet"
         },
         {
           "name": "player_stats_advanced_2027.parquet",
-          "size_bytes": 119853,
-          "source_updated_utc": "2026-11-23T15:18:48Z",
+          "size_bytes": 121207,
+          "source_updated_utc": "2026-11-24T15:18:47Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_leaguedash/player_stats_advanced_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_leaguedash/player_stats_advanced_2027.parquet"
@@ -2134,32 +2134,32 @@
       "assets": [
         {
           "name": "leaguehustlestatsteam_regular-season_totals_2027.parquet",
-          "size_bytes": 11508,
-          "source_updated_utc": "2026-11-23T15:22:01Z",
+          "size_bytes": 11495,
+          "source_updated_utc": "2026-11-24T15:22:03Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_hustle/leaguehustlestatsteam_regular-season_totals_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_hustle/leaguehustlestatsteam_regular-season_totals_2027.parquet"
         },
         {
           "name": "leaguehustlestatsteam_regular-season_pergame_2027.parquet",
-          "size_bytes": 11977,
-          "source_updated_utc": "2026-11-23T15:21:59Z",
+          "size_bytes": 11950,
+          "source_updated_utc": "2026-11-24T15:22:01Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_hustle/leaguehustlestatsteam_regular-season_pergame_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_hustle/leaguehustlestatsteam_regular-season_pergame_2027.parquet"
         },
         {
           "name": "leaguehustlestatsplayer_regular-season_totals_2027.parquet",
-          "size_bytes": 30290,
-          "source_updated_utc": "2026-11-23T15:21:58Z",
+          "size_bytes": 30609,
+          "source_updated_utc": "2026-11-24T15:22:00Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_hustle/leaguehustlestatsplayer_regular-season_totals_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_hustle/leaguehustlestatsplayer_regular-season_totals_2027.parquet"
         },
         {
           "name": "leaguehustlestatsplayer_regular-season_pergame_2027.parquet",
-          "size_bytes": 38773,
-          "source_updated_utc": "2026-11-23T15:21:56Z",
+          "size_bytes": 39185,
+          "source_updated_utc": "2026-11-24T15:21:58Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_hustle/leaguehustlestatsplayer_regular-season_pergame_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_hustle/leaguehustlestatsplayer_regular-season_pergame_2027.parquet"
@@ -2877,16 +2877,16 @@
       "assets": [
         {
           "name": "matchupsrollup_regular-season_totals_2027.parquet",
-          "size_bytes": 68999,
-          "source_updated_utc": "2026-11-23T15:21:35Z",
+          "size_bytes": 70127,
+          "source_updated_utc": "2026-11-24T15:21:47Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_matchups/matchupsrollup_regular-season_totals_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_matchups/matchupsrollup_regular-season_totals_2027.parquet"
         },
         {
           "name": "matchupsrollup_regular-season_pergame_2027.parquet",
-          "size_bytes": 80487,
-          "source_updated_utc": "2026-11-23T15:21:33Z",
+          "size_bytes": 81205,
+          "source_updated_utc": "2026-11-24T15:21:46Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_matchups/matchupsrollup_regular-season_pergame_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_matchups/matchupsrollup_regular-season_pergame_2027.parquet"
@@ -3495,7 +3495,7 @@
           "size_bytes": 13226049,
           "source_updated_utc": "2026-11-23T19:01:23Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_game_matchups/game_matchups_2027.csv",
-          "status": "downloaded",
+          "status": "cached",
           "path": "data/nba/research/nba_stats_game_matchups/game_matchups_2027.csv"
         },
         {
@@ -3579,216 +3579,216 @@
       "assets": [
         {
           "name": "regular-season_transition_offensive_totals_2027.parquet",
-          "size_bytes": 25586,
-          "source_updated_utc": "2026-11-23T15:21:15Z",
+          "size_bytes": 25610,
+          "source_updated_utc": "2026-11-24T15:21:17Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_synergy/regular-season_transition_offensive_totals_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_synergy/regular-season_transition_offensive_totals_2027.parquet"
         },
         {
           "name": "regular-season_transition_offensive_pergame_2027.parquet",
-          "size_bytes": 26218,
-          "source_updated_utc": "2026-11-22T15:19:22Z",
+          "size_bytes": 26263,
+          "source_updated_utc": "2026-11-24T15:21:15Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_synergy/regular-season_transition_offensive_pergame_2027.parquet",
-          "status": "cached",
+          "status": "downloaded",
           "path": "data/nba/research/nba_stats_synergy/regular-season_transition_offensive_pergame_2027.parquet"
         },
         {
           "name": "regular-season_spotup_offensive_totals_2027.parquet",
-          "size_bytes": 26053,
-          "source_updated_utc": "2026-11-23T15:21:13Z",
+          "size_bytes": 26134,
+          "source_updated_utc": "2026-11-24T15:21:12Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_synergy/regular-season_spotup_offensive_totals_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_synergy/regular-season_spotup_offensive_totals_2027.parquet"
         },
         {
           "name": "regular-season_spotup_offensive_pergame_2027.parquet",
-          "size_bytes": 26480,
-          "source_updated_utc": "2026-11-22T15:19:18Z",
+          "size_bytes": 26792,
+          "source_updated_utc": "2026-11-24T15:21:10Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_synergy/regular-season_spotup_offensive_pergame_2027.parquet",
-          "status": "cached",
+          "status": "downloaded",
           "path": "data/nba/research/nba_stats_synergy/regular-season_spotup_offensive_pergame_2027.parquet"
         },
         {
           "name": "regular-season_spotup_defensive_totals_2027.parquet",
-          "size_bytes": 26865,
-          "source_updated_utc": "2026-11-23T15:21:11Z",
+          "size_bytes": 27010,
+          "source_updated_utc": "2026-11-24T15:21:08Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_synergy/regular-season_spotup_defensive_totals_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_synergy/regular-season_spotup_defensive_totals_2027.parquet"
         },
         {
           "name": "regular-season_spotup_defensive_pergame_2027.parquet",
-          "size_bytes": 27610,
-          "source_updated_utc": "2026-11-23T15:21:09Z",
+          "size_bytes": 27739,
+          "source_updated_utc": "2026-11-24T15:21:06Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_synergy/regular-season_spotup_defensive_pergame_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_synergy/regular-season_spotup_defensive_pergame_2027.parquet"
         },
         {
           "name": "regular-season_prrollman_offensive_totals_2027.parquet",
-          "size_bytes": 16930,
-          "source_updated_utc": "2026-11-23T15:21:07Z",
+          "size_bytes": 17073,
+          "source_updated_utc": "2026-11-24T15:21:03Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_synergy/regular-season_prrollman_offensive_totals_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_synergy/regular-season_prrollman_offensive_totals_2027.parquet"
         },
         {
           "name": "regular-season_prrollman_offensive_pergame_2027.parquet",
-          "size_bytes": 16935,
-          "source_updated_utc": "2026-11-23T15:21:05Z",
+          "size_bytes": 17220,
+          "source_updated_utc": "2026-11-24T15:21:01Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_synergy/regular-season_prrollman_offensive_pergame_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_synergy/regular-season_prrollman_offensive_pergame_2027.parquet"
         },
         {
           "name": "regular-season_prrollman_defensive_totals_2027.parquet",
-          "size_bytes": 20368,
-          "source_updated_utc": "2026-11-23T15:21:03Z",
+          "size_bytes": 20759,
+          "source_updated_utc": "2026-11-24T15:20:59Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_synergy/regular-season_prrollman_defensive_totals_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_synergy/regular-season_prrollman_defensive_totals_2027.parquet"
         },
         {
           "name": "regular-season_prrollman_defensive_pergame_2027.parquet",
-          "size_bytes": 20803,
-          "source_updated_utc": "2026-11-23T15:21:01Z",
+          "size_bytes": 21188,
+          "source_updated_utc": "2026-11-24T15:20:57Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_synergy/regular-season_prrollman_defensive_pergame_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_synergy/regular-season_prrollman_defensive_pergame_2027.parquet"
         },
         {
           "name": "regular-season_prballhandler_offensive_totals_2027.parquet",
-          "size_bytes": 21264,
-          "source_updated_utc": "2026-11-23T15:20:59Z",
+          "size_bytes": 21284,
+          "source_updated_utc": "2026-11-24T15:20:55Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_synergy/regular-season_prballhandler_offensive_totals_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_synergy/regular-season_prballhandler_offensive_totals_2027.parquet"
         },
         {
           "name": "regular-season_prballhandler_offensive_pergame_2027.parquet",
-          "size_bytes": 21583,
-          "source_updated_utc": "2026-11-22T15:19:08Z",
+          "size_bytes": 21594,
+          "source_updated_utc": "2026-11-24T15:20:53Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_synergy/regular-season_prballhandler_offensive_pergame_2027.parquet",
-          "status": "cached",
+          "status": "downloaded",
           "path": "data/nba/research/nba_stats_synergy/regular-season_prballhandler_offensive_pergame_2027.parquet"
         },
         {
           "name": "regular-season_prballhandler_defensive_totals_2027.parquet",
-          "size_bytes": 28194,
-          "source_updated_utc": "2026-11-23T15:20:57Z",
+          "size_bytes": 28232,
+          "source_updated_utc": "2026-11-24T15:20:51Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_synergy/regular-season_prballhandler_defensive_totals_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_synergy/regular-season_prballhandler_defensive_totals_2027.parquet"
         },
         {
           "name": "regular-season_prballhandler_defensive_pergame_2027.parquet",
-          "size_bytes": 28914,
-          "source_updated_utc": "2026-11-23T15:20:55Z",
+          "size_bytes": 29002,
+          "source_updated_utc": "2026-11-24T15:20:48Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_synergy/regular-season_prballhandler_defensive_pergame_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_synergy/regular-season_prballhandler_defensive_pergame_2027.parquet"
         },
         {
           "name": "regular-season_postup_offensive_totals_2027.parquet",
-          "size_bytes": 14360,
-          "source_updated_utc": "2026-11-23T15:20:53Z",
+          "size_bytes": 14527,
+          "source_updated_utc": "2026-11-24T15:20:46Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_synergy/regular-season_postup_offensive_totals_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_synergy/regular-season_postup_offensive_totals_2027.parquet"
         },
         {
           "name": "regular-season_postup_offensive_pergame_2027.parquet",
-          "size_bytes": 14415,
-          "source_updated_utc": "2026-11-22T15:19:01Z",
+          "size_bytes": 14650,
+          "source_updated_utc": "2026-11-24T15:20:44Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_synergy/regular-season_postup_offensive_pergame_2027.parquet",
-          "status": "cached",
+          "status": "downloaded",
           "path": "data/nba/research/nba_stats_synergy/regular-season_postup_offensive_pergame_2027.parquet"
         },
         {
           "name": "regular-season_postup_defensive_totals_2027.parquet",
-          "size_bytes": 13039,
-          "source_updated_utc": "2026-11-23T15:20:51Z",
+          "size_bytes": 13096,
+          "source_updated_utc": "2026-11-24T15:20:42Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_synergy/regular-season_postup_defensive_totals_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_synergy/regular-season_postup_defensive_totals_2027.parquet"
         },
         {
           "name": "regular-season_postup_defensive_pergame_2027.parquet",
-          "size_bytes": 13104,
-          "source_updated_utc": "2026-11-23T15:20:49Z",
+          "size_bytes": 13134,
+          "source_updated_utc": "2026-11-24T15:20:39Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_synergy/regular-season_postup_defensive_pergame_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_synergy/regular-season_postup_defensive_pergame_2027.parquet"
         },
         {
           "name": "regular-season_offscreen_offensive_totals_2027.parquet",
-          "size_bytes": 15290,
-          "source_updated_utc": "2026-11-23T15:20:47Z",
+          "size_bytes": 15511,
+          "source_updated_utc": "2026-11-24T15:20:37Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_synergy/regular-season_offscreen_offensive_totals_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_synergy/regular-season_offscreen_offensive_totals_2027.parquet"
         },
         {
           "name": "regular-season_offscreen_offensive_pergame_2027.parquet",
-          "size_bytes": 15225,
-          "source_updated_utc": "2026-11-22T15:18:54Z",
+          "size_bytes": 15619,
+          "source_updated_utc": "2026-11-24T15:20:35Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_synergy/regular-season_offscreen_offensive_pergame_2027.parquet",
-          "status": "cached",
+          "status": "downloaded",
           "path": "data/nba/research/nba_stats_synergy/regular-season_offscreen_offensive_pergame_2027.parquet"
         },
         {
           "name": "regular-season_offscreen_defensive_totals_2027.parquet",
-          "size_bytes": 14264,
-          "source_updated_utc": "2026-11-23T15:20:44Z",
+          "size_bytes": 14618,
+          "source_updated_utc": "2026-11-24T15:20:33Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_synergy/regular-season_offscreen_defensive_totals_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_synergy/regular-season_offscreen_defensive_totals_2027.parquet"
         },
         {
           "name": "regular-season_offscreen_defensive_pergame_2027.parquet",
-          "size_bytes": 14353,
-          "source_updated_utc": "2026-11-23T15:20:42Z",
+          "size_bytes": 14727,
+          "source_updated_utc": "2026-11-24T15:20:31Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_synergy/regular-season_offscreen_defensive_pergame_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_synergy/regular-season_offscreen_defensive_pergame_2027.parquet"
         },
         {
           "name": "regular-season_offrebound_offensive_totals_2027.parquet",
-          "size_bytes": 16839,
-          "source_updated_utc": "2026-11-23T15:20:40Z",
+          "size_bytes": 16986,
+          "source_updated_utc": "2026-11-24T15:20:29Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_synergy/regular-season_offrebound_offensive_totals_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_synergy/regular-season_offrebound_offensive_totals_2027.parquet"
         },
         {
           "name": "regular-season_offrebound_offensive_pergame_2027.parquet",
-          "size_bytes": 16687,
-          "source_updated_utc": "2026-11-22T15:18:47Z",
+          "size_bytes": 17144,
+          "source_updated_utc": "2026-11-24T15:20:27Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_synergy/regular-season_offrebound_offensive_pergame_2027.parquet",
-          "status": "cached",
+          "status": "downloaded",
           "path": "data/nba/research/nba_stats_synergy/regular-season_offrebound_offensive_pergame_2027.parquet"
         },
         {
           "name": "regular-season_misc_offensive_totals_2027.parquet",
-          "size_bytes": 16647,
-          "source_updated_utc": "2026-11-23T15:20:38Z",
+          "size_bytes": 17088,
+          "source_updated_utc": "2026-11-24T15:20:24Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_synergy/regular-season_misc_offensive_totals_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_synergy/regular-season_misc_offensive_totals_2027.parquet"
         },
         {
           "name": "regular-season_misc_offensive_pergame_2027.parquet",
-          "size_bytes": 16803,
-          "source_updated_utc": "2026-11-23T15:20:36Z",
+          "size_bytes": 17252,
+          "source_updated_utc": "2026-11-24T15:20:21Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_synergy/regular-season_misc_offensive_pergame_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_synergy/regular-season_misc_offensive_pergame_2027.parquet"
         },
         {
           "name": "regular-season_isolation_offensive_totals_2027.parquet",
-          "size_bytes": 17476,
-          "source_updated_utc": "2026-11-23T15:20:34Z",
+          "size_bytes": 17615,
+          "source_updated_utc": "2026-11-24T15:20:19Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_synergy/regular-season_isolation_offensive_totals_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_synergy/regular-season_isolation_offensive_totals_2027.parquet"
@@ -3798,69 +3798,69 @@
           "size_bytes": 17654,
           "source_updated_utc": "2026-11-23T15:20:32Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_synergy/regular-season_isolation_offensive_pergame_2027.parquet",
-          "status": "downloaded",
+          "status": "cached",
           "path": "data/nba/research/nba_stats_synergy/regular-season_isolation_offensive_pergame_2027.parquet"
         },
         {
           "name": "regular-season_isolation_defensive_totals_2027.parquet",
-          "size_bytes": 18353,
-          "source_updated_utc": "2026-11-23T15:20:29Z",
+          "size_bytes": 18650,
+          "source_updated_utc": "2026-11-24T15:20:17Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_synergy/regular-season_isolation_defensive_totals_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_synergy/regular-season_isolation_defensive_totals_2027.parquet"
         },
         {
           "name": "regular-season_isolation_defensive_pergame_2027.parquet",
-          "size_bytes": 18579,
-          "source_updated_utc": "2026-11-23T15:20:27Z",
+          "size_bytes": 18880,
+          "source_updated_utc": "2026-11-24T15:20:16Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_synergy/regular-season_isolation_defensive_pergame_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_synergy/regular-season_isolation_defensive_pergame_2027.parquet"
         },
         {
           "name": "regular-season_handoff_offensive_totals_2027.parquet",
-          "size_bytes": 16713,
-          "source_updated_utc": "2026-11-23T15:20:25Z",
+          "size_bytes": 16947,
+          "source_updated_utc": "2026-11-24T15:20:13Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_synergy/regular-season_handoff_offensive_totals_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_synergy/regular-season_handoff_offensive_totals_2027.parquet"
         },
         {
           "name": "regular-season_handoff_offensive_pergame_2027.parquet",
-          "size_bytes": 16859,
-          "source_updated_utc": "2026-11-23T15:20:22Z",
+          "size_bytes": 17091,
+          "source_updated_utc": "2026-11-24T15:20:11Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_synergy/regular-season_handoff_offensive_pergame_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_synergy/regular-season_handoff_offensive_pergame_2027.parquet"
         },
         {
           "name": "regular-season_handoff_defensive_totals_2027.parquet",
-          "size_bytes": 16974,
-          "source_updated_utc": "2026-11-23T15:20:20Z",
+          "size_bytes": 17269,
+          "source_updated_utc": "2026-11-24T15:20:09Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_synergy/regular-season_handoff_defensive_totals_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_synergy/regular-season_handoff_defensive_totals_2027.parquet"
         },
         {
           "name": "regular-season_handoff_defensive_pergame_2027.parquet",
-          "size_bytes": 17098,
-          "source_updated_utc": "2026-11-23T15:20:17Z",
+          "size_bytes": 17379,
+          "source_updated_utc": "2026-11-24T15:20:06Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_synergy/regular-season_handoff_defensive_pergame_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_synergy/regular-season_handoff_defensive_pergame_2027.parquet"
         },
         {
           "name": "regular-season_cut_offensive_totals_2027.parquet",
-          "size_bytes": 18673,
-          "source_updated_utc": "2026-11-23T15:20:15Z",
+          "size_bytes": 18736,
+          "source_updated_utc": "2026-11-24T15:20:04Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_synergy/regular-season_cut_offensive_totals_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_synergy/regular-season_cut_offensive_totals_2027.parquet"
         },
         {
           "name": "regular-season_cut_offensive_pergame_2027.parquet",
-          "size_bytes": 18905,
-          "source_updated_utc": "2026-11-23T15:20:13Z",
+          "size_bytes": 18987,
+          "source_updated_utc": "2026-11-24T15:20:02Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_synergy/regular-season_cut_offensive_pergame_2027.parquet",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_synergy/regular-season_cut_offensive_pergame_2027.parquet"
@@ -10210,8 +10210,8 @@
       "assets": [
         {
           "name": "nba_lineups_2027.csv.gz",
-          "size_bytes": 387807,
-          "source_updated_utc": "2026-11-23T15:16:47Z",
+          "size_bytes": 403179,
+          "source_updated_utc": "2026-11-24T15:17:04Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_game_lineups/nba_lineups_2027.csv.gz",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_game_lineups/nba_lineups_2027.csv.gz"
@@ -10313,8 +10313,8 @@
       "assets": [
         {
           "name": "lineups_2027.csv",
-          "size_bytes": 15760703,
-          "source_updated_utc": "2026-11-23T19:02:06Z",
+          "size_bytes": 15767913,
+          "source_updated_utc": "2026-11-24T18:33:41Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_lineups/lineups_2027.csv",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_lineups/lineups_2027.csv"
@@ -10416,8 +10416,8 @@
       "assets": [
         {
           "name": "nba_possessions_2027.csv.gz",
-          "size_bytes": 1122796,
-          "source_updated_utc": "2026-11-23T15:16:41Z",
+          "size_bytes": 1167541,
+          "source_updated_utc": "2026-11-24T15:16:58Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_possessions/nba_possessions_2027.csv.gz",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_possessions/nba_possessions_2027.csv.gz"
@@ -10519,8 +10519,8 @@
       "assets": [
         {
           "name": "player_game_logs_2027.csv",
-          "size_bytes": 943932,
-          "source_updated_utc": "2026-11-23T19:03:03Z",
+          "size_bytes": 982528,
+          "source_updated_utc": "2026-11-24T18:34:35Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_stats_player_game_logs/player_game_logs_2027.csv",
           "status": "downloaded",
           "path": "data/nba/research/nba_stats_player_game_logs/player_game_logs_2027.csv"
@@ -10622,16 +10622,16 @@
       "assets": [
         {
           "name": "nba_player_impact_league_averages_2027.csv",
-          "size_bytes": 179,
-          "source_updated_utc": "2026-11-23T09:00:28Z",
+          "size_bytes": 178,
+          "source_updated_utc": "2026-11-24T09:00:33Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_player_impact/nba_player_impact_league_averages_2027.csv",
-          "status": "cached",
+          "status": "downloaded",
           "path": "data/nba/research/nba_player_impact/nba_player_impact_league_averages_2027.csv"
         },
         {
           "name": "nba_player_impact_2027.csv",
-          "size_bytes": 281447,
-          "source_updated_utc": "2026-11-23T09:00:24Z",
+          "size_bytes": 281978,
+          "source_updated_utc": "2026-11-24T09:00:28Z",
           "url": "https://github.com/sportsdataverse/sportsdataverse-data/releases/download/nba_player_impact/nba_player_impact_2027.csv",
           "status": "downloaded",
           "path": "data/nba/research/nba_player_impact/nba_player_impact_2027.csv"
@@ -10816,10 +10816,10 @@
     }
   },
   "totals": {
-    "downloaded": 64,
-    "cached": 1278,
+    "downloaded": 61,
+    "cached": 1281,
     "skipped": 0,
     "failed": 0,
-    "bytes_downloaded": 33350761
+    "bytes_downloaded": 20127118
   }
 }
