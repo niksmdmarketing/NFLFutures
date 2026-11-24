@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-11-24T1305Z",
-"feed_timestamp": "2026-11-24T13:05:32Z",
+"collected_utc": "2026-11-24T1754Z",
+"feed_timestamp": "2026-11-24T17:54:20Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -202,12 +202,6 @@
 "injury": "Left Knee"
 },
 {
-"athlete_id": "5157066",
-"status": "Out",
-"return_date": "2027-01-02",
-"injury": "Right Knee Surgery"
-},
-{
 "athlete_id": "2580365",
 "status": "Day-To-Day",
 "return_date": "2026-11-27",
@@ -288,7 +282,7 @@
 {
 "athlete_id": "3934673",
 "status": "Out",
-"return_date": "2027-04-02",
+"return_date": "2027-01-03",
 "injury": "Right Achilles Surgery"
 },
 {
@@ -548,6 +542,12 @@
 "status": "Out",
 "return_date": "2026-12-03",
 "injury": "Shoulder"
+},
+{
+"athlete_id": "4432819",
+"status": "Day-To-Day",
+"return_date": "2026-11-24",
+"injury": "Illness"
 },
 {
 "athlete_id": "4997537",
@@ -855,15 +855,6 @@
 "updated": "2026-10-28T21:41Z"
 },
 {
-"athlete_id": "5157066",
-"name": "Johnny Furphy",
-"team_name": "Indiana Pacers",
-"status": "Out",
-"return_date": "2027-01-02",
-"injury": "Right Knee Surgery",
-"updated": "2026-10-30T19:06Z"
-},
-{
 "athlete_id": "2580365",
 "name": "Larry Nance Jr.",
 "team_name": "Indiana Pacers",
@@ -879,7 +870,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-11-27",
 "injury": "Left Hamstring",
-"updated": "2026-11-24T04:40Z"
+"updated": "2026-11-24T16:02Z"
 },
 {
 "athlete_id": "4396993",
@@ -888,7 +879,7 @@
 "status": "Out",
 "return_date": "2026-12-13",
 "injury": "Left Hamstring Strain",
-"updated": "2026-11-20T20:41Z"
+"updated": "2026-11-24T15:57Z"
 },
 {
 "athlete_id": "6580",
@@ -985,9 +976,9 @@
 "name": "Donte DiVincenzo",
 "team_name": "Minnesota Timberwolves",
 "status": "Out",
-"return_date": "2027-04-02",
+"return_date": "2027-01-03",
 "injury": "Right Achilles Surgery",
-"updated": "2026-10-05T20:53Z"
+"updated": "2026-11-24T17:10Z"
 },
 {
 "athlete_id": "4432247",
@@ -1375,6 +1366,15 @@
 "return_date": "2026-12-03",
 "injury": "Shoulder",
 "updated": "2026-11-02T18:22Z"
+},
+{
+"athlete_id": "4432819",
+"name": "Tre Mann",
+"team_name": "Washington Wizards",
+"status": "Day-To-Day",
+"return_date": "2026-11-24",
+"injury": "Illness",
+"updated": "2026-11-24T16:47Z"
 },
 {
 "athlete_id": "4997537",
