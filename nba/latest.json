@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-11-25T0609Z",
-"feed_timestamp": "2026-11-25T06:09:17Z",
+"collected_utc": "2026-11-25T1905Z",
+"feed_timestamp": "2026-11-25T19:05:35Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -54,7 +54,7 @@
 {
 "athlete_id": "3135045",
 "status": "Out",
-"return_date": "2026-11-25",
+"return_date": "2026-11-28",
 "injury": "Concussion"
 },
 {
@@ -65,8 +65,8 @@
 },
 {
 "athlete_id": "4576060",
-"status": "Day-To-Day",
-"return_date": "2026-11-25",
+"status": "Out",
+"return_date": "2026-11-28",
 "injury": "Left Hip Soreness"
 },
 {
@@ -131,7 +131,7 @@
 },
 {
 "athlete_id": "4432166",
-"status": "Out",
+"status": "Day-To-Day",
 "return_date": "2026-11-27",
 "injury": "Knee"
 },
@@ -310,10 +310,22 @@
 "injury": "Ankle"
 },
 {
+"athlete_id": "4683742",
+"status": "Day-To-Day",
+"return_date": "2026-11-25",
+"injury": "Right Knee"
+},
+{
 "athlete_id": "4431675",
 "status": "Out",
 "return_date": "2026-11-27",
 "injury": "Right Ankle Sprain"
+},
+{
+"athlete_id": "3934672",
+"status": "Day-To-Day",
+"return_date": "2026-11-25",
+"injury": "Illness"
 },
 {
 "athlete_id": "2528426",
@@ -331,12 +343,12 @@
 "athlete_id": "3136195",
 "status": "Day-To-Day",
 "return_date": "2026-11-25",
-"injury": "Knee"
+"injury": "Right Knee Inflammation"
 },
 {
 "athlete_id": "4431823",
-"status": "Day-To-Day",
-"return_date": "2026-11-25",
+"status": "Out",
+"return_date": "2026-11-27",
 "injury": "Left Groin Soreness"
 },
 {
@@ -640,9 +652,9 @@
 "name": "Grayson Allen",
 "team_name": "Charlotte Hornets",
 "status": "Out",
-"return_date": "2026-11-25",
+"return_date": "2026-11-28",
 "injury": "Concussion",
-"updated": "2026-11-24T22:29Z"
+"updated": "2026-11-25T17:39Z"
 },
 {
 "athlete_id": "5061575",
@@ -657,10 +669,10 @@
 "athlete_id": "4576060",
 "name": "Ryan Kalkbrenner",
 "team_name": "Charlotte Hornets",
-"status": "Day-To-Day",
-"return_date": "2026-11-25",
+"status": "Out",
+"return_date": "2026-11-28",
 "injury": "Left Hip Soreness",
-"updated": "2026-11-24T22:33Z"
+"updated": "2026-11-25T17:41Z"
 },
 {
 "athlete_id": "4602025",
@@ -756,10 +768,10 @@
 "athlete_id": "4432166",
 "name": "Cade Cunningham",
 "team_name": "Detroit Pistons",
-"status": "Out",
+"status": "Day-To-Day",
 "return_date": "2026-11-27",
 "injury": "Knee",
-"updated": "2026-11-24T23:36Z"
+"updated": "2026-11-25T19:00Z"
 },
 {
 "athlete_id": "3157465",
@@ -1023,6 +1035,15 @@
 "updated": "2026-11-13T20:19Z"
 },
 {
+"athlete_id": "4683742",
+"name": "Julian Reese",
+"team_name": "New Orleans Pelicans",
+"status": "Day-To-Day",
+"return_date": "2026-11-25",
+"injury": "Right Knee",
+"updated": "2026-11-25T16:11Z"
+},
+{
 "athlete_id": "4431675",
 "name": "Trendon Watford",
 "team_name": "New Orleans Pelicans",
@@ -1030,6 +1051,15 @@
 "return_date": "2026-11-27",
 "injury": "Right Ankle Sprain",
 "updated": "2026-11-21T18:21Z"
+},
+{
+"athlete_id": "3934672",
+"name": "Jalen Brunson",
+"team_name": "New York Knicks",
+"status": "Day-To-Day",
+"return_date": "2026-11-25",
+"injury": "Illness",
+"updated": "2026-11-25T17:53Z"
 },
 {
 "athlete_id": "2528426",
@@ -1047,7 +1077,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-11-25",
 "injury": "Right Shoulder Sprain",
-"updated": "2026-11-24T21:54Z"
+"updated": "2026-11-25T17:57Z"
 },
 {
 "athlete_id": "3136195",
@@ -1055,17 +1085,17 @@
 "team_name": "New York Knicks",
 "status": "Day-To-Day",
 "return_date": "2026-11-25",
-"injury": "Knee",
-"updated": "2026-11-24T21:50Z"
+"injury": "Right Knee Inflammation",
+"updated": "2026-11-25T17:54Z"
 },
 {
 "athlete_id": "4431823",
 "name": "Miles McBride",
 "team_name": "New York Knicks",
-"status": "Day-To-Day",
-"return_date": "2026-11-25",
+"status": "Out",
+"return_date": "2026-11-27",
 "injury": "Left Groin Soreness",
-"updated": "2026-11-24T21:56Z"
+"updated": "2026-11-25T17:57Z"
 },
 {
 "athlete_id": "3934719",
@@ -1254,7 +1284,7 @@
 "status": "Out",
 "return_date": "2026-12-02",
 "injury": "Right Knee Dislocated",
-"updated": "2026-11-25T04:21Z"
+"updated": "2026-11-25T16:25Z"
 },
 {
 "athlete_id": "4066259",
