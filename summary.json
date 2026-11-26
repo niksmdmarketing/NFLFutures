@@ -1,12 +1,12 @@
 {
  "schema_version": 2,
  "source_url": "https://www.nfl.com/injuries/",
- "generated_at": "2026-11-26T19:02:36+00:00",
- "last_attempt_at": "2026-11-26T19:02:36+00:00",
+ "generated_at": "2026-11-26T21:38:00+00:00",
+ "last_attempt_at": "2026-11-26T21:38:00+00:00",
  "last_attempt_ok": true,
  "last_error": null,
- "last_success_at": "2026-11-26T19:02:36+00:00",
- "report_first_seen_at": "2026-11-26T19:02:36+00:00",
+ "last_success_at": "2026-11-26T21:38:00+00:00",
+ "report_first_seen_at": "2026-11-26T21:38:00+00:00",
  "collection_status": "ok",
  "stale_after_hours": 6,
  "report_season": 2026,
@@ -89,7 +89,7 @@
   "2026-11-30"
  ],
  "status_counts": {
-  "No game status": 263,
+  "No game status": 264,
   "Questionable": 21,
   "Out": 19
  },
@@ -1230,7 +1230,7 @@
    "player": "Andrew Ogletree",
    "position": "TE",
    "injury": null,
-   "practice_status": "Did Not Participate In Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/andrew-ogletree/"
   },
@@ -1270,9 +1270,19 @@
    "player": "Deion Burks",
    "position": "WR",
    "injury": null,
-   "practice_status": "Did Not Participate In Practice",
+   "practice_status": "Full Participation in Practice",
    "game_status": null,
    "player_url": "https://www.nfl.com/players/deion-burks/"
+  },
+  {
+   "team": "IND",
+   "player_id": "grover-stewart",
+   "player": "Grover Stewart",
+   "position": "DT",
+   "injury": null,
+   "practice_status": "Did Not Participate In Practice",
+   "game_status": null,
+   "player_url": "https://www.nfl.com/players/grover-stewart/"
   },
   {
    "team": "IND",
@@ -3127,6 +3137,81 @@
  ],
  "recent_changes": [
   {
+   "observed_at": "2026-11-26T21:38:00+00:00",
+   "season": 2026,
+   "week": 12,
+   "team": "IND",
+   "player_id": "grover-stewart",
+   "kind": "appeared",
+   "before": null,
+   "after": {
+    "team": "IND",
+    "player_id": "grover-stewart",
+    "player": "Grover Stewart",
+    "position": "DT",
+    "injury": null,
+    "practice_status": "Did Not Participate In Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/grover-stewart/"
+   }
+  },
+  {
+   "observed_at": "2026-11-26T21:38:00+00:00",
+   "season": 2026,
+   "week": 12,
+   "team": "IND",
+   "player_id": "deion-burks",
+   "kind": "updated",
+   "before": {
+    "team": "IND",
+    "player_id": "deion-burks",
+    "player": "Deion Burks",
+    "position": "WR",
+    "injury": null,
+    "practice_status": "Did Not Participate In Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/deion-burks/"
+   },
+   "after": {
+    "team": "IND",
+    "player_id": "deion-burks",
+    "player": "Deion Burks",
+    "position": "WR",
+    "injury": null,
+    "practice_status": "Full Participation in Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/deion-burks/"
+   }
+  },
+  {
+   "observed_at": "2026-11-26T21:38:00+00:00",
+   "season": 2026,
+   "week": 12,
+   "team": "IND",
+   "player_id": "andrew-ogletree",
+   "kind": "updated",
+   "before": {
+    "team": "IND",
+    "player_id": "andrew-ogletree",
+    "player": "Andrew Ogletree",
+    "position": "TE",
+    "injury": null,
+    "practice_status": "Did Not Participate In Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/andrew-ogletree/"
+   },
+   "after": {
+    "team": "IND",
+    "player_id": "andrew-ogletree",
+    "player": "Andrew Ogletree",
+    "position": "TE",
+    "injury": null,
+    "practice_status": "Full Participation in Practice",
+    "game_status": null,
+    "player_url": "https://www.nfl.com/players/andrew-ogletree/"
+   }
+  },
+  {
    "observed_at": "2026-11-26T19:02:36+00:00",
    "season": 2026,
    "week": 12,
@@ -3828,67 +3913,10 @@
     "game_status": null,
     "player_url": "https://www.nfl.com/players/deane-leonard/"
    }
-  },
-  {
-   "observed_at": "2026-11-26T19:02:36+00:00",
-   "season": 2026,
-   "week": 12,
-   "team": "LAC",
-   "player_id": "david-njoku",
-   "kind": "appeared",
-   "before": null,
-   "after": {
-    "team": "LAC",
-    "player_id": "david-njoku",
-    "player": "David Njoku",
-    "position": "TE",
-    "injury": null,
-    "practice_status": "Did Not Participate In Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/david-njoku/"
-   }
-  },
-  {
-   "observed_at": "2026-11-26T19:02:36+00:00",
-   "season": 2026,
-   "week": 12,
-   "team": "LAC",
-   "player_id": "dalvin-tomlinson",
-   "kind": "appeared",
-   "before": null,
-   "after": {
-    "team": "LAC",
-    "player_id": "dalvin-tomlinson",
-    "player": "Dalvin Tomlinson",
-    "position": "DT",
-    "injury": null,
-    "practice_status": "Did Not Participate In Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/dalvin-tomlinson/"
-   }
-  },
-  {
-   "observed_at": "2026-11-26T19:02:36+00:00",
-   "season": 2026,
-   "week": 12,
-   "team": "LAC",
-   "player_id": "daiyan-henley",
-   "kind": "appeared",
-   "before": null,
-   "after": {
-    "team": "LAC",
-    "player_id": "daiyan-henley",
-    "player": "Daiyan Henley",
-    "position": "LB",
-    "injury": null,
-    "practice_status": "Did Not Participate In Practice",
-    "game_status": null,
-    "player_url": "https://www.nfl.com/players/daiyan-henley/"
-   }
   }
  ],
- "distinct_reports": 57,
- "checks": 511,
+ "distinct_reports": 58,
+ "checks": 512,
  "failed_checks": 0,
  "warnings": [
   "2 team(s) playing this week are not on the report yet (CAR, TB). Teams usually appear as their game approaches; absence does not mean healthy."
