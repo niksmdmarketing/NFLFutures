@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-11-26T1906Z",
-"feed_timestamp": "2026-11-26T19:06:33Z",
+"collected_utc": "2026-11-26T2141Z",
+"feed_timestamp": "2026-11-26T21:41:38Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -42,7 +42,7 @@
 {
 "athlete_id": "3150844",
 "status": "Out",
-"return_date": "2026-11-27",
+"return_date": "2026-11-28",
 "injury": "Left Knee Soreness"
 },
 {
@@ -268,6 +268,18 @@
 "injury": "Left Ankle Soreness"
 },
 {
+"athlete_id": "3059319",
+"status": "Day-To-Day",
+"return_date": "2026-11-27",
+"injury": "Right Ankle Sprain"
+},
+{
+"athlete_id": "3032977",
+"status": "Day-To-Day",
+"return_date": "2026-11-27",
+"injury": "Right Groin"
+},
+{
 "athlete_id": "4594268",
 "status": "Out",
 "return_date": "2026-12-21",
@@ -300,7 +312,7 @@
 {
 "athlete_id": "3907497",
 "status": "Out",
-"return_date": "2026-11-27",
+"return_date": "2026-11-29",
 "injury": "Ankle"
 },
 {
@@ -502,6 +514,12 @@
 "injury": "Left Calf Strain"
 },
 {
+"athlete_id": "4702656",
+"status": "Day-To-Day",
+"return_date": "2026-11-27",
+"injury": "Left Knee Soreness"
+},
+{
 "athlete_id": "6450",
 "status": "Out",
 "return_date": "2026-12-03",
@@ -621,14 +639,14 @@
 "status": "Out",
 "return_date": "2026-11-27",
 "injury": "Illness",
-"updated": "2026-11-23T21:09Z"
+"updated": "2026-11-26T19:00Z"
 },
 {
 "athlete_id": "3150844",
 "name": "Moritz Wagner",
 "team_name": "Brooklyn Nets",
 "status": "Out",
-"return_date": "2026-11-27",
+"return_date": "2026-11-28",
 "injury": "Left Knee Soreness",
 "updated": "2026-11-26T02:48Z"
 },
@@ -966,6 +984,24 @@
 "updated": "2026-11-26T03:43Z"
 },
 {
+"athlete_id": "3059319",
+"name": "Andrew Wiggins",
+"team_name": "Miami Heat",
+"status": "Day-To-Day",
+"return_date": "2026-11-27",
+"injury": "Right Ankle Sprain",
+"updated": "2026-11-26T21:08Z"
+},
+{
+"athlete_id": "3032977",
+"name": "Giannis Antetokounmpo",
+"team_name": "Miami Heat",
+"status": "Day-To-Day",
+"return_date": "2026-11-27",
+"injury": "Right Groin",
+"updated": "2026-11-26T21:15Z"
+},
+{
 "athlete_id": "4594268",
 "name": "Anthony Edwards",
 "team_name": "Minnesota Timberwolves",
@@ -1008,14 +1044,14 @@
 "status": "Out",
 "return_date": "2026-11-27",
 "injury": "Left Foot Plantar Fasciitis",
-"updated": "2026-11-19T21:07Z"
+"updated": "2026-11-26T21:21Z"
 },
 {
 "athlete_id": "3907497",
 "name": "Dejounte Murray",
 "team_name": "New Orleans Pelicans",
 "status": "Out",
-"return_date": "2026-11-27",
+"return_date": "2026-11-29",
 "injury": "Ankle",
 "updated": "2026-11-13T20:19Z"
 },
@@ -1035,7 +1071,7 @@
 "status": "Out",
 "return_date": "2026-11-27",
 "injury": "Right Ankle Sprain",
-"updated": "2026-11-21T18:21Z"
+"updated": "2026-11-26T21:22Z"
 },
 {
 "athlete_id": "6585",
@@ -1315,6 +1351,15 @@
 "return_date": "2026-12-03",
 "injury": "Left Calf Strain",
 "updated": "2026-11-16T19:26Z"
+},
+{
+"athlete_id": "4702656",
+"name": "Alijah Martin",
+"team_name": "Toronto Raptors",
+"status": "Day-To-Day",
+"return_date": "2026-11-27",
+"injury": "Left Knee Soreness",
+"updated": "2026-11-26T21:18Z"
 },
 {
 "athlete_id": "6450",
