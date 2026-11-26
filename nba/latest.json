@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-11-25T2206Z",
-"feed_timestamp": "2026-11-25T22:06:01Z",
+"collected_utc": "2026-11-26T0031Z",
+"feed_timestamp": "2026-11-26T00:31:16Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -70,12 +70,6 @@
 "injury": "Left Hip Soreness"
 },
 {
-"athlete_id": "4602025",
-"status": "Day-To-Day",
-"return_date": "2026-11-25",
-"injury": "Left Undisclosed"
-},
-{
 "athlete_id": "5095151",
 "status": "Out",
 "return_date": "2026-12-13",
@@ -83,8 +77,8 @@
 },
 {
 "athlete_id": "4397189",
-"status": "Day-To-Day",
-"return_date": "2026-11-25",
+"status": "Out",
+"return_date": "2026-11-28",
 "injury": "Illness"
 },
 {
@@ -316,28 +310,10 @@
 "injury": "Right Ankle Sprain"
 },
 {
-"athlete_id": "3934672",
-"status": "Day-To-Day",
-"return_date": "2026-11-25",
-"injury": "Illness"
-},
-{
 "athlete_id": "2528426",
 "status": "Out",
 "return_date": "2026-11-27",
 "injury": "Right Foot Plantar Fasciitis"
-},
-{
-"athlete_id": "3062679",
-"status": "Day-To-Day",
-"return_date": "2026-11-25",
-"injury": "Right Shoulder Sprain"
-},
-{
-"athlete_id": "3136195",
-"status": "Day-To-Day",
-"return_date": "2026-11-25",
-"injury": "Right Knee Inflammation"
 },
 {
 "athlete_id": "4431823",
@@ -424,6 +400,12 @@
 "injury": "Right Achilles Surgery"
 },
 {
+"athlete_id": "3917376",
+"status": "Out",
+"return_date": "2026-11-27",
+"injury": "Left Hamstring"
+},
+{
 "athlete_id": "3059318",
 "status": "Out",
 "return_date": "2026-11-27",
@@ -473,8 +455,8 @@
 },
 {
 "athlete_id": "3064440",
-"status": "Day-To-Day",
-"return_date": "2026-11-25",
+"status": "Out",
+"return_date": "2026-11-29",
 "injury": "Right Knee Soreness"
 },
 {
@@ -675,15 +657,6 @@
 "updated": "2026-11-25T17:41Z"
 },
 {
-"athlete_id": "4602025",
-"name": "Sion James",
-"team_name": "Charlotte Hornets",
-"status": "Day-To-Day",
-"return_date": "2026-11-25",
-"injury": "Left Undisclosed",
-"updated": "2026-11-24T22:30Z"
-},
-{
 "athlete_id": "5095151",
 "name": "Caleb Wilson",
 "team_name": "Chicago Bulls",
@@ -696,10 +669,10 @@
 "athlete_id": "4397189",
 "name": "Jalen Smith",
 "team_name": "Chicago Bulls",
-"status": "Day-To-Day",
-"return_date": "2026-11-25",
+"status": "Out",
+"return_date": "2026-11-28",
 "injury": "Illness",
-"updated": "2026-11-24T18:21Z"
+"updated": "2026-11-25T22:07Z"
 },
 {
 "athlete_id": "2595516",
@@ -1044,15 +1017,6 @@
 "updated": "2026-11-21T18:21Z"
 },
 {
-"athlete_id": "3934672",
-"name": "Jalen Brunson",
-"team_name": "New York Knicks",
-"status": "Day-To-Day",
-"return_date": "2026-11-25",
-"injury": "Illness",
-"updated": "2026-11-25T21:35Z"
-},
-{
 "athlete_id": "2528426",
 "name": "Jordan Clarkson",
 "team_name": "New York Knicks",
@@ -1060,24 +1024,6 @@
 "return_date": "2026-11-27",
 "injury": "Right Foot Plantar Fasciitis",
 "updated": "2026-11-24T21:56Z"
-},
-{
-"athlete_id": "3062679",
-"name": "Josh Hart",
-"team_name": "New York Knicks",
-"status": "Day-To-Day",
-"return_date": "2026-11-25",
-"injury": "Right Shoulder Sprain",
-"updated": "2026-11-25T17:57Z"
-},
-{
-"athlete_id": "3136195",
-"name": "Karl-Anthony Towns",
-"team_name": "New York Knicks",
-"status": "Day-To-Day",
-"return_date": "2026-11-25",
-"injury": "Right Knee Inflammation",
-"updated": "2026-11-25T17:54Z"
 },
 {
 "athlete_id": "4431823",
@@ -1095,7 +1041,7 @@
 "status": "Out",
 "return_date": "2026-11-27",
 "injury": "Left Calf Soreness",
-"updated": "2026-11-24T21:53Z"
+"updated": "2026-11-25T23:19Z"
 },
 {
 "athlete_id": "5174983",
@@ -1206,6 +1152,15 @@
 "updated": "2026-10-06T19:17Z"
 },
 {
+"athlete_id": "3917376",
+"name": "Jaylen Brown",
+"team_name": "Philadelphia 76ers",
+"status": "Out",
+"return_date": "2026-11-27",
+"injury": "Left Hamstring",
+"updated": "2026-11-25T23:30Z"
+},
+{
 "athlete_id": "3059318",
 "name": "Joel Embiid",
 "team_name": "Philadelphia 76ers",
@@ -1281,10 +1236,10 @@
 "athlete_id": "3064440",
 "name": "Zach LaVine",
 "team_name": "Sacramento Kings",
-"status": "Day-To-Day",
-"return_date": "2026-11-25",
+"status": "Out",
+"return_date": "2026-11-29",
 "injury": "Right Knee Soreness",
-"updated": "2026-11-25T20:49Z"
+"updated": "2026-11-25T22:40Z"
 },
 {
 "athlete_id": "4066259",
