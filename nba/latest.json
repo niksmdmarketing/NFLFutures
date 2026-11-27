@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-11-27T2209Z",
-"feed_timestamp": "2026-11-27T22:09:18Z",
+"collected_utc": "2026-11-27T2252Z",
+"feed_timestamp": "2026-11-27T22:52:13Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -196,6 +196,12 @@
 "injury": "Right Abdomen"
 },
 {
+"athlete_id": "2991235",
+"status": "Day-To-Day",
+"return_date": "2026-11-28",
+"injury": "Knee"
+},
+{
 "athlete_id": "4433076",
 "status": "Out",
 "return_date": "2027-01-02",
@@ -278,12 +284,6 @@
 "status": "Day-To-Day",
 "return_date": "2026-11-27",
 "injury": "Left Ankle Soreness"
-},
-{
-"athlete_id": "3032977",
-"status": "Day-To-Day",
-"return_date": "2026-11-27",
-"injury": "Right Groin"
 },
 {
 "athlete_id": "5214640",
@@ -717,7 +717,7 @@
 "status": "Out",
 "return_date": "2026-11-28",
 "injury": "Concussion",
-"updated": "2026-11-25T17:39Z"
+"updated": "2026-11-27T22:17Z"
 },
 {
 "athlete_id": "5061575",
@@ -735,7 +735,7 @@
 "status": "Day-To-Day",
 "return_date": "2026-11-28",
 "injury": "Left Hip Soreness",
-"updated": "2026-11-26T05:30Z"
+"updated": "2026-11-27T22:04Z"
 },
 {
 "athlete_id": "5095151",
@@ -918,6 +918,15 @@
 "updated": "2026-11-26T01:36Z"
 },
 {
+"athlete_id": "2991235",
+"name": "Steven Adams",
+"team_name": "Houston Rockets",
+"status": "Day-To-Day",
+"return_date": "2026-11-28",
+"injury": "Knee",
+"updated": "2026-11-27T22:06Z"
+},
+{
 "athlete_id": "4433076",
 "name": "Ben Sheppard",
 "team_name": "Indiana Pacers",
@@ -1042,15 +1051,6 @@
 "return_date": "2026-11-27",
 "injury": "Left Ankle Soreness",
 "updated": "2026-11-26T23:24Z"
-},
-{
-"athlete_id": "3032977",
-"name": "Giannis Antetokounmpo",
-"team_name": "Miami Heat",
-"status": "Day-To-Day",
-"return_date": "2026-11-27",
-"injury": "Right Groin",
-"updated": "2026-11-26T21:15Z"
 },
 {
 "athlete_id": "5214640",
