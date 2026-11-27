@@ -1,6 +1,6 @@
 {
-"collected_utc": "2026-11-27T1905Z",
-"feed_timestamp": "2026-11-27T19:05:16Z",
+"collected_utc": "2026-11-27T2209Z",
+"feed_timestamp": "2026-11-27T22:09:18Z",
 "source": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 "key": [
 {
@@ -88,6 +88,12 @@
 "injury": "Illness"
 },
 {
+"athlete_id": "5242496",
+"status": "Day-To-Day",
+"return_date": "2026-11-28",
+"injury": "Thumb"
+},
+{
 "athlete_id": "2595516",
 "status": "Out",
 "return_date": "2026-11-28",
@@ -110,6 +116,12 @@
 "status": "Out",
 "return_date": "2026-11-30",
 "injury": "Right Foot Surgery"
+},
+{
+"athlete_id": "6442",
+"status": "Day-To-Day",
+"return_date": "2026-11-27",
+"injury": "Left Knee Not Specified"
 },
 {
 "athlete_id": "5279129",
@@ -224,12 +236,6 @@
 "status": "Out",
 "return_date": "2027-03-02",
 "injury": "Left Shoulder Surgery"
-},
-{
-"athlete_id": "4066457",
-"status": "Out",
-"return_date": "2026-11-27",
-"injury": "Left Heel Bruise"
 },
 {
 "athlete_id": "5041935",
@@ -406,6 +412,12 @@
 "injury": "Knee"
 },
 {
+"athlete_id": "4712849",
+"status": "Day-To-Day",
+"return_date": "2026-11-28",
+"injury": "Back"
+},
+{
 "athlete_id": "4397204",
 "status": "Day-To-Day",
 "return_date": "2026-11-27",
@@ -422,6 +434,12 @@
 "status": "Out",
 "return_date": "2026-11-29",
 "injury": "Left Knee Not Specified"
+},
+{
+"athlete_id": "4397140",
+"status": "Out",
+"return_date": "2026-11-29",
+"injury": "Not Injury Related"
 },
 {
 "athlete_id": "5214637",
@@ -582,7 +600,7 @@
 {
 "athlete_id": "4277919",
 "status": "Day-To-Day",
-"return_date": "2026-11-29",
+"return_date": "2026-11-27",
 "injury": "Illness"
 },
 {
@@ -738,6 +756,15 @@
 "updated": "2026-11-27T18:36Z"
 },
 {
+"athlete_id": "5242496",
+"name": "Noa Essengue",
+"team_name": "Chicago Bulls",
+"status": "Day-To-Day",
+"return_date": "2026-11-28",
+"injury": "Thumb",
+"updated": "2026-11-27T19:06Z"
+},
+{
 "athlete_id": "2595516",
 "name": "Norman Powell",
 "team_name": "Chicago Bulls",
@@ -772,6 +799,15 @@
 "return_date": "2026-11-30",
 "injury": "Right Foot Surgery",
 "updated": "2026-11-26T23:56Z"
+},
+{
+"athlete_id": "6442",
+"name": "Kyrie Irving",
+"team_name": "Dallas Mavericks",
+"status": "Day-To-Day",
+"return_date": "2026-11-27",
+"injury": "Left Knee Not Specified",
+"updated": "2026-11-27T19:07Z"
 },
 {
 "athlete_id": "5279129",
@@ -945,15 +981,6 @@
 "updated": "2026-08-26T20:04Z"
 },
 {
-"athlete_id": "4066457",
-"name": "Austin Reaves",
-"team_name": "Los Angeles Lakers",
-"status": "Out",
-"return_date": "2026-11-27",
-"injury": "Left Heel Bruise",
-"updated": "2026-11-26T23:21Z"
-},
-{
 "athlete_id": "5041935",
 "name": "Cameron Boozer",
 "team_name": "Memphis Grizzlies",
@@ -1068,7 +1095,7 @@
 "status": "Out",
 "return_date": "2026-11-29",
 "injury": "Left Ankle",
-"updated": "2026-11-27T18:49Z"
+"updated": "2026-11-27T18:52Z"
 },
 {
 "athlete_id": "4683634",
@@ -1215,6 +1242,15 @@
 "updated": "2026-11-18T00:01Z"
 },
 {
+"athlete_id": "4712849",
+"name": "Anthony Black",
+"team_name": "Orlando Magic",
+"status": "Day-To-Day",
+"return_date": "2026-11-28",
+"injury": "Back",
+"updated": "2026-11-27T21:05Z"
+},
+{
 "athlete_id": "4397204",
 "name": "Colin Castleton",
 "team_name": "Orlando Magic",
@@ -1240,6 +1276,15 @@
 "return_date": "2026-11-29",
 "injury": "Left Knee Not Specified",
 "updated": "2026-11-21T21:09Z"
+},
+{
+"athlete_id": "4397140",
+"name": "Kevin Porter Jr.",
+"team_name": "Orlando Magic",
+"status": "Out",
+"return_date": "2026-11-29",
+"injury": "Not Injury Related",
+"updated": "2026-11-27T21:08Z"
 },
 {
 "athlete_id": "5214637",
@@ -1480,7 +1525,7 @@
 "name": "Mo Bamba",
 "team_name": "Utah Jazz",
 "status": "Day-To-Day",
-"return_date": "2026-11-29",
+"return_date": "2026-11-27",
 "injury": "Illness",
 "updated": "2026-11-27T16:41Z"
 },
