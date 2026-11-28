@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>NFL model: how it works · NFLFutures</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Public+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="site-head">
+    <div class="sportbar"><span>SPORT</span><a href="./" aria-current="page">NFL</a><a href="nba/">NBA</a><a href="nbl/">NBL</a><a href="nhl/">NHL</a><a href="afl/">AFL</a><a href="cfb/">CFB</a><a class="sb-shiv" href="shiv/">Shiv</a><a href="updates.html">Updates</a></div>
+    <div class="brand"><a class="brand-name" href="./">NFL<span>Futures</span></a><span class="stamp" id="stamp">Loading latest update…</span></div>
+    <nav class="nav nav-top" aria-label="NFL sections"><a href="standings.html">Standings</a><a href="./">Forecast</a><a href="offense.html">Teams</a><a href="players-qb.html">Players</a><a href="matchups.html">Games</a><a href="model.html" aria-current="page">Model</a></nav><nav class="nav nav-sub" aria-label="Model pages"><a href="model.html" aria-current="page">How it works</a><a href="replay.html">Accuracy history</a></nav>
+  </header>
+  <main class="page" id="main">
+    <div class="page-head"><h1 id="pageTitle">NFL model: how it works</h1><p id="pageIntro">How the season chances are worked out and tested, the versions being tested alongside the live model, and this week&#x27;s quarterback adjustments.</p></div>
+        <section id="trustSec"></section>
+    <section>
+      <div class="table-head"><h2>Quarterback changes in the ratings</h2></div>
+      <p class="note" style="margin:6px 0 12px">Teams whose expected starter for the next game differs from the quarterback behind this season's numbers. The rating shift is in points per game.</p>
+      <div class="panel"><ol class="qbchg" id="qbchg"></ol></div>
+    </section>
+    <section id="trackSec" hidden>
+      <div class="table-head"><h2>How good is it, market by market?</h2></div>
+      <p class="note" style="margin:6px 0 12px" id="trackNote"></p>
+      <div class="scroll"><table class="ftable"><thead><tr><th scope="col">Market</th><th scope="col">Before week 1</th><th scope="col">After week 4</th><th scope="col">After week 9</th><th scope="col">After week 13</th></tr></thead><tbody id="trackBody"></tbody></table></div>
+    </section>
+    <section id="challengerSec" hidden>
+      <details>
+        <summary><h2 style="display:inline">Challenger model (v3)</h2></summary>
+        <p class="note" style="margin:6px 0 12px">The previous model version runs alongside the current one on every update and both are saved, so the 2026 season can decide between them. On 2022–2025, the current version was more accurate for divisions, playoffs and win totals; the previous version was more accurate for conference and Super Bowl winners.</p>
+        <div class="scroll"><table class="ftable"><thead><tr><th scope="col">Team</th><th scope="col">Win division<small>v4 · v3</small></th><th scope="col">Playoffs<small>v4 · v3</small></th><th scope="col">Win conference<small>v4 · v3</small></th><th scope="col">Win Super Bowl<small>v4 · v3</small></th></tr></thead><tbody id="cbody"></tbody></table></div>
+      </details>
+    </section>
+    <section id="challenger5Sec" hidden>
+      <details>
+        <summary><h2 style="display:inline">Candidate model (v5)</h2></summary>
+        <p class="note" style="margin:6px 0 12px">Five changes from the live model: team ratings give recent games more weight (a game four weeks ago counts half as much as last week's), home teams get about 4 points in playoff games instead of 1.8 (home teams won 66% of playoff games in 2011–2025 against 60% expected), a little less season-long uncertainty about each team (the live model is too cautious on conference winners and No. 1 seeds), and, from week 6 of 2026, a quarterback-availability correction: where last season's numbers came partly from backups, the part of the rating still resting on last season is moved towards this season's starter (fading as his dropbacks build up), and, from 16 October 2026, a starter listed out for the next game keeps his place for the rest of the season instead of the backup taking every remaining game (not replay-tested; the live model plays the backup in all of them). Retested on 27 Oct 2026 after a fix to how the replay handled the old 6-team playoff format (2013–2019): during the season (after weeks 4, 9 and 13) it was more accurate than the live model for divisions and playoffs in 10 of 13 seasons and better for conference, No. 1 seed and Super Bowl at almost every point, but the in-season gain was too close to call and its pre-season playoff chances were worse, so the result was inconclusive. It is shown as the in-season betting number on the Futures page (v5 in-season); the live model stays unchanged until 2027.</p>
+        <div class="scroll"><table class="ftable"><thead><tr><th scope="col">Team</th><th scope="col">Make playoffs<small>live · candidate</small></th><th scope="col">Win division<small>live · candidate</small></th><th scope="col">Win conference<small>live · candidate</small></th><th scope="col">Win Super Bowl<small>live · candidate</small></th></tr></thead><tbody id="c5body"></tbody></table></div>
+      </details>
+    </section>
+    <section class="method">
+      <div>
+        <h2>How the season is simulated</h2>
+        <ul>
+          <li>Team strength combines opponent-adjusted passing, rushing, special teams and point-margin ratings. The weights were learned from what predicted later games in 2010–2021.</li>
+          <li>This season's numbers take over from last season's as plays accumulate, at a pace learned separately for passing, rushing, special teams and scoring margin.</li>
+          <li>When a different starting quarterback is expected, the team's strength shifts by half the gap between the two quarterbacks' track records. Teams that let their quarterback get pressured more often are marked down (Pro Football Reference pressures per dropback, blended with last season); this was the only one of twelve extra stats that improved predictions on seasons the model had not seen.</li>
+          <li>Compared with prediction-market prices (Polymarket) on the 2024 and 2025 seasons at the same points in time: before the season the market was more accurate in every market; from about week 4 the model matched or beat it on divisions and playoffs, while the market stayed better on the Super Bowl. Treat preseason gaps to the market with caution. (Two seasons only; prices are never used by the model.)</li>
+          <li>The quarterback adjustment was tested on every 2019–2025 game where a team started a different quarterback (582 games), using only information from before each game: it cut the average prediction error in those games and picked more winners (68% vs 64% without it). The test suggests a slightly larger adjustment would be better still; that goes into the next model version after this season rather than changing the frozen one mid-season.</li>
+          <li>Ratings are scaled to 89% of their raw spread, because unscaled they were overconfident on 2022–2025. Each simulated season draws every team's strength once, with 5 points of uncertainty, then plays out every remaining game with 11.4 points of game-to-game randomness. Played games are locked in and played ties count as half a win.</li>
+          <li>Standings use the NFL tiebreaking procedure: head-to-head, division record, common games, conference record, strength of victory and strength of schedule, with the official restart rules for three or more teams. Net points then a coin toss stand in for the last few rarely needed steps.</li>
+          <li>Playoffs use 7 seeds per conference, a bye for the No. 1 seed, reseeding, home field and a neutral Super Bowl.</li>
+        </ul>
+      </div>
+      <div>
+        <h2>Read these numbers with care</h2>
+        <ul>
+          <li>Against historical bookmaker prices the model was roughly as accurate as the market only in mid-season (tested on the previous version; the October 2026 update improved division, playoff and win-total accuracy only modestly). A big gap between this page and a bookmaker is more often model error than value.</li>
+          <li>Injuries other than quarterback changes are not modelled yet, and news after the latest games is not known until the next refresh.</li>
+          <li>Each update runs 100,000 simulated seasons with the same random draws, so numbers only move when the data moves. Simulation noise is about ±0.2 percentage points at 50%.</li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+  <footer class="stamp">Built from nflverse public data (play-by-play, schedules, player stats, rosters, injury reports, FTN and Pro Football Reference charting). An independent model. Probabilities only, not betting advice.</footer>
+</div>
+<script src="js/common.js"></script>
+<script src="js/futures.js"></script>
+</body>
+</html>
