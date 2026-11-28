@@ -4,25 +4,25 @@
  "title": "AFC Asian Cup 2027: Group B Winner",
  "startDate": "2026-09-09T15:43:10Z",
  "endDate": "2027-02-06T04:59:00Z",
- "closed": false,
- "volume": 84086.86365300001,
+ "closed": true,
+ "volume": 173578.604909,
  "markets": [
   {
    "id": "4411187",
    "question": "Will Uzbekistan win Group B at the 2027 AFC Asian Cup?",
    "groupItemTitle": "Uzbekistan",
-   "closed": false,
+   "closed": true,
    "active": true,
    "startDate": "2026-09-09T15:43:10Z",
    "endDate": "2027-02-06T04:59:00Z",
-   "volume": "41065.599798",
+   "volume": "64432.789798",
    "outcomes": [
     "Yes",
     "No"
    ],
    "prices": [
-    "0.007",
-    "0.993"
+    "0",
+    "1"
    ],
    "token_yes": "15329879756800385045730734986504525320745420460484108610292903646659251598420"
   },
@@ -30,18 +30,18 @@
    "id": "4411188",
    "question": "Will Bahrain win Group B at the 2027 AFC Asian Cup?",
    "groupItemTitle": "Bahrain",
-   "closed": false,
+   "closed": true,
    "active": true,
    "startDate": "2026-09-09T15:43:10Z",
    "endDate": "2027-02-06T04:59:00Z",
-   "volume": "9510.442269",
+   "volume": "38002.022268999994",
    "outcomes": [
     "Yes",
     "No"
    ],
    "prices": [
-    "0.0455",
-    "0.9545"
+    "0",
+    "1"
    ],
    "token_yes": "7589561596928104624014541144740976840394360973417218855186006508620590403202"
   },
@@ -49,18 +49,18 @@
    "id": "4411189",
    "question": "Will North Korea win Group B at the 2027 AFC Asian Cup?",
    "groupItemTitle": "North Korea",
-   "closed": false,
+   "closed": true,
    "active": true,
    "startDate": "2026-09-09T15:43:10Z",
    "endDate": "2027-02-06T04:59:00Z",
-   "volume": "10471.262875000002",
+   "volume": "31561.505667",
    "outcomes": [
     "Yes",
     "No"
    ],
    "prices": [
-    "0.0485",
-    "0.9515"
+    "0",
+    "1"
    ],
    "token_yes": "67736757800758904989919882376259401235432225791845331859751982710384933405878"
   },
@@ -68,18 +68,18 @@
    "id": "4411190",
    "question": "Will Jordan win Group B at the 2027 AFC Asian Cup?",
    "groupItemTitle": "Jordan",
-   "closed": false,
+   "closed": true,
    "active": true,
    "startDate": "2026-09-09T15:43:10Z",
    "endDate": "2027-02-06T04:59:00Z",
-   "volume": "23039.558711",
+   "volume": "39582.287175000005",
    "outcomes": [
     "Yes",
     "No"
    ],
    "prices": [
-    "0.0215",
-    "0.9785"
+    "0",
+    "1"
    ],
    "token_yes": "36949420510873698681104014074169529890227130964416850145657168549811929117884"
   },
@@ -87,7 +87,7 @@
    "id": "4411191",
    "question": "Will Team A win Group B at the 2027 AFC Asian Cup?",
    "groupItemTitle": "Team A",
-   "closed": false,
+   "closed": true,
    "active": false,
    "startDate": null,
    "endDate": "2027-02-06T04:59:00Z",
@@ -97,8 +97,8 @@
     "No"
    ],
    "prices": [
-    "0.5",
-    "0.5"
+    "0",
+    "1"
    ],
    "token_yes": "22994064880549129735543906409332659348325834757748276977133956562227705721237"
   },
@@ -106,7 +106,7 @@
    "id": "4411192",
    "question": "Will Team B win Group B at the 2027 AFC Asian Cup?",
    "groupItemTitle": "Team B",
-   "closed": false,
+   "closed": true,
    "active": false,
    "startDate": null,
    "endDate": "2027-02-06T04:59:00Z",
@@ -116,8 +116,8 @@
     "No"
    ],
    "prices": [
-    "0.5",
-    "0.5"
+    "0",
+    "1"
    ],
    "token_yes": "64927626434859116366408130781113839071415840908323973814081249125782225639252"
   },
@@ -125,7 +125,7 @@
    "id": "4411193",
    "question": "Other",
    "groupItemTitle": "Other",
-   "closed": false,
+   "closed": true,
    "active": false,
    "startDate": null,
    "endDate": "2027-02-06T04:59:00Z",
@@ -135,8 +135,8 @@
     "No"
    ],
    "prices": [
-    "0.5",
-    "0.5"
+    "1",
+    "0"
    ],
    "token_yes": "76250676184819661926466313962919896028393136640323633339136327341523913337806"
   }

@@ -4,25 +4,25 @@
  "title": "AFC Asian Cup 2027: Group E Winner",
  "startDate": "2026-09-09T15:46:00Z",
  "endDate": "2027-02-06T04:59:00Z",
- "closed": false,
- "volume": 79955.537981,
+ "closed": true,
+ "volume": 113081.775892,
  "markets": [
   {
    "id": "4411350",
    "question": "Will South Korea win Group E at the 2027 AFC Asian Cup?",
    "groupItemTitle": "South Korea",
-   "closed": false,
+   "closed": true,
    "active": true,
    "startDate": "2026-09-09T15:46:00Z",
    "endDate": "2027-02-06T04:59:00Z",
-   "volume": "59588.715012",
+   "volume": "85793.05801200001",
    "outcomes": [
     "Yes",
     "No"
    ],
    "prices": [
-    "0.0225",
-    "0.9775"
+    "0",
+    "1"
    ],
    "token_yes": "29414189459386444468909038508678279041259665351893217550335105542241313440289"
   },
@@ -30,18 +30,18 @@
    "id": "4411351",
    "question": "Will United Arab Emirates win Group E at the 2027 AFC Asian Cup?",
    "groupItemTitle": "United Arab Emirates",
-   "closed": false,
+   "closed": true,
    "active": true,
    "startDate": "2026-09-09T15:46:00Z",
    "endDate": "2027-02-06T04:59:00Z",
-   "volume": "13076.897613999998",
+   "volume": "17828.132524999994",
    "outcomes": [
     "Yes",
     "No"
    ],
    "prices": [
-    "0.022",
-    "0.978"
+    "0",
+    "1"
    ],
    "token_yes": "90330774410637317868176447291382905837062654278985209513745014297254370626496"
   },
@@ -49,18 +49,18 @@
    "id": "4411353",
    "question": "Will Vietnam win Group E at the 2027 AFC Asian Cup?",
    "groupItemTitle": "Vietnam",
-   "closed": false,
+   "closed": true,
    "active": true,
    "startDate": "2026-09-09T15:46:00Z",
    "endDate": "2027-02-06T04:59:00Z",
-   "volume": "4479.761604",
+   "volume": "5275.081604",
    "outcomes": [
     "Yes",
     "No"
    ],
    "prices": [
-    "0.0265",
-    "0.9735"
+    "0",
+    "1"
    ],
    "token_yes": "73277199446921760241242405584441221664061801687284715611412037420620635959983"
   },
@@ -68,18 +68,18 @@
    "id": "4411355",
    "question": "Will Yemen win Group E at the 2027 AFC Asian Cup?",
    "groupItemTitle": "Yemen",
-   "closed": false,
+   "closed": true,
    "active": true,
    "startDate": "2026-09-09T15:46:00Z",
    "endDate": "2027-02-06T04:59:00Z",
-   "volume": "2810.163751",
+   "volume": "4185.503751",
    "outcomes": [
     "Yes",
     "No"
    ],
    "prices": [
-    "0.047",
-    "0.953"
+    "0",
+    "1"
    ],
    "token_yes": "29326707970980822574014743647254618308876806143618899127054139074347442363173"
   },
@@ -87,7 +87,7 @@
    "id": "4411356",
    "question": "Will Team A win Group E at the 2027 AFC Asian Cup?",
    "groupItemTitle": "Team A",
-   "closed": false,
+   "closed": true,
    "active": false,
    "startDate": null,
    "endDate": "2027-02-06T04:59:00Z",
@@ -97,8 +97,8 @@
     "No"
    ],
    "prices": [
-    "0.5",
-    "0.5"
+    "0",
+    "1"
    ],
    "token_yes": "12975859226884565544675740703614630117391035601140289800585954008115481272163"
   },
@@ -106,7 +106,7 @@
    "id": "4411357",
    "question": "Will Team B win Group E at the 2027 AFC Asian Cup?",
    "groupItemTitle": "Team B",
-   "closed": false,
+   "closed": true,
    "active": false,
    "startDate": null,
    "endDate": "2027-02-06T04:59:00Z",
@@ -116,8 +116,8 @@
     "No"
    ],
    "prices": [
-    "0.5",
-    "0.5"
+    "0",
+    "1"
    ],
    "token_yes": "44966327095550805796236597453321936230362400640928321978140155511790159280395"
   },
@@ -125,7 +125,7 @@
    "id": "4411358",
    "question": "Other",
    "groupItemTitle": "Other",
-   "closed": false,
+   "closed": true,
    "active": false,
    "startDate": null,
    "endDate": "2027-02-06T04:59:00Z",
@@ -135,8 +135,8 @@
     "No"
    ],
    "prices": [
-    "0.5",
-    "0.5"
+    "1",
+    "0"
    ],
    "token_yes": "105850788170720359278346233138543873470317695914383163241678142985855446540833"
   }
